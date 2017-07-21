@@ -1,28 +1,133 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
-owner: Partners
+title: Installing and Configuring PCF Healthwatch
+owner: PCF Healthwatch
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure Pivotal Cloud Foundry (PCF) Healthwatch.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='prereqs'></a> Prerequisites
 
-1. Download the product file from Pivotal Network.
+Before deploying PCF Healthwatch, ensure that you have installed:
+
+* PCF Ops Manager v? or later
+* PCF Elastic Runtime v? or later
+
+##<a id='install'></a> Install PCF Healthwatch
+
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
+1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+##<a id='configure'></a> Configure PCF Healthwatch
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+To start using PCF Healthwatch, configure your IaaS, the Ops Manager Director tile, and the PCF Healthwatch tile.
 
+###<a id='iaas'></a> Step 1. Configure Your IaaS
+
+If your PCF deployment is running on Google Cloud Platform (GSP), navigate to your GCP console and do the following:
+
+1. Go to your Ops Manager VPC network.
+1. Create a subnet and name it `bosh-health-check`.
+1. Add the subnet to the `YOUR-OPSMAN-NAME-cf-internal` firewall rule. This allows BOSH to talk to it.
+
+If your PCF deployment is running on a different IaaS, perform the equivalent steps.
+
+###<a id='ops-man'></a> Step 2. Configure the Ops Manager Director Tile
+
+To configure Ops Manager Director:
+
+1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Create Networks** and click **Add Network**.
+1. In the **Name** field, enter `bosh-health-check`.
+1. Select the **Service Network** checkbox.
+1. In the **YOUR-IAAS Network Name** field, enter the Ops Manager network name from [Step 1. Configure Your IaaS](installing.html#iaas).
+
+	<p class="note"><strong>Note</strong>: You can find the guidelines on how to format the network name next to the <strong>YOUR-IAAS Network Name</strong> field. The format varies depending on your IaaS.</p>
+
+	If your PCF deployment is running on GCP, use the `NETWORK-NAME/SUBNET-NAME/REGION-NAME` format to specify your network name.
+
+	<p class="note"><strong>Note</strong>: If your <strong>Create Networks</strong> page does not have <strong>YOUR-IAAS Network Name</strong> field, use its equivalent.</p>
+
+1. Enter a valid **CIDR** for your created subnet.
+1. Enter the **Gateway** and **DNS** IPs for this subnet.
+1. Include the **Gateway** and **DNS** IPs in **Reserved IP Range**.
 1. Click **Save**.
+1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply Changes** to install YOUR-PRODUCT-NAME tile.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+###<a id='ops-man'></a> Step 3. Configure the PCF Healthwatch Tile
+
+To configure PCF Healthwatch:
+
+1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Health Check** and do the following:
+
+	1. Enter **Ops Manager URL**. The URL should include the protocol.
+	1. Enter `bosh-health-check` in **BOSH Healthcheck Service Network**.
+	1. Enter an availability zone in **BOSH Healthcheck Availability Zone**.
+	1. Enter a VM type in **BOSH Healthcheck VM Type**.
+		<p class="note"><strong>Note</strong>: You can find the availability zone and VM type values by submitting the <code>YOUR-OPSMAN-URL/api/v0/deployed/cloud_config</code> Ops Manager API request.</p>
+	1. Click **Save**.
+
+1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
+
+
+
+##<a id='bosh-metrics'></a> Getting BOSH Health Metrics into PCF Healthwatch
+
+Forwarding BOSH health metrics to PCF Healthwatch requires manual configuration. You must have PCF Admin permissions to configure the BOSH Director.
+
+<p class="note"><strong>Note</strong>: The manual configuration is required for the alpha and beta releases of PCF Healthwatch.</p>
+
+To configure the BOSH Director, follow the instructions in [Platform Metrics Release README.md](https://github.com/pivotal-cf/platform-metrics-release/tree/master/bosh). You can find the necessary plugins in this repository.
+
+##<a id='uaa-authorities'></a> Configure UAA Authorities
+
+To configure UAA authorities, run the `configure_uaa.sh` script.
+
+<p class="note"><strong>Note</strong>: You must have PCF Admin permissions to configure UAA authorities.</p>
+
+You can find the contents of the script below:
+
+```
+#!/usr/bin/env bash
+
+
+UAA_URL=$1  #The URL of the UAA login like login.sys.valentino.gcp.pcf-metrics.com.
+UAA_ADMIN_USERNAME=$2 #The UAA admin client credentials username.
+UAA_ADMIN_PASSWORD=$3 #The UAA admin client credentials password.
+NEW_CLIENT=$4 #The client credentials username provided in Ops Manager for the Healthwatch application.
+NEW_CLIENT_SECRET=$5 #The client credentials secret provided in Ops Manager for Healthwatch.
+UAA_USER=$6 #The user you want to log in to Healthwatch with. They will get the platform-monitoring.read scope.
+APP_URL=$7 #The full URL of the Healthwatch application.
+
+echo $UAA_URL
+echo $UAA_ADMIN_USERNAME
+echo $NEW_CLIENT
+echo $UAA_USER
+echo $APP_URL
+
+uaac target $UAA_URL --skip-ssl-validation
+uaac token client get $UAA_ADMIN_USERNAME -s $UAA_ADMIN_PASSWORD
+uaac group add platform_monitoring.read || true
+
+uaac client add $NEW_CLIENT \
+   --authorities "uaa.resource" \
+   --scope "platform_monitoring.read" \
+   --authorized_grant_types "authorization_code,refresh_token" \
+   -s $NEW_CLIENT_SECRET \
+   --redirect_uri $APP_URL \
+   --access_token_validity 900 \
+   --refresh_token_validity 2628000 \
+   --autoapprove true
+
+uaac member add platform_monitoring.read $UAA_USER
+```
+See the following example:
+
+<pre class="terminal">$ ./configure_uaa.sh login.sys.valentino.gcp.pcf-metrics.com admin UAA-ADMIN-CLIENT-SECRET platform_monitoring PLATFORM_MONITORING-SECRET admin PLATFORM-MONITORING-URL</pre>
+
+In this example, replace `login.sys.valentino.gcp.pcf-metrics.com` with the URL of your UAA login. `PLATFORM_MONITORING-SECRET` is the password that you enter in Ops Manager when configuring the PCF Healthwatch tile.
