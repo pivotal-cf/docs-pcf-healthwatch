@@ -1,15 +1,73 @@
 ---
-title: Using YOUR-PRODUCT-NAME
-owner: Partners
+title: Using PCF Healthwath
+owner: PCF Healthwatch
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+##<a id='access'></a>Accessing PCF Healthwatch
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
+You can access PCF Healthwathch and its data through the UI or directly through the metrics datastore.
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+###<a id='ui'></a>Access the PCF Healthwatch UI
+
+1. Navigate to `platform-monitoring.SYSTEM-DOMAIN`.
+2. When prompted to log in, enter the username and password of the UAA user you created in [Configure UAA Authorities](installing.html#uaa-authorities).
+
+<p class="note"><strong>Note</strong>: Currently, only the Google Chrome browser is supported.</p>
+
+###<a id='mysql'></a>Access Data Through MySQL
+
+You can access PCF Healthwatch data through MySQL, which is used to store product metrics. See the description of available data points https://docs.google.com/a/pivotal.io/document/d/1eGn4plUI7itf9FwGoOMwdJt2GFJUmmBcGQTfLXG8pio/edit?usp=sharing.
+
+The table below provides login information.
+
+<table class="nice">
+<tr>
+  <td>URL</td>
+  <td>Any of the MySQL VM IPs</td>
+</tr>
+<tr>
+  <td>Port</td>
+  <td>3306</td>
+</tr>
+<tr>
+  <td>Username</td>
+  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
+</tr>
+<tr>
+  <td>Password</td>
+  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
+</tr>
+<tr>
+  <td>Database</td>
+  <td><code>platform_monitoring</code></td>
+</tr>
+<tr>
+  <td>Tables</td>
+  <td><code>value_metric</code>, <code>counter_event</code>, and <code>super_value_metric</code></td>
+</tr>
+</table>
+
+To access MySQL, you can do the following:
+
+* **Method 1**. Use BOSH to SSH into any of the MySQL VMs and run the `mysql -u root -p` command.
+
+* **Method 2**. Assign an external IP to a MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
+
+* **Method 3**. Open a tunnel into your GCP network and connect that way externally.
+
+##<a id='scaling'></a>Scaling PCF Healthwatch Resources
+
+Use the following guidelines to scale PCF Healthwatch resources:
+
+* **BOSH Director Health Check** (the `bosh-health-check` app).
+  Only 1 BOSH Director Health Check can run at a time. This should be considered a hard limit.
+* **BOSH Deployment Task Check** (the `bosh-task-check` app).
+  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
+* **CLI Command Health Check** (the `cf-health-check` app).
+  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
+* **Apps Manager Uptime and Response Check** (the `appsmanager-health-check` app).
+  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
+* **Ops Manager Uptime Check** (the `opsmanager-health-check` app).
+  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
