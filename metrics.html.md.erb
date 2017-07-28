@@ -1,0 +1,142 @@
+---
+title: PCF Healthwatch Metrics
+owner: PCF Healthwatch
+---
+
+This topic lists derived and generated metrics provided by Pivotal Cloud Foundry (PCF) Healthwatch. These data points are used to monitor the health and performance of the PCF platform.
+
+##<a id='cli'></a>Cloud Foundry CLI Health 
+
+See the table below for information on metrics related to Cloud Foundry CLI smoke tests.
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+  <th>Frequency</th>
+</tr>
+<tr>
+  <td>Can Push</td>
+  <td><code>healthwatch.health.check.cliCommand.push</code> and <code>healthwatch.health.check.cliCommand.push.timeout</code></td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> = test did not run</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Can Start</td>
+  <td><code>healthwatch.health.check.cliCommand.start</code> and <code>healthwatch.health.check.cliCommand.start.timeout</code></td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> = test did not run</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Receiving Logs</td>
+  <td><code>healthwatch.health.check.cliCommand.logs</code> and <code>healthwatch.health.check.cliCommand.logs.timeout</code></td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Can Stop</td>
+  <td><code>healthwatch.health.check.cliCommand.stop</code> and <code>healthwatch.health.check.cliCommand.stop.timeout</code></td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Can Delete</td>
+  <td><code>healthwatch.health.check.cliCommand.delete</code> and <code>healthwatch.health.check.cliCommand.delete.timeout</code></td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Test App Push Time</td>
+  <td><code>healthwatch.health.check.cliCommand.pushTime</code></td>
+  <td>Time in ms</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Overall Smoke Test Battery Result</td>
+  <td><code>healthwatch.health.check.cliCommand.success</code></td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
+  <td>5 min</td>
+</tr>
+<tr>
+  <td>Overall Smoke Test Battery Run Time</td>
+  <td><code>healthwatch.health.check.cliCommand.duration</code></td>
+  <td>Time in ms</td>
+  <td>5 min</td>
+</tr>
+</table>
+
+<p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
+
+##<a id='opsman'></a>Ops Manager Health
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+  <th>Frequency</th>
+</tr>
+<tr>
+  <td>Ops Manager Availability</td>
+  <td><code>healthwatch.health.check.OpsMan.available</code></td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
+  <td>1 min</td>
+</tr>
+</table>
+
+ Calls the api `OPSMAN-URL/api/v0/security/root_ca_certificate` and verifies a 200 status code and a response body that ends with `----END CERTIFICATE-----`. The call times out in 10 seconds and registers a failure.
+
+##<a id='appsman'></a>Apps Manager Health
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+  <th>Frequency</th>
+</tr>
+<tr>
+  <td>Apps Manager Availability</td>
+  <td><code>healthwatch.health.check.AppsMan.available</code></td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
+  <td>1 min</td>
+</tr>
+<tr>
+  <td>Aps Manager Response Time</td>
+  <td><code>healthwatch.health.check.AppsMan.responseTime</code></td>
+  <td>Time in ms</td>
+  <td>1 min</td>
+</tr>
+</table>
+
+Calls Apps Manager to see if we receive a successful response or if the call times out. Request goes out and back in through the gorouter to measure customer request time not container to container request time.
+
+##<a id='bosh-director'></a>BOSH Director Health
+
+the timeout metric will not be written unless the deploy/delete goes over 10 minutes
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+  <th>Frequency</th>
+</tr>
+<tr>
+  <td>BOSH Director Health</td>
+  <td><code>healthwatch.health.check.bosh.director.success</code> and <code>healthwatch.health.check.bosh.director.timeout</code></td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
+  <td>10 min</td>
+</tr>
+</table>
+##<a id='loss-rates'></a>Loss Rates
+###<a id='firehose-loss'></a>Firehose Loss Rate
+###<a id='adapter-loss'></a>Adapter Loss Rate (Syslog Drain Performance)
+###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate (Syslog Drain Performance)
+##<a id='capacity'></a>Capacity Metrics
+###<a id='memory'></a>Capacity Total % Available Memory (5m)
+###<a id='disk'></a>Capacity Total % Available Disk (5m)
+###<a id='cell-container'></a>Capacity Total % Available Cell Container (5m)
+##<a id='bosh-deployment'></a>BOSH Deployment Occurrence
+##<a id='other-metrics'></a>Other Existing Platform Metrics
