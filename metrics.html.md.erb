@@ -13,56 +13,56 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Description</th>
   <th>Frequency</th>
+  <th>Description</th>
 </tr>
 <tr>
-  <td>Can Push</td>
+  <td>Can push</td>
   <td><code>healthwatch.health.check.cliCommand.push</code> and <code>healthwatch.health.check.cliCommand.push.timeout</code></td>
-  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> = test did not run</td>
   <td>5 min</td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> = test did not run</td>
 </tr>
 <tr>
-  <td>Can Start</td>
+  <td>Can start</td>
   <td><code>healthwatch.health.check.cliCommand.start</code> and <code>healthwatch.health.check.cliCommand.start.timeout</code></td>
+  <td>5 min</td>
   <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> = test did not run</td>
-  <td>5 min</td>
 </tr>
 <tr>
-  <td>Receiving Logs</td>
+  <td>Receiving logs</td>
   <td><code>healthwatch.health.check.cliCommand.logs</code> and <code>healthwatch.health.check.cliCommand.logs.timeout</code></td>
-  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
   <td>5 min</td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
 </tr>
 <tr>
-  <td>Can Stop</td>
+  <td>Can stop</td>
   <td><code>healthwatch.health.check.cliCommand.stop</code> and <code>healthwatch.health.check.cliCommand.stop.timeout</code></td>
-  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
   <td>5 min</td>
+  <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
 </tr>
 <tr>
-  <td>Can Delete</td>
+  <td>Can delete</td>
   <td><code>healthwatch.health.check.cliCommand.delete</code> and <code>healthwatch.health.check.cliCommand.delete.timeout</code></td>
+  <td>5 min</td>
   <td><code>1</code> = pass, <code>0</code> = fail, or <code>-1</code> test did not run</td>
-  <td>5 min</td>
 </tr>
 <tr>
-  <td>Test App Push Time</td>
+  <td>Test app push time</td>
   <td><code>healthwatch.health.check.cliCommand.pushTime</code></td>
-  <td>Time in ms</td>
   <td>5 min</td>
+  <td>Time in ms</td>
 </tr>
 <tr>
-  <td>Overall Smoke Test Battery Result</td>
+  <td>Overall smoke test battery result</td>
   <td><code>healthwatch.health.check.cliCommand.success</code></td>
-  <td><code>1</code> = pass or <code>0</code> = fail</td>
   <td>5 min</td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 <tr>
-  <td>Overall Smoke Test Battery Run Time</td>
+  <td>Overall smoke test battery run time</td>
   <td><code>healthwatch.health.check.cliCommand.duration</code></td>
-  <td>Time in ms</td>
   <td>5 min</td>
+  <td>Time in ms</td>
 </tr>
 </table>
 
@@ -74,14 +74,14 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Description</th>
   <th>Frequency</th>
+  <th>Description</th>
 </tr>
 <tr>
-  <td>Ops Manager Availability</td>
+  <td>Ops Manager availability</td>
   <td><code>healthwatch.health.check.OpsMan.available</code></td>
-  <td><code>1</code> = pass or <code>0</code> = fail</td>
   <td>1 min</td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 </table>
 
@@ -93,20 +93,20 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Description</th>
   <th>Frequency</th>
+  <th>Description</th>
 </tr>
 <tr>
-  <td>Apps Manager Availability</td>
+  <td>Apps Manager availability</td>
   <td><code>healthwatch.health.check.AppsMan.available</code></td>
-  <td><code>1</code> = pass or <code>0</code> = fail</td>
   <td>1 min</td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 <tr>
-  <td>Aps Manager Response Time</td>
+  <td>Aps Manager response time</td>
   <td><code>healthwatch.health.check.AppsMan.responseTime</code></td>
-  <td>Time in ms</td>
   <td>1 min</td>
+  <td>Time in ms</td>
 </tr>
 </table>
 
@@ -120,23 +120,276 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Description</th>
   <th>Frequency</th>
+  <th>Description</th>
 </tr>
 <tr>
-  <td>BOSH Director Health</td>
+  <td>BOSH Director health</td>
   <td><code>healthwatch.health.check.bosh.director.success</code> and <code>healthwatch.health.check.bosh.director.timeout</code></td>
-  <td><code>1</code> = pass or <code>0</code> = fail</td>
   <td>10 min</td>
+  <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 </table>
 ##<a id='loss-rates'></a>Loss Rates
 ###<a id='firehose-loss'></a>Firehose Loss Rate
-###<a id='adapter-loss'></a>Adapter Loss Rate (Syslog Drain Performance)
-###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate (Syslog Drain Performance)
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Firehose Loss Rate</td>
+  <td><code>healthwatch.Firehose.LossRate.1H</code> and <code>healthwatch.Firehose.LossRate.1M</code></td>
+  <td>This metric calculation is recommended for automating and monitoring platform scaling.</td>
+</tr>
+</table>
+
+###<a id='adapter-loss'></a>Adapter Loss Rate 
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Adapter Loss Rate (Syslog Drain Performance)</td>
+  <td><code>healthwatch.ScalableSyslog.Adapter.LossRate.1M</code></td>
+  <td></td>
+</tr>
+</table>
+
+###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Reverse Log Proxy Loss Rate (Syslog Drain Performance)</td>
+  <td><code>healthwatch.ScalableSyslog.RLP.LossRate.1M</code></td>
+  <td></td>
+</tr>
+</table>
+
 ##<a id='capacity'></a>Capacity Metrics
-###<a id='memory'></a>Capacity Total % Available Memory (5m)
-###<a id='disk'></a>Capacity Total % Available Disk (5m)
-###<a id='cell-container'></a>Capacity Total % Available Cell Container (5m)
+###<a id='memory'></a>Available Memory
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Capacity Total % Available Memory</td>
+  <td><code>healthwatch.Diego.TotalPercentageAvailableMemoryCapacity.5M</code></td>
+  <td></td>
+</tr>
+</table>
+
+###<a id='disk'></a>Available Disk
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Capacity Total % Available Disk</td>
+  <td><code>healthwatch.Diego.TotalPercentageAvailableDiskCapacity.5M</code></td>
+  <td></td>
+</tr>
+</table>
+
+###<a id='cell-container'></a>Available Cell Container Capacity
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Capacity Total % Available Cell Container</td>
+  <td><code>healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M</code></td>
+  <td></td>
+</tr>
+</table>
+
 ##<a id='bosh-deployment'></a>BOSH Deployment Occurrence
-##<a id='other-metrics'></a>Other Existing Platform Metrics
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>BOSH Deployment Occurrence</td>
+  <td><code>healthwatch.bosh.deployment</code></td>
+  <td></td>
+</tr>
+</table>
+
+##<a id='other-metrics'></a>Other Platform Metrics
+
+###<a id='job-health'></a>Job Health
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Job health</td>
+  <td><code>system.healthy</code></td>
+  <td>1 min</td>
+  <td>A BOSH health metric used for every VM in the CF deployment. This does not include additional deployments, such as MySQL or Redis.</td>
+</tr>
+</table>
+
+###<a id='job-vitals'></a>Job Vitals
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>CPU utilization</td>
+  <td><code>system.cpu.user</code></td>
+  <td>1 min</td>
+  <td>Percentage of CPU used.</td>
+</tr>
+<tr>
+  <td>Memory utilization</td>
+  <td><code>system.mem.percent</code></td>
+  <td>1 min</td>
+  <td>Percentage of system memory used.</td>
+</tr>
+<tr>
+  <td>Disk utilization</td>
+  <td><code>system.disk.system.percent</code></td>
+  <td>1 min</td>
+  <td>Percentage of system disk used.</td>
+</tr>
+<tr>
+  <td>Persistent disk utilization</td>
+  <td><code>system.disk.persistent.percent</code></td>
+  <td>1 min</td>
+  <td>Percentage of persistent disk used.</td>
+</tr>
+<tr>
+  <td>Ephemeral disk utilization</td>
+  <td><code>system.disk.ephemeral.percent</code></td>
+  <td>1 min</td>
+  <td>Percentage of ephemeral disk used.</td>
+</tr>
+</table>
+
+###<a id='kpis-capacity'></a>Capacity
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Available memory</td>
+  <td><code>rep.CapacityRemainingMemory</code></td>
+  <td>1 min</td>
+  <td>Amount of memory (MiB) available for a Diego cell to allocate to containers.</td>
+</tr>
+<tr>
+  <td>Available disk</td>
+  <td><code>rep.CapacityRemainingDisk</code></td>
+  <td>1 min</td>
+  <td>Amount of disk (MiB) available for a Diego cell to allocate to containers.</td>
+</tr>
+</table>
+
+###<a id='app-instances'></a>Application Instances
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Current running AIs and change in running AIs</td>
+  <td><code>bbs.LRPsRunning</code></td>
+  <td>During events</td>
+  <td>Total number of LRP instances running on Diego cells.</td>
+</tr>
+<tr>
+  <td>Crashed AIs</td>
+  <td><code>bbs.CrashedActualLRPs</code></td>
+  <td>30 sec</td>
+  <td>Total number of LRP instances that have crashed in a deployment.</td>
+</tr>
+</table>
+
+Good docs explanation on spikes that can be seen on restart attempts - https://docs.cloudfoundry.org/devguide/deploy-apps/app-lifecycle.html#crash-events
+
+###<a id='logging'></a>Logging Performance
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Throughput</td>
+  <td><code>DopplerServer.listeners.totalReceivedMessageCount</code></td>
+  <td>5 sec</td>
+  <td>Total number of messages received across all Doppler listeners.</td>
+</tr>
+</table>
+
+###<a id='router'></a>Router
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
+  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Router throughput</td>
+  <td><code>gorouter.total_requests</code></td>
+  <td>5 sec</td>
+  <td>Lifetime number of requests completed by the Gorouter VM.</td>
+</tr>
+<tr>
+  <td>Router latency</td>
+  <td><code>gorouter.latency</code></td>
+  <td>Emitted per Gorouter request</td>
+  <td>Time (ms) the Gorouter takes to handle requests to its app endpoints.</td>
+</tr>
+<tr>
+  <td>Router jobs CPU</td>
+  <td><code>system.cpu.user</code></td>
+  <td>1 min</td>
+  <td>Percentage of CPU used by a Gorouter job.</td>
+</tr>
+<tr>
+  <td>502 bad gateways</td>
+  <td><code>gorouter.bad_gateways</code></td>
+  <td>5 sec</td>
+  <td>Lifetime number of bad gateways, or 502 responses, from Gorouter itself.</td>
+</tr>
+</table>
