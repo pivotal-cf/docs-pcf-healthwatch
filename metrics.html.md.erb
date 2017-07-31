@@ -3,9 +3,11 @@ title: PCF Healthwatch Metrics
 owner: PCF Healthwatch
 ---
 
-This topic lists derived and generated metrics provided by Pivotal Cloud Foundry (PCF) Healthwatch. These data points are used to monitor the health and performance of the PCF platform.
+This topic lists derived and generated metrics provided by Pivotal Cloud Foundry (PCF) Healthwatch. The metrics are used to monitor the health and performance of the PCF platform.
 
-##<a id='cli'></a>Cloud Foundry CLI Health 
+##<a id='cli'></a>Cloud Foundry CLI Health
+
+The Cloud Foundry command line interface (CLI) enables developers to create and manage apps on PCF. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI.
 
 See the table below for information on metrics related to Cloud Foundry CLI smoke tests.
 
@@ -70,6 +72,8 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 
 ##<a id='opsman'></a>Ops Manager Health
 
+Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to rescale the PCF platform when necessary. Therefore, it is recommended to continuously monitor Ops Manager availability. PCF Healthwatch executes this check as a part of its test suite.
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -85,9 +89,9 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 </tr>
 </table>
 
- Calls the api `OPSMAN-URL/api/v0/security/root_ca_certificate` and verifies a 200 status code and a response body that ends with `----END CERTIFICATE-----`. The call times out in 10 seconds and registers a failure.
-
 ##<a id='appsman'></a>Apps Manager Health
+
+These metrics help users to monitor app availability and responsiveness. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health.
 
 <table class="nice">
 <tr>
@@ -110,11 +114,9 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 </tr>
 </table>
 
-Calls Apps Manager to see if we receive a successful response or if the call times out. Request goes out and back in through the gorouter to measure customer request time not container to container request time.
-
 ##<a id='bosh-director'></a>BOSH Director Health
 
-the timeout metric will not be written unless the deploy/delete goes over 10 minutes
+Losing the BOSH Director does not significantly impact the experience of PCF end users. However, this issue means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the BOSH Director health. PCF Healthwatch executes this check as a part of its test suite.
 
 <table class="nice">
 <tr>
@@ -130,8 +132,16 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
   <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 </table>
+
+<p class="note"><strong>Note</strong>: The timeout metric is written if a deploy or delete task takes more than 10 minutes.</p>
+
 ##<a id='loss-rates'></a>Loss Rates
+
+This section lists metrics used to monitor Loggregator, the PCF component responsible for logging.
+
 ###<a id='firehose-loss'></a>Firehose Loss Rate
+
+This metric calculation is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose. 
 
 <table class="nice">
 <tr>
@@ -142,11 +152,13 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 <tr>
   <td>Firehose loss rate</td>
   <td><code>healthwatch.Firehose.LossRate.1H</code> and <code>healthwatch.Firehose.LossRate.1M</code></td>
-  <td>This metric calculation is recommended for automating and monitoring platform scaling.</td>
+  <td>Loss rate per minute and per hour</td>
 </tr>
 </table>
 
-###<a id='adapter-loss'></a>Adapter Loss Rate 
+###<a id='adapter-loss'></a>Adapter Loss Rate
+
+This metric calculation is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
 
 <table class="nice">
 <tr>
@@ -157,11 +169,13 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 <tr>
   <td>Adapter loss rate (syslog drain performance)</td>
   <td><code>healthwatch.ScalableSyslog.Adapter.LossRate.1M</code></td>
-  <td></td>
+  <td>Loss rate per minute</td>
 </tr>
 </table>
 
 ###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate
+
+This metric calculation is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
 
 <table class="nice">
 <tr>
@@ -172,12 +186,18 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 <tr>
   <td>Reverse Log Proxy loss rate (syslog drain performance)</td>
   <td><code>healthwatch.ScalableSyslog.RLP.LossRate.1M</code></td>
-  <td></td>
+  <td>Loss rate per minute</td>
 </tr>
 </table>
 
 ##<a id='capacity'></a>Capacity Metrics
+
+This sections lists metrics used to monitor available memory, disk, and cell container capacity.
+
 ###<a id='memory'></a>Available Memory
+
+This metric calculation is recommended for automating and monitoring platform scaling.
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -185,14 +205,16 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
   <th>Description</th>
 </tr>
 <tr>
-  <td>Capacity total: available memory</td>
+  <td>Available memory</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableMemoryCapacity.5M</code></td>
-  <td>%</td>
+  <td>Percentage of available memory.</td>
 </tr>
 </table>
 
 ###<a id='disk'></a>Available Disk
 
+This metric calculation is recommended for automating and monitoring platform scaling.
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -200,14 +222,16 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
   <th>Description</th>
 </tr>
 <tr>
-  <td>Capacity total: available disk</td>
+  <td>Available disk</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableDiskCapacity.5M</code></td>
-  <td>%</td>
+  <td>Percentage of available disk.</td>
 </tr>
 </table>
 
 ###<a id='cell-container'></a>Available Cell Container Capacity
 
+This metric calculation is recommended for automating and monitoring platform scaling.
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -215,9 +239,9 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
   <th>Description</th>
 </tr>
 <tr>
-  <td>Capacity total: available cell container</td>
+  <td>Available cell container capacity</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M</code></td>
-  <td>%</td>
+  <td>Percentage of available cell container capacity.</td>
 </tr>
 </table>
 
@@ -227,12 +251,14 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 <tr>
   <th>Test</th>
   <th>Metric</th>
+  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>BOSH deployment occurrence</td>
   <td><code>healthwatch.bosh.deployment</code></td>
-  <td></td>
+  <td>30 sec</td>
+  <td><code>1</code> = a running deployment or <code>0</code> = not a running deployment</td>
 </tr>
 </table>
 
@@ -341,7 +367,7 @@ the timeout metric will not be written unless the deploy/delete goes over 10 min
 </tr>
 </table>
 
-Good docs explanation on spikes that can be seen on restart attempts - https://docs.cloudfoundry.org/devguide/deploy-apps/app-lifecycle.html#crash-events
+For more information about the lifecycle of an app container and crash events, see [Crash Events](https://docs.pivotal.io/pivotalcf/1-11/devguide/deploy-apps/app-lifecycle.html#crash-events)&nbsp;. 
 
 ###<a id='logging'></a>Logging Performance
 
