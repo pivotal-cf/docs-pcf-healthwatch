@@ -7,7 +7,7 @@ This topic lists derived and generated metrics provided by Pivotal Cloud Foundry
 
 ##<a id='cli'></a>Cloud Foundry CLI Health
 
-The Cloud Foundry command line interface (CLI) enables developers to create and manage apps on PCF. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI.
+The Cloud Foundry command line interface (CLI) enables developers to create and manage PCF apps. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI.
 
 See the table below for information on metrics related to Cloud Foundry CLI smoke tests.
 
@@ -141,7 +141,7 @@ This section lists metrics used to monitor Loggregator, the PCF component respon
 
 ###<a id='firehose-loss'></a>Firehose Loss Rate
 
-This metric calculation is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose. 
+This metric calculation is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
 
 <table class="nice">
 <tr>
@@ -192,7 +192,7 @@ This metric calculation is recommended for automating and monitoring platform sc
 
 ##<a id='capacity'></a>Capacity Metrics
 
-This sections lists metrics used to monitor available memory, disk, and cell container capacity.
+This section lists metrics used to monitor the total percentage of available memory, disk, and cell container capacity.
 
 ###<a id='memory'></a>Available Memory
 
@@ -207,7 +207,7 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available memory</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableMemoryCapacity.5M</code></td>
-  <td>Percentage of available memory.</td>
+  <td>Percentage of available memory (averaged over 5 min)</td>
 </tr>
 </table>
 
@@ -224,7 +224,7 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available disk</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableDiskCapacity.5M</code></td>
-  <td>Percentage of available disk.</td>
+  <td>Percentage of available disk (averaged over 5 min)</td>
 </tr>
 </table>
 
@@ -241,11 +241,13 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available cell container capacity</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M</code></td>
-  <td>Percentage of available cell container capacity.</td>
+  <td>Percentage of available cell container capacity (averaged over 5 min)</td>
 </tr>
 </table>
 
 ##<a id='bosh-deployment'></a>BOSH Deployment Occurrence
+
+Monitoring BOSH deployment occurrence adds context to related data, such as VM (job) health. 
 
 <table class="nice">
 <tr>
@@ -264,7 +266,11 @@ This metric calculation is recommended for automating and monitoring platform sc
 
 ##<a id='other-metrics'></a>Other Platform Metrics
 
+This section lists existing platform metrics used by PCF Healthwatch. For more information about these metrics, see [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html).
+
 ###<a id='job-health'></a>Job Health
+
+The Job Health metric is used for every VM in the CF deployment. This does not include additional deployments, such as MySQL or Redis.
 
 <table class="nice">
 <tr>
@@ -277,11 +283,13 @@ This metric calculation is recommended for automating and monitoring platform sc
   <td>Job health</td>
   <td><code>system.healthy</code></td>
   <td>1 min</td>
-  <td>A BOSH health metric used for every VM in the CF deployment. This does not include additional deployments, such as MySQL or Redis.</td>
+  <td><code>1</code> = the system is healthy or <code>0</code> = the system is not healthy</td>
 </tr>
 </table>
 
 ###<a id='job-vitals'></a>Job Vitals
+
+The Job Vitals metrics are written for core ERT jobs. This does not include additional deployments, such as MySQL or Redis.
 
 <table class="nice">
 <tr>
@@ -294,35 +302,37 @@ This metric calculation is recommended for automating and monitoring platform sc
   <td>CPU utilization</td>
   <td><code>system.cpu.user</code></td>
   <td>1 min</td>
-  <td>Percentage of CPU used.</td>
+  <td>Percentage of CPU used</td>
 </tr>
 <tr>
   <td>Memory utilization</td>
   <td><code>system.mem.percent</code></td>
   <td>1 min</td>
-  <td>Percentage of system memory used.</td>
+  <td>Percentage of system memory used</td>
 </tr>
 <tr>
   <td>Disk utilization</td>
   <td><code>system.disk.system.percent</code></td>
   <td>1 min</td>
-  <td>Percentage of system disk used.</td>
+  <td>Percentage of system disk used</td>
 </tr>
 <tr>
   <td>Persistent disk utilization</td>
   <td><code>system.disk.persistent.percent</code></td>
   <td>1 min</td>
-  <td>Percentage of persistent disk used.</td>
+  <td>Percentage of persistent disk used</td>
 </tr>
 <tr>
   <td>Ephemeral disk utilization</td>
   <td><code>system.disk.ephemeral.percent</code></td>
   <td>1 min</td>
-  <td>Percentage of ephemeral disk used.</td>
+  <td>Percentage of ephemeral disk used</td>
 </tr>
 </table>
 
-###<a id='kpis-capacity'></a>Capacity
+###<a id='kpis-capacity'></a>Diego Cell Capacity
+
+The Diego Cell Capacity metrics are used to monitor the amount of memory and disk available for a Diego cell.
 
 <table class="nice">
 <tr>
@@ -335,17 +345,20 @@ This metric calculation is recommended for automating and monitoring platform sc
   <td>Available memory</td>
   <td><code>rep.CapacityRemainingMemory</code></td>
   <td>1 min</td>
-  <td>Amount of memory (MiB) available for a Diego cell to allocate to containers.</td>
+  <td>Amount of memory (MiB) available for a Diego cell to allocate to containers</td>
 </tr>
 <tr>
   <td>Available disk</td>
   <td><code>rep.CapacityRemainingDisk</code></td>
   <td>1 min</td>
-  <td>Amount of disk (MiB) available for a Diego cell to allocate to containers.</td>
+  <td>Amount of disk (MiB) available for a Diego cell to allocate to containers</td>
 </tr>
 </table>
 
 ###<a id='app-instances'></a>Application Instances
+
+The Application Instances metrics are used to monitor the health of application instances (AIs). For more information about the lifecycle of an app container and crash events,<br> see [Crash Events](https://docs.pivotal.io/pivotalcf/1-11/devguide/deploy-apps/app-lifecycle.html#crash-events).
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -357,19 +370,19 @@ This metric calculation is recommended for automating and monitoring platform sc
   <td>Current running AIs and change in running AIs</td>
   <td><code>bbs.LRPsRunning</code></td>
   <td>During events</td>
-  <td>Total number of LRP instances running on Diego cells.</td>
+  <td>Total number of LRP instances running on Diego cells</td>
 </tr>
 <tr>
   <td>Crashed AIs</td>
   <td><code>bbs.CrashedActualLRPs</code></td>
   <td>30 sec</td>
-  <td>Total number of LRP instances that have crashed in a deployment.</td>
+  <td>Total number of LRP instances that have crashed in a deployment</td>
 </tr>
 </table>
 
-For more information about the lifecycle of an app container and crash events, see [Crash Events](https://docs.pivotal.io/pivotalcf/1-11/devguide/deploy-apps/app-lifecycle.html#crash-events)&nbsp;. 
-
 ###<a id='logging'></a>Logging Performance
+
+The Loggregator Firehose throughput metric is used to monitor PCF logging performance.
 
 <table class="nice">
 <tr>
@@ -379,14 +392,17 @@ For more information about the lifecycle of an app container and crash events, s
   <th>Description</th>
 </tr>
 <tr>
-  <td>Throughput</td>
+  <td>Firehose throughput</td>
   <td><code>DopplerServer.listeners.totalReceivedMessageCount</code></td>
   <td>5 sec</td>
-  <td>Total number of messages received across all Doppler listeners.</td>
+  <td>Total number of messages received across all Doppler listeners</td>
 </tr>
 </table>
 
 ###<a id='router'></a>Router
+
+The Router metrics are used to monitor the health and performance of the Gorouter.
+
 <table class="nice">
 <tr>
   <th>Test</th>
@@ -398,24 +414,24 @@ For more information about the lifecycle of an app container and crash events, s
   <td>Router throughput</td>
   <td><code>gorouter.total_requests</code></td>
   <td>5 sec</td>
-  <td>Lifetime number of requests completed by the Gorouter VM.</td>
+  <td>Lifetime number of requests completed by the Gorouter VM</td>
 </tr>
 <tr>
   <td>Router latency</td>
   <td><code>gorouter.latency</code></td>
   <td>Emitted per Gorouter request</td>
-  <td>Time (ms) the Gorouter takes to handle requests to its app endpoints.</td>
+  <td>Time (ms) the Gorouter takes to handle requests to its app endpoints</td>
 </tr>
 <tr>
   <td>Router jobs CPU</td>
   <td><code>system.cpu.user</code></td>
   <td>1 min</td>
-  <td>Percentage of CPU used by a Gorouter job.</td>
+  <td>Percentage of CPU used by the Gorouter job</td>
 </tr>
 <tr>
   <td>502 bad gateways</td>
   <td><code>gorouter.bad_gateways</code></td>
   <td>5 sec</td>
-  <td>Lifetime number of bad gateways, or 502 responses, from Gorouter itself.</td>
+  <td>Lifetime number of bad gateways, or 502 responses, from the Gorouter itself</td>
 </tr>
 </table>
