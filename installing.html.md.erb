@@ -11,6 +11,7 @@ Before deploying PCF Healthwatch, ensure that you have installed:
 
 * PCF Ops Manager v? or later
 * PCF Elastic Runtime v? or later
+* the UAA Command Line Interface (UAAC)
 
 ##<a id='install'></a> Install PCF Healthwatch
 
@@ -25,9 +26,11 @@ This adds the tile to your staging area.
 
 To start using PCF Healthwatch, configure your IaaS, the Ops Manager Director tile, and the PCF Healthwatch tile.
 
+<p class="note"><strong>Note</strong>: These instructions are designed for Google Cloud Platform (GSP) users. If your PCF deployment is running on a different IaaS, perform the equivalent steps.</p>
+
 ###<a id='iaas'></a> Step 1. Configure Your IaaS
 
-If your PCF deployment is running on Google Cloud Platform (GSP), navigate to your GCP console and do the following:
+If your PCF deployment is running on GSP, navigate to your GCP console and do the following:
 
 1. Go to your Ops Manager VPC network.
 1. Create a subnet and name it `bosh-health-check`.
@@ -80,11 +83,11 @@ Forwarding BOSH health metrics to PCF Healthwatch requires manual configuration.
 
 <p class="note"><strong>Note</strong>: The manual configuration is required for the alpha and beta releases of PCF Healthwatch.</p>
 
-To configure the BOSH Director, follow the instructions in [Platform Metrics Release README.md](https://github.com/pivotal-cf/platform-metrics-release/tree/master/bosh). You can find the necessary plugins in this repository.
+To configure the BOSH Director, follow the instructions in [Healthwatch Release README.md](https://github.com/pivotal-cf/healthwatch-release/tree/master/bosh). You can find the necessary plugins in this repository.
 
 ##<a id='uaa-authorities'></a> Configure UAA Authorities
 
-To configure UAA authorities, run the `configure_uaa.sh` script.
+To configure UAA authorities, run the `configure_uaa.sh` script from your terminal. This script configures the UAA client credentials that are needed for PCF Healthwatch to access a token on behalf of your login user.  
 
 <p class="note"><strong>Note</strong>: You must have PCF Admin permissions to configure UAA authorities.</p>
 
@@ -126,6 +129,6 @@ uaac member add platform_monitoring.read $UAA_USER
 ```
 See the following example:
 
-<pre class="terminal">$ ./configure_uaa.sh login.sys.valentino.gcp.pcf-metrics.com admin UAA-ADMIN-CLIENT-SECRET platform_monitoring PLATFORM_MONITORING-SECRET admin PLATFORM-MONITORING-URL</pre>
+<pre class="terminal">$ ./configure_uaa.sh login.sys.valentino.gcp.pcf-metrics.com admin UAA-ADMIN-CLIENT-SECRET platform_monitoring PLATFORM_MONITORING-SECRET admin PCF-HEALTHWATCH-URL</pre>
 
 In this example, replace `login.sys.valentino.gcp.pcf-metrics.com` with the URL of your UAA login. `PLATFORM_MONITORING-SECRET` is the password that you enter in Ops Manager when configuring the PCF Healthwatch tile.
