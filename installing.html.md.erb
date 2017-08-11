@@ -9,20 +9,20 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 
 Before deploying PCF Healthwatch, ensure that you have installed:
 
-* PCF Ops Manager v? or later
-* PCF Elastic Runtime v? or later
-* the UAA Command Line Interface (UAAC)
+* PCF Ops Manager v1.11.0 or later
+* PCF Elastic Runtime v1.11.0 or later
+* the [UAA Command Line Interface (UAAC)](https://github.com/cloudfoundry/cf-uaac)
 
 ##<a id='install'></a> Install PCF Healthwatch
 
-1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
+1. Download the product and supporting files from [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the main product file. 
 
 1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
 
-##<a id='configure'></a> Configure PCF Healthwatch
+##<a id='configure'></a> Configure the PCF Healthwatch BOSH Director Health Check
 
 To start using PCF Healthwatch, configure your IaaS, the Ops Manager Director tile, and the PCF Healthwatch tile.
 
@@ -30,7 +30,7 @@ To start using PCF Healthwatch, configure your IaaS, the Ops Manager Director ti
 
 ###<a id='iaas'></a> Step 1. Configure Your IaaS
 
-If your PCF deployment is running on GSP, navigate to your GCP console and do the following:
+If your PCF deployment is running on GCP, navigate to your GCP console and do the following:
 
 1. Go to your Ops Manager VPC network.
 1. Create a subnet and name it `bosh-health-check`.
@@ -39,6 +39,8 @@ If your PCF deployment is running on GSP, navigate to your GCP console and do th
 If your PCF deployment is running on a different IaaS, perform the equivalent steps.
 
 ###<a id='ops-man'></a> Step 2. Configure the Ops Manager Director Tile
+
+<p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, it does not need to be repeated.</p>
 
 To configure Ops Manager Director:
 
@@ -79,11 +81,38 @@ To configure PCF Healthwatch:
 
 ##<a id='bosh-metrics'></a> Getting BOSH Health Metrics into PCF Healthwatch
 
-Forwarding BOSH health metrics to PCF Healthwatch requires manual configuration. You must have PCF Admin permissions to configure the BOSH Director.
+Forwarding BOSH health metrics to PCF Healthwatch currently requires manual configuration. You must have PCF Admin permissions to configure the BOSH Director.
 
 <p class="note"><strong>Note</strong>: The manual configuration is required for the alpha and beta releases of PCF Healthwatch.</p>
 
-To configure the BOSH Director, follow the instructions in [Healthwatch Release README.md](https://github.com/pivotal-cf/healthwatch-release/tree/master/bosh). You can find the necessary plugins in this repository.
+To configure the BOSH Director, follow the instructions below. The referenced plugins are available on [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
+
+```
+1.  Copy `healthwatch-bosh-plugin, run.sh and healthwatch-bosh-plugin.json` up to the bosh director
+1.  Move `healthwatch-bosh-plugin` to `/var/vcap/packages/healthwatch/`
+1.  Assign these permissions to `/var/vcap/packages/healthwatch/healthwatch-bosh-plugin` `-rwxr-xr-x 1 root root`
+1.  Move `run.sh` to `/var/vcap/jobs/healthwatch/bin/bosh-monitor/`
+1.  Assign these permissions to `/var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh` `-rwxr-xr-x 1 root root`
+1.  Move `healthwatch.json` to `/var/vcap/jobs/healthwatch/config/`
+1.  Assign these permissions to `/var/vcap/jobs/healthwatch/config/healthwatch.json` `-rw-r--r-- 1 root root`
+1.  Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` with your MySQL IP and credentials
+1.  Create a folder in `/var/vcap/sys/log/healthwatch/`
+1.  Assign these permissions to `/var/vcap/sys/log/healthwatch/` `drwxr-x--- 2 vcap vcap`
+1.  Verify the `json` plugin is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`
+1.  `monit restart health_monitor` and verify there are logs created in `/var/vcap/sys/log/healthwatch/`
+
+sudo -i
+mkdir -p /var/vcap/packages/healthwatch/
+mkdir -p /var/vcap/jobs/healthwatch/bin/bosh-monitor/
+mkdir -p /var/vcap/jobs/healthwatch/config/
+
+mv /tmp/healthwatch-bosh-plugin /var/vcap/packages/healthwatch/
+mv /tmp/run.sh /var/vcap/jobs/healthwatch/bin/bosh-monitor/
+mv /tmp/healthwatch.json /var/vcap/jobs/healthwatch/config/
+chown vcap:vcap /var/vcap/sys/log/healthwatch/
+chmod +x /var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh
+chmod +x /var/vcap/packages/healthwatch/healthwatch-bosh-plugin
+```
 
 ##<a id='uaa-authorities'></a> Configure UAA Authorities
 
