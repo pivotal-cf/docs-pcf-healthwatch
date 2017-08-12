@@ -3,13 +3,13 @@ title: PCF Healthwatch Metrics
 owner: PCF Healthwatch
 ---
 
-This topic lists derived and generated metrics provided by Pivotal Cloud Foundry (PCF) Healthwatch. The metrics are used to monitor the health and performance of the PCF platform.
+This topic lists the super metrics that PCF Healthwatch creates for product usage as well as forwards into the firehose for consumption by external monitoring consumers. Also listed are the existing PCF platform component & bosh vm metrics utilized in the full PCF Healthwatch product. The combination of these generated and existing operational metrics of interest allow Operators to monitor the current health and performance of a given PCF foundation.
 
-##<a id='cli'></a>Cloud Foundry CLI Health
+##<a id='cli'></a>Healthwatch: Cloud Foundry CLI Health
 
-The Cloud Foundry command line interface (CLI) enables developers to create and manage PCF apps. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI.
+The Cloud Foundry command line interface (CLI) enables developers to create and manage PCF apps. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI. Running a continuous validation test suite is often significantly more meaningful to reassuring functionality than monitoring for trends in metrics alone.
 
-See the table below for information on metrics related to Cloud Foundry CLI smoke tests.
+See the table below for information on generated metrics related to the Cloud Foundry CLI Health smoke tests.
 
 <table class="nice">
 <tr>
@@ -70,7 +70,7 @@ See the table below for information on metrics related to Cloud Foundry CLI smok
 
 <p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
 
-##<a id='opsman'></a>Ops Manager Health
+##<a id='opsman'></a>Healthwatch: Ops Manager Health
 
 Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to rescale the PCF platform when necessary. Therefore, it is recommended to continuously monitor Ops Manager availability. PCF Healthwatch executes this check as a part of its test suite.
 
@@ -89,9 +89,9 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 </tr>
 </table>
 
-##<a id='appsman'></a>Apps Manager Health
+##<a id='appsman'></a>Healthwatch: Apps Manager Health
 
-These metrics help users to monitor app availability and responsiveness. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health.
+App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a good canary for insight into the performance of other applications on the foundation.
 
 <table class="nice">
 <tr>
@@ -114,7 +114,7 @@ These metrics help users to monitor app availability and responsiveness. PCF Hea
 </tr>
 </table>
 
-##<a id='bosh-director'></a>BOSH Director Health
+##<a id='bosh-director'></a>Healthwatch: BOSH Director Health
 
 Losing the BOSH Director does not significantly impact the experience of PCF end users. However, this issue means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the BOSH Director health. PCF Healthwatch executes this check as a part of its test suite.
 
@@ -135,13 +135,13 @@ Losing the BOSH Director does not significantly impact the experience of PCF end
 
 <p class="note"><strong>Note</strong>: The timeout metric is written if a deploy or delete task takes more than 10 minutes.</p>
 
-##<a id='loss-rates'></a>Loss Rates
+##<a id='loss-rates'></a>Healthwatch: Logging Performance Loss Rates
 
 This section lists metrics used to monitor Loggregator, the PCF component responsible for logging.
 
 ###<a id='firehose-loss'></a>Firehose Loss Rate
 
-This metric calculation is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
+This derived metric is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
 
 <table class="nice">
 <tr>
@@ -158,7 +158,7 @@ This metric calculation is recommended for automating and monitoring platform sc
 
 ###<a id='adapter-loss'></a>Adapter Loss Rate
 
-This metric calculation is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
+This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
 
 <table class="nice">
 <tr>
@@ -175,7 +175,7 @@ This metric calculation is recommended for automating and monitoring platform sc
 
 ###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate
 
-This metric calculation is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
+This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
 
 <table class="nice">
 <tr>
@@ -190,13 +190,13 @@ This metric calculation is recommended for automating and monitoring platform sc
 </tr>
 </table>
 
-##<a id='capacity'></a>Capacity Metrics
+##<a id='capacity'></a>Healthwatch: Percentage of Capacity Available Metrics
 
 This section lists metrics used to monitor the total percentage of available memory, disk, and cell container capacity.
 
-###<a id='memory'></a>Available Memory
+###<a id='memory'></a>Percentage of Memory Available
 
-This metric calculation is recommended for automating and monitoring platform scaling.
+This derived metric is recommended for automating and monitoring platform scaling.
 
 <table class="nice">
 <tr>
@@ -207,13 +207,13 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available memory</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableMemoryCapacity.5M</code></td>
-  <td>Percentage of available memory (averaged over 5 min)</td>
+  <td>Percentage of available memory (averaged over last 5 min)</td>
 </tr>
 </table>
 
-###<a id='disk'></a>Available Disk
+###<a id='disk'></a>Percentage of Disk Available
 
-This metric calculation is recommended for automating and monitoring platform scaling.
+This derived metric is recommended for automating and monitoring platform scaling.
 
 <table class="nice">
 <tr>
@@ -224,13 +224,13 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available disk</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableDiskCapacity.5M</code></td>
-  <td>Percentage of available disk (averaged over 5 min)</td>
+  <td>Percentage of available disk (averaged over last 5 min)</td>
 </tr>
 </table>
 
-###<a id='cell-container'></a>Available Cell Container Capacity
+###<a id='cell-container'></a>Percentage of Cell Container Capacity Available 
 
-This metric calculation is recommended for automating and monitoring platform scaling.
+This derived is recommended for automating and monitoring platform scaling.
 
 <table class="nice">
 <tr>
@@ -241,13 +241,15 @@ This metric calculation is recommended for automating and monitoring platform sc
 <tr>
   <td>Available cell container capacity</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M</code></td>
-  <td>Percentage of available cell container capacity (averaged over 5 min)</td>
+  <td>Percentage of available cell container capacity (averaged over last 5 min)</td>
 </tr>
 </table>
 
-##<a id='bosh-deployment'></a>BOSH Deployment Occurrence
+##<a id='bosh-deployment'></a>Healthwatch: BOSH Deployment Occurrence
 
 Monitoring BOSH deployment occurrence adds context to related data, such as VM (job) health.
+
+**Limitation**: A deployment start/complete event can be determined, but knowing to which VMs is not currently available.
 
 <table class="nice">
 <tr>
@@ -264,94 +266,103 @@ Monitoring BOSH deployment occurrence adds context to related data, such as VM (
 </tr>
 </table>
 
-##<a id='other-metrics'></a>Other Platform Metrics
+##<a id='other-metrics'></a>Other Exising Platform Metrics Leveraged
 
-This section lists existing platform metrics used by PCF Healthwatch. For more information about these metrics, see [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html).
+This section lists existing platform metrics also used by PCF Healthwatch. For more information about these metrics, see [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html).
 
 ###<a id='job-health'></a>Job Health
 
-The Job Health metric is used for every VM in the CF deployment. This does not include additional deployments, such as MySQL or Redis.
+The Job Health metric is used for every VM in the CF deployment, and is provided via BOSH. This does not include additional deployments, such as RabbitMQ or Redis, at this time.
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
-  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Job health</td>
   <td><code>system.healthy</code></td>
-  <td>1 min</td>
   <td><code>1</code> = the system is healthy or <code>0</code> = the system is not healthy</td>
 </tr>
 </table>
 
 ###<a id='job-vitals'></a>Job Vitals
 
-The Job Vitals metrics are written for core ERT jobs. This does not include additional deployments, such as MySQL or Redis.
+The Job Vitals metrics are written for core ERT jobs, and is provided via BOSH. This does not include additional deployments, such as RabbitMQ or Redis, at this time.
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
-  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>CPU utilization</td>
   <td><code>system.cpu.user</code></td>
-  <td>1 min</td>
   <td>Percentage of CPU used</td>
 </tr>
 <tr>
   <td>Memory utilization</td>
   <td><code>system.mem.percent</code></td>
-  <td>1 min</td>
   <td>Percentage of system memory used</td>
 </tr>
 <tr>
   <td>Disk utilization</td>
   <td><code>system.disk.system.percent</code></td>
-  <td>1 min</td>
   <td>Percentage of system disk used</td>
 </tr>
 <tr>
   <td>Persistent disk utilization</td>
   <td><code>system.disk.persistent.percent</code></td>
-  <td>1 min</td>
   <td>Percentage of persistent disk used</td>
 </tr>
 <tr>
   <td>Ephemeral disk utilization</td>
   <td><code>system.disk.ephemeral.percent</code></td>
-  <td>1 min</td>
   <td>Percentage of ephemeral disk used</td>
 </tr>
 </table>
 
 ###<a id='kpis-capacity'></a>Diego Cell Capacity
 
-The Diego Cell Capacity metrics are used to monitor the amount of memory and disk available for a Diego cell.
+The Capacity metrics as reported by Diego are used to monitor the amount of memory, disk and container capacity available for Diego cell(s).
 
 <table class="nice">
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Available memory</td>
   <td><code>rep.CapacityRemainingMemory</code></td>
-  <td>1 min</td>
   <td>Amount of memory (MiB) available for a Diego cell to allocate to containers</td>
+</tr>
+<tr>
+  <td>Total memory</td>
+  <td><code>rep.CapacityTotalMemory</code></td>
+  <td>Total amount of memory (MiB) available for this cell to allocate to containers.</td>
 </tr>
 <tr>
   <td>Available disk</td>
   <td><code>rep.CapacityRemainingDisk</code></td>
-  <td>1 min</td>
   <td>Amount of disk (MiB) available for a Diego cell to allocate to containers</td>
+</tr>
+<tr>
+  <td>Total disk</td>
+  <td><code>rep.CapacityTotalDisk</code></td>
+  <td>Total amount of disk (MiB) available for this cell to allocate to containers.</td>
+</tr>
+<tr>
+  <td>Available container capacity</td>
+  <td><code>rep.CapacityRemainingContainers</code></td>
+  <td>The remaining number of containers this cell can host.</td>
+</tr>
+<tr>
+  <td>Total container capacity</td>
+  <td><code>rep.CapacityTotalContainers</code></td>
+  <td>The total number of containers this cell can host.</td>
 </tr>
 </table>
 
@@ -363,39 +374,126 @@ The Application Instances metrics are used to monitor the health of application 
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Current running AIs and change in running AIs</td>
   <td><code>bbs.LRPsRunning</code></td>
-  <td>During events</td>
   <td>Total number of LRP instances running on Diego cells</td>
 </tr>
 <tr>
   <td>Crashed AIs</td>
   <td><code>bbs.CrashedActualLRPs</code></td>
-  <td>30 sec</td>
   <td>Total number of LRP instances that have crashed in a deployment</td>
+</tr>
+<tr>
+  <td>Missing AIs</td>
+  <td><code>bbs.LRPsMissing</code></td>
+  <td>Total number of LRP instances that are desired but have no record in the BBS</td>
+</tr>
+<tr>
+  <td>Extra AIs</td>
+  <td><code>bbs.LRPsExtra</code></td>
+  <td>Total number of LRP instances that are no longer desired but still have a BBS record</td>
+</tr>
+<tr>
+  <td>Auctioneer AI Starts</td>
+  <td><code>auctioneer.AuctioneerLRPAuctionsStarted</code></td>
+  <td>The number of LRP instances that the auctioneer successfully placed on Diego cells</td>
+</tr>
+<tr>
+  <td>Auctioneer AI Failures</td>
+  <td><code>auctioneer.AuctioneerLRPAuctionsFailed</code></td>
+  <td>The number of LRP instances that the auctioneer failed to place on Diego cells</td>
+</tr>
+<tr>
+  <td>Auctioneer Task Placement Failures</td>
+  <td><code>auctioneer.AuctioneerTaskAuctionsFailed</code></td>
+  <td>The number of Tasks that the auctioneer failed to place on Diego cells</td>
 </tr>
 </table>
 
-###<a id='logging'></a>Logging Performance
+###<a id='diego-health'></a>Diego Health
 
-The Loggregator Firehose throughput metric is used to monitor PCF logging performance.
+The Diego health and performance metrics are used to monitor core Diego functionality.
 
 <table class="nice">
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Frequency</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>BBS Time to Handle Requests</td>
+  <td><code>bbs.RequestLatency</code></td>
+  <td>Time in ns that the BBS took to handle requests, aggregated across all its API endpoints</td>
+</tr>
+<tr>
+  <td>BBS Time to Run LRP Convergence</td>
+  <td><code>bbs.ConvergenceLRPDuration</code></td>
+  <td>Time in ns that the BBS took to run its LRP convergence pass</td>
+</tr>
+<tr>
+  <td>Auctioneer Time to Fetch Cell State</td>
+  <td><code>auctioneer.AuctioneerFetchStatesDuration</code></td>
+  <td>Time in ns that the auctioneer took to fetch state from all the Diego cells when running its auction</td>
+</tr>
+<tr>
+  <td>Route Emitter Time to Sync</td>
+  <td><code>route_emitter.RouteEmitterSyncDuration</code></td>
+  <td>Time in ns that the active route-emitter took to perform its synchronization pass</td>
+</tr>
+<tr>
+  <td>Cell Rep Time to Sync</td>
+  <td><code>rep.RepBulkSyncDuration</code></td>
+  <td>Time in ns that the Diego Cell Rep took to sync the ActualLRPs that it claimed with its actual garden containers</td>
+</tr>
+<tr>
+  <td>Locket Active Presences</td>
+  <td><code>locket.ActivePresences</code></td>
+  <td>Total count of active presences. Presences are defined as the registration records that the cells maintain to advertise themselves to the platform.</td>
+</tr>
+<tr>
+  <td>Locket Active Locks</td>
+  <td><code>locket.ActiveLocks</code></td>
+  <td>Total count of how many locks the system components are holding</td>
+</tr>
+<tr>
+  <td>Diego & Cloud Controller Synched Check</td>
+  <td><code>bbs.Domain.cf-apps</code></td>
+  <td>Indicates if the `cf-apps` Domain is up-to-date, meaning that CF App requests from Cloud Controller are synchronized to bbs.LRPsDesired (Diego-desired AIs) for execution</td>
+</tr>
+<tr>
+  <td>Diego Cell Health Check</td>
+  <td><code>rep.UnhealthyCell</code></td>
+  <td>The Diego cell periodically checks its health against the garden backend. For Diego cells, `0` means healthy, and `1` means unhealthy</td>
+</tr>
+</table>
+
+###<a id='logging'></a>Logging Performance
+
+The Loggregator Firehose and Scalable Syslog metrics are used to monitor PCF logging performance.
+
+<table class="nice">
+<tr>
+  <th>Test</th>
+  <th>Metric</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Firehose throughput</td>
   <td><code>DopplerServer.listeners.totalReceivedMessageCount</code></td>
-  <td>5 sec</td>
   <td>Total number of messages received across all Doppler listeners</td>
+</tr>
+<tr>
+  <td>Firehose dropped messages</td>
+  <td><code>DopplerServer.doppler.shedEnvelopes</code></td>
+  <td>Total number of messages intentionally dropped by Doppler due to back pressure</td>
+</tr>
+<tr>
+  <td>Syslog Drain Binding Count</td>
+  <td><code>scalablesyslog.scheduler.drains</code></td>
+  <td>The number of scalable syslog drain bindings</td>
 </tr>
 </table>
 
@@ -407,31 +505,41 @@ The Router metrics are used to monitor the health and performance of the Goroute
 <tr>
   <th>Test</th>
   <th>Metric</th>
-  <th>Frequency</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Router throughput</td>
   <td><code>gorouter.total_requests</code></td>
-  <td>5 sec</td>
   <td>Lifetime number of requests completed by the Gorouter VM</td>
 </tr>
 <tr>
   <td>Router latency</td>
   <td><code>gorouter.latency</code></td>
-  <td>Emitted per Gorouter request</td>
   <td>Time (ms) the Gorouter takes to handle requests to its app endpoints</td>
 </tr>
 <tr>
   <td>Router jobs CPU</td>
   <td><code>system.cpu.user</code></td>
-  <td>1 min</td>
-  <td>Percentage of CPU used by the Gorouter job</td>
+  <td>CPU utilization of the Gorouter job(s) as reported by BOSH</td>
 </tr>
 <tr>
   <td>502 bad gateways</td>
   <td><code>gorouter.bad_gateways</code></td>
-  <td>5 sec</td>
   <td>Lifetime number of bad gateways, or 502 responses, from the Gorouter itself</td>
+</tr> 
+<tr>
+  <td>All 5XX Errors</td>
+  <td><code>gorouter.responses.5xx</code></td>
+  <td>Lifetime number of requests completed by the GoRouter VM for HTTP status family 5xx, server errors</td>
 </tr>
+<tr>
+  <td>Number of Routes Registered</td>
+  <td><code>gorouter.total_routes</code></td>
+  <td>The current total number of routes registered with the GoRouter</td>
+</tr>
+<tr>
+  <td>Time Since Last Route Registered</td>
+  <td><code>gorouter.ms_since_last_registry_update</code></td>
+  <td>Time in milliseconds (ms) since the last route register was received</td>
+</tr>  
 </table>
