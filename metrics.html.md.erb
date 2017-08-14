@@ -70,6 +70,8 @@ See the table below for information on generated metrics related to the Cloud Fo
 
 <p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
 
+<p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in Org: system; Space: platform_monitoring</p>
+
 ##<a id='opsman'></a>Healthwatch: Ops Manager Health
 
 Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to rescale the PCF platform when necessary. Therefore, it is recommended to continuously monitor Ops Manager availability. PCF Healthwatch executes this check as a part of its test suite.
@@ -134,6 +136,8 @@ Losing the BOSH Director does not significantly impact the experience of PCF end
 </table>
 
 <p class="note"><strong>Note</strong>: The timeout metric is written if a deploy or delete task takes more than 10 minutes.</p>
+
+<p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts and deletes a VM named `bosh-health-check` as part of this test suite.</p>
 
 ##<a id='loss-rates'></a>Healthwatch: Logging Performance Loss Rates
 
