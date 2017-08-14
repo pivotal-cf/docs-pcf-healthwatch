@@ -1,27 +1,37 @@
 ---
-title: Release Notes for YOUR-PRODUCT-NAME
-owner: Partners
+title: Release Notes for PCF Healthwatch
+owner: PCF Healthwatch
 ---
 
-**This topic should include the Release Notes for your product. For examples, see the 
-[GCP Service Broker Release Notes](http://docs.pivotal.io/gcp-sb/release-notes.html) or the 
-[ISS Knowtify Search Analytics Release Notes](http://docs.pivotal.io/knowtify/release.html).
-When you release a new version, add new release notes to this file, keeping the older notes below.**
+##<a id='v1.0.0-alpha.5'></a>v1.0.0-alpha.5
+**Release Date: August 8, 2017**
 
-These are release notes for YOUR-PRODUCT-NAME.
+### Release Notes
+* PCF Healthwatch now forwards its product generated [metrics](metrics.html) into the Firehose, allowing other existing firehose consumers to access these operationally useful data points
+* URL for dashboard UI was updated to healthwatch.<code>YOUR-SYSTEM-DOMAIN</code>
+* The BOSH Director Health Check dashboard is complete and now offers up to 24hrs of test results for PCF Healthwatch's [BOSH Director](metrics.html#bosh-director) continuous validation test
+* The Logging Performance dashboard is complete and now offers up to 24hrs of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html#doppler-server)/[KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html#doppler-server) metrics for monitoring the Logging system
+* The Router Performance dashboard is complete and now offers up to 24hrs of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html#gorouter)/[KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html#Router) metrics for monitoring the GoRouter
+* Now storing and displaying VM ID instead of index in order to make display of vm info more usable for BOSH2 interactions
+* Now pointing healthcheck apps at MySQL proxy instead of a MySQL node which resolves the issue in earlier alphas where downtime would be experienced during a PCF Healthwatch stemcell update
 
-##<a id="ver"></a> vCURRENT-VERSION-NUMBER (Ex. v1.0.1)
-
-**Release Date:** RELEASE-DATE (Ex. August 1, 2016)
-
-Features included in this release:
-
-* Feature one.
-* Feature two.
-* Feature three.
-
-Known issues in this release:
-
-* Issue one.
-* Issue two.
-* Issue three.
+### Known issues
+* If an earlier Alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
+* The `Adapter Loss Rate` and `Reverse Log Proxy Loss Rate` metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved
+* The appearance of the Scalable Syslog Performance panel on the Logging Performance deep-dive screen is intended to be dynamic, appearing only if the Scalable Syslog feature is being used in the foundation. This panel will be dynamic in the next version (Alpha 6) 
+* The `healthwatch-forwarder` resource is defaulted to 3 instances in the tile config. This can be changed to 1 instance. This default will be corrected in the next version (Alpha 6)
+* Currently 5 metrics have slight variations from the data points published in [PCF Healthwatch Metrics](metrics.html). This will be corrected in the next version (Alpha 6)
+    * `healthwatch.scalablesyslog.rlp.lossRate.1M` will be updated to `healthwatch.ScalableSyslog.RLP.LossRate.1M`
+    * `healthwatch.scalablesyslog.adapter.LossRate.1M` will be updated to `healthwatch.ScalableSyslog.Adapter.LossRate.1M`
+    * `healthwatch.TotalPercentageAvailableDiskCapacity.5M` will be updated to `healthwatch.Diego.TotalPercentageAvailableDiskCapacity.5M`
+    * `healthwatch.TotalPercentageAvailableContainerCapacity.5M` will be updated to `healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M`
+    * `healthwatch.TotalPercentageAvailableMemoryCapacity.5M` will be updated to `healthwatch.Diego.TotalPercentageAvailableMemoryCapacity.5M`
+* The following dashboards are not yet completed as of this Alpha 5 version 
+    * Diego: Capacity 
+    * Diego: App Instances
+    * Diego: Diego Performance 
+    * OpsMan Health Check dashboard
+    * App Canary Health Check dashboard
+    * Job Health & Job Vitals
+* BOSH deployments not yet reflected on any deep-dive screens as intended
+* Contextual Help content not yet present as intended 
