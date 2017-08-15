@@ -1,6 +1,6 @@
 ---
 title: Pivotal Cloud Foundry Healthwatch (Beta)
-owner: Partners
+owner: PCF Healthwatch
 ---
 <style>
     .note.warning {
@@ -25,16 +25,15 @@ Pivotal Cloud Foundry (PCF) Healthwatch stores and visualizes recommended key op
 
 PCF Healthwatch includes the following key features:
 
-* Feature one.
-* Feature two.
-* Feature three.
+* Offers an opinionated PCF Operational Monitoring dashboard, providing coverage of the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Scaling Indications](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) for a given version of PCF. Associated data is currently retained for 25 hours. 
+* Executes recommended operational health checks as continuous validation tests, storing and displaying results, as well as [forwarding](using.html#firehose) result data into the firehose for consumption by existing firehose consumers. 
 
 **Note**: This feature list will appear under **FEATURES** in the tile's listing on 
 [Pivotal Network](http://network.pivotal.io).
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about PRODUCT-NAME.
+The following table provides version and version-support information about PCF Healthwatch.
 
 <table class="nice">
     <th>Element</th>
@@ -65,17 +64,14 @@ The following table provides version and version-support information about PRODU
     </tr>
 </table>
 
-## <a id="reqs"></a>Requirements
-
-PCF Healthwatch has the following requirements:
-
-+ TBD
-
-+ TBD
-
 ## <a id="limitations"></a>Limitations
 
-**TBD.**
+* Does not currently ingest BOSH VM metrics outside of the core CF deployment.
+* Intended to monitor the foundation it is installed on only.
+* This product is still under active deployment. Therefore some links to deep-dive screens may still be inactive. Please see [Known Issues](release-notes.html) for current status.
+* Currently, only the Google Chrome browser is supported when accessing the product UI.
+* If an earlier version of PCF Healthwatch is installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
+* The installation process is complex; we are looking to address this in future versions, but still welcome feedback on this topic.
 
 ## <a id="feedback"></a>Feedback
 
