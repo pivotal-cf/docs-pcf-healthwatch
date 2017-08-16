@@ -97,7 +97,7 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` file with your MySQL IP and credentials.
 1. Create a folder in `/var/vcap/sys/log/healthwatch/`.
 1. Assign the `drwxr-x--- 2 vcap vcap` permissions to `/var/vcap/sys/log/healthwatch/`.
-1. Verify `healthwatch-bosh-plugin.json` is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
+1. Verify that `healthwatch-bosh-plugin.json` is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
 1. Run `monit restart health_monitor` and verify that logs are created in `/var/vcap/sys/log/healthwatch/`.
 
 <pre class="terminal">
