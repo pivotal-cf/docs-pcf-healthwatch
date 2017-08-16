@@ -2,3 +2,10 @@
 title: PCF Healthwatch Architecture
 owner: PCF Healthwatch
 ---
+
+The diagram below shows the architecture of PCF Healthwatch, including the Cloud Foundry components that PCF Healthwatch interacts with. PCF Healthwatch deploys several Cloud Foundry apps as part of the installation process. These apps are responsible for creating the product UI and supporting functional health checks.
+
+<%= image_tag './images/healthwatch-architecture.png' %>
+
+<p class="note"><strong>Note</strong>: PCF Healthwatch forwards the <a href="metrics.html">metrics</a> it creates into the Firehose. It does not forward platform metrics that are already available to the Firehose consumers.</p>
+
