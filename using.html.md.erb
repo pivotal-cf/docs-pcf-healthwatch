@@ -57,12 +57,13 @@ To access MySQL, you can do the following:
 
 * **Method 3**. Open a tunnel into your IaaS network and connect that way externally.
 
-###<a id='firehose'></a>Access Product Super Metrics via the Firehose
+###<a id='firehose'></a>Access Product Super Metrics Through the Firehose
 
-PCF Healthwatch forwards the super [metrics](metrics.html) it creates into the firehose so that they can be picked up by existing firehose consumers. Below is an example of a product generated metric output received via a firehose [nozzle](https://docs.pivotal.io/pivotalcf/1-11/loggregator/architecture.html#nozzles). 
-```
-origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"p-healthwatch-e7f044a5cf4f0a807750" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:<name:"Firehose.LossRate.1H" value:0 unit:"hr" >
-```
+PCF Healthwatch forwards the super [metrics](metrics.html) it creates into the Firehose so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a Firehose [nozzle](https://docs.pivotal.io/pivotalcf/1-11/loggregator/architecture.html#nozzles). 
+
+<pre class="terminal">
+origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"p-healthwatch-e7f044a5cf4f0a807750" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
+</pre>
 
 ##<a id='scaling'></a>Scaling PCF Healthwatch Resources
 
@@ -78,4 +79,4 @@ Use the following guidelines to scale PCF Healthwatch resources:
   By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
 * **Ops Manager Uptime Check** (the `opsmanager-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
-* **MySQL Proxy** (in the tile resource config). Due to a current product restriction, the MySQL Proxy job must be left scaled to 2. Please provide feedback at pcf-healthwatch-feedback@pivotal.io if this restriction causes issues with your usage of the product.
+* **MySQL Proxy** (in the **Resource Config** section of the PCF Healthwatch tile). The MySQL Proxy job must be left scaled to 2. Please provide feedback at [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io) if this restriction causes issues with your usage of PCF Healthwatch.
