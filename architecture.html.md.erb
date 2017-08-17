@@ -2,10 +2,35 @@
 title: PCF Healthwatch Architecture
 owner: PCF Healthwatch
 ---
+This topic describes the architecture of PCF Healthwatch.
 
-The diagram below shows the architecture of PCF Healthwatch, including the Cloud Foundry components that PCF Healthwatch interacts with. PCF Healthwatch deploys several Cloud Foundry apps as part of the installation process. These apps are responsible for creating the product UI and supporting functional health checks.
+## <a id='components'></a>PCF Healthwatch Components
+
+The diagram below shows the architecture of PCF Healthwatch, including the Cloud Foundry components that PCF Healthwatch interacts with.
 
 <%= image_tag './images/healthwatch-architecture.png' %>
 
+[View a larger version of this diagram](./images/healthwatch-architecture.png).
+
+PCF Healthwatch deploys several Cloud Foundry apps as part of the installation process. These apps are responsible for creating the product UI and supporting functional health checks.
+
+## <a id='data-flow'></a>How Data Flows Through PCF Healthwatch
+
+1. All PCF platform metrics, with the exception of BOSH VM Health metrics, travel through the Firehose by default. The PCF Healthwatch Ingestor app consumes these platform metrics from the Firehose and loads them, using the Loader app, into the PCF Healthwatch data store (MySQL cluster).
+2. While the BOSH VM Health metrics remain outside of the Firehose, PCF Healthwatch talks to the BOSH Director through [product plugins](installing.html#bosh-metrics) to obtain this data.
+3. PCF Healthwatch creates additional [measures[(metrics.html) of operational value and stores them in the `super_value_metric` MySQL table. These created metrics are then forwarded back into the Firehose through Metron Forwarder for external consumption by other Firehose consumers.
+4. All ingested and product-created data points are currently stored in the PCF Healthwatch Data Store for 25 hours and then pruned.
+
 <p class="note"><strong>Note</strong>: PCF Healthwatch forwards the <a href="metrics.html">metrics</a> it creates into the Firehose. It does not forward platform metrics that are already available to the Firehose consumers.</p>
 
+## <a id='data-flow'></a>Functional Apps Created by PCF Healthwatch
+
+PCF Healthwatch creates the following functional apps:
+
+* BOSH Director Health Check: the `bosh-health-check` app 
+* BOSH Deployment Task Check: the `bosh-task-check` app 
+* CLI Command Health Check: the `cf-health-check` app 
+* Apps Manager Uptime and Response Check: the `appsmanager-health-check` app 
+* Ops Manager Uptime Check: the `opsmanager-health-check` app
+
+For information on how to scale these PCF Healthwatch resources, see [Using PCF Healthwatch](using.html#scaling).
