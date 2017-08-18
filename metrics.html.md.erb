@@ -74,7 +74,7 @@ See the table below for information on generated metrics related to the Cloud Fo
 
 <p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in Org: system; Space: platform_monitoring</p>
+<p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>platform_monitoring</strong> space.</p>
 
 ##<a id='opsman'></a>Healthwatch: Ops Manager Health
 
@@ -141,7 +141,7 @@ Losing the BOSH Director does not significantly impact the experience of PCF end
 
 <p class="note"><strong>Note</strong>: The timeout metric is written if a deploy or delete task takes more than 10 minutes.</p>
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts and deletes a VM named `bosh-health-check` as part of this test suite.</p>
+<p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts, and deletes a VM named <code>bosh-health-check</code> as part of this test suite.</p>
 
 ##<a id='loss-rates'></a>Healthwatch: Logging Performance Loss Rates
 
@@ -555,5 +555,5 @@ The Router metrics are used to monitor the health and performance of the Goroute
   <td>Time since last route registered</td>
   <td><code>gorouter.ms_since_last_registry_update</code></td>
   <td>Time in ms since the last route register was received</td>
-</tr>  
+</tr>
 </table>
