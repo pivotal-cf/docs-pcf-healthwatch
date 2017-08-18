@@ -17,6 +17,7 @@ owner: PCF Healthwatch
 
 ### Known issues
 * If an earlier Alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
+* Router Latency measurement (via metric `gorouter.latency`) has a known issue present in PCF v1.11 that may result in impacts to this product. This [Router Issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12
 * The `Adapter Loss Rate` and `Reverse Log Proxy Loss Rate` metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved
 * The appearance of the Scalable Syslog Performance panel on the Logging Performance deep-dive screen is intended to be dynamic, appearing only if the Scalable Syslog feature is being used in the foundation. This panel will be dynamic in the next version (Alpha 6) 
 * The `healthwatch-forwarder` resource is defaulted to 3 instances in the tile config. This can be changed to 1 instance. This default will be corrected in the next version (Alpha 6)
