@@ -291,7 +291,7 @@ The Job Health metric is used for every VM in the CF deployment, and it is provi
 <tr>
   <td>Job health</td>
   <td><code>system.healthy</code></td>
-  <td><code>1</code> = the system is healthy or <code>0</code> = the system is not healthy</td>
+  <td><code>1</code> = system is healthy or <code>0</code> = system is not healthy</td>
 </tr>
 </table>
 
@@ -405,19 +405,19 @@ The Application Instances metrics are used to monitor the health of application 
   <td>Total number of LRP instances that are no longer desired but still have a BBS record</td>
 </tr>
 <tr>
-  <td>Auctioneer AI Starts</td>
+  <td>Auctioneer AI starts</td>
   <td><code>auctioneer.AuctioneerLRPAuctionsStarted</code></td>
-  <td>The number of LRP instances that the auctioneer successfully placed on Diego cells</td>
+  <td>Number of LRP instances that the Auctioneer successfully placed on Diego cells</td>
 </tr>
 <tr>
-  <td>Auctioneer AI Failures</td>
+  <td>Auctioneer AI failures</td>
   <td><code>auctioneer.AuctioneerLRPAuctionsFailed</code></td>
-  <td>The number of LRP instances that the auctioneer failed to place on Diego cells</td>
+  <td>Number of LRP instances that the Auctioneer failed to place on Diego cells</td>
 </tr>
 <tr>
-  <td>Auctioneer Task Placement Failures</td>
+  <td>Auctioneer task placement failures</td>
   <td><code>auctioneer.AuctioneerTaskAuctionsFailed</code></td>
-  <td>The number of Tasks that the auctioneer failed to place on Diego cells</td>
+  <td>Number of Tasks that the Auctioneer failed to place on Diego cells</td>
 </tr>
 </table>
 
@@ -432,51 +432,57 @@ The Diego health and performance metrics are used to monitor core Diego function
   <th>Description</th>
 </tr>
 <tr>
-  <td>BBS Time to Handle Requests</td>
+  <td>BBS time to handle requests</td>
   <td><code>bbs.RequestLatency</code></td>
-  <td>Time in ns that the BBS took to handle requests, aggregated across all its API endpoints</td>
+  <td>Time in ns that the BBS took to handle requests aggregated across all its API endpoints</td>
 </tr>
 <tr>
-  <td>BBS Time to Run LRP Convergence</td>
+  <td>BBS time to run LRP convergence</td>
   <td><code>bbs.ConvergenceLRPDuration</code></td>
   <td>Time in ns that the BBS took to run its LRP convergence pass</td>
 </tr>
 <tr>
-  <td>Auctioneer Time to Fetch Cell State</td>
+  <td>Auctioneer time to fetch Cell state</td>
   <td><code>auctioneer.AuctioneerFetchStatesDuration</code></td>
-  <td>Time in ns that the auctioneer took to fetch state from all the Diego cells when running its auction</td>
+  <td>Time in ns that the Auctioneer took to fetch state from all the Diego cells when running its auction</td>
 </tr>
 <tr>
-  <td>Route Emitter Time to Sync</td>
+  <td>Route Emitter time to sync</td>
   <td><code>route_emitter.RouteEmitterSyncDuration</code></td>
   <td>Time in ns that the active route-emitter took to perform its synchronization pass</td>
 </tr>
 <tr>
-  <td>Cell Rep Time to Sync</td>
+  <td>Cell Rep time to sync</td>
   <td><code>rep.RepBulkSyncDuration</code></td>
-  <td>Time in ns that the Diego Cell Rep took to sync the ActualLRPs that it claimed with its actual garden containers</td>
+  <td>Time in ns that the Diego Cell Rep took to sync the ActualLRPs that it claimed with its actual Garden containers</td>
 </tr>
 <tr>
-  <td>Locket Active Presences</td>
+  <td>Locket active presences</td>
   <td><code>locket.ActivePresences</code></td>
-  <td>Total count of active presences. Presences are defined as the registration records that the cells maintain to advertise themselves to the platform.</td>
+  <td>Total count of active presences<sup>&#42;</sup></td>
 </tr>
 <tr>
-  <td>Locket Active Locks</td>
+  <td>Locket active locks</td>
   <td><code>locket.ActiveLocks</code></td>
   <td>Total count of how many locks the system components are holding</td>
 </tr>
 <tr>
-  <td>Diego & Cloud Controller Synched Check</td>
+  <td>Diego and Cloud Controller synched check</td>
   <td><code>bbs.Domain.cf-apps</code></td>
-  <td>Indicates if the `cf-apps` Domain is up-to-date, meaning that CF App requests from Cloud Controller are synchronized to bbs.LRPsDesired (Diego-desired AIs) for execution</td>
+  <td>Indicates whether the <code>cf-apps</code> domain is up-to-date<sup>&#8224;</sup></td>
 </tr>
 <tr>
-  <td>Diego Cell Health Check</td>
+  <td>Diego Cell health check</td>
   <td><code>rep.UnhealthyCell</code></td>
-  <td>The Diego cell periodically checks its health against the garden backend. For Diego cells, `0` means healthy, and `1` means unhealthy</td>
+  <td><code>0</code> = healthy Cell or <code>1</code> = unhealthy Cell<sup>&#135;</sup></td>
 </tr>
 </table>
+
+<sup>&#42;</sup> Presences are defined as the registration records that the Cells maintain to advertise themselves to the platform.
+
+<sup>&#8224;</sup> This means that CF app requests from Cloud Controller are synchronized to bbs.LRPsDesired (Diego-desired AIs) for execution.
+
+<sup>&#135;</sup> The Diego cell periodically checks its health against the Garden backend.
 
 ###<a id='logging'></a>Logging Performance
 
@@ -499,9 +505,9 @@ The Loggregator Firehose and Scalable Syslog metrics are used to monitor PCF log
   <td>Total number of messages intentionally dropped by Doppler due to back pressure</td>
 </tr>
 <tr>
-  <td>Syslog Drain Binding Count</td>
+  <td>Syslog drain binding count</td>
   <td><code>scalablesyslog.scheduler.drains</code></td>
-  <td>The number of scalable syslog drain bindings</td>
+  <td>Number of scalable syslog drain bindings</td>
 </tr>
 </table>
 
@@ -536,18 +542,18 @@ The Router metrics are used to monitor the health and performance of the Goroute
   <td>Lifetime number of bad gateways, or 502 responses, from the Gorouter itself</td>
 </tr> 
 <tr>
-  <td>All 5XX Errors</td>
+  <td>All 5XX errors</td>
   <td><code>gorouter.responses.5xx</code></td>
   <td>Lifetime number of requests completed by the GoRouter VM for HTTP status family 5xx, server errors</td>
 </tr>
 <tr>
-  <td>Number of Routes Registered</td>
+  <td>Number of routes registered</td>
   <td><code>gorouter.total_routes</code></td>
-  <td>The current total number of routes registered with the GoRouter</td>
+  <td>Current total number of routes registered with the GoRouter</td>
 </tr>
 <tr>
-  <td>Time Since Last Route Registered</td>
+  <td>Time since last route registered</td>
   <td><code>gorouter.ms_since_last_registry_update</code></td>
-  <td>Time in milliseconds (ms) since the last route register was received</td>
+  <td>Time in ms since the last route register was received</td>
 </tr>  
 </table>
