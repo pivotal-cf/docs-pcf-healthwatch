@@ -1,5 +1,5 @@
 ---
-title: Pivotal Cloud Foundry Healthwatch (Beta)
+title: Pivotal Cloud Foundry Healthwatch (Alpha)
 owner: PCF Healthwatch
 ---
 <style>
@@ -15,18 +15,20 @@ owner: PCF Healthwatch
 
 <p class="note warning">
 <strong>IMPORTANT: </strong>
-The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is intended for evaluation and test purposes only.
+The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in alpha and is intended for evaluation and test purposes only.
 Do not use this product in a PCF production environment.
 </p>
 
-Pivotal Cloud Foundry (PCF) Healthwatch stores and visualizes recommended key operational metrics from core PCF components, including bosh-reported VM metrics, to help Operators better understand the current health, performance, and capacity of a given PCF Foundation. PCF Healthwatch also creates measures of operational value via recommended continuous validation tests and contextually derived metrics; forwarding these product-specific measures into the firehose for existing customer solutions to pick up as desired.
+Pivotal Cloud Foundry (PCF) Healthwatch stores and visualizes recommended key operational metrics from core PCF components, including BOSH-reported VM metrics, to help operators better understand the current health, performance, and capacity of a given PCF foundation. 
+
+PCF Healthwatch also creates measures of operational value using recommended continuous validation tests and contextually derived metrics. It forwards these product-specific measures into the Firehose for existing customer solutions to pick up as desired.
 
 ## <a id='features'></a>Key Features
 
 PCF Healthwatch includes the following key features:
 
-* Offers an opinionated PCF Operational Monitoring dashboard, providing coverage of the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Scaling Indications](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) for a given version of PCF. Associated data is currently retained for 25 hours. 
-* Executes recommended operational health checks as continuous validation tests, storing and displaying results, as well as [forwarding](using.html#firehose) result data into the firehose for consumption by existing firehose consumers. 
+* Offers an opinionated PCF Operational Monitoring dashboard, providing coverage of the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Scaling Indications](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) for a given version of PCF. Associated data is currently retained for 25 hours.
+* Executes recommended operational health checks as continuous validation tests. Stores and displays the results of the checks as well as [forwards](using.html#firehose) this data into the Firehose for external consumption by existing customer solutions.
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -56,7 +58,7 @@ The following table provides version and version-support information about PCF H
         <td>GCP</td>
     </tr>
     <tr>
-        <td>IPsec support?</td>
+        <td>IPsec support</td>
         <td>Not yet determined</td>
     </tr>
 </table>
@@ -64,15 +66,15 @@ The following table provides version and version-support information about PCF H
 ## <a id="limitations"></a>Limitations
 
 * Does not currently ingest BOSH VM metrics outside of the core CF deployment.
-* Intended to monitor the foundation it is installed on only.
-* This product is still under active deployment. Therefore some links to deep-dive screens may still be inactive. Please see [Known Issues](release-notes.html) for current status.
+* Intended to monitor only the PCF foundation it is installed on.
+* This product is still under active deployment. Therefore, some links to deep-dive screens may still be inactive. See [Known Issues](release-notes.html) for the current status.
 * Currently, only the Google Chrome browser is supported when accessing the product UI.
 * If an earlier version of PCF Healthwatch is installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
-* The installation process is complex; we are looking to address this in future versions, but still welcome feedback on this topic.
+* The installation process is complex, and we are looking to address this in future versions. We also welcome feedback on this topic.
 
 ## <a id="feedback"></a>Feedback
 
-Please provide any bugs, feature requests, or questions by sending an email to [pcf-healthwatch-feedback@pivotal.io.](mailto:pcf-healthwatch-feedback@pivotal.io).
+Please provide any bugs, feature requests, or questions by sending an email to [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io).
 
 ## <a id='license'></a>License
 
