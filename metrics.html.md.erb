@@ -3,7 +3,11 @@ title: PCF Healthwatch Metrics
 owner: PCF Healthwatch
 ---
 
-This topic lists the super metrics that PCF Healthwatch creates for product usage as well as forwards into the firehose for consumption by external monitoring consumers. Also listed are the existing PCF platform component & bosh vm metrics utilized in the full PCF Healthwatch product. The combination of these generated and existing operational metrics of interest allow Operators to monitor the current health and performance of a given PCF foundation.
+This topic lists the super metrics created by Pivotal Cloud Foundry (PCF) Healthwatch. 
+
+<p class="note"><strong>Note</strong>: For external monitoring consumers, PCF Healthwatch forwards the metrics it creates into the Firehose.</p> 
+
+In this topic, you can also find information about the existing PCF platform component and BOSH VM metrics used by PCF Healthwatch.
 
 ##<a id='cli'></a>Healthwatch: Cloud Foundry CLI Health
 
@@ -93,7 +97,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 
 ##<a id='appsman'></a>Healthwatch: Apps Manager Health
 
-App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a good canary for insight into the performance of other applications on the foundation.
+App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps on the foundation.
 
 <table class="nice">
 <tr>
@@ -194,7 +198,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-##<a id='capacity'></a>Healthwatch: Percentage of Capacity Available Metrics
+##<a id='capacity'></a>Healthwatch: Percentage of Capacity Available
 
 This section lists metrics used to monitor the total percentage of available memory, disk, and cell container capacity.
 
@@ -253,7 +257,7 @@ This derived is recommended for automating and monitoring platform scaling.
 
 Monitoring BOSH deployment occurrence adds context to related data, such as VM (job) health.
 
-**Limitation**: A deployment start/complete event can be determined, but knowing to which VMs is not currently available.
+**Limitation**: A BOSH deployment start or complete event can be determined. However, you cannot currently know to which VMs it is occurring.
 
 <table class="nice">
 <tr>
@@ -270,13 +274,13 @@ Monitoring BOSH deployment occurrence adds context to related data, such as VM (
 </tr>
 </table>
 
-##<a id='other-metrics'></a>Other Exising Platform Metrics Leveraged
+##<a id='other-metrics'></a>Other Exising Platform Metrics Used
 
-This section lists existing platform metrics also used by PCF Healthwatch. For more information about these metrics, see [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html).
+This section lists the existing platform metrics used by PCF Healthwatch. For more information about these metrics, see [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html).
 
 ###<a id='job-health'></a>Job Health
 
-The Job Health metric is used for every VM in the CF deployment, and is provided via BOSH. This does not include additional deployments, such as RabbitMQ or Redis, at this time.
+The Job Health metric is used for every VM in the CF deployment, and it is provided through BOSH. This does not include additional deployments, such as RabbitMQ or Redis.
 
 <table class="nice">
 <tr>
@@ -293,7 +297,7 @@ The Job Health metric is used for every VM in the CF deployment, and is provided
 
 ###<a id='job-vitals'></a>Job Vitals
 
-The Job Vitals metrics are written for core ERT jobs, and is provided via BOSH. This does not include additional deployments, such as RabbitMQ or Redis, at this time.
+The Job Vitals metrics are written for core ERT jobs, and they are provided through BOSH. This does not include additional deployments, such as RabbitMQ or Redis.
 
 <table class="nice">
 <tr>
@@ -330,7 +334,7 @@ The Job Vitals metrics are written for core ERT jobs, and is provided via BOSH. 
 
 ###<a id='kpis-capacity'></a>Diego Cell Capacity
 
-The Capacity metrics as reported by Diego are used to monitor the amount of memory, disk and container capacity available for Diego cell(s).
+The Capacity metrics are used to monitor the amount of memory, disk, and container capacity available for Diego cell(s).
 
 <table class="nice">
 <tr>
@@ -346,7 +350,7 @@ The Capacity metrics as reported by Diego are used to monitor the amount of memo
 <tr>
   <td>Total memory</td>
   <td><code>rep.CapacityTotalMemory</code></td>
-  <td>Total amount of memory (MiB) available for this cell to allocate to containers.</td>
+  <td>Total amount of memory (MiB) available for this cell to allocate to containers</td>
 </tr>
 <tr>
   <td>Available disk</td>
@@ -356,17 +360,17 @@ The Capacity metrics as reported by Diego are used to monitor the amount of memo
 <tr>
   <td>Total disk</td>
   <td><code>rep.CapacityTotalDisk</code></td>
-  <td>Total amount of disk (MiB) available for this cell to allocate to containers.</td>
+  <td>Total amount of disk (MiB) available for this cell to allocate to containers</td>
 </tr>
 <tr>
   <td>Available container capacity</td>
   <td><code>rep.CapacityRemainingContainers</code></td>
-  <td>The remaining number of containers this cell can host.</td>
+  <td>Remaining number of containers this cell can host</td>
 </tr>
 <tr>
   <td>Total container capacity</td>
   <td><code>rep.CapacityTotalContainers</code></td>
-  <td>The total number of containers this cell can host.</td>
+  <td>Total number of containers this cell can host</td>
 </tr>
 </table>
 
