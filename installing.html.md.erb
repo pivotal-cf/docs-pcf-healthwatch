@@ -24,21 +24,10 @@ This adds the tile to your staging area.
 
 ##<a id='configure'></a> Configure the PCF Healthwatch BOSH Director Health Check
 
-To start using PCF Healthwatch, configure your IaaS, the Ops Manager Director tile, and the PCF Healthwatch tile.
+To start using PCF Healthwatch, add a service network to the Ops Manager Director tile and the PCF Healthwatch tile.  This is the subnet on which the PCF Healthwatch Tile will run the BOSH health checks.
+This needs to be a Service Network so that Ops Manager will not attempt to use the same IP address as the BOSH Health Check VM.
 
-<p class="note"><strong>Note</strong>: These instructions are designed for Google Cloud Platform (GCP) users. If your PCF deployment is running on a different IaaS, perform the equivalent steps.</p>
-
-###<a id='iaas'></a> Step 1. Configure Your IaaS
-
-If your PCF deployment is running on GCP, navigate to your GCP console and do the following:
-
-1. Go to your Ops Manager VPC network.
-1. Create a subnet and name it `bosh-health-check`.
-1. Add the subnet to the `YOUR-OPSMAN-NAME-cf-internal` firewall rule. This allows BOSH to talk to it.
-
-If your PCF deployment is running on a different IaaS, perform the equivalent steps.
-
-###<a id='ops-man'></a> Step 2. Configure the Ops Manager Director Tile
+###<a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
 
 <p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, it does not need to be repeated.</p>
 
@@ -48,15 +37,7 @@ To configure Ops Manager Director:
 1. Navigate to **Create Networks** and click **Add Network**.
 1. In the **Name** field, enter `bosh-health-check`.
 1. Select the **Service Network** checkbox.
-1. In the **YOUR-IAAS Network Name** field, enter the Ops Manager network name from [Step 1. Configure Your IaaS](installing.html#iaas).
-
-	<p class="note"><strong>Note</strong>: You can find the guidelines on how to format the network name next to the <strong>YOUR-IAAS Network Name</strong> field. The format varies depending on your IaaS.</p>
-
-	If your PCF deployment is running on GCP, use the `NETWORK-NAME/SUBNET-NAME/REGION-NAME` format to specify your network name.
-
-1. Enter a valid **CIDR** for your created subnet.
-1. Enter the **Gateway** and **DNS** IPs for this subnet.
-1. Include the **Gateway** and **DNS** IPs in **Reserved IP Range**.
+1. Enter the network details for your Service Network in the rest of the fields.
 1. Click **Save**.
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
@@ -70,7 +51,7 @@ To configure PCF Healthwatch:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.
 	1. Enter `bosh-health-check` in **BOSH Healthcheck Service Network**.
-	1. Enter an availability zone in **BOSH Healthcheck Availability Zone**.
+	1. Enter an availability zone from your Service Network in **BOSH Healthcheck Availability Zone**.
 	1. Enter a VM type in **BOSH Healthcheck VM Type**.
 		<p class="note"><strong>Note</strong>: You can find the availability zone and VM type values by submitting the <code>YOUR-OPSMAN-URL/api/v0/deployed/cloud_config</code> Ops Manager API request.</p>
 	1. Click **Save**.
