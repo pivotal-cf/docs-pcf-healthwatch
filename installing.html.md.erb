@@ -65,17 +65,18 @@ Forwarding BOSH health metrics to PCF Healthwatch currently requires manual conf
 <p class="note"><strong>Note</strong>: The manual configuration is required for the alpha and beta releases of PCF Healthwatch.</p>
 
 To configure the BOSH Director, follow the instructions below. The referenced plugins are available on [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
+For beta testers, these files are located in [healthwatch-release](https://github.com/pivotal-cf/healthwatch-release/tree/master/bosh)
 
 1. Copy `healthwatch-bosh-plugin`, `run.sh`, and `healthwatch-bosh-plugin.json` to the BOSH Director.
 1. Move `healthwatch-bosh-plugin` to `/var/vcap/packages/healthwatch/`.
-1. Assign the `-rwxr-xr-x 1 root root` permissions to `/var/vcap/packages/healthwatch/healthwatch-bosh-plugin`.
+1. Assign the `-rwxr-xr-x 1 root root`(chmod 755) permissions to `/var/vcap/packages/healthwatch/healthwatch-bosh-plugin`.
 1. Move `run.sh` to `/var/vcap/jobs/healthwatch/bin/bosh-monitor/`.
-1. Assign the `-rwxr-xr-x 1 root root` permissions to `/var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh`.
+1. Assign the `-rwxr-xr-x 1 root root`(chmod 755) permissions to `/var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh`.
 1. Move `healthwatch.json` to `/var/vcap/jobs/healthwatch/config/`.
-1. Assign the `-rw-r--r-- 1 root root` permissions to `/var/vcap/jobs/healthwatch/config/healthwatch.json`.
+1. Assign the `-rw-r--r-- 1 root root`(chmod 644) permissions to `/var/vcap/jobs/healthwatch/config/healthwatch.json`.
 1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` file with your MySQL IP and credentials.
 1. Create a folder in `/var/vcap/sys/log/healthwatch/`.
-1. Assign the `drwxr-x--- 2 vcap vcap` permissions to `/var/vcap/sys/log/healthwatch/`.
+1. Assign the `drwxr-x--- 2 vcap vcap`(chmod 750) permissions to `/var/vcap/sys/log/healthwatch/`.
 1. Verify that `healthwatch-bosh-plugin.json` is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
 1. Run `monit restart health_monitor` and verify that logs are created in `/var/vcap/sys/log/healthwatch/`.
 
@@ -86,6 +87,7 @@ sudo -i
 mkdir -p /var/vcap/packages/healthwatch/
 mkdir -p /var/vcap/jobs/healthwatch/bin/bosh-monitor/
 mkdir -p /var/vcap/jobs/healthwatch/config/
+mkdir -p /var/vcap/sys/log/healthwatch/
 
 mv /tmp/healthwatch-bosh-plugin /var/vcap/packages/healthwatch/
 mv /tmp/run.sh /var/vcap/jobs/healthwatch/bin/bosh-monitor/
