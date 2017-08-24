@@ -3,6 +3,46 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.0.0-alpha.6'></a>v1.0.0-alpha.6
+**Release Date: August 24, 2017**
+
+### Release Notes
+
+* The OpsMan Health Check dashboard is complete and and now offers up to 24 hours of test results for the [OpsMan](metrics.html#opsman) continuous validation test.
+* The App Canary Health Check dashboard is complete and and now offers up to 24 hours of test results for the [App Canary](metrics.html#appsman) continuous validation test.
+* The Diego Capacity dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html#doppler-server) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html#doppler-server) metrics for monitoring PCF capacity from a PCF Operator's perspective.
+    * This dashboard is linked to via the Capacity panel on the main PCF Healthwatch dashboard.
+* The Diego App Instances dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html#doppler-server) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html#doppler-server) metrics for monitoring PCF App Instances from a PCF Operator's perspective.
+    * This dashboard is linked to via the App Instances panel on the main PCF Healthwatch dashboard.
+* The Diego Performance dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html#doppler-server) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html#doppler-server) metrics for monitoring Diego health and performance from a PCF Operator's perspective.
+    * This dashboard is available via a tab selection from either the Diego Capacity or Diego App Instances dashboards.
+* The Job Health & Vitals dashboard has been started, with some features now available in Alpha 6.
+    * All jobs emitting monitoring metrics during the time interval display are listed on the screen; like jobs are rolled into like jobs (i.e. Diego Cell may have 30 instances, but Cloud Controller and Cloud Controller Worker as separately named jobs would be listed separately).
+    * Job Health screen displays a red/green (0/1) visual representation at the job grouping level of the `system.healthy` bosh health checks. *In the near future, these jobs will default to only showing jobs with errors (to highlight problems in a large deployment with many possible jobs); this will be able to be toggled.*
+* Improvement to underlying CLI Command Health Smoke Test feature: Now when the `cf-health-check` app itself fails, a `-1` (didn’t run) value will be recorded for the `CF PUSH` test, allowing an operator alerting on CF Push failure metrics emitted to not trigger an alert when the `cf-health-check` app itself failed vs. a known failure with the CF API itself (a `0` data value). 
+* Now storing Canary App Response Time super-metric value in millisecond (ms) instead of nanosecond (ns). The related feature only requires ms notation, and this format also improves transmission readability through the firehose when the metric is forwarded.
+* Improvement to UI: On deep-dive pages, the `Last Update` time stamp shown in local time now also includes a UTC reference for improved understanding of occurrence time when sharing screenshots with teams across timezones.
+* Improvement to UI: The detailed results shown on the CLI Smoke Test and BOSH Director deep-dive pages is updated to display the results sorted descending; this model continues on the remaining deep-dive screens.
+* Improvement to UI: The default generic error page has been replaced with a product branded Error page.
+* Improvement to UI: Tile displays new PCF Healthwatch logo when viewing in OpsMan UI.
+* Improvement to UI: Updated healthcheck text labeling in tile config.
+* Improvement to UI: PCF Healthwatch UI favicon updated.
+* Prior Known Issue Fixed: The appearance of the Scalable Syslog Performance panel on the Logging Performance deep-dive page is now dynamic, appearing only if the Scalable Syslog feature is being used in the foundation.
+    * If Drain Binding Count is &ge; 1 within the 24hr retention period, the panel displays.
+    * If Drain Binding Count is &equiv; 0 within the 24hr retention period, the panel is not rendered.
+* Prior Known Issue Fixed: The slight naming variation in 5 metrics from published [PCF Healthwatch Metrics](metrics.html) has been corrected.
+
+### Known issues
+
+* If an earlier alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
+* Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
+* The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
+* The following dashboards are not yet completed as of this Alpha 6 version:
+    * Job Health and Job Vitals
+* BOSH deployments are not yet reflected on any deep-dive screens.
+* Contextual help content is not yet present.
+
+
 ##<a id='v1.0.0-alpha.5'></a>v1.0.0-alpha.5
 **Release Date: August 8, 2017**
 
