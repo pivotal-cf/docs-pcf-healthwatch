@@ -94,7 +94,10 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 		chmod 750 /var/vcap/sys/log/healthwatch/
 	</pre>
 1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` file with your MySQL IP and credentials.
-1. Verify that `healthwatch-bosh-plugin.json` is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
+1. Verify that the json plugin is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
+	<pre class="terminal">
+		{"name":"json","events":["alert","heartbeat"],"options":{}}
+	</pre>
 1. Run `monit restart health_monitor` and verify that logs are created in `/var/vcap/sys/log/healthwatch/`.
 
 ##<a id='uaa-authorities'></a> Configure UAA Authorities
