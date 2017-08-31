@@ -123,11 +123,11 @@ echo $APP_URL
 
 uaac target $UAA_URL --skip-ssl-validation
 uaac token client get $UAA_ADMIN_USERNAME -s $UAA_ADMIN_PASSWORD
-uaac group add platform_monitoring.read || true
+uaac group add healthwatch.read || true
 
 uaac client add $NEW_CLIENT \
    --authorities "uaa.resource" \
-   --scope "platform_monitoring.read" \
+   --scope "healthwatch.read" \
    --authorized_grant_types "authorization_code,refresh_token" \
    -s $NEW_CLIENT_SECRET \
    --redirect_uri $APP_URL \
@@ -135,7 +135,7 @@ uaac client add $NEW_CLIENT \
    --refresh_token_validity 2628000 \
    --autoapprove true
 
-uaac member add platform_monitoring.read $UAA_USER
+uaac member add healthwatch.read $UAA_USER
 ```
 See the following example:
 
