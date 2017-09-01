@@ -22,37 +22,38 @@ Before deploying PCF Healthwatch, ensure that you have installed:
 1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
 
-##<a id='configure'></a> Configure the PCF Healthwatch BOSH Director Health Check
+##<a id='configure'></a> Configure BOSH Director Health Check in PCF Healthwatch 
 
-To start using PCF Healthwatch, add a service network to the Ops Manager Director tile and the PCF Healthwatch tile.  This is the subnet on which the PCF Healthwatch Tile will run the BOSH health checks.
-This needs to be a Service Network so that Ops Manager will not attempt to use the same IP address as the BOSH Health Check VM.
+To start using PCF Healthwatch, you need to add a service network to the Ops Manager Director and PCF Healthwatch tiles. This is the subnet on which PCF Healthwatch runs BOSH health checks.
+
+<p class="note"><strong>Note</strong>: Creating a service network ensures that Ops Manager will not attempt to use the same IP address as the BOSH Health Check VM.</p>
 
 ###<a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
 
 <p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, it does not need to be repeated.</p>
 
-To configure Ops Manager Director:
+To configure Ops Manager Director, perform the following steps:
 
 1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
 1. Navigate to **Create Networks** and click **Add Network**.
 1. In the **Name** field, enter `bosh-health-check`.
 1. Select the **Service Network** checkbox.
-1. Enter the network details for your Service Network in the rest of the fields.
+1. Enter the network details for your Service Network.
 1. Click **Save**.
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
 
-###<a id='ops-man'></a> Step 3. Configure the PCF Healthwatch Tile
+###<a id='ops-man'></a> Step 2. Configure the PCF Healthwatch Tile
 
-To configure PCF Healthwatch:
+To configure PCF Healthwatch, perform the following steps:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
 1. Navigate to **Health Check** and do the following:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.
-	1. Enter `bosh-health-check` in **BOSH Healthcheck Service Network**.
-	1. Enter an availability zone from your Service Network in **BOSH Healthcheck Availability Zone**.
-	1. Enter a VM type in **BOSH Healthcheck VM Type**.
+	1. In **BOSH Healthcheck Service Network**, enter `bosh-health-check`.
+	1. In **BOSH Healthcheck Availability Zone**, enter an availability zone from your Service Network.
+	1. In **BOSH Healthcheck VM Type**, enter a VM type.
 		<p class="note"><strong>Note</strong>: You can find the availability zone and VM type values by submitting the <code>YOUR-OPSMAN-URL/api/v0/deployed/cloud_config</code> Ops Manager API request.</p>
 	1. Click **Save**.
 
