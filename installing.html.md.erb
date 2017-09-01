@@ -69,35 +69,33 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 
 
 1. Copy `healthwatch-bosh-plugin`, `run.sh`, and `healthwatch-bosh-plugin.json` to the BOSH Director.
-1. Sudo into the bosh director
-1. Create the following directories if they do not exist: 
-	/var/vcap/packages/healthwatch/
-	/var/vcap/jobs/healthwatch/bin/bosh-monitor/
-	/var/vcap/jobs/healthwatch/config/
-	<pre class="terminal">	
-		mkdir -p /var/vcap/packages/healthwatch/
-		mkdir -p /var/vcap/jobs/healthwatch/bin/bosh-monitor/
-		mkdir -p /var/vcap/jobs/healthwatch/config/
-		mkdir -p /var/vcap/sys/log/healthwatch/
+1. Start a `sudo` session in the BOSH Director.
+1. Create the following directories if they do not exist:
+
+	<pre class="terminal">
+	mkdir -p /var/vcap/packages/healthwatch/
+	mkdir -p /var/vcap/jobs/healthwatch/bin/bosh-monitor/
+	mkdir -p /var/vcap/jobs/healthwatch/config/
+	mkdir -p /var/vcap/sys/log/healthwatch/
 	</pre>
 1. Move the copied files to the following directories:
-	<pre class="terminal">	
-		mv /tmp/healthwatch-bosh-plugin /var/vcap/packages/healthwatch/
-		mv /tmp/run.sh /var/vcap/jobs/healthwatch/bin/bosh-monitor/
-		mv /tmp/healthwatch-bosh-plugin.json /var/vcap/jobs/healthwatch/config/
+	<pre class="terminal">
+	mv /tmp/healthwatch-bosh-plugin /var/vcap/packages/healthwatch/
+	mv /tmp/run.sh /var/vcap/jobs/healthwatch/bin/bosh-monitor/
+	mv /tmp/healthwatch-bosh-plugin.json /var/vcap/jobs/healthwatch/config/
 	</pre>
 1. Assign the following permissions:
 	<pre class="terminal">
-		chown vcap:vcap /var/vcap/sys/log/healthwatch/
-		chmod 755 /var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh
-		chmod 755 /var/vcap/packages/healthwatch/healthwatch-bosh-plugin
-		chmod 644 /var/vcap/jobs/healthwatch/config/healthwatch.json
-		chmod 750 /var/vcap/sys/log/healthwatch/
+	chown vcap:vcap /var/vcap/sys/log/healthwatch/
+	chmod 755 /var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh
+	chmod 755 /var/vcap/packages/healthwatch/healthwatch-bosh-plugin
+	chmod 644 /var/vcap/jobs/healthwatch/config/healthwatch.json
+	chmod 750 /var/vcap/sys/log/healthwatch/
 	</pre>
 1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` file with your MySQL IP and credentials.
-1. Verify that the json plugin is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
-	<pre class="terminal">
-		{"name":"json","events":["alert","heartbeat"],"options":{}}
+1. Verify that the JSON plugin is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
+	<pre>
+	{"name":"json","events":["alert","heartbeat"],"options":{}}
 	</pre>
 1. Run `monit restart health_monitor` and verify that logs are created in `/var/vcap/sys/log/healthwatch/`.
 
