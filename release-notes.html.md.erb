@@ -47,6 +47,7 @@ This dashboard is available through the Capacity panel on the main PCF Healthwat
 
 ### Release Notes
 
+* BUG IDENTIFIED: The BOSH Health Check test will continue to fail in this version due to a malformed URL. This will be resolved in the next release.
 * PCF Healthwatch now forwards its product-generated [metrics](metrics.html) into the Firehose, allowing other existing Firehose consumers to access these operationally useful data points.
 * The URL for the Dashboard UI was updated to `healthwatch.YOUR-SYSTEM-DOMAIN`.
 * The BOSH Director Health Check dashboard is complete and now offers up to 24 hours of test results for the [BOSH Director](metrics.html#bosh-director) continuous validation test.
