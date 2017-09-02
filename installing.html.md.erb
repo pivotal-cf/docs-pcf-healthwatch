@@ -69,8 +69,8 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 
 
 1. Copy `healthwatch-bosh-plugin`, `run.sh`, and `healthwatch-bosh-plugin.json` to the BOSH Director.
-1. Start a `sudo` session in the BOSH Director.
-1. Create the following directories if they do not exist:
+1. Run `sudo` in the BOSH Director.
+1. Create the following directories:
 
 	<pre class="terminal">
 	mkdir -p /var/vcap/packages/healthwatch/
@@ -78,7 +78,7 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 	mkdir -p /var/vcap/jobs/healthwatch/config/
 	mkdir -p /var/vcap/sys/log/healthwatch/
 	</pre>
-1. Move the copied files to the following directories:
+1. Move the copied files as follows:
 	<pre class="terminal">
 	mv /tmp/healthwatch-bosh-plugin /var/vcap/packages/healthwatch/
 	mv /tmp/run.sh /var/vcap/jobs/healthwatch/bin/bosh-monitor/
