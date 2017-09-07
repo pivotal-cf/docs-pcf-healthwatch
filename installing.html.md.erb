@@ -88,10 +88,10 @@ To configure the BOSH Director, follow the instructions below. The referenced pl
 	chown vcap:vcap /var/vcap/sys/log/healthwatch/
 	chmod 755 /var/vcap/jobs/healthwatch/bin/bosh-monitor/run.sh
 	chmod 755 /var/vcap/packages/healthwatch/healthwatch-bosh-plugin
-	chmod 644 /var/vcap/jobs/healthwatch/config/healthwatch.json
+	chmod 644 /var/vcap/jobs/healthwatch/config/healthwatch-bosh-plugin.json
 	chmod 750 /var/vcap/sys/log/healthwatch/
 	</pre>
-1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch.json` file with your MySQL IP and credentials.
+1. Edit and update the `/var/vcap/jobs/healthwatch/config/healthwatch-bosh-plugin.json` file with your MySQL IP and credentials.
 1. Verify that the JSON plugin is enabled in `/var/vcap/jobs/health_monitor/config/health_monitor.yml`.
 	<pre>
 	{"name":"json","events":["alert","heartbeat"],"options":{}}
