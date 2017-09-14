@@ -1,9 +1,10 @@
 ---
 breadcrumb: PCF Healthwatch Documentation
-title: Resources
+title: PCF Healthwatch Resources
 owner: PCF Healthwatch
 ---
 
+##<a id="requirements"></a> Resource Requirements
 Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Healthwatch tile:
 
 <p class="note"><strong>Note</strong>: The actual default values you will see in your PCF Healthwatch tile will depend on the available resources for your PCF deployment.</p>
@@ -54,3 +55,8 @@ Review the resource configurations. By default, the settings match the instance 
   </tr>
   </tbody>
 </table>
+
+##<a id="guidelines"></a> Guidelines
+
+* The **MySQL Proxy** job must be left scaled to 2. Please provide feedback at [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io) if this restriction causes issues with your usage of PCF Healthwatch.
+* For more information on scaling see [Scaling PCF Healthwatch Resources](using.html#scaling).
