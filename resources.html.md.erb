@@ -1,0 +1,62 @@
+---
+breadcrumb: PCF Healthwatch Documentation
+title: PCF Healthwatch Resources
+owner: PCF Healthwatch
+---
+
+##<a id="requirements"></a> Resource Requirements
+Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Healthwatch tile:
+
+<p class="note"><strong>Note</strong>: The actual default values you will see in your PCF Healthwatch tile will depend on the available resources for your PCF deployment.</p>
+
+<table border="1" class="nice">
+  <thead>
+  <tr>
+    <th>Resource</th>
+    <th>Instances</th>
+    <th>CPU</th>
+    <th>RAM</th>
+    <th>Ephemeral</th>
+    <th>Persistent</th>
+    <th>Static IP</th>
+    <th>Dynamic IP</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Healthwatch Forwarder</td>
+    <td>1 (not configurable)</td>
+    <td>4</td>
+    <td>16&nbsp;GB</td>
+    <td>32&nbsp;GB</td>
+    <td>100&nbsp;GB</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>MySQL Server</td>
+    <td>3</td>
+    <td>4</td>
+    <td>16&nbsp;GB</td>
+    <td>32&nbsp;GB</td>
+    <td>100&nbsp;GB</td>
+    <td>3</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>MySQL Proxy</td>
+    <td>2</td>
+    <td>2</td>
+    <td>4&nbsp;GB</td>
+    <td>32&nbsp;GB</td>
+    <td><em>n/a</em></td>
+    <td>2</td>
+    <td>0</td>
+  </tr>
+  </tbody>
+</table>
+
+##<a id="guidelines"></a> Guidelines
+
+* The **MySQL Proxy** job must be left scaled to 2. Please provide feedback at [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io) if this restriction causes issues with your usage of PCF Healthwatch.
+* For more information on scaling see [Scaling PCF Healthwatch Resources](using.html#scaling).

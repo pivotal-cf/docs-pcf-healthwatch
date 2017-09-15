@@ -37,11 +37,10 @@ To configure Ops Manager Director, perform the following steps:
 1. Navigate to **Create Networks** and click **Add Network**.
 1. In the **Name** field, enter `bosh-health-check`.
 1. Select the **Service Network** checkbox.
-1. Enter the network details for your Service Network.
+1. Enter the network details for your Service Network. The Bosh Heathcheck service only requires a single unreserved IP.
 1. Click **Save**.  
 1. You do not need to click **Apply Changes** yet.  You can install the HealthWatch tile along with the director changes.
-
-
+              
 ###<a id='ops-man'></a> Step 2. Configure the PCF Healthwatch Tile
 
 To configure PCF Healthwatch, perform the following steps:
