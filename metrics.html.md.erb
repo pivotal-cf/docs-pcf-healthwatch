@@ -554,7 +554,7 @@ The Router metrics are used to monitor the health and performance of the Goroute
 <tr>
   <td>Router File Descriptors</td>
   <td><code>gorouter.file_descriptors</code></td>
-  <td>The number of file descriptors currently used by the GoRouter job. This metric is only relevant to PCF v1.12, and does not appear in PCF Healthwatch if running on PCF v1.11.</td>
+  <td>The number of file descriptors currently used by the Gorouter job<sup>&#42;</sup></td>
 </tr>  
 <tr>
   <td>Time since last route registered</td>
@@ -562,3 +562,5 @@ The Router metrics are used to monitor the health and performance of the Goroute
   <td>Time in ms since the last route register was received</td>
 </tr>
 </table>
+
+<sup>&#42;</sup> This metric is relevant to PCF v1.12 and does not appear in PCF Healthwatch if it is running on PCF v1.11.
