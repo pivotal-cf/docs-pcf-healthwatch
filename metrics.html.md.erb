@@ -153,7 +153,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -170,7 +170,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -187,7 +187,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -208,7 +208,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -225,7 +225,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -242,7 +242,7 @@ This derived is recommended for automating and monitoring platform scaling.
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -261,7 +261,7 @@ Monitoring BOSH deployment occurrence adds context to related data, such as VM (
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Frequency</th>
   <th>Description</th>
@@ -338,7 +338,7 @@ The Capacity metrics are used to monitor the amount of memory, disk, and contain
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -380,7 +380,7 @@ The Application Instances metrics are used to monitor the health of application 
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -427,7 +427,7 @@ The Diego health and performance metrics are used to monitor core Diego function
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -466,15 +466,15 @@ The Diego health and performance metrics are used to monitor core Diego function
   <td><code>locket.ActiveLocks</code></td>
   <td>Total count of how many locks the system components are holding</td>
 </tr>
+  <tr>
+  <td>Diego Cell health check</td>
+  <td><code>rep.UnhealthyCell</code></td>
+  <td><code>0</code> = healthy Cell or <code>1</code> = unhealthy Cell<sup>&#135;</sup></td>
+</tr>
 <tr>
   <td>Diego and Cloud Controller synched check</td>
   <td><code>bbs.Domain.cf-apps</code></td>
   <td>Indicates whether the <code>cf-apps</code> domain is up-to-date<sup>&#8224;</sup></td>
-</tr>
-<tr>
-  <td>Diego Cell health check</td>
-  <td><code>rep.UnhealthyCell</code></td>
-  <td><code>0</code> = healthy Cell or <code>1</code> = unhealthy Cell<sup>&#135;</sup></td>
 </tr>
 </table>
 
@@ -490,18 +490,18 @@ The Loggregator Firehose and Scalable Syslog metrics are used to monitor PCF log
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
 <tr>
   <td>Firehose throughput</td>
-  <td><code>DopplerServer.listeners.totalReceivedMessageCount</code></td>
+  <td><code>DopplerServer.listeners.totalReceivedMessageCount</code> (+ <code>loggregator.doppler.ingress</code> in PCF v1.12)</td>
   <td>Total number of messages received across all Doppler listeners</td>
 </tr>
 <tr>
   <td>Firehose dropped messages</td>
-  <td><code>DopplerServer.doppler.shedEnvelopes</code></td>
+  <td><code>DopplerServer.doppler.shedEnvelopes</code> (+ <code>loggregator.doppler.dropped</code> in PCF v1.12)</td>
   <td>Total number of messages intentionally dropped by Doppler due to back pressure</td>
 </tr>
 <tr>
@@ -517,7 +517,7 @@ The Router metrics are used to monitor the health and performance of the Goroute
 
 <table class="nice">
 <tr>
-  <th>Test</th>
+  <th>Reports</th>
   <th>Metric</th>
   <th>Description</th>
 </tr>
@@ -551,6 +551,11 @@ The Router metrics are used to monitor the health and performance of the Goroute
   <td><code>gorouter.total_routes</code></td>
   <td>Current total number of routes registered with the GoRouter</td>
 </tr>
+<tr>
+  <td>Router File Descriptors</td>
+  <td><code>gorouter.file_descriptors</code></td>
+  <td>The number of file descriptors currently used by the GoRouter job. This metric is only relevant to PCF v1.12, and does not appear in PCF Healthwatch if running on PCF v1.11.</td>
+</tr>  
 <tr>
   <td>Time since last route registered</td>
   <td><code>gorouter.ms_since_last_registry_update</code></td>
