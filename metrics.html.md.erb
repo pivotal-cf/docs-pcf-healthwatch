@@ -469,20 +469,20 @@ The Diego health and performance metrics are used to monitor core Diego function
   <tr>
   <td>Diego Cell health check</td>
   <td><code>rep.UnhealthyCell</code></td>
-  <td><code>0</code> = healthy Cell or <code>1</code> = unhealthy Cell<sup>&#135;</sup></td>
+  <td><code>0</code> = healthy Cell or <code>1</code> = unhealthy Cell<sup>&#8224;</sup></td>
 </tr>
 <tr>
   <td>Diego and Cloud Controller synched check</td>
   <td><code>bbs.Domain.cf-apps</code></td>
-  <td>Indicates whether the <code>cf-apps</code> domain is up-to-date<sup>&#8224;</sup></td>
+  <td>Indicates whether the <code>cf-apps</code> domain is up-to-date<sup>&#135;</sup></td>
 </tr>
 </table>
 
 <sup>&#42;</sup> Presences are defined as the registration records that the Cells maintain to advertise themselves to the platform.
 
-<sup>&#8224;</sup> This means that CF app requests from Cloud Controller are synchronized to bbs.LRPsDesired (Diego-desired AIs) for execution.
+<sup>&#8224;</sup> The Diego cell periodically checks its health against the Garden backend.
 
-<sup>&#135;</sup> The Diego cell periodically checks its health against the Garden backend.
+<sup>&#135;</sup> This means that Cloud Foundry app requests from Cloud Controller are synchronized to `bbs.LRPsDesired` (Diego-desired AIs) for execution.
 
 ###<a id='logging'></a>Logging Performance
 
