@@ -64,19 +64,3 @@ PCF Healthwatch forwards the super [metrics](metrics.html) it creates into the F
 <pre class="terminal">
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"p-healthwatch-e7f044a5cf4f0a807750" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
-
-##<a id='scaling'></a>Scaling PCF Healthwatch Resources
-
-Use the following guidelines to scale PCF Healthwatch resources:
-
-* **BOSH Director Health Check** (the `bosh-health-check` app).
-  Only 1 BOSH Director Health Check can run at a time. This should be considered a hard limit.
-* **BOSH Deployment Task Check** (the `bosh-task-check` app).
-  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
-* **CLI Command Health Check** (the `cf-health-check` app).
-  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
-* **Apps Manager Uptime and Response Check** (the `appsmanager-health-check` app).
-  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
-* **Ops Manager Uptime Check** (the `opsmanager-health-check` app).
-  By default, this is scaled to 2. It is recommended not to exceed 3 runners at once.
-* **MySQL Proxy** (in the **Resource Config** section of the PCF Healthwatch tile). The MySQL Proxy job must be left scaled to 2. Please provide feedback at [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io) if this restriction causes issues with your usage of PCF Healthwatch.
