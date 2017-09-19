@@ -3,11 +3,13 @@ title: PCF Healthwatch Resources
 owner: PCF Healthwatch
 ---
 
-##<a id="requirements"></a> Resource Requirements
+This topic describes resource requirements for the Pivotal Cloud Foundry (PCF) Healthwatch tile.
 
-Review the resource configurations. By default, the settings match the instance types that are best suited for each job. For reference, the following table shows the default resource and IP requirements for installing the PCF Healthwatch tile:
+##<a id="requirements"></a>Tile Resources
 
-<p class="note"><strong>Note</strong>: The actual default values you will see in your PCF Healthwatch tile will depend on the available resources for your PCF deployment.</p>
+By default, the PCF Healthwatch tile is configured to use the instance type that is best suited for each job. The following table provides the default resource and IP requirements for installing the PCF Healthwatch tile.
+
+<p class="note"><strong>Note</strong>: The actual default values that you see in your PCF Healthwatch tile depend on the available resources for your PCF deployment.</p>
 
 <table border="1" class="nice">
   <thead>
@@ -16,8 +18,8 @@ Review the resource configurations. By default, the settings match the instance 
     <th>Instances</th>
     <th>CPU</th>
     <th>RAM</th>
-    <th>Ephemeral</th>
-    <th>Persistent</th>
+    <th>Ephemeral Disk</th>
+    <th>Persistent Disk</th>
     <th>Static IP</th>
     <th>Dynamic IP</th>
   </tr>
@@ -49,14 +51,13 @@ Review the resource configurations. By default, the settings match the instance 
     <td>2</td>
     <td>4&nbsp;GB</td>
     <td>32&nbsp;GB</td>
-    <td><em>n/a</em></td>
+    <td>N/A</td>
     <td>2</td>
     <td>0</td>
   </tr>
   </tbody>
 </table>
 
-##<a id="guidelines"></a> Guidelines
+##<a id="guidelines"></a> Scaling Guidelines
 
-* The **MySQL Proxy** job must be left scaled to 2. Please provide feedback at [pcf-healthwatch-feedback@pivotal.io](mailto:pcf-healthwatch-feedback@pivotal.io) if this restriction causes issues with your usage of PCF Healthwatch.
-* For more information on scaling see [Scaling PCF Healthwatch Resources](using.html#scaling).
+The **MySQL Proxy** job must be scaled to 2. For more information on scaling PCF Healthwatch, see [Scaling PCF Healthwatch Resources](using.html#scaling).
