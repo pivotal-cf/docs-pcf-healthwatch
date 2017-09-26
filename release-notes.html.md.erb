@@ -20,6 +20,28 @@ The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is int
 Do not use this product in a PCF production environment.
 </p>
 
+##<a id='v1.0.6'></a>v1.0.6
+**Release Date: September 26, 2017**
+
+### Release Notes
+* The tile now includes Smoke Tests which are executed via errand upon installation/upgrade. These smoke tests validate the following:
+    * UI is running
+    * Platform metrics are being ingested
+    * BOSH VM metrics are being ingested. **Please Note**: Because ingestion of BOSH metrics in v1.0 currently requires additional configuration, this portion of the tests will not hard fail on a negative result. Rather, a soft failure will allow the smoke tests to pass, but will write out a message directing the operator to documentation on how to configure these metrics.
+* Corrects a buildpack dependency that could cause an installation issue on an air-gapped environment 
+* Improvements to the UI:
+    * On Job Health and Vitals screen, the UI now intelligently handles jobs that do not use Persistent Disk and therefore do not report this metric. If these jobs do not report a Persistent Disk measure, the summary graph will display `N/A` and the related line chart will not appear. If a given job does report Persistent Disk, both the summary graph and the related line chart will reflected the reported value.
+    * A bad url entry in the UI will now redirect to the generic product error page
+    * Contextual Help interaction and content was added to the CLI Command Health secondary screen 
+    * Contextual Help interaction and content was added to the BOSH Director Health secondary screen 
+    * Contextual Help interaction and content was added to the OpsMan Health secondary screen 
+    * Contextual Help interaction and content was added to the Canary App Health secondary screen 
+
+### Known issues
+* Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
+* The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
+* The [Metron Forwarder](architecture.html) is not currently high availability (HA).
+
 ##<a id='v1.0.5'></a>v1.0.5
 **Release Date: September 14, 2017**
 
