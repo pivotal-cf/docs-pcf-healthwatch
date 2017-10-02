@@ -3,14 +3,7 @@ title: Installing and Configuring PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
-This topic describes how to install and configure Pivotal Cloud Foundry (PCF) Healthwatch.
-
-##<a id='prereqs'></a> Prerequisites
-
-Before deploying PCF Healthwatch, ensure that you have:
-
-* PCF Ops Manager v1.11.0 or later, or PCF Ops Manager v1.12.0 or later
-* PCF Elastic Runtime v1.11.9 or later, or PCF Elastic Runtime v1.12.0 or later
+This topic describes how to install and configure Pivotal Cloud Foundry (PCF) Healthwatch. For a list of compatible Ops Manager and Elastic Runtime versions, see [Product Snapshot](index.html#snapshot).
 
 ##<a id='install'></a> Install PCF Healthwatch
 
@@ -29,15 +22,15 @@ To start using PCF Healthwatch, you need to add a service network to the Ops Man
 
 ###<a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
 
-<p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, it does not need to be repeated.</p>
+<p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, you do not need to repeat it.</p>
 
-To configure Ops Manager Director, perform the following steps:
+To configure the Ops Manager Director, perform the following steps:
 
 1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
 1. Navigate to **Create Networks** and click **Add Network**.
 1. In the **Name** field, enter `bosh-health-check`.
 1. Select the **Service Network** checkbox.
-1. Enter the network details for your Service Network. The BOSH Heathcheck service requires a single unreserved IP.
+1. Enter the network details for your **Service Network**. The BOSH Heathcheck service requires a single unreserved IP.
 1. Click **Save**.
               
 ###<a id='healthwatch-tile'></a> Step 2. Configure the PCF Healthwatch Tile
@@ -50,13 +43,13 @@ To configure PCF Healthwatch, perform the following steps:
     1. Select the AZs for placing singleton jobs.
     1. Select the AZs for balancing other jobs.
     1. Select **Network** for installing PCF Healthwatch.
-    1. Select **Service Network** for running the BOSH Healthcheck VM.
+    1. Select **Service Network** for running the BOSH Health Check VM.
 
 1. Navigate to **Health Check** and do the following:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.
-	1. In **BOSH Healthcheck Availability Zone**, select the availability zone for the BOSH Healthcheck VM.
-	1. In **BOSH Healthcheck VM Type**, select the VM type for the BOSH Healthcheck VM.
+	1. In **BOSH Health Check Availability Zone**, select an availability zone for the BOSH Health Check VM.
+	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM.
 	1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
