@@ -34,7 +34,7 @@ Do not use this product in a PCF production environment.
     * A bad url entry in the UI will now redirect to the generic product error page
     * Contextual Help interaction and content was added to the CLI Command Health secondary screen 
     * Contextual Help interaction and content was added to the BOSH Director Health secondary screen 
-    * Contextual Help interaction and content was added to the OpsMan Health secondary screen 
+    * Contextual Help interaction and content was added to the Ops Manager Health secondary screen 
     * Contextual Help interaction and content was added to the Canary App Health secondary screen 
 
 ### Known issues
@@ -113,29 +113,22 @@ Do not use this product in a PCF production environment.
 
 ### Release Notes
 
-* The OpsMan Health Check dashboard is complete and now offers up to 24 hours of test results for the [OpsMan](metrics.html#opsman) continuous validation test.
+* The Ops Manager Health Check dashboard is complete and now offers up to 24 hours of test results for the [Ops Manager](metrics.html#opsman) continuous validation test.
 * The App Canary Health Check dashboard is complete and now offers up to 24 hours of test results for the [App Canary](metrics.html#appsman) continuous validation test.
-* The Diego Capacity dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) metrics for monitoring PCF capacity.
+* The Diego Capacity dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) metrics for monitoring PCF capacity.
 This dashboard is available through the Capacity panel on the main PCF Healthwatch dashboard.
-* The Diego App Instances dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) metrics for monitoring PCF App Instances. This dashboard is available through the App Instances panel on the main PCF Healthwatch dashboard.
-* The Diego Performance dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) metrics for monitoring Diego health and performance. This dashboard is available through a tab selection from the Diego Capacity and Diego App Instances dashboards.
-* The Job Health and Vitals dashboard has been started, with some features now available in Alpha 6.
-    * All jobs emitting monitoring metrics during the time interval display are listed on the screen. Like jobs are rolled into like jobs. For example, Diego Cell may have 30 instances, but Cloud Controller and Cloud Controller Worker jobs would be listed separately.
-    * The Job Health screen displays a red/green (0/1) visual representation at the job grouping level of the `system.healthy` BOSH health checks.
-* The CLI Command Health Smoke Test feature is improved. Now when the `cf-health-check` app fails, a `-1` (did not run) value is recorded for the `cf push` test. This helps operators to determine when the test itself fails as opposed to the CF API failure (a `0` data value). 
-* Canary App Response Time values are now stored in milliseconds (ms) instead of nanoseconds (ns). This format improves transmission readability through the Firehose when the metric is forwarded.
+* The Diego App Instances dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) metrics for monitoring PCF app instances. This dashboard is available through the App Instances panel on the main PCF Healthwatch dashboard.
+* The Diego Performance dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) metrics for monitoring Diego health and performance. This dashboard is available through a tab selection from the Diego Capacity and Diego App Instances dashboards.
+* The Job Health and Vitals dashboard has been started.
+* The CLI Command Health Smoke Test feature is improved. When the `cf-health-check` app fails, a `-1` (did not run) value is recorded for the `cf push` test. This helps operators to determine when the test itself fails.
+* Canary App Response Time values are now stored in milliseconds (ms) instead of nanoseconds (ns).
 * Improvements to the UI: 
     * On deep-dive pages, the `Last Update` timestamp shown in local time now also includes a UTC reference.
-    * The detailed results shown on the CLI Smoke Test and BOSH Director deep-dive pages are updated to display the results sorted in descending order. This model continues on the remaining deep-dive screens.
-    * The default generic error page has been replaced with a product-branded Error page.
-    * The tile displays new PCF Healthwatch logo in the Ops Manager UI.
-    * Healthcheck text labeling in the tile configuration is updated.
-    * The PCF Healthwatch UI favicon is updated.
+    * The detailed results shown on the CLI Smoke Test and BOSH Director deep-dive pages are updated to display the results sorted in descending order.
 * Prior known issues fixed: 
-    * The Scalable Syslog Performance panel on the Logging Performance deep-dive page is now dynamic, appearing only if the Scalable Syslog feature is being used in the foundation.
+    * The Scalable Syslog Performance panel on the Logging Performance deep-dive page is now dynamic and appears only if the Scalable Syslog feature is being used in the foundation.
         * If Drain Binding Count is &ge; 1 within the 24-hour retention period, the panel is displayed.
         * If Drain Binding Count is &equiv; 0 within the 24-hour retention period, the panel is not rendered.
-    * The slight naming variation in 5 metrics from published [PCF Healthwatch Metrics](metrics.html) has been corrected.
 
 ### Known issues
 
@@ -178,7 +171,7 @@ This dashboard is available through the Capacity panel on the main PCF Healthwat
     * Diego: Capacity 
     * Diego: App Instances
     * Diego: Diego Performance 
-    * OpsMan Health Check
+    * Ops Manager Health Check
     * App Canary Health Check
     * Job Health and Job Vitals
 * BOSH deployments are not yet reflected on any deep-dive screens.
