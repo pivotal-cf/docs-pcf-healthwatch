@@ -84,11 +84,11 @@ Do not use this product in a PCF production environment.
 
 * The `healthwatch.read` scope has been added to the UAA Admin user by default in ERT v1.11.9 and later. As a result of this change, the minimum compatible Elastic Runtime version has been raised to v1.11.9 or later.
 * Updates for adjusted PCF v1.11 monitoring recommendations:
-    * The `route_emitter.RouteEmitterSyncDuration` metric should be monitored per job instead of globally as in PCF v1.10 and prior. Healthwatch is updated to now render the chart as a multi-line graph to highlight any problematic job(s). 
+    * The `route_emitter.RouteEmitterSyncDuration` metric should be monitored per job instead of globally as in PCF v1.10 and prior. PCF Healthwatch is updated to render the chart as a multi-line graph to highlight any problematic job(s). 
     * The `locket.ActiveLocks` metric threshold should be &ne; 4 instead of > 4. The visual alert banding was updated to bring attention to any measurement less than or greater than 4.
 * The Job Health and Vitals dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) metrics for monitoring the underlying VM health.
     * The Job Health screen now defaults to displaying jobs with errors. This filter feature can be toggled off to display the red and green health results of all jobs reporting in the deployment.
-    * Each job group displayed on the Job Health screen now includes a link to a deeper view of its health. This view includes the following:
+    * Each job group displayed on the Job Health screen now includes a link to a deeper health overview of that group. This overview includes the following:
         * A Metrics Summary, which is a scrollable and filterable data representation of all jobs in a group. For each job over the chosen time interval, the summary provides information about Count of Failed Health Checks, CPU, System Disk, Persistent Disk, and Ephemeral Disk.
         * A Health section with a representation of the health check at the individual job level. This display is driven by the filtered Metrics Summary. 
         * A Job Vitals section displaying the recommended Job Vitals metrics for each filtered job. This display is driven by the filtered Metrics Summary. 
