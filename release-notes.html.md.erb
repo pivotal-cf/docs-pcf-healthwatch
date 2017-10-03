@@ -84,24 +84,22 @@ Do not use this product in a PCF production environment.
 
 * The `healthwatch.read` scope has been added to the UAA Admin user by default in ERT v1.11.9 and later. As a result of this change, the minimum compatible Elastic Runtime version has been raised to v1.11.9 or later.
 * Updates for adjusted PCF v1.11 monitoring recommendations:
-    * There was a recent correction to the Diego recommendation for `route_emitter.RouteEmitterSyncDuration`. As of PCF v1.11, this metric should actually be monitored per job instead of globally as in PCF v1.10 and prior. Healthwatch is updated to now render the chart as a multi-line graph in order to highlight any problematic job(s). 
-    * There was a recent correction to the Diego recommendation for `locket.ActiveLocks`. As of PCF v1.11, this metric threshold should actually be &ne; 4 instead of > 4. The visual alert banding was updated to bring attention to any measurement less than or greater than 4.
-* The Job Health and Vitals dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) metrics for monitoring the underlying VM health.
-    * On load, the Job Health screen now defaults to displaying jobs with errors. This is to help highlight problem areas in deployments with many possible jobs to display. This default filter feature can be toggled off in order to display the red/green health results of all jobs reporting in the deployment.
-    * Monitored groups of Jobs displayed on this Job Health screen are now clickable links that lead to a deeper view of the health of that job group.
-    * The deeper dive into job group health now includes a Metrics Summary. This summary is a scrollable, and filterable, data representation of all of the jobs for that group, along with the following info for each job over the chosen time interval: Count of Failed Health checks, CPU, System Disk, Persistent Disk, Ephemeral Disk.
-    * The deeper dive into job group health now includes a Health section with a representation of the health check at the individual job level. This display is driven by the filtered Metrics Summary. 
-    * The deeper dive into job group health now includes a Job Vitals section, displaying the recommended Job Vitals metrics for each filtered job. This display is driven by the filtered Metrics Summary. 
-* Contextual Help content has been added to all main dashboard panels, and some deep dive screens
-    * As a user hovers over any main dashboard panel, an info icon will appear on that given panel. Clicking on this info icon will open a new tabbed screen with helpful content relevant to the metrics displayed on that panel. The intention of this feature is to incorporate valuable [KPI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/kpi.html) and [KSI](https://docs.pivotal.io/pivotalcf/1-11/monitoring/key-cap-scaling.html) content into the product itself to speed information discovery.
-* Improvements to the UI: 
-    * The UI header for the product now says BETA in preparation for the transition to a wider BETA release.
+    * The `route_emitter.RouteEmitterSyncDuration` metric should be monitored per job instead of globally as in PCF v1.10 and prior. Healthwatch is updated to now render the chart as a multi-line graph to highlight any problematic job(s). 
+    * The `locket.ActiveLocks` metric threshold should be &ne; 4 instead of > 4. The visual alert banding was updated to bring attention to any measurement less than or greater than 4.
+* The Job Health and Vitals dashboard is complete and now offers up to 24 hours of the recommended [KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) metrics for monitoring the underlying VM health.
+    * The Job Health screen now defaults to displaying jobs with errors. This filter feature can be toggled off to display the red and green health results of all jobs reporting in the deployment.
+    * Each job group displayed on the Job Health screen now includes a link to a deeper view of its health. This view includes the following:
+        * A Metrics Summary, which is a scrollable and filterable data representation of all jobs in a group. For each job over the chosen time interval, the summary provides information about Count of Failed Health Checks, CPU, System Disk, Persistent Disk, and Ephemeral Disk.
+        * A Health section with a representation of the health check at the individual job level. This display is driven by the filtered Metrics Summary. 
+        * A Job Vitals section displaying the recommended Job Vitals metrics for each filtered job. This display is driven by the filtered Metrics Summary. 
+* Contextual Help content has been added to all main dashboard panels and some deep dive screens.
+    * When a user hovers over any main dashboard panel, an information icon appears on that given panel. Clicking on this icon opens a new tabbed screen with content relevant to the metrics displayed on the panel.
 * Prior known issues fixed:
-    * The bug identified in Alpha 6, a malformed URL in the BOSH Health Check, has been resolved. 
+    * The bug identified in Alpha 6, a malformed URL in the BOSH Health Check test, has been resolved. 
 
 ### Known issues
-* Bug identified: On the Job Health screen, the **Only Show Errors** toggle feature does not work as expected, which means that you cannot currently change the page to reflect all healthy and unhealthy jobs reporting. This bug will be fixed in the next release.
-* If an earlier alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
+* Bug identified: On the Job Health screen, the **Only Show Errors** toggle feature does not work as expected. This means that you cannot currently change the page to reflect all healthy and unhealthy jobs reporting. The bug will be fixed in the next release.
+* If an earlier alpha version of PCF Healthwatch was installed, you must delete it before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
 * The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
 * BOSH deployments are not yet reflected on any deep-dive screens.
