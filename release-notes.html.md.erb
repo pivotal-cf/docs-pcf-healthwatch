@@ -81,9 +81,8 @@ Do not use this product in a PCF production environment.
 **Release Date: September 7, 2017**
 
 ### Release Notes
-* New PCF Healthwatch user results in simplified installation instructions.
-    * The product specific `healthwatch.read` scope has been added to the UAA Admin user by default in ERT v1.11.9 and later. This allows the simplification of the tile installation by removing the former `Configure UAA Authorities` step.
-    * **NOTE:** The minimum Elastic Runtime version has been raised to v1.11.9 or later as a result of this change.
+
+* The `healthwatch.read` scope has been added to the UAA Admin user by default in ERT v1.11.9 and later. As a result of this change, the minimum compatible Elastic Runtime version has been raised to v1.11.9 or later.
 * Updates for adjusted PCF v1.11 monitoring recommendations:
     * There was a recent correction to the Diego recommendation for `route_emitter.RouteEmitterSyncDuration`. As of PCF v1.11, this metric should actually be monitored per job instead of globally as in PCF v1.10 and prior. Healthwatch is updated to now render the chart as a multi-line graph in order to highlight any problematic job(s). 
     * There was a recent correction to the Diego recommendation for `locket.ActiveLocks`. As of PCF v1.11, this metric threshold should actually be &ne; 4 instead of > 4. The visual alert banding was updated to bring attention to any measurement less than or greater than 4.
