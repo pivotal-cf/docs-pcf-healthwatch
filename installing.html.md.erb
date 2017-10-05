@@ -58,11 +58,15 @@ To configure PCF Healthwatch, perform the following steps:
 
 Forwarding BOSH health metrics to PCF Healthwatch currently requires manual configuration. You must have PCF Admin permissions to configure the BOSH Director.
 
-<p class="note"><strong>Note</strong>: The manual configuration is required for the alpha and beta releases of PCF Healthwatch.</p>
+To configure the BOSH Director, follow the instructions below.
 
-To configure the BOSH Director, follow the instructions below. The referenced plugins are available on [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
+<p class="note">
+<strong>Note</strong>:
+You must reinstall the BOSH Director Healthwatch plugin every time the BOSH Director is recreated.  
+The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
+</p>
 
-1. Copy `healthwatch-bosh-plugin`, `run.sh`, and `healthwatch-bosh-plugin.json` to the BOSH Director.
+1. Copy `healthwatch-bosh-plugin`, `run.sh`, and `healthwatch-bosh-plugin.json` to the BOSH Director. The referenced plugins are available on [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
 1. Run `sudo` in the BOSH Director.
 1. Create the following directories:
 
