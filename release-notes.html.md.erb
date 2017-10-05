@@ -20,6 +20,13 @@ The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is int
 Do not use this product in a PCF production environment.
 </p>
 
+<p class="note warning">
+<strong>KNOWN ISSUE: </strong>
+The BOSH Director Healthwatch plugin must be [reinstalled](installing.html#bosh-metrics) every time that the BOSH Director is recreated.  
+The BOSH Director is recreated when upgrading Ops Manager; as well as installing, upgrading and deleting data service tiles 
+like MySQL, RabbitMQ or Redis
+</p>
+
 ##<a id='v1.0.6'></a>v1.0.6
 **Release Date: September 26, 2017**
 
