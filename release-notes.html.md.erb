@@ -20,27 +20,23 @@ The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is int
 Do not use this product in a PCF production environment.
 </p>
 
-##<a id='v1.0.6'></a>v1.0.6
+##<a id='v1.0.6'></a>v1.0.6 (Beta)
 **Release Date: September 26, 2017**
 
 ### Release Notes
-* The tile now includes Smoke Tests which are executed via errand upon installation/upgrade. These smoke tests validate the following:
-    * UI is running
-    * Platform metrics are being ingested
-    * BOSH VM metrics are being ingested. **Please Note**: Because ingestion of BOSH metrics in v1.0 currently requires additional configuration, this portion of the tests will not hard fail on a negative result. Rather, a soft failure will allow the smoke tests to pass, but will write out a message directing the operator to documentation on how to configure these metrics.
-* Corrects a buildpack dependency that could cause an installation issue on an air-gapped environment 
+* The PCF Healthwatch tile now includes smoke tests, which are executed using an errand upon installation and upgrade. These smoke tests validate the following:
+    * UI is running.
+    * Platform metrics are being ingested.
+    * BOSH VM metrics are being ingested. **Note**: Because ingestion of BOSH metrics in v1.0 requires additional configuration, this portion of the tests does not result in a hard failure if the metrics are not being ingested. Instead, a soft failure allows the smoke tests to pass, but it writes out a message directing the operator to documentation on how to configure these metrics.
+* A buildpack dependency that could cause an installation issue in an air-gapped environment has been corrected.
 * Improvements to the UI:
-    * On Job Health and Vitals screen, the UI now intelligently handles jobs that do not use Persistent Disk and therefore do not report this metric. If these jobs do not report a Persistent Disk measure, the summary graph will display `N/A` and the related line chart will not appear. If a given job does report Persistent Disk, both the summary graph and the related line chart will reflected the reported value.
-    * A bad url entry in the UI will now redirect to the generic product error page
-    * Contextual Help interaction and content was added to the CLI Command Health secondary screen 
-    * Contextual Help interaction and content was added to the BOSH Director Health secondary screen 
-    * Contextual Help interaction and content was added to the Ops Manager Health secondary screen 
-    * Contextual Help interaction and content was added to the Canary App Health secondary screen 
+    * On the Job Health and Vitals screen, if jobs do not report a Persistent Disk measure, the summary graph displays `N/A` and the related line chart does not appear. If a given job reports Persistent Disk, both the summary graph and the related line chart reflect the reported value.
+    * Contextual Help interaction and content was added to the CLI Command Health, BOSH Director Health, Ops Manager Health, and Canary App Health secondary screens.
 
 ### Known issues
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
 * The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
-* The [Metron Forwarder](architecture.html) is not currently high availability (HA).
+* The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
 
 ##<a id='v1.0.5'></a>v1.0.5 (Beta)
 **Release Date: September 14, 2017**
@@ -52,7 +48,7 @@ Do not use this product in a PCF production environment.
     * As a user hovers over a given chart within a panel, a help `?` icon appears. Clicking on the help icon provides information about the metric(s) driving the chart.
 * Contextual Help panel content additions:
     * As a user hovers over a panel, an information icon appears on that given panel. Clicking on this icon opens a new tabbed screen with content relevant to the metrics displayed on the panel.
-* Improvements to the UI
+* Improvements to the UI.
 * Prior known issues fixed:
     * On the Job Health screen, the **Only Show Errors** toggle feature now works as expected.
 
