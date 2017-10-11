@@ -24,22 +24,21 @@ Do not use this product in a PCF production environment.
 **Release Date: October 10, 2017**
 
 ### Release Notes
-* Updates made to PCF Healthwatch in support of running it on PCF v1.12
-    * Logging Throughput, Dropped Messages, and Firehose Loss Rate updated to reflect correct metric math for PCF v1.12. The charts will still work appropriately on PCF v1.11. 
-    * Added recommended router metrics specific to PCF v1.12, `Router File Descriptors` and `Router Exhausted Connections`
-    * Router, Logging and Diego Performance contextual help updated to note where calculations differ between PCF v1.11 and PCF v1.12
+* Updates made to PCF Healthwatch to support PCF v1.12:
+    * Logging Throughput, Dropped Messages, and Firehose Loss Rate have been updated to reflect correct metric math for PCF v1.12. The charts still work appropriately on PCF v1.11. 
+    * `Router File Descriptors` and `Router Exhausted Connections` have been added as recommended Router metrics specific to PCF v1.12.
+    * Router, Logging, and Diego Performance contextual help has been updated to show where calculations differ between PCF v1.11 and PCF v1.12.
 * Improvements to the UI:
-    * On the main dashboard and all detail pages, any charts still loading data will now display a spinner until the requested chart data is successfully loaded
-    * If BOSH metrics have not yet been connected, the Job Health stoplight will now show 0% Healthy as Red
-    * Based on updated Router recommendations to monitor `gorouter.ms_since_last_registry_update` per router instance, the `Time Since Last Route Register Received` graph is now a per-instance multi-line graph
-* Added retry logic to the push apps errand. This errand will now try 3 times before failing.
-* On a failed BOSH Health Checker, PCF Healthwatch will now log out the BOSH CLI output in order to ease failure debugging
-* Property `requires_product_versions` now `>= 1.11`
-* Golang version now  v1.8.4
-* MySQL version now v36.6
-* MySQL release ensures superuser is `admin`; root user does not have admin access
-* Bug Fix: The VM_credentials property was previously being duplicated. This is now resolved
-* Bug Fix: Corrected naming mismatch in `run.sh` file. Corrected file is now associated with current and former releases on Pivotal Network
+    * If BOSH metrics have not yet been connected, the Job Health stoplight now shows 0% Healthy as Red.
+    * Based on updated Router recommendations to monitor `gorouter.ms_since_last_registry_update` per router instance, the `Time Since Last Route Register Received` graph is now a per-instance multi-line graph.
+* The push apps errand now tries to run 3 times before failing.
+* On a failed BOSH Health Checker, PCF Healthwatch now logs out the BOSH CLI output to ease debugging.
+* Property `requires_product_versions`: `>= 1.11`
+* Golang version: v1.8.4
+* MySQL version: v36.6
+* MySQL release ensures the superuser is `admin`. The root user does not have admin access.
+* Bug Fixed: The `VM_credentials` property was previously being duplicated. This is now resolved.
+* Bug Fixed: Corrected naming mismatch in the `run.sh` file. The corrected file is now associated with current and former releases on Pivotal Network
 
 ### Known issues
 * **Note**: You must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
