@@ -29,6 +29,7 @@ Do not use this product in a PCF production environment.
     * `Router File Descriptors` and `Router Exhausted Connections` have been added as recommended Router metrics specific to PCF v1.12.
     * Router, Logging, and Diego Performance contextual help has been updated to show where calculations differ between PCF v1.11 and PCF v1.12.
 * Improvements to the UI:
+    * On the main dashboard and all detail pages, any charts still loading data now display a spinner until the requested chart data is successfully loaded.
     * If BOSH metrics have not yet been connected, the Job Health stoplight now shows 0% Healthy as Red.
     * Based on updated Router recommendations to monitor `gorouter.ms_since_last_registry_update` per router instance, the `Time Since Last Route Register Received` graph is now a per-instance multi-line graph.
 * The push apps errand now tries to run 3 times before failing.
