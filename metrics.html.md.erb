@@ -555,7 +555,12 @@ The Router metrics are used to monitor the health and performance of the Goroute
   <td>Router File Descriptors</td>
   <td><code>gorouter.file_descriptors</code></td>
   <td>The number of file descriptors currently used by the Gorouter job<sup>&#42;</sup></td>
-</tr>  
+</tr> 
+  <tr>
+  <td>Router Exhausted Connections</td>
+  <td><code>gorouter.backend_exhausted_conns</code></td>
+  <td>The lifetime number of requests that have been rejected by the Gorouter VM due to the `Max Connections Per Backend` limit being reached across all tried backends<sup>&#42;</sup></td>
+</tr>
 <tr>
   <td>Time since last route registered</td>
   <td><code>gorouter.ms_since_last_registry_update</code></td>
