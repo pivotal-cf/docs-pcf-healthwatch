@@ -20,6 +20,49 @@ The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is int
 Do not use this product in a PCF production environment.
 </p>
 
+##<a id='v1.0.8'></a>v1.0.8 (Beta)
+**Release Date: October 26, 2017**
+
+### Release Notes
+* **Note**: The `healthwatch-bosh-plugin.json` has been updated. The new version is `1.0.0-beta.3`. Updating to the new `healthwatch-bosh-plugin.json` file ensures the default Log Level is set to `error`. This had previously been set to `debug` which could cause excessive log output. 
+* Updates the stemcell required to v3421 
+* **[Feature]** The CLI Command Health Smoke Test suite will now distinguish `cf login` success or failure as a distinct test event
+    * A new Healthwatch metric is available, [Can Login](metrics.html#cli) `healthwatch.health.check.cliCommand.login` (1 = pass, 0 = fail)
+    * The Healthwatch UI is updated to reflect the success or failure of the Login test portion of the larger test suite run
+* **[Feature]** PCF Healthwatch now ingests BOSH VM metrics outside of the core CF deployment
+    * Previously Healthwatch was limited to the core `cf` deployment for BOSH health metrics. This meant that if you had a tile installed, for example PCF JMX Bridge, that tile's VM could be unhealthy, but that was not surfacing to Healthwatch. While not yet explicitly monitoring other service tiles operational KPIs, surfacing the BOSH VM health metrics for these other deployments gives Operators better insight into the health of VMs that could potentially impact the larger foundation when unhealthy.
+* **[Bug Fix]** The [BOSH Deployment Occurring](metrics.html#bosh-deployment) metric was not properly distinguishing between active, queued and cancelling tasks. This is resolved to now only measure active deployments. 
+* **[Feature]** Eliminates usage of Ops Manager IP accessors in PCF Healthwatch. Now consuming necessary manifest values via BOSH links
+* **[Feature]** Now better distinguish log output from `cf-health-check` by what `cf` command was run. This allows for easier debugging per Healthwatch cli command health test via `cf logs cf-health-check --recent`
+* **[Feature]** It is no longer required to keep the MySQL Proxy job scaled to 2 instances. An Operator installing Healthwatch can now set the MySQL Proxy instances to 1 or multiple.
+* **[Stability Improvement]** The default memory limit of the product apps Healthwatch deploys has been lowered to better reflect the actual memory necessary for these apps in order to better conserve quota space. These apps now deploy with the following default `memory` attribute:
+    * `healthwatch-ingestor` 128M
+    * `canary-health-check`  1G
+    * `healthwatch-mysql-logqueue` 64M      
+    * `opsmanager-health-check` 64M
+    * `healthwatch-aggregator` 64M      
+    * `bosh-task-check` 64M
+    * `bosh-health-check` 64M 
+    * `cf-health-check` 500M    
+    * `healthwatch` 4G
+* **[Feature]** UI Improvement: The tooltip styling and info presented has been improved based on user feedback. The line selected will highlight itself. The tooltip available on single and multi-line graphs now also conveys the deployment associated. There is also now a tooltip available on box graphs, conveying the date and time of the assessments.
+* **[Bug Fix]** In v1.0.7 engaging the tooltip on a line chart could cause the chart to try to update the x-axis. This is now resolved. 
+* **[Bug Fix]** The [Canary App Response time](metrics.html#appsman) is meant as a measure of receipt of a success response. In prior versions a response time for a failed response was still being recorded. This is now resolved. 
+* **[Stability Improvement]** The `Push Monitoring Components` errand has been updated to `Default (On)` in the tile config, meaning it will always run on Apply Changes. This was done to reduce the likelihood of ingestor disconnection after an upgrade. 
+* The prior known issue `The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.` is now resolved, however you will need to be on Elastic Runtime Tile v1.11.14 or later to leverage the patch fix.
+* **Note**: Super metrics emitted by PCF Healthwatch are now using a consistent tagging format of:
+    * Deployment = `p-healthwatch`
+    * Job = specific to app generating
+    * Origin = `healthwatch` 
+* **Note**: **Metric Name Change** The following Scalable Syslog super-metrics output by Healthwatch have an updated naming convention
+    * `healthwatch.ScalableSyslog.Adapter.LossRate.1M` is now `healthwatch.SyslogDrain.Adapter.LossRate.1M`
+    * `healthwatch.ScalableSyslog.RLP.LossRate.1M` is now `healthwatch.SyslogDrain.RLP.LossRate.1M` 
+
+### Known issues
+* **Note**: You must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
+* The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
+* Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch when run on PCF v1.11. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is resolved in PCF v1.12.
+
 ##<a id='v1.0.7'></a>v1.0.7 (Beta)
 **Release Date: October 10, 2017**
 
