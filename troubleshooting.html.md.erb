@@ -1,0 +1,26 @@
+---
+title: Troubleshooting PCF Healthwatch
+owner: PCF Metrics
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to resolve common issues with the Pivotal Cloud Foundry (PCF) Healthwatch tile.
+
+## <a id='memory-limit'></a> Installation/Upgrade failure due to hitting the default total memory limit for `healthwatch` space
+
+* When a PCF environment has an insufficient default quota max set, the PCF Healthwatch push app errands could possibly fail due to lack of sufficient memory limit quota available in the healthwatch space. When this error occurs, the failure message will look similar to this example below.
+
+```
+  + /var/vcap/packages/cf-cli/bin/cf start cf-health-check
+  Starting app cf-health-check in org system / space healthwatch as admin...
+  FAILED
+  Server error, status code: 400, error code: 100005, message: You have exceeded your organization's memory limit: app requested more memory than available
+  + '[' '!' 3 -eq 3 ']'
+  + echo 'Command failed, giving up.'
+  Command failed, giving up.
+  + return 1
+```
+
+* This issue should not occur on an environment where the Apps Manager errand has run. The Apps Manager errand will set the default `system` org quota to `runaway` as service tiles leverage the `system` org in order to execute necessary product smoke tests. If the Apps Manager errand has not be run, or it failed, the default `system` quota may not be reset properly, leading to this possible error.
+* To resolve this issue, you can modify the default `healthwatch` space quota to at least 24GB, and re-run the `push-apps` errand manually.
