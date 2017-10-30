@@ -13,25 +13,25 @@ Insufficient memory allocation can cause issues when you install or upgrade PCF 
 
 ### Error
 
-If a PCF environment hits the maximum memory limit set for the `healthwatch` space, the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
+If a PCF environment exceeds the total memory limit set for the `healthwatch` space in the `system` org, the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
 
 <pre class="terminal">
-$ /var/vcap/packages/cf-cli/bin/cf start cf-health-check
++ /var/vcap/packages/cf-cli/bin/cf start cf-health-check
 Starting app cf-health-check in org system / space healthwatch as admin...
 FAILED
 Server error, status code: 400, error code: 100005, message: You have exceeded your organization's memory limit: app requested more memory than available
-'[' '!' 3 -eq 3 ']'
-echo 'Command failed, giving up.'
++ '[' '!' 3 -eq 3 ']'
++ echo 'Command failed, giving up.'
 Command failed, giving up.
-return 1
++ return 1
 </pre>
 
 ### Cause
 
-Your PCF environment has an insufficient memory quota set for the `healthwatch` space.
+Your PCF environment has an insufficient total memory quota set for the `healthwatch` space in the `system` org.
 
 The issue should not occur if the Apps Manager errand has run in your environment. Because service tiles use the `system` org to execute smoke tests, the Apps Manager errand sets the default `system` org quota to `runaway`. If the Apps Manager errand has not run or failed, the default `system` quota may not be reset properly.
 
 ### Solution
 
-To resolve this issue, you can set the default `healthwatch` space quota to at least 24 GB and re-run the `push-apps` errand manually.
+To resolve this issue, you can set the default memory quota of the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
