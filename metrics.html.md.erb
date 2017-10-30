@@ -101,7 +101,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 </tr>
 </table>
 
-##<a id='appsman'></a>Healthwatch: Apps Manager Health
+##<a id='canaryapp'></a>Healthwatch: Canary App Health
 
 App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps on the foundation.
 
@@ -114,13 +114,13 @@ App availability and responsiveness issues can result in significant end user im
 </tr>
 <tr>
   <td>Apps Manager availability</td>
-  <td><code>healthwatch.health.check.AppsMan.available</code></td>
+  <td><code>healthwatch.health.check.CanaryApp.available</code></td>
   <td>1 min</td>
   <td><code>1</code> = pass or <code>0</code> = fail</td>
 </tr>
 <tr>
   <td>Aps Manager response time</td>
-  <td><code>healthwatch.health.check.AppsMan.responseTime</code></td>
+  <td><code>healthwatch.health.check.CanaryApp.responseTime</code></td>
   <td>1 min</td>
   <td>Time in ms</td>
 </tr>
