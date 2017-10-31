@@ -16,14 +16,10 @@ Insufficient memory allocation can cause issues when you install or upgrade PCF 
 If a PCF environment exceeds the total memory limit set for the `healthwatch` space in the `system` org, the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
 
 <pre class="terminal">
-+ /var/vcap/packages/cf-cli/bin/cf start cf-health-check
+$ /var/vcap/packages/cf-cli/bin/cf start cf-health-check
 Starting app cf-health-check in org system / space healthwatch as admin...
 FAILED
 Server error, status code: 400, error code: 100005, message: You have exceeded your organization's memory limit: app requested more memory than available
-+ '[' '!' 3 -eq 3 ']'
-+ echo 'Command failed, giving up.'
-Command failed, giving up.
-+ return 1
 </pre>
 
 ### Cause
