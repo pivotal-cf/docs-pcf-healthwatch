@@ -31,3 +31,15 @@ The issue should not occur if the Apps Manager errand has run in your environmen
 ### Solution
 
 To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
+
+## <a id='missing-bosh-metrics'></a> Missing BOSH Metrics
+
+### Error
+If you do not see expected metrics from BOSH on the dashboard charts.
+
+### Cause
+The Bosh Director requires manual configuration.  It is a [Known Issue](release-notes.html) that you must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
+
+### Solution
+Ensure that the manual configuration steps have been repeated after the last BOSH Director update. 
+
