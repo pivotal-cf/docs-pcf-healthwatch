@@ -7,7 +7,7 @@ owner: PCF Healthwatch
 
 This topic describes how to resolve common issues with Pivotal Cloud Foundry (PCF) Healthwatch v1.0.
 
-## <a id='memory-limit'></a>Installation or Upgrade Failure Due to Memory Limit Error
+## <a id='memory-limit'></a>Memory Limit Errors
 
 Insufficient memory allocation can cause issues when you install or upgrade PCF Healthwatch.
 
@@ -32,14 +32,13 @@ The issue should not occur if the Apps Manager errand has run in your environmen
 
 To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
 
-## <a id='missing-bosh-metrics'></a> Missing BOSH Metrics
+## <a id='missing-bosh-metrics'></a>Missing BOSH Metrics
 
 ### Error
-You do not see expected metrics from BOSH on the dashboard charts.
+BOSH metrics are not present on the PCF Healthwatch dashboard charts.
 
 ### Cause
-The BOSH Director requires manual configuration. It is a [Known Issue](release-notes.html) that you must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
+The BOSH Director requires manual configuration. You must repeat the [Getting BOSH Health Metrics into PCF Healthwatch](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
 
 ### Solution
-Ensure that the manual configuration steps have been repeated after the last BOSH Director update. 
-
+You must repeat the manual configuration steps after the last BOSH Director update.
