@@ -149,7 +149,7 @@ Losing the BOSH Director does not significantly impact the experience of PCF end
 
 <p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts, and deletes a VM named <code>bosh-health-check</code> as part of this test suite.</p>
 
-##<a id='loss-rates'></a>Healthwatch: Logging Performance Loss Rates
+##<a id='logging-performance'></a>Healthwatch: Logging Performance
 
 This section lists metrics used to monitor Loggregator, the PCF component responsible for logging.
 
@@ -201,6 +201,23 @@ This derived metric is recommended for automating and monitoring platform scalin
   <td>Reverse Log Proxy loss rate (syslog drain performance)</td>
   <td><code>healthwatch.SyslogDrain.RLP.LossRate.1M</code></td>
   <td>Loss rate per minute</td>
+</tr>
+</table>
+
+###<a id='syslog-drain-binding-capacity'></a>Syslog Drain Binding Capacity
+
+This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the Scalable Syslog feature of Loggregator.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Average number of Drain Bindings across the number of Adapter Instances</td>
+  <td><code>healthwatch.SyslogDrain.Adapter.BindingsAverage.5M</code></td>
+  <td>The number of reported drain bindings (cf-syslog-drain.scheduler.drains), divided by the current number of Syslog Adapters, in order to produce a 5-minute rolling average that represents that ratio of drain bindings to available adapters. Each adapter can handle a limited number of bindings. Calculating a ratio allows for easier alerting on the need to scale the number of adapter instances.</td>
 </tr>
 </table>
 
