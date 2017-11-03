@@ -215,13 +215,13 @@ This derived metric is used to monitor the Scalable Syslog feature of Loggregato
   <th>Description</th>
 </tr>
 <tr>
-  <td>Average number of drain bindings across the number of Adapter instances</td>
+  <td>Average number of drain bindings across Adapter instances</td>
   <td><code>healthwatch.SyslogDrain.Adapter.BindingsAverage.5M</code></td>
-  <td>The number of reported drain bindings `cf-syslog-drain.scheduler.drains` divided by the current number of Syslog Adapters to produce a 5-minute rolling average</td>
+  <td>The number of reported drain bindings <code>cf-syslog-drain.scheduler.drains</code> divided by the current number of Syslog Adapters to produce a 5-minute rolling average</td>
 </tr>
 </table>
 
-<p class="note"><strong>Note:</strong>Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available adapters helps to monitor and scale the number of Adapter instances.</p>
+<p class="note"><strong>Note</strong>: Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available adapters helps to monitor and scale Adapter instances.</p>
 
 ##<a id='capacity'></a>Healthwatch: Percentage of Capacity Available
 
