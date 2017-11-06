@@ -14,7 +14,7 @@ PCF Healthwatch includes the following main features:
 * Stores and visualizes metrics from PCF components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indications](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of PCF.
 * Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html) and [Access Product Super Metrics Through the Firehose](using.html#firehose).
 
-All data points are currently stored in PCF Healthwatch for 25 hours and then pruned.
+All data points are stored in PCF Healthwatch for 25 hours and then pruned.
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -52,9 +52,9 @@ The following table provides version and version-support information about PCF H
 ## <a id="limitations"></a>Limitations
 
 * PCF Healthwatch does not cover the recently recommended [MySQL KPIs for PCF v1.12](https://docs.pivotal.io/pivotalcf/1-12/monitoring/kpi.html#kpi4MySQL).
-* PCF Healthwatch does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/1-12/adminguide/isolation-segments.html).
+* PCF Healthwatch does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
 * PCF Healthwatch is intended to monitor only the PCF foundation it is installed on.
-* Currently, only the Google Chrome browser is supported when accessing the product UI.
+* Currently, only the Google Chrome browser is supported when accessing the service UI.
 
 ## <a id="feedback"></a>Feedback
 
