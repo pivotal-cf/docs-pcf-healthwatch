@@ -51,6 +51,12 @@ To configure the PCF Healthwatch tile, perform the following steps:
     1. Select **Network** for installing PCF Healthwatch.
     1. Select **Service Network** for running the BOSH Health Check VM.
 
+1. Navigate to **Healthwatch App Components Settings** and do the following:
+
+	1. Set the **Ingestor Count** to the same number of Doppler Server Instances set in the Pivotal Application Service tile. 
+	1. Set the **Loader Count** to 1 for a small or medium foundation, or 2 for a larger foundation.
+	1. Click **Save**.
+
 1. Navigate to **Health Check** and do the following:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.
