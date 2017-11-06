@@ -6,22 +6,25 @@ This topic describes the architecture of Pivotal Cloud Foundry (PCF) Healthwatch
 
 ## <a id='components'></a>PCF Healthwatch Components
 
-The diagram below shows the architecture of PCF Healthwatch, including the Cloud Foundry components that PCF Healthwatch interacts with.
+The diagram below shows the architecture of PCF Healthwatch, including the PCF components that PCF Healthwatch interacts with.
 
 <%= image_tag './images/healthwatch-architecture.png' %>
 
 [View a larger version of this diagram](./images/healthwatch-architecture.png).
 
-PCF Healthwatch deploys several Cloud Foundry apps as part of the installation process. These apps are responsible for creating the product UI and supporting functional health checks.
+PCF Healthwatch deploys several apps as part of its installation process. These apps are responsible for creating the service UI and supporting functional health checks.
 
 ## <a id='data-flow'></a>How Data Flows Through PCF Healthwatch
 
-1. All PCF platform metrics, with the exception of BOSH VM Health metrics, travel through the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default. The PCF Healthwatch Ingestor app consumes these platform metrics from the Firehose and loads them, using the Loader app, into the PCF Healthwatch data store (MySQL cluster).
-2. While the BOSH VM Health metrics remain outside of the Firehose, PCF Healthwatch talks to the BOSH Director through [product plugins](installing.html#bosh-metrics) to obtain this data.
-3. PCF Healthwatch creates additional [measures](metrics.html) of operational value and stores them in the `super_value_metric` MySQL table. These created metrics are then forwarded back into the Firehose, through Metron Forwarder, for external consumption by existing customer solutions.
-4. All ingested and product-created data points are currently stored in the PCF Healthwatch data store for 25 hours and then pruned.
+Data flows through PCF Healthwatch as follows:
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch forwards into the Firehose only the <a href="metrics.html">metrics</a> it creates. The service does not forward platform metrics that are already available to the Firehose consumers.</p> 
+* In PCF, platform metrics, with the exception of BOSH-reported VM metrics, are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default. The PCF Healthwatch Ingestor app consumes these platform metrics from the Firehose and loads them, using the Loader app, into the PCF Healthwatch data store.
+* While the BOSH-reported VM metrics remain outside of the Firehose, PCF Healthwatch talks to the BOSH Director through plugins to obtain this data. See [Getting BOSH Health Metrics into PCF Healthwatch](installing.html#bosh-metrics) for more information.
+* PCF Healthwatch creates additional metrics and stores them in the `super_value_metric` table. These metrics are then forwarded back into the Firehose for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html).
+
+	<p class="note"><strong>Note</strong>: PCF Healthwatch forwards into the Firehose only these additional metrics. The service does not forward back platform metrics that are already available to the Firehose consumers.</p>
+
+All ingested and service-created data points are currently stored in the PCF Healthwatch data store for 25 hours and then pruned.
 
 ## <a id='data-flow'></a>Functional Apps Created by PCF Healthwatch
 
@@ -33,4 +36,4 @@ PCF Healthwatch creates the following functional apps:
 * Apps Manager Uptime and Response Check: the `appsmanager-health-check` app 
 * Ops Manager Uptime Check: the `opsmanager-health-check` app
 
-For information on how to scale these PCF Healthwatch resources, see [PCF Healthwatch Resources](resources.html#healthwatch-apps).
+For information about scaling these PCF Healthwatch resources, see [PCF Healthwatch Resources](resources.html#healthwatch-apps).
