@@ -7,9 +7,9 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 
 ##<a id='install'></a> Install PCF Healthwatch
 
-1. Download the product and supporting files from [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the main product file. 
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
@@ -44,23 +44,24 @@ To configure the PCF Healthwatch tile, perform the following steps:
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
 1. Navigate to **Assign AZs and Networks** and do the following:
 
-	<p class="note"><strong>Note</strong>: To create a highly available environment, PCF Healthwatch recommends selecting multiple AZs for placing jobs.</p>
+    1. Select an Availability Zone (AZ) for placing singleton jobs.
+    1. Select one or more AZs for balancing other jobs.
 
-    1. Select the AZ(s) for placing singleton jobs.
-    1. Select the AZ(s) for placing other jobs.
+		<p class="note"><strong>Note</strong>: To create a highly available environment, Pivotal recommends selecting multiple AZs.</p>
+
     1. Select **Network** for installing PCF Healthwatch.
     1. Select **Service Network** for running the BOSH Health Check VM.
 
 1. Navigate to **Healthwatch App Components Settings** and do the following:
 
-	1. Set the **Ingestor Count** to the same number of Doppler Server instances configured in the PAS tile. 
-	1. Set the **Loader Count** to 1 for a small or medium deployment or 2 for a larger deployment.
+	1. Set **Ingestor Count** to the same number of Doppler Server instances configured in the PAS tile.
+	1. Set **Loader Count** to 1 for a small or medium PCF deployment or 2 for a larger PCF deployment.
 	1. Click **Save**.
 
 1. Navigate to **Health Check** and do the following:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.
-	1. In **BOSH Health Check Availability Zone**, select an availability zone for the BOSH Health Check VM.
+	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
 	1. Click **Save**.
 

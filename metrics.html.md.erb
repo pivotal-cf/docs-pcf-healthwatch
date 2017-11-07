@@ -101,7 +101,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 
 ## <a id='canaryapp'></a>Canary App Health
 
-App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps on the foundation.
+App availability and responsiveness issues can significantly impact the experience of end users. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps on the PCF foundation.
 
 <table class="nice">
 <tr>
@@ -126,7 +126,7 @@ App availability and responsiveness issues can result in significant end user im
 
 ## <a id='bosh-director'></a>BOSH Director Health
 
-Losing the BOSH Director does not significantly impact the experience of PCF end users. However, this issue means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the health of the BOSH Director. PCF Healthwatch executes this check as follows:
+Losing the BOSH Director means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the health of the BOSH Director. PCF Healthwatch executes this check as follows:
 
 <table class="nice">
 <tr>
@@ -204,7 +204,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 ### <a id='syslog-drain-binding-capacity'></a>Syslog Drain Binding Capacity
 
-This derived metric is used to monitor the CF Syslog feature of Loggregator. It helps to automate and monitor platform scaling.
+This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the CF Syslog feature of Loggregator.
 
 <table class="nice">
 <tr>
@@ -219,7 +219,7 @@ This derived metric is used to monitor the CF Syslog feature of Loggregator. It 
 </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available adapters helps to monitor and scale Adapter instances.</p>
+<p class="note"><strong>Note</strong>: Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available Adapters helps to monitor and scale Adapter instances.</p>
 
 ## <a id='capacity'></a>Percentage of Capacity Available
 
