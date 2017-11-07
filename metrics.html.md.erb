@@ -7,13 +7,11 @@ This topic lists the super metrics created by Pivotal Cloud Foundry (PCF) Health
 
 <p class="note"><strong>Note</strong>: For external monitoring consumers, PCF Healthwatch forwards the metrics it creates into the Loggregator Firehose.</p> 
 
-In this topic, you can also find information about the existing PCF platform component and BOSH VM metrics used by PCF Healthwatch.
+## <a id='cli'></a>Cloud Foundry CLI Health
 
-##<a id='cli'></a>Healthwatch: Cloud Foundry CLI Health
+The Cloud Foundry command line interface (cf CLI) enables developers to create and manage PCF apps. PCF Healthwatch executes a continuous test suite for validating the core functions of the cf CLI.
 
-The Cloud Foundry command line interface (CLI) enables developers to create and manage PCF apps. PCF Healthwatch executes a continuous test suite validating the core app developer functions of the CLI. Running a continuous validation test suite is often significantly more meaningful to reassuring functionality than monitoring for trends in metrics alone.
-
-See the table below for information on generated metrics related to the Cloud Foundry CLI Health smoke tests.
+The table below provides information about the cf CLI health smoke tests and the metrics that are generated for these tests.
 
 <table class="nice">
 <tr>
@@ -82,9 +80,9 @@ See the table below for information on generated metrics related to the Cloud Fo
 
 <p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>healthwatch</strong> space.</p>
 
-##<a id='opsman'></a>Healthwatch: Ops Manager Health
+## <a id='opsman'></a>Ops Manager Health
 
-Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to rescale the PCF platform when necessary. Therefore, it is recommended to continuously monitor Ops Manager availability. PCF Healthwatch executes this check as a part of its test suite.
+Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to scale the PCF platform when necessary. Therefore, it is recommended to continuously monitor Ops Manager availability. PCF Healthwatch executes this check as follows:
 
 <table class="nice">
 <tr>
@@ -101,7 +99,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 </tr>
 </table>
 
-##<a id='canaryapp'></a>Healthwatch: Canary App Health
+## <a id='canaryapp'></a>Canary App Health
 
 App availability and responsiveness issues can result in significant end user impacts. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps on the foundation.
 
@@ -126,9 +124,9 @@ App availability and responsiveness issues can result in significant end user im
 </tr>
 </table>
 
-##<a id='bosh-director'></a>Healthwatch: BOSH Director Health
+## <a id='bosh-director'></a>BOSH Director Health
 
-Losing the BOSH Director does not significantly impact the experience of PCF end users. However, this issue means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the health of the BOSH Director. PCF Healthwatch executes this check as a part of its test suite.
+Losing the BOSH Director does not significantly impact the experience of PCF end users. However, this issue means a loss of resiliency for BOSH-managed VMs. It is recommended to continuously monitor the health of the BOSH Director. PCF Healthwatch executes this check as follows:
 
 <table class="nice">
 <tr>
@@ -145,15 +143,15 @@ Losing the BOSH Director does not significantly impact the experience of PCF end
 </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: The timeout metric is written if a deploy or delete task takes more than 10 minutes.</p>
-
 <p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts, and deletes a VM named <code>bosh-health-check</code> as part of this test suite.</p>
 
-##<a id='logging-performance'></a>Healthwatch: Logging Performance
+<p class="note"><strong>Note</strong>: The timeout metric is written if deploying or deleting the VM takes more than 10 minutes.</p>
+
+## <a id='logging-performance'></a> Logging Performance
 
 This section lists metrics used to monitor Loggregator, the PCF component responsible for logging.
 
-###<a id='firehose-loss'></a>Firehose Loss Rate
+### <a id='firehose-loss'></a>Firehose Loss Rate
 
 This derived metric is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
 
@@ -170,7 +168,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-###<a id='adapter-loss'></a>Adapter Loss Rate
+### <a id='adapter-loss'></a>Adapter Loss Rate
 
 This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the CF Syslog feature of Loggregator.
 
@@ -187,7 +185,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-###<a id='rlp-loss'></a>Reverse Log Proxy Loss Rate
+### <a id='rlp-loss'></a>Reverse Log Proxy Loss Rate
 
 This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the CF Syslog feature of Loggregator.
 
@@ -204,7 +202,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-###<a id='syslog-drain-binding-capacity'></a>Syslog Drain Binding Capacity
+### <a id='syslog-drain-binding-capacity'></a>Syslog Drain Binding Capacity
 
 This derived metric is used to monitor the CF Syslog feature of Loggregator. It helps to automate and monitor platform scaling.
 
@@ -223,11 +221,11 @@ This derived metric is used to monitor the CF Syslog feature of Loggregator. It 
 
 <p class="note"><strong>Note</strong>: Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available adapters helps to monitor and scale Adapter instances.</p>
 
-##<a id='capacity'></a>Healthwatch: Percentage of Capacity Available
+## <a id='capacity'></a>Percentage of Capacity Available
 
 This section lists metrics used to monitor the total percentage of available memory, disk, and cell container capacity.
 
-###<a id='memory'></a>Percentage of Memory Available
+### <a id='memory'></a>Percentage of Memory Available
 
 This derived metric is recommended for automating and monitoring platform scaling.
 
@@ -244,7 +242,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-###<a id='disk'></a>Percentage of Disk Available
+### <a id='disk'></a>Percentage of Disk Available
 
 This derived metric is recommended for automating and monitoring platform scaling.
 
@@ -261,7 +259,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-###<a id='cell-container'></a>Percentage of Cell Container Capacity Available 
+### <a id='cell-container'></a>Percentage of Cell Container Capacity Available 
 
 This derived is recommended for automating and monitoring platform scaling.
 
@@ -278,7 +276,7 @@ This derived is recommended for automating and monitoring platform scaling.
 </tr>
 </table>
 
-##<a id='bosh-deployment'></a>Healthwatch: BOSH Deployment Occurrence
+## <a id='bosh-deployment'></a>BOSH Deployment Occurrence
 
 Monitoring BOSH deployment occurrence adds context to related data, such as VM (job) health.
 
