@@ -5,11 +5,13 @@ owner: PCF Healthwatch
 
 This topic describes resource requirements for Pivotal Cloud Foundry (PCF) Healthwatch.
 
-##<a id="requirements"></a>PCF Healthwatch Resources: Tile
+##<a id="requirements"></a>PCF Healthwatch Tile
 
-By default, the PCF Healthwatch tile is configured to use the instance type that is best suited for each job. The following table provides the default resource and IP requirements for installing the PCF Healthwatch tile.
+You can configure PCF Healthwatch resources in the **Resource Config** section of the PCF Healthwatch tile. By default, the PCF Healthwatch tile uses the instance type that is best suited for each job. 
 
-<p class="note"><strong>Note</strong>: The actual default values that you see in your PCF Healthwatch tile depend on the available resources for your PCF deployment.</p>
+<p class="note"><strong>Note</strong>: The automatically selected values that you see in the <strong>Resource Config</strong> section of your PCF Healthwatch tile depend on the available resources for your PCF deployment.</p>
+
+The following table provides the default resource and IP requirements for installing the PCF Healthwatch tile.
 
 <table border="1" class="nice">
   <thead>
@@ -51,16 +53,16 @@ By default, the PCF Healthwatch tile is configured to use the instance type that
     <td>2</td>
     <td>4&nbsp;GB</td>
     <td>32&nbsp;GB</td>
-    <td>N/A</td>
+    <td><em>n/a</em></td>
     <td>2</td>
     <td>0</td>
   </tr>
   </tbody>
 </table>
 
-##<a id='healthwatch-apps'></a>PCF Healthwatch Resources: Functional Apps
+##<a id='healthwatch-apps'></a>PCF Healthwatch Functional Apps
 
-If you want to scale the functional apps created by PCF Healthwatch, see the following guidelines:
+If you want to scale the functional apps created by PCF Healthwatch, see the following recommendations:
 
 * **BOSH Director Health Check** (the `bosh-health-check` app).
   Only 1 BOSH Director Health Check can run at a time. This should be considered a hard limit.
