@@ -18,12 +18,12 @@ PCF Healthwatch deploys several apps as part of its installation process. These 
 
 Data flows through PCF Healthwatch as follows:
 
-1. In PCF, all platform metrics are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default. The PCF Healthwatch Ingestor app consumes these platform metrics from the Firehose and loads them, using the Loader app, into the PCF Healthwatch data store.
+1. In PCF, all platform metrics are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default. The PCF Healthwatch Ingestor app consumes these platform metrics from the Firehose and loads them, using the Loader app, into the PCF Healthwatch datastore.
 1. PCF Healthwatch creates additional metrics and stores them in the `super_value_metric` table. These metrics are then forwarded back into the Firehose for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html).
 
 	<p class="note"><strong>Note</strong>: PCF Healthwatch forwards into the Firehose only these additional metrics. The service does not forward back platform metrics that are already available to the Firehose consumers.</p>
 
-All ingested and service-created data points are currently stored in the PCF Healthwatch data store for 25 hours and then pruned.
+All ingested and service-created data points are currently stored in the PCF Healthwatch datastore for 25 hours and then pruned.
 
 ## <a id='data-flow'></a>Functional Apps Created by PCF Healthwatch
 
