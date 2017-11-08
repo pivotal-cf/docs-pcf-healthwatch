@@ -7,7 +7,7 @@ This topic describes resource requirements for Pivotal Cloud Foundry (PCF) Healt
 
 ##<a id="requirements"></a>PCF Healthwatch Tile
 
-You can configure PCF Healthwatch resources in the **Resource Config** section of the PCF Healthwatch tile. By default, the PCF Healthwatch tile uses the instance type that is best suited for each job.
+You can configure PCF Healthwatch resources in the **Resource Config** section of the PCF Healthwatch tile. By default, PCF Healthwatch automatically selects the instance type that is best suited for each job.
 
 <p class="note"><strong>Note</strong>: The automatically selected values that you see in the <strong>Resource Config</strong> section of your PCF Healthwatch tile depend on the available resources for your PCF deployment.</p>
 
@@ -64,13 +64,13 @@ The following table provides the default resource and IP requirements for instal
 
 If you want to scale the functional apps created by PCF Healthwatch, see the following recommendations:
 
-* **BOSH Director Health Check** (the `bosh-health-check` app).
+* BOSH Director health check (the `bosh-health-check` app).
   Only 1 BOSH Director Health Check can run at a time. This should be considered a hard limit.
-* **BOSH Deployment Task Check** (the `bosh-task-check` app).
+* BOSH deployment task check (the `bosh-task-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
-* **CLI Command Health Check** (the `cf-health-check` app).
+* CLI command health check (the `cf-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
-* **Canary App Uptime and Response Check** (the `canaryapp-health-check` app).
+* Canary app uptime and response check (the `canaryapp-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
-* **Ops Manager Uptime Check** (the `opsmanager-health-check` app).
+* Ops Manager uptime check (the `opsmanager-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
