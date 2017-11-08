@@ -7,7 +7,7 @@ This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
 ##<a id='access'></a>Accessing PCF Healthwatch
 
-You can access PCF Healthwatch and its data through the UI or directly through the metrics datastore. In addition, PCF Healthwatch forwards the metrics it creates into the Loggregator Firehose.
+You can access PCF Healthwatch and its data through the PCF Healthwatch UI or directly through the service datastore. In addition, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
 
 ###<a id='ui'></a>Access the PCF Healthwatch UI
 
@@ -63,7 +63,7 @@ To access the MySQL datastore, you can do the following:
 
 ###<a id='firehose'></a>Access Super Metrics Through the Firehose
 
-PCF Healthwatch forwards the super metrics it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
+PCF Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
 
 <pre class="terminal">
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"p-healthwatch-e7f044a5cf4f0a807750" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
