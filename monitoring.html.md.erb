@@ -24,14 +24,14 @@ All PCF Healthwatch emitted metrics have the same origin, <code>healthwatch</cod
    <tr>
       <th width="25%">Description</th>
       <td>
-        Number of forced disconnects of the Healthwatch <a href="./architecture.html">data ingestor nozzle</a> from the firehose.<br/><br/>
-        <strong>Use</strong>: An unusual increase in the number of disconnects from the Firehose typically indicates that the Healthwatch nozzle needs to be scaled to more instances. The firehose disconnects nozzles that are slow consumers to protect applications from back pressure. This metric can also spike during a PCF deployment as the Traffic Controller VMs restart, logging a disconnect.
+        Number of forced disconnects of the PCF Healthwatch <a href="./architecture.html">data ingestor nozzle</a> from the Firehose.<br/><br/>
+        <strong>Use</strong>: An unusual increase in the number of disconnects from the Firehose typically indicates that the Healthwatch nozzle needs to be scaled up. The Firehose disconnects nozzles that are slow consumers to protect apps from back pressure. This metric can also spike during a PCF deployment because the Traffic Controller VMs restart, logging a disconnect.
         <br/><br/>
-        A prolonged period of losing metrics as a result of disconnects can endanger the assessments Healthwatch makes from firehose-based platform metrics.
+        A prolonged period of losing metrics as a result of disconnects can endanger the assessments PCF Healthwatch makes using Firehose-based platform metrics.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
-        <strong>Frequency</strong>: 60s<br/>
+        <strong>Frequency</strong>: 60 s<br/>
       </td>
    </tr>
    <tr>
@@ -46,9 +46,9 @@ All PCF Healthwatch emitted metrics have the same origin, <code>healthwatch</cod
    <tr>
       <th>Recommended response</th>
       <td>
-         If no known deployment occurred, and the spike is sustained, increase the number of Healthwatch Ingestor instances and monitor this metric to ensure it returns to a normal state.
+         If no known deployment occurred and the spike is sustained, increase the number of Healthwatch Ingestor instances and monitor this metric to ensure it returns to a normal state.
          <br/><br/>
-         Ingestor instances can be scaled within the Healthwatch <strong>Component Config</strong> tile UI or with the <code>cf scale healthwatch-ingestor</code> command. While <code>cf scale</code> can more quickly resolve an issue, you should update the tile configuration so that the next deployment does not override the manual scale action.
+         Ingestor instances can be scaled in the <strong>Healthwatch Component Config</strong> tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-ingestor</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
       </td>
    </tr>
 </table>
