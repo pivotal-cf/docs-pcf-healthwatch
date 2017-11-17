@@ -117,7 +117,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Check to make sure the <code>healthwatch</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.  Validate that the <code>/info</code> endpoint is available on the <code>healthwatch</code> application route.
       </td>
    </tr>
 </table>
@@ -153,14 +153,14 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Check to make sure the <code>cf-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
       </td>
    </tr>
 </table>
 
 ###<a id="canary-test-availability"></a>Canary App Health Test Availability
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br/> health.check.cliCommand.probe.available<br/><br/></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br/> health.check.CanaryApp.probe.available<br/><br/></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>
@@ -189,7 +189,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Check to make sure the <code>canary-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
+         <br/><br/>
+         Verify that Apps Manager is running and accessible via the URL configured in the <code>canary-health-check</code> application's <code>CANARY_URL</code> environment variable.
       </td>
    </tr>
 </table>
@@ -225,7 +227,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Check to make sure the <code>bosh-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
+         <br/><br/>
+         SSH into the running <code>bosh-health-check</code> and copy the Bosh manifest from <code>/home/vcap/app/health_check_manifest.yml</code>.  Attempt to deploy it manually on the Bosh Director and check for errors.
       </td>
    </tr>
 </table>
@@ -261,14 +265,16 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Check to make sure the <code>opsmanager-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
+         <br/><br/>
+         Verify that the Ops Manager is running and accessible via the URL configured in the <code>opsmanager-health-check</code> application's <code>OPSMANAGER_URL</code> environment variable.
       </td>
    </tr>
 </table>
 
 ###<a id="super-metrics-published"></a>Number of Healthwatch Super Metrics Published to Firehose
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br/> health.check.OpsMan.probe.available<br/><br/></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br/>healthwatch.metrics.published<br/><br/></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>
@@ -293,7 +299,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         TBD
+         Validate that the <code>healthwatch-forwarder</code> VM is running.  Check all of the logs in <code>/var/vcap/sys/log</code> on the VM.  Validate that the <code>*-health-check</code> applications are running and not throwing any obvious errors in the logs in the <code>system</code> org and <code>healthwatch</code> space.
       </td>
    </tr>
 </table>
