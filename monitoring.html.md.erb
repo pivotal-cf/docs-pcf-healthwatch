@@ -117,7 +117,10 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Check to make sure the <code>healthwatch</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.  Validate that the <code>/info</code> endpoint is available on the <code>healthwatch</code> application route.
+        <ol>
+          <li>Ensure the <code>healthwatch</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+          <li>Validate that the <code>/info</code> endpoint is available on the <code>healthwatch</code> app route.</li>
+        </ol>
       </td>
    </tr>
 </table>
@@ -153,7 +156,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Check to make sure the <code>cf-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
+        <ol>
+          <li>Ensure the <code>cf-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org.</li> 
+          <li>Check the logs for any obvious errors.</li>
       </td>
    </tr>
 </table>
@@ -189,9 +194,10 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Check to make sure the <code>canary-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
-         <br/><br/>
-         Verify that Apps Manager is running and accessible via the URL configured in the <code>canary-health-check</code> application's <code>CANARY_URL</code> environment variable.
+        <ol>
+          <li>Ensure the <code>canary-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+          <li>Verify that Apps Manager is running and accessible through the URL configured in the <code>CANARY_URL</code> environment variable of the <code>canary-health-check</code> app.</li>
+        </ol>
       </td>
    </tr>
 </table>
@@ -227,9 +233,10 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Check to make sure the <code>bosh-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
-         <br/><br/>
-         SSH into the running <code>bosh-health-check</code> and copy the Bosh manifest from <code>/home/vcap/app/health_check_manifest.yml</code>.  Attempt to deploy it manually on the Bosh Director and check for errors.
+        <ol>
+          <li>Ensure the <code>bosh-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+          <li>SSH into the running <code>bosh-health-check</code> app and copy the BOSH manifest from <code>/home/vcap/app/health_check_manifest.yml</code>. Try to deploy it manually on the BOSH Director and check for errors.</li>
+        </ol>
       </td>
    </tr>
 </table>
@@ -265,9 +272,10 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Check to make sure the <code>opsmanager-health-check</code> application is running in the <code>system</code> org and <code>healthwatch</code> space.  Check the logs to look for any obvious errors.
-         <br/><br/>
-         Verify that the Ops Manager is running and accessible via the URL configured in the <code>opsmanager-health-check</code> application's <code>OPSMANAGER_URL</code> environment variable.
+          <ol>
+            <li>Ensure the <code>opsmanager-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+            <li>Verify that Ops Manager is running and accessible through the URL configured in the <code>OPSMANAGER_URL</code> environment variable of the <code>opsmanager-health-check</code> app.</li>
+          </ol>
       </td>
    </tr>
 </table>
@@ -299,7 +307,11 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Validate that the <code>healthwatch-forwarder</code> VM is running.  Check all of the logs in <code>/var/vcap/sys/log</code> on the VM.  Validate that the <code>*-health-check</code> applications are running and not throwing any obvious errors in the logs in the <code>system</code> org and <code>healthwatch</code> space.
+          <ol>
+            <li>Verify that the <code>healthwatch-forwarder</code> VM is running.</li>
+            <li>Check all of the logs in <code>/var/vcap/sys/log</code> on the VM.</li>
+            <li>Verify that the <code>*-health-check</code> apps are running and the logs in the <code>healthwatch</code> space of the <code>system</code> org are not receiving any obvious errors from them.</li>
+          </ol>
       </td>
    </tr>
 </table>
