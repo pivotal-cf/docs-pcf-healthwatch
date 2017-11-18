@@ -7,7 +7,7 @@ This topic explains how to monitor the health of Pivotal Cloud Foundry (PCF) Hea
 
 For general information about monitoring PCF, see [Monitoring Pivotal Cloud Foundry](https://docs.pivotal.io/pivotalcf/monitoring/index.html).
 
-## <a id="aboutMetrics"></a>About Metrics
+## <a id="about-metrics"></a>About Metrics
 
 PCF Healthwatch emits metrics in the following format:
 
@@ -19,7 +19,7 @@ All PCF Healthwatch-emitted metrics have the `healthwatch` origin.
 
 ## <a id="keyPerformanceIndicators"></a>Key Performance Indicators for PCF Healthwatch
 
-This section describes the KPIs that you can use to monitor the health and performance of PCF Healthwatch.
+This section describes the KPIs that you can use to monitor the health of PCF Healthwatch.
 
 ###<a id="firehose-disconnect"></a>Number of Healthwatch Nozzle Disconnects from Firehose
 <table>
@@ -28,9 +28,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <th width="25%">Description</th>
       <td>
         Number of forced disconnects of the <a href="./architecture.html">PCF Healthwatch data ingestor nozzle</a> from the Firehose.<br/><br/>
-        <strong>Use</strong>: An unusual increase in the number of disconnects from the Firehose typically indicates that the nozzle needs to be scaled up. The Firehose disconnects nozzles that are slow consumers to protect apps from backpressure. This metric can also spike during a PCF deployment because the Traffic Controller VMs restart, logging a disconnect.
+        <strong>Use</strong>: An unusual increase in the number of disconnects from the Firehose typically indicates that you need to scale the nozzle up. The Firehose disconnects nozzles that are slow consumers to protect apps from backpressure. This metric can also spike during a PCF deployment because the Traffic Controller VMs restart, logging a disconnect.
         <br/><br/>
-        A prolonged period of losing metrics as a result of disconnects can endanger the assessments that PCF Healthwatch makes using Firehose-based platform metrics.
+        A prolonged period of losing metrics as a result of disconnects can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -49,9 +49,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         If no known deployment occurred and the spike is sustained, increase the number of Healthwatch Ingestor instances and monitor this metric to ensure it returns to a normal state.
-         <br/><br/>
-         Ingestor instances can be scaled in the Healthwatch Component Config tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-ingestor</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
+        If no known deployment occurred and the spike is sustained, increase the number of PCF Healthwatch Ingestor instances and monitor this metric to ensure that it returns to a normal state.
+        <br/><br/>
+        You can scale Ingestor instances in the <strong>Healthwatch Component Config</strong> tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-ingestor</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
       </td>
    </tr>
 </table>
@@ -62,9 +62,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th width="25%">Description</th>
       <td>
-        Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch data loader</a>, which loads incoming data into the Healthwatch datastore.
+        Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch data loader</a>, which loads incoming data into the PCF Healthwatch datastore.
         <br/><br/>
-        <strong>Use</strong>: An unusual increase in the number of dropped metrics by the Healthwatch Loader likely indicates that this component needs to be scaled up. A prolonged period of dropping metrics could endanger the assessments PCF Healthwatch makes from Firehose-based platform metrics.
+        <strong>Use</strong>: An unusual increase in the number of dropped metrics by the PCF Healthwatch Loader likely indicates that you need to scale this component up. A prolonged period of dropping metrics could endanger the assessments PCF Healthwatch makes using platform metrics from the Firehose.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -83,14 +83,14 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th>Recommended response</th>
       <td>
-         Increase the number of Healthwatch Loader instances and monitor this metric to ensure it returns to a normal state.
-         <br/><br/>
-         Loader instances can be scaled within the Healthwatch Component Config tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-loader</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
+        Increase the number of PCF Healthwatch Loader instances and monitor this metric to ensure that it returns to a normal state.
+        <br/><br/>
+        You can scale Loader instances in the <strong>Healthwatch Component Config</strong> tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-loader</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
       </td>
    </tr>
 </table>
 
-###<a id="ui-availability"></a>Healthwatch UI Availability
+###<a id="ui-availability"></a>PCF Healthwatch UI Availability
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ui.available<br/><br/></th></tr>
    <tr>
@@ -98,7 +98,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         The PCF Healthwatch UI is currently available. This assessment is made using a probe that looks for a successful response: 1 = available, 0 = not available, or timeout (10 s).
         <br/><br/>
-        <strong>Use</strong>: Indicates that the Healthwatch UI is running and available to product end users. While an issue with the UI does not impact the assessments Healthwatch is making, loss of the UI can impact user ability to visually reference these assessments.
+        <strong>Use</strong>: Indicates that the Healthwatch UI is running and available to product users. While an issue with the UI does not impact the assessments that PCF Healthwatch is making, loss of the UI can impact user ability to visually reference these assessments.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -118,8 +118,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <th>Recommended response</th>
       <td>
         <ol>
-          <li>Ensure the <code>healthwatch</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
-          <li>Validate that the <code>/info</code> endpoint is available on the <code>healthwatch</code> app route.</li>
+          <li>Ensure the <code>healthwatch</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org.</li> 
+          <li>Check the app logs for any obvious errors.</li>
+          <li>Verify that the <code>/info</code> endpoint is available on the <code>healthwatch</code> app route.</li>
         </ol>
       </td>
    </tr>
@@ -133,11 +134,11 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         PCF Healthwatch has up-to-date results for the <a href="metrics.html#cli">CLI Command Health Test</a>, which means that the test was recently available.
         <br/><br/>
-        Response: 1 = available, 0 = not available, or timeout (10 s)
+        Metric values: 1 = available, 0 = not available, or timeout (10 s)
         <br/><br/>
-        An assessment of up-to-date results is made by looking for results within the configured run schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
+        This assessment is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
         <br/><br/>
-        <strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the CLI commands. If these continuous validation tests fail to make up-to-date assessments, they are no longer a reliable warning mechanism.
+        <strong>Use</strong>: Indicates that PCF Healthwatch is assessing the health of the Cloud Foundry Command Line Interface (cf CLI) commands. If these continuous validation tests fail to make up-to-date assessments, they are no longer a reliable warning mechanism.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -158,7 +159,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         <ol>
           <li>Ensure the <code>cf-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org.</li> 
-          <li>Check the logs for any obvious errors.</li>
+          <li>Check the app logs for any obvious errors.</li>
       </td>
    </tr>
 </table>
@@ -171,11 +172,11 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         PCF Healthwatch has up-to-date results for the <a href="metrics.html#canaryapp">Canary App Health Test</a>, which means that the test was recently available.
         <br/><br/>
-        Response: 1 = available, 0 = not available, or timeout (10 s)
+        Metric values: 1 = available, 0 = not available, or timeout (10 s)
         <br/><br/>
-        An assessment of up-to-date results is made by looking for results within the configured run schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
+        This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
         <br/><br/>
-        <strong>Use</strong>: Indicates that Healthwatch is assessing the current state of health for the canary app. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.
+        <strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the canary app. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -195,7 +196,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <th>Recommended response</th>
       <td>
         <ol>
-          <li>Ensure the <code>canary-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+          <li>Ensure the <code>canary-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the app logs for any obvious errors.</li>
           <li>Verify that Apps Manager is running and accessible through the URL configured in the <code>CANARY_URL</code> environment variable of the <code>canary-health-check</code> app.</li>
         </ol>
       </td>
@@ -210,11 +211,11 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         PCF Healthwatch has up-to-date results for the <a href="metrics.html#bosh-director">BOSH Director Health Test</a>, which means that the test was recently available.
         <br/><br/>
-        Response: 1 = available, 0 = not available, or timeout (10 s)
+        Metric values: 1 = available, 0 = not available, or timeout (10 s)
         <br/><br/>
-        An assessment of up-to-date results is made by looking for results within the configured run schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
+        This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
         <br/><br/>
-        <strong>Use</strong>:  Indicates that PCF Healthwatch is assessing the current state of health for the BOSH Director. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.
+        <strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the BOSH Director. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -234,7 +235,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <th>Recommended response</th>
       <td>
         <ol>
-          <li>Ensure the <code>bosh-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+          <li>Ensure the <code>bosh-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the app logs for any obvious errors.</li>
           <li>SSH into the running <code>bosh-health-check</code> app and copy the BOSH manifest from <code>/home/vcap/app/health_check_manifest.yml</code>. Try to deploy it manually on the BOSH Director and check for errors.</li>
         </ol>
       </td>
@@ -249,9 +250,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         PCF Healthwatch has up-to-date results for the <a href="metrics.html#opsman">Ops Manager Health Test</a>, which means that the test was recently available.
         <br/><br/>
-        Response: 1 = available, 0 = not available, or timeout (10 s)
+        Metric values: 1 = available, 0 = not available, or timeout (10 s)
         <br/><br/>
-        An assessment of up-to-date results is made by looking for results within the configured run schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
+        This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.
         <br/><br/>
         <strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for Ops Manager. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.
         <br/><br/>
@@ -273,7 +274,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <th>Recommended response</th>
       <td>
           <ol>
-            <li>Ensure the <code>opsmanager-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the logs for any obvious errors.</li>
+            <li>Ensure the <code>opsmanager-health-check</code> app is running in the <code>healthwatch</code> space of the <code>system</code> org. Check the app logs for any obvious errors.</li>
             <li>Verify that Ops Manager is running and accessible through the URL configured in the <code>OPSMANAGER_URL</code> environment variable of the <code>opsmanager-health-check</code> app.</li>
           </ol>
       </td>
@@ -286,9 +287,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
    <tr>
       <th width="25%">Description</th>
       <td>
-        Number of Healthwatch <a href="metrics.html">assessment metrics</a> published back to the Firehose.
+        Number of <a href="metrics.html">PCF Healthwatch Metrics</a> published back to the Firehose.
         <br/><br/>
-        <strong>Use</strong>: An unusual drop in the number of assessment metrics published can indicate that PCF Healthwatch may be experiencing a computation or publication issue.
+        <strong>Use</strong>: If an operator has not made changes that impact the number or frequency of assessments, an unusual drop in the number of metrics published can indicate that PCF Healthwatch may be experiencing a computation or publication issue.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -318,6 +319,8 @@ This section describes the KPIs that you can use to monitor the health and perfo
 
 ##<a id="continuous-validation-tests"></a>Number of Healthwatch Continuous Validation Tests Executed
 
+This section describes the metrics that you can use to monitor the number of continuous validation tests executed by PCF Healthwatch.
+
 ###<a id="cli-command-health-probe"></a>CLI Command Health
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> health.check.cliCommand.probe.count<br/><br/></th></tr>
@@ -326,9 +329,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         Number of PCF Healthwatch <a href="metrics.html#cli">CLI Command Health</a> probe assessments completed in the measured time interval.
         <br/><br/>
-        <strong>Use</strong>: For alerting purposes, Pivotal suggests alerting on <code>health.check.cliCommand.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
+        <strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.cliCommand.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
         <br/><br/>
-        Primary indicator of concern with this metric is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not taken action that would impact the number of checks being made, like scaling the test runner or changing the frequency of the run, then an unexpected variance from normal would likely indicate problems in the test runner functionality.
+        When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
         <br/><br/>
         In the default installation, these tests run every 5 minutes across 2 runner apps.
         <br/><br/>
@@ -347,9 +350,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         Number of PCF Healthwatch <a href="metrics.html#opsman">Ops Manager Health</a> probe assessments completed in the measured time interval.
         <br/><br/>
-        <strong>Use</strong>: For alerting purposes, Pivotal suggests alerting on <code>health.check.OpsMan.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
+        <strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.OpsMan.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
         <br/><br/>
-        Primary indicator of concern with this metric is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not taken action that would impact the number of checks being made, like scaling the test runner or changing the frequency of the run, then an unexpected variance from normal would likely indicate problems in the test runner functionality.
+        When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
         <br/><br/>
         In the default installation, these tests run every 1 minute across 2 runner apps.
         <br/><br/>
@@ -368,9 +371,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         Number of PCF Healthwatch <a href="metrics.html#canaryapp">Canary App Health</a> probe assessments completed in the measured time interval.
         <br/><br/>
-        <strong>Use</strong>: For alerting purposes, Pivotal suggests alerting on <code>health.check.CanaryApp.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
+        <strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.CanaryApp.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
         <br/><br/>
-        Primary indicator of concern with this metric is an unexpected negative variance from the normal pattern of checks per test type. If an Operator has not taken action that would impact the number of checks being made, like scaling the test runner or changing the frequency of the run, then an unexpected variance from normal would likely indicate problems in the test runner functionality.
+        When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
         <br/><br/>
         In the default installation, these tests run every 1 minutes across 2 runner apps.
         <br/><br/>
@@ -389,11 +392,11 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         Number of PCF Healthwatch <a href="metrics.html#bosh-director">BOSH Director Health</a> probe assessments completed in the measured time interval.
         <br/><br/>
-        <strong>Use</strong>: For alerting purposes, Pivotal suggests alerting on <code>health.check.bosh.director.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
+        <strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.bosh.director.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.
         <br/><br/>
-        Primary indicator of concern with this metric is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not taken action that would impact the number of checks being made, like scaling the test runner or changing the frequency of the run, then an unexpected variance from normal would likely indicate problems in the test runner functionality.
+        When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
         <br/><br/>
-        In the default installation, these tests run every 10 minutes for 1 runner app.
+        In the default installation, these tests run every 10 minutes using 1 runner app.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
@@ -403,6 +406,9 @@ This section describes the KPIs that you can use to monitor the health and perfo
 </table>
 
 ##<a id="other-metrics"></a>Other Metrics Available
+
+This section describes other metrics that you can use to monitor PCF Healthwatch.
+
 ###<a id="bosh-deployment-probe"></a>BOSH Deployment Check Probe
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> health.bosh.deployment.probe.count<br/><br/></th></tr>
@@ -411,7 +417,7 @@ This section describes the KPIs that you can use to monitor the health and perfo
       <td>
         Number of PCF Healthwatch <a href="metrics.html#bosh-deployment">BOSH Deployment Occurrence</a> probes completed in the measured time interval.
         <br/><br/>
-        <strong>Use</strong>: Primary indicator of concern with this metric is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not taken action that would impact the number of checks being made, like scaling the test runner or changing the frequency of the run, then an unexpected variance from normal would likely indicate problems in the test runner functionality.
+        <strong>Use</strong>: When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
         <br/><br/>
         In the default installation, these tests run every 30 seconds across 2 runner apps.
         <br/><br/>
