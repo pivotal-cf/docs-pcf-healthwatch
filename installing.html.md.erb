@@ -70,3 +70,15 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
+
+
+##<a id='healthwatch-opsman'></a> (optional) Turning off Ops Manager Continuous Validation Testing
+Some users, particularly those bosh deploying without usage of Ops Manager in their environments, may wish to turn off the Ops Manager Continuous Validation Testing that PCF Healthwatch does by default.
+
+When this testing suite is turned off, it will have the following impacts on the product:
+* The "push_opsmanager_health_check" will not occur, meaning the `opsmanager-health-check` testing app will not be deployed.
+* The main dashboard panel reflecting the foundation's Ops Manager Health, and associated detailed health testing results page, will not be available in the product UI.
+* The [metric](metrics.html#opsman) representing the results of the Ops Manager Health test will not be created or emitted.
+
+1. In your bosh manifest, set the property <code>healthchecher.opsman.disable</code> to <code>true</code>.
+1. Redeploy PCF Healthwatch and run the <code>push-apps</code> errand.
