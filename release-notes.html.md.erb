@@ -38,7 +38,7 @@ PCF Healthwatch v1.0 was available as a limited, closed-BETA release. For custom
     * Smoke tests will now fail on lack of bosh metrics
 * **Naming Convention Change**: Canary App Health test metrics created
     * `healthwatch.health.check.AppsMan.available` is now `healthwatch.health.check.CanaryApp.available`
-    * `healthwatch.health.check.AppsMan.responseTime` to `healthwatch.health.check.CanaryApp.responseTime`
+    * `healthwatch.health.check.AppsMan.responseTime` is now `healthwatch.health.check.CanaryApp.responseTime`
 * **Naming Convention Change**: The data loader app deployed at installation was renamed from `mysql-logqueue` to `loader`
 * **Data Convention Change**: In v1.0 of Healthwatch, the deployment value for all speciality [metrics](metrics.html) Healthwatch creates was defaulted to `p-healthwatch`. In v1.1 the deployment value is the actual deployment value the metrics were created from. This was a necessary data structure change to prepare for the future capability of monitoring isolation segments. The origin of all Healthwatch created metrics remains `healthwatch`.
 * **[Feature]** New [Syslog Drain Binding Capacity](metrics.html#syslog-drain-binding-capacity) metric available that represents the average number of drain bindings across Adapter instances. The Logging Performance page now displays this Capacity Ratio as an indicator of the need to scale Syslog Drain Adapters. This chart replaces the informational Count of Bindings chart displayed in v1.0. 
