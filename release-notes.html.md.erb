@@ -18,8 +18,12 @@ owner: PCF Healthwatch
 **Release Date: Not yet released**
 
 ### Release Notes
-* **Not yet released**
-
+* **[Feature]** Dashboard design updated based on customer feedback from the prior closed BETA release 
+    * New 6-column default layout requires more than 1835px width; smaller resolution will render as 3 columns, unless resized down manually in the browser 
+* **[Feature]** Updates made to PCF Healthwatch to support monitoring of PCF v2.0:
+    * [Number of Route Registration Messages Sent and Received](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route-registration) now available under Router Performance
+    * [BBS Locks Held](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#BBSActiveLocks) now available under Diego Performance
+    * [Auctioneer Locks Held](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#AuctioneerActiveLocks) now available under Diego Performance
 * **[Feature]** Metrics published by Healthwatch on a given foundation are identifiable to that foundation
     * When Healthwatch is installed on multiple foundations within a multi-foundation environment, the metrics Healthwatch publishes are identifiable to their source foundation. This allows Operators who are aggregating data streams from multiple foundations in external tooling to be able to more easily recognize which foundation the Healthwatch metrics of concern originated from.
     * By default, the value provided for a foundation will be the `system domain` of that foundation. Sample metrics are shown below. The foundation value is passed into the firehose as a key/value tag. 
@@ -34,6 +38,11 @@ origin:"healthwatch" eventType:ValueMetric timestamp:1511211286171879726 deploym
     * Indicator of Healthwatch UI accessibility: [healthwatch.ui.available](monitoring.html#ui-availability)
 * **[Feature]** Operators installing or upgrading PCF Healthwatch can now configure the desired number of Health Checkers per type in the Healthwatch Component Config section of the tile UI within Ops Manager UI.
 * **[Feature]** Operators that do not leverage Ops Manager for deployments now have [the option to turn off](installing.html#healthwatch-opsman) the default Ops Manager test suite.
+* **[Feature]** UI Improvements:
+    * Tooltip interactions improved
+    * Handling of long deployment names improved
+    * Page navigation improved via introduction of breadcrumb nav
+    * Panel titles now act as links to detail view pages
 
 ### Known issues
 * Not compatible with the [PCF Small Footprint PAS tile](https://network.pivotal.io/products/elastic-runtime).
