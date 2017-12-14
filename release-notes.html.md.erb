@@ -3,51 +3,40 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
-<style>
-    .note.warning {
-        background-color: #fdd;
-        border-color: #fbb
-    }
-
-    .note.warning:before {
-        color: #f99;
-     }
-</style>
-
 ##<a id='v1.1.0'></a>v1.1.0
 **Release Date: December 15, 2017**
 
 ### Release Notes
-* **[Feature]** Dashboard design updated based on customer feedback from the prior closed BETA release 
-    * New 6-column default layout requires more than 1835px width; smaller resolution will render as 3 columns, unless resized down manually in the browser 
+* **[Feature]** Dashboard design updated based on customer feedback from the prior closed BETA release.
+    * New six-column default layout requires more than 1835px width. Smaller resolution will render as three columns, unless resized down manually in the browser. 
 * **[Feature]** Updates made to PCF Healthwatch to support monitoring of PCF v2.0:
-    * [Number of Route Registration Messages Sent and Received](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route-registration) now available under Router Performance
-    * [BBS Locks Held](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#BBSActiveLocks) now available under Diego Performance
-    * [Auctioneer Locks Held](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#AuctioneerActiveLocks) now available under Diego Performance
-* **[Feature]** Metrics published by Healthwatch on a given foundation are identifiable to that foundation
-    * When Healthwatch is installed on multiple foundations within a multi-foundation environment, the metrics Healthwatch publishes are identifiable to their source foundation. This allows Operators who are aggregating data streams from multiple foundations in external tooling to be able to more easily recognize which foundation the Healthwatch metrics of concern originated from.
-    * By default, the value provided for a foundation will be the `system domain` of that foundation. Sample metrics are shown below. The foundation value is passed into the firehose as a key/value tag. 
-<pre class="terminal">
-origin:"healthwatch" eventType:ValueMetric timestamp:1511211281010702574 deployment:"cf" job:"healthwatch-forwarder" index:"dbf89280-1b6b-46c7-4255-aaad" ip:"10.0.16.29" tags:&lt;key:"foundation" value:"pcf.downey.cfapps.com" &gt; valueMetric:&lt;name:"health.check.OpsMan.probe.count" value:1 unit:"count" &gt;
-origin:"healthwatch" eventType:ValueMetric timestamp:1511211286171879726 deployment:"cf" job:"healthwatch-forwarder" index:"05a557a0-0e38-4298-6adb-278d" ip:"10.0.16.29" tags:&lt;key:"foundation" value:"pcf.downey.cfapps.com" &gt; valueMetric:&lt;name:"health.check.bosh.director.probe.available" value:1 unit:"Metric" &gt;
-</pre>
-* **[Feature]** PCF Healthwatch now publishes Operational Metrics about itself, so that its functionality and performance can also be [monitored](monitoring.html)
-    * Indicators of the need to scale: [healthwatch.ingestor.disconnects](monitoring.html#firehose-disconnect), [healthwatch.loader.dropped](monitoring.html#loader-dropped)
-    * Indicators of testing availability: [health.check.cliCommand.probe.available](monitoring.html#cli-test-availability), [health.check.CanaryApp.probe.available](monitoring.html#canary-test-availability), [health.check.bosh.director.probe.available](monitoring.html#bosh-test-availability), [health.check.OpsMan.probe.available](monitoring.html#opsman-test-availability)
-    * Indicators of underlying computation: [healthwatch.metrics.published](monitoring.html#super-metrics-published), [health.check.cliCommand.probe.count](monitoring.html#cli-command-health-probe), [health.check.OpsMan.probe.count](monitoring.html#opsmanager-health-probe), [health.check.CanaryApp.probe.count](monitoring.html#canary-health-probe), [health.check.bosh.director.probe.count](monitoring.html#bosh-health-probe)
+    * [Number of Route Registration Messages Sent and Received](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route-registration) is now available under Router Performance.
+    * [Locks Held by BBS](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#BBSActiveLocks) are now available under Diego Performance.
+    * [Locks Held by Auctioneer](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#AuctioneerActiveLocks) are now available under Diego Performance.
+* **[Feature]** Metrics published by PCF Healthwatch on a given PCF foundation are identifiable to that foundation.
+    * When PCF Healthwatch is installed on multiple foundations within a multi-foundation environment, the metrics PCF Healthwatch publishes are identifiable to their source foundation. This enables operators who are aggregating data streams from multiple foundations in external tooling to more easily recognize which foundation the PCF Healthwatch metrics of concern originated from.
+    * By default, the value provided for a foundation is the `system domain` of that foundation. The foundation value is passed into the Firehose as a key-value tag. For example: 
+    <pre class="terminal">
+    origin:"healthwatch" eventType:ValueMetric timestamp:1511211281010702574 deployment:"cf" job:"healthwatch-forwarder" index:"dbf89280-1b6b-46c7-4255-aaad" ip:"10.0.16.29" tags:&lt;key:"foundation" value:"pcf.downey.cfapps.com" &gt; valueMetric:&lt;name:"health.check.OpsMan.probe.count" value:1 unit:"count" &gt;
+    origin:"healthwatch" eventType:ValueMetric timestamp:1511211286171879726 deployment:"cf" job:"healthwatch-forwarder" index:"05a557a0-0e38-4298-6adb-278d" ip:"10.0.16.29" tags:&lt;key:"foundation" value:"pcf.downey.cfapps.com" &gt; valueMetric:&lt;name:"health.check.bosh.director.probe.available" value:1 unit:"Metric" &gt;
+    </pre>
+* **[Feature]** PCF Healthwatch now publishes operational metrics about itself so that its functionality and performance can also be monitored. For more information, see [Monitoring PCF Healthwatch](monitoring.html).
+    * Indicators of the need to scale: [healthwatch.ingestor.disconnects](monitoring.html#firehose-disconnect) and [healthwatch.loader.dropped](monitoring.html#loader-dropped)
+    * Indicators of testing availability: [health.check.cliCommand.probe.available](monitoring.html#cli-test-availability), [health.check.CanaryApp.probe.available](monitoring.html#canary-test-availability), [health.check.bosh.director.probe.available](monitoring.html#bosh-test-availability), and [health.check.OpsMan.probe.available](monitoring.html#opsman-test-availability)
+    * Indicators of underlying computation: [healthwatch.metrics.published](monitoring.html#super-metrics-published), [health.check.cliCommand.probe.count](monitoring.html#cli-command-health-probe), [health.check.OpsMan.probe.count](monitoring.html#opsmanager-health-probe), [health.check.CanaryApp.probe.count](monitoring.html#canary-health-probe), and [health.check.bosh.director.probe.count](monitoring.html#bosh-health-probe)
     * Indicator of Healthwatch UI accessibility: [healthwatch.ui.available](monitoring.html#ui-availability)
-* **[Feature]** Operators installing or upgrading PCF Healthwatch can now configure the desired number of Health Checkers per type in the Healthwatch Component Config section of the tile UI within Ops Manager UI.
-* **[Feature]** Operators that do not leverage Ops Manager for deployments now have [the option to turn off](installing.html#healthwatch-opsman) the default Ops Manager test suite.
+* **[Feature]** Operators installing or upgrading PCF Healthwatch can now configure the desired number of Health Checkers per type in the Healthwatch Component Config section of the tile within Ops Manager.
+* **[Feature]** Operators who do not use Ops Manager for deployments now have the option to turn off the default Ops Manager test suite. For more information, see [Installing and Configuring PCF Healthwatch](installing.html#healthwatch-opsman). 
 * **[Feature]** UI Improvements:
-    * Tooltip interactions improved
-    * Handling of long deployment names improved
-    * Page navigation improved via introduction of breadcrumb nav
-    * Panel titles now act as links to detail view pages
+    * Tooltip interactions improved.
+    * Handling of long deployment names improved.
+    * Breadcrumb navigation added.
+    * Panel titles now link to detail view pages.
 
 ### Known issues
-* Not compatible with the [PCF Small Footprint PAS tile](https://network.pivotal.io/products/elastic-runtime).
+* Not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
-* Only the Google Chrome browser is supported when accessing the service UI
+* Only the Google Chrome browser is supported when accessing the PCF Healthwatch UI.
 * Three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are initially hidden at launch. These charts will be available in a future patch version:
     * Query Rate
     * MySQL CPU Busy Time
@@ -55,27 +44,26 @@ origin:"healthwatch" eventType:ValueMetric timestamp:1511211286171879726 deploym
 
 ##<a id='v1.1.0'></a>What's New in PCF Healthwatch v1.1
 
-PCF Healthwatch v1.0 was available as a limited, closed-BETA release. For customers that did make use of the v1.0 version and may be upgrading, it is important to note these key changes between v1.0 and v1.1 of PCF Healthwatch. Additional new features present in v1.1 can be referenced in the above [v1.1.0 release notes](release-notes.html#v1.1.0).
+PCF Healthwatch v1.0 was available as a limited, closed-BETA release. The section below summarizes key differences between PCF Healthwatch v1.0 and v1.1. For more information about new features in v1.1, see [v1.1.0 release notes](release-notes.html#v1.1.0).
 
 ### Key Differences
-* **[Feature]** BOSH metrics are now ingested by default in v1.1. No more manual plugin configurations are required. Use of the prior plugins should be eliminated upon switch to v1.1.
-    * Smoke tests will now fail on lack of bosh metrics
-* **Naming Convention Change**: Canary App Health test metrics created
-    * `healthwatch.health.check.AppsMan.available` is now `healthwatch.health.check.CanaryApp.available`
-    * `healthwatch.health.check.AppsMan.responseTime` is now `healthwatch.health.check.CanaryApp.responseTime`
-* **Naming Convention Change**: The data loader app deployed at installation was renamed from `mysql-logqueue` to `loader`
-* **Data Convention Change**: In v1.0 of Healthwatch, the deployment value for all speciality [metrics](metrics.html) Healthwatch creates was defaulted to `p-healthwatch`. In v1.1 the deployment value is the actual deployment value the metrics were created from. This was a necessary data structure change to prepare for the future capability of monitoring isolation segments. The origin of all Healthwatch created metrics remains `healthwatch`.
-* **[Feature]** New [Syslog Drain Binding Capacity](metrics.html#syslog-drain-binding-capacity) metric available that represents the average number of drain bindings across Adapter instances. The Logging Performance page now displays this Capacity Ratio as an indicator of the need to scale Syslog Drain Adapters. This chart replaces the informational Count of Bindings chart displayed in v1.0. 
-* **[Feature]** The following Router graphs are now multi-line so that the performance of the individual instances can be better represented
+* **[Feature]** BOSH metrics are now ingested by default in v1.1. Manual plugin configurations are no longer required. Use of the prior plugins should be eliminated upon switch to v1.1.
+    * Smoke tests now fail on lack of BOSH metrics.
+* **Naming Convention Change**:
+    * The `healthwatch.health.check.AppsMan.available` metric is now `healthwatch.health.check.CanaryApp.available`.
+    * The `healthwatch.health.check.AppsMan.responseTime` metric is now `healthwatch.health.check.CanaryApp.responseTime`
+* **Naming Convention Change**: The data loader app deployed at installation was renamed from `mysql-logqueue` to `loader`.
+* **Data Convention Change**: In PCF Healthwatch v1.0, the deployment value for all [metrics](metrics.html) Healthwatch created was defaulted to `p-healthwatch`. In v1.1, the deployment value is the actual deployment value the metrics were created from. This is a necessary data structure change to prepare for the future capability of monitoring isolation segments. The origin of all Healthwatch-created metrics remains `healthwatch`.
+* **[Feature]** New [Syslog Drain Binding Capacity](metrics.html#syslog-drain-binding-capacity) metric represents the average number of drain bindings across Adapter instances. The Logging Performance page now displays this capacity ratio as an indicator for scaling Syslog Drain Adapters. This chart replaces the informational Count of Bindings chart used in v1.0. 
+* **[Feature]** The following Router graphs are now multi-line so that the performance of the individual instances can be better represented:
     * Router Throughput
     * 502 Bad Gateways 
     * All 5XX Errors
     * Number of Routes Registered 
-* **[Feature]** New count of [Available Free Chunks](metrics.html#free-memory-chunks) metric `Diego.AvailableFreeChunks` is now available within the PCF Healthwatch data store, and is being forwarded into the Firehose for external consumption. 
-* **[Feature]** PCF Healthwatch v1.1 leverages the new Ops Manager [colocated errands](http://docs.pivotal.io/tiledev/tile-errands.html#colocated) feature
-* **[Feature]** PCF Healthwatch v1.1 is updated to reflect the [Key Performance Indicators changes for PCF v2.0](https://docs.pivotal.io/pivotalcf/monitoring/index.html#new)
-* Product stemcell was updated to v3445
-* MySQL version was updated to v36.10.0
-* The BETA label seen in the v1.0 UI is removed in v1.1
-* With PCF 2.0, Elastic Runtime (ERT) is now Pivotal Application Services (PAS). All help text references to ERT have been updated to PAS.
-
+* **[Feature]** New count of the [Available Free Chunks](metrics.html#free-memory-chunks) metric is now available within the PCF Healthwatch datastore and is being forwarded into the Firehose for external consumption. 
+* **[Feature]** PCF Healthwatch v1.1 uses the new Ops Manager feature for supporting [colocated errands](http://docs.pivotal.io/tiledev/tile-errands.html#colocated).
+* **[Feature]** PCF Healthwatch v1.1 is updated to reflect the [Key Performance Indicators changes for PCF v2.0](https://docs.pivotal.io/pivotalcf/monitoring/index.html#new).
+* Product stemcell was updated to v3445.
+* MySQL version was updated to v36.10.0.
+* The BETA label seen in the v1.0 UI is removed in v1.1.
+* In PCF 2.0, Elastic Runtime (ERT) is now Pivotal Application Services (PAS). All help text references to ERT have been updated to PAS.
