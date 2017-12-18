@@ -31,3 +31,21 @@ The issue should not occur if the Apps Manager errand has run in your environmen
 ### Solution
 
 To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
+
+
+# <a id='opsman-health'></a>Ops Manager Health Check Errors
+
+The Opsmanager Health Check needs the ability to reach Ops Manager on the underlying network.
+
+### Error
+
+This error will appear as constantly failing Ops Manager Health Checks on the Dashboard and `Ops Manager Health Check History` page even though Ops Manager is running.
+
+### Cause
+
+The `opsmanager-health-check` application attempts to connect to Ops Manager in order to verify it is running.  This application needs the correct network settings in order to be able to reach the Ops Manager VM.  If there are firewall rules in place that prevent the network access then this check will continually fail.
+
+### Solution
+
+To resolve this issue, please confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance.  This can be verified by using `cf ssh opsmanager-health-check` to SSH into the running instance.  Then enter `curl -v $OPSMANAGER_URL` to check the network access.  If the certificate will not validate you can set `SKIP_SSL_VALIDATION=true` in the environment variables.
+
