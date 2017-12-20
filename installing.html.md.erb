@@ -56,7 +56,7 @@ To configure the PCF Healthwatch tile, perform the following steps:
 1. Navigate to **Healthwatch Component Config** and do the following:
 
 	1. Set **Ingestor Count** to the number of Doppler Server instances configured in the PAS tile.
-	1. Set **MySQL Loader Count** to 1 for a small or medium PCF deployment or 2 for a larger PCF deployment.
+	1. Set **MySQL Loader Count** to 4 for a small or medium PCF deployment or a number equivalent to the number of Dopplers for a larger PCF deployment.
 
 		<p class="note"><strong>Note</strong>: Pivotal recommends starting with the configuration above and then evaluating performance using the <a href="./monitoring.html#firehoseDisconnectMetrics">Ingestor</a> and <a href="./monitoring.html#loaderDroppedMetrics">Loader</a> metrics.</p>
 
