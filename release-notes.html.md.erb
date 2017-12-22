@@ -3,7 +3,7 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.1.0'></a>v1.1.0
+##<a id='v1.1.1'></a>v1.1.1
 **Release Date: December 22, 2017**
 
 ### Release Notes
@@ -29,6 +29,7 @@ owner: PCF Healthwatch
 * **[Feature]** Operators who do not use Ops Manager for deployments can now turn off the default Ops Manager test suite. For more information, see [Installing and Configuring PCF Healthwatch](installing.html#healthwatch-opsman).
 * **[Feature]** UI Improvements:
     * The PCF Healthwatch dashboard has a new six-column default layout. If the width of your display is 1835 pixels or fewer, the dashboard shows three columns; you can resize them manually in the browser.
+    * When an unhealthy job is flagged and becomes visible on the PCF Healthwatch dashboard, you can now click on that job name to go directly to the Job Instances Detail page for that specific job.    
     * Tooltip interactions and handling of long deployment names was improved.
     * Breadcrumb navigation was added.
     * Panel titles now link to detail view pages.
@@ -57,6 +58,9 @@ PCF Healthwatch v1.0 was available as a limited, closed-BETA release. The sectio
     * The `healthwatch.health.check.AppsMan.responseTime` metric is now `healthwatch.health.check.CanaryApp.responseTime`.
     * The data loader app deployed at installation was renamed from `mysql-logqueue` to `loader`.
 * **Data convention change**: In PCF Healthwatch v1.0, the default deployment value for all [Healthwatch-created metrics](metrics.html) was `p-healthwatch`. In PCF Healthwatch v1.1, the deployment value is the actual deployment value the metrics were created from. This is a necessary data structure change to prepare for the future capability of monitoring isolation segments. The origin of all Healthwatch-created metrics remains `healthwatch`.
+* **Default installation configuration change**: 
+    * Ingestor instance count now defaults to 4
+    * MySQL Loader instance count now defaults to 4
 * **[Feature]** New [Syslog Drain Binding Capacity](metrics.html#syslog-drain-binding-capacity) metric represents the average number of drain bindings across Adapter instances. The Logging Performance page now displays this capacity ratio as an indicator for scaling Syslog Drain Adapters. This chart replaces the informational Count of Bindings chart used in v1.0. 
 * **[Feature]** The following Router graphs are now multi-line so that the performance of the individual instances can be better represented:
     * Router Throughput
@@ -66,6 +70,7 @@ PCF Healthwatch v1.0 was available as a limited, closed-BETA release. The sectio
 * **[Feature]** New count of the [Available Free Chunks](metrics.html#free-memory-chunks) metric is now available within the PCF Healthwatch datastore and is being forwarded into the Firehose for external consumption. 
 * **[Feature]** PCF Healthwatch v1.1 uses the new Ops Manager feature for supporting [colocated errands](http://docs.pivotal.io/tiledev/tile-errands.html#colocated).
 * **[Feature]** PCF Healthwatch v1.1 is updated to reflect the [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/index.html#new) changes for PCF v2.0.
+* **[Bug Fix]** In v1.0, the Running App Instances stoplight would continue to show a data value during a complete disconnection from the firehose data stream, if there had previously been valid data received. This has been corrected. In an scenario where the product suffers a complete loss of new data for more than 5 minutes, the stoplight will now display `0`. 
 * Product stemcell was updated to v3445.
 * MySQL version was updated to v36.10.0.
 * In PCF 2.0, Elastic Runtime (ERT) was renamed to Pivotal Application Services (PAS). All help text references to ERT have been updated to PAS.
