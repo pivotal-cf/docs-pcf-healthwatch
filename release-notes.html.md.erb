@@ -3,6 +3,34 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.2'></a>v1.1.2
+**Release Date: January 11, 2018**
+
+### Release Notes
+* **[Feature]** PCF Healthwatch is now also compatible with the PCF Small Footprint PAS tile 
+* **[Feature]** Operators can now choose to change the default Foundation name that PCF Healthwatch passes into the firehose as part of the publication of the [PCF Healthwatch Metrics](metrics.html).
+    * Operators can optionally [configure](installing.html#healthwatch-tile) this name within the tile. Doing so will replace the default foundation name value of system domain. This updated foundation name is passed into the Firehose as a key-value tag. For example:
+    <pre class="terminal">
+    origin:"healthwatch" eventType:ValueMetric timestamp:1515598485276671703 deployment:"cf" job:"healthwatch-forwarder" index:"07a5b686-ef82-4dd0-6413-466b" ip:"10.0.16.6" tags:&lt;key:"foundation" value:"production-1" &gt; valueMetric:&lt;name:"SyslogDrain.Adapter.LossRate.1M" value:0 unit:"m" &gt;
+    origin:"healthwatch" eventType:ValueMetric timestamp:1515598485279815606 deployment:"cf" job:"healthwatch-forwarder" index:"07a5b686-ef82-4dd0-6413-466b" ip:"10.0.16.6" tags:&lt;key:"foundation" value:"production-1" &gt; valueMetric:&lt;name:"SyslogDrain.RLP.LossRate.1M" value:0 unit:"m" &gt;
+    </pre>
+* **[Feature]** The error page is now more descriptive when the login error is the result of an invalid scope. 
+    * Users that receive the error message `Error: User missing required scopes.` when attempting to access the PCF Healthwatch UI will need to have the correct `healthwatch.read` scope added to their UAA user account.
+* **[Feature]** When using the copy+paste interaction on an unhealthy job, the job name will also now be copied to clipboard. Having `job/vm-id` in the clipboard provides more useful pasting into the bosh2 cli. 
+* **[Bug Fix]** Fixes an issue identified in v1.1.1 where the full root ca certificate was visible in the log output 
+* Product stemcell was updated to v3468
+
+### Known Issues
+
+PCF Healthwatch v1.1.2:
+
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* Supports only the Google Chrome browser when accessing the PCF Healthwatch UI.
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
 ##<a id='v1.1.1'></a>v1.1.1
 **Release Date: December 22, 2017**
 
@@ -38,6 +66,7 @@ owner: PCF Healthwatch
 
 PCF Healthwatch v1.1.1:
 
+* **[Bug Identified]** The full root ca certificate is visible in the log output
 * Is not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
 * Supports only the Google Chrome browser when accessing the PCF Healthwatch UI.
