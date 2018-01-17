@@ -85,9 +85,9 @@ When you turn the test suite off, the following changes happen:
 
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow additional users to access PCF Healthwatch UI
 
-Access to the PCF Healthwatch UI is available to any user with the healthwatch.read scope. As of PCF 1.11.9 and later, the UAA admin user has this scope by default.
+Access to the PCF Healthwatch UI is available to any user with the healthwatch.read scope. The UAA admin user has this scope by default.
 
-If you wish to allow other users access to the Healthwatch UI, perform the following steps to add the healthwatch.read scope to the desired UAA users using the uaac client:
+To allow other users access to the Healthwatch UI, perform the following steps. This adds the healthwatch.read scope to the desired UAA users using the uaac client.
 
 1. `uaac target < UAA URL >`
 1. `uaac token client get < UAA admin client username > ` and enter the secret when prompted.
