@@ -68,11 +68,11 @@ To configure the PCF Healthwatch tile, perform the following steps:
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
-##<a id='healthwatch-opsman'></a> (Optional) Turn Off Ops Manager Continuous Validation Testing
+##<a id='healthwatch-opsman'></a> (Optional) Disable Ops Manager Continuous Validation Testing
 
-PCF Healthwatch continuously validates the health of Ops Manager by default. You may want to turn this test suite off if, for example, you are using BOSH instead of Ops Manager to deploy PCF software.
+PCF Healthwatch continuously validates the health of Ops Manager. You may want to disable this test suite if, for example, you are using BOSH instead of Ops Manager to deploy PCF software.
 
-To turn the Ops Manager test suite off, do the following:
+To disable the Ops Manager test suite, do the following:
 
 1. In your BOSH manifest, set the `healthchecker.opsman.disable` property to `true`.
 1. Redeploy PCF Healthwatch and run the <code>push-apps</code> errand.
@@ -83,13 +83,13 @@ When you turn the test suite off, the following changes happen:
 * The Ops Manager Health panel is not displayed in the PCF Healthwatch UI.
 * The [Ops Manager Health metric](metrics.html#opsman) is not created and emitted.
 
-##<a id='healthwatch-uaa-users'></a> (Optional) Allow additional users to access PCF Healthwatch UI
+##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
-Access to the PCF Healthwatch UI is available to any user with the healthwatch.read scope. The UAA admin user has this scope by default.
+Any user with the <code>healthwatch.read</code> scope can access the PCF Healthwatch UI. The UAA admin user has this scope by default.
 
-To allow other users access to the Healthwatch UI, perform the following steps. This adds the healthwatch.read scope to the desired UAA users using the uaac client.
+To allow other users access to the Healthwatch UI, perform the following steps. This procedure adds the <code>healthwatch.read</code> scope to the desired UAA users using the uaac client.
 
-1. `uaac target < UAA URL >`
-1. `uaac token client get < UAA admin client username > ` and enter the secret when prompted.
-1. Optionally add new UAA users using `uaac user add < user name > --emails < user email address >` and enter password when prompted.
-1. `uaac member add healthwatch.read < UAA user name >`
+1. Access the uaac client with `uaac target [UAA-URL]`.
+1. Enter `uaac token client get [UAA-ADMIN-CLIENT-USERNAME]`. When prompted, enter the secret.
+1. (Optional) Add new UAA users using `uaac user add [NEW-USER-USERNAME] --emails [NEW-USER-EMAIL ADDRESS]`. When prompted, enter the password.
+1. Enter `uaac member add healthwatch.read [UAA-USER-NAME]` to add the scope to the user.
