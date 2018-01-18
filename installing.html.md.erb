@@ -89,7 +89,7 @@ Any user with the <code>healthwatch.read</code> scope can access the PCF Healthw
 
 To allow other users access to the Healthwatch UI, perform the following steps. This procedure adds the <code>healthwatch.read</code> scope to the desired UAA users using the uaac client.
 
-1. Access the uaac client with `uaac target [UAA-URL]`.
-1. Enter `uaac token client get [UAA-ADMIN-CLIENT-USERNAME]`. When prompted, enter the secret.
-1. (Optional) Add new UAA users using `uaac user add [NEW-USER-USERNAME] --emails [NEW-USER-EMAIL ADDRESS]`. When prompted, enter the password.
-1. Enter `uaac member add healthwatch.read [UAA-USER-NAME]` to add the scope to the user.
+1. Access the uaac client with `uaac target UAA-URL`.
+1. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
+1. (Optional) Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
+1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
