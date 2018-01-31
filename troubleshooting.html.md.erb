@@ -7,6 +7,29 @@ owner: PCF Healthwatch
 
 This topic describes how to resolve common issues with Pivotal Cloud Foundry (PCF) Healthwatch.
 
+## <a id='insufficient-resources-srt'></a>Insufficient Resources: Memory (Small Footprint PAS)
+
+Insufficient Compute capacity can cause issues when you install or upgrade PCF Healthwatch on Small Footprint PAS.
+
+### Error
+
+If the default resource configuration of the Small Footprint PAS was not adjusted at installation as [recommended](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install), the system may not have sufficient Compute capacity, and the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
+
+<pre class="terminal">
+$ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
+Starting app healthwatch-blue in org system / space healthwatch as admin...  
+FAILED  
+InsufficientResources
+</pre>
+
+### Cause
+
+When installing Small Footprint PAS, it is [recommended](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install) to adjust **Compute** to `3` instance counts. By default Small Footprint PAS will install with **Compute** at `1` instance count, which is insufficient for a successful PCF Healthwatch installation. 
+
+### Solution
+
+To resolve this issue, you can set **Compute** to `3` instance counts in the Resource Config pane of the Small Footprint PAS tile.
+
 ## <a id='memory-limit'></a>Memory Limit Errors
 
 Insufficient memory allocation can cause issues when you install or upgrade PCF Healthwatch.
@@ -31,7 +54,6 @@ The issue should not occur if the Apps Manager errand has run in your environmen
 ### Solution
 
 To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
-
 
 ## <a id='opsman-health'></a>Ops Manager Health Check Errors
 
