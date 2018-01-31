@@ -13,7 +13,7 @@ Insufficient capacity of the **Compute** job can cause issues when you install o
 
 ### Error
 
-If the default resource configuration of the Small Footprint PAS tile was not adjusted as recommended in the [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/customizing/2-0/small-footprint.html#install) section of the _Getting Started with Small Footprint PAS_ topic, the system may not have sufficient **Compute** capacity, and the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
+If the default resource configuration of the Small Footprint PAS tile was not adjusted as recommended in the [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install) section of the _Getting Started with Small Footprint PAS_ topic, the system may not have sufficient **Compute** capacity, and the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
 
 <pre class="terminal">
 $ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
@@ -24,7 +24,7 @@ InsufficientResources
 
 ### Cause
 
-When installing Small Footprint PAS, it is recommended to scale the **Compute** job to 3 instances. For more information, see [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/customizing/2-0/small-footprint.html#install). By default, in Small Footprint PAS, the number of  **Compute** instances is set to `1`, which is insufficient for a successful PCF Healthwatch installation. 
+When installing Small Footprint PAS, it is recommended to scale the **Compute** job to 3 instances. For more information, see [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install). By default, in Small Footprint PAS, the number of  **Compute** instances is set to `1`, which is insufficient for a successful PCF Healthwatch installation. 
 
 ### Solution
 
