@@ -70,9 +70,15 @@ To configure the PCF Healthwatch tile, perform the following steps:
 
 ##<a id='healthwatch-opsman'></a> (Optional) Disable Ops Manager Continuous Validation Testing
 
-PCF Healthwatch continuously validates the health of Ops Manager. You may want to disable this test suite if, for example, you are using BOSH instead of Ops Manager to deploy PCF software.
+PCF Healthwatch continuously validates the health of Ops Manager. You may want to disable this test suite if, for example, you are using BOSH instead of Ops Manager to deploy PCF software. This can be accomplished either via the Ops Manager UI or BOSH manifest.
 
-To disable the Ops Manager test suite, do the following:
+To disable the Ops Manager test suite via Ops Manager UI, do the following:
+
+1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Health Check** section.
+1. Select the **Disable** radio button in the **Ops Manager Validation Testing** field.
+
+To disable the Ops Manager test suite via BOSH manifest, do the following:
 
 1. In your BOSH manifest, set the `healthchecker.opsman.disable` property to `true`.
 1. Redeploy PCF Healthwatch and run the <code>push-apps</code> errand.
@@ -82,6 +88,8 @@ When you turn the test suite off, the following changes happen:
 * The `opsmanager-health-check` testing app is not deployed.
 * The Ops Manager Health panel is not displayed in the PCF Healthwatch UI.
 * The [Ops Manager Health metric](metrics.html#opsman) is not created and emitted.
+
+**NOTE:** If this check was previously disabled via BOSH manifest, you will need to explicitly disable it again via the Ops Manager UI.
 
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
