@@ -3,6 +3,43 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.4'></a>v1.1.4
+**Release Date: February 8, 2018**
+
+### Release Notes
+* **[Bug Fix]** Switches the servlet container from Tomcat to Jetty. This resolves reported issues with Healthwatch installation failing on a non-RFC 1918 network.
+* **[Bug Fix]** Switches the underlying push-apps errand script from bash script to kotlin. This is expected to resolve issues on some Azure installations where the CLI was timing out before the Healthwatch push-apps errand could complete successfully.
+* **[Bug Fix]** Fixes an issue identified in v1.1.3 where the Logging Throughput and Loss Rate calculations were potentially underreporting.
+* **[Bug Fix]** Fixes an issue identified in v1.1.3 and earlier where the CF CLI credentials were visible in the `push_apps` script logs.
+* **[Bug Fix]** The CLI Command Health Check app was not declaring the amount of memory available to it, therefore relying on the system default. In some environments this could result in too low of memory available to successfully start the app. Other packaged test apps did already declare memory needed. To resolve, the CLI Command Health Check app now explicitly declares a 1GB memory allocation on push.  
+* **[Feature]** The existing manifest capability to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman) has been exposed as a configuration property within the Ops Manager UI for the Healthwatch tile configuration. This [enable/disable](installing.html#healthwatch-opsman) choice is available on the Health Check configuration screen within the Healthwatch tile settings screen. The default value is `Enable`.
+    * **Note**: If you had previously turned this test off within the manifest prior to v1.1.4, please validate your setting is `Disable` before applying changes to upgrade to this release version.
+* **[Feature]** Healthwatch now creates and publishes 3 additional metrics regarding [Capacity Available](metrics.html#capacity). These are useful for downstream consumers wanting to monitor against a given available capacity value, instead of, or in compliment to, the percentage-based available capacity metrics already published.
+    * [Total Memory Available](metrics.html#memory-total): `healthwatch.Diego.TotalAvailableMemoryCapacity.5M`
+    * [Total Disk Available](metrics.html#disk-total):`healthwatch.Diego.TotalAvailableDiskCapacity.5M`
+    * [Total Cell Container Capacity Available](metrics.html#cell-container-total): `healthwatch.Diego.TotalAvailableContainerCapacity.5M`
+* **[Feature]** The main dashboard will now display the Foundation name. This displayed name will be the name [configured](installing.html#healthwatch-tile), or the system domain if this default value was not updated.
+* **[Security Feature]** As Operators are allowed to define the name of the foundation, which is then published into the firehose as a tag on the Healthwatch emitted [metrics](metrics.html), a sanitization method has been added to [Metron Forwarder](architecture.html) so that disallowed characters that could be problematic for other downstream firehose consumers cannot be published. Any [disallowed](installing.html#healthwatch-tile) characters are stripped from the passed foundation label value.
+* **[Feature]** UI Improvements:
+    * The copy to clipboard user interaction was improved throughout the UI. Now `Copied` will display briefly when the copy icon is clicked. 
+    * Minor design update made to the layout of the Jobs detail page in order to improve overall readability of the information presented.
+    * On the Job Instances detail page, the y-axis is now fixed 0-100% for the bosh metric line graphs. This makes this page consistent with behavior on other product pages, and better emphasis low vs high percentages when scanning across multiple charts. 
+    * On the test result detail pages for CLI Command Health, Canary App Health, BOSH Director Health, and Ops Manager Health, the end time for a particular test run is now displayed in the details table in UTC. By displaying this information-only timestamp in UTC, it is easier to leverage the information when searching through relevant logs. The primary UI interactions on these pages remains as-is, displaying in the user's local time.
+    * On the test result detail pages for CLI Command Health, Canary App Health, BOSH Director Health, and Ops Manager Health, the detailed test result table has been visually adjusted so that the information no longer needs to be truncated, and is easier to read. Test Results are now represented by a Pass/Fail/Didn't Run/No Data icon, with a hover interaction available to confirm icon meaning.
+    * Improvement made to queries updating the Capacity panel on the main dashboard. This panel could sometimes show an unexpected line drop in the final minute, although the details page already had the most recent value correctly displayed. This update reduces the likelihood of that behavior. 
+    * We have removed the previously stated limitation that the Google Chrome browser must be used for accessing the UI. The latest Mozilla Firefox browser also works well. Microsoft Edge 16 has one issue with broken tab switch navigation on the Capacity and Diego detail pages that looks to be resolved in the upcoming Edge 17.
+
+### Known Issues
+
+PCF Healthwatch v1.1.4:
+
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* Does not include the recently published [UAA KPI](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) recommendations for PCF 2.0
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
 ##<a id='v1.1.3'></a>v1.1.3
 **Release Date: January 11, 2018**
 
@@ -24,6 +61,8 @@ owner: PCF Healthwatch
 
 PCF Healthwatch v1.1.3:
 
+* **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
+* **[Bug Identified]** An update to origin-based queries introduced in v1.1.3 caused a potential calculation issue to occur for the Logging Throughput and Logging Loss Rate calculations, as these can compute from multiple [metrics](https://docs.pivotal.io/pivotalcf/2-0/monitoring/key-cap-scaling.html#firehose-loss-rate) with differing origins. This is resolved in v1.1.4.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
 * Supports only the Google Chrome browser when accessing the PCF Healthwatch UI.
 * Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
@@ -66,6 +105,7 @@ PCF Healthwatch v1.1.3:
 
 PCF Healthwatch v1.1.1:
 
+* **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
 * **[Bug Identified]** The full root ca certificate is visible in the log output
 * Is not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
