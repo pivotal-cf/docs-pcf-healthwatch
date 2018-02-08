@@ -223,7 +223,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 
 <p class="note"><strong>Note</strong>: Each adapter can handle a limited number of bindings. Calculating the ratio of drain bindings to available Adapters helps to monitor and scale Adapter instances.</p>
 
-## <a id='capacity'></a>Percentage of Capacity Available
+## <a id='capacity'></a>Capacity Available
 
 This section lists metrics used to monitor the total percentage of available memory, disk, and cell container capacity.
 
@@ -261,6 +261,23 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
+### <a id='memory-total'></a>Total Memory Available
+
+This derived metric is recommended for automating platform scaling and understanding on-going trends for capacity planning. This metric is available as of v1.1.4.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Available memory</td>
+  <td><code>healthwatch.Diego.TotalAvailableMemoryCapacity.5M</code></td>
+  <td>Total remaining available memory across all cells (averaged over the last 5 min)</td>
+</tr>
+</table>
+
 ### <a id='disk'></a>Percentage of Disk Available
 
 This derived metric is recommended for automating and monitoring platform scaling. Going below the [recommended percentages](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#cell) for your environment set-up can result in insufficient capacity to tolerate failure of an entire AZ. 
@@ -278,7 +295,24 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
-### <a id='cell-container'></a>Percentage of Cell Container Capacity Available 
+### <a id='disk-total'></a>Total Disk Available
+
+This derived metric is recommended for automating platform scaling and understanding on-going trends for capacity planning. This metric is available as of v1.1.4.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Available disk</td>
+  <td><code>healthwatch.Diego.TotalAvailableDiskCapacity.5M</code></td>
+  <td>Total remaining available disk across all cells (averaged over the last 5 min)</td>
+</tr>
+</table>
+
+### <a id='cell-container'></a>Percentage of Cell Container Capacity Available
 
 This derived metric is recommended for automating and monitoring platform scaling. Going below the [recommended percentages](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#cell) for your environment set-up can result in insufficient capacity to tolerate failure of an entire AZ. 
 
@@ -292,6 +326,23 @@ This derived metric is recommended for automating and monitoring platform scalin
   <td>Available cell container capacity</td>
   <td><code>healthwatch.Diego.TotalPercentageAvailableContainerCapacity.5M</code></td>
   <td>Percentage of available cell container capacity (averaged over last 5 min)</td>
+</tr>
+</table>
+
+### <a id='cell-container-total'></a>Total Cell Container Capacity Available
+
+This derived metric is recommended for automating platform scaling and understanding on-going trends for capacity planning. This metric is available as of v1.1.4.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Available cell container capacity</td>
+  <td><code>healthwatch.Diego.TotalAvailableContainerCapacity.5M</code></td>
+  <td>Total remaining available cell container capacity (averaged over last 5 min)</td>
 </tr>
 </table>
 
