@@ -14,9 +14,9 @@ You can access PCF Healthwatch and its data through the PCF Healthwatch UI or di
 To access the PCF Healthwatch UI, do the following:
 
 1. Navigate to `healthwatch.SYSTEM-DOMAIN`.
-2. When prompted to log in, enter the username and password of a UAA user that has the `healthwatch.read` scope.
+2. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
     <br><br>
-    The UAA admin user has the `healthwatch.read` scope by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` group. For more information, see [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users).
+    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users).
 
 ###<a id='mysql'></a>Access Data Through MySQL
 
@@ -64,5 +64,5 @@ To access the MySQL datastore, you can do the following:
 PCF Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
 
 <pre class="terminal">
-origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"p-healthwatch-e7f044a5cf4f0a807750" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
+origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
