@@ -89,8 +89,6 @@ When you turn the test suite off, the following changes happen:
 * The Ops Manager Health panel is not displayed in the PCF Healthwatch UI.
 * The [Ops Manager Health metric](metrics.html#opsman) is not created and emitted.
 
-<p class="note"><strong>Note</strong>: If this check was previously disabled via BOSH manifest prior to v1.1.4, you must explicitly disable it again via the Ops Manager UI.</p>
-
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
 Any user with the <code>healthwatch.read</code> or <code>healthwatch.admin</code> scope can access the PCF Healthwatch UI. The UAA admin user has both of these scopes by default.
@@ -103,3 +101,6 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
 
 The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well. 
+
+<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
+
