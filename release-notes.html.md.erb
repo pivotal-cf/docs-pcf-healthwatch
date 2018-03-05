@@ -3,6 +3,29 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.5'></a>v1.1.5
+**Release Date: March 5, 2018**
+
+### Release Notes
+* **[Bug Fix]** Fixes a bug identified in v1.0.4 where the new java-based `Push Monitoring Components for PCF Healthwatch` errand could fail in some environments leveraging self-signed certs. 
+* **[Bug Fix]** Improves the performance of the Ingestor component (firehose nozzle). On some environments the Ingestors would experience high CPU and disconnect repeatedly from the firehose, risking loss of firehose-based data in Healthwatch. 
+    * As a result of this effort, the Ingestor and Loader have been combined and are no longer separate components. As of v1.1.5, the Ingestor now feeds directly to the datastore. These combined components still report on themselves in the same manner for [product monitoring](monitoring.html#keyPerformanceIndicators).
+* **[Bug Fix]** Product [created metrics](metrics.html) that result from assessments of firehose-based metric data were not properly accounting for a null scenario resulting from a complete loss of firehose data. These metrics would still attempt to calculate and publish, resulting in a produced `0` value. A `0` value would indicate an issue for most produced metrics. However in the case of the logging Loss Rate metrics where a `0` value is healthy, this issue could have hidden an underlying metric feed problem. As of v1.0.5, given that the values needed to make a necessary metric assessment are not present, then the related Healthwatch produced metric will not be calculated or published, until the platform data flow is restored. For external metric consumers, a stop in production of these metrics therefore indicates a potential issue with Healthwatch itself.
+    * Current Healthwatch metrics resulting from firehose data: Firehose Loss Rate, Adapter Loss Rate, Reverse Log Proxy Loss Rate, Syslog Drain Binding Capacity, Number of Available Free Chunks of Memory, Percentage of Memory Available, Total Memory Available, Percentage of Disk Available, Total Disk Available, Percentage of Cell Container Capacity Available, Total Cell Container Capacity Available
+* **[Feature]** A new page is now available that visualizes the recently recommended [UAA KPI](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) recommendations for PCF 2.0. It is available at `healthwatch.<system>/uaa/details`
+
+### Known Issues
+
+PCF Healthwatch v1.1.5:
+
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* UAA details page is not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile. 
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
 ##<a id='v1.1.4'></a>v1.1.4
 **Release Date: February 8, 2018**
 
@@ -33,8 +56,8 @@ owner: PCF Healthwatch
 
 PCF Healthwatch v1.1.4:
 
-* **[Bug Identified]** v1.0.4 introduces a new java-based `Push Monitoring Components for PCF Healthwatch` errand. This errand will not execute in an environment leveraging self-signed certs where the CA for these certs was added to the BOSH Director Trusted Certs via Ops Man in order to facilitate SSL validation. The resolution is to update the JVM's trust store with these certs. This fix will be introduced in the next patch release.
-    * Customers with this type of environment should leverage v1.0.3 until a fix is available. 
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* **[Bug Identified]** v1.0.4 introduced a new java-based `Push Monitoring Components for PCF Healthwatch` errand. This errand will not execute in an environment leveraging self-signed certs where the CA for these certs was added to the BOSH Director Trusted Certs via Ops Man in order to facilitate SSL validation. The resolution is to update the JVM's trust store with these certs. This is resolved in v1.1.5.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
 * Does not include the recently published [UAA KPI](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) recommendations for PCF 2.0
 * Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
@@ -63,6 +86,7 @@ PCF Healthwatch v1.1.4:
 
 PCF Healthwatch v1.1.3:
 
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
 * **[Bug Identified]** An update to origin-based queries introduced in v1.1.3 caused a potential calculation issue to occur for the Logging Throughput and Logging Loss Rate calculations, as these can compute from multiple [metrics](https://docs.pivotal.io/pivotalcf/2-0/monitoring/key-cap-scaling.html#firehose-loss-rate) with differing origins. This is resolved in v1.1.4.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -107,6 +131,7 @@ PCF Healthwatch v1.1.3:
 
 PCF Healthwatch v1.1.1:
 
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
 * **[Bug Identified]** The full root ca certificate is visible in the log output
 * Is not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
