@@ -153,7 +153,7 @@ If the BOSH Director is not responsive and functional, BOSH-managed VMs lose the
 
 This section lists metrics used to monitor Loggregator, the PCF component responsible for logging.
 
-### <a id='firehose-loss'></a>Firehose Loss Rate
+### <a id='firehose-loss'></a>Log Transport Loss Rate
 
 This derived metric is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
 
@@ -164,7 +164,7 @@ This derived metric is recommended for automating and monitoring platform scalin
   <th>Description</th>
 </tr>
 <tr>
-  <td>Firehose loss rate</td>
+  <td>Log Transport Loss Rate</td>
   <td><code>healthwatch.Firehose.LossRate.1H</code> and <code>healthwatch.Firehose.LossRate.1M</code></td>
   <td>Loss rate per minute and per hour</td>
 </tr>
