@@ -170,6 +170,23 @@ This derived metric is recommended for automating and monitoring platform scalin
 </tr>
 </table>
 
+### <a id='doppler-capacity'></a>Doppler Message Rate Capacity
+
+This derived metric is recommended for automating and monitoring the platform scaling of the Doppler component portion of Loggregator. It represents the average load of each Doppler instance. Upon nearing an average of 1 million messages-per-minute per Doppler (the recommended maximum load), additional Doppler instances should be added.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Doppler Message Rate Capacity</td>
+  <td><code>healthwatch.Doppler.MessagesAverage.1M</code></td>
+  <td>The number of reported messages coming in to Doppler `loggregator.doppler.ingress` divided by the current number of Doppler instances to produce an approximate envelopes-per-minute rate load on the Doppler instances</td>
+</tr>
+</table>
+
 ### <a id='adapter-loss'></a>Adapter Loss Rate
 
 This derived metric is recommended for automating and monitoring platform scaling. The metric is used to monitor the CF Syslog Drain feature of Loggregator.
