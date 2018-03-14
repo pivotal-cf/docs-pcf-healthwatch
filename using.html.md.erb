@@ -27,7 +27,7 @@ The table below provides login information.
 <table class="nice">
 <tr>
   <td>URL</td>
-  <td>Any of the MySQL VM IPs</td>
+  <td>MySQL VM IP</td>
 </tr>
 <tr>
   <td>Port</td>
@@ -47,15 +47,15 @@ The table below provides login information.
 </tr>
 <tr>
   <td>Tables</td>
-  <td><code>value_metric</code>, <code>counter_event</code>, and <code>super_value_metric</code></td>
+  <td><code>value_metric_agg</code>, <code>counter_event_agg</code>, <code>super_value_metric</code>, <code>alert</code> and <code>alert_configuration</code></td>
 </tr>
 </table>
 
 To access the MySQL datastore, you can do the following:
 
-* **Method 1**. Use BOSH to SSH into any of the MySQL VMs and run the `mysql -u root -p` command.
+* **Method 1**. Use BOSH to SSH into the MySQL VM and run the `mysql -u root -p` command.
 
-* **Method 2**. Assign an external IP to a MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
+* **Method 2**. Assign an external IP to the MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
 
 * **Method 3**. Open a tunnel into your IaaS network and connect that way externally.
 
