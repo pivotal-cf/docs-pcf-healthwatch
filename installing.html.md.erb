@@ -57,6 +57,7 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. Set **Ingestor Count** to the number of Doppler Server instances configured in the PAS tile.
 	1. Set **MySQL Loader Count** to 4 for a small or medium PCF deployment or a number equivalent to the number of Dopplers for a larger PCF deployment.
 		<p class="note"><strong>Note</strong>: Pivotal recommends starting with the configuration above and then evaluating performance using the <a href="./monitoring.html#firehoseDisconnectMetrics">Ingestor</a> and <a href="./monitoring.html#loaderDroppedMetrics">Loader</a> metrics.</p>
+	1. To prevent sending events to the Event Alerts Tile (EVA), uncheck **Publish Event Alerts to Event Alerting Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
 
 1. Navigate to **Health Check** and do the following:
