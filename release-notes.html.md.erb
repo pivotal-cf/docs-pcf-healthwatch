@@ -18,6 +18,7 @@ owner: PCF Healthwatch
 ### Known Issues
 
 PCF Healthwatch v1.2.0:
+
 * Isolation Segments - UI **Content to be updated**
 * [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
 * [Bug Identified] Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -40,7 +41,7 @@ The section below summarizes key differences between PCF Healthwatch v1.1 and v1
     * Counter metrics: Max counter value received for the 1 minute aggregation window, from which a minute-to-minute rate is later derived. Unique to the metric name. Further unique to the individual metric emitter (per instance as applicable).
     * Gauge metrics: Received values for the 1 minute aggregation window; aggregated and stored with 5 calculated values per metric: avg, min, max, med, 95p. Unique to the metric name. Further unique to the individual emitter (per instance as applicable).
 * **Data store architecture changes:** 
-    * PCF Healthwatch v1.2 migrates the data store architecture from a clustered MySQL with Galera to a single-node MySQL leveraging Redis as a queue mechanism. More information on the new data flow and availability handling in PCF Healthwatch v1.2 can be found on the [Architecture](release-notes.html#v1.1.1) page. See the [v1.2.0 release notes](release-notes.html#v1.2.0) for information on the optional data migration errand. 
+    * PCF Healthwatch v1.2 migrates the data store architecture from a clustered MySQL with Galera to a single-node MySQL leveraging Redis as a queue mechanism. More information on the new data flow and availability handling in PCF Healthwatch v1.2 can be found on the [Architecture](architecture.html) page. See the [v1.2.0 release notes](release-notes.html#v1.2.0) for information on the optional data migration errand. 
     * The Metrics Forwarder component is now high availability and can be scaled as needed. 
 * **UI Updates:**
     * `Firehose Loss Rate` has been renamed `Log Transport Loss Rate`, and the Red/Green threshold values have been tightened in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
