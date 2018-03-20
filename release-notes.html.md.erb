@@ -7,17 +7,43 @@ owner: PCF Healthwatch
 **Release Date: Not Yet Released**
 
 ### Release Notes
-* Not Yet Released
+* **[Feature]** To support monitoring of Pivotal Cloud Foundry (PCF) v2.1, the following functionality has been added to PCF Healthwatch:
+    * The [Doppler Message Rate Capacity](metrics.html#doppler-capacity) operational metric created by PCF Healthwatch helps indicate that Doppler instances are nearing recommended maximum load and should be scaled up.
+* **[Feature]** Alerts **Content to be updated**
+* **[Feature]** Configuration of `Available Free Memory Chunks` calculation value **Content to be updated**
+* **[Feature]** Isolation Segments - Data **Content to be updated**
+* **[Feature]** To support current Alerting and Free Chunks configuration capability in the product, a new Admin User Scope `healthwatch.admin` has been added. 
+    * The UAA Admin User has this new scope included by default. Additional users can be [provided with this scope](installing.html#healthwatch-uaa-users). Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.
 
 ### Known Issues
 
 PCF Healthwatch v1.2.0:
-
-* Not Yet Released
+* Isolation Segments - UI **Content to be updated**
+* [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
+* [Bug Identified] Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
+* Due to a known issue with Pivotal Application Service for Windows 2012R2, the Windows-based Diego Cell instances are not currently emitting BOSH health metrics through the firehose. This could result in potentially unhealthy jobs not surfacing via standard BOSH metric reporting, and therefore may not surface to PCF Healthwatch or other consumers of monitoring metrics.
+* Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows 2012R2, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
+    * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
+    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both windows-based Cells and linux-based Cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
 
 ##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.2
 
 The section below summarizes key differences between PCF Healthwatch v1.1 and v1.2. For more information about new features in v1.2, see [v1.2.0 release notes](release-notes.html#v1.2.0).
 
 ### Key Differences
-* Not Yet Released
+* **Data aggregation improvements:** In PCF Healthwatch v1.2 all firehose emitted platform metrics that Healthwatch ingests are aggregated per pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can help decorate the data with additional points of interest.
+    * Counter metrics: Max counter value received for the 1 minute aggregation window, from which a minute-to-minute rate is later derived. Unique to the metric name. Further unique to the individual metric emitter (per instance as applicable).
+    * Gauge metrics: Received values for the 1 minute aggregation window; aggregated and stored with 5 calculated values per metric: avg, min, max, med, 95p. Unique to the metric name. Further unique to the individual emitter (per instance as applicable).
+* **Data store architecture changes:** 
+    * PCF Healthwatch v1.2 migrates the data store architecture from a clustered MySQL with Galera to a single-node MySQL leveraging Redis as a queue mechanism. More information on the new data flow and availability handling in PCF Healthwatch v1.2 can be found on the [Architecture](release-notes.html#v1.1.1) page. See the [v1.2.0 release notes](release-notes.html#v1.2.0) for information on the optional data migration errand. 
+    * The Metrics Forwarder component is now high availability and can be scaled as needed. 
+* **UI Updates:**
+    * `Firehose Loss Rate` has been renamed `Log Transport Loss Rate`, and the Red/Green threshold values have been tightened in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
+    * New `Doppler Message Rate` chart available on the Logging Performance page in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
+    * GoRouter Latency and UAA Latency charts now use `gorouter.latency.95p` and `gorouter.latency.uaa.95p`
+
