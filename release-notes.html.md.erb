@@ -3,6 +3,26 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.6'></a>v1.1.6
+**Release Date: March 20, 2018**
+
+### Release Notes
+* To support PCF Healthwatch v1.1 running on either PCF v2.0 or PCF v2.1, the Firehose Loss Rate calculation has been updated to adjust for the underlying source metric differences between PCF v2.0 and PCF v2.1. 
+* **[Bug Fix]** The newest version of the Chrome browser (v65.0.3325.162) will cause several charts on Healthwatch to display alert banding even when no threshold has been breached. This is due to a change in how Chrome handles SVG. v1.1.6 resolves this potential UI issue on newer Chrome browser versions.
+* The UAA details page is now also compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
+
+### Known Issues
+
+PCF Healthwatch v1.1.6:
+
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+   * Query Rate
+   * MySQL CPU Busy Time
+   * Percentage of Max Connections Used
+
 ##<a id='v1.1.5'></a>v1.1.5
 **Release Date: March 5, 2018**
 
