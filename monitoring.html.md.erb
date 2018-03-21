@@ -91,17 +91,18 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    </tr>
 </table>
 
-###<a id="loader-dropped"></a>Number of Metrics Dropped by Healthwatch Data Loader
+###<a id="ingestor-dropped"></a>Number of Metrics Dropped by Healthwatch Data Ingestor
 <table>
-   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.loader.dropped<br/><br/></th></tr>
+   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.dropped<br/><br/></th></tr>
    <tr>
       <th width="25%">Description</th>
       <td>
-        Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch data loader</a>, which loads incoming data into the PCF Healthwatch datastore.
+        Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch Ingestor</a>, which loads incoming data into the PCF Healthwatch Redis datastore.
         <br/><br/>
-        <strong>Use</strong>: An unusual increase in the number of dropped metrics by the PCF Healthwatch Loader likely indicates that you need to scale this component up. A prolonged period of dropping metrics can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.
+        <strong>Use</strong>: An unusual increase in the number of dropped messages by the PCF Healthwatch Ingestor likely indicates that you need to scale up this component and verify the health of Redis.
+         A prolonged period of dropping messages can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.
         <br/><br/>
-        <strong>Origin</strong>: Firehose<br/>
+        <strong>Origin</strong>: healthwatch<br/>
         <strong>Type</strong>: Gauge<br/>
         <strong>Frequency</strong>: 60 s<br/>
       </td>
@@ -118,9 +119,10 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    <tr>
       <th>Recommended response</th>
       <td>
-        Increase the number of PCF Healthwatch Loader instances and monitor this metric to ensure that it returns to a normal state.
+        Verify the health of Redis and increase the number of PCF Healthwatch Ingestor instances and monitor this metric to ensure that it returns to a normal state.
         <br/><br/>
-        You can scale Loader instances in the <strong>Healthwatch Component Config</strong> tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-loader</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
+        You can scale Ingestor instances using the <code>cf scale healthwatch-ingestor</code> command.
+        While <code>cf scale</code> helps you to quickly scale the instances, you should also update the Ingestor Count, in the tile configuration located in Healthwatch Component Config tab, so that the next deployment does not override the manual scaling.
       </td>
    </tr>
 </table>
