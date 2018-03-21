@@ -1,0 +1,75 @@
+This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory configurations](metrics.html#free-memory-chunks).
+
+Currently, two main types of free chunk configurations are supported: Global and Deployment-specific. Through this API, consumers can:
+- View current free chunk configurations
+- Update the Global free chunk size
+- Create deployment-specific free chunk configurations
+    - Applicable for customers isolating Compute (Diego Cells) into Isolation Segments, where different threshold values of concern may be needed
+
+## <a id='prerequisites'></a>Prerequisites/Assumptions
+
+The steps in this document assume that the reader is able to generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users) documentation.
+
+## <a id='info'></a>Healthwatch API Status
+
+Test the availability of the Healthwatch API by hitting the `/info` endpoint with a simple `GET` request:
+
+```
+curl -G healthwatch-api.SYSTEM-DOMAIN/info
+```
+
+The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
+
+## <a id='get'></a>View all free chunk configurations
+### `GET /v1/free-chunks`
+
+To view a list of free chunk configurations, send a `GET` request to the `/v1/free-chunks` endpoint:
+
+```
+curl -G healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks \
+     -H "Authorization: Bearer MY_TOKEN"
+```
+
+This returns a JSON array of free chunk configurations:
+
+```
+[
+  {
+    "id": 1,
+    "deployment": "healthwatch-default",
+    "value": 2048
+  },
+  {
+    "id": 3,
+    "deployment": "cf",
+    "value": 4096
+  }
+]
+```
+
+<p class="note"><strong>Note</strong>: the value returned in the PCF Healthwatch API is in megabytes; the PCF Healthwatch UI displays the value in gigabytes.</p>
+
+## <a id='post'></a>Creating and updating free chunk configurations
+
+### `POST /v1/free-chunks`
+
+To create or update a free chunk configuration, make a `POST` request to the `/v1/free-chunks` endpoint with the following structure:
+
+```
+curl "healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks"  \
+      --data "{\"value\":8192, \"deployment\":\"prod-isolation-segment\"}" \
+      -H "Authorization: Bearer MY_TOKEN" \
+      -H "Content-Type: application/json"
+```
+
+The `value` property is required. If the `deployment` property is omitted, the global free chunk configuration is updated.
+
+Possible successful HTTP response codes:
+- 200: A record was updated
+- 201: A new record was created
+
+<p class="note"><strong>Note</strong>: the value supplied to the PCF Healthwatch API is in megabytes; the PCF Healthwatch UI displays the value in gigabytes.</p>
+
+
+## <a id='free-chunks'></a>Helpful resources:
+- [PCF Healthwatch Metrics](metrics.html)
