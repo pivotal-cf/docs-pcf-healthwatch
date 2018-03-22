@@ -10,10 +10,11 @@ owner: PCF Healthwatch
 * **[Feature]** To support monitoring of Pivotal Cloud Foundry (PCF) v2.1, the following functionality has been added to PCF Healthwatch:
     * The [Doppler Message Rate Capacity](metrics.html#doppler-capacity) operational metric created by PCF Healthwatch helps indicate that Doppler instances are nearing recommended maximum load and should be scaled up.
 * **[Feature]** Alerts **Content to be updated**
+    * Healthwatch publishes alerts to a new common publisher, [PCF Event Alerts](https://network.pivotal.io/products/eva/). Alerts can be sent by email to specific users and to distribution lists, and/or by webhook for integrations such as Slack. Out-of-the-box alerts that are not of interest can be unsubscribed from. Management of alert subscriptions and distribution of the alerts is managed via [PCF Event Alerts](http://docs.pivotal.io/event-alerts/index.html).
 * **[Feature]** Configuration of `Available Free Memory Chunks` calculation value **Content to be updated**
-* **[Feature]** Isolation Segments - Data **Content to be updated**
 * **[Feature]** To support current Alerting and Free Chunks configuration capability in the product, a new Admin User Scope `healthwatch.admin` has been added. 
     * The UAA Admin User has this new scope included by default. Additional users can be [provided with this scope](installing.html#healthwatch-uaa-users). Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.
+* **[Feature]** Isolation Segments - Data **Content to be updated**
 
 ### Known Issues
 
@@ -21,7 +22,7 @@ PCF Healthwatch v1.2.0:
 
 * Isolation Segments - UI **Content to be updated**
 * [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
-* [Bug Identified] Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
 * Due to a known issue with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not currently emitting BOSH health metrics through the firehose. This could result in potentially unhealthy jobs not surfacing via standard BOSH metric reporting, and therefore may not surface to PCF Healthwatch or other consumers of monitoring metrics.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows 2012R2, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
