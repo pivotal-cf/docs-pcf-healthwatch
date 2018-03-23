@@ -9,18 +9,23 @@ owner: PCF Healthwatch
 ### Release Notes
 * **[Feature]** To support monitoring of Pivotal Cloud Foundry (PCF) v2.1, the following functionality has been added to PCF Healthwatch:
     * The [Doppler Message Rate Capacity](metrics.html#doppler-capacity) operational metric created by PCF Healthwatch helps indicate that Doppler instances are nearing recommended maximum load and should be scaled up.
-* **[Feature]** Alerts **Content to be updated**
+* **[Feature]** PCF Healthwatch now comes with out of the box Alerting for the recommended PCF [Key Performance Indicators](http://docs.pivotal.io/pivotalcf/2-1/monitoring/kpi.html) and [Key Scaling Indicators](http://docs.pivotal.io/pivotalcf/2-1/monitoring/key-cap-scaling.html). Information on how to configure the alerting thresholds shipped out of the box can be found here.
     * Healthwatch publishes alerts to a new common publisher, [PCF Event Alerts](https://network.pivotal.io/products/eva/). Alerts can be sent by email to specific users and to distribution lists, and/or by webhook for integrations such as Slack. Out-of-the-box alerts that are not of interest can be unsubscribed from. Management of alert subscriptions and distribution of the alerts is managed via [PCF Event Alerts](http://docs.pivotal.io/event-alerts/index.html).
-* **[Feature]** Configuration of `Available Free Memory Chunks` calculation value **Content to be updated**
+* **[Feature]** Customers can now configure the memory value that PCF Healthwatch will calculate the remaining [Number of Free Chunks of Memory](metrics.html#free-memory-chunks) from. Information on how to configure this value can be found here.
+    * PCF Healthwatch ships with an out of the box configuration of 4GB, which is the standard recommended value. If the standard size of apps pushed on a given deployment exceeds 4GB, this default value should be increased accordingly. 
+    * If Compute capacity has been isolated via [PCF Isolation Segments](https://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/segment-rn.html#intro), Healthwatch will default to 4GB per capacity deployment. This default value is configurable per deployment. 
 * **[Feature]** To support current Alerting and Free Chunks configuration capability in the product, a new Admin User Scope `healthwatch.admin` has been added. 
     * The UAA Admin User has this new scope included by default. Additional users can be [provided with this scope](installing.html#healthwatch-uaa-users). Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.
-* **[Feature]** Isolation Segments - Data **Content to be updated**
+* **[Feature]** PCF Healthwatch now supports use of [PCF Isolation Segments](https://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/segment-rn.html#intro).
+    * Platform metric data emitted from the firehose per Isolation Segment, such as Router, Diego Cell, and BOSH VM Health, is now stored identifiable to the isolated deployment(s).
+    * If Compute capacity is isolated, PCF Healthwatch now creates and publishes relevant operational [metrics](metrics.html#capacity) per isolated deployment(s).
+    * Alerting thresholds shipped out of the box, such as Router and Cell Capacity measures, can be fine-tuned per isolated deployment(s).
 
 ### Known Issues
 
 PCF Healthwatch v1.2.0:
 
-* Isolation Segments - UI **Content to be updated**
+* The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
 * [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
@@ -44,6 +49,7 @@ The section below summarizes key differences between PCF Healthwatch v1.1 and v1
 * **Data store architecture changes:** 
     * PCF Healthwatch v1.2 migrates the data store architecture from a clustered MySQL with Galera to a single-node MySQL leveraging Redis as a queue mechanism. More information on the new data flow and availability handling in PCF Healthwatch v1.2 can be found on the [Architecture](architecture.html) page. See the [v1.2.0 release notes](release-notes.html#v1.2.0) for information on the optional data migration errand. 
     * The Metrics Forwarder component is now high availability and can be scaled as needed. 
+* PCF Healthwatch is now able to support use of [PCF Isolation Segments](https://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/segment-rn.html#intro).
 * **UI Updates:**
     * `Firehose Loss Rate` has been renamed `Log Transport Loss Rate`, and the Red/Green threshold values have been tightened in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
     * New `Doppler Message Rate` chart available on the Logging Performance page in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
