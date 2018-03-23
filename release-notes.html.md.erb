@@ -20,6 +20,8 @@ owner: PCF Healthwatch
     * Platform metric data emitted from the firehose per Isolation Segment, such as Router, Diego Cell, and BOSH VM Health, is now stored identifiable to the isolated deployment(s).
     * If Compute capacity is isolated, PCF Healthwatch now creates and publishes relevant operational [metrics](metrics.html#capacity) per isolated deployment(s).
     * Alerting thresholds shipped out of the box, such as Router and Cell Capacity measures, can be fine-tuned per isolated deployment(s).
+* **[Feature]** Optional Data Migration Errand: a migration errand that will move data from PCF Healthwatch v1.1 to v1.2 has been made optional to allow the Operator to choose between a faster upgrade (no data migration) or retaining the past 24hrs of data (via running the migration). Information on how to run this optional errand can be found here.
+    * If the migration errand is run, there are 2 metrics that will be impacted. In v1.1 `gorouter.latency` is pre-aggregated to maximum values; this will impact the accuracy of the new v1.2 aggregations only for v1.1 transferred data. In PCF 2.1, Route Emitter Messages sent is a new metric, therefore this older metric will not transfer and the relevant chart will be blank for the period before v1.2 installation. 
 
 ### Known Issues
 
