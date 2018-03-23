@@ -28,7 +28,7 @@ owner: PCF Healthwatch
 PCF Healthwatch v1.2.0:
 
 * The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
-* [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
+* PAS MySQL and [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not currently emitting BOSH VM health metrics through the firehose. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
