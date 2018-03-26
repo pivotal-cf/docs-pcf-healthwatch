@@ -21,7 +21,7 @@ All PCF Healthwatch-emitted metrics have the `healthwatch` origin.
 
 This section describes the KPIs that you can use to monitor the health of PCF Healthwatch.
 
-###<a id="firehose-disconnect"></a>Number of Healthwatch Nozzle Disconnects from Firehose
+###<a id="firehose-disconnect"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.disconnects<br/><br/></th></tr>
    <tr>
@@ -58,40 +58,7 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    </tr>
 </table>
 
-###<a id="firehose-disconnect"></a>Number of Ingestor Dropped Metrics
-<table>
-   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.dropped<br/><br/></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>
-        Number of dropped metrics from the Firehose at the <a href="./architecture.html">PCF Healthwatch data ingestor.</a><br/><br/>
-        <strong>Use</strong>: An unusual increase in the number of dropped metrics typically indicates that either you need to scale Redis or there are some problems with the MySQL database.
-        <br/><br/>
-        A prolonged period of losing metrics can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.
-        <br/><br/>
-        <strong>Origin</strong>: Ingestor<br/>
-        <strong>Type</strong>: Counter<br/>
-        <strong>Frequency</strong>: 60 s<br/>
-      </td>
-   </tr>
-   <tr>
-      <th>Recommended measurement</th>
-      <td>Average over last 5 minutes</td>
-   </tr>
-   <tr>
-      <th>Recommended alert thresholds</th>
-      <td>
-        <strong>Yellow warning</strong>: Dynamic<br/>
-        <strong>Red critical</strong>: Dynamic
-      </td>
-   </tr>
-   <tr>
-      <th>Recommended response</th>
-      <td>If the spike is sustained, choose a more powerful VM Type for Redis in the <strong>Resource Config</strong> and monitor this metric to ensure that it returns to a normal state.</td>
-   </tr>
-</table>
-
-###<a id="ingestor-dropped"></a>Number of Metrics Dropped by Healthwatch Data Ingestor
+###<a id="ingestor-dropped"></a>Number of Metrics Dropped by PCF Healthwatch Data Ingestor
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.dropped<br/><br/></th></tr>
    <tr>
@@ -119,10 +86,10 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    <tr>
       <th>Recommended response</th>
       <td>
-        Verify the health of Redis and increase the number of PCF Healthwatch Ingestor instances and monitor this metric to ensure that it returns to a normal state.
+        Verify the health of the Redis VM and increase the number of PCF Healthwatch Ingestor instances. Monitor this metric to ensure that it returns to a normal state.
         <br/><br/>
         You can scale Ingestor instances using the <code>cf scale healthwatch-ingestor</code> command.
-        While <code>cf scale</code> helps you to quickly scale the instances, you should also update the Ingestor Count, in the tile configuration located in Healthwatch Component Config tab, so that the next deployment does not override the manual scaling.
+        While <code>cf scale</code> helps you to quickly scale the instances, you should also update the Ingestor Count in the tile configuration located in Healthwatch Component Config tab. Otherwise the next <code>Apply Changes</code> will override the manual scaling.
       </td>
    </tr>
 </table>
