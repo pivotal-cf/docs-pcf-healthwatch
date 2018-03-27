@@ -180,9 +180,9 @@ Healthwatch ships with the following configurable alerts:
 | Performance Alert: VM Health Check Recovery                    | system.healthy                                     | bosh-system-metrics-forwarder |                | EQUALITY       | 1        |         |
 
 
-You can learn more about metrics here: [PCF Healthwatch Metrics](https://docs.pivotal.io/pcf-healthwatch/1-1/metrics.html).
+You can learn more about metrics here: [PCF Healthwatch Metrics](../metrics.html).
 
-**This handles two jobs to accomodate different job names between PAS and SRT*
+**This handles two jobs to accommodate different job names between PAS and SRT*
 
 ##<a id='errors'></a>Errors
 
