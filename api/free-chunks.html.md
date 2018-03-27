@@ -3,7 +3,7 @@ title: Configuring Free Chunk Memory
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory configurations](metrics.html#free-memory-chunks).
+This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory configurations](../metrics.html#free-memory-chunks).
 
 Currently, two main types of free chunk configurations are supported: Global and Deployment-specific. Through this API, consumers can do the following:
 
@@ -14,7 +14,7 @@ Currently, two main types of free chunk configurations are supported: Global and
 
 ## <a id='prerequisites'></a>Prerequisites and Assumptions
 
-The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users) documentation.
+The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
 
 ## <a id='info'></a>Healthwatch API Status
 
