@@ -5,15 +5,16 @@ owner: PCF Healthwatch
 
 This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory configurations](metrics.html#free-memory-chunks).
 
-Currently, two main types of free chunk configurations are supported: Global and Deployment-specific. Through this API, consumers can:
+Currently, two main types of free chunk configurations are supported: Global and Deployment-specific. Through this API, consumers can do the following:
+
 - View current free chunk configurations
 - Update the Global free chunk size
 - Create deployment-specific free chunk configurations
-    - Applicable for customers isolating Compute (Diego Cells) into Isolation Segments, where different threshold values of concern may be needed
+  - Applicable for customers isolating Compute (Diego Cells) into Isolation Segments, where different threshold values of concern may be needed
 
-## <a id='prerequisites'></a>Prerequisites/Assumptions
+## <a id='prerequisites'></a>Prerequisites and Assumptions
 
-The steps in this document assume that the reader is able to generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users) documentation.
+The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users) documentation.
 
 ## <a id='info'></a>Healthwatch API Status
 
@@ -52,7 +53,7 @@ This returns a JSON array of free chunk configurations:
 ]
 ```
 
-<p class="note"><strong>Note</strong>: the value returned in the PCF Healthwatch API is in megabytes; the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: the value returned in the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
 
 ## <a id='post'></a>Creating and updating free chunk configurations
 
@@ -70,7 +71,8 @@ curl "healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks"  \
 The `value` property is required. If the `deployment` property is omitted, the global free chunk configuration is updated.
 
 Possible successful HTTP response codes:
+
 - 200: A record was updated
 - 201: A new record was created
 
-<p class="note"><strong>Note</strong>: the value supplied to the PCF Healthwatch API is in megabytes; the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: the value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
