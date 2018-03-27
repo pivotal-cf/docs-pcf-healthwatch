@@ -5,18 +5,19 @@ owner: PCF Healthwatch
 
 This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations.
 
-Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can:
+Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
+
 - View current alert configurations
 - Update Out-of-the-Box threshold values
-- Create deployment-specific configurations based on existing Out-of-the-Box configurations.  
+- Create deployment-specific configurations based on existing Out-of-the-Box configurations
 
 ##<a id='prerequisites'></a>Prerequisites/Assumptions
 
-The steps in this document assume that the reader is able to [generate bearer tokens for a UAA client](https://docs.cloudfoundry.org/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
+The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.cloudfoundry.org/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
 
 ##<a id='info'></a>Healthwatch API Status
 
-Test the availability of the Healthwatch API by hitting the `/info` endpoint with a simple `GET` request:
+Test the availability of the Healthwatch API by hitting the `/info` endpoint with a `GET` request:
 
 ```
 curl -G healthwatch-api.SYSTEM-DOMAIN/info
@@ -64,7 +65,7 @@ This returns a JSON array of alert configurations:
 ]
 ```
 
-The `query` and `threshold` properties are covered in detail in subsequent sections, below.
+The `query` and `threshold` properties are covered in detail below.
 
 ##<a id='get_with_query'></a>View specific alert configurations
 ### `GET /alert-configurations?q=...`
@@ -122,12 +123,12 @@ The updated alert configuration is echoed back in the response:
 
 The `query` field is used in two ways:
 
-1. `GET` requests: the `query` filters the alert configurations being queried.
-1. `POST` requests: the `query` specifies the alert configuration being updated.
+* `GET` requests: The `query` filters the alert configurations being queried.
+* `POST` requests: The `query` specifies the alert configuration being updated.
 
 In both cases, the `query` associated with an alert configuration denotes the trigger conditions for the alert.
 
-A well-formed `query` is a valid [Spring Expression Language (SpEL)](https://docs.spring.io/spring/docs/4.3.14.RELEASE/spring-framework-reference/html/expressions.html) expression that uses only the equality (`"=="`) and conjunction (`"and"`) operators; eg:
+A well-formed `query` is a valid [Spring Expression Language (SpEL)](https://docs.spring.io/spring/docs/4.3.14.RELEASE/spring-framework-reference/html/expressions.html) expression that uses only the equality, `"=="`, and conjunction, `"and"`, operators. For example:
 
 ```
 "origin == 'some_origin' and name == 'Some.Metric.Name'"  # valid
@@ -187,33 +188,47 @@ You can learn more about metrics here: [PCF Healthwatch Metrics](https://docs.pi
 
 This section lists common error messages and their causes.
 
-`"Unsupported condition in query expression"`
-- Key in query string is something other than `name`, `origin`, `job`, or `deployment`
+---
+**Error Message**: "Unsupported condition in query expression"
 
-`"Unsupported query expression"`
+**Possible Cause**: Key in query string is something other than `name`, `origin`, `job`, or `deployment`
+
+---
+**Error Message**: "Unsupported query expression"
+
+**Possible Causes**: 
+
 - Query string does not include AT LEAST `name` and `origin`
 - Found operator other than `and` or `==`
 - Expression in query string not in format of `property == 'value' and ...`
 
-`"Invalid query expression"`
-- Invalid query string format
+---
+**Error Message**: "Invalid query expression"
 
-`"Invalid threshold type for metric 'some_origin.some_name'")`
-- Given threshold type does not match expected (see table above)
+**Possible Cause**: Invalid query string format
 
-`"Must provide a warning threshold for an Upper/Lower Threshold"`
-- Threshold missing required values for type
+---
+**Error Message**: "Invalid threshold type for metric 'some_origin.some_name'")
 
-`"name = '${alertConfiguration.name}' and origin = '${alertConfiguration.origin}' is not a supported alert configuration"`
-- Alert configuration does not exist for the targeted metric
+**Possible Cause**: Given threshold type does not match expected (see table above)
+
+---
+**Error Message**: "Must provide a warning threshold for an Upper/Lower Threshold"
+
+**Possible Cause**: Threshold missing required values for type
+
+---
+**Error Message**: "name = '${alertConfiguration.name}' and origin = '${alertConfiguration.origin}' is not a supported alert configuration"
+
+**Possible Cause**: Alert configuration does not exist for the targeted metric
 
 ##<a id='Example'></a>Walkthrough Example
 
 A best practice deployment of Cloud Foundry includes at least three availability zones (AZs). For these types of deployments, Pivotal recommends that you have enough capacity to suffer failure of an entire AZ.
 
-By default, Healthwatch sends an alert if the `Diego.TotalPercentageAvailableMemoryCapacity.5M` metric falls below 35%. (ie, one of three).
+By default, Healthwatch sends an alert if the `Diego.TotalPercentageAvailableMemoryCapacity.5M` metric falls below 35%, or one in three.
 
-However, if your environment has been scaled up to five AZs you may wish to adjust the alert configuration accordingly (to 20%; ie one of five):
+However, if your environment has been scaled up to five AZs you may wish to adjust the alert configuration accordingly to 20%, or more in five.
 
 ```
 uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
