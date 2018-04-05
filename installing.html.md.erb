@@ -104,3 +104,21 @@ The above procedure can be leveraged to add the <code>healthwatch.admin</code> s
 
 <p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
 
+##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
+
+PCF Healthwatch v1.2 aggregates all metric data at the minute level.  This change requires use of a new set of database tables (`value_metric_agg` and `counter_event_agg`).  After installing PCF Healthwatch v1.2 the operator can choose to migrate all of the data from the previous twenty-four hours to the new tables.
+
+<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration may take anywhere from a few minutes to several hours.  Because of this we chose to make the migration a hidden errand that must be run using the Bosh CLI.</p>
+
+
+Steps to Run the Migration:
+
+1. SSH into the Ops Manager VM.  Instructions can be referenced here: <a href='https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh'>SSH into Ops Manager</a>
+1. Grab the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
+1. From the Ops Manager VM, run `<Bosh Commandline Credentials> deployments` to get the PCF Healthwatch deployment name.
+1. From the Ops Manager VM, run `<Bosh Commandline Credentials> -d <PCF Healthwatch deployment name> run-errand migrate-v1.1-v1.2`.
+1. After the errand completes, verify the data exists for twenty-four hours in the Router Performance Detail page graphs.
+1. In the event that something went wrong, please SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
+
+<p class="note"><strong>Note</strong>: After the data has been migrated, the v1.1 database tables (`value_metric` and `counter_event`) are deleted from the database.</p>
+
