@@ -10,7 +10,7 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
-
+ 
 1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
 
@@ -106,19 +106,20 @@ The above procedure can be leveraged to add the <code>healthwatch.admin</code> s
 
 ##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
 
-PCF Healthwatch v1.2 aggregates all metric data at the minute level.  This change requires use of a new set of database tables (`value_metric_agg` and `counter_event_agg`).  After installing PCF Healthwatch v1.2 the operator can choose to migrate all of the data from the previous twenty-four hours to the new tables.
+PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables (`value_metric_agg` and `counter_event_agg`). After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
 
-<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration may take anywhere from a few minutes to several hours.  Because of this we chose to make the migration a hidden errand that must be run using the Bosh CLI.</p>
+The migration a hidden errand that you must run with the BOSH CLI.
 
+<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
 
-Steps to Run the Migration:
+## Migrating Data Between Versions
 
-1. SSH into the Ops Manager VM.  Instructions can be referenced here: <a href='https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh'>SSH into Ops Manager</a>
-1. Grab the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
-1. From the Ops Manager VM, run `<Bosh Commandline Credentials> deployments` to get the PCF Healthwatch deployment name.
-1. From the Ops Manager VM, run `<Bosh Commandline Credentials> -d <PCF Healthwatch deployment name> run-errand migrate-v1.1-v1.2`.
-1. After the errand completes, verify the data exists for twenty-four hours in the Router Performance Detail page graphs.
-1. In the event that something went wrong, please SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
+1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh).
+1. Copy the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
+1. From the Ops Manager VM, run `<\BOSH-COMMANDLINE-CREDENTIALS> deployments` to get the PCF Healthwatch deployment name.
+1. From the Ops Manager VM, run `<\BOSH-COMMANDLINE-CREDENTIALS> -d <\PCF-HEALTHWATCH-DEPLOYMENT-NAME> run-errand migrate-v1.1-v1.2`.
+1. After the errand completes, verify the data exists for 24 hours in the Router Performance Detail page graphs.
 
-<p class="note"><strong>Note</strong>: After the data has been migrated, the v1.1 database tables (`value_metric` and `counter_event`) are deleted from the database.</p>
+To troubleshoot unpredictable behavior, SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
 
+<p class="note"><strong>Note</strong>: After the data migration completes, the v1.1 database tables (`value_metric` and `counter_event`) are deleted from the database.</p>
