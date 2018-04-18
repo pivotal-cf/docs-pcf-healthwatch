@@ -97,7 +97,7 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 
 1. Access the uaac client with `uaac target UAA-URL`.
 1. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
-1. (Optional) Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
+1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
 1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
 
 The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well. 
@@ -108,7 +108,7 @@ The above procedure can be leveraged to add the <code>healthwatch.admin</code> s
 
 PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables called `value_metric_agg` and `counter_event_agg`. After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
 
-The migration a hidden errand that you must run with the BOSH CLI.
+This migration is a hidden errand that you must run with the BOSH CLI.
 
 <p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
 
@@ -116,8 +116,8 @@ The migration a hidden errand that you must run with the BOSH CLI.
 
 1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh).
 1. Copy the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
-1. From the Ops Manager VM, run `<\BOSH-COMMANDLINE-CREDENTIALS> deployments` to get the PCF Healthwatch deployment name.
-1. From the Ops Manager VM, run `<\BOSH-COMMANDLINE-CREDENTIALS> -d <\PCF-HEALTHWATCH-DEPLOYMENT-NAME> run-errand migrate-v1.1-v1.2`.
+1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS deployments` to get the PCF Healthwatch deployment name.
+1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS -d PCF-HEALTHWATCH-DEPLOYMENT-NAME run-errand migrate-v1.1-v1.2`.
 1. After the errand completes, verify the data exists for 24 hours in the Router Performance Detail page graphs.
 
 To troubleshoot unpredictable behavior, SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
