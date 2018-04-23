@@ -104,7 +104,7 @@ The above procedure can be leveraged to add the <code>healthwatch.admin</code> s
 
 <p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
 
-##<a id='healthwatch-migration-v1-1'></a> Optional: Migrate Data From PCF Healthwatch v1.1
+##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
 
 PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables called `value_metric_agg` and `counter_event_agg`. After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
 
