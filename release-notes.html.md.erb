@@ -21,7 +21,7 @@ owner: PCF Healthwatch
     * Platform metric data emitted from the firehose per Isolation Segment, such as Router, Diego Cell, and BOSH VM Health, is now stored identifiable to the isolated deployment(s).
     * If Compute capacity is isolated, PCF Healthwatch now creates and publishes relevant operational [metrics](metrics.html#capacity) per isolated deployment(s).
     * Alerting thresholds shipped out of the box, such as Router and Cell Capacity measures, can be fine-tuned per isolated deployment(s).
-* **[Feature]** Optional Data Migration Errand: a migration errand that will move data from PCF Healthwatch v1.1 to v1.2 has been made optional to allow the Operator to choose between a faster upgrade (no data migration) or retaining the past 24hrs of data (via running the migration). Information on how to run this optional errand can be found [here](installing.html).
+* **[Feature]** Optional Data Migration Errand: a migration errand that will move data from PCF Healthwatch v1.1 to v1.2 has been made optional to allow the Operator to choose between a faster upgrade (no data migration) or retaining the past 24hrs of data (via running the migration). Information on how to run this optional errand can be found [here](installing.html#healthwatch-migration-v1-1).
     * If the migration errand is run, there are 2 metrics that will be impacted. In v1.1 `gorouter.latency` is pre-aggregated to maximum values; this will impact the accuracy of the new v1.2 aggregations only for v1.1 transferred data. In PCF 2.1, Route Emitter Messages sent is a new metric, therefore this older metric will not transfer and the relevant chart will be blank for the period before v1.2 installation. 
 
 ### Known Issues
@@ -29,7 +29,7 @@ owner: PCF Healthwatch
 PCF Healthwatch v1.2.0:
 
 * The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
-* PAS MySQL, [UAA](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) and [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
+* [UAA](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) and [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not currently emitting BOSH VM health metrics through the firehose. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
