@@ -7,9 +7,9 @@ This documentation describes Pivotal Cloud Foundry (PCF) Healthwatch.
 
 ## <a id='features'></a>About PCF Healthwatch
 
-PCF Healthwatch is a service for monitoring the current health, performance, and capacity of PCF. To help operators understand the operational state of their PCF deployment, PCF Healthwatch:
+PCF Healthwatch is a service for monitoring and alerting on the current health, performance, and capacity of PCF. To help operators understand the operational state of their PCF deployment, PCF Healthwatch:
 
-* Stores and visualizes metrics from core PCF components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of PCF.
+* Stores, visualizes and alerts on metrics from core PCF components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of PCF.
 * Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html) and [Access Super Metrics Through the Firehose](using.html#firehose).
 
 All data points are stored in PCF Healthwatch for 25 hours and then pruned.
@@ -64,6 +64,6 @@ The following table provides version and version-support information about PCF H
 * [PCF Healthwatch Metrics](metrics.html)
 * [Monitoring PCF Healthwatch](monitoring.html)
 * [Troubleshooting PCF Healthwatch](troubleshooting.html)
-* [Release Notes and Known Issues](release-notes.html)
 * [Updating Alert Configurations](api/alerts.html)
 * [Updating Free Chunk Memory Configurations](api/free-chunks.html)
+* [Release Notes and Known Issues](release-notes.html)
