@@ -3,6 +3,32 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.7'></a>v1.1.7
+**Release Date: April 26, 2018**
+
+### Release Notes
+* **[Feature]** For result [metrics](metrics.html) published as part of PCF Healthwatch continuous testing, Healthwatch now also publishes the configured test frequency along with the resulting metric. The frequency value is passed into the Firehose as a key-value tag. 
+* Maintenance update of the following product dependencies:
+   * Golang now v1.8.7
+   * OpenJDK now v1.8.0.162
+   * Spring now Brussels-SR9
+   * CF CLI now v6.36.1
+   * Flyway Command-line now v5.0.7
+   * cloudfoundry-incubator/push-apps now v0.0.51
+
+### Known Issues
+
+PCF Healthwatch v1.1.7:
+
+* **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
+* Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* If using PCF Healthwatch v1.1 on PCF v2.1, the `Number of Route Registration Messages Sent and Received` comparison graph may incorrectly reflect an inflated gap. 
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+   * Query Rate
+   * MySQL CPU Busy Time
+   * Percentage of Max Connections Used
+
 ##<a id='v1.1.6'></a>v1.1.6
 **Release Date: March 20, 2018**
 
