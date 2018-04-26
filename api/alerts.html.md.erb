@@ -207,6 +207,7 @@ Healthwatch ships with the following configurable alerts:
 | Performance Alert: Router Throughput<sup>1</sup>                       | total_requests                                     | gorouter                      |                         | UPPER          | 125000       | 100000     | Number  | 5                           |
 | Performance Alert: Number of Router Routes Registered<sup>1</sup>      | total_routes                                       | gorouter                      |                         | UPPER          | 200          | 100        | Number  | 5                           |
 | Performance Alert: VM Memory Used                                      | system.mem.percent                                 | bosh-system-metrics-forwarder |                         | UPPER          | 90           | 80         | Percent | 5                           |
+| Performance Alert: UAA Throughput Rate                                 | uaa.throughput.rate                                | healthwatch                   |                         | UPPER          | 15000        | 12000      | Number  | 5                           |
 | Performance Alert: Unhealthy Cells<sup>2</sup>                         | UnhealthyCell                                      | rep                           |                         | EQUALITY       | 0            |            | Number  | 5                           |
 
 You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
