@@ -58,6 +58,10 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. Set **Redis Worker Count** to the number of Doppler Server instances configured in the PAS tile. If the data being displayed in the PCF Healthwatch UI is regularly delayed by more than one-minute, scale up the number of instances.
 	1. To prevent sending events to the Event Alerts tile (EVA), deselect **Publish events to Event Alerts Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
+	<p class="note"><strong>Note</strong>:
+        In the default highly available installation, PCF Healthwatch requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments.  This footprint can be lowered by reducing the instance counts in this section. <br/>
+        Failure to have enough available RAM on Diego typically results in the <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.
+    </p>
 
 1. Navigate to **Health Check** and do the following:
 
@@ -100,7 +104,7 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
 1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
 
-The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well. 
+The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well.
 
 <p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
 
