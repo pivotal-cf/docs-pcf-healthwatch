@@ -7,13 +7,13 @@ owner: PCF Healthwatch
 
 This topic describes how to resolve common issues with Pivotal Cloud Foundry (PCF) Healthwatch.
 
-## <a id='insufficient-resources-srt'></a>Insufficient Memory Resources in Small Footprint PAS
+## <a id='insufficient-resources'></a>Insufficient Memory Resources
 
-Insufficient capacity of the **Compute** job can cause issues when you install or upgrade PCF Healthwatch on Small Footprint PAS.
+Insufficient capacity of the Diego cells can cause issues when you install or upgrade PCF Healthwatch.
 
 ### Error
 
-If the default resource configuration of the Small Footprint PAS tile was not adjusted as recommended in the [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install) section of the _Getting Started with Small Footprint PAS_ topic, the system may not have sufficient **Compute** capacity, and the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
+If Diego cells do not have sufficient free memory to place the PCF Healthwatch applications then the `push-apps` errand can fail. When this occurs the error message looks similar to the following:
 
 <pre class="terminal">
 $ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
@@ -24,11 +24,11 @@ InsufficientResources
 
 ### Cause
 
-When installing Small Footprint PAS, it is recommended to scale the **Compute** job to 3 instances. For more information, see [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install). By default, in Small Footprint PAS, the number of  **Compute** instances is set to `1`, which is insufficient for a successful PCF Healthwatch installation. 
+Diego cells do not have enough available resources to place the PCF Healthwatch applications
 
 ### Solution
 
-To resolve this issue, navigate to the **Resource Config** pane of the Small Footprint PAS tile and set the number of **Compute** instances to `3`.
+To resolve this issue, navigate to the **Resource Config** pane of the PAS/SRT tile and increase the number of **Diego Cell** instances.  Or, if HA is not desired, scale down the number of instances in the PCF Healthwatch Component Config.
 
 ## <a id='memory-limit'></a>Memory Limit Errors
 
