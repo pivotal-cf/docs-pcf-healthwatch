@@ -62,6 +62,90 @@ The following table provides the default resource and IP requirements for instal
 
 ##<a id='healthwatch-apps'></a>PCF Healthwatch Functional Apps
 
+The following table provides the default memory usage and instance count for the CF pushed applications in a highly available configuration.  If not striving for HA, these instance counts can be scaled down.
+
+<table border="1" class="nice">
+  <thead>
+  <tr>
+    <th>Application</th>
+    <th>Instances</th>
+    <th>RAM</th>
+    <th>Disk</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>bosh-health-check</td>
+    <td>1</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>bosh-task-check</td>
+    <td>2</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>canary-health-check</td>
+    <td>2</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>cf-health-check</td>
+    <td>2</td>
+    <td>500&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>healthwatch</td>
+    <td>2</td>
+    <td>4&nbsp;GB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>healthwatch</td>
+    <td>2</td>
+    <td>4&nbsp;GB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>healthwatch-aggregator</td>
+    <td>1</td>
+    <td>1&nbsp;GB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>healthwatch-ingestor</td>
+    <td>4</td>
+    <td>256&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+    </tr>
+  <tr>
+    <td>healthwatch-meta-monitor</td>
+    <td>1</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>opsmanager-health-check</td>
+    <td>2</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  <tr>
+    <td>ui-health-check</td>
+    <td>1</td>
+    <td>64&nbsp;MB</td>
+    <td>1&nbsp;GB</td>
+  </tr>
+  </tbody>
+</table>
+
+<p class="note"><strong>Note</strong>: These are the application resource usages for steady-state.  During deployments the resource usage can potentially double when doing blue-green deployments.</p>
+
+
 If you want to scale the functional apps created by PCF Healthwatch, see the following recommendations:
 
 * BOSH Director health check (the `bosh-health-check` app).
