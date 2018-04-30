@@ -414,6 +414,23 @@ This section describes the metrics that you can use to monitor the number of con
 
 This section describes other metrics that you can use to monitor PCF Healthwatch.
 
+###<a id="healthwatch-events-published"></a>Number of Healthwatch Events Published to PCF Event Alerts
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.events.published<br/><br/></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>
+        Number of PCF Healthwatch Event Alerts triggered and published to <a href="http://docs.pivotal.io/event-alerts/index.html">PCF Event Alerts</a>.
+        <br/><br/>
+        <strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could vary greatly, it is not recommended to alert on this metric itself.
+        <br/><br/>
+        <strong>Origin</strong>: Firehose<br/>
+        <strong>Type</strong>: Gauge<br/>
+        <strong>Frequency</strong>: 60 s<br/>
+      </td>
+   </tr>
+</table>
+
 ###<a id="bosh-deployment-probe"></a>BOSH Deployment Check Probe
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> health.bosh.deployment.probe.count<br/><br/></th></tr>
