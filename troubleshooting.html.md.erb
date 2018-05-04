@@ -69,7 +69,7 @@ The `opsmanager-health-check` application attempts to connect to Ops Manager in 
 
 ### Solution
 
-To resolve this issue, please confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance.  This can be verified by using `cf ssh opsmanager-health-check` to SSH into the running instance.  Then enter `curl -v $OPSMANAGER_URL` to check the network access.
+To resolve this issue, please confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance.  This can be verified by using `cf ssh opsmanager-health-check` to SSH into the running instance.  Then enter `curl -k -v $OPSMANAGER_URL` to check the network access.
 
 If the network access can not be modified to allow the `opsmanager-health-check` application to reach Ops Manager, then this test cannot be executed properly and should be [disabled](installing.html#healthwatch-opsman).
 
