@@ -95,6 +95,39 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    </tr>
 </table>
 
+###<a id="redis-queue-size"></a>Redis Queue Size
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br/>healthwatch.redis.valueMetricQueue.size<br/>healthwatch.redis.counterEventQueue.size<br/><br/></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>
+        Number of Firehose metrics that are queued for aggregation into Healthwatch.
+        <br/><br/>
+        <strong>Use</strong>: An unusual spike in the number of queued metrics can indicate that PCF Healthwatch Workers are unable to keep up with the volume of metrics from the Firehose.
+        <br/><br/>
+        <strong>Origin</strong>: Firehose<br/>
+        <strong>Type</strong>: Gauge<br/>
+        <strong>Frequency</strong>: 60 s<br/>
+      </td>
+   </tr>
+   <tr>
+      <th>Recommended measurement</th>
+      <td>Average over last 5 minutes</td>
+   </tr>
+   <tr>
+      <th>Recommended alert thresholds</th>
+      <td><strong>Red critical</strong>: &ge;10,000</td>
+   </tr>
+   <tr>
+      <th>Recommended response</th>
+      <td>
+        If the spike is sustained, increase the number of PCF Healthwatch Worker instances and monitor this metric to ensure that it returns to a normal state.
+        <br/><br/>
+        You can scale Worker instances in the <strong>Healthwatch Component Config</strong> tab of the PCF Healthwatch tile or using the <code>cf scale healthwatch-worker</code> command. While <code>cf scale</code> helps you to quickly scale the instances, you should also update the tile configuration so that the next deployment does not override the manual scaling.
+      </td>
+   </tr>
+</table>
+
 ###<a id="ui-availability"></a>PCF Healthwatch UI Availability
 <table>
    <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ui.available<br/><br/></th></tr>
