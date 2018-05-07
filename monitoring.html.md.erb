@@ -103,7 +103,7 @@ This section describes the KPIs that you can use to monitor the health of PCF He
       <td>
         Number of Firehose metrics that are queued for aggregation into Healthwatch.
         <br/><br/>
-        <strong>Use</strong>: An unusual spike in the number of queued metrics can indicate that PCF Healthwatch Workers are unable to keep up with the volume of metrics from the Firehose.
+        <strong>Use</strong>: An unusual spike in the number of queued metrics can indicate that PCF Healthwatch Workers are unable to keep up with the volume of metrics from the Firehose. A large Redis queue will result in value metrics and counter events being delayed; if the queue becomes completely full, metrics will be lost altogether. This will also adversely affect PCF Healthwatch's ability to calculate super value metrics.
         <br/><br/>
         <strong>Origin</strong>: Firehose<br/>
         <strong>Type</strong>: Gauge<br/>
