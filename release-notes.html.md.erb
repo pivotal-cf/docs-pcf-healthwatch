@@ -4,15 +4,13 @@ owner: PCF Healthwatch
 ---
 
 ##<a id='v1.2.0'></a>v1.2.1
-**Release Date: May 7, 2018**
+**Release Date: May 8, 2018**
 
 ### Release Notes
 * **[Feature]** PCF Healthwatch now comes with out of the box Alerting for the recommended [UAA](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) and [Monitoring PCF Healthwatch](monitoring.html) Alerts, as well as alerts for Healthwatch continuous tests (Cloud Foundry CLI Health, Ops Manager Health, Canary App Health, BOSH Director Health).
 * **[Feature]** The [Number of Available Free Chunks of Memory](metrics.html#free-memory-chunks) operational metric created by PCF Healthwatch now publishes with a new key-value tag to indicate configured value for which this metric is being calculated.
 * Alerts that are fired for BOSH Metrics on specific jobs, will now better link to the related Job Instances page in the Healthwatch UI. 
-* Two new metrics for PCF Healthwatch itself have been added to indicate when the Redis workers need to be scaled:
-  * [healthwatch.redis.valueMetricQueue.size]: (Insert Docs Link here)
-  * [healthwatch.redis.counterEventQueue.size]:  (Insert Docs Link here)
+* Two new metrics for PCF Healthwatch itself have been added to indicate when the Redis workers need to be scaled: [healthwatch.redis.valueMetricQueue.size](monitoring.html#redis-queue-size) [healthwatch.redis.counterEventQueue.size](monitoring.html#redis-queue-size). 
 * The CLI Health Receiving Logs test was improved to check for the expected log line multiple times within the timeout window. This improves an issue in some customer environments where the test would indicate failure due to slow log delivery.
 
 ### Known Issues
