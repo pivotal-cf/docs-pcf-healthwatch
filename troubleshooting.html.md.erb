@@ -13,7 +13,7 @@ Insufficient capacity of the Diego cells can cause issues when you install or up
 
 ### Error
 
-If Diego cells do not have sufficient free memory to place the PCF Healthwatch applications then the `push-apps` errand can fail. When this occurs the error message looks similar to the following:
+The `push-apps` errand can fail if Diego cells do not have sufficient free memory to place the PCF Healthwatch applications. If this occurs, you will see an error message like the following:
 
 <pre class="terminal">
 $ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
@@ -24,11 +24,11 @@ InsufficientResources
 
 ### Cause
 
-Diego cells do not have enough available resources to place the PCF Healthwatch applications
+Diego cells do not have enough available resources to place the PCF Healthwatch applications.
 
 ### Solution
 
-To resolve this issue, navigate to the **Resource Config** pane of the PAS/SRT tile and increase the number of **Diego Cell** instances.  Or, if HA is not desired, scale down the number of instances in the PCF Healthwatch Component Config.
+To resolve this issue, navigate to the **Resource Config** pane of the PAS or SRT tile and increase the number of **Diego Cell** instances. Or, if you do not need high-availability, scale down the number of instances in **Healthwatch Component Config** in the PCF Healthwatch Tile.
 
 ## <a id='memory-limit'></a>Memory Limit Errors
 

@@ -57,8 +57,8 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. Set **Ingestor Count** to the number of Doppler Server instances configured in the PAS tile.
 	1. Set **MySQL Loader Count** to 4 for a small or medium PCF deployment or a number equivalent to the number of Dopplers for a larger PCF deployment.
 		<p class="note"><strong>Note</strong>: Pivotal recommends starting with the configuration above and then evaluating performance using the <a href="./monitoring.html#firehoseDisconnectMetrics">Ingestor</a> and <a href="./monitoring.html#loaderDroppedMetrics">Loader</a> metrics.<br/><br/>
-		    In the default highly available installation, PCF Healthwatch requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments.  This footprint can be lowered by reducing the instance counts in this section. <br/>
-		    Failure to have enough available RAM on Diego typically results in the <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.
+		    In the default highly available installation, PCF Healthwatch requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments. You can lower this footprint by reducing the instance counts in this section.<br/>
+		    Insufficient available RAM on Diego typically results in an <a href='./troubleshooting.html#insufficient-resources'>Insufficient Resources</a> error message when running the <strong>push-apps</strong> errand.
 		</p>
 	1. Click **Save**.
 
