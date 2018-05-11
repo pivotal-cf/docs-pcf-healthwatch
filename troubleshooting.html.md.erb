@@ -73,3 +73,17 @@ To resolve this issue, please confirm that the `opsmanager-health-check` applica
 
 If the network access can not be modified to allow the `opsmanager-health-check` application to reach Ops Manager, then this test cannot be executed properly and should be [disabled](installing.html#healthwatch-opsman).
 
+
+## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
+
+### Error
+
+`ERROR: Bosh health check failed to delete deployment "bosh-health-check": Deployment not found` and `bosh-health-check` deployment does exist.
+
+### Cause
+
+In PCF Healthwatch 1.1.8 and subsequent versions, we started using service broker UAA credentials for the BOSH Health Check. This can cause a permissions issue if the BOSH Health Check deployment already exists on the Director.
+
+### Solution
+
+Manually delete the existing BOSH Health Check deployment.
