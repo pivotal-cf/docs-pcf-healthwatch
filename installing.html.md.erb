@@ -70,6 +70,9 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	<p class="note"><strong>Note</strong>: On Azure environments this dropdown is null because Azure does not currently support the concept of AZs.</p>
 
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
+	1. Optionally set a **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. On environments where 2-factor authentication is enabled on the BOSH Director, you'll need to create a BOSH UAA Client using the steps below.
+	     1. Follow the instructions at [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential.
+	     1. Create a UAA Client for the Healthwatch BOSH Task Check using the following command: `uaac client add <client_name> --authorized_grant_types client_credentials --authorities bosh.read --secret <client_secret>`
 	1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
