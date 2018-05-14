@@ -2,6 +2,27 @@
 title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
+##<a id='v1.1.8’></a>v1.1.8
+**Release Date: May 14, 2018**
+
+### Release Notes
+* **[Bug Fix]** Fixes a bug identified in prior versions where two-factor authentication being enabled for the BOSH Director caused the BOSH Health Check continuous validation test and the BOSH Task Check to fail. 
+* Maintenance update of the following product dependencies:
+   * PushApps now v0.0.53
+  
+### Known Issues
+
+PCF Healthwatch v1.1.8:
+
+* If Healthwatch is upgraded while the BOSH Health Check runs, the BOSH Director SLI will show an error. Details on troubleshooting can be found [here](http://docs.pivotal.io/pcf-healthwatch/1-1/troubleshooting.html). 
+* Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* If using PCF Healthwatch v1.1 on PCF v2.1, the `Number of Route Registration Messages Sent and Received` comparison graph may incorrectly reflect an inflated gap. 
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+   * Query Rate
+   * MySQL CPU Busy Time
+   * Percentage of Max Connections Used
+
 
 ##<a id='v1.1.7'></a>v1.1.7
 **Release Date: April 26, 2018**
