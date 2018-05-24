@@ -103,7 +103,8 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 
 ## <a id='canaryapp'></a>Canary App Health
 
-App availability and responsiveness issues can significantly impact the experience of end users. PCF Healthwatch uses Apps Manager as a canary app and continuously checks its health. Because of the functions Apps Manager provides, Pivotal recommends it as a canary for insight into the performance of other apps running on PCF.
+
+App availability and responsiveness issues can significantly impact the experience of end users. By default, PCF Healthwatch will use Apps Manager as a canary app. An excellent indicator for the overall health of apps running on PCF, if Apps Manager is down, it is highly likely other apps are failing as well. If it is up and responsive, then other apps and their underlying routing are likely healthy as well. As of v1.3, customers can now point this test at another PCF app, if that app is a preferred canary to the Apps Manager default. 
 
 <table class="nice">
 <tr>
