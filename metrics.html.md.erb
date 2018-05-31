@@ -76,7 +76,7 @@ The table below provides information about the cf CLI health smoke tests and the
 </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
+<p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs (2 minutes). Their value is always zero.</p>
 
 <p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>healthwatch</strong> space.</p>
 
@@ -258,7 +258,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 <tr>
   <td>Available free chunks of memory</td>
   <td><code>healthwatch.Diego.AvailableFreeChunks</code></td>
-  <td>The current number of calculated 4-GB chunks of free memory across all cells. The default calculation value of 4-GB can be [modified via API](api.html).</td>
+  <td>The current number of calculated 4-GB chunks of free memory across all cells. The default calculation value of 4-GB can be [modified via API](http://docs.pivotal.io/pcf-healthwatch/1-2/api/free-chunks.html).</td>
 </tr>
 </table>
 
