@@ -52,7 +52,7 @@ This returns a JSON object of format:
 To update a Canary URL for a deployment, make a `POST` request to the `/v1/canary?deployment=cf` endpoint with the following structure:
 
 ```
-curl "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
+curl -X POST "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
       --data "{\"url\":\"https://<some-valid-url>.com\"}" \
       -H "Authorization: Bearer MY_TOKEN" \
       -H "Content-Type: application/json"
