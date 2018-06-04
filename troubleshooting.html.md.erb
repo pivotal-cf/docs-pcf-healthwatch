@@ -87,3 +87,17 @@ In PCF Healthwatch 1.2.2 and subsequent versions, we started using service broke
 ### Solution
 
 Manually delete the existing BOSH Health Check deployment.
+
+
+## <a id='bosh-metric-ingestion'></a>Smoke Tests failing on Bosh Metric Ingestion
+
+### Error
+
+`ERROR: Smoke Tests errand fails with `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+
+### Cause
+
+The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database.  This same error will also manifest itself as a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard.  When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this Bosh Director based process to error out.
+### Solution
+
+To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
