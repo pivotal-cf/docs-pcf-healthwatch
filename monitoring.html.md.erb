@@ -1,4 +1,3 @@
-
 ---
 title: Monitoring PCF Healthwatch
 owner: PCF Healthwatch
@@ -28,15 +27,13 @@ valueMetric:&lt;name:&quot;healthwatch.metrics.published&quot; value:38 unit:&qu
 
 
 		
-</div>
 
 ## <a id="key-performance-indicators-for-pcf-healthwatch"></a>Key Performance Indicators for PCF Healthwatch</h2>
 <p>This section describes the KPIs that you can use to monitor the health of PCF Healthwatch.</p>
 
 
 
-<div>
-	### <a id="number-of-pcf-healthwatch-nozzle-disconnects-from-firehose"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose
+### <a id="number-of-pcf-healthwatch-nozzle-disconnects-from-firehose"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.disconnects<br/><br/></th></tr>
     <tr>
@@ -85,10 +82,8 @@ update the tile configuration so that the next deployment does not override the 
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="number-of-ingestor-dropped-metrics"></a>Number of Ingestor Dropped Metrics
+### <a id="number-of-ingestor-dropped-metrics"></a>Number of Ingestor Dropped Metrics
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ingestor.dropped<br/><br/></th></tr>
     <tr>
@@ -134,10 +129,8 @@ Healthwatch Component Config tab. Otherwise, the next <code>Apply Changes</code>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="redis-queue-size"></a>Redis Queue Size
+### <a id="redis-queue-size"></a>Redis Queue Size
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.redis.valueMetricQueue.size<br/>healthwatch.redis.counterEventQueue.size<br/><br/></th></tr>
     <tr>
@@ -183,10 +176,8 @@ update the tile configuration so that the next deployment does not override the 
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="pcf-healthwatch-ui-availability"></a>PCF Healthwatch UI Availability
+### <a id="pcf-healthwatch-ui-availability"></a>PCF Healthwatch UI Availability
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.ui.available<br/><br/></th></tr>
     <tr>
@@ -231,10 +222,8 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="cli-health-test-availability"></a>CLI Health Test Availability
+### <a id="cli-health-test-availability"></a>CLI Health Test Availability
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> health.check.cliCommand.probe.available<br/><br/></th></tr>
     <tr>
@@ -275,10 +264,8 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="canary-app-health-test-availability"></a>Canary App Health Test Availability
+### <a id="canary-app-health-test-availability"></a>Canary App Health Test Availability
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> health.check.CanaryApp.probe.available<br/><br/></th></tr>
     <tr>
@@ -323,10 +310,8 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="bosh-director-health-test-availability"></a>BOSH Director Health Test Availability
+### <a id="bosh-director-health-test-availability"></a>BOSH Director Health Test Availability
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> health.check.bosh.director.probe.available<br/><br/></th></tr>
     <tr>
@@ -371,10 +356,8 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="ops-manager-health-test-availability"></a>Ops Manager Health Test Availability
+### <a id="ops-manager-health-test-availability"></a>Ops Manager Health Test Availability
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> health.check.OpsMan.probe.available<br/><br/></th></tr>
     <tr>
@@ -419,10 +402,8 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
-<div>
-	### <a id="number-of-healthwatch-super-metrics-published-to-firehose"></a>Number of Healthwatch Super Metrics Published to Firehose
+### <a id="number-of-healthwatch-super-metrics-published-to-firehose"></a>Number of Healthwatch Super Metrics Published to Firehose
 <table>
     <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.metrics.published<br/><br/></th></tr>
     <tr>
@@ -464,13 +445,11 @@ reference these assessments.</p>
         </td>
     </tr>
 </table>
-</div>
 
 
 
 
 		
-</div>
 
 ## <a id="number-of-healthwatch-continuous-validation-tests-executed"></a>Number of Healthwatch Continuous Validation Tests Executed</h2>
 <p>This section describes the metrics that you can use to monitor the number of continuous validation tests executed by PCF Healthwatch.</p>
@@ -480,8 +459,7 @@ reference these assessments.</p>
 
 
 
-<div>
-	### <a id="cli-command-health"></a>CLI Command Health
+### <a id="cli-command-health"></a>CLI Command Health
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> health.check.cliCommand.probe.count<br><br></th></tr>
    <tr>
@@ -503,10 +481,8 @@ reference these assessments.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
-<div>
-	### <a id="ops-manager-health"></a>Ops Manager Health
+### <a id="ops-manager-health"></a>Ops Manager Health
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> health.check.OpsMan.probe.count<br><br></th></tr>
    <tr>
@@ -528,10 +504,8 @@ reference these assessments.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
-<div>
-	### <a id="canary-app-health"></a>Canary App Health
+### <a id="canary-app-health"></a>Canary App Health
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> health.check.CanaryApp.probe.count<br><br></th></tr>
    <tr>
@@ -553,10 +527,8 @@ reference these assessments.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
-<div>
-	### <a id="bosh-director-health"></a>BOSH Director Health
+### <a id="bosh-director-health"></a>BOSH Director Health
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> health.check.bosh.director.probe.count<br><br></th></tr>
    <tr>
@@ -578,10 +550,8 @@ reference these assessments.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
 		
-</div>
 
 ## <a id="other-metrics-available"></a>Other Metrics Available</h2>
 <p>This section describes other metrics that you can use to monitor PCF Healthwatch.</p>
@@ -591,8 +561,7 @@ reference these assessments.</p>
 
 
 
-<div>
-	### <a id="number-of-healthwatch-events-published-to-pcf-event-alerts"></a>Number of Healthwatch Events Published to PCF Event Alerts
+### <a id="number-of-healthwatch-events-published-to-pcf-event-alerts"></a>Number of Healthwatch Events Published to PCF Event Alerts
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> healthwatch.events.published<br><br></th></tr>
    <tr>
@@ -612,10 +581,8 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
-<div>
-	### <a id="bosh-deployment-check-probe"></a>BOSH Deployment Check Probe
+### <a id="bosh-deployment-check-probe"></a>BOSH Deployment Check Probe
 <table>
    <tbody><tr><th colspan="2" style="text-align: center;"><br> health.bosh.deployment.probe.count<br><br></th></tr>
    <tr>
@@ -639,8 +606,6 @@ likely indicates problems in the test runner functionality.</p>
       </td>
    </tr>
 </tbody></table>
-</div>
 
 		
-</div>
 
