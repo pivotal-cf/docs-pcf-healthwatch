@@ -56,7 +56,7 @@ makes using platform metrics from the Firehose.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -68,7 +68,7 @@ makes using platform metrics from the Firehose.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_ingestor_disconnects{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(healthwatch_ingestor_disconnects{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -115,7 +115,7 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -127,7 +127,7 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_ingestor_dropped{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(healthwatch_ingestor_dropped{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -172,12 +172,12 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
 			
                 <tr>
                     <td>
-                        <strong>healthwatch.redis.valueMetricQueue.size</strong>
+                        <strong>redis.valueMetricQueue.size</strong>
                         <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose value metrics that are queued for aggregation into Healthwatch. Emitted every minute.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -185,12 +185,12 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
 			
                 <tr>
                     <td>
-                        <strong>healthwatch.redis.counterEventQueue.size</strong>
+                        <strong>redis.counterEventQueue.size</strong>
                         <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose counter metrics that are queued for aggregation into Healthwatch. Emitted every minute.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -202,7 +202,7 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_redis_valueMetricQueue_size{source_id="metron_forwarder"}[5m] + healthwatch_redis_counterEventQueue_size{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(healthwatch_redis_valueMetricQueue_size{source_id="healthwatch-forwarder"}[5m] + healthwatch_redis_counterEventQueue_size{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -251,7 +251,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -263,7 +263,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ui_available{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(ui_available{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -307,7 +307,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -319,7 +319,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -362,7 +362,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -374,7 +374,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -417,7 +417,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -429,7 +429,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -472,7 +472,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -484,7 +484,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="metron_forwarder"}[5m])</code>
+			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -527,7 +527,7 @@ reference these assessments.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
-                            <span style="display: inline-block"><strong>log-cache source_id</strong>: metron_forwarder</span>
+                            <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
                         </span>
                     </td>
@@ -539,7 +539,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>rate(healthwatch_metrics_published{source_id="metron_forwarder"}[5m])</code>
+			<code>rate(healthwatch_metrics_published{source_id="healthwatch-forwarder"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -596,7 +596,7 @@ reference these assessments.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
@@ -618,7 +618,7 @@ reference these assessments.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
@@ -640,7 +640,7 @@ reference these assessments.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
@@ -662,7 +662,7 @@ reference these assessments.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
@@ -692,7 +692,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
@@ -716,7 +716,7 @@ likely indicates problems in the test runner functionality.</p>
 <p><strong>Frequency</strong>: 60 s</p>
 
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
-		<span><strong>Log Cache Source ID</strong>: metron_forwarder</span>
+		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
       </td>
    </tr>
 </tbody></table>
