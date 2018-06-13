@@ -44,20 +44,19 @@ This metric can also spike during a PCF deployment because the Traffic Controlle
 <p>A prolonged period of losing metrics as a result of disconnects can endanger the assessments that PCF Healthwatch
 makes using platform metrics from the Firehose.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 
 			<table style="background-color: #fafafa">
 			
                 <tr>
                     <td>
                         <strong>healthwatch.ingestor.disconnects</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of forced disconnects of the <a href="./architecture.html">PCF Healthwatch data ingestor nozzle</a> from the Firehose. Incremented each time an ingestor is disconnected from the firehose. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of forced disconnects of the <a href="./architecture.html">PCF Healthwatch data ingestor nozzle</a> from the Firehose. Incremented each time an ingestor is disconnected from the firehose.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -111,12 +110,13 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
                 <tr>
                     <td>
                         <strong>healthwatch.ingestor.dropped</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch Ingestor</a>, which loads incoming data into the PCF Healthwatch Redis datastore. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of metrics dropped by the <a href="./architecture.html">PCF Healthwatch Ingestor</a>, which loads incoming data into the PCF Healthwatch Redis datastore.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -165,20 +165,19 @@ keep up with the volume of metrics from the Firehose. A large Redis queue will r
 events being delayed; if the queue becomes completely full, metrics will be lost altogether. This will also
 adversely affect PCF Healthwatch’s ability to calculate super value metrics.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 
 			<table style="background-color: #fafafa">
 			
                 <tr>
                     <td>
                         <strong>redis.valueMetricQueue.size</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose value metrics that are queued for aggregation into Healthwatch. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose value metrics that are queued for aggregation into Healthwatch.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -186,12 +185,13 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
                 <tr>
                     <td>
                         <strong>redis.counterEventQueue.size</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose counter metrics that are queued for aggregation into Healthwatch. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Number of Firehose counter metrics that are queued for aggregation into Healthwatch.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -239,20 +239,19 @@ update the tile configuration so that the next deployment does not override the 
 does not impact the assessments that PCF Healthwatch is making, loss of the UI can impact user ability to visually
 reference these assessments.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 
 			<table style="background-color: #fafafa">
 			
                 <tr>
                     <td>
                         <strong>healthwatch.ui.available</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>The PCF Healthwatch UI is available. This assessment is made using a probe that looks for a successful response: 1 = available, 0 = not available, or timeout (10 s). Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>The PCF Healthwatch UI is available. This assessment is made using a probe that looks for a successful response: 1 = available, 0 = not available, or timeout (10 s).</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -303,12 +302,13 @@ reference these assessments.</p>
                 <tr>
                     <td>
                         <strong>health.check.cliCommand.probe.available</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#cloud-foundry-cli-health">Cloud Foundry CLI Health</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#cloud-foundry-cli-health">Cloud Foundry CLI Health</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -358,12 +358,13 @@ reference these assessments.</p>
                 <tr>
                     <td>
                         <strong>health.check.CanaryApp.probe.available</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#canary-app-health">Canary App Health</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#canary-app-health">Canary App Health</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -413,12 +414,13 @@ reference these assessments.</p>
                 <tr>
                     <td>
                         <strong>health.check.bosh.director.probe.available</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#bosh-director">BOSH Director Health Test</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#bosh-director">BOSH Director Health Test</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -468,12 +470,13 @@ reference these assessments.</p>
                 <tr>
                     <td>
                         <strong>health.check.OpsMan.probe.available</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#opsman">Ops Manager Health Test</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>Emits 1 to indicate that <a href="metrics.html#opsman">Ops Manager Health Test</a> probe is available or 0 to indicate that it is unavailable. If this is absent, Healthwatch is not properly monitoring probes. This assessment of up-to-date results is made by looking for results within the configured test schedule plus timeout. For example, a test runner scheduled on 5-minute intervals with a 2-minute timeout must show a test result within the last 7 minutes to succeed.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -523,12 +526,13 @@ reference these assessments.</p>
                 <tr>
                     <td>
                         <strong>healthwatch.metrics.published</strong>
-                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>The number of super value metrics published by this metron forwarder. Emitted every minute.</p>
+                        <p style="margin-bottom: 0.2em; margin-top: 0.2em"><p>The number of super value metrics published by this metron forwarder.</p>
 </p>
                         <span style="font-size: small">
 							<span style="display: inline-block"><strong>firehose origin</strong>: healthwatch</span>
                             <span style="display: inline-block"><strong>log-cache source_id</strong>: healthwatch-forwarder</span>
                             <span style="display: inline-block"><strong>type</strong>: gauge</span>
+                            <span style="display: inline-block"><strong>frequency</strong>: 60s</span>
                         </span>
                     </td>
                 </tr>
@@ -593,10 +597,9 @@ reference these assessments.</p>
 
 <p>In the default installation, these tests run every 5 minutes across 2 runner apps.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
@@ -615,10 +618,9 @@ reference these assessments.</p>
 
 <p>In the default installation, these tests run every 1 minute across 2 runner apps.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
@@ -637,10 +639,9 @@ reference these assessments.</p>
 
 <p>In the default installation, these tests run every 1 minutes across 2 runner apps.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
@@ -659,10 +660,9 @@ reference these assessments.</p>
 
 <p>In the default installation, these tests run every 10 minutes using 1 runner app.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
@@ -689,10 +689,9 @@ reference these assessments.</p>
 <p><strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could
 vary greatly, it is not recommended to alert on this metric itself.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
@@ -713,10 +712,9 @@ likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 30 seconds across 2 runner apps.</p>
 
-<p><strong>Frequency</strong>: 60 s</p>
-
 		<span><strong>Firehose Origin</strong>: healthwatch</span>
 		<span><strong>Log Cache Source ID</strong>: healthwatch-forwarder</span>
+		<span><strong>Frequency</strong>: 60s</span>
       </td>
    </tr>
 </tbody></table>
