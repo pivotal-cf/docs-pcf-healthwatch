@@ -7,13 +7,13 @@ owner: PCF Healthwatch
 
 This topic describes how to resolve common issues with Pivotal Cloud Foundry (PCF) Healthwatch.
 
-## <a id='insufficient-resources-srt'></a>Insufficient Memory Resources in Small Footprint PAS
+## <a id='insufficient-resources'></a>Insufficient Memory Resources
 
-Insufficient capacity of the **Compute** job can cause issues when you install or upgrade PCF Healthwatch on Small Footprint PAS.
+Insufficient capacity of the Diego cells can cause issues when you install or upgrade PCF Healthwatch.
 
 ### Error
 
-If the default resource configuration of the Small Footprint PAS tile was not adjusted as recommended in the [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install) section of the _Getting Started with Small Footprint PAS_ topic, the system may not have sufficient **Compute** capacity, and the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
+If Diego cells do not have sufficient free memory to place the PCF Healthwatch applications then the `push-apps` errand can fail. When this occurs the error message looks similar to the following:
 
 <pre class="terminal">
 $ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
@@ -24,11 +24,11 @@ InsufficientResources
 
 ### Cause
 
-When installing Small Footprint PAS, it is recommended to scale the **Compute** job to 3 instances. For more information, see [Installing Small Footprint PAS](https://docs.pivotal.io/pivotalcf/2-0/customizing/small-footprint.html#install). By default, in Small Footprint PAS, the number of  **Compute** instances is set to `1`, which is insufficient for a successful PCF Healthwatch installation. 
+Diego cells do not have enough available resources to place the PCF Healthwatch applications
 
 ### Solution
 
-To resolve this issue, navigate to the **Resource Config** pane of the Small Footprint PAS tile and set the number of **Compute** instances to `3`.
+To resolve this issue, navigate to the **Resource Config** pane of the PAS/SRT tile and increase the number of **Diego Cell** instances.  Or, if HA is not desired, scale down the number of instances in the PCF Healthwatch Component Config.
 
 ## <a id='memory-limit'></a>Memory Limit Errors
 
@@ -69,7 +69,35 @@ The `opsmanager-health-check` application attempts to connect to Ops Manager in 
 
 ### Solution
 
-To resolve this issue, please confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance.  This can be verified by using `cf ssh opsmanager-health-check` to SSH into the running instance.  Then enter `curl -v $OPSMANAGER_URL` to check the network access.  If the certificate will not validate you can set `SKIP_SSL_VALIDATION=true` in the environment variables.
+To resolve this issue, confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance. To verify this, run `cf ssh opsmanager-health-check` to SSH into the running instance. Then run `curl -k -v $OPSMANAGER_URL` to check the network access.
 
-If the network access can not be modified to allow the `opsmanager-health-check` application to reach Ops Manager, then this test cannot be executed properly and should be [disabled](installing.html#healthwatch-opsman).
+If you cannot modify network access to allow the `opsmanager-health-check` application to reach Ops Manager, this test cannot be executed and you should disable it. See [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
 
+
+## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
+
+### Error
+
+`ERROR: Bosh health check failed to delete deployment "bosh-health-check": Deployment not found` and `bosh-health-check` deployment does exist.
+
+### Cause
+
+In PCF Healthwatch 1.2.2 and subsequent versions, we started using service broker UAA credentials for the BOSH Health Check. This can cause a permissions issue if the BOSH Health Check deployment already exists on the Director.
+
+### Solution
+
+Manually delete the existing BOSH Health Check deployment.
+
+
+## <a id='bosh-metric-ingestion'></a>Smoke Tests failing on Bosh Metric Ingestion
+
+### Error
+
+`ERROR: Smoke Tests errand fails with `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+
+### Cause
+
+The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database.  This same error will also manifest itself as a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard.  When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this Bosh Director based process to error out.
+### Solution
+
+To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.

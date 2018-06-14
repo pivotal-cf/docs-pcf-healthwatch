@@ -76,7 +76,7 @@ The table below provides information about the cf CLI health smoke tests and the
 </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs. Their value is always zero.</p>
+<p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs (2 minutes). Their value is always zero.</p>
 
 <p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>healthwatch</strong> space.</p>
 
@@ -104,7 +104,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 ## <a id='canaryapp'></a>Canary App Health
 
 
-App availability and responsiveness issues can significantly impact the experience of end users. By default, PCF Healthwatch will use Apps Manager as a canary app. An excellent indicator for the overall health of apps running on PCF, if Apps Manager is down, it is highly likely other apps are failing as well. If it is up and responsive, then other apps and their underlying routing are likely healthy as well. As of v1.3, customers can now point this test at another PCF app, if that app is a preferred canary to the Apps Manager default. 
+App availability and responsiveness issues can significantly impact the experience of end users. By default, PCF Healthwatch will use Apps Manager as a canary app. An excellent indicator for the overall health of apps running on PCF, if Apps Manager is down, it is highly likely other apps are failing as well. If it is up and responsive, then other apps and their underlying routing are likely healthy as well. [As of v1.3, customers can now point this test at another PCF app, if that app is a preferred canary to the Apps Manager default](api/canary-configuration.html).
 
 <table class="nice">
 <tr>
@@ -258,7 +258,7 @@ This derived metric is recommended for automating and monitoring platform scalin
 <tr>
   <td>Available free chunks of memory</td>
   <td><code>healthwatch.Diego.AvailableFreeChunks</code></td>
-  <td>The current number of calculated 4-GB chunks of free memory across all cells. The default calculation value of 4-GB can be [modified via API](api.html).</td>
+  <td>The current number of calculated 4-GB chunks of free memory across all cells. The default calculation value of 4-GB can be [modified via API](api/free-chunks.html).</td>
 </tr>
 </table>
 
