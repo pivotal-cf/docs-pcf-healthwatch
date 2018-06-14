@@ -87,3 +87,30 @@ In PCF Healthwatch 1.2.2 and subsequent versions, we started using service broke
 ### Solution
 
 Manually delete the existing BOSH Health Check deployment.
+
+
+## <a id='bosh-metric-ingestion'></a>Smoke Tests failing on Bosh Metric Ingestion
+
+### Error
+
+`ERROR: Smoke Tests errand fails with `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+
+### Cause
+
+The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database.  This same error will also manifest itself as a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard.  When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this Bosh Director based process to error out.
+### Solution
+
+To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
+
+## <a id='mysql-migration'></a>Healthwatch Failing After Upgrading to v1.2 from v1.1
+
+### Error
+
+`2018-04-26T10:06:54.164-05:00 [APP/PROC/WEB/1] [OUT] Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is org.apache.tomcat.jdbc.pool.PoolExhaustedException: [qtp807752428-1186] Timeout: Pool empty. Unable to fetch a connection in 30 seconds, none available[size:100; busy:0; idle:0; lastwait:30000].`
+
+### Cause
+
+In PCF Healthwatch v1.2 we have moved from a clustered version of MySQL to a single node.  In v1.1 all database traffic went through the `proxy` nodes.  In v1.2 these nodes no longer exist and all connections go directly to the `mysql` VM.  If the product is upgraded from v1.1 to v1.2 and the `push-apps` errand is disabled then the `CF pushed` based PCF Healthwatch applications will not be updated to connect to the single `mysql` node.
+### Solution
+
+To resolve this issue run the `push-apps` errand in PCF Healthwatch.
