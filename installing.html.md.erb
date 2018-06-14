@@ -102,6 +102,19 @@ When you turn the test suite off, the following changes happen:
 * The Ops Manager Health panel is not displayed in the PCF Healthwatch UI.
 * The [Ops Manager Health metric](metrics.html#opsman) is not created and emitted.
 
+##<a id='configure-syslog-forwarding'></a> (Optional) Configure Syslog Forwarding
+
+By default, syslog forwarding is not enabled in PCF Healthwatch. However, PCF Healthwatch supports forwarding syslog to an external log management service (for example, Papertrail, Splunk, or your custom enterprise log sink). The VM logs are useful for debugging problems in the system.
+
+To enable remote syslog forwarding for PCF Healthwatch, do the following:
+
+1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+1. Navigate to the **Syslog** section.
+1. Click **Yes** to enable Syslog forwarding.
+1. Enter the address or host of the syslog server for sending logs, for example, `logs.example.com` in **External Syslog Host**.
+1. Enter the port of the syslog server for sending logs, for example, `29279` in **External Syslog Port**.
+1. Select the protocol for sending the logs in **External Syslog Protocol**.
+
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
 Any user with the <code>healthwatch.read</code> or <code>healthwatch.admin</code> scope can access the PCF Healthwatch UI. The UAA admin user has both of these scopes by default.
