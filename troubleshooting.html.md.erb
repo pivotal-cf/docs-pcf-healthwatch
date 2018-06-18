@@ -76,6 +76,20 @@ To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM
 
 If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
 
+## <a id='cli-command-health'></a>CLI Command Health Check Errors
+
+Below are some tips for troubleshooting errors with the CLI Command Health Check.
+
+### Error
+
+The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
+
+### Solution
+
+To troubleshoot these failures, start by getting the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`.
+
+<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the Foundation such as PAS Upgrades or BBR Backups. For more information, please see [cf push Availability During Pivotal Application Service Upgrades](https://docs.pivotal.io/pivotalcf/2-2/customizing/cfpush-availability-during-upgrade.html).</p>
+
 
 ## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
 
