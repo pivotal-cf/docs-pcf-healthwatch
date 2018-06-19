@@ -103,7 +103,7 @@ The PCF Healthwatch smoke tests errand validates the storage of BOSH system metr
 
 ### Solution
 
-To resolve this issue, upgrade Ops Manager to at least v2.0.13 or v2.1.4, depending on which minor release you use. You can then validate that there are BOSH System metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
+To resolve this issue, upgrade Ops Manager to at least v2.0.13 or v2.1.4, depending on which minor release you use. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
 
 ## <a id='mysql-migration'></a>Healthwatch Failing after Upgrading to v1.2 from v1.1
 
