@@ -89,20 +89,23 @@ In PCF Healthwatch 1.2.2 and subsequent versions, we started using service broke
 Manually delete the existing BOSH Health Check deployment.
 
 
-## <a id='bosh-metric-ingestion'></a>Smoke Tests failing on Bosh Metric Ingestion
+## <a id='bosh-metric-ingestion'></a>Smoke Tests Failing on BOSH Metric Ingestion
 
 ### Error
 
-`ERROR: Smoke Tests errand fails with `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+`[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/ vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+
+<p class="note"><strong>Note</strong>: A symptom of this error is a complete lack of data in the <b>Job Health</b> and <b>Job Vitals</b> panels on the PCF Healthwatch dashboard.</p>
 
 ### Cause
 
-The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database.  This same error will also manifest itself as a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard.  When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this Bosh Director based process to error out.
+The PCF Healthwatch smoke tests errand validates the storage of BOSH system metrics in the PCF Healthwatch database. The errand most often fails because of a bug in earlier versions of Ops Manager that causes the BOSH system metrics forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.0.13 and v2.1.4. 
+
 ### Solution
 
-To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
+To resolve this issue, upgrade Ops Manager to at least v2.0.13 or v2.1.4, depending on which minor release you use. You can then validate that there are BOSH System metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
 
-## <a id='mysql-migration'></a>Healthwatch Failing After Upgrading to v1.2 from v1.1
+## <a id='mysql-migration'></a>Healthwatch Failing after Upgrading to v1.2 from v1.1
 
 ### Error
 
@@ -110,7 +113,8 @@ To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Als
 
 ### Cause
 
-In PCF Healthwatch v1.2 we have moved from a clustered version of MySQL to a single node.  In v1.1 all database traffic went through the `proxy` nodes.  In v1.2 these nodes no longer exist and all connections go directly to the `mysql` VM.  If the product is upgraded from v1.1 to v1.2 and the `push-apps` errand is disabled then the `CF pushed` based PCF Healthwatch applications will not be updated to connect to the single `mysql` node.
+PCF Healthwatch v1.2 uses a single `mysql` node. This differs from the clustered version of MySQL used in v1.1, which sent all database traffic through `proxy` nodes. If the product upgrades with the `push-apps` errand  disabled, the component apps of PCF Healthwatch do not update and establish a connection the single `mysql` node.
+
 ### Solution
 
-To resolve this issue run the `push-apps` errand in PCF Healthwatch.
+Run the `push-apps` errand in PCF Healthwatch.
