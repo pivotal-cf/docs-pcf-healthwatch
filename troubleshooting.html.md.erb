@@ -99,7 +99,7 @@ Manually delete the existing BOSH Health Check deployment.
 
 ### Cause
 
-The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database. When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this Bosh Director based process to error out.
+The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database. When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.1.4` that can cause this Bosh Director based process to error out.
 ### Solution
 
-To resolve this issue update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
+To resolve this issue update Ops Manager to `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
