@@ -34,7 +34,7 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 
 ### Key Differences
 * **Canary Test Feature Enhancement:** Customers can now configure what cf app the Canary Health test pings
-    * The default application will continue to be Apps Man unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related metrics emitted as a result of the test will stay the same. 
+    * The default application will continue to be Apps Man unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related [metrics emitted](http://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html#canaryapp) as a result of the test will stay the same. 
 * **Syslog Drain Available for the product’s VM BOSH logs**
     * Forwarding these system logs to a remote destination allows for: viewing logs from every VM in the PCF Healthwatch deployment in one place; troubleshooting errors when logs are lost on the source VM. 
     * Does not currently support TLS. 
