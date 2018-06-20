@@ -31,7 +31,7 @@ A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 To view the currently configured canary URL, run the following command:
 
 ```
-curl -G healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf \
+$ curl -G healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf \
      -H "Authorization: Bearer MY_TOKEN"
 ```
 
@@ -53,7 +53,7 @@ This returns a JSON object in the following format:
 To update the canary URL for a deployment, run the following command. Ensure that your URL includes a protocol, such as `https`. 
 
 ```
-curl -X POST "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
+$ curl -X POST "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
       --data "{\"url\":\"https://SOME-VALID-URL.com\"}" \
       -H "Authorization: Bearer MY_TOKEN" \
       -H "Content-Type: application/json"
