@@ -59,23 +59,23 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. To prevent sending events to the Event Alerts tile (EVA), deselect **Publish events to Event Alerts Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
 	<p class="note"><strong>Note</strong>:
-        In the default highly available installation, PCF Healthwatch requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments.  This footprint can be lowered by reducing the instance counts in this section. <br/>
-        Failure to have enough available RAM on Diego typically results in the <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.
+        You can reduce the footprint of your PCF Healthwatch installation by lowering the instance counts in this section. PCF Healthwatch is highly available by default, which requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments. <br/>
+        If your deployment does not have enough available RAM on Diego, you may receive an <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.
     </p>
 
 1. Navigate to **Health Check** and do the following:
 
 	1. Enter **Ops Manager URL**. The URL should include the protocol.  This URL must be reachable from a `cf pushed` application.
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
-
-	<p class="note"><strong>Note</strong>: On Azure environments this dropdown will be null as Azure does not yet have the concept of AZs.</p>
+		<p class="note"><strong>Note</strong>: On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
 
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
-	1. Optionally set a **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. On environments where 2-factor authentication is enabled on the BOSH Director, you'll need to create a BOSH UAA Client using the steps below. **This should be done on the BOSH UAA server, not the CF or OpsMan UAA servers.**
-	     1. Follow the instructions at [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Note that for SSO-enabled Directors, the correct command to log into UAA is `uaac token sso get <Bosh Director Tile credential Uaa Login Client Credentials username>`.
-	     1. Create a UAA Client for the Healthwatch BOSH Task Check using the following command: `uaac client add <client_name> --authorized_grant_types client_credentials --authorities bosh.read --secret <client_secret>`
+	1. Optionally, you can enable BOSH Task Check by entering values for **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. If your BOSH Director has 2-factor authentication enabled, you must create a BOSH UAA client using the steps below. 
+		<p class="note"><strong>Note</strong>: In previous versions of PCF Healthwatch, the BOSH Task Check used the BOSH Director credentials as default values. As of v1.3, the BOSH Task Check defaults to disabled until configured.</p>
+	     1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you target BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log in to UAA: <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+	     1. Create a UAA Client for the Healthwatch BOSH Task Check using the following command:
+	     <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
 		     
-        <p class="note"><strong>Note</strong>: In previous versions of PCF Healthwatch, the BOSH Task Check would use the BOSH Director credentials as default values; in v1.3, the BOSH Task Check defaults to disabled until configured.</p>
 		     
 	1. Click **Save**.
 
@@ -104,16 +104,16 @@ When you turn the test suite off, the following changes happen:
 
 ##<a id='configure-syslog-forwarding'></a> (Optional) Configure Syslog Forwarding
 
-By default, syslog forwarding is not enabled in PCF Healthwatch. However, PCF Healthwatch supports forwarding syslog to an external log management service (for example, Papertrail, Splunk, or your custom enterprise log sink). The VM logs are useful for debugging problems in the system.
+PCF Healthwatch supports forwarding syslog to an external log management service such as Papertrail, Splunk, or a custom enterprise log sink. You may find the VM logs useful for debugging problems in the system.
 
 To enable remote syslog forwarding for PCF Healthwatch, do the following:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
-1. Navigate to the **Syslog** section.
-1. Click **Yes** to enable Syslog forwarding.
-1. Enter the address or host of the syslog server for sending logs, for example, `logs.example.com` in **External Syslog Host**.
-1. Enter the port of the syslog server for sending logs, for example, `29279` in **External Syslog Port**.
-1. Select the protocol for sending the logs in **External Syslog Protocol**.
+1. Navigate to the **Syslog** pane.
+1. Select **Yes** to enable syslog forwarding.
+1. For **External Syslog Host**, enter the address of syslog server where you want logs sent, such as `logs.example.com`.
+1. For **External Syslog Port**, enter the port of your syslog server, such as `29279`.
+1. For **External Syslog Protocol**, select the protocol for sending the logs.
 
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 

@@ -9,11 +9,11 @@ This topic describes how to resolve common issues with Pivotal Cloud Foundry (PC
 
 ## <a id='insufficient-resources'></a>Insufficient Memory Resources
 
-Insufficient capacity of the Diego cells can cause issues when you install or upgrade PCF Healthwatch.
+Insufficient capacity of Diego cells can cause issues when you install or upgrade PCF Healthwatch.
 
 ### Error
 
-If Diego cells do not have sufficient free memory to place the PCF Healthwatch applications then the `push-apps` errand can fail. When this occurs the error message looks similar to the following:
+The `push-apps` errand fails with a message similar to the following:
 
 <pre class="terminal">
 $ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
@@ -24,11 +24,11 @@ InsufficientResources
 
 ### Cause
 
-Diego cells do not have enough available resources to place the PCF Healthwatch applications
+Diego cells do not have enough resources available to run the PCF Healthwatch apps. 
 
 ### Solution
 
-To resolve this issue, navigate to the **Resource Config** pane of the PAS/SRT tile and increase the number of **Diego Cell** instances.  Or, if HA is not desired, scale down the number of instances in the PCF Healthwatch Component Config.
+To resolve this issue, navigate to the **Resource Config** pane of the Pivotal Application Service (PAS) tile and increase the number of **Diego Cell** instances.  Alternatively, if you do not require high availability, scale down the number of instances in the **Component Config** section of the PCF Healthwatch tile.
 
 ## <a id='memory-limit'></a>Memory Limit Errors
 
@@ -69,9 +69,12 @@ The `opsmanager-health-check` application attempts to connect to Ops Manager in 
 
 ### Solution
 
-To resolve this issue, confirm that the `opsmanager-health-check` application is attempting to reach the Ops Manager VM on a URL that is accessible from that instance. To verify this, run `cf ssh opsmanager-health-check` to SSH into the running instance. Then run `curl -k -v $OPSMANAGER_URL` to check the network access.
+To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM, do the following:
 
-If you cannot modify network access to allow the `opsmanager-health-check` application to reach Ops Manager, this test cannot be executed and you should disable it. See [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
+1. Run `cf ssh opsmanager-health-check` to SSH into the running instance. 
+1. Run `curl -k -v $OPSMANAGER_URL` to check the network access.
+
+If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
 
 
 ## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade

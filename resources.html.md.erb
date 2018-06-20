@@ -62,7 +62,9 @@ The following table provides the default resource and IP requirements for instal
 
 ##<a id='healthwatch-apps'></a>PCF Healthwatch Functional Apps
 
-The following table provides the default memory usage and instance count for the CF pushed applications in a highly available configuration.  If not striving for HA, these instance counts can be scaled down.
+The following table provides the default memory usage and instance count for the CF apps pushed to your deployment by PCF Healthwatch. PCF Healthwatch is highly available by default. If you do not require high availability, you can scale down these instance counts.
+
+<p class="note"><strong>Note</strong>: The data in this table assumes PCF Healthwatch is in a steady-state. During deployments, resource usage can potentially double because PCF Healthwatch deploys the apps using the blue-green method.</p>
 
 <table border="1" class="nice">
   <thead>
@@ -142,9 +144,6 @@ The following table provides the default memory usage and instance count for the
   </tr>
   </tbody>
 </table>
-
-<p class="note"><strong>Note</strong>: These are the application resource usages for steady-state.  During deployments the resource usage can potentially double when doing blue-green deployments.</p>
-
 
 If you want to scale the functional apps created by PCF Healthwatch, see the following recommendations:
 
