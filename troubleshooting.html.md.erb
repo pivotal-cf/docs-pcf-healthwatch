@@ -24,7 +24,7 @@ InsufficientResources
 
 ### Cause
 
-Diego cells do not have enough resources available to run the PCF Healthwatch apps. 
+Diego cells do not have enough resources available to run the PCF Healthwatch apps.
 
 ### Solution
 
@@ -71,7 +71,7 @@ The `opsmanager-health-check` application attempts to connect to Ops Manager in 
 
 To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM, do the following:
 
-1. Run `cf ssh opsmanager-health-check` to SSH into the running instance. 
+1. Run `cf ssh opsmanager-health-check` to SSH into the running instance.
 1. Run `curl -k -v $OPSMANAGER_URL` to check the network access.
 
 If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
@@ -86,7 +86,7 @@ The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
 
 ### Solution
 
-To troubleshoot these failures, start by getting the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`.
+To troubleshoot these failures, start by getting the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Then look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
 
 <p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the Foundation such as PAS Upgrades or BBR Backups. For more information, please see [cf push Availability During Pivotal Application Service Upgrades](https://docs.pivotal.io/pivotalcf/2-2/customizing/cfpush-availability-during-upgrade.html).</p>
 
@@ -112,11 +112,11 @@ Manually delete the existing BOSH Health Check deployment.
 
 `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
 
-<p class="note"><strong>Note</strong>: A symptom of this error is a red <b>Job Health</b> panel with no failing jobs noted on the PCF Healthwatch dashboard.</p> 
+<p class="note"><strong>Note</strong>: A symptom of this error is a red <b>Job Health</b> panel with no failing jobs noted on the PCF Healthwatch dashboard.</p>
 
 ### Cause
 
-The PCF Healthwatch smoke tests errand validates the storage of BOSH system metrics in the PCF Healthwatch database. The errand most often fails because of a bug in earlier versions of Ops Manager that causes the BOSH system metrics forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.1.4. 
+The PCF Healthwatch smoke tests errand validates the storage of BOSH system metrics in the PCF Healthwatch database. The errand most often fails because of a bug in earlier versions of Ops Manager that causes the BOSH system metrics forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.1.4.
 
 ### Solution
 
