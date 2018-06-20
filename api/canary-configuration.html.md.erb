@@ -1,74 +1,143 @@
 ---
-title: Configuring Canary App Endpoint
+title: Configuring Canary App Health Endpoint
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Canary App Health](../metrics.html#canaryapp).
+This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to do the following:
 
-Currently, the Canary Health Check can only be configured for the PAS/SRT deployment. Through this API, consumers can do the following:
+- View the current canary app health URL for the Pivotal Application Service (PAS) deployment.
+- Update the canary app health URL for the PAS deployment.
 
-- View current Canary Health Check URL for the PAS/SRT deployment
-- Update the Canary Health Check URL for the PAS/SRT deployment
+See the [Canary App Health](../metrics.html#canaryapp) section for more information about this metric. 
 
-## <a id='prerequisites'></a>Prerequisites and Assumptions
+## <a id='prerequisites'></a>Prerequisite
 
-The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
+The steps in this document require that you generate bearer tokens for a UAA client with the `healthwatch.read` and `healthwatch.admin` scopes. For more information on granting these scopes, see [Allow Additional Users to Access the PCF Healthwatch UI](../installing.html#healthwatch-uaa-users). For an example of generating and using a UAAC token for API calls, see [Using the Ops Manager API](https://docs.pivotal.io/pivotalcf/customizing/ops-man-api.html).
 
-## <a id='info'></a>Healthwatch API Status
+## <a id='check-status'></a>Check Healthwatch API Status
 
-Test the availability of the Healthwatch API by hitting the `/info` endpoint with a simple `GET` request:
+To check the availability of the Healthwatch API, run the following command:
 
 ```
-curl -G healthwatch-api.SYSTEM-DOMAIN/info
+$ curl -G healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
-The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
+A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-## <a id='get'></a>View Canary Health URL
-### `GET /v1/canary?deployment=cf`
+## <a id='get'></a>View Canary URL
 
-To view the currently configured Canary URL, send a `GET` request to the `/v1/canary?deployment=cf` endpoint with a parameter specifying the "cf" deployment:
+`GET /v1/canary?deployment=cf`
+
+To view the currently configured canary URL, run the following command:
 
 ```
 curl -G healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf \
      -H "Authorization: Bearer MY_TOKEN"
 ```
 
-This returns a JSON object of format:
+<p class="note"><strong>Note</strong>: <code>cf</code> is currently the only supported deployment name as the Canary for the PAS deployment.</p>
+
+This returns a JSON object in the following format:
 
 ```
   {
     "deployment":"cf",
-    "url":"<configured Canary URL>"
+    "url":"CONFIGURED CANARY URL"
   }
 ```
 
-<p class="note"><strong>Note</strong>: The only currently supported deployment name is "cf".  This is the Canary for the PAS/SRT deployment.  In future releases we anticipate supporting Canaries for Isolation Segment deployments.</p>
+## <a id='post'></a>Update Canary URL
 
-## <a id='post'></a>Updating a Canary Health Check URL
+`POST /v1/canary?deployment=cf`
 
-### `POST /v1/canary?deployment=cf`
-
-To update a Canary URL for a deployment, make a `POST` request to the `/v1/canary?deployment=cf` endpoint with the following structure:
+To update the canary URL for a deployment, run the following command. Ensure that your URL includes a protocol, such as `https`. 
 
 ```
 curl -X POST "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
-      --data "{\"url\":\"https://<some-valid-url>.com\"}" \
+      --data "{\"url\":\"https://SOME-VALID-URL.com\"}" \
       -H "Authorization: Bearer MY_TOKEN" \
       -H "Content-Type: application/json"
 ```
+### <a id='responses'></a>Understand the Response
 
-The `url` property is required and must include the protocol.
+See the following table for possible response codes and their explanations.
 
-Possible successful HTTP response codes:
+<table>
+	<tr>
+		<th style="width:25%">
+		Response code
+		</th>
+		<th>
+		Explanation
+		</th>
+	</tr>
+	<tr>
+		<td>
+		<code>200</code>
+		</td>
+		<td>
+		A record was updated.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<code>400</code>
+		</td>
+		<td>
+		A validation error occurred.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<code>500</code>
+		</td>
+		<td>
+		An error occurred while trying to update the record.  Check the logs for the <code>healthwatch-api</code> app.
+		</td>
+	</tr>
+</table>
 
-- 200: A record was updated
-- 400: A validation error occurred
-- 500: An error occurred trying to update the record.  Check the logs for the `healthwatch-api` application
+See the following table for details about the contents of the response payload, which is in JSON format. 
 
-Response Payload (JSON formatted):
-
-- deployment: the deployment name
-- url: the configured Canary endpoint
-- reachable: Boolean indicating whether the endpoint was reachable from HAPI
-- responseBody: the response from attempting an HTTP GET request to the Canary endpoint
+<table>
+	<tr>
+		<th style="width:25%">
+		Field
+		</th>
+		<th>
+		Explanation
+		</th>
+	</tr>
+	<tr>
+		<td>
+		<code>deployment</code>
+		</td>
+		<td>
+		The deployment name.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<code>url</code>
+		</td>
+		<td>
+		The configured canary endpoint.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<code>reachable</code>
+		</td>
+		<td>
+		Boolean indicating whether the endpoint was reachable from the Healthwatch API.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<code>responseBody</code>
+		</td>
+		<td>
+		The response from attempting an HTTP GET request to the canary endpoint.
+		</td>
+	</tr>
+</table>
