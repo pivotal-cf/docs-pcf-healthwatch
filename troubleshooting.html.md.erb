@@ -81,28 +81,29 @@ If the steps above are not successful and you cannot modify network access to al
 
 ### Error
 
-`ERROR: Bosh health check failed to delete deployment "bosh-health-check": Deployment not found` and `bosh-health-check` deployment does exist.
+`ERROR: Bosh health check failed to delete deployment "bosh-health-check": Deployment not found`
 
 ### Cause
 
-In PCF Healthwatch 1.2.2 and subsequent versions, we started using service broker UAA credentials for the BOSH Health Check. This can cause a permissions issue if the BOSH Health Check deployment already exists on the Director.
+In PCF Healthwatch 1.2.2 and later, PCF Healthwatch uses service broker UAA credentials for the BOSH Health Check. This causes a permission issue if the BOSH Health Check deployment already exists on the Director.
 
 ### Solution
 
 Manually delete the existing BOSH Health Check deployment.
 
 
-## <a id='bosh-metric-ingestion'></a>Smoke Tests failing on Bosh Metric Ingestion
+## <a id='bosh-metric-ingestion'></a>Smoke Tests Failing on Bosh Metric Ingestion
 
 ### Error
 
-`ERROR: Smoke Tests errand fails with [Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
+`[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
 
 <p class="note"><strong>Note</strong>: A symptom of this error is a red <b>Job Health</b> panel with no failing jobs noted on the PCF Healthwatch dashboard.</p> 
 
 ### Cause
 
-The PCF Healthwatch Smoke Tests errand validates that Bosh System Metrics are being stored in the PCF Healthwatch database. When this smoke test fails the cause is most often the result of a failure in the Bosh System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.1.4` that can cause this Bosh Director based process to error out.
+The PCF Healthwatch smoke tests errand validates the storage of BOSH system metrics in the PCF Healthwatch database. The errand most often fails because of a bug in earlier versions of Ops Manager that causes the BOSH system metrics forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.1.4. 
+
 ### Solution
 
-To resolve this issue update Ops Manager to `v2.1.4` or later.  Also validate that there are Bosh System metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
+To resolve this issue, upgrade Ops Manager to v2.1.4 or later. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
