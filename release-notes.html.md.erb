@@ -11,7 +11,10 @@ owner: PCF Healthwatch
 * **[Feature]** Given that the `UAA Request Latency` metrics is now emitted in PCF, Healthwatch has provided an out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-2/monitoring/kpi.html#uaa_latency).
 * Syslog Drain KSI threshold defaults have been revised to new thresholds: 250 drain bindings for critical and 200 for warning. Please note: if thresholds have been customised, this release will not override configured settings. 
 * PCF Healthwatch is now precompiling releases so that compiling is no longer necessary in the `Apply Changes` flow.  This saves time when installing PCF Healthwatch.
-* **[Bug Fix]** In previous releases, [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-3/monitoring.html#key-performance-indicators-for-pcf-healthwatch) were not tagged with the Foundation name. This has now been corrected and foundation tags are present in all metrics PCF Healthwatch emits back into the firehose. 
+* **[Bug Fix]** In prior versions of PCF Healthwatch v1.2.x, [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-2/monitoring.html#key-performance-indicators-for-pcf-healthwatch) were not tagged with the Foundation name. This has now been corrected and foundation tags are present in all metrics PCF Healthwatch emits back into the Firehose. 
+* Maintenance update of the following product dependencies:
+   * Golang now v1.9.
+   * Java GRPC now v1.13.1
 
 ### Known Issues
 
