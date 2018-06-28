@@ -8,14 +8,9 @@ owner: PCF Healthwatch
 
 ### Release Notes
 * **[Feature]** Updated to support monitoring of Pivotal Cloud Foundry (PCF) v2.2. 
-* **[Feature]** The PCF Healthwatch dashboard UI now highlights Routing and Capacity for Isolation Segment Usage. 
 * If leveraging the alerting capability, PCF Healthwatch v1.3 requires [PCF Event Alerts v1.2](https://docs.pivotal.io/event-alerts)
-* Based on feedback, `system.mem.percent` default alerting thresholds have been updated to 95% for critical and 85% for warning. Please note: if thresholds have been customised, this release will not override configured settings. 
-* Syslog Drain KSI threshold defaults have been revised to new thresholds: 250 drain bindings for critical and 200 for warning. Please note: if thresholds have been customised, this release will not override configured settings. 
+* Based on feedback, `system.mem.percent` default alerting thresholds have been updated to 95% for critical and 85% for warning. Please note: if thresholds have been customised, this release will not override configured settings.  
 * We have updated `metron_forwarder` to be referenced as `healthwatch_forwarder` to better align with the name of the VM in order to provide more clarity about where metrics are emitting from. All metrics that were previously labeled as emitting from `metron_forwarder` will be tagged as emitting from `healthwatch_forwarder` as of this verion of PCF Healthwatch. 
-* **[Bug Fix]** The [known metrics emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) preventing `UAA Request Latency` from being emitted in PCF has been resolved. 
-* **[Feature]** Given that the `UAA Request Latency` metrics is now emitted in PCF, Healthwatch has provided an out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-2/monitoring/kpi.html#uaa_latency).
-* PCF Healthwatch is now precompiling releases so that compiling is no longer necessary in the `Apply Changes` flow.  This saves time when installing PCF Healthwatch.
 
 ### Known Issues
 
