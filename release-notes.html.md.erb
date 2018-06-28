@@ -15,6 +15,7 @@ owner: PCF Healthwatch
 * We have updated `metron_forwarder` to be referenced as `healthwatch_forwarder` to better align with the name of the VM in order to provide more clarity about where metrics are emitting from. All metrics that were previously labeled as emitting from `metron_forwarder` will be tagged as emitting from `healthwatch_forwarder` as of this verion of PCF Healthwatch. 
 * **[Bug Fix]** The [known metrics emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) preventing `UAA Request Latency` from being emitted in PCF has been resolved. 
 * **[Feature]** Given that the `UAA Request Latency` metrics is now emitted in PCF, Healthwatch has provided an out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-2/monitoring/kpi.html#uaa_latency).
+* PCF Healthwatch is now precompiling releases so that compiling is no longer necessary in the `Apply Changes` flow.  This saves time when installing PCF Healthwatch.
 
 ### Known Issues
 
