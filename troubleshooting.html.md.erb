@@ -107,16 +107,32 @@ For PCF Healthwatch v1.1.8 and later, BOSH Health Check is using the service bro
 To resolve this issue, manually delete the existing BOSH Health Check deployment.
 
 
-## <a id='bosh-metric-ingestion'></a>Smoke Tests Failing on BOSH Metric Ingestion
+## <a id='bosh-metric-ingestion'></a>Bosh System Metrics Not Being Ingested
 
 ### Error
 
-`ERROR: Smoke Tests errand fails with `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50 `
+Either the Smoke Test errand fails with:
+
+`[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
+
+or there is a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard.
+
+<p class="note"><strong>Note</strong>: A symptom of this error is a red <b>Job Health</b> panel with no failing jobs noted on the PCF Healthwatch dashboard.</p>
 
 ### Cause
 
-The PCF Healthwatch Smoke Tests errand validates that BOSH health metrics are being stored in the PCF Healthwatch database. This same error also manifests itself as a complete lack of data in the Job Health and Job Vitals panels on the PCF Healthwatch dashboard. When this smoke test fails, the cause is most often the result of a failure in the BOSH System Metrics Forwarder component.  There is a bug in Ops Manager versions prior to `v2.0.13` and `v2.1.4` that can cause this BOSH Director-based process to error out.
+The Healthwatch Ingestor is not receiving BOSH system metrics. There are two likely causes to this:
+
+1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics, increase the log level and check for the absence of `Got Envelope` logs: `cf set-env healthwatch-ingestor LOG_LEVEL DEBUG && cf restage healthwatch-ingestor && cf logs healthwatch-ingestor`.
+
+1. A bug in earlier versions of Ops Manager that causes the BOSH System Metrics Forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.0.13 and v2.1.4.
 
 ### Solution
 
-To resolve this issue, update Ops Manager to `v2.0.13` or `v2.1.4` or later.  Also validate that there are BOSH health metrics in the Firehose by running `cf nozzle -n | grep system`.  You should see metrics like `system.healthy` and `system.cpu.user` roughly every 30 seconds.
+If the Ingestor is not receiving *any* metrics from the Firehose:
+- Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
+- After [logging in](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
+  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+
+If the BOSH System Metrics Forwarder is failing:
+- Upgrade Ops Manager to v2.0.13 or v2.1.4 or later. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
