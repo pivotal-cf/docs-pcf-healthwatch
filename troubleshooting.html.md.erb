@@ -57,7 +57,7 @@ To resolve this issue, you can set the default memory quota for the `healthwatch
 
 ## <a id='opsman-health'></a>Ops Manager Health Check Errors
 
-The Opsmanager Health Check needs the ability to reach Ops Manager on the underlying network.
+The Ops Manager Health Check needs the ability to reach Ops Manager on the underlying network.
 
 ### Error
 
@@ -78,7 +78,7 @@ If the steps above are not successful and you cannot modify network access to al
 
 ## <a id='cli-command-health'></a>CLI Command Health Check Errors
 
-Below are some tips for troubleshooting errors with the CLI Command Health Check.
+Below are suggestions for troubleshooting errors with the CLI Command Health Check.
 
 ### Error
 
@@ -86,10 +86,9 @@ The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
 
 ### Solution
 
-To troubleshoot these failures, start by getting the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Then look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
+To troubleshoot these failures, start by examining the from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
 
-<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the Foundation such as PAS Upgrades or BBR Backups. For more information, please see [cf push Availability During Pivotal Application Service Upgrades](https://docs.pivotal.io/pivotalcf/2-2/customizing/cfpush-availability-during-upgrade.html).</p>
-
+<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the such as PAS Upgrades or BBR Backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-2/customizing/cfpush-availability-during-upgrade.html">cf push Availability During Pivotal Application Service Upgrades</a> in the PCF Documentation.</p>
 
 ## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
 
