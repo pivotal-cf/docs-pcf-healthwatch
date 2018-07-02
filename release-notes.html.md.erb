@@ -7,14 +7,22 @@ owner: PCF Healthwatch
 **Release Date: June 29, 2018**
 
 ### Release Notes
-* **[Feature]** The PCF Healthwatch dashboard UI now highlights Routing and Capacity for Isolation Segment Usage. 
-* **[Feature]** Given that the `UAA Request Latency` metric is now emitted in PCF, Healthwatch has provided an out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-1/monitoring/kpi.html#uaa_latency).
-* Syslog Drain KSI threshold defaults have been revised to new thresholds: 250 drain bindings for critical and 200 for warning. Please note: if thresholds have been customised, this release will not override configured settings. 
-* PCF Healthwatch is now precompiling releases so that compiling is no longer necessary in the `Apply Changes` flow.  This saves time when installing PCF Healthwatch.
-* **[Bug Fix]** In prior versions of PCF Healthwatch v1.2.x, [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-2/monitoring.html#key-performance-indicators-for-pcf-healthwatch) were not tagged with the Foundation name. This has now been corrected and foundation tags are present in all metrics PCF Healthwatch emits back into the Firehose. 
+* **[Feature]** The PCF Healthwatch dashboard UI now highlights Routing and Capacity for when Isolation Segments are in use.  
+* **[Feature]** Given that the `UAA Request Latency` metric is now emitted in PCF, Healthwatch has added an additional out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-1/monitoring/kpi.html#uaa_latency).
+* The default threshold values for `Syslog Adapter Capacity` Alert have been modified: 250 critical and 200 warning. 
+   * If these thresholds have been previously modified, this update will not override that user configuration. 
+* PCF Healthwatch now leverages pre-compiled releases in order to reduce the deployment time necessary during the `Apply Changes` flow.
+* **[Bug Fix]** In prior versions of PCF Healthwatch v1.2.x, metrics emitted by PCF Healthwatchwere not tagged with the Foundation name. This is now resolved.  
 * Maintenance update of the following product dependencies:
    * Golang now v1.9.7
    * Java GRPC now v1.13.1
+   * OpenJDK now v1.8.0_172-b11
+   * CF CLI now v6.37.0
+   * Flyway Command-line now v5.1.3
+   * Redis now v3.2.12
+   * Spring now Brussels-SR11
+   * Loggregator now v101.11
+   * CF-MySQL now 36.14.0
 
 ### Known Issues
 
@@ -40,6 +48,7 @@ PCF Healthwatch v1.2.3:
 
 PCF Healthwatch v1.2.2:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.2.3. 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not emitting BOSH VM health metrics through the firehose if not on Ops Manager v2.1.4 or later. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
     * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
@@ -48,7 +57,6 @@ PCF Healthwatch v1.2.2:
     * Query Rate
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
-* **[Bug Identified]** [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-2/monitoring.html#key-performance-indicators-for-pcf-healthwatch) are not tagged with the Foundation name while being emitted back into the Firehose.
 
 ##<a id='v1.2.1'></a>v1.2.1
 **Release Date: May 8, 2018**
@@ -64,6 +72,7 @@ PCF Healthwatch v1.2.2:
 
 PCF Healthwatch v1.2.1:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.2.3. 
 * The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page if not on PCF v2.1.3 or later.
@@ -75,7 +84,6 @@ PCF Healthwatch v1.2.1:
     * Query Rate
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
-* **[Bug Identified]** [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-2/monitoring.html#key-performance-indicators-for-pcf-healthwatch) are not tagged with the Foundation name while being emitted back into the Firehose.
 
 
 ##<a id='v1.2.0'></a>v1.2.0
