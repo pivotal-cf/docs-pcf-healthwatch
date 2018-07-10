@@ -5,7 +5,8 @@ owner: PCF Healthwatch
 
 This topic describes how to install and configure Pivotal Cloud Foundry (PCF) Healthwatch. For a list of compatible Ops Manager and Pivotal Application Service (PAS) versions, see [Product Snapshot](index.html#snapshot).
 
-##<a id='install'></a> Install PCF Healthwatch
+
+## <a id='install'></a> Install PCF Healthwatch
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/p-healthwatch).
 
@@ -14,40 +15,43 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 1. Under the **Import a Product** button, click **+** next to the version number of PCF Healthwatch.
 This adds the tile to your staging area.
 
-##<a id='configure'></a> Configure PCF Healthwatch
+
+## <a id='configure'></a> Configure PCF Healthwatch
 
 To start using PCF Healthwatch, you need to configure the Ops Manager Director and PCF Healthwatch tiles.
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch requires a service network in order to obtain AZ configuration for running BOSH health checks.</p>
+<p class="note"><strong>Note:</strong> PCF Healthwatch requires a service network in order to obtain AZ configuration for running BOSH health checks.</p>
 
 If you do not have an existing service network with IP addresses managed by BOSH and at least one free IP address, proceed to [Step 1. Configure the Ops Manager Director Tile](installing.html#ops-man) to create a new service network.
 
 If you have an existing service network with IP addresses managed by BOSH and at least one free IP address, you can skip Step 1 and select this network for running the BOSH Health Check VM in [Step 2. Configure the PCF Healthwatch Tile](installing.html#healthwatch-tile).
 
-###<a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
+### <a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
 
-<p class="note"><strong>Note</strong>: If you have already completed this step during a prior installation of PCF Healthwatch, you do not need to repeat it.</p>
+<p class="note"><strong>Note:</strong> If you have already completed this step during a prior installation of PCF Healthwatch, you do not need to repeat it.</p>
 
 To configure the Ops Manager Director tile, perform the following steps:
 
 1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
+
 1. Navigate to **Create Networks** and click **Add Network**.
+
 1. In the **Name** field, enter a name for the service network.
-1. Select the **Service Network** checkbox.
+
 1. Enter the network details for your **Service Network**.
+
 1. Click **Save**.
               
-###<a id='healthwatch-tile'></a> Step 2. Configure the PCF Healthwatch Tile
+### <a id='healthwatch-tile'></a> Step 2. Configure the PCF Healthwatch Tile
 
 To configure the PCF Healthwatch tile, perform the following steps:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+
 1. Navigate to **Assign AZs and Networks** and do the following:
     1. Select an Availability Zone (AZ) for placing singleton jobs.
     1. Select one or more AZs for balancing other jobs.
-
-		<p class="note"><strong>Note</strong>: To create a highly available environment, Pivotal recommends selecting multiple AZs.</p>
-
+		<p class="note"><strong>Note:</strong> To create a highly available environment, Pivotal recommends selecting multiple AZs.</p>
     1. Select **Network** for installing PCF Healthwatch.
     1. Select **Service Network** for running the BOSH Health Check VM.
     1. Click **Save**.
@@ -58,43 +62,41 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. Set **Redis Worker Count** to the number of Doppler Server instances configured in the PAS tile. If the data being displayed in the PCF Healthwatch UI is regularly delayed by more than one-minute, scale up the number of instances.
 	1. To prevent sending events to the Event Alerts tile (EVA), deselect **Publish events to Event Alerts Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
-	<p class="note"><strong>Note</strong>:
-        You can reduce the footprint of your PCF Healthwatch installation by lowering the instance counts in this section. PCF Healthwatch is highly available by default, which requires up to 12 GB of free RAM on Diego for steady-state operations and up to 23 GB of RAM during deployments. <br/>
-        If your deployment does not have enough available RAM on Diego, you may receive an <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.
-    </p>
+	<p class="note"><strong>Note:</strong> You can reduce the footprint of your PCF Healthwatch installation by lowering the instance counts in this section. PCF Healthwatch is highly available by default, which requires up to 12&nbsp;GB of free RAM on Diego for steady-state operations and up to 23&nbsp;GB of RAM during deployments. <br/>
+    If your deployment does not have enough available RAM on Diego, you may receive an <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.</p>
 
 1. Navigate to **Health Check** and do the following:
-
 	1. Enter **Ops Manager URL**. The URL should include the protocol.  This URL must be reachable from a `cf pushed` application.
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
-		<p class="note"><strong>Note</strong>: On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
-
+		<p class="note"><strong>Note:</strong> On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
 	1. Optionally, you can also enable the BOSH deployment task check by entering values for **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. If your BOSH Director has 2-factor authentication enabled, you must create a BOSH UAA client using the steps below. 
-		<p class="note"><strong>Note</strong>: In previous versions of PCF Healthwatch, the BOSH task check used the BOSH Director credentials as default values. As of v1.3, the BOSH task check defaults to disabled until configured.</p>
+		<p class="note"><strong>Note:</strong> In previous versions of PCF Healthwatch, the BOSH task check used the BOSH Director credentials as default values. As of v1.3, the BOSH task check defaults to disabled until configured.</p>
 	     1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you target BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log in to UAA: <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
 	     1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
 	     <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
-		     
-		     
 	1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
-##<a id='healthwatch-opsman'></a> (Optional) Disable Ops Manager Continuous Validation Testing
+
+## <a id='healthwatch-opsman'></a> (Optional) Disable Ops Manager Continuous Validation Testing
 
 PCF Healthwatch continuously validates the health of Ops Manager. You may want to disable this test suite if, for example, you are using BOSH instead of Ops Manager to deploy PCF software. This can be accomplished either via the Ops Manager UI or BOSH manifest.
 
 To disable the Ops Manager test suite via Ops Manager UI (an option available as of v1.1.4), do the following:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+
 1. Navigate to **Health Check** section.
+
 1. Select the **Disable** radio button in the **Ops Manager Validation Testing** field.
 
 To disable the Ops Manager test suite via BOSH manifest, do the following:
 
 1. In your BOSH manifest, set the `healthchecker.opsman.disable` property to `true`.
-1. Redeploy PCF Healthwatch and run the <code>push-apps</code> errand.
+
+1. Redeploy PCF Healthwatch and run the `push-apps` errand.
 
 When you turn the test suite off, the following changes happen:
 
@@ -102,50 +104,66 @@ When you turn the test suite off, the following changes happen:
 * The Ops Manager Health panel is not displayed in the PCF Healthwatch UI.
 * The [Ops Manager Health metric](metrics.html#opsman) is not created and emitted.
 
-##<a id='configure-syslog-forwarding'></a> (Optional) Configure Syslog Forwarding
+
+## <a id='configure-syslog-forwarding'></a> (Optional) Configure Syslog Forwarding
 
 PCF Healthwatch supports forwarding syslog to an external log management service such as Papertrail, Splunk, or a custom enterprise log sink. You may find the VM logs useful for debugging problems in the system.
 
 To enable remote syslog forwarding for PCF Healthwatch, do the following:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
+
 1. Navigate to the **Syslog** pane.
+
 1. Select **Yes** to enable syslog forwarding.
+
 1. For **External Syslog Host**, enter the address of syslog server where you want logs sent, such as `logs.example.com`.
+
 1. For **External Syslog Port**, enter the port of your syslog server, such as `29279`.
+
 1. For **External Syslog Protocol**, select the protocol for sending the logs.
 
-##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
-Any user with the <code>healthwatch.read</code> or <code>healthwatch.admin</code> scope can access the PCF Healthwatch UI. The UAA admin user has both of these scopes by default.
+## <a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
-To allow other users read-only access to the Healthwatch UI, perform the following steps. This procedure adds the <code>healthwatch.read</code> scope to the desired UAA users using the uaac client.
+Any user with the `healthwatch.read` or `healthwatch.admin` scope can access the PCF Healthwatch UI. The UAA admin user has both of these scopes by default.
+
+To allow other users read-only access to the Healthwatch UI, perform the following steps. This procedure adds the `healthwatch.read` scope to the desired UAA users using the uaac client.
 
 1. Access the uaac client with `uaac target UAA-URL`.
+
 1. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
+
 1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
+
 1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
 
-The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well.
+The above procedure can be leveraged to add the `healthwatch.admin` scope as well.
 
-<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
+<p class="note"><strong>Note:</strong> Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
 
-##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
+
+## <a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
 
 PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables called `value_metric_agg` and `counter_event_agg`. After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
 
 This migration is a hidden errand that you must run with the BOSH CLI.
 
-<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
+<p class="note"><strong>Note:</strong> Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
 
-## Migrating Data Between Versions
+
+## <a id='migrating-between-versions'></a> Migrating Data Between Versions
 
 1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh).
+
 1. Copy the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
+
 1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS deployments` to get the PCF Healthwatch deployment name.
+
 1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS -d PCF-HEALTHWATCH-DEPLOYMENT-NAME run-errand migrate-v1.1-v1.2`.
+
 1. After the errand completes, verify the data exists for 24 hours in the Router Performance Detail page graphs.
 
 To troubleshoot unpredictable behavior, SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
 
-<p class="note"><strong>Note</strong>: After the data migration completes, the v1.1 database tables <code>value_metric</code> and <code>counter_event</code> are deleted from the database.</p>
+<p class="note"><strong>Note:</strong> After the data migration completes, the v1.1 database tables <code>value_metric</code> and <code>counter_event</code> are deleted from the database.</p>
