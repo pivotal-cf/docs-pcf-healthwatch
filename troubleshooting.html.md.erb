@@ -118,19 +118,22 @@ or there is a complete lack of data in the Job Health and Job Vitals panels on t
 
 The Healthwatch Ingestor is not receiving BOSH system metrics. There are two likely causes to this:
 
-1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics, increase the log level and check for the absence of `Got Envelope` logs: `cf set-env healthwatch-ingestor LOG_LEVEL DEBUG && cf restage healthwatch-ingestor && cf logs healthwatch-ingestor`.
+1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics look at the PCF Healthwatch dashboard.  If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the Firehose.
 
-1. A bug in earlier versions of Ops Manager that causes the BOSH System Metrics Forwarder process to fail. This bug is present in Ops Manager versions earlier than v2.0.13 and v2.1.4.
+1. The Firehose does not contain Bosh Metrics due to a failure in the `bosh-system-metrics-forwarder` component.  A bug in earlier versions of Ops Manager causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the Bosh Director. This bug is present in Ops Manager versions earlier than v2.0.13 and v2.1.4.
 
 ### Solution
 
 If the Ingestor is not receiving *any* metrics from the Firehose:
+
+- Check the logs from the Healthwatch Ingestor to see any error messages. `cf logs healthwatch-ingestor --recent`
 - Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-- After [logging in](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
 
 If the BOSH System Metrics Forwarder is failing:
+
 - Upgrade Ops Manager to v2.0.13 or v2.1.4 or later. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
+- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
+  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
 
 ## <a id='mysql-migration'></a>Healthwatch Failing after Upgrading to v1.2 from v1.1
 
