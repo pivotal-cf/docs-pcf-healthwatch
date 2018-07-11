@@ -3,6 +3,34 @@ title: Release Notes for PCF Healthwatch
 owner: PCF Healthwatch
 ---
 
+##<a id='v1.1.9'></a>v1.1.9
+**Release Date: July x, 2018**
+
+### Release Notes
+* **[Bug Fix]** * Given that the `UAA Request Latency` metric is now emitted in PCF, the `Request Latency by UAA` chart will now have data on the UAA details page if on PCF v2.0.11 or later.
+* **[Bug Fix]** In prior versions of PCF Healthwatch v1.1.x, metrics emitted by PCF Healthwatch were not tagged with the Foundation name. This is now resolved.  
+* PCF Healthwatch now leverages pre-compiled releases in order to reduce the deployment time necessary during the `Apply Changes` flow.
+* Maintenance update of the following product dependencies:
+   * Spring now Brussels-SR11
+   * Flyway Command-line now v5.1.3
+   * CF CLI now v6.37.0
+   * OpenJDK now v1.8.0_172-b11
+   * Loggregator now v99.1
+   * Consul now v196
+   * CF-MySQL now 36.14.0
+  
+### Known Issues
+
+* If Healthwatch is upgraded while the BOSH Health Check runs, the BOSH Director SLI will show an error. Details on troubleshooting can be found [here](http://docs.pivotal.io/pcf-healthwatch/1-1/troubleshooting.html). 
+* Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
+* If using PCF Healthwatch v1.1 on PCF v2.1, the `Number of Route Registration Messages Sent and Received` comparison graph may incorrectly reflect an inflated gap. 
+* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
+   * Query Rate
+   * MySQL CPU Busy Time
+   * Percentage of Max Connections Used
+
+PCF Healthwatch v1.1.8:
+
 ##<a id='v1.1.8'></a>v1.1.8
 **Release Date: May 14, 2018**
 
@@ -15,6 +43,7 @@ owner: PCF Healthwatch
 
 PCF Healthwatch v1.1.8:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * If Healthwatch is upgraded while the BOSH Health Check runs, the BOSH Director SLI will show an error. Details on troubleshooting can be found [here](http://docs.pivotal.io/pcf-healthwatch/1-1/troubleshooting.html). 
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page if not on PCF v2.0.11 or later.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -41,6 +70,7 @@ PCF Healthwatch v1.1.8:
 
 PCF Healthwatch v1.1.7:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -62,6 +92,7 @@ PCF Healthwatch v1.1.7:
 
 PCF Healthwatch v1.1.6:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -86,6 +117,7 @@ PCF Healthwatch v1.1.6:
 
 PCF Healthwatch v1.1.5:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * UAA details page is not compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile. 
 * Due to a [known metric emission issue](http://docs.pivotal.io/pivotalcf/2-0/pcf-release-notes/runtime-rn.html#uaa-request-latency) with PCF, the `Request Latency by UAA` chart will be blank on the UAA details page. 
@@ -126,6 +158,7 @@ PCF Healthwatch v1.1.5:
 
 PCF Healthwatch v1.1.4:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * **[Bug Identified]** v1.1.4 introduced a new java-based `Push Monitoring Components for PCF Healthwatch` errand. This errand will not execute in an environment leveraging self-signed certs where the CA for these certs was added to the BOSH Director Trusted Certs via Ops Man in order to facilitate SSL validation. The resolution is to update the JVM's trust store with these certs. This is resolved in v1.1.5.
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -157,6 +190,7 @@ PCF Healthwatch v1.1.4:
 
 PCF Healthwatch v1.1.3:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
 * **[Bug Identified]** An update to origin-based queries introduced in v1.1.3 caused a potential calculation issue to occur for the Logging Throughput and Logging Loss Rate calculations, as these can compute from multiple [metrics](https://docs.pivotal.io/pivotalcf/2-0/monitoring/key-cap-scaling.html#firehose-loss-rate) with differing origins. This is resolved in v1.1.4.
@@ -203,6 +237,7 @@ PCF Healthwatch v1.1.3:
 
 PCF Healthwatch v1.1.1:
 
+* **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
 * **[Bug Identified]** The CF CLI credentials are visible in the `push_apps` script logs. This is fixed in v1.1.4.
 * **[Bug Identified]** The full root ca certificate is visible in the log output
