@@ -37,11 +37,14 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Syslog Drain Available for the product’s VM BOSH logs**
     * Forwarding these system logs to a remote destination allows for: viewing logs from every VM in the PCF Healthwatch deployment in one place; troubleshooting errors when logs are lost on the source VM. 
     * Does not currently support TLS. 
+* **[Feature]** New data loss alerts are available. It is highly recommended to [subscribe](http://docs.pivotal.io/event-alerts/1-2/installing.html) to these alerts as the loss of a platform data feed will impair the ability of Healthwatch to effectively monitor the foundation.
+   * `Healthwatch is not receiving needed monitoring metrics from PCF` results from a loss of firehose data for an extended period of time
+   * `Healthwatch is not receiving needed health metrics from BOSH` results from a loss of bosh health monitor data in the firehose for an extended period of time
 * **UI Updates:**
     * To enable easier navigation across component details pages, an expanding left navigation is now available in the UI. 
     * Based on feedback, we have updated the detailed results table information on Canary App Health, CLI Command Health, BOSH Director Health, and Ops Man Health to now include the Application GUID of the tester app, rather than the Runner ID. The App GUID is more useful for troubleshooting any potential issues with the test application itself. 
     * We have removed the Job Vitals panel from the PCF Healthwatch dashboard UI as alerting is now available and alerting is a more meaningful way of providing the information the Job Vitals panel was intended to supply. 
     * Based on feedback, the PCF Healthwatch UI now provides the Test App GUID has replaced Runner ID as an identifier of the app conducting tests. This change has taken effect everywhere Runner ID was previously shown.
 * **Metric Addition** 
-    * To better enable Memory & Disk capacity issues, Healthwatch now stores `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk, and `rep.ContainerUsageDisk` in the database. 
+    * To better enable Memory & Disk capacity issues, Healthwatch now stores `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` in the database. 
 
