@@ -12,8 +12,6 @@ owner: PCF Healthwatch
 * If leveraging the alerting capability, PCF Healthwatch v1.3 requires [PCF Event Alerts v1.2](https://docs.pivotal.io/event-alerts)
 * The default threshold values for `VM Memory Used` Alert have been modified: 95% critical and 85% warning.
    * If these thresholds have been previously modified, this update will not override that user configuration. 
-* We have updated `metron_forwarder` to be referenced as `healthwatch_forwarder` to better align with the name of the VM in order to provide more clarity about where metrics are emitting from. All metrics that were previously labeled as emitting from `metron_forwarder` will be tagged as emitting from `healthwatch_forwarder` as of this verion of PCF Healthwatch. 
-
 
 ### Known Issues
 
@@ -33,7 +31,7 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 
 ### Key Differences
 * **Canary Test Feature Enhancement:** Customers can now configure what cf app the Canary Health test pings
-    * The default application will continue to be Apps Man unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related [metrics emitted](http://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html#canaryapp) as a result of the test will stay the same. 
+    * The default application will continue to be Apps Manager unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related [metrics emitted](http://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html#canaryapp) as a result of the test will stay the same. 
 * **Syslog Drain Available for the product’s VM BOSH logs**
     * Forwarding these system logs to a remote destination allows for: viewing logs from every VM in the PCF Healthwatch deployment in one place; troubleshooting errors when logs are lost on the source VM. 
     * Does not currently support TLS. 
@@ -43,8 +41,9 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **UI Updates:**
     * To enable easier navigation across component details pages, an expanding left navigation is now available in the UI. 
     * Based on feedback, we have updated the detailed results table information on Canary App Health, CLI Command Health, BOSH Director Health, and Ops Man Health to now include the Application GUID of the tester app, rather than the Runner ID. The App GUID is more useful for troubleshooting any potential issues with the test application itself. 
-    * We have removed the Job Vitals panel from the PCF Healthwatch dashboard UI as alerting is now available and alerting is a more meaningful way of providing the information the Job Vitals panel was intended to supply. 
+    * The `Job Vitals` panel previously present on the main dashboard has been removed. The primary value of this panel, identifying threshold outliers, is now addressed by available alerting functionality. The `Job Health` panel is still available.
     * Based on feedback, the PCF Healthwatch UI now provides the Test App GUID has replaced Runner ID as an identifier of the app conducting tests. This change has taken effect everywhere Runner ID was previously shown.
-* **Metric Addition** 
-    * To better enable Memory & Disk capacity issues, Healthwatch now stores `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` in the database. 
+* **Additional capacity metrics available in datastore**
+    * In the course of troubleshooting memory or disk errors, `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` , can be [useful informational metrics](https://content.pivotal.io/blog/keep-your-app-platform-in-a-happy-state-an-operators-guide-to-capacity-management-on-pivotal-cloud-foundry) about the individual Diego Cells. These metrics are now available [to access](/using.html#mysql) in the PCF Healthwatch datastore.* Metrics created by PCF Healthwatch and published back into the firehose were previously emitted with the job name `metron_forwarder`. As of v1.3.x, the job name is now ``healthwatch_forwarder` to better align with the actual name of the VM. 
+
 
