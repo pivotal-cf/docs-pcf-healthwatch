@@ -61,7 +61,7 @@ To configure the PCF Healthwatch tile, do the following:
 	1. Set **Redis Worker Count** to the number of Doppler Server instances configured in the PAS tile. If the data being displayed in the PCF Healthwatch UI is regularly delayed by more than one-minute, scale up the number of instances.
 	1. To prevent sending events to the Event Alerts tile (EVA), deselect **Publish events to Event Alerts Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
-	<p class="note"><strong>Note:</strong> In the default highly available installation, PCF Healthwatch requires up to 20&nbsp;GB of free RAM on Diego for steady-state operations and up to 40&nbsp;GB of RAM during deployments.  This footprint can be lowered by reducing the instance counts in this section. <br/>
+	<p class="note"><strong>Note:</strong> In the default highly available installation, PCF Healthwatch requires up to 20&nbsp;GB of free RAM on Diego for steady-state operations and up to 40&nbsp;GB of RAM during deployments.  You can lower this footprint by reducing the instance counts in this section. <br/>
     Failure to have enough available RAM on Diego typically results in the <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.</p>
 
 1. Navigate to **Health Check** and do the following:
