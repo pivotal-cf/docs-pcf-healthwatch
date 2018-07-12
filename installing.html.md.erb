@@ -61,15 +61,15 @@ To configure the PCF Healthwatch tile, do the following:
 	1. Set **Redis Worker Count** to the number of Doppler Server instances configured in the PAS tile. If the data being displayed in the PCF Healthwatch UI is regularly delayed by more than one-minute, scale up the number of instances.
 	1. To prevent sending events to the Event Alerts tile (EVA), deselect **Publish events to Event Alerts Tile**. All events will still be calculated and stored in the `alert` table.
 	1. Click **Save**.
-	<p class="note"><strong>Note:</strong> You can reduce the footprint of your PCF Healthwatch installation by lowering the instance counts in this section. PCF Healthwatch is highly available by default, which requires up to 12&nbsp;GB of free RAM on Diego for steady-state operations and up to 23&nbsp;GB of RAM during deployments. <br/>
-    If your deployment does not have enough available RAM on Diego, you may receive an <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.</p>
+	<p class="note"><strong>Note:</strong> In the default highly available installation, PCF Healthwatch requires up to 20&nbsp;GB of free RAM on Diego for steady-state operations and up to 40&nbsp;GB of RAM during deployments.  This footprint can be lowered by reducing the instance counts in this section. <br/>
+    Failure to have enough available RAM on Diego typically results in the <a href='./troubleshooting.html#insufficient-resources'>Insufficent Resources</a> error message when running the <b>push-apps</b> errand.</p>
 
 1. Navigate to **Health Check** and do the following:
 	1. Enter **Ops Manager URL**. The URL should include the protocol.  This URL must be reachable from a `cf pushed` application.
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 		<p class="note"><strong>Note:</strong> On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
-	1. Optionally, you can also enable the BOSH deployment task check by entering values for **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. If your BOSH Director has 2-factor authentication enabled, you must create a BOSH UAA client using the steps below. 
+	1. Optionally, you can also enable the BOSH deployment task check by entering values for **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. If your BOSH Director has 2-factor authentication enabled, you must create a BOSH UAA client using the steps below.
 		<p class="note"><strong>Note:</strong> In previous versions of PCF Healthwatch, the BOSH task check used the BOSH Director credentials as default values. As of v1.3, the BOSH task check defaults to disabled until configured.</p>
 	     1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you target BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log in to UAA: <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
 	     1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
