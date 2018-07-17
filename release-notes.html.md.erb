@@ -4,13 +4,18 @@ owner: PCF Healthwatch
 ---
 
 ##<a id='v1.1.9'></a>v1.1.9
-**Release Date: July x, 2018**
+**Release Date: July 17, 2018**
 
 ### Release Notes
 * Given that the `UAA Request Latency` metric is now emitted in PCF, the `Request Latency by UAA` chart will now have data on the UAA details page if on PAS v2.0.11 or later.
 * **[Bug Fix]** In prior versions of PCF Healthwatch v1.1.x, metrics emitted by PCF Healthwatch were not tagged with the Foundation name. This is now resolved.  
+* **[Bug Fix]** Updated how the stemcell number is referenced in the tile manifest. Prior to this fix BOSH would misinterpret a stemcell number ending in 0 and incorrectly drop the 0. 
 * PCF Healthwatch now leverages pre-compiled releases in order to reduce the deployment time necessary during the `Apply Changes` flow.
+* The default threshold values for `Syslog Adapter Capacity` shown in the UI have been modified: 250 critical and 200 warning.
+* Stemcell for v1.1.9 is now v3541
 * Maintenance update of the following product dependencies:
+   * Golang now v1.9.7   
+   * Java GRPC now v1.13.1
    * Spring now Brussels-SR11
    * Flyway Command-line now v5.1.3
    * CF CLI now v6.37.0
