@@ -10,51 +10,57 @@ owner: PCF Healthwatch
 * **[Bug Fix]** v1.3.0 contained a bad flyway migration. v1.3.1 corrects this issue, and is able to be upgraded to from prior versions of v1.2.x and v1.3.0.
   <p class="note"><strong>Note</strong>: If previously on v1.3.0, whether via upgrade, or a new install, you must run the following steps when installing v1.3.1 or higher to perserve data. Alternatively, you may delete v1.3.0 and re-install at v1.3.1, but no data will be retained. If v1.3.0 was never installed, the following steps are unnecessary.</p>
     1. Install the new v1.3.1 tile (this upgrade will then fail on the *Push Monitoring Components* errand).
-    1. [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#ssh)
-    1. [Log into BOSH](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#log-in)
+    1. [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#ssh). 
+    1. [Log into BOSH](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#log-in). 
     1. Set healthwatch deployment name to variable:
     	<pre class="terminal">
-    	export BOSH_DEPLOYMENT=$(bosh deployments --json | jq --raw-output '.Tables[].Rows[] | select(.name | contains("p-healthwatch")) | .name')
+    	$ export BOSH_DEPLOYMENT=$(bosh deployments --json | jq --raw-output '.Tables[].Rows[] | select(.name | contains("p-healthwatch")) | .name')
     	</pre>
     1. SSH to Healthwatch Forwarder VM:
     	<pre class="terminal">
-    	bosh ssh healthwatch-forwarder/0
+    	$ bosh ssh healthwatch-forwarder/0
       </pre>
-    1. Become root
+    1. Become the root user:
       <pre class="terminal">
-        sudo -i
+        $ sudo -i
       </pre>
-    1. Set the MySQL credentials into the environment
+    1. Run the following commands to set the MySQL credentials into the environment:
       <pre class="terminal">
-        $(grep MYSQL_ /var/vcap/jobs/healthwatch-forwarder/bin/healthwatch-forwarder.ctl)
+       $ $(grep MYSQL_ /var/vcap/jobs/healthwatch-forwarder/bin/healthwatch-forwarder.ctl)
       </pre>
       <pre class="terminal">
-    export re='^jdbc\:mysql\:\/\/([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\:([0-9]+)\/(\S+)$'
-    if [[ "$MYSQL\_URL" =~ $re ]]; then
-      echo "Exporting MYSQL\_IP, MYSQL\_PORT, and MYSQL\_DATABASE environment variables."
-      export MYSQL\_IP=${BASH\_REMATCH[1]}
-      export MYSQL\_PORT=${BASH\_REMATCH[2]}
-      export MYSQL\_DATABASE=${BASH\_REMATCH[3]}
-    fi
+    $ export re='^jdbc\:mysql\:\/\/([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\:([0-9]+)\/(\S+)$'
       </pre>
-    1. Tell flyway to roll up the older migrations and run the new ones. <em>Note: Please ignore the flyway WARNING messages, but not ERROR messages.</em>
+      <pre class="terminal">
+        $ if [[ "$MYSQL\_URL" =~ $re ]]; then
+          echo "Exporting MYSQL\_IP, MYSQL\_PORT, and MYSQL\_DATABASE environment variables."
+          export MYSQL\_IP=${BASH\_REMATCH[1]}
+          export MYSQL\_PORT=${BASH\_REMATCH[2]}
+          export MYSQL\_DATABASE=${BASH\_REMATCH[3]}
+        fi
+      </pre>
+    1. Reset and rerun the database migrations: 
+      <p class="note"><strong>Note</strong>: You can ignore the flyway <code>WARNING</code> messages, but not the <code>ERROR</code> messages.</p>
+      1. Truncate the `schema_version` table to reset the migration version:
     	<pre class="terminal">
-      /var/vcap/packages/mariadb/bin/mariadb --host=${MYSQL\_IP} \
-      --port=${MYSQL\_PORT} --user=${MYSQL\_USERNAME} --password=${MYSQL\_PASSWORD} ${MYSQL\_DATABASE} \
-      -e "TRUNCATE TABLE $MYSQL\_DATABASE.schema_version"
+        $ /var/vcap/packages/mariadb/bin/mariadb --host=${MYSQL\_IP} \
+          --port=${MYSQL\_PORT} --user=${MYSQL\_USERNAME} --password=${MYSQL\_PASSWORD} ${MYSQL\_DATABASE} \
+          -e "TRUNCATE TABLE $MYSQL\_DATABASE.schema_version"
       </pre>
+      1. Set the migration baseline to a working version:
       <pre class="terminal">
-      /var/vcap/packages/flyway/flyway -user=${MYSQL\_USERNAME} -password=${MYSQL\_PASSWORD} -url=${MYSQL\_URL} \
+      $ /var/vcap/packages/flyway/flyway -user=${MYSQL\_USERNAME} -password=${MYSQL\_PASSWORD} -url=${MYSQL\_URL} \
         -locations='filesystem:/var/vcap/jobs/push-apps/packages/healthwatch-data/dbmigrations' \
         -baselineVersion=1201 \
         baseline
       </pre>
+      1. Run the migrations:
       <pre class="terminal">
-      /var/vcap/packages/flyway/flyway -user=${MYSQL\_USERNAME} -password=${MYSQL\_PASSWORD} -url=${MYSQL\_URL} \
+      $ /var/vcap/packages/flyway/flyway -user=${MYSQL\_USERNAME} -password=${MYSQL\_PASSWORD} -url=${MYSQL\_URL} \
         -locations='filesystem:/var/vcap/jobs/push-apps/packages/healthwatch-data/dbmigrations' \
         migrate
         </pre>
-    1. Tile should be succesfully installed. 
+    1. Click **Apply Changes** on the installation dashboard to finish installing the PCF Healthwatch tile.  
 
 ### Known Issues
 
@@ -111,5 +117,15 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Additional capacity metrics available in datastore**
     * In the course of troubleshooting memory or disk errors, `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` , can be [useful informational metrics](https://content.pivotal.io/blog/keep-your-app-platform-in-a-happy-state-an-operators-guide-to-capacity-management-on-pivotal-cloud-foundry) about the individual Diego Cells. These metrics are now available [to access](using.html#mysql) in the PCF Healthwatch datastore.
 * Metrics created by PCF Healthwatch and published back into the firehose were previously emitted with the job name `metron_forwarder`. As of v1.3.x, the job name is now ``healthwatch_forwarder` to better align with the actual name of the VM. 
+
+7: exports 3 mysql variables into bash environment
+pt 2: breaks apart URL   
+
+8. 
+1. truncates db migration table; resets to 0
+2. Sets migration table to baseline (pretend different version)
+3. re runs
+
+1. Click apply changes or selectively deploy
 
 
