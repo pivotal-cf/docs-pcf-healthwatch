@@ -118,14 +118,4 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
     * In the course of troubleshooting memory or disk errors, `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` , can be [useful informational metrics](https://content.pivotal.io/blog/keep-your-app-platform-in-a-happy-state-an-operators-guide-to-capacity-management-on-pivotal-cloud-foundry) about the individual Diego Cells. These metrics are now available [to access](using.html#mysql) in the PCF Healthwatch datastore.
 * Metrics created by PCF Healthwatch and published back into the firehose were previously emitted with the job name `metron_forwarder`. As of v1.3.x, the job name is now ``healthwatch_forwarder` to better align with the actual name of the VM. 
 
-7: exports 3 mysql variables into bash environment
-pt 2: breaks apart URL   
-
-8. 
-1. truncates db migration table; resets to 0
-2. Sets migration table to baseline (pretend different version)
-3. re runs
-
-1. Click apply changes or selectively deploy
-
 
