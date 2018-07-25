@@ -7,16 +7,21 @@ owner: PCF Healthwatch
 **Release Date: July 23, 2018**
 
 ### Release Notes
-* **[Bug Fix]** v1.3.0 contained a bad flyway migration. v1.3.1 corrects this issue, and is able to be upgraded to from prior versions of v1.2.x and v1.3.0.
-  <p class="note"><strong>Note</strong>: If previously on v1.3.0, whether via upgrade, or a new install, you must run the following steps when installing v1.3.1 or higher to perserve data. Alternatively, you may delete v1.3.0 and re-install at v1.3.1, but no data will be retained. If v1.3.0 was never installed, the following steps are unnecessary.</p>
-    1. Install the new v1.3.1 tile (this upgrade will then fail on the *Push Monitoring Components* errand).
+* **[Bug Fix]** Corrects bad flyaway migration issue present in v1.3.0. You can upgrade to v1.3.1 from prior versions v1.2.x and v1.3.0.
+  <div class="note"><strong>Note</strong>:<ul>
+    <li>If you previously installed or upgraded to  v1.3.0, you must follow the procedure below when installing v1.3.1 or later to preserve data.</li>
+    <li>Alternatively, if you do not want to retain data, you can delete v1.3.0 and re-install at v1.3.1.</li> 
+    <li>If you never installed v1.3.0, the procedure below is unnecessary.</li></ul>
+  </div>
+    Follow these steps to upgrade from v1.3.0 to v1.3.1:
+    1. Install the new v1.3.1 tile. The upgrade will fail on the **Push Monitoring Components** errand.
     1. [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#ssh). 
     1. [Log into BOSH](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html#log-in). 
-    1. Set healthwatch deployment name to variable:
+    1. Set the Healthwatch deployment name to variable:
     	<pre class="terminal">
     	$ export BOSH_DEPLOYMENT=$(bosh deployments --json | jq --raw-output '.Tables[].Rows[] | select(.name | contains("p-healthwatch")) | .name')
     	</pre>
-    1. SSH to Healthwatch Forwarder VM:
+    1. SSH into `healthwatch-forwarder` VM:
     	<pre class="terminal">
     	$ bosh ssh healthwatch-forwarder/0
       </pre>
@@ -24,7 +29,7 @@ owner: PCF Healthwatch
       <pre class="terminal">
         $ sudo -i
       </pre>
-    1. Run the following commands to set the MySQL credentials into the environment:
+    1. Run the following commands to set the MySQL credentials as environment variables.
       <pre class="terminal">
        $ $(grep MYSQL_ /var/vcap/jobs/healthwatch-forwarder/bin/healthwatch-forwarder.ctl)
       </pre>
@@ -88,7 +93,7 @@ PCF Healthwatch v1.3.1:
 
 PCF Healthwatch v1.3.0:
 
-* **[Bug Identified]** v1.3.0 contains a bad flyway migration. This causes issues in upgrades from PCF Healthwatch v1.2.3 or later, and will cause issues in future versions of v1.3. v1.3.0 is no longer available. 
+* **[Bug Identified]** v1.3.0 contains a bad flyway migration. This causes issues in upgrades from PCF Healthwatch v1.2.3 or later, and will cause issues in future versions of v1.3. v1.3.0 is no longer available. If you have v1.3.0 installed, upgrade by following the steps outlined in the [1.3.1](#v1.3.1) release notes.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
     * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
     * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both windows-based Cells and linux-based Cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
