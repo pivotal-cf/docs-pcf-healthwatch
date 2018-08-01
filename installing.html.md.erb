@@ -17,23 +17,23 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 
 ## <a id='configure'></a> Configure PCF Healthwatch
 
-To start using PCF Healthwatch, you need to configure the Ops Manager Director and PCF Healthwatch tiles.
+To start using PCF Healthwatch, you need to configure the PCF Healthwatch tile.
 
-### <a id='ops-man'></a> Create Your Network
+### <a id='ops-man'></a> Create a Network
 
-To create your network, see the following sections.
+This section describes when and how to create a network for PCF Healthwatch.
 
 <p class="note"><strong>Note:</strong> If you have previously installed PCF
-Healthwatch, you do not need to complete the steps in this section.</p>
+Healthwatch, you can skip this section.</p>
 
-#### About Service Networks
+#### <a id='about-service-networks'></a> About Service Networks
 
 PCF Healthwatch has different network requirements depending on which Ops
 Manager version you are using: 
 
-- **Ops Manager v2.0**: You must create a **Service Network** for PCF
+- **Ops Manager v2.0**: You must use a **Service Network** for PCF
   Healthwatch. This ensures that Ops Manager does not attempt to use the same IP address as the
-BOSH health check VM.
+BOSH health check VM. If you do not have an existing **Service Network** with at least one free IP address, follow the [procedure](#procedure) below. 
 
 - **Ops Manager v2.1**: You do not need to create a separate network as a service network.
 You can use any of your networks because BOSH handles the IP allocation. 
@@ -41,11 +41,9 @@ For more information, see [IP Address Management (IPAM)
     Removed](https://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/opsmanager-rn.html#ip-discontinuedi)
     in the _PCF Ops Manager v2.1 Release Notes_.
 
+#### <a id='procedure'></a> Procedure
 
-
-#### Procedure
-
-To create a network, do the following:
+If you read [About Service Networks](#about-service-networks) and determined you need to create a new network for PCF Healthwatch, do the following:
 
 1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
 
