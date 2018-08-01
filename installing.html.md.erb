@@ -17,19 +17,33 @@ This topic describes how to install and configure Pivotal Cloud Foundry (PCF) He
 
 ## <a id='configure'></a> Configure PCF Healthwatch
 
-To start using PCF Healthwatch, you need to configure the Ops Manager Director and PCF Healthwatch tiles.
+To start using PCF Healthwatch, you need to configure the PCF Healthwatch tile.
 
-<p class="note"><strong>Note:</strong> PCF Healthwatch requires a service network for running BOSH health checks. This ensures that Ops Manager will not attempt to use the same IP address as the BOSH Health Check VM.</p>
+### <a id='ops-man'></a> Create a Network
 
-If you do not have an existing service network with IP addresses managed by BOSH and at least one free IP address, proceed to [Step 1. Configure the Ops Manager Director Tile](installing.html#ops-man) to create a new service network.
+This section describes when and how to create a network for PCF Healthwatch.
 
-If you have an existing service network with IP addresses managed by BOSH and at least one free IP address, you can skip Step 1 and select this network for running the BOSH Health Check VM in [Step 2. Configure the PCF Healthwatch Tile](installing.html#healthwatch-tile).
+<p class="note"><strong>Note:</strong> If you have previously installed PCF
+Healthwatch, you can skip this section.</p>
 
-### <a id='ops-man'></a> Step 1. Configure the Ops Manager Director Tile
+#### <a id='about-service-networks'></a> About Service Networks
 
-<p class="note"><strong>Note:</strong> If you have already completed this step during a prior installation of PCF Healthwatch, you do not need to repeat it.</p>
+PCF Healthwatch has different network requirements depending on which Ops
+Manager version you are using: 
 
-To configure the Ops Manager Director tile, do the following:
+- **Ops Manager v2.0**: You must use a **Service Network** for PCF
+  Healthwatch. This ensures that Ops Manager does not attempt to use the same IP address as the
+BOSH health check VM. If you do not have an existing **Service Network** with at least one free IP address, follow the [procedure](#procedure) below. 
+
+- **Ops Manager v2.1**: You do not need to create a separate network as a service network.
+You can use any of your networks because BOSH handles the IP allocation. 
+For more information, see [IP Address Management (IPAM)
+    Removed](https://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/opsmanager-rn.html#ip-discontinuedi)
+    in the _PCF Ops Manager v2.1 Release Notes_.
+
+#### <a id='procedure'></a> Procedure
+
+If you read [About Service Networks](#about-service-networks) and determined you need to create a new network for PCF Healthwatch, do the following:
 
 1. Click the **Ops Manager Director** tile on the Ops Manager Installation Dashboard.
 
@@ -37,13 +51,14 @@ To configure the Ops Manager Director tile, do the following:
 
 1. In the **Name** field, enter a name for the service network.
 
-1. If you are using Ops Manager v2.0, select the **Service Network** checkbox. If you are using Ops Manager v2.1, the **Service Network** checkbox is not there.
+1. If you are using Ops Manager v2.0, select the **Service Network** checkbox. 
 
-1. Enter the network details for your **Service Network**.
+1. Enter the network details.
 
 1. Click **Save**.
               
-### <a id='healthwatch-tile'></a> Step 2. Configure the PCF Healthwatch Tile
+
+### <a id='healthwatch-tile'></a> Configure the PCF Healthwatch Tile
 
 To configure the PCF Healthwatch tile, do the following:
 
