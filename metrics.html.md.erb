@@ -299,7 +299,11 @@ This derived metric is recommended for automating platform scaling and understan
 
 ### <a id='free-disk-chunks'></a>Number of Available Free Chunks of Disk
 
-This derived metric is recommended for automating and monitoring platform scaling. Insufficient free chunks of disk can prevent pushing and scaling apps. Diego will be unable to stage app instances and tasks without at least 6GB free. Monitoring the amount of free chunks remaining is a more valuable indicator of impending cf push errors due to lack of disk than relying on the Disk Remaining metrics alone.
+This derived metric is recommended for automating and monitoring platform
+scaling. Insufficient free chunks of disk can prevent pushing and scaling apps.
+Diego cannot stage app instances and tasks without at least 6GB free. The amount
+of free chunks remaining is a more valuable indicator of impending
+`cf push` errors due to lack of disk than the Disk Remaining metrics alone.
 
 <table class="nice">
 <tr>

@@ -76,8 +76,14 @@ curl "healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks"  \
       -H "Content-Type: application/json"
 ```
 
-The `value` property is required. The `type` property is required and must be either `memory` or `disk`.
-If the `deployment` property is omitted, the global free chunk configuration is updated.
+Where:
+
+- The `value` property is required.
+
+- The `type` property is required. You must set it to either `memory` or `disk`.
+
+- The `deployment` property is optional. If you exclude the property, the  global 
+free chunk configuration is updated.
 
 Possible successful HTTP response codes:
 
@@ -85,4 +91,4 @@ Possible successful HTTP response codes:
 - 201: A new record was created
 - 400: Invalid parameters
 
-<p class="note"><strong>Note</strong>: the value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: The value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
