@@ -296,6 +296,28 @@ This derived metric is recommended for automating platform scaling and understan
 </tr>
 </table>
 
+
+### <a id='free-disk-chunks'></a>Number of Available Free Chunks of Disk
+
+This derived metric is recommended for automating and monitoring platform
+scaling. Insufficient free chunks of disk can prevent pushing and scaling apps.
+Diego cannot stage app instances and tasks without at least 6GB free. The amount
+of free chunks remaining is a more valuable indicator of impending
+`cf push` errors due to lack of disk than the Disk Remaining metrics alone.
+
+<table class="nice">
+<tr>
+  <th>Reports</th>
+  <th>Metric</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td>Available free chunks of disk</td>
+  <td><code>healthwatch.Diego.AvailableFreeChunksDisk</code></td>
+  <td>The current number of calculated 6-GB chunks of free disk across all cells. The default calculation value of 6-GB can be [modified via API](api/free-chunks.html).</td>
+</tr>
+</table>
+
 ### <a id='disk'></a>Percentage of Disk Available
 
 This derived metric is recommended for automating and monitoring platform scaling. Going below the [recommended percentages](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#cell) for your environment set-up can result in insufficient capacity to tolerate failure of an entire AZ. 

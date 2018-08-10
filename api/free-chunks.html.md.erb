@@ -1,14 +1,14 @@
 ---
-title: Configuring Free Chunk Memory
+title: Configuring Free Chunk Sizes
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory configurations](../metrics.html#free-memory-chunks).
+This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory](../metrics.html#free-memory-chunks) and [Available Free Chunks of Disk](../metrics.html#free-disk-chunks).
 
 Currently, two main types of free chunk configurations are supported: Global and Deployment-specific. Through this API, consumers can do the following:
 
 - View current free chunk configurations
-- Update the Global free chunk size
+- Update the Global free chunk size for memory and disk
 - Create deployment-specific free chunk configurations
   - Applicable for customers isolating Compute (Diego Cells) into Isolation Segments, where different threshold values of concern may be needed
 
@@ -43,12 +43,20 @@ This returns a JSON array of free chunk configurations:
   {
     "id": 1,
     "deployment": "healthwatch-default",
-    "value": 2048
+    "value": 2048,
+    "type": "memory"
   },
   {
     "id": 3,
     "deployment": "cf",
-    "value": 4096
+    "value": 4096,
+    "type": "memory"
+  },
+  {
+    "id": 4,
+    "deployment": "healthwatch-default",
+    "value": 6144,
+    "type": "disk"
   }
 ]
 ```
@@ -63,16 +71,24 @@ To create or update a free chunk configuration, make a `POST` request to the `/v
 
 ```
 curl "healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks"  \
-      --data "{\"value\":8192, \"deployment\":\"prod-isolation-segment\"}" \
+      --data "{\"value\":8192, \"deployment\":\"prod-isolation-segment\",\"type\":\"memory\"}" \
       -H "Authorization: Bearer MY_TOKEN" \
       -H "Content-Type: application/json"
 ```
 
-The `value` property is required. If the `deployment` property is omitted, the global free chunk configuration is updated.
+Where:
+
+- The `value` property is required.
+
+- The `type` property is required. You must set it to either `memory` or `disk`.
+
+- The `deployment` property is optional. If you exclude the property, the  global 
+free chunk configuration is updated.
 
 Possible successful HTTP response codes:
 
 - 200: A record was updated
 - 201: A new record was created
+- 400: Invalid parameters
 
-<p class="note"><strong>Note</strong>: the value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: The value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
