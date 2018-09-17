@@ -67,11 +67,28 @@ PCF Healthwatch forwards the super metrics that it creates into the [Loggregator
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
 
-## <a id='logcache'></a>Access Super Metrics via API
+### <a id='logcache'></a>Access Super Metrics via API
 
-From PAS 2.2.5, Healthwatch data can be directly accessed via PromQL queries to the Log Cache API. The Log Cache `/api/v1/query` and `/api/v1/query_range` API endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/).
+<p class="note"><strong>Note</strong>: This feature is available in PAS 2.2.5 and later.</p>
 
-For example, to get the number of free chunks over the past 2 minutes:
+You can access Healthwatch data directly with PromQL queries to the Log Cache API. The following Log Cache endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/): 
+
+- `/api/v1/query`
+- `/api/v1/query_range` 
+
+#### Format a Query
+
+To form the promQL query for a metric, do the following:
+
+1. Remove `healthwatch.` from the beginning of the metric name. For example, change `healthwatch.Diego_AvailableFreeChunks` to `Diego_AvailableFreeChunks`.
+1. Replace all non-alphanumeric characters with `_`.
+1. Add `{source_id="healthwatch-forwarder"}` to the end. Log Cache requires `source_id` for all queries.
+
+See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) for for more information about query syntax.
+
+#### Example 
+
+The following example shows a query for the number of free chunks over the past two minutes:
 
 ```
 curl -G "https://log-cache.SYSTEM_URL/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
@@ -105,9 +122,4 @@ curl -G "https://log-cache.SYSTEM_URL/api/v1/query" --data-urlencode 'query=Dieg
 
 ```
 
-The values of `[ 1536166538000000000, "10" ]` and `[ 1536166598000000000, "8" ]` are telling us that there were 10 free chunks 2 minutes ago and 8 free chunks 1 minute ago.
-
-To find the promQL query for a metric, first remove `healthwatch.` from the beginning. Next, replace all non-alphanumeric characters with `_`. e.g. `healthwatch.Diego_AvailableFreeChunks` became `Diego_AvailableFreeChunks`.
-Lastly, add `{source_id="healthwatch-forwarder"}` to the end, as Log Cache requires `source_id` for all queries.
-
-Please refer to the [Prometheus query documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for options on the query syntax.
+The returned values of `[ 1536166538000000000, "10" ]` and `[ 1536166598000000000, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
