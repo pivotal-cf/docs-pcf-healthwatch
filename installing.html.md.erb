@@ -75,11 +75,14 @@ To configure the PCF Healthwatch tile, do the following:
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 		<p class="note"><strong>Note:</strong> On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
 	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
-	1. Optionally, you can also enable the BOSH deployment task check by entering values for **UAA Client User for BOSH Task Check** and **UAA Client Secret for BOSH Task Check**. If your BOSH Director has 2-factor authentication enabled, you must create a BOSH UAA client using the steps below.
-		<p class="note"><strong>Note:</strong> In previous versions of PCF Healthwatch, the BOSH task check used the BOSH Director credentials as default values. As of v1.3, the BOSH task check defaults to disabled until configured.</p>
-	     1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-0/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you target BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log in to UAA: <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
-	     1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
-	     <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+	1. Optionally, you can also enable the BOSH Deployment Checker.  This will add context to the PCF Healthwatch UI graphs of when BOSH deployments have occurred.
+	     1. Select **Enable** in the `Bosh Deployment Checker` section.
+	     1. Enter a Bosh UAA client and secret with an authority of `bosh.read`
+		   <p class="note"><strong>Note:</strong> In previous versions of PCF Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.
+	          1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-2/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log in to UAA: <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+	          1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
+	          <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+	       </p>
 	1. Click **Save**.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
