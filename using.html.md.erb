@@ -66,3 +66,50 @@ PCF Healthwatch forwards the super metrics that it creates into the [Loggregator
 <pre class="terminal">
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
+
+## <a id='accessing-healthwatch-data'></a>Accessing Healthwatch Data (API)
+
+ From PAS 2.2.5, Healthwatch data can be directly accessed via PromQL queries to the Log Cache API. The Log Cache `/api/v1/query` and `/api/v1/query_range` API endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/).
+
+For example, to get the number of free chunks over the past 2 minutes:
+  ```
+curl -G "https://log-cache.SYSTEM_URL/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
+ {
+  "status": "success",
+  "data": {
+    "resultType": "matrix",
+    "result": [
+      {
+        "metric": {
+          "deployment": "p-healthwatch-b8f99d6a724dbee699cc",
+          "index": "2336cbbe-e526-45d4-816e-dd2352d4fa0c",
+          "job": "healthwatch-forwarder",
+          "origin": "healthwatch"
+        },
+        "values": [
+          [
+            1536166538000000000,
+            "10"
+          ],
+          [
+            1536166598000000000,
+            "8"
+          ]
+        ]
+      }
+    ]
+  }
+}
+  ```
+
+The values of `[ 1536166538000000000, "10" ]` and `[ 1536166598000000000, "8" ]` are telling us that there were 10 free chunks 2 minutes ago and 8 free chunks 1 minute ago.
+
+To find the promQL query for a metric:
+
+1. Remove `healthwatch.` from the beginning.
+
+1. Replace all non-alphanumeric characters with `_`. e.g. `healthwatch.Diego_AvailableFreeChunks` becomes `Diego_AvailableFreeChunks`.
+
+1. Add `{source_id="healthwatch-forwarder"}` to the end. Log Cache requires `source_id` for all queries.
+
+Please refer to the [Prometheus query documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for options on the query syntax.
