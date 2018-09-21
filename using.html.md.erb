@@ -67,7 +67,7 @@ PCF Healthwatch forwards the super metrics that it creates into the [Loggregator
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
 
-## <a id='access-healthwatch-data'></a>Access Healthwatch Data with the Log Cache API
+###<a id='access-healthwatch-data'></a>Access Healthwatch Data with the Log Cache API
 
 On PAS 2.2.5 and later, you can access Healthwatch data directly by sending PromQL queries to the Log Cache API. The Log Cache `/api/v1/query` and `/api/v1/query_range` API endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/).
 
