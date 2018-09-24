@@ -76,7 +76,7 @@ You can access Healthwatch data directly with PromQL queries to the Log Cache AP
 - `/api/v1/query`
 - `/api/v1/query_range` 
 
-#### Format a Query
+#### Query Format
 
 To form the promQL query for a metric, do the following:
 
@@ -86,9 +86,9 @@ To form the promQL query for a metric, do the following:
 
 See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) for for more information about query syntax.
 
-#### Example: Diego Available Free Chunks
+#### Example: Query recent values of Diego Available Free Chunks
 
-The following example shows a query for the number of free chunks over the past two minutes:
+This queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
 
 ```
 curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
@@ -122,14 +122,46 @@ curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=Die
 
 ```
 
-The returned values of `[ 1536166538000000000, "10" ]` and `[ 1536166598000000000, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
+The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
+
+#### Example: Query the latest value for the CF Push Health Check
+
+This queries the latest value stored in Log Cache for the CF Push Health Check:
+
+```
+curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
+
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "deployment": "p-healthwatch-b8f99d6a724dbee699cc",
+          "index": "2336cbbe-e526-45d4-816e-dd2352d4fa0c",
+          "job": "healthwatch-forwarder",
+          "origin": "healthwatch"
+        },
+        "value": [
+          1537826971,
+          "1"
+        ]
+      }
+    ]
+  }
+}
+```
+
+The result value of "1" means that CF Push is currently working. Any other value means that CF Push has timed out or failed.
+This result could be used by automation tools waiting for CF Push to become available.
 
 #### Example: Canary App Availability SLI
 
-The Log Cache API can also query over a range to measure SLI adherence:
+The Log Cache API can also execute the same query multiple times over a range:
 
 ```
-curl -G "https://log-cache.SYSTEM_HOST/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)" -k | jq .
+curl -G "https://log-cache.SYSTEM_HOST/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -159,8 +191,8 @@ curl -G "https://log-cache.SYSTEM_HOST/api/v1/query_range?start=1537782809&end=1
 }
 ```
 
-The `query_range` endpoint is useful for seeing values over time for a given query. This is very useful for charting,
-but let's use the results to calculate up time using a critical threshold of `v < 1`:
+The `query_range` endpoint is useful for seeing values over time with a fixed interval (step). This is useful
+for charting, but let's use the results to calculate up-time using a critical threshold of `v < 1`:
 
 ```
 results [1 1 1 1 1 0 1 1]
@@ -172,12 +204,14 @@ uptime = 7 / 8
 uptime = 87.5%
 ```
 
-This is subject to the retention time of the Log Cache service. You can discover the oldest metric stored with
+#### Log Cache Data Retention
+
+These queries are subject to the retention time of the Log Cache service. You can discover the oldest metric stored with
 the `/v1/meta` Log Cache API endpoint.
 
 ```
 curl -G "https://log-cache.SYSTEM_HOST/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
 ```
 
-If you would like to calculate uptime over a longer period of time, the instance count and/or RAM of the Doppler VM
+If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
 must be scaled up.
