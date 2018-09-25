@@ -85,3 +85,40 @@ PCF Healthwatch creates the following Functional Apps:
 * PCF Healthwatch event monitoring and alert publishing: the `healthwatch-alerts` app
 
 For information about scaling these PCF Healthwatch resources, see [PCF Healthwatch Resources](resources.html#healthwatch-apps).
+
+## <a id='networking-rules'></a>Required Networking Rules for PCF Healthwatch
+Prior to deploying PCF Healthwatch, the operator must verify the network configuration necessary to allow PCF Healthwatch
+components to communicate with each other and certain PCF components. The following table explains the need
+for each connection in the PCF Healthwatch architecture.
+
+| Key Components  | Why We Need Access                                                           |
+|-----------------|------------------------------------------------------------------------------|
+|BOSH Director    | Information about director health and executing IAAS health checks           |
+|BOSH UAA         | Authorization to access the director                                         |
+|UAA              | Authorization for component metrics, CF Health Checks and PCF Healthwatch UI |
+|Cloud Controller | CF Health Checks                                                             |
+|Doppler          | Metric Ingestion, Forwarding Metrics to the Firehose                         |
+
+
+
+| This component…          | Must communicate with…                                                                                        | Default TCP Port                                                      | Communication direction(s) | Notes                                                                   |
+|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
+| bosh-health-check        | <ul> <li> BOSH Director</li><li>BOSH UAA</li><li>Healthwatch Forwarder VMs</li> </ul>                         |<ul> <li>25555</li><li>8443</li><li>13322</li> </ul>                   | One way                    |                                                                         |
+| bosh-task-check          | <ul> <li> BOSH Director </li><li> BOSH UAA </li><li> Healthwatch Forwarder VMs</li> </ul>                     |<ul> <li>25555 </li><li> 8443 </li><li> 13322 </li> </ul>              | One way                    |                                                                         |
+| canary-health-check      | <ul> <li> Canary App via external route </li><li> Healthwatch Forwarder VMs</li> </ul>                        |<ul> <li>443 or 80 </li><li> 13322 </li> </ul>                         | One way                    |                                                                         |
+| cf-health-check          | <ul> <li> CF CLI Access </li><li> Doppler </li><li> UAA </li><li>Healthwatch Forwarder VMs</li> </ul>         |<ul> <li>443 </li><li> 443 </li><li> 443 </li><li> 13322 </li> </ul>   | One way                    | CF CLI interactions. On AWS, Doppler connection is typically port 4443. |
+| healthwatch              | <ul> <li> UAA </li><li> Healthwatch MySQL VM</li></ul>                                                        |<ul> <li>443 </li><li> 3306 </li> </ul>                                | One way                    |                                                                         |
+| healthwatch-aggregator   | <ul> <li> Healthwatch MySQL VM </li><li> Healthwatch Forwarder VMs</li> </ul>                                 |<ul> <li>3306 </li><li> 13322 </li> </ul>                              | One way                    |                                                                         |
+| healthwatch-alerts       | <ul> <li> Healthwatch MySQL VM </li><li> Healthwatch Forwarder VMs</li> </ul>                                 |<ul> <li>3306 </li><li> 13322 </li> </ul>                              | One way                    |                                                                         |
+| healthwatch-api          | <ul> <li> Healthwatch MySQL VM </li><li> Healthwatch Forwarder VMs</li> </ul>                                 |<ul> <li>3306 </li><li> 13322 </li> </ul>                              | One way                    |                                                                         |
+| healthwatch-ingestor     | <ul> <li> Healthwatch Redis VM </li><li>Loggregator Firehose</li><li> Healthwatch Forwarder VMs</li></ul>     |<ul> <li>6379 </li><li>443</li><li> 13322 </li> </ul>                  | One way                    |                                                                         |
+| healthwatch-worker       | <ul> <li> Healthwatch MySQL VM </li><li> Healthwatch Redis VM </li><li> Healthwatch Forwarder VMs </li> </ul> |<ul> <li>3306 </li><li> 6379 </li><li> 13322 </li> </ul>               | One way                    |                                                                         |
+| healthwatch-meta-monitor | <ul> <li> Healthwatch MySQL VM </li><li> Healthwatch Forwarder VMs</li> </ul>                                 |<ul> <li>3306 </li><li> 13322 </li> </ul>                              | One way                    |                                                                         |
+| opsmanager-health-check  | <ul> <li> Ops Manager VM </li><li> Healthwatch Forwarder VMs</li> </ul>                                       |<ul> <li>443 </li><li> 13322 </li> </ul>                               | One way                    |                                                                         |
+| ui-health-check          | <ul> <li> healthwatch via GoRouter </li><li> Healthwatch Forwarder VMs</li> </ul>                             |<ul> <li>443 </li><li> 13322 </li> </ul>                               | One way                    |                                                                         |
+| Healthwatch Forwarder VM | <ul> <li> Doppler via Metron Agent </li><li> Healthwatch MySQL VM</li> </ul>                                  |<ul> <li>8082 </li><li> 3306 </li> </ul>                               | One way                    |                                                                         |
+| Healthwatch MySQL VM     | No outbound connections                                                                                       |                                                                       |                            |                                                                         |
+| Healthwatch Redis VM     | No outbound connections                                                                                       |                                                                       |                            |                                                                         |
+
+<p class="note"><strong>Note</strong>: If you configure syslog forwarding for PCF Healthwatch then you will need to ensure that network path from each VM as well</p>
+<p class="note"><strong>Note</strong>: PCF Healthwatch depends on the <code>bosh-system-metrics-forwarder</code> component in PAS.  For that to work the <code>trafficcontroller</code> VM needs to communicate to the BOSH Director on port 25595</p>
