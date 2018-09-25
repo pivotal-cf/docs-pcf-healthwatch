@@ -87,21 +87,21 @@ PCF Healthwatch creates the following Functional Apps:
 For information about scaling these PCF Healthwatch resources, see [PCF Healthwatch Resources](resources.html#healthwatch-apps).
 
 ## <a id='networking-rules'></a>Required Networking Rules for PCF Healthwatch
-Prior to deploying PCF Healthwatch, the operator must verify the network configuration necessary to allow PCF Healthwatch
-components to communicate with each other and certain PCF components. The following table explains the need
-for each connection in the PCF Healthwatch architecture.
 
-| Key Components  | Why We Need Access                                                           |
+Prior to deploying PCF Healthwatch, the operator must verify the network configuration necessary to allow PCF Healthwatch
+components to communicate with each other and certain PCF components. The following table lists the PCF components that PCF Healthwatch needs to connect to, and why.
+
+| Key PCF Components  | Why PCF Healthwatch Needs Access                                                           |
 |-----------------|------------------------------------------------------------------------------|
-|BOSH Director    | Information about director health and executing IAAS health checks           |
-|BOSH UAA         | Authorization to access the director                                         |
+|BOSH Director    | Information about BOSH Director health and executing IaaS health checks           |
+|BOSH UAA         | Authorization to access the Director                                         |
 |UAA              | Authorization for component metrics, CF Health Checks and PCF Healthwatch UI |
 |Cloud Controller | CF Health Checks                                                             |
 |Doppler          | Metric Ingestion, Forwarding Metrics to the Firehose                         |
 
+The following table lists the communication paths and ports between PCF Healthwatch components and other PCF Healthwatch and PCF components.
 
-
-| This component…          | Must communicate with…                                                                                        | Default TCP Port                                                      | Communication direction(s) | Notes                                                                   |
+| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                      | Communication direction(s) | Notes                                                                   |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
 | bosh-health-check        | <ul> <li> BOSH Director</li><li>BOSH UAA</li><li>Healthwatch Forwarder VMs</li> </ul>                         |<ul> <li>25555</li><li>8443</li><li>13322</li> </ul>                   | One way                    |                                                                         |
 | bosh-task-check          | <ul> <li> BOSH Director </li><li> BOSH UAA </li><li> Healthwatch Forwarder VMs</li> </ul>                     |<ul> <li>25555 </li><li> 8443 </li><li> 13322 </li> </ul>              | One way                    |                                                                         |
