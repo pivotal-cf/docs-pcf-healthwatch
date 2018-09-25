@@ -126,7 +126,7 @@ The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean the
 
 #### Example: Query the latest value for the CF Push Health Check
 
-This queries the latest value stored in Log Cache for the CF Push Health Check:
+This queries the latest value stored in Log Cache for the `cf push` Health Check:
 
 ```
 curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
@@ -153,8 +153,8 @@ curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=hea
 }
 ```
 
-The result value of "1" means that CF Push is currently working. Any other value means that CF Push has timed out or failed.
-This result could be used by automation tools waiting for CF Push to become available.
+The result value of "1" means that `cf push` is currently working. Any other value means that `cf push` has timed out or failed.
+This result could be used by automation tools waiting for `cf push` to become available.
 
 #### Example: Canary App Availability SLI
 
@@ -192,7 +192,7 @@ curl -G "https://log-cache.SYSTEM_HOST/api/v1/query_range?start=1537782809&end=1
 ```
 
 The `query_range` endpoint is useful for seeing values over time with a fixed interval (step). This is useful
-for charting, but let's use the results to calculate up-time using a critical threshold of `v < 1`:
+for charting, but you can also use it to calculate uptime, based on a critical threshold of `v < 1`:
 
 ```
 results [1 1 1 1 1 0 1 1]
