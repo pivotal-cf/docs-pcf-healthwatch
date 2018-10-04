@@ -83,7 +83,7 @@ The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
 
 ### Solution
 
-To troubleshoot these failures, start by examining the from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
+To troubleshoot these failures, start by examining the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
 
 <p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the Foundation such as PAS Upgrades or BBR Backups. For more information, please see [cf push Availability During Pivotal Application Service Upgrades](https://docs.pivotal.io/pivotalcf/2-0/customizing/cfpush-availability-during-upgrade.html).</p>
 
