@@ -1,12 +1,14 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.1 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.1.9'></a>v1.1.9
+##<a id='releases'></a>Releases
+
+###<a id='v1.1.9'></a>v1.1.9
+
 **Release Date: July 17, 2018**
 
-### Release Notes
 * Given that the `UAA Request Latency` metric is now emitted in PCF, the `Request Latency by UAA` chart will now have data on the UAA details page if on PAS v2.0.11 or later.
 * **[Bug Fix]** In prior versions of PCF Healthwatch v1.1.x, metrics emitted by PCF Healthwatch were not tagged with the Foundation name. This is now resolved.  
 * **[Bug Fix]** Updated how the stemcell number is referenced in the tile manifest. Prior to this fix BOSH would misinterpret a stemcell number ending in 0 and incorrectly drop the 0. 
@@ -24,9 +26,7 @@ owner: PCF Healthwatch
    * Consul now v196
    * CF-MySQL now 36.14.0
   
-### Known Issues
-
-PCF Healthwatch v1.1.9:
+####<a id="v1.1.9-issues"></a> Known Issues
 
 * If Healthwatch is upgraded while the BOSH Health Check runs, the BOSH Director SLI will show an error. Details on troubleshooting can be found [here](http://docs.pivotal.io/pcf-healthwatch/1-1/troubleshooting.html). 
 * Does not cover monitoring of [Isolation Segments](https://docs.pivotal.io/pivotalcf/adminguide/isolation-segments.html).
@@ -37,17 +37,15 @@ PCF Healthwatch v1.1.9:
    * Percentage of Max Connections Used
 
 
-##<a id='v1.1.8'></a>v1.1.8
+###<a id='v1.1.8'></a>v1.1.8
+
 **Release Date: May 14, 2018**
 
-### Release Notes
 * **[Bug Fix]** Fixes a bug identified in prior versions where two-factor authentication being enabled for the BOSH Director caused the BOSH Health Check continuous validation test and the BOSH Task Check to fail. 
 * Maintenance update of the following product dependencies:
    * PushApps now v0.0.53
   
-### Known Issues
-
-PCF Healthwatch v1.1.8:
+####<a id="v1.1.8-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * If Healthwatch is upgraded while the BOSH Health Check runs, the BOSH Director SLI will show an error. Details on troubleshooting can be found [here](http://docs.pivotal.io/pcf-healthwatch/1-1/troubleshooting.html). 
@@ -59,10 +57,10 @@ PCF Healthwatch v1.1.8:
    * MySQL CPU Busy Time
    * Percentage of Max Connections Used
 
-##<a id='v1.1.7'></a>v1.1.7
+###<a id='v1.1.7'></a>v1.1.7
+
 **Release Date: April 26, 2018**
 
-### Release Notes
 * **[Feature]** For result [metrics](metrics.html) published as part of PCF Healthwatch continuous testing, Healthwatch now also publishes the configured test frequency along with the resulting metric. The frequency value is passed into the Firehose as a key-value tag. 
 * Maintenance update of the following product dependencies:
    * Golang now v1.8.7
@@ -72,9 +70,7 @@ PCF Healthwatch v1.1.8:
    * Flyway Command-line now v5.0.7
    * cloudfoundry-incubator/push-apps now v0.0.51
 
-### Known Issues
-
-PCF Healthwatch v1.1.7:
+####<a id="v1.1.7-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -86,17 +82,15 @@ PCF Healthwatch v1.1.7:
    * MySQL CPU Busy Time
    * Percentage of Max Connections Used
 
-##<a id='v1.1.6'></a>v1.1.6
+###<a id='v1.1.6'></a>v1.1.6
+
 **Release Date: March 20, 2018**
 
-### Release Notes
 * To support PCF Healthwatch v1.1 running on either PCF v2.0 or PCF v2.1, the Firehose Loss Rate calculation has been updated to adjust for the underlying source metric differences between PCF v2.0 and PCF v2.1. 
 * **[Bug Fix]** The newest version of the Chrome browser (v65.0.3325.162) will cause several charts on Healthwatch to display alert banding even when no threshold has been breached. This is due to a change in how Chrome handles SVG. v1.1.6 resolves this potential UI issue on newer Chrome browser versions.
 * The UAA details page is now also compatible with the [PCF Small Footprint PAS](https://network.pivotal.io/products/elastic-runtime) tile.
 
-### Known Issues
-
-PCF Healthwatch v1.1.6:
+####<a id="v1.1.6-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -108,10 +102,10 @@ PCF Healthwatch v1.1.6:
    * MySQL CPU Busy Time
    * Percentage of Max Connections Used
 
-##<a id='v1.1.5'></a>v1.1.5
+###<a id='v1.1.5'></a>v1.1.5
+
 **Release Date: March 5, 2018**
 
-### Release Notes
 * **[Bug Fix]** Fixes a bug identified in v1.1.4 where the new java-based `Push Monitoring Components for PCF Healthwatch` errand could fail in some environments leveraging self-signed certs. 
 * **[Bug Fix]** Improves the performance of the Ingestor component (firehose nozzle). On some environments the Ingestors would experience high CPU and disconnect repeatedly from the firehose, risking loss of firehose-based data in Healthwatch. 
     * As a result of this effort, the Ingestor and Loader have been combined and are no longer separate components. As of v1.1.5, the Ingestor now feeds directly to the datastore. These combined components still report on themselves in the same manner for [product monitoring](monitoring.html#keyPerformanceIndicators).
@@ -119,9 +113,7 @@ PCF Healthwatch v1.1.6:
     * Current Healthwatch metrics resulting from firehose data: Firehose Loss Rate, Adapter Loss Rate, Reverse Log Proxy Loss Rate, Syslog Drain Binding Capacity, Number of Available Free Chunks of Memory, Percentage of Memory Available, Total Memory Available, Percentage of Disk Available, Total Disk Available, Percentage of Cell Container Capacity Available, Total Cell Container Capacity Available
 * **[Feature]** A new page is now available that visualizes the recently recommended [UAA KPI](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) recommendations for PCF 2.0. It is available at `healthwatch.<system>/uaa/details`
 
-### Known Issues
-
-PCF Healthwatch v1.1.5:
+####<a id="v1.1.5-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -134,10 +126,10 @@ PCF Healthwatch v1.1.5:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.1.4'></a>v1.1.4
+###<a id='v1.1.4'></a>v1.1.4
+
 **Release Date: February 8, 2018**
 
-### Release Notes
 * **[Bug Fix]** Switches the servlet container from Tomcat to Jetty. This resolves reported issues with Healthwatch installation failing on a non-RFC 1918 network.
 * **[Bug Fix]** Switches the underlying push-apps errand script from bash script to kotlin. This is expected to resolve issues on some Azure installations where the CLI was timing out before the Healthwatch push-apps errand could complete successfully.
 * **[Bug Fix]** Fixes an issue identified in v1.1.3 where the Logging Throughput and Loss Rate calculations were potentially underreporting.
@@ -160,9 +152,7 @@ PCF Healthwatch v1.1.5:
     * Improvement made to queries updating the Capacity panel on the main dashboard. This panel could sometimes show an unexpected line drop in the final minute, although the details page already had the most recent value correctly displayed. This update reduces the likelihood of that behavior. 
     * We have removed the previously stated limitation that the Google Chrome browser must be used for accessing the UI. The latest Mozilla Firefox browser also works well. Microsoft Edge 16 has one issue with broken tab switch navigation on the Capacity and Diego detail pages that looks to be resolved in the upcoming Edge 17.
 
-### Known Issues
-
-PCF Healthwatch v1.1.4:
+####<a id="v1.1.4-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -175,10 +165,10 @@ PCF Healthwatch v1.1.4:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.1.3'></a>v1.1.3
+###<a id='v1.1.3'></a>v1.1.3
+
 **Release Date: January 11, 2018**
 
-### Release Notes
 * **[Feature]** PCF Healthwatch is now also compatible with the PCF Small Footprint PAS tile 
 * **[Feature]** Operators can now choose to change the default Foundation name that PCF Healthwatch passes into the firehose as part of the publication of the [PCF Healthwatch Metrics](metrics.html).
     * Operators can optionally [configure](installing.html#healthwatch-tile) this name within the tile. Doing so will replace the default foundation name value of system domain. This updated foundation name is passed into the Firehose as a key-value tag. For example:
@@ -192,9 +182,7 @@ PCF Healthwatch v1.1.4:
 * **[Bug Fix]** Fixes an issue identified in v1.1.1 where the full root ca certificate was visible in the log output 
 * Product stemcell was updated to v3468
 
-### Known Issues
-
-PCF Healthwatch v1.1.3:
+####<a id="v1.1.3-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -208,10 +196,10 @@ PCF Healthwatch v1.1.3:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.1.1'></a>v1.1.1
+###<a id='v1.1.1'></a>v1.1.1
+
 **Release Date: December 22, 2017**
 
-### Release Notes
 * **[Feature]** To support monitoring of Pivotal Cloud Foundry (PCF) v2.0, the following functionality has been added to PCF Healthwatch:
     * The [Number of Route Registration Messages Sent and Received](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#route-registration) indicator helps monitor the performance of the Gorouter.
     * The [Locks Held by BBS](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#BBSActiveLocks) and [Locks Held by Auctioneer](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#AuctioneerActiveLocks) indicators help monitor the performance of Diego components.
@@ -239,9 +227,7 @@ PCF Healthwatch v1.1.3:
     * Breadcrumb navigation was added.
     * Panel titles now link to detail view pages.
 
-### Known Issues
-
-PCF Healthwatch v1.1.1:
+###<a id="v1.1.1-issues"></a> Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.1.9. 
 * **[Bug Identified]** Where two-factor authentication is enabled for the BOSH Director, the BOSH Health Check continuous validation test and the BOSH Task Check may not work correctly. This manifests as the BOSH Health panel showing as red even through the Director is healthy.
@@ -256,11 +242,10 @@ PCF Healthwatch v1.1.1:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.1
+##<a id='whatsnew'></a>New Features in v1.1
 
 PCF Healthwatch v1.0 was available as a limited, closed-BETA release. The section below summarizes key differences between PCF Healthwatch v1.0 and v1.1. For more information about new features in v1.1, see [v1.1.0 release notes](release-notes.html#v1.1.1).
 
-### Key Differences
 * **[Feature]** Manual plugin configurations are no longer required to ingest BOSH metrics into PCF Healthwatch. Use of the prior plugins should be eliminated upon switch to v1.1.
     * Smoke tests now fail on lack of BOSH metrics.
 * **Naming convention changes**:
