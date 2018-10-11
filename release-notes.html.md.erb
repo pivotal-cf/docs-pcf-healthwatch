@@ -1,19 +1,19 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.2 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.2.5'></a>v1.2.5
+##<a id='releases'></a>Releases
+
+###<a id='v1.2.5'></a>v1.2.5
+
 **Release Date: August 7, 2018**
 
-### Release Notes
 * **[Bug Fix]** Fixes display of bar charts within PCF Healthwatch UI so that data remains within the table at different browser sizes. 
 * Maintenance update of the following product dependencies:
     * Golang now v1.10.3
 
-### Known Issues
-
-PCF Healthwatch v1.2.5:
+####<a id='v1.2.5-issues'></a>Known Issues
 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not emitting BOSH VM health metrics through the firehose if not on Ops Manager v2.1.4 or later. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
@@ -24,16 +24,14 @@ PCF Healthwatch v1.2.5:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.2.4'></a>v1.2.4
+###<a id='v1.2.4'></a>v1.2.4
+
 **Release Date: July 17, 2018**
 
-### Release Notes
 * **[Bug Fix]** Updates how the stemcell number is referenced in the tile manifest. Prior to this fix BOSH would misinterpret a stemcell number ending in 0 and incorrectly drop the 0. 
 * Stemcell for v1.2.4 is now v3541
 
-### Known Issues
-
-PCF Healthwatch v1.2.4:
+####<a id='v1.2.4-issues'></a>Known Issues
 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not emitting BOSH VM health metrics through the firehose if not on Ops Manager v2.1.4 or later. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
@@ -44,10 +42,10 @@ PCF Healthwatch v1.2.4:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.2.3'></a>v1.2.3
+###<a id='v1.2.3'></a>v1.2.3
+
 **Release Date: July 3, 2018**
 
-### Release Notes
 * **[Feature]** The PCF Healthwatch dashboard UI now highlights Routing and Capacity for when Isolation Segments are in use.  
 * **[Feature]** Given that the `UAA Request Latency` metric is now emitted in PCF, Healthwatch has added an additional out of the box alert for monitoring [UAA Request Latency](https://docs.pivotal.io/pivotalcf/2-1/monitoring/kpi.html#uaa_latency).
 * The default threshold values for `Number of Available Free Chunks of Cell Memory` Alert have been modified: 6 GB critical and 12 GB warning.
@@ -67,9 +65,7 @@ PCF Healthwatch v1.2.4:
    * Loggregator now v101.11
    * CF-MySQL now 36.14.0
 
-### Known Issues
-
-PCF Healthwatch v1.2.3:
+####<a id='v1.2.3-issues'></a>Known Issues
 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not emitting BOSH VM health metrics through the firehose if not on Ops Manager v2.1.4 or later. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
@@ -80,16 +76,14 @@ PCF Healthwatch v1.2.3:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.2.2'></a>v1.2.2
+###<a id='v1.2.2'></a>v1.2.2
+
 **Release Date: May 25, 2018**
 
-### Release Notes
 * **[Bug Fix]** Fixes a bug identified in prior versions where two-factor authentication being enabled for the BOSH Director caused the BOSH Health Check continuous validation test and the BOSH Task Check to fail.
 * **[Feature]** The Router & Capacity detail pages in the UI now support the visualization of platform metric data emitted from the firehose per Isolation Segment. When an Isolation Segment is present, graphs will indicate whether they are shared or isolated component metrics.
 
-### Known Issues
-
-PCF Healthwatch v1.2.2:
+####<a id='v1.2.2-issues'></a>Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.2.3. 
 * Due to a [known issue](http://docs.pivotal.io/pivotalcf/2-1/pcf-release-notes/windows-rn.html#known-issues) with Pivotal Application Service for Windows, the Windows-based Diego Cell instances are not emitting BOSH VM health metrics through the firehose if not on Ops Manager v2.1.4 or later. This could result in potentially unhealthy instances not surfacing to PCF Healthwatch for these types of cells.
@@ -101,19 +95,17 @@ PCF Healthwatch v1.2.2:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.2.1'></a>v1.2.1
+###<a id='v1.2.1'></a>v1.2.1
+
 **Release Date: May 8, 2018**
 
-### Release Notes
 * **[Feature]** PCF Healthwatch now comes with out of the box Alerting for the recommended [UAA](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) and [Monitoring PCF Healthwatch](monitoring.html) Alerts, as well as alerts for Healthwatch continuous tests (Cloud Foundry CLI Health, Ops Manager Health, Canary App Health, BOSH Director Health).
 * **[Feature]** The [Number of Available Free Chunks of Memory](metrics.html#free-memory-chunks) operational metric created by PCF Healthwatch now publishes with a new key-value tag to indicate configured value for which this metric is being calculated.
 * Alerts that are fired for BOSH Metrics on specific jobs, will now better link to the related Job Instances page in the Healthwatch UI. 
 * Two new metrics for PCF Healthwatch itself have been added to indicate when the Redis workers need to be scaled: [healthwatch.redis.valueMetricQueue.size](monitoring.html#redis-queue-size) [healthwatch.redis.counterEventQueue.size](monitoring.html#redis-queue-size). 
 * The CLI Health Receiving Logs test was improved to check for the expected log line multiple times within the timeout window. This improves an issue in some customer environments where the test would indicate failure due to slow log delivery.
 
-### Known Issues
-
-PCF Healthwatch v1.2.1:
+####<a id='v1.2.1-issues'></a>Known Issues
 
 * **[Bug Identified]** Metrics emitted by PCF Healthwatch are not tagged with the Foundation name while being emitted back into the Firehose. This is resolved in v1.2.3. 
 * The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
@@ -129,10 +121,10 @@ PCF Healthwatch v1.2.1:
     * Percentage of Max Connections Used
 
 
-##<a id='v1.2.0'></a>v1.2.0
+### <a id='v1.2.0'></a>v1.2.0
+
 **Release Date: April 23, 2018**
 
-### Release Notes
 * **[Feature]** To support monitoring of Pivotal Cloud Foundry (PCF) v2.1, the following functionality has been added to PCF Healthwatch:
     * The [Doppler Message Rate Capacity](metrics.html#doppler-capacity) operational metric created by PCF Healthwatch helps indicate that Doppler instances are nearing recommended maximum load and should be scaled up.
 * **[Feature]** PCF Healthwatch now comes with out of the box Alerting for the recommended PCF [Key Performance Indicators](http://docs.pivotal.io/pivotalcf/2-1/monitoring/kpi.html) and [Key Scaling Indicators](http://docs.pivotal.io/pivotalcf/2-1/monitoring/key-cap-scaling.html). Information on how to configure the alerting thresholds shipped out of the box can be found [here](./api/alerts.html).
@@ -150,9 +142,7 @@ PCF Healthwatch v1.2.1:
 * **[Feature]** Optional Data Migration Errand: a migration errand that will move data from PCF Healthwatch v1.1 to v1.2 has been made optional to allow the Operator to choose between a faster upgrade (no data migration) or retaining the past 24hrs of data (via running the migration). Information on how to run this optional errand can be found [here](installing.html#healthwatch-migration-v1-1).
     * If the migration errand is run, there are 2 metrics that will be impacted. In v1.1 `gorouter.latency` is pre-aggregated to maximum values; this will impact the accuracy of the new v1.2 aggregations only for v1.1 transferred data. In PCF 2.1, Route Emitter Messages sent is a new metric, therefore this older metric will not transfer and the relevant chart will be blank for the period before v1.2 installation. 
 
-### Known Issues
-
-PCF Healthwatch v1.2.0:
+####<a id='v1.2.0-issues'></a>Known Issues
 
 * The PCF Healthwatch UI does not yet support visualization of platform metric data emitted from the firehose per Isolation Segment. This feature will be available in an upcoming patch. 
 * [UAA](https://docs.pivotal.io/pivotalcf/2-0/monitoring/kpi.html#uaa) and [Monitoring PCF Healthwatch](monitoring.html) Alerts not yet available. These will be available in a future patch version.
@@ -168,11 +158,10 @@ PCF Healthwatch v1.2.0:
     * Percentage of Max Connections Used
 * **[Bug Identified]** [Metrics emitted by PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html) and [PCF Healthwatch KPIs](https://docs.pviotal.io/pcf-healthwatch/1-2/monitoring.html#key-performance-indicators-for-pcf-healthwatch) are not tagged with the Foundation name while being emitted back into the Firehose.
 
-##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.2
+##<a id='new'></a>New Features in v1.2
 
 The section below summarizes key differences between PCF Healthwatch v1.1 and v1.2. For more information about new features in v1.2, see [v1.2.0 release notes](release-notes.html#v1.2.0).
 
-### Key Differences
 * **Data aggregation improvements:** In PCF Healthwatch v1.2 all firehose emitted platform metrics that Healthwatch ingests are aggregated per pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can help decorate the data with additional points of interest.
     * Counter metrics: Max counter value received for the 1 minute aggregation window, from which a minute-to-minute rate is later derived. Unique to the metric name. Further unique to the individual metric emitter (per instance as applicable).
     * Gauge metrics: Received values for the 1 minute aggregation window; aggregated and stored with 5 calculated values per metric: avg, min, max, med, 95p. Unique to the metric name. Further unique to the individual emitter (per instance as applicable).
@@ -184,4 +173,3 @@ The section below summarizes key differences between PCF Healthwatch v1.1 and v1
     * `Firehose Loss Rate` has been renamed `Log Transport Loss Rate`, and the Red/Green threshold values have been tightened in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
     * New `Doppler Message Rate` chart available on the Logging Performance page in accordance with the [KPI recommendation updates](http://docs.pivotal.io/pivotalcf/2-1/monitoring/index.html) for PCF v2.1. 
     * GoRouter Latency and UAA Latency charts now use `gorouter.latency.95p` and `gorouter.latency.uaa.95p`
-
