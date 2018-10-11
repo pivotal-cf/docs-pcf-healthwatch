@@ -1,5 +1,5 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.0 Release Notes
 owner: PCF Healthwatch
 ---
 
@@ -20,10 +20,11 @@ The Pivotal Cloud Foundry (PCF) Healthwatch tile is currently in beta and is int
 Do not use this product in a PCF production environment.
 </p>
 
-##<a id='v1.0.8'></a>v1.0.8 (Beta)
-**Release Date: October 26, 2017**
+##<a id='releases'></a>Releases
 
-### Release Notes
+###<a id='v1.0.8'></a>v1.0.8 (Beta)
+
+**Release Date: October 26, 2017**
 * **Note**: The `healthwatch-bosh-plugin.json` has been updated. The new version is `1.0.0-beta.3`. Updating to the new `healthwatch-bosh-plugin.json` file ensures the default Log Level is set to `error`. This had previously been set to `debug` which could cause excessive log output. 
 * Updates the stemcell required to v3421 
 * **[Feature]** The CLI Command Health Smoke Test suite will now distinguish `cf login` success or failure as a distinct test event
@@ -58,15 +59,16 @@ Do not use this product in a PCF production environment.
     * `healthwatch.ScalableSyslog.Adapter.LossRate.1M` is now `healthwatch.SyslogDrain.Adapter.LossRate.1M`
     * `healthwatch.ScalableSyslog.RLP.LossRate.1M` is now `healthwatch.SyslogDrain.RLP.LossRate.1M` 
 
-### Known issues
+####<a id="v1.0.8-issues"></a> Known Issues
+
 * **Note**: You must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
 * The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch when run on PCF v1.11. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is resolved in PCF v1.12.
 
-##<a id='v1.0.7'></a>v1.0.7 (Beta)
+###<a id='v1.0.7'></a>v1.0.7 (Beta)
+
 **Release Date: October 10, 2017**
 
-### Release Notes
 * Updates made to PCF Healthwatch to support PCF v1.12:
     * Logging Throughput, Dropped Messages, and Firehose Loss Rate have been updated to reflect correct metric math for PCF v1.12. The charts work appropriately for PCF v1.11. 
     * `Router File Descriptors` and `Router Exhausted Connections` have been added as recommended Router metrics specific to PCF v1.12.
@@ -84,16 +86,17 @@ Do not use this product in a PCF production environment.
 * Bug Fixed: The `VM_credentials` property was previously being duplicated. This is now resolved.
 * Bug Fixed: Corrected naming mismatch in the `run.sh` file. The corrected file is now associated with current and former releases on Pivotal Network
 
-### Known issues
+####<a id="v1.0.7-issues"></a> Known Issues
+
 * **Note**: You must repeat the [Getting BOSH Health Metrics](installing.html#bosh-metrics) steps every time the BOSH Director is recreated. The BOSH Director is recreated when you upgrade Ops Manager and install, upgrade, and delete data service tiles (for example, MySQL, RabbitMQ, or Redis).
 * The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
 * The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch when run on PCF v1.11. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is resolved in PCF v1.12.
 
-##<a id='v1.0.6'></a>v1.0.6 (Beta)
+###<a id='v1.0.6'></a>v1.0.6 (Beta)
+
 **Release Date: September 26, 2017**
 
-### Release Notes
 * The PCF Healthwatch tile now includes smoke tests, which are executed using an errand upon installation and upgrade. These smoke tests validate the following:
     * UI is running.
     * Platform metrics are being ingested.
@@ -103,15 +106,16 @@ Do not use this product in a PCF production environment.
     * On the Job Health and Vitals screen, if jobs do not report a Persistent Disk measure, the summary graph displays `N/A` and the related line chart does not appear. If a given job reports Persistent Disk, both the summary graph and the related line chart reflect the reported value.
     * Contextual Help interaction and content was added to the CLI Command Health, BOSH Director Health, Ops Manager Health, and Canary App Health secondary screens.
 
-### Known issues
+####<a id="v1.0.6-issues"></a> Known Issues
+
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
 * The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
 * The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
 
-##<a id='v1.0.5'></a>v1.0.5 (Beta)
+###<a id='v1.0.5'></a>v1.0.5 (Beta)
+
 **Release Date: September 14, 2017**
 
-### Release Notes
 * The `healthwatch-bosh-plugin` plugin has been updated. If this is your first installation of PCF Healthwatch, follow the standard instructions in [Installing PCF Healthwatch](installing.html). If you have installed an earlier version of PCF Healthwatch, see [Upgrading PCF Healthwatch to v1.0.5](upgrading-from-alpha.html).
 * PCF Healthwatch now reflects the occurrence of BOSH deployments in the visualizations of platform metrics and the continuous validation test results. The time periods reflected for a BOSH deployment are based on the [BOSH deployment occurrence](metrics.html#bosh-deployment) metric.
 * Chart Info content additions:
@@ -122,16 +126,16 @@ Do not use this product in a PCF production environment.
 * Prior known issues fixed:
     * On the Job Health screen, the **Only Show Errors** toggle feature now works as expected.
 
-### Known issues
+####<a id="1.0.5-issues"></a> Known Issues
+
 * If an alpha version of PCF Healthwatch was installed, you must delete it before proceeding with the installation of this beta tile. The alpha tile was not upgradable.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
 * The Adapter Loss Rate and Reverse Log Proxy Loss Rate metrics will be incorrect (always 0) until an issue with how these metrics are currently emitted is resolved.
 * The [Metron Forwarder](architecture.html) is not currently in a highly available configuration.
 
-##<a id='v1.0.4 ALPHA 7'></a>v1.0.4 ALPHA 7
-**Release Date: September 7, 2017**
+###<a id='v1.0.4-alpha.7'></a>v1.0.4-alpha.7
 
-### Release Notes
+**Release Date: September 7, 2017**
 
 * The `healthwatch.read` scope has been added to the UAA Admin user by default in ERT v1.11.9 and later. As a result of this change, the minimum compatible Elastic Runtime version has been raised to v1.11.9 or later.
 * Updates for adjusted PCF v1.11 monitoring recommendations:
@@ -148,7 +152,8 @@ Do not use this product in a PCF production environment.
 * Prior known issues fixed:
     * The bug identified in Alpha 6, a malformed URL in the BOSH Health Check test, has been resolved. 
 
-### Known issues
+####<a id="v1.0.4-alpha.7-issues"></a> Known Issues
+
 * Bug identified: On the Job Health screen, the **Only Show Errors** toggle feature does not work as expected. This means that you cannot currently change the page to reflect all healthy and unhealthy jobs reporting. The bug will be fixed in the next release.
 * If an earlier alpha version of PCF Healthwatch was installed, you must delete it before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
@@ -156,10 +161,9 @@ Do not use this product in a PCF production environment.
 * BOSH deployments are not yet reflected on any deep-dive screens.
 * Contextual help content additions are still in progress throughout the product.
 
-##<a id='v1.0.0-alpha.6'></a>v1.0.0-alpha.6
-**Release Date: August 24, 2017**
+###<a id='v1.0.0-alpha.6'></a>v1.0.0-alpha.6
 
-### Release Notes
+**Release Date: August 24, 2017**
 
 * The Ops Manager Health Check dashboard is complete and now offers up to 24 hours of test results for the [Ops Manager](metrics.html#opsman) continuous validation test.
 * The App Canary Health Check dashboard is complete and now offers up to 24 hours of test results for the [App Canary](metrics.html#appsman) continuous validation test.
@@ -178,7 +182,7 @@ This dashboard is available through the Capacity panel on the main PCF Healthwat
         * If Drain Binding Count is &ge; 1 within the 24-hour retention period, the panel is displayed.
         * If Drain Binding Count is &equiv; 0 within the 24-hour retention period, the panel is not rendered.
 
-### Known issues
+####<a id="1.0.0-alpha.6-issues"></a> Known Issues
 
 * Bug identified: The BOSH Health Check test will continue to fail in this version due to a malformed URL. The bug will be fixed in the next release.
 * If an earlier alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
@@ -189,10 +193,9 @@ This dashboard is available through the Capacity panel on the main PCF Healthwat
 * BOSH deployments are not yet reflected on deep-dive screens.
 * Contextual help content is not yet present.
 
-##<a id='v1.0.0-alpha.5'></a>v1.0.0-alpha.5
-**Release Date: August 8, 2017**
+###<a id='v1.0.0-alpha.5'></a>v1.0.0-alpha.5
 
-### Release Notes
+**Release Date: August 8, 2017**
 
 * PCF Healthwatch now forwards its product-generated [metrics](metrics.html) into the Firehose, allowing other existing Firehose consumers to access these operationally useful data points.
 * The URL for the Dashboard UI was updated to `healthwatch.YOUR-SYSTEM-DOMAIN`.
@@ -202,7 +205,7 @@ This dashboard is available through the Capacity panel on the main PCF Healthwat
 * PCF Healthwatch now stores and displays VM ID instead of index to make VM info more usable for BOSH2 interactions.
 * PCF Healthwatch now points healthcheck apps at MySQL Proxy instead of a MySQL node, which resolves the issue in earlier alphas where downtime would be experienced during a PCF Healthwatch stemcell update.
 
-### Known issues
+####<a id="v1.0.0-alpha.5-issues"></a> Known issues
 
 * If an earlier alpha version of PCF Healthwatch was installed, it must be deleted before proceeding with the installation of the newer tile. The tile is not upgradable at this time.
 * Router latency measurement (the `gorouter.latency` metric) has a known issue present in PCF v1.11 that may impact PCF Healthwatch. This [router issue](https://github.com/cloudfoundry/gorouter/issues/173) is expected to be resolved in PCF v1.12.
