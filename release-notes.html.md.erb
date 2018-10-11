@@ -1,12 +1,14 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.3 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.3.2'></a>v1.3.2
+##<a id='releases'></a>Releases
+
+###<a id='v1.3.2'></a>v1.3.2
+
 **Release Date: August 14, 2018**
 
-### Release Notes
 * **[Bug Fix]** Fixes display of bar charts within PCF Healthwatch UI so that data remains within the table at different browser sizes.
 * **[Feature]** On Health Check Details table, the following test runner application information is now available: Org, Space, App Name. This change is reflected on the following pages:
     * Canary App
@@ -17,9 +19,7 @@ owner: PCF Healthwatch
     * CF Java Client now v.3.12.0    
     * Golang now v1.10.3
 
-### Known Issues
-
-PCF Healthwatch v1.3.2:
+####<a id='v1.3.2-issues'></a>Known Issues
 
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
     * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
@@ -29,10 +29,10 @@ PCF Healthwatch v1.3.2:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.3.1'></a>v1.3.1
+###<a id='v1.3.1'></a>v1.3.1
+
 **Release Date: July 23, 2018**
 
-### Release Notes
 * **[Bug Fix]** Corrects bad flyaway migration issue present in v1.3.0. You can upgrade to v1.3.1 from prior versions v1.2.x and v1.3.0.
   <div class="note"><strong>Note</strong>:<ul>
     <li>If you previously installed or upgraded to  v1.3.0, you must follow the procedure below when installing v1.3.1 or later to preserve data.</li>
@@ -93,9 +93,7 @@ PCF Healthwatch v1.3.2:
         </pre>
     1. Click **Apply Changes** on the installation dashboard to finish installing the PCF Healthwatch tile.  
 
-### Known Issues
-
-PCF Healthwatch v1.3.1:
+####<a id='v1.3.1-issues'></a>Known Issues
 
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
     * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
@@ -105,19 +103,17 @@ PCF Healthwatch v1.3.1:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='v1.3.0'></a>v1.3.0
+###<a id='v1.3.0'></a>v1.3.0
+
 **Release Date: July 17, 2018**
 
-### Release Notes
 * If leveraging the alerting capability, PCF Healthwatch v1.3 requires [PCF Event Alerts v1.2](https://docs.pivotal.io/event-alerts)
 * **[Feature]** Updated to support monitoring of Pivotal Cloud Foundry (PCF) v2.2. 
 * **[Feature]** The PCF Healthwatch dashboard UI now highlights Routing and Capacity for Isolation Segment usage.
 * The default threshold values for `VM Memory Used` Alert have been modified: 95% critical and 85% warning.
    * If these thresholds have been previously modified, this update will not override that user configuration. 
 
-### Known Issues
-
-PCF Healthwatch v1.3.0:
+####<a id='v1.3.0-issues'></a>Known Issues
 
 * **[Bug Identified]** v1.3.0 contains a bad flyway migration. This causes issues in upgrades from PCF Healthwatch v1.2.3 or later, and will cause issues in future versions of v1.3. v1.3.0 is no longer available. If you have v1.3.0 installed, upgrade by following the steps outlined in the [1.3.1](#v1.3.1) release notes.
 * Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
@@ -128,11 +124,10 @@ PCF Healthwatch v1.3.0:
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
 
-##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.3
+##<a id='new'></a>New Features in v1.3
 
 The section below summarizes key differences between PCF Healthwatch v1.2 and v1.3. For more information about new features in v1.3, see [v1.3.0 release notes](release-notes.html#v1.3.0).
 
-### Key Differences
 * **Canary Test Feature Enhancement:** Customers can now [configure](api/canary-configuration.html) what cf app the Canary Health test pings
     * The default application will continue to be Apps Manager unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related [metrics emitted](http://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html#canaryapp) as a result of the test will stay the same. 
 * **Syslog Drain Available for the product’s VM BOSH logs**
@@ -148,5 +143,3 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Additional capacity metrics available in datastore**
     * In the course of troubleshooting memory or disk errors, `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` , can be [useful informational metrics](https://content.pivotal.io/blog/keep-your-app-platform-in-a-happy-state-an-operators-guide-to-capacity-management-on-pivotal-cloud-foundry) about the individual Diego Cells. These metrics are now available [to access](using.html#mysql) in the PCF Healthwatch datastore.
 * Metrics created by PCF Healthwatch and published back into the firehose were previously emitted with the job name `metron_forwarder`. As of v1.3.x, the job name is now ``healthwatch_forwarder` to better align with the actual name of the VM. 
-
-
