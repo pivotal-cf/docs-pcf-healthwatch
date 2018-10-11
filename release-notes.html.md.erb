@@ -1,44 +1,44 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.4 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.3.0'></a>v1.3.0
-**Release Date: June x, 2018**
+##<a id='releases'></a>Releases
 
-### Release Notes
-* **[Feature]** Updated to support monitoring of Pivotal Cloud Foundry (PCF) v2.2. 
-* If leveraging the alerting capability, PCF Healthwatch v1.3 requires [PCF Event Alerts v1.2](https://docs.pivotal.io/event-alerts)
-* Based on feedback, `system.mem.percent` default alerting thresholds have been updated to 95% for critical and 85% for warning. Please note: if thresholds have been customised, this release will not override configured settings.  
-* We have updated `metron_forwarder` to be referenced as `healthwatch_forwarder` to better align with the name of the VM in order to provide more clarity about where metrics are emitting from. All metrics that were previously labeled as emitting from `metron_forwarder` will be tagged as emitting from `healthwatch_forwarder` as of this verion of PCF Healthwatch. 
+###<a id='v1.4.0'></a>v1.4.0
 
-### Known Issues
+**Release Date: October 11, 2018**
 
-PCF Healthwatch v1.3.0:
+##<a id='new'></a>New Features in v1.4
 
-* Currently if Windows-based Diego Cell instances are created via Pivotal Application Service for Windows, these cells are emitting their platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch, or other consumers of monitoring metrics:
-    * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-1/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego Cells: Any windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be underreporting (i.e., only including linux-based cells and excluding windows-based cells), and the core cf system deployment will be over-reporting capacity (including windows-based cells from isolation segments as part of the core cf system capacity).
-    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both windows-based Cells and linux-based Cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
-* Hides three of the [PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts. These charts will be available in a future patch version:
-    * Query Rate
-    * MySQL CPU Busy Time
-    * Percentage of Max Connections Used
+* Simplified category panels on dashboard, for quicker view of foundation health.
+  - Smaller, uniform size size panels.
+  - Color shows current category status, derived from [configurable alerts](./api/alerts.html).
+      - Red: Critical
+      - Orange: Warning
+      - Green: Healthy
+      - Gray: Data unavailable
+  - Non-status information moved to category detail pages that the user clicks into.
 
-##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.3
+* Expanded alerts functionality:
+  - Added live **Alert Stream** along right side of dashboard.
+  - Added searchable **Alert History** page, covering the last 24 hours.
+  - Graphs of metrics show alert events, where metrics cross alert thresholds.
 
-The section below summarizes key differences between PCF Healthwatch v1.2 and v1.3. For more information about new features in v1.3, see [v1.3.0 release notes](release-notes.html#v1.3.0).
+* Added new metrics:
+  - [Number of Available Free Chunks of Disk](./metrics.html#free-disk-chunks), with corresponding alert [`Diego.AvailableFreeChunksDisk`](./alerts.html#defaults)
+  - [`cf-syslog-drain.scheduler.drains `](https://docs.pivotal.io/pivotalcf/2-0/monitoring/key-cap-scaling.html#scalable-syslog-ksi), from PCF v2.3 Syslog
 
-### Key Differences
-* **Canary Test Feature Enhancement:** Customers can now configure what cf app the Canary Health test pings
-    * The default application will continue to be Apps Man unless modified to a desired configuration. If updated, the modified URL will be available to view in the UI (Canary Health info interaction). The modification will persist through upgrades. The functionality of the test, what it measures, and the related [metrics emitted](http://docs.pivotal.io/pcf-healthwatch/1-3/metrics.html#canaryapp) as a result of the test will stay the same. 
-* **Syslog Drain Available for the product’s VM BOSH logs**
-    * Forwarding these system logs to a remote destination allows for: viewing logs from every VM in the PCF Healthwatch deployment in one place; troubleshooting errors when logs are lost on the source VM. 
-    * Does not currently support TLS. 
-* **UI Updates:**
-    * To enable easier navigation across component details pages, an expanding left navigation is now available in the UI. 
-    * Based on feedback, we have updated the detailed results table information on Canary App Health, CLI Command Health, BOSH Director Health, and Ops Man Health to now include the Application GUID of the tester app, rather than the Runner ID. The App GUID is more useful for troubleshooting any potential issues with the test application itself. 
-    * We have removed the Job Vitals panel from the PCF Healthwatch dashboard UI as alerting is now available and alerting is a more meaningful way of providing the information the Job Vitals panel was intended to supply. 
-    * Based on feedback, the PCF Healthwatch UI now provides the Test App GUID has replaced Runner ID as an identifier of the app conducting tests. This change has taken effect everywhere Runner ID was previously shown.
-* **Metric Addition** 
-    * To better enable Memory & Disk capacity issues, Healthwatch now stores `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk, and `rep.ContainerUsageDisk` in the database. 
+* **Syslog encryption**: Healthwatch VM log output to syslog can be encrypted with TLS.
 
+* **Resource use**: Reduced number and scale of [VM resources](./resources.html) required to run PCF Heathwatch.
+
+* **Internal database**: Switched internal database from MariaDB to Percona (see [Known Issues](#issues).
+
+* **Stack**: PCF Healthwatch uses cflinuxfs3 as the default stack when available.
+  - When Healthwatch is installed in an environment that does not support cflinuxfs3, such as a PCF v2.2 environment, Healthwatch components run on the cflinuxfs2 stack.
+
+
+##<a id='issues'></a>Known Issue
+
+* Upgrading to Healthwatch v1.4 may stop supermetrics collection for about 10 minutes, while Healthwatch's internal database migrates from MariaDB to Percona.
