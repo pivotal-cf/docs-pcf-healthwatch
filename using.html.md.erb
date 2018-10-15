@@ -7,16 +7,18 @@ This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
 ##<a id='dashboard-overview'></a>The PCF Healthwatch Dashboard
 
-The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an "at a glance" look
-into the health the foundation. The dashboard consists of a set of panels that surface warning(orange) and critical(red) alerts for different parts
-of the system. Behind the scenes, the `healthwatch-alerts` app is constantly evaluating the health of the platform. When a metric reaches a configured
-threshold an alert will fire.  The dashboard surfaces it by translating the metric into a predefined category.  That category's panel will then change
-color to red or orange depending on the severity. Additionally the alert will display in the Alert Stream panel on the right side of the dashboard. The
-thresholds for individual alerts and the categories to which they map can be found in the [PCF Healthwatch API](api/index.html) section of the docs.
+The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
+into the health the foundation.
 
-It should be noted that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting.  Some of the alerts will need to
-be [tuned](api/alerts.html#post) for the desired system size.  Tuning these alerts is essential to reduce the risk of false positives and to ensure
-that alerts will fire in the event of a problem.
+<%= image_tag './images/dashboard-all-green.png' %>
+
+The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts
+of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
+
+To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [PCF Healthwatch API](./api/index.html) documentation.
+
+Note that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
+that alerts fire only in the event of meaningful problems, you need to [tune](api/alerts.html#post) some of the alerts to fit the size of your system.
 
 ##<a id='access'></a>Accessing PCF Healthwatch
 
