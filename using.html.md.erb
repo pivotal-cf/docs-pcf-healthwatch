@@ -5,6 +5,19 @@ owner: PCF Healthwatch
 
 This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
+##<a id='dashboard-overview'></a>The PCF Healthwatch Dashboard
+
+The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an "at a glance" look
+into the health the foundation. The dashboard consists of a set of panels that surface warning(orange) and critical(red) alerts for different parts
+of the system. Behind the scenes, the `healthwatch-alerts` app is constantly evaluating the health of the platform. When a metric reaches a configured
+threshold an alert will fire.  The dashboard surfaces it by translating the metric into a predefined category.  That category's panel will then change
+color to red or orange depending on the severity. Additionally the alert will display in the Alert Stream panel on the right side of the dashboard. The
+thresholds for individual alerts and the categories to which they map can be found in the [PCF Healthwatch API](api/index.html) section of the docs.
+
+It should be noted that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting.  Some of the alerts will need to
+be [tuned](api/alerts.html#post) for the desired system size.  Tuning these alerts is essential to reduce the risk of false positives and to ensure
+that alerts will fire in the event of a problem.
+
 ##<a id='access'></a>Accessing PCF Healthwatch
 
 You can access PCF Healthwatch and its data through the PCF Healthwatch UI or directly through the service datastore. In addition, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
