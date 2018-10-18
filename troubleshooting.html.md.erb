@@ -123,8 +123,8 @@ The Healthwatch Ingestor is not receiving BOSH system metrics. There are two lik
 
 1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics look at the PCF Healthwatch dashboard.  If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the Firehose.
 
-1. The Firehose does not contain Bosh Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
-- A bug causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the Bosh Director. This bug is present in Ops Manager versions earlier than v2.1.13, v2.2.4, and v2.3.0 and Pivotal Application Service (PAS) versions earlier than v2.1.13, v2.2.5, and v2.3.0.
+1. The Firehose does not contain BOSH Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
+- A bug causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the BOSH Director. This bug is present in Ops Manager versions earlier than v2.1.13, v2.2.4, and v2.3.0 and Pivotal Application Service (PAS) versions earlier than v2.1.13, v2.2.5, and v2.3.0.
 
 ### Solution
 
