@@ -150,13 +150,15 @@ The following fields can be queried:
 
 ##<a id='thresholds'></a>Thresholds
 
-The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, or `"EQUALITY"`.
+The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, `"EQUALITY"`, or `"INEQUALITY"`.
 
 Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is *above* the `warning` value, and again when above the `critical` value.
 
 Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls *below* the thresholds.
 
-The `EQUALITY` alerts trigger when the metric value is *not exactly* equal to the `critical` threshold. These alerts do not have `warning` thresholds.
+The `EQUALITY` alerts trigger when the metric value is **not** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
+
+The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
 
 ##<a id='defaults'></a>Supported Alerts
 
@@ -196,12 +198,12 @@ Healthwatch ships with the following configurable alerts:
 | Performance Alert: Canary App Health Test Availability                     | health.check.CanaryApp.probe.available             | healthwatch                   |                         | Canary App          | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Service Level Indicator Alert: Canary App Response Time                    | health.check.CanaryApp.responseTime                | healthwatch                   |                         | Canary App          | UPPER          | 30000        | 15000      | ms      | 5                           |
 | Service Level Indicator Alert: CF Push Time                                | health.check.cliCommand.pushTime                   | healthwatch                   |                         | CLI                 | UPPER          | 120000       | 60000      | ms      | 10                          |
-| Service Level Indicator Alert: Can CF Login                                | health.check.cliCommand.login                      | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Push                                 | health.check.cliCommand.push                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Start                                | health.check.cliCommand.start                      | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Stop                                 | health.check.cliCommand.stop                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Delete                               | health.check.cliCommand.delete                     | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can Receive Logs                            | health.check.cliCommand.logs                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Login                                | health.check.cliCommand.login                      | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Push                                 | health.check.cliCommand.push                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Start                                | health.check.cliCommand.start                      | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Stop                                 | health.check.cliCommand.stop                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Delete                               | health.check.cliCommand.delete                     | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can Receive Logs                            | health.check.cliCommand.logs                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
 | Performance Alert: CLI Health Test Availability                            | health.check.cliCommand.probe.available            | healthwatch                   |                         | CLI                 | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Performance Alert: Healthwatch UI Availability                             | health.check.ui.available                          | healthwatch                   |                         | Healthwatch         | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Performance Alert: Healthwatch Nozzle Disconnects                          | ingestor.disconnects                               | healthwatch                   |                         | Healthwatch         | UPPER          | 10           | 5          | Number  | 5                           |
