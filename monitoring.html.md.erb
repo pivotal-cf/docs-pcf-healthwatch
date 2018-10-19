@@ -41,7 +41,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -87,7 +87,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -133,7 +133,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -179,7 +179,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -227,7 +227,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -284,7 +284,7 @@ makes using platform metrics from the Firehose.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -334,7 +334,7 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -387,7 +387,7 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
     <tr>
         <th>PromQL</th>
         <td>
-			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -433,7 +433,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>rate(metrics_published{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>rate(metrics_published{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -471,7 +471,7 @@ update the tile configuration so that the next deployment does not override the 
 
 
 
-### <a id="health.check.cliCommand.probe.count"></a>CLI Command Health
+### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -487,7 +487,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -495,7 +495,7 @@ update the tile configuration so that the next deployment does not override the 
     </tr>
 	
 </table>
-### <a id="health.check.OpsMan.probe.count"></a>Ops Manager Health
+### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -511,7 +511,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -519,7 +519,7 @@ update the tile configuration so that the next deployment does not override the 
     </tr>
 	
 </table>
-### <a id="health.check.CanaryApp.probe.count"></a>Canary App Health
+### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -535,7 +535,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -543,7 +543,7 @@ update the tile configuration so that the next deployment does not override the 
     </tr>
 	
 </table>
-### <a id="health.check.bosh.director.probe.count"></a>BOSH Director Health
+### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -559,7 +559,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -572,7 +572,7 @@ update the tile configuration so that the next deployment does not override the 
 
 
 
-### <a id="events.published"></a>Number of Healthwatch Events Published to PCF Event Alerts
+### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -586,7 +586,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>events_published{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>events_published{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -594,7 +594,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     </tr>
 	
 </table>
-### <a id="health.bosh.deployment.probe.count"></a>BOSH Deployment Check Probe
+### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -612,7 +612,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
