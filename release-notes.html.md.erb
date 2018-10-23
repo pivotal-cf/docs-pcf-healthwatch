@@ -152,7 +152,7 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Breaking change for automated pipelines:**
     * There is a new required radio button configuration to enable or disable the BOSH Deployment Checker.
     * If automated pipelines are not updated when upgrading form Healthwatch 1.2.x to Healthwatch 1.3.x to specify enabling or disabling the BOSH Deployment Checker, they will break.
-    * To configure the BOSH Deployment Checker, set the following properties to a [UAA client with `bosh.read`](installing.html#-configure-the-pcf-healthwatch-tile)
+    * To configure the BOSH Deployment Checker, set the following properties to a [UAA client with `bosh.read`](./installing.html#healthwatch-tile)
         * `.properties.boshtasks.enable.bosh_taskcheck_username`
         * `.properties.boshtasks.enable.bosh_taskcheck_password`
     * To disable the BOSH Deployment Checker (it is enabled by default) set `.properties.boshtasks` to `"disable"`
