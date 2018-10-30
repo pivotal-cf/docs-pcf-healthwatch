@@ -149,3 +149,11 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Additional capacity metrics available in datastore**
     * In the course of troubleshooting memory or disk errors, `rep.CapacityAllocatedMemory`, `rep.ContainerUsageMemory`, `rep.CapacityAllocatedDisk`, and `rep.ContainerUsageDisk` , can be [useful informational metrics](https://content.pivotal.io/blog/keep-your-app-platform-in-a-happy-state-an-operators-guide-to-capacity-management-on-pivotal-cloud-foundry) about the individual Diego Cells. These metrics are now available [to access](using.html#mysql) in the PCF Healthwatch datastore.
 * Metrics created by PCF Healthwatch and published back into the firehose were previously emitted with the job name `metron_forwarder`. As of v1.3.x, the job name is now ``healthwatch_forwarder` to better align with the actual name of the VM. 
+
+##<a id='breaking-automation'></a>Breaking Changes for Automated Pipelines
+* There is a new required radio button configuration to enable or disable the BOSH Deployment Checker.
+   * If automated pipelines are not updated when upgrading form Healthwatch 1.2.x to Healthwatch 1.3.x to specify enabling or disabling the BOSH Deployment Checker, they will break.
+   * To configure the BOSH Deployment Checker, set the following properties to a [UAA client with `bosh.read`](./installing.html#healthwatch-tile)
+      * `.properties.boshtasks.enable.bosh_taskcheck_username`
+      * `.properties.boshtasks.enable.bosh_taskcheck_password`
+   * To disable the BOSH Deployment Checker (it is enabled by default) set `.properties.boshtasks` to `"disable"`    
