@@ -355,9 +355,45 @@ This section describes the KPIs that you can use to monitor the health of PCF He
    </tr>
 </table>
 
-##<a id="continuous-validation-tests"></a>Number of Healthwatch Continuous Validation Tests Executed
+##<a id="other-metrics"></a>Other Metrics Available
 
-This section describes the metrics that you can use to monitor the number of continuous validation tests executed by PCF Healthwatch.
+This section describes other metrics that you can use to monitor PCF Healthwatch.
+
+###<a id="healthwatch-events-published"></a>Number of Healthwatch Events Published to PCF Event Alerts
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.events.published<br/><br/></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>
+        Number of PCF Healthwatch Event Alerts triggered and published to <a href="http://docs.pivotal.io/event-alerts/index.html">PCF Event Alerts</a>.
+        <br/><br/>
+        <strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could vary greatly, it is not recommended to alert on this metric itself.
+        <br/><br/>
+        <strong>Origin</strong>: Firehose<br/>
+        <strong>Type</strong>: Gauge<br/>
+        <strong>Frequency</strong>: 60 s<br/>
+      </td>
+   </tr>
+</table>
+
+###<a id="bosh-deployment-probe"></a>BOSH Deployment Check Probe
+<table>
+   <tr><th colspan="2" style="text-align: center;"><br/> health.bosh.deployment.probe.count<br/><br/></th></tr>
+   <tr>
+      <th width="25%">Description</th>
+      <td>
+        Number of PCF Healthwatch <a href="metrics.html#bosh-deployment">BOSH Deployment Occurrence</a> probes completed in the measured time interval.
+        <br/><br/>
+        <strong>Use</strong>: When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
+        <br/><br/>
+        In the default installation, these tests run every 30 seconds across 2 runner apps.
+        <br/><br/>
+        <strong>Origin</strong>: Firehose<br/>
+        <strong>Type</strong>: Gauge<br/>
+        <strong>Frequency</strong>: 60 s<br/>
+      </td>
+   </tr>
+</table>
 
 ###<a id="cli-command-health-probe"></a>CLI Command Health
 <table>
@@ -442,44 +478,3 @@ This section describes the metrics that you can use to monitor the number of con
       </td>
    </tr>
 </table>
-
-##<a id="other-metrics"></a>Other Metrics Available
-
-This section describes other metrics that you can use to monitor PCF Healthwatch.
-
-###<a id="healthwatch-events-published"></a>Number of Healthwatch Events Published to PCF Event Alerts
-<table>
-   <tr><th colspan="2" style="text-align: center;"><br/> healthwatch.events.published<br/><br/></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>
-        Number of PCF Healthwatch Event Alerts triggered and published to <a href="http://docs.pivotal.io/event-alerts/index.html">PCF Event Alerts</a>.
-        <br/><br/>
-        <strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could vary greatly, it is not recommended to alert on this metric itself.
-        <br/><br/>
-        <strong>Origin</strong>: Firehose<br/>
-        <strong>Type</strong>: Gauge<br/>
-        <strong>Frequency</strong>: 60 s<br/>
-      </td>
-   </tr>
-</table>
-
-###<a id="bosh-deployment-probe"></a>BOSH Deployment Check Probe
-<table>
-   <tr><th colspan="2" style="text-align: center;"><br/> health.bosh.deployment.probe.count<br/><br/></th></tr>
-   <tr>
-      <th width="25%">Description</th>
-      <td>
-        Number of PCF Healthwatch <a href="metrics.html#bosh-deployment">BOSH Deployment Occurrence</a> probes completed in the measured time interval.
-        <br/><br/>
-        <strong>Use</strong>: When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.
-        <br/><br/>
-        In the default installation, these tests run every 30 seconds across 2 runner apps.
-        <br/><br/>
-        <strong>Origin</strong>: Firehose<br/>
-        <strong>Type</strong>: Gauge<br/>
-        <strong>Frequency</strong>: 60 s<br/>
-      </td>
-   </tr>
-</table>
-
