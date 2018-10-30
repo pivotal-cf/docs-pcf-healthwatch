@@ -466,11 +466,59 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-## <a id="number-of-healthwatch-continuous-validation-tests-executed"></a>Number of Healthwatch Continuous Validation Tests Executed
-<p>This section describes the metrics that you can use to monitor the number of continuous validation tests executed by PCF Healthwatch.</p>
+## <a id="other-metrics-available"></a>Other Metrics Available
+<p>This section describes other metrics that you can use to monitor PCF Healthwatch.</p>
 
 
 
+### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch Event Alerts triggered and published to
+[PCF Event Alerts](<a href="http://docs.pivotal.io/event-alerts/index.html">http://docs.pivotal.io/event-alerts/index.html</a>.</p>
+
+<p><strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could
+vary greatly, it is not recommended to alert on this metric itself.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>events_published{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
+### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch <a href="http://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html#bosh-deployment">BOSH Deployment Occurrence</a>
+probes completed in the measured time interval.</p>
+
+<p><strong>Use</strong>: When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the
+normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being
+made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal
+likely indicates problems in the test runner functionality.</p>
+
+<p>In the default installation, these tests run every 30 seconds across 2 runner apps.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
 ### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health
 <table>
     <tr>
@@ -560,59 +608,6 @@ update the tile configuration so that the next deployment does not override the 
         <th>PromQL</th>
         <td>
 			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
-## <a id="other-metrics-available"></a>Other Metrics Available
-<p>This section describes other metrics that you can use to monitor PCF Healthwatch.</p>
-
-
-
-### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch Event Alerts triggered and published to
-[PCF Event Alerts](<a href="http://docs.pivotal.io/event-alerts/index.html">http://docs.pivotal.io/event-alerts/index.html</a>.</p>
-
-<p><strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could
-vary greatly, it is not recommended to alert on this metric itself.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>events_published{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
-### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch <a href="http://docs.pivotal.io/pcf-healthwatch/1-2/metrics.html#bosh-deployment">BOSH Deployment Occurrence</a>
-probes completed in the measured time interval.</p>
-
-<p><strong>Use</strong>: When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the
-normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being
-made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal
-likely indicates problems in the test runner functionality.</p>
-
-<p>In the default installation, these tests run every 30 seconds across 2 runner apps.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
