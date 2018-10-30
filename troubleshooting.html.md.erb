@@ -88,7 +88,7 @@ The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
 
 To troubleshoot these failures, start by examining the from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
 
-<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the such as PAS Upgrades or BBR Backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-2/customizing/cfpush-availability-during-upgrade.html">cf push Availability During Pivotal Application Service Upgrades</a> in the PCF Documentation.</p>
+<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events on the such as PAS Upgrades or BBR Backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-3/customizing/cfpush-availability-during-upgrade.html">cf push Availability During Pivotal Application Service Upgrades</a> in the PCF Documentation.</p>
 
 ## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
 
@@ -153,5 +153,5 @@ The Healthwatch Ingestor is not receiving any metrics. This could be due to the 
 
 A few possible solutions are:
 - Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-- After [logging in](https://docs.pivotal.io/pivotalcf/2-2/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
+- After [logging in](https://docs.pivotal.io/pivotalcf/2-3/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
   - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
