@@ -230,3 +230,13 @@ curl -G "https://log-cache.SYSTEM-DOMAIN/v1/meta" -H "Authorization: $(cf oauth-
 
 If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
 must be scaled up.
+
+#### <a id='healthwatch-alerting-graphs'></a> Alerting and Graphs
+
+The rules for alerting and bucketing graph data are not always the same. As a result there are cases where a graph will have a failing indicator without an alert. This does not indicate a problem with alerting, the two types of information have different behavior rules.
+
+A graph's time bucket turns red when one test in the time period fails. Alerting may have a higher threshold - alert thresholds vary by metric and are based on an average aggregation so more than one failure in a period might be needed to trigger an alert.  
+
+Additionally, not all metrics have alerts associated with them so a complete absence of alerts on a failing chart is not necessarily a problem. 
+
+For more information on alerting rules [see the alerts documentation.](api/alerts.html#thresholds)
