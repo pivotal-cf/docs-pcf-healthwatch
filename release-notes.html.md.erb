@@ -33,7 +33,7 @@ owner: PCF Healthwatch
 
 * **Resource use**: Reduced number and scale of [VM resources](./resources.html) required to run PCF Heathwatch.
 
-* **Internal database**: Switched internal database from MariaDB to Percona (see [Known Issues](#issues).
+* **Internal database**: Switched internal database from MariaDB to Percona (see [Known Issues](#issues)).
 
 * **Stack**: PCF Healthwatch uses cflinuxfs3 as the default stack when available.
   - When Healthwatch is installed in an environment that does not support cflinuxfs3, such as a PCF v2.2 environment, Healthwatch components run on the cflinuxfs2 stack.
@@ -41,4 +41,4 @@ owner: PCF Healthwatch
 
 ##<a id='issues'></a>Known Issue
 
-* Upgrading to Healthwatch v1.4 may stop supermetrics collection for about 10 minutes, while Healthwatch's internal database migrates from MariaDB to Percona.
+* Upgrading to Healthwatch v1.4 may stop supermetrics collection for about 15 minutes, while Healthwatch's internal database migrates from MariaDB to Percona. For more information about this, please refer to your [troubleshooting Healthwatch documentation](./troubleshooting.html)

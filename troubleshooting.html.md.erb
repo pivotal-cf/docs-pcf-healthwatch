@@ -155,3 +155,21 @@ A few possible solutions are:
 - Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
 - After [logging in](https://docs.pivotal.io/pivotalcf/2-3/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
   - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+
+## <a id='possible-super-metric-data-gap'></a>Loss of Super Metrics Data During v1.3-v1.4 Migration
+
+### Problem
+
+There is a possible data gap in all charts containing Super Metrics.
+
+### Cause
+
+Healthwatch 1.4 switched from MariaDB to Percona database. 
+During the migration there can be a gap in the calculation/storage of Super Metrics caused by the downtime in database availability. 
+Super Metrics are calculated across a period of time so they require historical data that may lay outside of buffering window. 
+The exact amount of time varies by system but can be around 15 minutes.
+
+### Solution
+
+There is buffering built in to the data collection and Super Metric aggregation to minimize data loss. 
+To further mitigate data loss, manually back up and restore the database. There will still be some gap in Super Metrics while Healthwatch is updating.

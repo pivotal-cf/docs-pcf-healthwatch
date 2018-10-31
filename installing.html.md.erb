@@ -84,6 +84,12 @@ To configure the PCF Healthwatch tile, perform the following steps:
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply Changes**.
 
+## Database upgrade
+
+If you are upgrading from Healthwatch 1.3 to 1.4, the internal database will be migrated from MariaDB to Percona.
+
+<p class="note"><strong>Note:</strong> During the 1.3-1.4 migration you may lose about 15 minutes of super value metrics. (See [Known Issues](./release-notes.html#issues))</p>
+
 ##<a id='healthwatch-opsman'></a> (Optional) Disable Ops Manager Continuous Validation Testing
 
 PCF Healthwatch continuously validates the health of Ops Manager. You may want to disable this test suite if, for example, you are using BOSH instead of Ops Manager to deploy PCF software. This can be accomplished either via the Ops Manager UI or BOSH manifest.
@@ -131,24 +137,4 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 
 The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well.
 
-<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
-
-##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
-
-PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables called `value_metric_agg` and `counter_event_agg`. After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
-
-This migration is a hidden errand that you must run with the BOSH CLI.
-
-<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
-
-## Migrating Data Between Versions
-
-1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh).
-1. Copy the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
-1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS deployments` to get the PCF Healthwatch deployment name.
-1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS -d PCF-HEALTHWATCH-DEPLOYMENT-NAME run-errand migrate-v1.1-v1.2`.
-1. After the errand completes, verify the data exists for 24 hours in the Router Performance Detail page graphs.
-
-To troubleshoot unpredictable behavior, SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
-
-<p class="note"><strong>Note</strong>: After the data migration completes, the v1.1 database tables <code>value_metric</code> and <code>counter_event</code> are deleted from the database.</p>
+<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.4, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
