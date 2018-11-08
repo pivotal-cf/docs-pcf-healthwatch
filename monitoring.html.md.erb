@@ -27,7 +27,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
 
 
 
-### <a id="cf_cli_probe_availability_percentage"></a>CLI Health Test Availability
+### <a id="cf_cli_probe_availability_percentage"></a>CLI Health Test Availability 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -41,7 +42,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -49,8 +50,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -73,7 +74,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="canary_app_probe_availability_percentage"></a>Canary App Health Test Availability
+### <a id="canary_app_probe_availability_percentage"></a>Canary App Health Test Availability 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -87,7 +89,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -95,8 +97,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -119,7 +121,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="bosh_director_probe_availability_percentage"></a>BOSH Director Health Test Availability
+### <a id="bosh_director_probe_availability_percentage"></a>BOSH Director Health Test Availability 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -133,7 +136,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -141,8 +144,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -165,7 +168,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="ops_man_probe_availability_percentage"></a>Ops Manager Health Test Availability
+### <a id="ops_man_probe_availability_percentage"></a>Ops Manager Health Test Availability 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -179,7 +183,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -187,8 +191,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -211,7 +215,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="ui_availability_percentage"></a>PCF Healthwatch UI Availability
+### <a id="ui_availability_percentage"></a>PCF Healthwatch UI Availability 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -227,7 +232,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -235,8 +240,8 @@ reference these assessments.</p>
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -265,7 +270,8 @@ reference these assessments.</p>
 
 
 
-### <a id="nozzle_disconnects_per_instance"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose
+### <a id="nozzle_disconnects_per_instance"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -284,7 +290,7 @@ makes using platform metrics from the Firehose.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -292,8 +298,8 @@ makes using platform metrics from the Firehose.</p>
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &gt;= 20<br/>  <em>Red critical</em>: &gt;= 30<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -318,7 +324,8 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-### <a id="ingestor_dropped_metrics_per_instance"></a>Number of Ingestor Dropped Metrics
+### <a id="ingestor_dropped_metrics_per_instance"></a>Number of Ingestor Dropped Metrics 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -334,7 +341,7 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -342,8 +349,8 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &gt;= 10<br/>  <em>Red critical</em>: &gt;= 20<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -368,7 +375,8 @@ Healthwatch Component Config tab. Otherwise, the next <code>Apply Changes</code>
     	    </td>
     	</tr>
 </table>
-### <a id="redis_queue_size"></a>Redis Queue Size
+### <a id="redis_queue_size"></a>Redis Queue Size 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -387,7 +395,7 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
     <tr>
         <th>PromQL</th>
         <td>
-			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -395,7 +403,7 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
         <th>Thresholds</th>
         <td>
              <em>Red critical</em>: &gt;= 10000<br/> 
-			      
+			
         </td>
     </tr>
 	
@@ -419,7 +427,8 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-### <a id="healthwatch_metrics_published_rate"></a>Number of Healthwatch Super Metrics Published to Firehose
+### <a id="healthwatch_metrics_published_rate"></a>Number of Healthwatch Super Metrics Published to Firehose 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -433,7 +442,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>rate(metrics_published{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}[5m])</code>
+			<code>rate(metrics_published{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -441,8 +450,8 @@ update the tile configuration so that the next deployment does not override the 
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 20<br/>  <em>Red critical</em>: &lt;= 10<br/> 
-			      
-			      	<p>These are environment specific</p>
+			
+				<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -466,113 +475,13 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-## <a id="number-of-healthwatch-continuous-validation-tests-executed"></a>Number of Healthwatch Continuous Validation Tests Executed
-<p>This section describes the metrics that you can use to monitor the number of continuous validation tests executed by PCF Healthwatch.</p>
-
-
-
-### <a id="health.check.cliCommand.probe.count"></a>CLI Command Health
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch <a href="metrics.html#cli">CLI Command Health</a> probe assessments completed in the measured time interval.</p>
-
-<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.cliCommand.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
-
-<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
-
-<p>In the default installation, these tests run every 5 minutes across 2 runner apps.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
-### <a id="health.check.OpsMan.probe.count"></a>Ops Manager Health
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch <a href="metrics.html#opsman">Ops Manager Health</a> probe assessments completed in the measured time interval.</p>
-
-<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.OpsMan.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
-
-<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
-
-<p>In the default installation, these tests run every 1 minute across 2 runner apps.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
-### <a id="health.check.CanaryApp.probe.count"></a>Canary App Health
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch <a href="metrics.html#canaryapp">Canary App Health</a> probe assessments completed in the measured time interval.</p>
-
-<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.CanaryApp.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
-
-<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
-
-<p>In the default installation, these tests run every 1 minutes across 2 runner apps.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
-### <a id="health.check.bosh.director.probe.count"></a>BOSH Director Health
-<table>
-    <tr>
-        <th width="25%">Description</th>
-        <td><p>Number of PCF Healthwatch <a href="metrics.html#bosh-director">BOSH Director Health</a> probe assessments completed in the measured time interval.</p>
-
-<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.bosh.director.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
-
-<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
-
-<p>In the default installation, these tests run every 10 minutes using 1 runner app.</p>
-</td>
-    </tr>
-    <tr>
-        <th>PromQL</th>
-        <td>
-			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
-		</td>
-    </tr>
-    <tr>
-		
-    </tr>
-	
-</table>
 ## <a id="other-metrics-available"></a>Other Metrics Available
 <p>This section describes other metrics that you can use to monitor PCF Healthwatch.</p>
 
 
 
-### <a id="events.published"></a>Number of Healthwatch Events Published to PCF Event Alerts
+### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -586,7 +495,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>events_published{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>events_published{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -594,7 +503,8 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     </tr>
 	
 </table>
-### <a id="health.bosh.deployment.probe.count"></a>BOSH Deployment Check Probe
+### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe 
+
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -612,7 +522,107 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="<&37;= spec.deployment &37;>"}</code>
+			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
+### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health 
+
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch <a href="metrics.html#cli">CLI Command Health</a> probe assessments completed in the measured time interval.</p>
+
+<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.cliCommand.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
+
+<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
+
+<p>In the default installation, these tests run every 5 minutes across 2 runner apps.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
+### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health 
+
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch <a href="metrics.html#opsman">Ops Manager Health</a> probe assessments completed in the measured time interval.</p>
+
+<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.OpsMan.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
+
+<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
+
+<p>In the default installation, these tests run every 1 minute across 2 runner apps.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
+### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health 
+
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch <a href="metrics.html#canaryapp">Canary App Health</a> probe assessments completed in the measured time interval.</p>
+
+<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.CanaryApp.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
+
+<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
+
+<p>In the default installation, these tests run every 1 minutes across 2 runner apps.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
+		</td>
+    </tr>
+    <tr>
+		
+    </tr>
+	
+</table>
+### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health 
+
+<table>
+    <tr>
+        <th width="25%">Description</th>
+        <td><p>Number of PCF Healthwatch <a href="metrics.html#bosh-director">BOSH Director Health</a> probe assessments completed in the measured time interval.</p>
+
+<p><strong>Use</strong>: For alerting purposes, Pivotal suggests using <code>health.check.bosh.director.probe.available</code> instead. This metric is most helpful for additional diagnostics or secondary alerting.</p>
+
+<p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
+
+<p>In the default installation, these tests run every 10 minutes using 1 runner app.</p>
+</td>
+    </tr>
+    <tr>
+        <th>PromQL</th>
+        <td>
+			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
