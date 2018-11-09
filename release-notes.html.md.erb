@@ -27,7 +27,7 @@ owner: PCF Healthwatch
 
 * Added new metrics:
   - [Number of Available Free Chunks of Disk](./metrics.html#free-disk-chunks), with corresponding alert [`Diego.AvailableFreeChunksDisk`](./api/alerts.html#defaults)
-  - [`cf-syslog-drain.scheduler.drains `](https://docs.pivotal.io/pivotalcf/2-0/monitoring/key-cap-scaling.html#scalable-syslog-ksi), from PCF v2.3 Syslog
+  - [Active Drain Count](https://docs.pivotal.io/pivotalcf/2-3/monitoring/key-cap-scaling.html#scalable-syslog-ksi), KSI from PCF v2.3 Syslog, is now graphed in PCF Healthwatch's UI under Logging. 
 
 * **Syslog encryption**: Healthwatch VM log output to syslog can be encrypted with TLS.
 
@@ -37,7 +37,12 @@ owner: PCF Healthwatch
 
 * **Stack**: PCF Healthwatch uses cflinuxfs3 as the default stack when available.
   - When Healthwatch is installed in an environment that does not support cflinuxfs3, such as a PCF v2.2 environment, Healthwatch components run on the cflinuxfs2 stack.
-
+* Maintenance update of the following dependencies: 
+    - CF CLI now v6.40.1
+    - Golang now v1.10.5
+    - Flyway Command-line and Library now v5.2.1
+    - OpenJDK now v1.8.0_192-b03
+    - Spring now Brussels-SR14
 
 ##<a id='issues'></a>Known Issue
 
