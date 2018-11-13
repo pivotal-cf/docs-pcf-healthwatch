@@ -74,7 +74,7 @@ To configure the PCF Healthwatch tile, do the following:
 	1. Enter **Ops Manager URL**. The URL should include the protocol.  This URL must be reachable from a `cf pushed` application.
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 		<p class="note"><strong>Note:</strong> On Azure environments, this dropdown is null because Azure does not yet have the concept of AZs.</p>
-	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**.
+	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**. If you are running the ClamAV add-on for PCF, increase the RAM available in the BOSH Health Check VM type.  
 	1. Optionally, you can also enable the BOSH Deployment Checker.  This will add context to the PCF Healthwatch UI graphs of when BOSH deployments have occurred.
 	     1. Select **Enable** in the `Bosh Deployment Checker` section.
 	     1. Enter a Bosh UAA client and secret with an authority of `bosh.read`
