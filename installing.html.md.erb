@@ -119,10 +119,12 @@ To enable remote syslog forwarding for PCF Healthwatch, do the following:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
 1. Navigate to the **Syslog** pane.
-1. Select **Yes** to enable syslog forwarding.
+1. Select **Yes without encryption** or **Yes with TLS encryption** to enable syslog forwarding.
 1. For **External Syslog Host**, enter the address of syslog server where you want logs sent, such as `logs.example.com`.
 1. For **External Syslog Port**, enter the port of your syslog server, such as `29279`.
 1. For **External Syslog Protocol**, select the protocol for sending the logs.
+1. *(TLS only)* For **External Syslog Permitted Peer**, enter the fingerprint or name of the remote peer, such as `*.example.com`. 
+1. *(TLS only)* For **External Syslog TLS CA Certificate **, enter the CA certificate of the syslog destination.
 
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
