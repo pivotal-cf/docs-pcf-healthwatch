@@ -5,6 +5,23 @@ owner: PCF Healthwatch
 
 ##<a id='releases'></a>Releases
 
+###<a id='v1.2.6'></a>v1.2.6
+
+**Release Date: November 30, 2018**
+
+* **[Bug Fix]** The delete-space errand deletes the Application Security Group. This resolves an issue that prevented users from reinstalling the Healthwatch tile after deleting it.
+
+* **[Bug Fix]** The Healthwatch Ingestor reconnects to the Loggregator Firehose automatically after all Loggregator Traffic Controller VMs are stopped.
+
+* **[Bug Fix]** Healthwatch collects and alerts on the Galera Cluster Status Sum and Galera Total Percentage Healthy Nodes metrics only on clustered node MySQL Pivotal Application Service (PAS) configurations. This prevents erroneous alerts on the Galera Cluster Status Sum and Galera Total Percentage Healthy Nodes metrics for single node MySQL or external database PAS configurations.
+
+* The following are maintenance upgrades to product dependencies:
+    * CF CLI now v6.40.1
+    * Golang now v1.10.5
+    * Flyway Command-line and Library now v5.2.1
+    * OpenJDK now v1.8.0_192-b03
+    * Spring now Brussels-SR14
+
 ###<a id='v1.2.5'></a>v1.2.5
 
 **Release Date: August 7, 2018**
