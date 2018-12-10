@@ -35,7 +35,7 @@ PCF Healthwatch also creates additional metrics of operational value and stores 
 #### Contextual Assessments
 
 Contextual Assessments are derived from platform-emitted data, for example, 
-Syslog Drain Binding Capacity. PCF Healthwatch v1.2 handles this data as follows:  
+Syslog Drain Binding Capacity. PCF Healthwatch handles this data as follows:
 
 1. The Aggregator app makes additional transformations to the data.
 1. The Aggregator app forwards the data to the Metron Forwarder.
@@ -48,7 +48,7 @@ All ingested and service-created data points are stored in the datastore for 25 
 #### Functional Apps 
 
 Functional Apps execute Health and Uptime tests, for example, CLI Command Health. 
-PCF Healthwatch v1.2 handles this data as follows:  
+PCF Healthwatch handles this data as follows:
 
 1. Functional Apps forward their data to the Metron Forwarder.
 1. The Metron Forwarder writes that data to the MySQL datastore and also forwards it back into the Firehose for external consumers to use. This data is then available until it is purged.
@@ -66,7 +66,7 @@ When a singleton component becomes temporarily unavailable, such as when a VM re
 
 ## <a id='aggregation'></a>How Platform-Emitted Data is Aggregated by PCF Healthwatch
 
-In v1.2, all Firehose-emitted platform metrics that PCF Healthwatch ingests are aggregated according to pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can add additional points of interest to the data.
+All Firehose-emitted platform metrics that PCF Healthwatch ingests are aggregated according to pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can add additional points of interest to the data.
 
   * **Counter metrics**: Maximum counter value received for the one-minute aggregation window, from which a minute-to-minute rate is later derived. Unique to the metric name and to the individual metric emitter, per instance, as applicable.
 
