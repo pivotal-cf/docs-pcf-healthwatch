@@ -13,7 +13,7 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 
 ##<a id='prerequisites'></a>Prerequisites/Assumptions
 
-The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.cloudfoundry.org/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
+The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.pivotal.io/pivotalcf/2-3/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
 
 After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, follow these steps to authenticate against UAA:
 
@@ -28,7 +28,7 @@ At this point you are properly authenticated and ready to start using the Health
 Test the availability of the Healthwatch API by hitting the `/info` endpoint with a `GET` request:
 
 ```
-curl -G healthwatch-api.SYSTEM-DOMAIN/info
+curl healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
@@ -39,7 +39,7 @@ The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
 
 ```
-uaac curl -G healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
+uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 ```
 
 This returns a JSON array of alert configurations:
@@ -80,8 +80,7 @@ The `query` and `threshold` properties are covered in detail below.
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
 
 ```
-uaac curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
 ```
 
 This returns a JSON array of alert configurations, filtered against the provideded `query`:
@@ -103,12 +102,13 @@ This returns a JSON array of alert configurations, filtered against the provided
 
 ### `POST /alert-configurations`
 
-To update an existing alert configuration, make a `POST` request to the `alert_configurations` endpoint with the updated data:
+To update an existing alert configuration, make a `POST` request to the `alert-configurations` endpoint with the updated data:
 
 ```
-uaac curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80,\"type\":\"UPPER\"}}" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80,\"type\":\"UPPER\"}}"
+
 ```
 
 The updated alert configuration is echoed back in the response:
@@ -300,14 +300,13 @@ However, if your environment has been scaled up to five AZs you may wish to adju
 uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
 export token=$(uaac context | grep access_token | awk '{print $2}')
 
-uaac curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3,\"type\":\"LOWER\"}}" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3,\"type\":\"LOWER\"}}"
 ```
 
-The response body contains the updated alert configuration. You can confirm the change with a `GET` request:
+The response body contains the updated alert configuration. You can then confirm the change:
 
 ```
-uaac curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'" 
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
