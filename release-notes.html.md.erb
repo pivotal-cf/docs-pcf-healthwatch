@@ -57,3 +57,9 @@ as part of the core cf system deployment. This means that the isolation segment(
     * Query Rate
     * MySQL CPU Busy Time
     * Percentage of Max Connections Used
+
+##<a id='breaking-automation'></a>Breaking Changes for Automated Pipelines
+* The available values for the `.properties.syslog_selector` property have changed:
+   * In `1.3.x`, the values were `inactive` or `active`.
+   * In `1.4.x`, the values are `No`, `Yes without encryption`, or `Yes with TLS encryption`.
+   * If automated pipelines are not updated when upgrading from Healthwatch 1.3.x to Healthwatch 1.4.x to specify one of the new options, they will break.    
