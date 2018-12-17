@@ -33,9 +33,12 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the health of the Cloud Foundry Command Line Interface (cf CLI) commands. If these continuous validation tests fail to make up-to-date assessments, they are no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong>:
-  name: health.check.cliCommand.probe.available
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: health.check.cliCommand.probe.available
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -79,9 +82,12 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the canary app. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong>:
-  name: health.check.CanaryApp.probe.available
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: health.check.CanaryApp.probe.available
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -125,9 +131,12 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the BOSH Director. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong>:
-  name: health.check.bosh.director.probe.available
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: health.check.bosh.director.probe.available
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -171,9 +180,12 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for Ops Manager. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong>:
-  name: health.check.OpsMan.probe.available
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: health.check.OpsMan.probe.available
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -219,9 +231,12 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
 does not impact the assessments that PCF Healthwatch is making, loss of the UI can impact user ability to visually
 reference these assessments.</p>
 
-<p><strong>Metrics</strong>:
-  name: healthwatch.ui.available
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: healthwatch.ui.available
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -276,9 +291,12 @@ This metric can also spike during a PCF deployment because the Traffic Controlle
 <p>A prolonged period of losing metrics as a result of disconnects can endanger the assessments that PCF Healthwatch
 makes using platform metrics from the Firehose.</p>
 
-<p><strong>Metrics</strong>:
-  name: ingestor.disconnects
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: ingestor.disconnects
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -326,9 +344,12 @@ update the tile configuration so that the next deployment does not override the 
 that you need to scale up this component and verify the health of Redis. A prolonged period of dropping messages
 can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.</p>
 
-<p><strong>Metrics</strong>:
-  name: ingestor.dropped
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: ingestor.dropped
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -377,11 +398,18 @@ keep up with the volume of metrics from the Firehose. A large Redis queue will r
 events being delayed; if the queue becomes completely full, metrics will be lost altogether. This will also
 adversely affect PCF Healthwatch’s ability to calculate super value metrics.</p>
 
-<p><strong>Metrics</strong>:
-  name: redis.valueMetricQueue.size
-  source_id: healthwatch-forwarder
-  name: redis.counterEventQueue.size
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: redis.valueMetricQueue.size
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
+
+<p><em>name</em>: redis.counterEventQueue.size
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -425,15 +453,18 @@ update the tile configuration so that the next deployment does not override the 
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: If an operator has not made changes that impact the number or frequency of assessments, an unusual drop in the number of metrics published can indicate that PCF Healthwatch may be experiencing a computation or publication issue.</p>
 
-<p><strong>Metrics</strong>:
-  name: metrics.published
-  source_id: healthwatch-forwarder</p>
+<p><strong>Metrics</strong><br />
+<em>name</em>: metrics.published
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>rate(metrics_published{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
+			<code>sum(metrics_published{source_id="healthwatch-forwarder",deployment="$deployment"}) by (job)</code>
 		</td>
     </tr>
     <tr>
@@ -480,6 +511,12 @@ update the tile configuration so that the next deployment does not override the 
 
 <p><strong>Use</strong>: This metric is primarily interesting for informational purposes. As the number of alerting events could
 vary greatly, it is not recommended to alert on this metric itself.</p>
+
+<p><em>name</em>: events.published
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -493,7 +530,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     </tr>
 	
 </table>
-### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe
+### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -506,6 +543,12 @@ made, such as scaling the test runner or changing the frequency of the test, an 
 likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 30 seconds across 2 runner apps.</p>
+
+<p><em>name</em>: health.bosh.deployment.probe.count
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -519,7 +562,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health
+### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -530,6 +573,12 @@ likely indicates problems in the test runner functionality.</p>
 <p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 5 minutes across 2 runner apps.</p>
+
+<p><em>name</em>: health.check.cliCommand.probe.count
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -543,7 +592,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health
+### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -554,6 +603,12 @@ likely indicates problems in the test runner functionality.</p>
 <p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 1 minute across 2 runner apps.</p>
+
+<p><em>name</em>: health.check.OpsMan.probe.count
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -567,7 +622,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health
+### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -578,6 +633,12 @@ likely indicates problems in the test runner functionality.</p>
 <p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 1 minutes across 2 runner apps.</p>
+
+<p><em>name</em>: health.check.CanaryApp.probe.count
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
@@ -591,7 +652,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health
+### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -602,6 +663,12 @@ likely indicates problems in the test runner functionality.</p>
 <p>When monitoring this metric, the primary indicator of concern is an unexpected negative variance from the normal pattern of checks per test type. If an operator has not made changes that impact the number of checks being made, such as scaling the test runner or changing the frequency of the test, an unexpected variance from normal likely indicates problems in the test runner functionality.</p>
 
 <p>In the default installation, these tests run every 10 minutes using 1 runner app.</p>
+
+<p><em>name</em>: health.check.bosh.director.probe.count
+<em>firehose origin</em>: healthwatch
+_log-cache source<em>id</em>: healthwatch-forwarder
+<em>type</em>: gauge
+<em>frequency</em>: 60s</p>
 </td>
     </tr>
     <tr>
