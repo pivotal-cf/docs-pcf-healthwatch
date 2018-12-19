@@ -61,7 +61,7 @@ For further information about the new dashboard in PCF Healthwatch 1.4, includin
     * To resolve this issue, delete orphaned VMs at the IaaS level. 
     * This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
 * Some customers have reported intermittent crashes in the `healthwatch-ingestor` and `cf-health-check` apps.
-    * This issue is being investigated.
+    * This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
 * Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
     * If [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html) are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting
 as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
