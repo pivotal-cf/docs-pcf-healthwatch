@@ -9,7 +9,7 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 
 - View current alert configurations
 - Update Out-of-the-Box threshold values
-- Create deployment-specific configurations based on existing Out-of-the-Box configurations
+- Create/delete deployment-specific configurations based on existing Out-of-the-Box configurations
 
 ##<a id='prerequisites'></a>Prerequisites/Assumptions
 
@@ -26,7 +26,7 @@ curl -G healthwatch-api.SYSTEM-DOMAIN/info
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ##<a id='get'></a>View all alert configurations
-### `GET /alert-configurations`
+### `GET /v1/alert-configurations`
 
 To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
 
@@ -68,7 +68,7 @@ This returns a JSON array of alert configurations:
 The `query` and `threshold` properties are covered in detail below.
 
 ##<a id='get_with_query'></a>View specific alert configurations
-### `GET /alert-configurations?q=...`
+### `GET /v1/alert-configurations?q=...`
 
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
 
@@ -94,8 +94,7 @@ This returns a JSON array of alert configurations, filtered against the provided
 ```
 
 ##<a id='post'></a>Updating alert configurations
-
-### `POST /alert-configurations`
+### `POST /v1/alert-configurations`
 
 To update an existing alert configuration, make a `POST` request to the `alert_configurations` endpoint with the updated data:
 
@@ -119,14 +118,62 @@ The updated alert configuration is echoed back in the response:
 }
 ```
 
+<p class="note"><strong>Note</strong>: These alert configurations can NOT be deleted. In order to revert your changes, update the alert back to its [default values](./alerts.html#defaults).</p>
+
+##<a id='post2'></a>Creating alert configurations for isolation segments
+### `POST /v1/alert-configurations`
+
+Specific thresholds can be set for isolation segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert:
+
+```
+curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}" \
+      -H "Authorization: Bearer MY_TOKEN" \
+      -H "Content-Type: application/json"
+```
+
+The created alert configuration is echoed back in the response:
+
+```
+{
+    "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'",
+    "threshold": {
+        "critical": 55,
+        "warning": 45,
+        "type": "UPPER"
+    }
+}
+```
+<p class="note"><strong>Note</strong>: Isolation Segment alert configurations created this way are the only alert configurations that can be deleted.</p>
+
+##<a id='delete'></a>Deleting alert configurations
+### `DELETE /v1/alert-configurations?q=...`
+
+To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`:
+
+```
+curl -X DELETE "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+    --data-urlencode "q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'" \
+    -H "Authorization: Bearer MY_TOKEN"
+```
+
+This returns a number representing the number of deleted alert configurations:
+
+```
+1
+```
+
+<p class="note"><strong>Note</strong>: Only alert configurations for isolation segments that were created through the Healthwatch API can be deleted.</p>
+
 ##<a id='queries'></a>Queries
 
 The `query` field is used in two ways:
 
 * `GET` requests: The `query` filters the alert configurations being queried.
 * `POST` requests: The `query` specifies the alert configuration being updated.
+* `DELETE` requests: The `query` filters the alert configurations being deleted.
 
-In both cases, the `query` associated with an alert configuration denotes the trigger conditions for the alert.
+The `query` associated with an alert configuration denotes the trigger conditions for the alert.
 
 A well-formed `query` is a valid [Spring Expression Language (SpEL)](https://docs.spring.io/spring/docs/4.3.14.RELEASE/spring-framework-reference/html/expressions.html) expression that uses only the equality, `"=="`, and conjunction, `"and"`, operators. For example:
 
@@ -277,9 +324,10 @@ This section lists common error messages and their causes.
 **Possible Cause**: Threshold missing required values for type
 
 ---
-**Error Message**: "name = '${alertConfiguration.name}' and origin = '${alertConfiguration.origin}' is not a supported alert configuration"
+**Error Message**: "name = 'some_name' and origin = 'some_origin' is not a supported alert configuration"
+**Error Message**: "name = 'some_name', origin = 'some_origin', and job = 'some_job' is not a supported alert configuration"
 
-**Possible Cause**: Alert configuration does not exist for the targeted metric
+**Possible Cause**: An alert configuration does not exist for the targeted metric
 
 ##<a id='Example'></a>Walkthrough Example
 
