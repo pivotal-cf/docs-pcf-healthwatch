@@ -9,7 +9,7 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 
 - View current alert configurations
 - Update Out-of-the-Box threshold values
-- Create/delete deployment-specific configurations based on existing Out-of-the-Box configurations
+- Create or delete deployment-specific configurations based on existing Out-of-the-Box configurations
 
 ##<a id='prerequisites'></a>Prerequisites/Assumptions
 
@@ -105,7 +105,7 @@ curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json"
 ```
 
-The updated alert configuration is echoed back in the response:
+See the following example output:
 
 ```
 {
@@ -118,12 +118,12 @@ The updated alert configuration is echoed back in the response:
 }
 ```
 
-<p class="note"><strong>Note</strong>: These alert configurations can NOT be deleted. In order to revert your changes, update the alert back to its [default values](./alerts.html#defaults).</p>
+<p class="note warning"><strong>WARNING</strong>: These alert configurations can not be deleted. In order to revert your changes, update the alert back to its [default values](./alerts.html#defaults).</p>
 
 ##<a id='post2'></a>Creating alert configurations for isolation segments
 ### `POST /v1/alert-configurations`
 
-Specific thresholds can be set for isolation segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert:
+Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
 
 ```
 curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -132,7 +132,7 @@ curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json"
 ```
 
-The created alert configuration is echoed back in the response:
+The created alert configuration is echoed back in the following response:
 
 ```
 {
@@ -144,12 +144,12 @@ The created alert configuration is echoed back in the response:
     }
 }
 ```
-<p class="note"><strong>Note</strong>: Isolation Segment alert configurations created this way are the only alert configurations that can be deleted.</p>
+<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them with the above method.</p>
 
 ##<a id='delete'></a>Deleting alert configurations
 ### `DELETE /v1/alert-configurations?q=...`
 
-To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`:
+To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. See the following example:
 
 ```
 curl -X DELETE "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -157,13 +157,13 @@ curl -X DELETE "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
     -H "Authorization: Bearer MY_TOKEN"
 ```
 
-This returns a number representing the number of deleted alert configurations:
+This returns the number of deleted alert configurations. See the following example output.
 
 ```
 1
 ```
 
-<p class="note"><strong>Note</strong>: Only alert configurations for isolation segments that were created through the Healthwatch API can be deleted.</p>
+<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them through the Healthwatch API.</p>
 
 ##<a id='queries'></a>Queries
 
