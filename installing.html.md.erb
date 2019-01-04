@@ -71,15 +71,16 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 		<p class="note"><strong>Note</strong>: On Azure environments, this dropdown is null because Azure does not support AZs.</p>
 
-	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The VM resources should include at least:
+	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**. The VM resources should include at least:
 	  - 1 CPU
-      - 1 GB RAM
       - 8 GB Disk
+      - 1 GB RAM  
+	If you have add-ons installed, you may need to increase the RAM of the BOSH Health Check VM type. For an example of add-on memory requirements, see the [Prerequisites](https://docs.pivotal.io/addon-antivirus/1-4/install.html#prereqs) section of the ClamAV add-on documentation.
 	1. Optionally, you can also enable the BOSH Deployment Checker.  This adds context to the PCF Healthwatch UI graphs of when BOSH deployments have occurred.
 	     1. Select **Enable** in the `Bosh Deployment Checker` section.
 	     1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
 		   <p class="note"><strong>Note:</strong> In previous versions of PCF Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
-	          1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-2/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
+	          1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
 	          <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
 	          1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
 	          <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
@@ -116,10 +117,12 @@ To enable remote syslog forwarding for PCF Healthwatch, do the following:
 
 1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
 1. Navigate to the **Syslog** pane.
-1. Select **Yes** to enable syslog forwarding.
+1. Select **Yes without encryption** or **Yes with TLS encryption** to enable syslog forwarding.
 1. For **External Syslog Host**, enter the address of syslog server where you want logs sent, such as `logs.example.com`.
 1. For **External Syslog Port**, enter the port of your syslog server, such as `29279`.
 1. For **External Syslog Protocol**, select the protocol for sending the logs.
+1. *(TLS only)* For **External Syslog Permitted Peer**, enter the fingerprint or name of the remote peer, such as `*.example.com`. 
+1. *(TLS only)* For **External Syslog TLS CA Certificate **, enter the CA certificate of the syslog destination.
 
 ##<a id='healthwatch-uaa-users'></a> (Optional) Allow Additional Users to Access the PCF Healthwatch UI
 
@@ -134,24 +137,4 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 
 The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well.
 
-<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. In v1.2, this scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
-
-##<a id='healthwatch-migration-v1-1'></a> (Optional) Migrate Data From PCF Healthwatch v1.1
-
-PCF Healthwatch v1.2 aggregates all metric data. This change requires you to use a new set of database tables called `value_metric_agg` and `counter_event_agg`. After installing PCF Healthwatch v1.2, you can migrate all of the data from the previous 24 hours to new tables.
-
-This migration is a hidden errand that you must run with the BOSH CLI.
-
-<p class="note"><strong>Note</strong>: Depending on the size of your foundation, the migration can take anywhere from a few minutes to several hours.</p>
-
-## Migrating Data Between Versions
-
-1. SSH into the Ops Manager VM by following the instructions in [SSH into Ops Manager](https://docs.pivotal.io/pivotalcf/2-1/customizing/trouble-advanced.html#ssh).
-1. Copy the `Bosh Commandline Credentials` credential from the Director tile in Ops Manager's UI.
-1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS deployments` to get the PCF Healthwatch deployment name.
-1. From the Ops Manager VM, run `BOSH-COMMANDLINE-CREDENTIALS -d PCF-HEALTHWATCH-DEPLOYMENT-NAME run-errand migrate-v1.1-v1.2`.
-1. After the errand completes, verify the data exists for 24 hours in the Router Performance Detail page graphs.
-
-To troubleshoot unpredictable behavior, SSH into the errand VM and check the logs in `/var/vcap/sys/log/migration_v1.1_v1.2/`.
-
-<p class="note"><strong>Note</strong>: After the data migration completes, the v1.1 database tables <code>value_metric</code> and <code>counter_event</code> are deleted from the database.</p>
+<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. This scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
