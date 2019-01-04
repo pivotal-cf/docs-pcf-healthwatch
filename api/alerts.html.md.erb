@@ -131,10 +131,9 @@ See the following example output:
 Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
 
 ```
-curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}" \
-      -H "Authorization: Bearer MY_TOKEN" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}"
 ```
 
 The created alert configuration is echoed back in the following response:
@@ -157,9 +156,7 @@ The created alert configuration is echoed back in the following response:
 To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. See the following example:
 
 ```
-curl -X DELETE "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'" \
-    -H "Authorization: Bearer MY_TOKEN"
+uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
 ```
 
 This returns the number of deleted alert configurations. See the following example output.
