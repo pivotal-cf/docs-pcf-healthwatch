@@ -33,7 +33,7 @@ curl healthwatch-api.SYSTEM-DOMAIN/info
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-##<a id='get'></a>View all alert configurations
+##<a id='get'></a>View All Alert Configurations
 ### `GET /alert-configurations`
 
 To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
@@ -74,7 +74,7 @@ This returns a JSON array of alert configurations:
 
 The `query` and `threshold` properties are covered in detail below.
 
-##<a id='get_with_query'></a>View specific alert configurations
+##<a id='get_with_query'></a>View Specific Alert Configurations
 ### `GET /alert-configurations?q=...`
 
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
@@ -98,7 +98,7 @@ This returns a JSON array of alert configurations, filtered against the provided
 ]
 ```
 
-##<a id='post'></a>Updating alert configurations
+##<a id='post'></a>Updating Alert Configurations
 
 ### `POST /alert-configurations`
 
@@ -310,3 +310,9 @@ The response body contains the updated alert configuration. You can then confirm
 ```
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
+
+##<a id='event-alerts'></a>Configuring PCF Event Alerts
+
+You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to reveive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
+
+For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](./event-alerts/index.html).
