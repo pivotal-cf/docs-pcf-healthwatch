@@ -3,7 +3,7 @@ title: Configuring PCF Healthwatch Alerts
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
+This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs.
 
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
@@ -313,6 +313,6 @@ uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origi
 
 ##<a id='event-alerts'></a>Configuring PCF Event Alerts
 
-You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to reveive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
+You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
 
 For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
