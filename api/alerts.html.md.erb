@@ -303,3 +303,8 @@ curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
     --data-urlencode "q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'" \
     -H "Authorization: Bearer ${token}"
 ```
+##<a id='event-alerts'></a>Configuring PCF Event Alerts
+
+You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
+
+For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
