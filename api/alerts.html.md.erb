@@ -25,10 +25,13 @@ curl -G healthwatch-api.SYSTEM-DOMAIN/info
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-##<a id='get'></a>View all alert configurations
-### `GET /alert-configurations`
+##<a id='get'></a>View All Alert Configurations
 
-To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
+To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint.
+
+`GET /alert-configurations`
+
+See the following example:
 
 ```
 curl -G healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations \
@@ -67,10 +70,13 @@ This returns a JSON array of alert configurations:
 
 The `query` and `threshold` properties are covered in detail below.
 
-##<a id='get_with_query'></a>View specific alert configurations
-### `GET /alert-configurations?q=...`
+##<a id='get_with_query'></a>View Specific Alert Configurations 
 
-To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
+To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`.
+
+`GET /alert-configurations?q=...`
+
+See the following examples:
 
 ```
 curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -93,11 +99,13 @@ This returns a JSON array of alert configurations, filtered against the provided
 ]
 ```
 
-##<a id='post'></a>Updating alert configurations
+##<a id='post'></a>Update Alert Configurations
 
-### `POST /alert-configurations`
+To update an existing alert configuration, make a `POST` request to the `alert_configurations` endpoint with the updated data.
 
-To update an existing alert configuration, make a `POST` request to the `alert_configurations` endpoint with the updated data:
+`POST /alert-configurations`
+
+See the following example:
 
 ```
 curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -303,7 +311,7 @@ curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
     --data-urlencode "q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'" \
     -H "Authorization: Bearer ${token}"
 ```
-##<a id='event-alerts'></a>Configuring PCF Event Alerts
+##<a id='event-alerts'></a>Configure PCF Healthwatch Alert Notifications
 
 You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
 
