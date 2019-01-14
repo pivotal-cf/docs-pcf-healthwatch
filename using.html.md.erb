@@ -5,6 +5,21 @@ owner: PCF Healthwatch
 
 This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
+##<a id='dashboard-overview'></a>The PCF Healthwatch Dashboard
+
+The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
+into the health the foundation.
+
+<%= image_tag './images/dashboard-all-green.png' %>
+
+The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts
+of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
+
+To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [PCF Healthwatch API](./api/index.html) documentation.
+
+Note that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
+that alerts fire only in the event of meaningful problems, you need to [tune](api/alerts.html#post) some of the alerts to fit the size of your system.
+
 ##<a id='access'></a>Accessing PCF Healthwatch
 
 You can access PCF Healthwatch and its data through the PCF Healthwatch UI or directly through the service datastore. In addition, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
@@ -91,7 +106,7 @@ See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/query
 This queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
 
 ```
-curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
+curl -G "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -129,7 +144,7 @@ The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean the
 This queries the latest value stored in Log Cache for the `cf push` Health Check:
 
 ```
-curl -G "https://log-cache.SYSTEM_HOST/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
+curl -G "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -161,7 +176,7 @@ This result could be used by automation tools waiting for `cf push` to become av
 The Log Cache API can also execute the same query multiple times over a range:
 
 ```
-curl -G "https://log-cache.SYSTEM_HOST/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
+curl -G "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -210,8 +225,18 @@ These queries are subject to the retention time of the Log Cache service. You ca
 the `/v1/meta` Log Cache API endpoint.
 
 ```
-curl -G "https://log-cache.SYSTEM_HOST/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
+curl -G "https://log-cache.SYSTEM-DOMAIN/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
 ```
 
 If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
 must be scaled up.
+
+#### <a id='healthwatch-alerting-graphs'></a> Alerting and Graphs
+
+The rules for alerting and bucketing graph data are not always the same. As a result there are cases where a graph will have a failing indicator without an alert. This does not indicate a problem with alerting, the two types of information have different behavior rules.
+
+A graph's time bucket turns red when one test in the time period fails. Alerting may have a higher threshold - alert thresholds vary by metric and are based on an average aggregation so more than one failure in a period might be needed to trigger an alert.  
+
+Additionally, not all metrics have alerts associated with them so a complete absence of alerts on a failing chart is not necessarily a problem. 
+
+For more information on alerting rules [see the alerts documentation.](api/alerts.html#thresholds)

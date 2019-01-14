@@ -27,14 +27,13 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
 
 
 
-### <a id="cf_cli_probe_availability_percentage"></a>CLI Health Test Availability 
-
+### <a id="cf_cli_probe_availability_percentage"></a>CLI Health Test Availability
 <table>
     <tr>
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the health of the Cloud Foundry Command Line Interface (cf CLI) commands. If these continuous validation tests fail to make up-to-date assessments, they are no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: health.check.cliCommand.probe.available
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -53,8 +52,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -77,14 +76,13 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="canary_app_probe_availability_percentage"></a>Canary App Health Test Availability 
-
+### <a id="canary_app_probe_availability_percentage"></a>Canary App Health Test Availability
 <table>
     <tr>
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the canary app. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: health.check.CanaryApp.probe.available
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -103,8 +101,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -127,14 +125,13 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="bosh_director_probe_availability_percentage"></a>BOSH Director Health Test Availability 
-
+### <a id="bosh_director_probe_availability_percentage"></a>BOSH Director Health Test Availability
 <table>
     <tr>
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for the BOSH Director. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: health.check.bosh.director.probe.available
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -153,8 +150,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -177,14 +174,13 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="ops_man_probe_availability_percentage"></a>Ops Manager Health Test Availability 
-
+### <a id="ops_man_probe_availability_percentage"></a>Ops Manager Health Test Availability
 <table>
     <tr>
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: Indicates that PCF Healthwatch is assessing the current state of health for Ops Manager. If this continuous validation test fails to make up-to-date assessments, it is no longer a reliable warning mechanism.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: health.check.OpsMan.probe.available
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -203,8 +199,8 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -227,8 +223,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     	    </td>
     	</tr>
 </table>
-### <a id="ui_availability_percentage"></a>PCF Healthwatch UI Availability 
-
+### <a id="ui_availability_percentage"></a>PCF Healthwatch UI Availability
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -236,7 +231,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
 does not impact the assessments that PCF Healthwatch is making, loss of the UI can impact user ability to visually
 reference these assessments.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: healthwatch.ui.available
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -255,8 +250,8 @@ reference these assessments.</p>
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 0.6<br/>  <em>Red critical</em>: &lt;= 0.4<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -285,8 +280,7 @@ reference these assessments.</p>
 
 
 
-### <a id="nozzle_disconnects_per_instance"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose 
-
+### <a id="nozzle_disconnects_per_instance"></a>Number of PCF Healthwatch Nozzle Disconnects from Firehose
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -297,7 +291,7 @@ This metric can also spike during a PCF deployment because the Traffic Controlle
 <p>A prolonged period of losing metrics as a result of disconnects can endanger the assessments that PCF Healthwatch
 makes using platform metrics from the Firehose.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: ingestor.disconnects
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -316,8 +310,8 @@ makes using platform metrics from the Firehose.</p>
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &gt;= 20<br/>  <em>Red critical</em>: &gt;= 30<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -342,8 +336,7 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-### <a id="ingestor_dropped_metrics_per_instance"></a>Number of Ingestor Dropped Metrics 
-
+### <a id="ingestor_dropped_metrics_per_instance"></a>Number of Ingestor Dropped Metrics
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -351,7 +344,7 @@ update the tile configuration so that the next deployment does not override the 
 that you need to scale up this component and verify the health of Redis. A prolonged period of dropping messages
 can endanger the assessments that PCF Healthwatch makes using platform metrics from the Firehose.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: ingestor.dropped
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -370,8 +363,8 @@ can endanger the assessments that PCF Healthwatch makes using platform metrics f
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &gt;= 10<br/>  <em>Red critical</em>: &gt;= 20<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -396,8 +389,7 @@ Healthwatch Component Config tab. Otherwise, the next <code>Apply Changes</code>
     	    </td>
     	</tr>
 </table>
-### <a id="redis_queue_size"></a>Redis Queue Size 
-
+### <a id="redis_queue_size"></a>Redis Queue Size
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -406,7 +398,7 @@ keep up with the volume of metrics from the Firehose. A large Redis queue will r
 events being delayed; if the queue becomes completely full, metrics will be lost altogether. This will also
 adversely affect PCF Healthwatch’s ability to calculate super value metrics.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: redis.valueMetricQueue.size
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -431,7 +423,7 @@ adversely affect PCF Healthwatch’s ability to calculate super value metrics.</
         <th>Thresholds</th>
         <td>
              <em>Red critical</em>: &gt;= 10000<br/> 
-			
+			      
         </td>
     </tr>
 	
@@ -455,14 +447,13 @@ update the tile configuration so that the next deployment does not override the 
     	    </td>
     	</tr>
 </table>
-### <a id="healthwatch_metrics_published"></a>Number of Healthwatch Super Metrics Published to Firehose 
-
+### <a id="healthwatch_metrics_published_rate"></a>Number of Healthwatch Super Metrics Published to Firehose
 <table>
     <tr>
         <th width="25%">Description</th>
         <td><p><strong>Use</strong>: If an operator has not made changes that impact the number or frequency of assessments, an unusual drop in the number of metrics published can indicate that PCF Healthwatch may be experiencing a computation or publication issue.</p>
 
-<p><strong>Metrics</strong><br/>
+<p><strong>Metrics</strong><br />
 <em>name</em>: metrics.published
 <em>firehose origin</em>: healthwatch
 <em>log-cache source id</em>: healthwatch-forwarder
@@ -481,8 +472,8 @@ update the tile configuration so that the next deployment does not override the 
         <th>Thresholds</th>
         <td>
              <em>Yellow warning</em>: &lt;= 20<br/>  <em>Red critical</em>: &lt;= 10<br/> 
-			
-				<p>These are environment specific</p>
+			      
+			      	<p>These are environment specific</p>
 
         </td>
     </tr>
@@ -511,8 +502,7 @@ update the tile configuration so that the next deployment does not override the 
 
 
 
-### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts 
-
+### <a id="events_published"></a>Number of Healthwatch Events Published to PCF Event Alerts
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -540,8 +530,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     </tr>
 	
 </table>
-### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe Count 
-
+### <a id="health_bosh_deployment_probe_count"></a>BOSH Deployment Check Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -573,8 +562,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health Probe Count 
-
+### <a id="health_check_cliCommand_probe_count"></a>CLI Command Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -604,8 +592,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health Probe Count 
-
+### <a id="health_check_OpsMan_probe_count"></a>Ops Manager Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -635,8 +622,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health Probe Count 
-
+### <a id="health_check_CanaryApp_probe_count"></a>Canary App Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>
@@ -666,8 +652,7 @@ likely indicates problems in the test runner functionality.</p>
     </tr>
 	
 </table>
-### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health Probe Count 
-
+### <a id="health_check_bosh_director_probe_count"></a>BOSH Director Health Probe Count
 <table>
     <tr>
         <th width="25%">Description</th>

@@ -13,14 +13,22 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 
 ##<a id='prerequisites'></a>Prerequisites/Assumptions
 
-The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.cloudfoundry.org/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
+The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.pivotal.io/pivotalcf/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
+
+After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, follow these steps to authenticate against UAA:
+
+```
+uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+```
+
+At this point you are properly authenticated and ready to start using the Healthwatch Alerts API.
 
 ##<a id='info'></a>Healthwatch API Status
 
 Test the availability of the Healthwatch API by hitting the `/info` endpoint with a `GET` request:
 
 ```
-curl -G healthwatch-api.SYSTEM-DOMAIN/info
+curl healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
@@ -31,8 +39,7 @@ The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
 
 ```
-curl -G healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations \
-     -H "Authorization: Bearer MY_TOKEN"
+uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 ```
 
 This returns a JSON array of alert configurations:
@@ -73,9 +80,7 @@ The `query` and `threshold` properties are covered in detail below.
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
 
 ```
-curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'some_origin' and name == 'Some.Metric.Name'" \
-    -H "Authorization: Bearer MY_TOKEN"
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
 ```
 
 This returns a JSON array of alert configurations, filtered against the provideded `query`:
@@ -96,13 +101,13 @@ This returns a JSON array of alert configurations, filtered against the provided
 ##<a id='post'></a>Update Alert Configurations
 ### `POST /v1/alert-configurations`
 
-To update an existing alert configuration, make a `POST` request to the `alert_configurations` endpoint with the updated data:
+To update an existing alert configuration, make a `POST` request to the `alert-configurations` endpoint with the updated data:
 
 ```
-curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80,\"type\":\"UPPER\"}}" \
-      -H "Authorization: Bearer MY_TOKEN" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80,\"type\":\"UPPER\"}}"
+
 ```
 
 See the following example output:
@@ -118,7 +123,7 @@ See the following example output:
 }
 ```
 
-<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its [default values](./alerts.html#defaults).</p>
+<p class="note warning"><strong>WARNING</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>
 
 ##<a id='post2'></a>Create Alert Configurations Cor Isolation Segments
 ### `POST /v1/alert-configurations`
@@ -126,10 +131,9 @@ See the following example output:
 Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
 
 ```
-curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}" \
-      -H "Authorization: Bearer MY_TOKEN" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}"
 ```
 
 The created alert configuration is echoed back in the following response:
@@ -155,9 +159,7 @@ To delete a user-created alert configuration for an isolation segment, add a `qu
 See the following example:
 
 ```
-curl -X DELETE "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'" \
-    -H "Authorization: Bearer MY_TOKEN"
+uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
 ```
 
 This returns the number of deleted alert configurations. See the following example output.
@@ -195,13 +197,15 @@ The following fields can be queried:
 
 ##<a id='thresholds'></a>Thresholds
 
-The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, or `"EQUALITY"`.
+The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, `"EQUALITY"`, or `"INEQUALITY"`.
 
 Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is *above* the `warning` value, and again when above the `critical` value.
 
 Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls *below* the thresholds.
 
-The `EQUALITY` alerts trigger when the metric value is *not exactly* equal to the `critical` threshold. These alerts do not have `warning` thresholds.
+The `EQUALITY` alerts trigger when the metric value is **not** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
+
+The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
 
 ##<a id='defaults'></a>Supported Alerts
 
@@ -241,12 +245,12 @@ Healthwatch ships with the following configurable alerts:
 | Performance Alert: Canary App Health Test Availability                     | health.check.CanaryApp.probe.available             | healthwatch                   |                         | Canary App          | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Service Level Indicator Alert: Canary App Response Time                    | health.check.CanaryApp.responseTime                | healthwatch                   |                         | Canary App          | UPPER          | 30000        | 15000      | ms      | 5                           |
 | Service Level Indicator Alert: CF Push Time                                | health.check.cliCommand.pushTime                   | healthwatch                   |                         | CLI                 | UPPER          | 120000       | 60000      | ms      | 10                          |
-| Service Level Indicator Alert: Can CF Login                                | health.check.cliCommand.login                      | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Push                                 | health.check.cliCommand.push                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Start                                | health.check.cliCommand.start                      | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Stop                                 | health.check.cliCommand.stop                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can CF Delete                               | health.check.cliCommand.delete                     | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
-| Service Level Indicator Alert: Can Receive Logs                            | health.check.cliCommand.logs                       | healthwatch                   |                         | CLI                 | EQUALITY       | 1            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Login                                | health.check.cliCommand.login                      | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Push                                 | health.check.cliCommand.push                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Start                                | health.check.cliCommand.start                      | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Stop                                 | health.check.cliCommand.stop                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can CF Delete                               | health.check.cliCommand.delete                     | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
+| Service Level Indicator Alert: Can Receive Logs                            | health.check.cliCommand.logs                       | healthwatch                   |                         | CLI                 | INEQUALITY     | 0            |            | Number  | 10                          |
 | Performance Alert: CLI Health Test Availability                            | health.check.cliCommand.probe.available            | healthwatch                   |                         | CLI                 | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Performance Alert: Healthwatch UI Availability                             | health.check.ui.available                          | healthwatch                   |                         | Healthwatch         | LOWER          | 0.4          | 0.6        | Number  | 5                           |
 | Performance Alert: Healthwatch Nozzle Disconnects                          | ingestor.disconnects                               | healthwatch                   |                         | Healthwatch         | UPPER          | 10           | 5          | Number  | 5                           |
@@ -344,18 +348,15 @@ However, if your environment has been scaled up to five AZs you may wish to adju
 uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
 export token=$(uaac context | grep access_token | awk '{print $2}')
 
-curl "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-      --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3,\"type\":\"LOWER\"}}" \
-      -H "Authorization: Bearer ${token}" \
-      -H "Content-Type: application/json"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
+      -H "Content-Type: application/json" \
+      --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3,\"type\":\"LOWER\"}}"
 ```
 
-The response body contains the updated alert configuration. You can confirm the change with a `GET` request:
+The response body contains the updated alert configuration. You can then confirm the change:
 
 ```
-curl -G "healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
-    --data-urlencode "q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'" \
-    -H "Authorization: Bearer ${token}"
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
 ##<a id='event-alerts'></a>Configure PCF Healthwatch Alert Notifications
 
