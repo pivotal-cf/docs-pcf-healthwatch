@@ -3,7 +3,7 @@ title: Configuring PCF Healthwatch Alerts
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations.
+This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
 
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
@@ -33,7 +33,7 @@ curl healthwatch-api.SYSTEM-DOMAIN/info
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-##<a id='get'></a>View all alert configurations
+##<a id='get'></a>View All Alert Configurations
 ### `GET /v1/alert-configurations`
 
 To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
@@ -74,7 +74,7 @@ This returns a JSON array of alert configurations:
 
 The `query` and `threshold` properties are covered in detail below.
 
-##<a id='get_with_query'></a>View specific alert configurations
+##<a id='get_with_query'></a>View Specific Alert Configurations
 ### `GET /v1/alert-configurations?q=...`
 
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
@@ -98,7 +98,7 @@ This returns a JSON array of alert configurations, filtered against the provided
 ]
 ```
 
-##<a id='post'></a>Updating alert configurations
+##<a id='post'></a>Update Alert Configurations
 ### `POST /v1/alert-configurations`
 
 To update an existing alert configuration, make a `POST` request to the `alert-configurations` endpoint with the updated data:
@@ -125,7 +125,7 @@ See the following example output:
 
 <p class="note warning"><strong>WARNING</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>
 
-##<a id='post2'></a>Creating alert configurations for isolation segments
+##<a id='post2'></a>Create Alert Configurations Cor Isolation Segments
 ### `POST /v1/alert-configurations`
 
 Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
@@ -150,10 +150,13 @@ The created alert configuration is echoed back in the following response:
 ```
 <p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them with the above method.</p>
 
-##<a id='delete'></a>Deleting alert configurations
-### `DELETE /v1/alert-configurations?q=...`
+##<a id='delete'></a>Delete Alert Configurations
 
-To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. See the following example:
+To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. 
+
+`DELETE /v1/alert-configurations?q=...`
+
+See the following example:
 
 ```
 uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
@@ -355,3 +358,8 @@ The response body contains the updated alert configuration. You can then confirm
 ```
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
+##<a id='event-alerts'></a>Configure PCF Healthwatch Alert Notifications
+
+You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
+
+For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
