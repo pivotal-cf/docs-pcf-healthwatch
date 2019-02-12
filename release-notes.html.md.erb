@@ -7,17 +7,26 @@ owner: PCF Healthwatch
 
 **Release Date: Month x, 2019**
 
-### <a id='notes'></a> New Features in 1.5 
+### <a id='notes'></a> New Features in v1.5 
 
 
 ### <a id='issues'></a> Known Issues
 
-* In PAS 2.4, certain system metrics are emitted with a deployment tag of `cf-GUID` (to better match the BOSH deployment) instead of `cf` (legacy behavior). In the `Advanced Features` section of the PAS tile configuration, 
-there is a `Use “cf” as deployment name in emitted metrics instead of unique name` checkbox that controls this behavior. When upgrading from PAS 2.3, this checkbox is enabled by default to maintain the legacy behavior. In "fresh" 
-installs, the newer behavior is the default. More information is available in the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
-  * **Healthwatch can handle either configuration; however, when changing the value of this checkbox, the Healthwatch "Push Monitoring Components" errand (`push-apps`) must be run in order for Healthwatch to detect the change.**
-  * For 24 hours after the configuration change, any data from metrics emitted with the previous `deployment` tag will be treated as an Isolation Segment and any data from metrics emitted with the new `deployment` tag will be treated as the default CF deployment.
-    * During this window, use the Isolation Segment dropdown on the `Capacity` and `Routing` detail pages to view the data before the configuration change (selecting between `cf` and `cf-GUID` accordingly).
+#### 
+
+PAS v2.4 introduces the the ability to uniquely identify metrics by tile. It uses `cf-GUID` as the value for `deployment`, which matches the BOSH deployment name. In PAS v2.3 and earlier, metrics have a `deployment` value of `cf`. The **Advanced Features** pane of the PAS tile includes a field to override this new feature and revert to previous behavior: **Use “cf” as deployment name in emitted metrics instead of unique name**.
+
+If you change the value of the **Use “cf” as deployment name in emitted metrics instead of unique name** checkbox in PAS v2.4 tile, you must run the Healthwatch **Push Monitoring Components** errand. Healthwatch does not detect the change in PAS configuration unless you run this errand. 
+
+For 24 hours after the configuration change, Healthwatch handles metric data in the following ways:
+
+* Data emitted with the previous `cf` tag is treated as an Isolation Segment. 
+* Data emitted with the new `cf-GUID` tag is treated as the default CF deployment.
+
+During this window, use the Isolation Segment dropdown on the **Capacity** and **Routing** detail pages to view the data from before the configuration change. You can toggle between `cf` and `cf-GUID`.
+
+
+For more information, see the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
 
 
 ### <a id='breaking-automation'></a> Breaking Changes for Automated Pipelines
