@@ -1,17 +1,16 @@
 ---
-title: Release Notes for PCF Healthwatch
+title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
 ##<a id='v1.5.0'></a>v1.5.0
+
 **Release Date: Month x, 2019**
 
-### Release Notes
-*
+### <a id='notes'></a> New Features in 1.5 
 
-### Known Issues
 
-PCF Healthwatch v1.5.0:
+### <a id='issues'></a> Known Issues
 
 * In PAS 2.4, certain system metrics are emitted with a deployment tag of `cf-GUID` (to better match the BOSH deployment) instead of `cf` (legacy behavior). In the `Advanced Features` section of the PAS tile configuration, 
 there is a `Use “cf” as deployment name in emitted metrics instead of unique name` checkbox that controls this behavior. When upgrading from PAS 2.3, this checkbox is enabled by default to maintain the legacy behavior. In "fresh" 
@@ -20,9 +19,5 @@ installs, the newer behavior is the default. More information is available in th
   * For 24 hours after the configuration change, any data from metrics emitted with the previous `deployment` tag will be treated as an Isolation Segment and any data from metrics emitted with the new `deployment` tag will be treated as the default CF deployment.
     * During this window, use the Isolation Segment dropdown on the `Capacity` and `Routing` detail pages to view the data before the configuration change (selecting between `cf` and `cf-GUID` accordingly).
 
-##<a id='whatsnew'></a>What's New in PCF Healthwatch v1.3
 
-The section below summarizes key differences between PCF Healthwatch v1.4 and v1.5. For more information about new features in v1.5, see [v1.5.0 release notes](release-notes.html#v1.5.0).
-
-### Key Differences
-*
+### <a id='breaking-automation'></a> Breaking Changes for Automated Pipelines
