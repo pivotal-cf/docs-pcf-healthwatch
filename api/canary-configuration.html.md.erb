@@ -19,7 +19,7 @@ The steps in this document require that you generate bearer tokens for a UAA cli
 To check the availability of the Healthwatch API, run the following command:
 
 ```
-$ curl -G healthwatch-api.SYSTEM-DOMAIN/info
+$ curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
 A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
@@ -31,8 +31,7 @@ A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 To view the currently configured canary URL, run the following command:
 
 ```
-$ curl -G healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf \
-     -H "Authorization: Bearer MY_TOKEN"
+$ uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf
 ```
 
 <p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes.</p>
@@ -53,10 +52,9 @@ This returns a JSON object in the following format:
 To update the canary URL for a deployment, run the following command. Ensure that your URL includes a protocol, such as `https`. 
 
 ```
-$ curl -X POST "healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf"  \
-      --data "{\"url\":\"https://SOME-VALID-URL.com\"}" \
-      -H "Authorization: Bearer MY_TOKEN" \
-      -H "Content-Type: application/json"
+$ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf" \
+      -H "Content-Type: application/json" \
+      --data "{\"url\":\"https://SOME-VALID-URL.com\"}"
 ```
 ### <a id='responses'></a>Understand the Response
 
