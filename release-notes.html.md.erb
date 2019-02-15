@@ -13,21 +13,19 @@ owner: PCF Healthwatch
 
 ### <a id='issues'></a> Known Issues
 
-#### Active Locks Alert Threshold Changes when PAS Feature Disabled
+#### Active Locks Alert Threshold Changes When PAS Feature Disabled
 
-PAS v2.4 has an optional configuration, **Disable Zero Downtime App Deployments**,
-that changes the alert threshold of the [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks) from `5` to `4`.
+**Disable Zero Downtime App Deployments** is an optional configuration in PAS v2.4 that changes the recommended alert threshold of the Active Locks KPI from `5` to `4`. For more information about the Active Locks KPI, see [Active Locks](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
 
-If the zero-downtime feature is disabled, use the [PCF Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `4`. You can send the following JSON payload to the PCF Healthwatch API to update active locks:
+This configuration is in the **Advanced Features** pane of the PAS tile. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
+
+If you select **Disable Zero Downtime App Deployments** in the PAS tile, use the PCF Healthwatch API to update the alert threshold for active locks to a value of `4`. To do this, send the following API call:
     
 ```
 "{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"
 ```
 
-You can check the configuration of **Disable Zero Downtime App Deployments** in the **Advanced Features** pane of the PAS tile.
-The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
-
-
+For more information, see [Update Alert Configurations](./api/alerts.html#post). 
 
 #### Action Required when Changing Metrics Deployment Name in PAS Tile
 
