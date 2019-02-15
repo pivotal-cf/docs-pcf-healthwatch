@@ -35,7 +35,7 @@ $ curl -G healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf \
      -H "Authorization: Bearer MY_TOKEN"
 ```
 
-<p class="note"><strong>Note</strong>: <code>cf</code> is currently the only supported deployment name as the canary is for the PAS deployment.</p>
+<p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes.</p>
 
 This returns a JSON object in the following format:
 
