@@ -13,13 +13,13 @@ owner: PCF Healthwatch
 * **[Bug Fix]** The cf-health-check component has reduced memory consumption and improved stability.
 
 ####<a id='v1.3.4-issues'></a>Known Issues
-* There is a fixed limit on alerts. In a busy or long running foundation it is possible to hit the cap on alerts.
-    The following error message will manifest if this is happening: 
+* Healthwatch has a fixed limit on alerts. Foundations that are busy or long-running may reach the limit on alerts.
+    This results in the following error message: 
     
     ```
     INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
     ```
-    * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
+    To resolve this issue, upgrade to Healthwatch v1.4.5 or later. 
 
 ###<a id='v1.3.3'></a>v1.3.3
 
