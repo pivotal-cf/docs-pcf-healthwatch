@@ -5,6 +5,22 @@ owner: PCF Healthwatch
 
 ##<a id='releases'></a>Releases
 
+###<a id='v1.3.4'></a>v1.3.4
+
+**Release Date: February 19, 2019**
+
+* **[Feature]** Healthwatch specifies the correct buildpack for the CF smoke test to reduce download times and avoid timeouts during installation. 
+* **[Bug Fix]** The cf-health-check component has reduced memory consumption and improved stability.
+
+####<a id='v1.3.4-issues'></a>Known Issues
+* There is a fixed limit on alerts. In a busy or long running foundation it is possible to hit the cap on alerts.
+    The following error message will manifest if this is happening: 
+    
+    ```
+    INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
+    ```
+    * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
+
 ###<a id='v1.3.3'></a>v1.3.3
 
 **Release Date: November 30, 2018**
@@ -49,6 +65,13 @@ owner: PCF Healthwatch
     * Percentage of Max Connections Used
 * Graphs occasionally fail to load data on newly-opened component detail pages.
     * Refreshing the page resolves this issue.
+* There is a fixed limit on alerts. In a busy or long running foundation it is possible to hit the cap on alerts.
+    The following error message will manifest if this is happening: 
+    
+    ```
+    INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
+    ```
+    * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
 
 ###<a id='v1.3.1'></a>v1.3.1
 
@@ -125,6 +148,13 @@ owner: PCF Healthwatch
     * Percentage of Max Connections Used
 * Graphs occasionally fail to load data on newly-opened component detail pages.
     * Refreshing the page resolves this issue.
+* There is a fixed limit on alerts. In a busy or long running foundation it is possible to hit the cap on alerts.
+    The following error message will manifest if this is happening: 
+    
+    ```
+    INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
+    ```
+    * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
 
 ###<a id='v1.3.0'></a>v1.3.0
 
@@ -148,6 +178,14 @@ owner: PCF Healthwatch
     * Percentage of Max Connections Used
 * Graphs occasionally fail to load data on newly-opened component detail pages.
     * Refreshing the page resolves this issue.
+* There is a fixed limit on alerts. In a busy or long running foundation it is possible to hit the cap on alerts.
+    The following error message will manifest if this is happening: 
+    
+    ```
+    INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
+    ```
+    * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
+
 
 ##<a id='new'></a>New Features in v1.3
 
