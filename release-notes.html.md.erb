@@ -3,13 +3,19 @@ title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.5.0'></a>v1.5.0
+## <a id='v1.5.0'></a>v1.5.0
 
 **Release Date: Month x, 2019**
 
-### <a id='notes'></a> New Features in v1.5 
+* **[Feature]** Operators may now view a new chart on the logging page of Healthwatch with the `doppler_proxy.slow_consumer` metric. Read more about [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+
+### <a id='notes'></a>New Features in v1.5
 
 * Updated default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
+
+* Maintenance update of the following dependencies:
+    * Loggregator Agent now using v3.0
+    * Bosh CLI now using v5.4.0
 
 ### <a id='issues'></a> Known Issues
 
