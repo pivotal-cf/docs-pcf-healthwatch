@@ -13,7 +13,9 @@ owner: PCF Healthwatch
 * **[Feature]** When you navigate to a detail page from an alerting spotlight on the Healthwatch dashboard, it displays the minimum timescale that shows all relevant alerts.
 * **[Feature]** Healthwatch proactively raised the cap on the number of alerts a foundation can have. This prevents large, active foundations that create many alerts from reaching capacity.
 * **[Bug Fix]** The CLI Command Health graphs consistently show data for all customers. Previously, a memory consumption issue in the cf-health-check app led to instability and inconsistent data reporting. 
-* **[Bug Fix]** Graph line colors match legend colors. Previously there was a bug where all graph lines were the same color. 
+* **[Bug Fix]** Graph line colors match legend colors. Previously there was a bug where all graph lines were the same color.
+* **[Bug Fix]** Healthwatch now correctly dispatches alerts based on `AvailableFreeChunksDisk`.
+* **[Bug Fix]** The isolation segments detail pages now correctly shows the appropriate number of available segments.
 
 ###<a id='v1.4.4'></a>v1.4.4
 
