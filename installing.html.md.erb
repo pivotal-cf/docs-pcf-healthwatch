@@ -71,11 +71,13 @@ To configure the PCF Healthwatch tile, perform the following steps:
 	1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
 		<p class="note"><strong>Note</strong>: On Azure environments, this dropdown is null because Azure does not support AZs.</p>
 
-	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**. The VM resources should include at least:
-	  - 1 CPU
+	1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The VM resources should include at least:
+      - 1 CPU
+      - 1 GB RAM
       - 8 GB Disk
-      - 1 GB RAM  
+
 	If you have add-ons installed, you may need to increase the RAM of the BOSH Health Check VM type. For an example of add-on memory requirements, see the [Prerequisites](https://docs.pivotal.io/addon-antivirus/1-4/install.html#prereqs) section of the ClamAV add-on documentation.
+
 	1. Optionally, you can also enable the BOSH Deployment Checker.  This adds context to the PCF Healthwatch UI graphs of when BOSH deployments have occurred.
 	     1. Select **Enable** in the `Bosh Deployment Checker` section.
 	     1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
