@@ -7,15 +7,17 @@ owner: PCF Healthwatch
 
 **Release Date: Month x, 2019**
 
-* **[Feature]** Operators may now view a new chart on the logging page of Healthwatch with the `doppler_proxy.slow_consumer` metric. Read more about [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+### <a id='features'>Features
+   
+New features and changes in this release:
 
-### <a id='notes'></a>New Features in v1.5
-
-* Updated default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
-
-* Maintenance update of the following dependencies:
-    * Loggregator Agent now using v3.0
-    * Bosh CLI now using v5.4.0
+* Adds Slow Consumers chart on the Logging Performance page that shows the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+* Delete alert configurations with HAPI. For more information, see [Delete Alert Configurations](/api/alerts.html#delete).
+* Displays banner on the Healthwatch dashboard when Redis queue size reaches a Critical state and Healthwatch may not be able to evaluate the health of the foundation. 
+* Improves log output when bosh-health-check deployment creation and deletion fails.
+* Updates default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
+* Updates Loggregator Agent to v3.0.
+* Updates Bosh CLI to v5.4.0.
 
 ### <a id='issues'></a> Known Issues
 
