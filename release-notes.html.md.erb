@@ -5,16 +5,16 @@ owner: PCF Healthwatch
 
 ## <a id='v1.5.0'></a>v1.5.0
 
-**Release Date: Month x, 2019**
+**Release Date: March 5, 2019**
 
-### <a id='features'>Features
+### <a id="features"></a>Features
    
 New features and changes in this release:
 
-* Adds Slow Consumers chart on the Logging Performance page that shows the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
-* Delete alert configurations with HAPI. For more information, see [Delete Alert Configurations](/api/alerts.html#delete).
-* Displays banner on the Healthwatch dashboard when Redis queue size reaches a Critical state and Healthwatch may not be able to evaluate the health of the foundation. 
-* Improves log output when bosh-health-check deployment creation and deletion fails.
+* Adds Slow Consumers chart on the Logging Performance page that graphs the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+* Delete alert configurations with HAPI. For more information, see [Configuring PCF Healthwatch Alerts](./api/alerts.html).
+* Displays banner on Healthwatch dashboard when Redis queue size reaches a Critical state and Healthwatch may not be able to evaluate the health of the foundation. 
+* Improves log output when `bosh-health-check` deployment creation or deletion fails.
 * Updates default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
 * Updates Loggregator Agent to v3.0.
 * Updates Bosh CLI to v5.4.0.
@@ -37,9 +37,9 @@ For more information, see [Update Alert Configurations](./api/alerts.html#post).
 
 #### Action Required when Changing Metrics Deployment Name in PAS Tile
 
-PAS v2.4 introduces the the ability to uniquely identify metrics by tile. It uses `cf-GUID` as the value for `deployment`, which matches the BOSH deployment name. In PAS v2.3 and earlier, metrics have a `deployment` value of `cf`. The **Advanced Features** pane of the PAS tile includes a field to override this new feature and revert to previous behavior: **Use “cf” as deployment name in emitted metrics instead of unique name**.
+PAS v2.4 introduces the ability to uniquely identify metrics by tile. It uses `cf-GUID` as the value for `deployment`, which matches the BOSH deployment name. In PAS v2.3 and earlier, metrics have a `deployment` value of `cf`. The **Advanced Features** pane of the PAS tile includes a **Use “cf” as deployment name in emitted metrics instead of unique name** checkbox to override this new feature and revert to previous behavior.
 
-If you change the value of the **Use “cf” as deployment name in emitted metrics instead of unique name** checkbox in PAS v2.4 tile, you must run the Healthwatch **Push Monitoring Components** errand. Healthwatch does not detect the change in PAS configuration unless you run this errand. 
+If you change the value of the **Use “cf” as deployment name in emitted metrics instead of unique name** checkbox in the PAS v2.4 tile, you must run the Healthwatch **Push Monitoring Components** errand. Healthwatch does not detect the change in PAS configuration unless you run this errand. 
 
 For 24 hours after the configuration change, Healthwatch handles metric data in the following ways:
 
@@ -47,6 +47,5 @@ For 24 hours after the configuration change, Healthwatch handles metric data in 
 * Data emitted with the new `cf-GUID` tag is treated as the default CF deployment.
 
 During this window, use the Isolation Segment dropdown on the **Capacity** and **Routing** detail pages to view the data from before the configuration change. You can toggle between `cf` and `cf-GUID`.
-
 
 For more information, see the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
