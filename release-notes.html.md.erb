@@ -3,16 +3,24 @@ title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
-##<a id='v1.5.0'></a>v1.5.0
+## <a id='v1.5.0'></a>v1.5.0
 
 **Release Date: Month x, 2019**
 
-### <a id='notes'></a> New Features in v1.5 
+### <a id='features'>Features
+   
+New features and changes in this release:
 
-* Updated default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
+* Adds Slow Consumers chart on the Logging Performance page that shows the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+* Delete alert configurations with HAPI. For more information, see [Delete Alert Configurations](/api/alerts.html#delete).
+* Displays banner on the Healthwatch dashboard when Redis queue size reaches a Critical state and Healthwatch may not be able to evaluate the health of the foundation. 
+* Improves log output when bosh-health-check deployment creation and deletion fails.
+* Updates default threshold of `locket.ActiveLocks` alert configuration from 4 to 5.
+* Updates Loggregator Agent to v3.0.
+* Updates Bosh CLI to v5.4.0.
 
 ### <a id='issues'></a> Known Issues
-
+   
 #### Active Locks Alert Threshold Changes When PAS Feature Disabled
 
 **Disable Zero Downtime App Deployments** is an optional configuration in PAS v2.4 that changes the recommended alert threshold of the Active Locks KPI from `5` to `4`. For more information about the Active Locks KPI, see [Active Locks](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
@@ -42,6 +50,3 @@ During this window, use the Isolation Segment dropdown on the **Capacity** and *
 
 
 For more information, see the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
-
-
-### <a id='breaking-automation'></a> Breaking Changes for Automated Pipelines
