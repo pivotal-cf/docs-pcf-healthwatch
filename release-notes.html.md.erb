@@ -196,7 +196,7 @@ The section below summarizes key differences between PCF Healthwatch v1.2 and v1
 * **Syslog Drain Available for the product’s VM BOSH logs**
     * [Forwarding](installing.html#configure-syslog-forwarding) these system logs to a remote destination allows for: viewing logs from every VM in the PCF Healthwatch deployment in one place; troubleshooting errors when logs are lost on the source VM. 
     * Does not currently support TLS. 
-* **[Feature]** New data loss alerts are available. It is highly recommended to [subscribe](http://docs.pivotal.io/event-alerts/1-2/installing.html) to these alerts as the loss of a platform data feed will impair the ability of Healthwatch to effectively monitor the foundation.
+* **[Feature]** New data loss alerts are available. It is highly recommended to [subscribe](installing.html) to these alerts as the loss of a platform data feed will impair the ability of Healthwatch to effectively monitor the foundation.
    * `Healthwatch is not receiving needed monitoring metrics from PCF` results from a loss of firehose data for an extended period of time
    * `Healthwatch is not receiving needed health metrics from BOSH` results from a loss of bosh health monitor data in the firehose for an extended period of time
 * **UI Updates:**
