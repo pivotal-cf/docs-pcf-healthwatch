@@ -88,14 +88,16 @@ For information about scaling these PCF Healthwatch resources, see [PCF Healthwa
 
 ## <a id='cf-cli-tests'></a>CF CLI Test Run Requirements
 
-The tests will attempt to execute the rest of the suite if possible. (For example, a “push” failure will stop the whole suite, but failure to receive logs should not stop the “stop” or “delete” tests.)
+The tests attempt to execute the rest of the suite. For example, a `push` failure stops the whole suite, but failure to receive logs should not stop the `stop` or `delete` tests.
 
-Tests Dependent on Login - Push, Start, Logs, Stop, Delete
-Tests Dependent on Push - Start, Logs, Stop, Delete
-Tests Dependent on Start - Logs, Stop
-Tests Dependent on Logs - None
-Tests Dependent on Stop - None
-Tests Dependent on Delete - None
+| **CLI Command** | **Dependent Tests**               |
+|-----------------|-----------------------------------|
+| Login           |  Push, Start, Logs, Stop, Delete  |
+| Push            |  Start, Logs, Stop, Delete        |
+| Start           |  Logs, Stop                       |
+| Logs.           |  None                             |
+| Stop            |  None                             |
+| Delete          |  None                             |
 
 ## <a id='networking-rules'></a>Required Networking Rules for PCF Healthwatch
 
