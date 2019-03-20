@@ -106,7 +106,7 @@ See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/query
 This queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
 
 ```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
+curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --get --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -144,7 +144,7 @@ The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean the
 This queries the latest value stored in Log Cache for the `cf push` Health Check:
 
 ```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
+curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --get --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
@@ -176,7 +176,7 @@ This result could be used by automation tools waiting for `cf push` to become av
 The Log Cache API can also execute the same query multiple times over a range:
 
 ```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
+curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --get --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
 
 {
   "status": "success",
