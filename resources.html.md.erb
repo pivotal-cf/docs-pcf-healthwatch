@@ -170,4 +170,8 @@ If you want to scale the functional apps created by PCF Healthwatch, see the fol
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
 * Ops Manager uptime check (the `opsmanager-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
-* PCF Healthwatch self-monitor and [reporting](monitoring.html) (the `healthwatch-meta-monitor` app). This application should not need to be scaled. 
+* PCF Healthwatch self-monitor and reporting (the `healthwatch-meta-monitor` app). This application should not need to be scaled. For more information, see [Monitoring PCF Healthwatch](https://docs.pivotal.io/pcf-healthwatch/1-4/monitoring.html).
+* Redis worker (the `healthwatch-worker` app).
+  By default, this is scaled to 4. To install the Healthwatch tile, see the [Configure the PCF Healthwatch Tile](installing.html#healthwatch-tile) section of the _Installing and Configuring PCF Healthwatch_ topic.
+* Ingestor (the `healthwatch-ingestor` app).
+  By default, this is scaled to 2. To install the Healthwatch tile, see the [Configure the PCF Healthwatch Tile](installing.html#healthwatch-tile) section of the _Installing and Configuring PCF Healthwatch_ topic.
