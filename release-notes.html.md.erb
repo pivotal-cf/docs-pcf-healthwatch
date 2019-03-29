@@ -52,6 +52,10 @@ During this window, use the Isolation Segment dropdown on the **Capacity** and *
 
 For more information, see the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
 
-#### Using vSAN with Healthwatch Leads to Disk Slowly Filling Up
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
-Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. On vSphere versions less than `v6.5 update 2` (which is in lock with vSAN version), it leaves behind a namespace/folder and some subfolders when the VM is deleted, causing the vSAN object count to increase. This is a [known issue of vSAN](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165). To address the issue, you can update the vSphere version to `v6.5 update 2` and above. If updating vSphere is not immediately an option, stopping the `bosh-health-check` will slow down the increase in vSAN object count.
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
