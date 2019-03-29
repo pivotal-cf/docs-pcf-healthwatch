@@ -3,15 +3,18 @@ title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
-## <a id='v1.5.0'></a>v1.5.0
+## <a id='v1.5.2'></a>v1.5.2
 
-**Release Date: March 5, 2019**
+**Release Date: March 29, 2019**
 
 ### Features
    
 New features and changes in this release:
 
-* Adds Slow Consumers chart on the Logging Performance page that graphs the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/2-4/monitoring/key-cap-scaling.html#slow-consumer).
+* Adds Slow Consumers chart on the Logging Performance page that graphs the `doppler_proxy.slow_consumer` metric. For more information about the Slow Consumer Drops KPI, see [Slow Consumer Drops](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#slow-consumer).
+* Replaces Reverse Log Proxy Loss Rate chart on the Logging Performance page with a Reverse Log Proxy Egress Dropped Messages chart that graphs the `rlp.dropped, direction: egress` metric. For more information about the Reverse Log Proxy Egress Dropped Messages KPI, see [Reverse Log Proxy Egress Dropped Messages](https://docs.pivotal.io/pivotalcf/2-5/monitoring/key-cap-scaling.html#rlp-egress-dropped).
+* Adds Log Cache Cache Duration chart on the Logging Performance page that graphs the `log_cache.cache_period` metric. For more information about the Log Cache Cache Duration KPI, see [Key Capacity Scaling Indicators](https://docs.pivotal.io/pivotalcf/2-5/monitoring/key-cap-scaling.html).
+* Updates Syslog Drain Binding Capacity chart on the Logging Performance page to calculate using the `cf-syslog-drain.adapter.drain_bindings` metric instead of the `cf-syslog-drain.scheduler.drains` metric. For more information about the CF Syslog Drain Bindings Count KSI, see [CF Syslog Drain Bindings Count](http://docs.pivotal.io/pivotalcf/2-5/monitoring/key-cap-scaling.html#scalable-syslog-ksi).
 * Delete alert configurations with HAPI. For more information, see [Configuring PCF Healthwatch Alerts](./api/alerts.html).
 * Displays banner on Healthwatch dashboard when Redis queue size reaches a Critical state and Healthwatch may not be able to evaluate the health of the foundation. 
 * Improves log output when `bosh-health-check` deployment creation or deletion fails.
@@ -25,7 +28,7 @@ This release has the following known issues.
    
 #### Active Locks Alert Threshold Changes When PAS Feature Disabled
 
-**Disable Zero Downtime App Deployments** is an optional configuration in PAS v2.4 that changes the recommended alert threshold of the Active Locks KPI from `5` to `4`. For more information about the Active Locks KPI, see [Active Locks](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
+**Disable Zero Downtime App Deployments** is an optional configuration in PAS v2.4 that changes the recommended alert threshold of the Active Locks KPI from `5` to `4`. For more information about the Active Locks KPI, see [Active Locks](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#ActiveLocks).
 
 This configuration is in the **Advanced Features** pane of the PAS tile. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
 
