@@ -51,3 +51,11 @@ For 24 hours after the configuration change, Healthwatch handles metric data in 
 During this window, use the Isolation Segment dropdown on the **Capacity** and **Routing** detail pages to view the data from before the configuration change. You can toggle between `cf` and `cf-GUID`.
 
 For more information, see the [PAS 2.4 release notes](https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix).
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
