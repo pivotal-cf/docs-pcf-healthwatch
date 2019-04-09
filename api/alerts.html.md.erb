@@ -127,6 +127,14 @@ The updated alert configuration is echoed back in the response:
 }
 ```
 
+## <a id='disable'></a> Disable Alerts on a Metric
+
+PCF Healthwatch does not support disabling alerts on a specific metric. To ensure that PCF Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
+
+For more information about thresholds, see [Thresholds](#thresholds).
+
+For more information about updating alert configurations, see [Update Alert Configurations](#post).
+
 ##<a id='queries'></a>Queries
 
 The `query` field is used in two ways:
