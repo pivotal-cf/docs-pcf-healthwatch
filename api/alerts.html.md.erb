@@ -123,9 +123,9 @@ See the following example output:
 }
 ```
 
-<p class="note warning"><strong>WARNING</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>
+<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>  
 
-##<a id='post2'></a>Create Alert Configurations Cor Isolation Segments
+##<a id='post2'></a>Create Alert Configurations for Isolation Segments
 ### `POST /v1/alert-configurations`
 
 Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
@@ -150,7 +150,7 @@ The created alert configuration is echoed back in the following response:
 ```
 <p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them with the above method.</p>
 
-##<a id='delete'></a>Delete Alert Configurations
+##<a id='delete'></a>Delete Isolation Segment Alert Configurations
 
 To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. 
 
@@ -169,6 +169,14 @@ This returns the number of deleted alert configurations. See the following examp
 ```
 
 <p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them through the Healthwatch API.</p>
+
+## <a id='disable'></a> Disable Alerts on a Metric
+
+PCF Healthwatch does not support disabling alerts on a specific metric. To ensure that PCF Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
+
+For more information about thresholds, see [Thresholds](#thresholds).
+
+For more information about updating alert configurations, see [Update Alert Configurations](#post).
 
 ##<a id='queries'></a>Queries
 
