@@ -23,6 +23,8 @@ owner: PCF Healthwatch
 
 * Using vSAN with Healthwatch Leads to Disk Slowly Filling Up
   Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. On vSphere versions less than `v6.5 update 2` (which is in lock with vSAN version), it leaves behind a namespace/folder and some subfolders when the VM is deleted, causing the vSAN object count to increase. This is a [known issue of vSAN](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165). To address the issue, you can update the vSphere version to `v6.5 update 2` and above. If updating vSphere is not immediately an option, stopping the `bosh-health-check` will slow down the increase in vSAN object count.
+  
+* Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 ###<a id='v1.3.3'></a>v1.3.3
 
@@ -77,6 +79,8 @@ owner: PCF Healthwatch
     * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
 * Using vSAN with Healthwatch Leads to Disk Slowly Filling Up
   Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. On vSphere versions less than `v6.5 update 2` (which is in lock with vSAN version), it leaves behind a namespace/folder and some subfolders when the VM is deleted, causing the vSAN object count to increase. This is a [known issue of vSAN](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165). To address the issue, you can update the vSphere version to `v6.5 update 2` and above. If updating vSphere is not immediately an option, stopping the `bosh-health-check` will slow down the increase in vSAN object count.
+  
+* Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 ###<a id='v1.3.1'></a>v1.3.1
 
@@ -162,6 +166,8 @@ owner: PCF Healthwatch
     * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
 * Using vSAN with Healthwatch Leads to Disk Slowly Filling Up
   Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. On vSphere versions less than `v6.5 update 2` (which is in lock with vSAN version), it leaves behind a namespace/folder and some subfolders when the VM is deleted, causing the vSAN object count to increase. This is a [known issue of vSAN](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165). To address the issue, you can update the vSphere version to `v6.5 update 2` and above. If updating vSphere is not immediately an option, stopping the `bosh-health-check` will slow down the increase in vSAN object count.
+  
+* Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 ###<a id='v1.3.0'></a>v1.3.0
 
@@ -194,6 +200,8 @@ owner: PCF Healthwatch
     * An upgrade to Healthwatch v1.4.5 or later will fix this issue. 
 * Using vSAN with Healthwatch Leads to Disk Slowly Filling Up
   Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. On vSphere versions less than `v6.5 update 2` (which is in lock with vSAN version), it leaves behind a namespace/folder and some subfolders when the VM is deleted, causing the vSAN object count to increase. This is a [known issue of vSAN](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165). To address the issue, you can update the vSphere version to `v6.5 update 2` and above. If updating vSphere is not immediately an option, stopping the `bosh-health-check` will slow down the increase in vSAN object count.
+  
+* Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 ##<a id='new'></a>New Features in v1.3
 
