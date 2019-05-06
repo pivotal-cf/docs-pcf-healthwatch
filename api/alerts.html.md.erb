@@ -217,7 +217,11 @@ The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to th
 
 ##<a id='defaults'></a>Supported Alerts
 
-Healthwatch ships with the following configurable alerts:
+This section describes the default Warning and Critical alerts for PCF Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch. 
+
+Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following table based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).
+
+By default, PCF Healthwatch includes the following configurable alerts:
 
 | Description                                                                | Metric Name                                        | Metric Origin                 | Job                     | Category            | Threshold Type | Critical     | Warning    | Unit    | Assessment Window (minutes) |
 |----------------------------------------------------------------------------|----------------------------------------------------|-------------------------------|-------------------------|---------------------|----------------|--------------|------------|---------|-----------------------------|
@@ -301,7 +305,7 @@ Healthwatch ships with the following configurable alerts:
 
 You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
 
-<sup>1</sup> While these metrics are highly important to watch, the relative numbers to set threshold warnings at are specific to a given PCF environment and its use cases. These dynamic thresholds should be occasionally revisited because the PCF foundation and its usage continue to evolve. See [Determine Warning and Critical Thresholds](https://docs.pivotal.io/pivotalcf/2-1/monitoring/metrics.html#thresholds) for more information.<br/>
+<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).<br/>
 <sup>2</sup> We are alerting by cell for this metric. We will notify at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
 <sup>3</sup> This handles two jobs to accommodate different job names between PAS and SRT*
 
