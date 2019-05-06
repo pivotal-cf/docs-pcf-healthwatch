@@ -153,4 +153,12 @@ To allow other users read-only access to the Healthwatch UI, perform the followi
 
 The above procedure can be leveraged to add the `healthwatch.admin` scope as well.
 
-<p class="note"><strong>Note:</strong> Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. This scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
+<p class="note"><strong>Note</strong>: Only users that should be allowed to change settings in Healthwatch should be granted the healthwatch.admin scope. This scope allows a user to alter the default alerting threshold values for the entire product. In future versions of Healthwatch, this user scope may be allowed additional configuration capabilities. As such, this Admin scope should not be granted to any user you wish to remain read-only access.</p>
+
+##<a id='update-alert-thresholds'></a> (Optional) Update Default Alert Thresholds
+
+PCF Healthwatch includes several configurable alerts by deafult. Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health.
+
+For more information about the default alerts included with PCF Healthwatch, see [Supported Alerts](./api/alerts.html#defaults).
+
+For more information about updating default alert configurations, see [Update Alert Configurations](./api/alerts.html#post).
