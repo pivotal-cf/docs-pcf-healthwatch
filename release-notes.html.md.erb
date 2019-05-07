@@ -70,3 +70,11 @@ To address the issue, you can update vSphere to v6.5 update 2 and later. If upda
 Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
+
+#### Tiles without BPM cannot be installed with Indicator Protocol Enabled
+
+When customers check the radio button to enable indicator protocol and attempt to redeploy a tile that does not include the BPM job on all of its VMs, the deployment will fail when updating runtime configs during the next apply changes.
+
+This is caused because the BPM release and job are not included in the runtime config used to enable Indicator Protocol.
+
+The only known workaround is not to enable Indicator Protocol.
