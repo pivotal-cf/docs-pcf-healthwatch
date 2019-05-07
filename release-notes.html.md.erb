@@ -71,10 +71,36 @@ Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emit
 
 If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
 
-#### Tiles without BPM cannot be installed with Indicator Protocol Enabled
+#### <a id='indicator'></a>Tiles without BPM cannot be installed with Indicator Protocol Enabled
 
-When customers check the radio button to enable indicator protocol and attempt to redeploy a tile that does not include the BPM job on all of its VMs, the deployment will fail when updating runtime configs during the next apply changes.
+When customers check the radio button to enable indicator protocol and attempt to redeploy a tile that does not include the BPM job on all of its VMs, the deployment will fail when updating runtime configs during the next apply changes. Here is an example of the error failing for mysql:
+```
+Task 5612 | 17:42:32 | Preparing package compilation: Finding packages to compile (00:00:00)
+Task 5612 | 17:42:32 | Updating instance dedicated-mysql-broker: dedicated-mysql-broker/7bd716ce-c007-4f3f-ae3b-dac4a7b5a321 (0) (canary) (00:05:33)
+                    L Error: 'dedicated-mysql-broker/7bd716ce-c007-4f3f-ae3b-dac4a7b5a321 (0)' is not running after update. Review logs for failed jobs: indicator-registration-agent
+Task 5612 | 17:48:05 | Error: 'dedicated-mysql-broker/7bd716ce-c007-4f3f-ae3b-dac4a7b5a321 (0)' is not running after update. Review logs for failed jobs: indicator-registration-agent
+
+Task 5612 Started  Mon May  6 17:42:24 UTC 2019
+Task 5612 Finished Mon May  6 17:48:05 UTC 2019
+Task 5612 Duration 00:05:41
+Task 5612 error
+
+
+Updating deployment:
+ Expected task '5612' to succeed but state is 'error'
+Exit code 1
+===== 2019-05-06 17:48:05 UTC Finished "/usr/local/bin/bosh --no-color --non-interactive --tty --environment=10.0.0.5 --deployment=pivotal-mysql-528905099ffd0ea3a034 deploy /var/tempest/workspaces/default/deployments/pivotal-mysql-528905099ffd0ea3a034.yml"; Duration: 342s; Exit Status: 1
+Exited with 1.
+```
+
+(It suggests reviewing the logs for indicator-registration-agent, but there are no logs in the `/var/vcap/sys/log/indicator-registration-agent` directory of the failing Bosh VM.)
+
+The radio button in question can be found here:
+
+<%= image_tag './images/healthwatch-opsman-config.png' %>
 
 This is caused because the BPM release and job are not included in the runtime config used to enable Indicator Protocol.
 
-The only known workaround is not to enable Indicator Protocol.
+The registration agent depends on BPM to schedule the scraping of the file system for indicator documents.
+
+The only known workaround is not to enable Indicator Protocol, or to disable it.
