@@ -104,3 +104,13 @@ This is caused because the BPM release and job are not included in the runtime c
 The registration agent depends on BPM to schedule the scraping of the file system for indicator documents.
 
 The only known workaround is not to enable Indicator Protocol, or to disable it.
+
+#### <a id='indicator1'></a> Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore
+
+Monitoring Indicator Protocol attempts to programmatically insert a certificate with an alias of '0' into its keystore on startup.
+
+If there is already a key with this alias present, Healthwatch fails to start.
+
+This occurs whether or not the radio button to activate Indicator Protocol is checked.
+
+The known workaround is to ensure that no such certificate exists in the trust store.
