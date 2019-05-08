@@ -70,3 +70,13 @@ To address the issue, you can update vSphere to v6.5 update 2 and later. If upda
 Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
 
 If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
+
+#### <a id='indicator1'></a> Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore
+
+Monitoring Indicator Protocol attempts to programmatically insert a certificate with an alias of '0' into its keystore on startup.
+
+If there is already a key with this alias present, Healthwatch fails to start.
+
+This occurs whether or not the radio button to activate Indicator Protocol is checked.
+
+The known workaround is to ensure that no such certificate exists in the trust store.
