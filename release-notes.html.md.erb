@@ -80,3 +80,11 @@ If there is already a key with this alias present, Healthwatch fails to start.
 This occurs whether or not the radio button to activate Indicator Protocol is checked.
 
 The known workaround is to ensure that no such certificate exists in the trust store.
+
+#### Indicator Protocol Beta Dashboard displays error due to Log Cache
+
+Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
+
+These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
+
+No corrective action is required and it will self-resolve if possible.
