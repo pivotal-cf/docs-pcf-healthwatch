@@ -34,7 +34,7 @@ This release has the following known issues.
 
 This configuration is in the **Advanced Features** pane of the PAS tile. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
 
-If you select **Disable Zero Downtime App Deployments** in the PAS tile, use the PCF Healthwatch API to update the alert threshold for active locks to a value of `4`. To do this, send the following API call:
+If you select **Disable Zero Downtime App Deployments** in the PAS tile **or** if you are using PCF Healthwatch 1.5 with **PAS 2.3**, use the PCF Healthwatch API to update the alert threshold for active locks to a value of `4`. To do this, send the following API call:
     
 ```
 "{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"
