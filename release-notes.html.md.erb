@@ -5,6 +5,23 @@ owner: PCF Healthwatch
 
 ##<a id='releases'></a>Releases
 
+###<a id='v1.4.6'></a>v1.4.6
+
+**Release Date: May CHANGEME, 2019**
+
+* **[Feature]** Improve troubleshooting of [BOSH Director Health SLI](./metrics.html#bosh-director) failures via logging in `bosh-health-check` app
+* **[Bug Fix]** Fixed alerting on Isolation Segments where the alert was incorrectly associated to the `cf` deployment
+* **[Bug Fix]** Fixed Healthwatch Upgrade 1.3 to 1.4 failure due to `Duplicate entry` in database.
+
+* Maintenance update of the following dependencies:
+    - CF CLI now v6.44.1
+    - Golang now v1.12.5
+    - Flyway Command-line and Library now v5.2.4
+    - Spring IO Platform now Brussels-SR17
+    - Redis now 3.2.13
+    - pxc-release now 0.15.0
+
+
 ###<a id='v1.4.5'></a>v1.4.5
 
 **Release Date: February 19, 2019**
