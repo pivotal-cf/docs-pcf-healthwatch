@@ -9,9 +9,9 @@ owner: PCF Healthwatch
 
 **Release Date: May CHANGEME, 2019**
 
-* **[Feature]** Improve troubleshooting of [BOSH Director Health SLI](./metrics.html#bosh-director) failures via logging in `bosh-health-check` app
-* **[Bug Fix]** Fixed alerting on Isolation Segments where the alert was incorrectly associated to the `cf` deployment
-* **[Bug Fix]** Fixed Healthwatch Upgrade 1.3 to 1.4 failure due to `Duplicate entry` in database.
+* **[Feature]** Improve troubleshooting of [BOSH Director Health SLI](./metrics.html#bosh-director) failures via logging in `bosh-health-check` app.
+* **[Bug Fix]** Fixes alerting on Isolation Segments where the alert was incorrectly associated to the `cf` deployment. This ensures that **PAS** and **ISO** stoplights display the correct alert status.
+* **[Bug Fix]** Fixes Healthwatch Upgrade 1.3 to 1.4 failure due to `Duplicate entry` in database.
 
 * Maintenance update of the following dependencies:
     - CF CLI now v6.44.1
