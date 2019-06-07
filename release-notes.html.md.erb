@@ -3,6 +3,41 @@ title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
+## <a id='v1.5.3'></a>v1.5.3
+
+**Release Date: June 10, 2019**
+
+### Features
+
+New features and changes in this release:
+
+* Increases logging around failed CF CLI tests in the `cf-health-check` app.
+* Internal MySQL database's binary log retention changed from 7 days to 2 days, reducing the amount of persistent storage used by the VM.
+* **[Bug Fix]** Fixes [Log Transport Loss Rate alert markers](./release-notes.html#alerts-wrong-charts) rendering on multiple charts.
+* **[Bug Fix]** Fixes [Healthwatch Has Missing or Incorrect Data](./release-notes.html#missing-data) by more robustly determining the deployment tag.
+* **[Bug Fix]** Diego Cell Capacity page graphs do not show false drops in capacity due to occasional late metric. Previously, if Diego emits a metric outside the standard one minute window, Diego Cell Capacity graphs show a false drop.
+* **[Bug Fix]** Fixes [Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore](./release-notes.html#indicator1).
+* **[Bug Fix]** Fixes regression where `opsman-health-check` doesn't work for self-signed Ops Manager certificate.
+* **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
+* **[Bug Fix]** Correctly account for half-hour timezones in the Healthwatch UI.
+
+* Maintenance update of the following dependencies:
+    - pxc-release now v0.15.0
+    - Golang now v1.12.5
+    - Indicator Protocol now v0.7.14
+    - Spring Boot now 2.1.5
+    - Flyway Command-line and Library now v5.2.4
+    - Redis now v3.2.13
+    - CF CLI now v6.44.1
+    - Libraries Updated:
+        - com.google.protobuf:protobuf-java now v3.7.1
+        - io.projectreactor.ipc:reactor-netty now v0.7.15.RELEASE
+        - react-markdown now v4.0.8
+
+### Known Issues
+
+This release has the following known issues.
+
 ## <a id='v1.5.2'></a>v1.5.2
 
 **Release Date: March 29, 2019**
@@ -26,7 +61,18 @@ New features and changes in this release:
 
 This release has the following known issues.
 
-#### Log Transport Loss Rate Alert Markers Render on the Wrong Charts
+#### <a id='missing-data'></a> Healthwatch Has Missing or Incorrect Data
+
+There are multiple symptoms of this error:
+
+* Graphs show missing data on multiple pages.
+* `Diego & Cloud Controller Synced Check` Graph is Red but `bbs.Domain.cf-apps` metric is 1 in Firehose.
+
+In either case, this is caused by the Healthwatch `push-apps` errand incorrectly determining the deployment tag that metrics are emitted with.
+
+This has been fixed in Healthwatch 1.5.3+.
+
+#### <a id='alerts-wrong-charts'></a> Log Transport Loss Rate Alert Markers Render on the Wrong Charts
 
 The Log Transport Loss Rate alert markers render on charts other than the Log Transport Loss Rate chart.
    
@@ -117,7 +163,6 @@ This occurs whether or not the radio button to activate Indicator Protocol is ch
 
 The known workaround is to ensure that no such certificate exists in the trust store.
 
-
 #### Indicator Protocol Beta Dashboard displays error due to Log Cache
 
 Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
@@ -125,4 +170,3 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
 No corrective action is required and it will self-resolve if possible.
-
