@@ -11,15 +11,15 @@ owner: PCF Healthwatch
 
 New features and changes in this release:
 
-* Increases logging around failed CF CLI tests in the `cf-health-check` app.
-* Internal MySQL database's binary log retention changed from 7 days to 2 days, reducing the amount of persistent storage used by the VM.
-* **[Bug Fix]** Fixes [Log Transport Loss Rate alert markers](./release-notes.html#alerts-wrong-charts) rendering on multiple charts.
-* **[Bug Fix]** Fixes [Healthwatch Has Missing or Incorrect Data](./release-notes.html#missing-data) by more robustly determining the deployment tag.
-* **[Bug Fix]** Diego Cell Capacity page graphs do not show false drops in capacity due to occasional late metric. Previously, if Diego emits a metric outside the standard one minute window, Diego Cell Capacity graphs show a false drop.
+* **[Feature Improvement]** Increases logging of failed Cloud Foundry Command Line Interface (cf CLI) tests in the `cf-health-check` app.
+* **[Feature Improvement]** Reduces binary log retention for internal MySQL database from 7 days to 2 days. This reduces the amount of persistent storage used by the VM.
+* **[Bug Fix]** Fixes rendering of Log Transport Loss Rate alert markers on multiple charts. For more information about this alert, see [Log Transport Loss Rate](./release-notes.html#alerts-wrong-charts).
+* **[Bug Fix]** Fixes [Healthwatch Has Missing or Incorrect Data](./release-notes.html#missing-data) by more accurately determining the deployment tag.
+* **[Bug Fix]** The **Diego Cell Capacity** graphs do not show false drops in capacity due to occasionally late metrics. Previously, if Diego emitted a metric outside the standard one-minute window, Diego Cell Capacity graphs showed a false drop in capacity.
 * **[Bug Fix]** Fixes [Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore](./release-notes.html#indicator1).
-* **[Bug Fix]** Fixes regression where `opsman-health-check` doesn't work for self-signed Ops Manager certificate.
+* **[Bug Fix]** Fixes regression where `opsman-health-check` does not work for self-signed Ops Manager certificates.
 * **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
-* **[Bug Fix]** Correctly account for half-hour timezones in the Healthwatch UI.
+* **[Bug Fix]** Correctly account for half-hour timezones in the PCF Healthwatch UI.
 
 * Maintenance update of the following dependencies:
     - pxc-release now v0.15.0
@@ -36,7 +36,7 @@ New features and changes in this release:
 
 ### Known Issues
 
-This release has the following known issues.
+This release has no known issues.
 
 ## <a id='v1.5.2'></a>v1.5.2
 
