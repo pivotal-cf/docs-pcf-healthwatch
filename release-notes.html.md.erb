@@ -13,6 +13,7 @@ New features and changes in this release:
 
 - PCF Healthwatch apps connect to the internal MySQL database using TLS.
 - Internal MySQL database's binary log retention changed from 7 days to 2 days, reducing the amount of persistent storage used by the VM.
+- **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection.
 
 ### Known Issues
 
