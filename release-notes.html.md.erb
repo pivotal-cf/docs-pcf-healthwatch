@@ -11,6 +11,7 @@ owner: PCF Healthwatch
 
 New features and changes in this release:
 
+<<<<<<< HEAD
 * Updates Healthwatch Charts with new features:
   * Drag a selection to zoom in.
   * Double click to zoom out.
@@ -28,6 +29,7 @@ New features and changes in this release:
 * **[Bug Fix]** Fixes regression where `opsman-health-check` doesn't work for self-signed Ops Manager certificate.
 * **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
 * **[Bug Fix]** Correctly account for half-hour timezones in the Healthwatch UI.
+* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection.
 
 * Maintenance update of the following dependencies:
     - pxc-release now v0.15.0
