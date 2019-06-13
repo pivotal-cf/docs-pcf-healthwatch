@@ -3,9 +3,9 @@ title: PCF Healthwatch v1.5 Release Notes
 owner: PCF Healthwatch
 ---
 
-## <a id='v1.5.3'></a>v1.5.3
+## <a id='v1.5.4'></a>v1.5.4
 
-**Release Date: June 10, 2019**
+**Release Date: June CHANGEME, 2019**
 
 ### Features
 
@@ -20,6 +20,7 @@ New features and changes in this release:
 * **[Bug Fix]** Fixes regression where `opsman-health-check` does not work for self-signed Ops Manager certificates.
 * **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
 * **[Bug Fix]** Correctly account for half-hour timezones in the PCF Healthwatch UI.
+* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection.
 
 * Maintenance update of the following dependencies:
     - pxc-release now v0.15.0
