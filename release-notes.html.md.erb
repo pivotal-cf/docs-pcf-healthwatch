@@ -154,15 +154,15 @@ The registration agent depends on BPM to schedule the scraping of the file syste
 
 The only known workaround is not to enable Indicator Protocol, or to disable it.
 
-#### <a id='indicator1'></a> Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore
+#### <a id='indicator1'></a> Healthwatch Cannot Start if multiple root Certificate Authorities are present in Ops Manager
 
-Monitoring Indicator Protocol attempts to programmatically insert a certificate with an alias of '0' into its keystore on startup.
-
-If there is already a key with this alias present, Healthwatch fails to start.
+This is caused by an issue in Indicator Protocol with loading a file containing multiple certificates.
 
 This occurs whether or not the radio button to activate Indicator Protocol is checked.
 
-The known workaround is to ensure that no such certificate exists in the trust store.
+This may occur after certificate rotation, where a new CA was generated, and an old one was never deleted.
+
+The known workaround is to delete old CAs in Ops Manager. See [Rotating Certificates](https://docs.pivotal.io/pivotalcf/2-5/security/pcf-infrastructure/api-cert-rotation.html).
 
 #### Indicator Protocol Beta Dashboard displays error due to Log Cache
 
