@@ -5,18 +5,56 @@ owner: PCF Healthwatch
 
 ## <a id='v1.6.0'></a>v1.6.0
 
-**Release Date:**
+**Release Date: June 14, 2019**
 
 ### Features
-   
+
 New features and changes in this release:
 
-- PCF Healthwatch apps connect to the internal MySQL database using TLS.
-- Internal MySQL database's binary log retention changed from 7 days to 2 days, reducing the amount of persistent storage used by the VM.
+<<<<<<< HEAD
+* Updates Healthwatch Charts with new features:
+  * Drag a selection to zoom in.
+  * Double click to zoom out.
+  * More visibility around missing data.
+  * Filterable legend.
+* Renames Log Transport Dropped Messages chart to Log Transport Dropped Ingress Messages that graphs the `doppler.dropped, direction: ingress` metric.
+* Adds Log Transport Dropped Egress Messages chart on the Logging Performance page that graphs the `doppler.dropped, direction: egress` metric. For more information about the Doppler Egress Dropped Messages KPI, see [Doppler Egress Dropped Messages](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html#doppler-egress-dropped).
+* PCF Healthwatch apps connect to the internal MySQL database using TLS.
+* Increases logging around failed CF CLI tests in the `cf-health-check` app.
+* Internal MySQL database's binary log retention changed from 7 days to 2 days, reducing the amount of persistent storage used by the VM.
+* **[Bug Fix]** Fixes [Log Transport Loss Rate alert markers](./release-notes.html#alerts-wrong-charts) rendering on multiple charts.
+* **[Bug Fix]** Fixes [Healthwatch Has Missing or Incorrect Data](./release-notes.html#missing-data) by more robustly determining the deployment tag.
+* **[Bug Fix]** Diego Cell Capacity page graphs do not show false drops in capacity due to occasional late metric. Previously, if Diego emits a metric outside the standard one minute window, Diego Cell Capacity graphs show a false drop.
+* **[Bug Fix]** Fixes [Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore](./release-notes.html#indicator1).
+* **[Bug Fix]** Fixes regression where `opsman-health-check` doesn't work for self-signed Ops Manager certificate.
+* **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
+* **[Bug Fix]** Correctly account for half-hour timezones in the Healthwatch UI.
+* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection.
+
+* Maintenance update of the following dependencies:
+    - pxc-release now v0.15.0
+    - Golang now v1.12.5
+    - Indicator Protocol now v0.7.14
+    - Spring Boot now 2.1.5
+    - Flyway Command-line and Library now v5.2.4
+    - Redis now v3.2.13
+    - CF CLI now v6.45.0
+    - Libraries Updated:
+        - com.google.protobuf:protobuf-java now v3.7.1
+        - io.projectreactor.ipc:reactor-netty now v0.7.15.RELEASE
+        - react-markdown now v4.0.8
 
 ### Known Issues
 
 This release has the following known issues.
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
 
 #### Indicator Protocol Beta Dashboard displays error due to Log Cache
 
@@ -25,3 +63,4 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
 No corrective action is required and it will self-resolve if possible.
+
