@@ -154,19 +154,19 @@ The registration agent depends on BPM to schedule the scraping of the file syste
 
 The only known workaround is not to enable Indicator Protocol, or to disable it.
 
-#### <a id='indicator1'></a> Healthwatch Cannot Start if multiple root Certificate Authorities are present in Ops Manager
+#### <a id='indicator1'></a> Healthwatch Cannot Start if Multiple Root Certificate Authorities are Present in Ops Manager
 
-This is caused by an issue in Indicator Protocol with loading a file containing multiple certificates.
+Healthwatch does not start if there are multiple root certificate authorities (CAs) in Ops Manager. This issue is caused because Indicator Protocol cannot load a file containing multiple certificates.
 
-This occurs whether or not the radio button to activate Indicator Protocol is checked.
+This issue occurs whether or not you select the radio button to enable Indicator Protocol.
 
-This may occur after certificate rotation, where a new CA was generated, and an old one was never deleted.
+This issue may occur after certificate rotation if you generate a new CA and do not delete the old CA.
 
-The known workaround is to delete old CAs in Ops Manager. See [Rotating Certificates](https://docs.pivotal.io/pivotalcf/2-5/security/pcf-infrastructure/api-cert-rotation.html).
+The known workaround is to delete old CAs in Ops Manager. For more information, see [Rotating Certificates](https://docs.pivotal.io/pivotalcf/2-5/security/pcf-infrastructure/api-cert-rotation.html).
 
-#### Indicator Protocol Beta Dashboard displays error due to Log Cache
+#### Indicator Protocol Beta Dashboard displays Error Due to Log Cache
 
-Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
+Occasionally, the Indicator Protocol Beta Dashboard charts fail to load and display the error: `"Error fetching graph data."`.
 
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
