@@ -47,6 +47,12 @@ New features and changes in this release:
 
 This release has the following known issues.
 
+####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
+
+If there are no `cf-syslog-drain` metrics are emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
+
+This has been fixed in Healthwatch 1.6.1+.
+
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
 The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
