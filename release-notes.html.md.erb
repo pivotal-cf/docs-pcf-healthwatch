@@ -21,10 +21,10 @@ New features and changes in this release:
 * PCF Healthwatch apps connect to the internal MySQL database using TLS.
 * Increases logging around failed Cloud Foundry Command Line Interface (cf CLI) tests in the `cf-health-check` app.
 * Binary log retention for internal MySQL database changed from 7 days to 2 days. This reduces the amount of persistent storage used by the VM.
-* **[Bug Fix]** Fixes [Log Transport Loss Rate alert markers](./release-notes.html#alerts-wrong-charts) rendering on multiple charts.
-* **[Bug Fix]** Fixes [Healthwatch Has Missing or Incorrect Data](./release-notes.html#missing-data) by more robustly determining the deployment tag.
+* **[Bug Fix]** Fixes Log Transport Loss Rate alert markers rendering on multiple charts.
+* **[Bug Fix]** Fixes Healthwatch Has Missing or Incorrect Data by more robustly determining the deployment tag.
 * **[Bug Fix]** Diego Cell Capacity page graphs do not show false drops in capacity due to occasional late metric. Previously, if Diego emits a metric outside the standard one minute window, Diego Cell Capacity graphs show a false drop.
-* **[Bug Fix]** Fixes [Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore](./release-notes.html#indicator1).
+* **[Bug Fix]** Fixes Healthwatch Cannot Start if '0' aliased certificate is present in indicator keystore.
 * **[Bug Fix]** Fixes regression where `opsman-health-check` doesn't work for self-signed Ops Manager certificate.
 * **[Bug Fix]** BOSH Director stoplight correctly turns red when `bosh-health-check` fails.
 * **[Bug Fix]** Correctly account for half-hour timezones in the Healthwatch UI.
@@ -46,6 +46,12 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
+
+If there are no `cf-syslog-drain` metrics are emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
+
+This has been fixed in Healthwatch 1.6.1+.
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
