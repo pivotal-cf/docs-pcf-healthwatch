@@ -1,9 +1,11 @@
 ---
-title: Indicator Protocol Dashboard
+title: Indicator Protocol Dashboard (Beta)
 owner: PCF Healthwatch
 ---
 
 ## <a id='about'></a>Indicator Protocol Dashboard
+
+<p class="note warning"><b>Warning: </b>The Indicator Protocol Dashboard is in Beta. To provide feedback to the Indicator Protocol team, email <a href="mailto:indicator-protocol@pivotal.io">indicator-protocol@pivotal.io</a>.</p>
 
 Enable Additional Beta Dashboards via the Monitoring Indicator Protocol
 
@@ -38,5 +40,3 @@ For example, in the diagram below, an agent (indicator-registration-agent) runni
 <%= image_tag './images/indicator-protocol-architecture.png' %>
 
 The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. PCF Healthwatch consumes the results of this endpoint and creates a dashboard for each document. Each indicator is rendered as a chart on the dashboard. The chart is populated by the data from Log Cache using a [PromQL query](https://prometheus.io/docs/prometheus/latest/querying/basics/). These dashboards can be found by visiting `/indicator-dashboards` in the PCF Healthwatch UI.
-
-This feature is in Beta. If you would like to provide feedback to the Indicator Protocol team, please email [indicator-protocol@pivotal.io](mailto:indicator-protocol@pivotal.io).
