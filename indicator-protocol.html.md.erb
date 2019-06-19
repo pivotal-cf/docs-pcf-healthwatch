@@ -3,40 +3,84 @@ title: Indicator Protocol Dashboard (Beta)
 owner: PCF Healthwatch
 ---
 
-## <a id='about'></a>Indicator Protocol Dashboard
+<p class="note warning"><b>Warning: </b>This feature is in Beta. To provide feedback to the Indicator Protocol team, please email <a href="mailto:indicator-protocol@pivotal.io">indicator-protocol@pivotal.io</a>.</p>
 
-<p class="note warning"><b>Warning: </b>The Indicator Protocol Dashboard is in Beta. To provide feedback to the Indicator Protocol team, email <a href="mailto:indicator-protocol@pivotal.io">indicator-protocol@pivotal.io</a>.</p>
+## <a id='about'></a>Overview
 
-Enable Additional Beta Dashboards via the Monitoring Indicator Protocol
+The Indicator Protocol dasboard allows you to define and monitor custom scaling indicator metrics for the services in your deployment. The dashboard displays charts of indicator metrics, which are defined in an indicator document. The dashboard is populated by data from the Log Cache component of Loggregator using a PromQL query.
 
-Dashboard configuration is registered with PCF Healthwatch via a [global runtime addon](https://bosh.io/docs/runtime-config/). Once runtime config is updated all deployments will be considered outdated. **Note:** The Director will apply runtime config changes to each deployment during the next bosh deploy for that deployment.
+For more information about PromQL, see [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) in the Prometheus documentation.
 
-To enable the runtime addon:
+For more information about Log Cache, see [Loggregator Architecture](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html).
 
-1. Click the **PCF Healthwatch** tile on the Ops Manager Installation Dashboard.
-2. Navigate to the **Healthwatch Component Config** pane.
-3. Select Yes on the **BETA: Enable the Indicator Protocol registration agent add-on?** field.
-4. Click **Save**.
-5. Return to the Ops Manager Installation Dashboard.
-6. Click **Review Pending Changes**.
-7. Select only **PCF Healthwatch**. If any other products are selected, deselect them. (BOSH Director cannot be de-selected. This is OK.)
-8. Click **Apply Changes**.
+<p class="note"><b>Note:</b> The charts on the Indicator Protocol dashboard are populated by Log Cache, which is a component of Loggregator. Charts on the Indicator Protocol dashboard may display the following error: <code>"Error fetching graph data."</code>. This error is caused because Log Cache times out while it attempts to process data. No corrective action is required. The error will resolve itself if possible.</p>
 
-After PCF Healthwatch has been deployed with support for Monitoring Indicator Protocol, other services on the Foundation can be enabled.
 
-To register an indicator document for an existing service, whether Pre-Provisioned or On-Demand, you must co-locate the Monitoring Indicator Protocol Registration Agent on each existing services’ VM. In order to do this, re-deploy each existing service through bosh. For example, to enable RabbitMQ dashboards for all On-Demand service instances:
+## <a id='architecture'></a>Architecture
 
-The upgrade-all-service-instances [errand](https://docs.pivotal.io/rabbitmq-cf/1-15/troubleshoot.html#upgrade-all) will force this. Please read the documentation to understand the implications of this errand.
-Verify the dashboards appear by visiting the PCF Healthwatch UI at https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards.
+The Indicator Protocol dashboard is enabled by a Monitoring Indicator Protocol Registration Agent that runs on each BOSH VM. The Monitoring Indicator Protocol Registration Agent watches and inspects the `/var/vcap/jobs` for a document called `indicators.yml` in a `config` folder.
 
-Note: The charts are populated using Log Cache, which is part of Loggregator. If charts on the dashboard result in this error: `"Error fetching graph data."`, the cause is Log Cache timing out while attempting to process the data. No corrective action is required and it will self-resolve if possible.
+If the agent locates this indicator document, it parses the document and sends the results to the Indicator Registry. This process of registering documents is repeated every 30 seconds.
 
-### <a id="how-it-works"></a>How Monitoring Indicator Protocol Works in PCF Healthwatch
+In the following architecture diagram, the `indicator-registration-agent` runs on the RabbitMQ Server VM. The agent finds a document at `/var/vcap/jobs/rabbit/config/indicators.yml` and sends the data to an indicator registry.
 
-Each BOSH VM runs a process called the Monitoring Indicator Protocol Registration Agent. The agent will watch the /var/vcap/jobs directory. Any folders found in that directory will be inspected for a document called indicators.yml nested inside of a config folder. If an indicator document is located, the agent will parse the document and send the results to the Indicator Registry. This process of registering documents is repeated every 30 seconds, regardless of any changes being made to the document.
+This indicator registry defines indicators and runs on the Healthwatch Forwarder VM. Documents are temporarily stored in memory in the registry.
 
-For example, in the diagram below, an agent (indicator-registration-agent) running on the RabbitMQ Server VM finds a document at `/var/vcap/jobs/rabbit/config/indicators.yml` and sends the data to an indicator registry. The registry runs on the Healthwatch Forwarder VM and is the source of truth for indicator definitions. Documents are temporarily  stored in memory, and if the indicator registry does not receive a re-registered document within 2 hours the document is evicted and that service’s dashboard will not appear.
+The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. PCF Healthwatch consumes the results of this endpoint and creates a dashboard for each document. If the indicator registry does not receive a re-registered document within 2 hours, the document is evicted and that service’s dashboard will not appear.
 
 <%= image_tag './images/indicator-protocol-architecture.png' %>
 
-The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. PCF Healthwatch consumes the results of this endpoint and creates a dashboard for each document. Each indicator is rendered as a chart on the dashboard. The chart is populated by the data from Log Cache using a [PromQL query](https://prometheus.io/docs/prometheus/latest/querying/basics/). These dashboards can be found by visiting `/indicator-dashboards` in the PCF Healthwatch UI.
+
+## <a id='enable-dashboard'></a>Enable and Configure the Indicator Protocol Dashboard
+
+This section provides instructions for enabling and configuring the Indicator Protocol dashboard.
+
+To enable the Indicator Protocol dashboard, do the following:
+
+1. Enable the Indicator Protocol runtime config add-on for BOSH Director. See [Enable the Indicator Protocol Add-on](#enable-add-on).
+
+1. Register an indicator document. See [Register an Indicator Document](#indicator-document).
+
+### <a id='enable-add-on'></a>Enable the Indicator Protocol Add-on
+
+To enable the Indicator Protocol dashboard, you must enable a global BOSH Director runtime config add-on for Indicator Protocol. The BOSH Director applies runtime config changes to each deployment during the next BOSH deploy.
+
+<p class="note"><b>Note:</b> After you update the runtime config, all deployments are outdated.</p>
+
+For more information about runtime config, see [Director Runtime Config](https://bosh.io/docs/runtime-config/).
+
+To enable the Indicator Protocol runtime config add-on, do the following:
+
+1. On the Ops Manager Installation Dashboard, click the **PCF Healthwatch** tile.
+
+1. Navigate to the **Healthwatch Component Config** pane.
+
+1. Select **Yes** on the **BETA: Enable the Indicator Protocol registration agent add-on?** field.
+
+1. Click **Save**.
+
+1. On the Ops Manager Installation Dashboard, click **Review Pending Changes**.
+
+1. Enable only PCF Healthwatch. If any other products are enabled, disable them.
+<p class="note"><b>Note:</b>BOSH Director cannot be disabled.</p>
+
+1. Click **Apply Changes**.
+
+
+### <a id='indicator-document'></a>Register an Indicator Document
+
+The Indicator Protocol dashboard displays charts of indicator metrics, which are defined in an indicator document.
+
+To register an indicator document for the Indicator Protocol dashboard, whether Pre-Provisioned or On-Demand, you must co-locate the Monitoring Indicator Protocol Registration Agent on each existing services’ VM.
+
+For more information about the Monitoring Indicator Protocol Registration Agent, see [Architecture](#architecture).
+
+To co-locate the Monitoring Indicator Protocol Registration Agent on each of your existing services’ VM, re-deploy each service through BOSH.
+
+For example, to enable RabbitMQ dashboards for all On-Demand service instances, use the `upgrade-all-service-instances` errand.
+
+For information about the errand, including implications, see [Upgrade all service instances errand](https://docs.pivotal.io/rabbitmq-cf/1-15/troubleshoot.html#upgrade-all).
+
+## <a id='access'></a>Access the Indicator Protocol Dashboard
+
+To verify that the Indicator Protocol dashboards appear in PCF Healthwatch, view the PCF Healthwatch UI at `https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards`, where `SYSTEM-DOMAIN` is your system domain. 
