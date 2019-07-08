@@ -5,7 +5,7 @@ owner: PCF Healthwatch
 
 ## <a id='v1.6.1'></a>v1.6.1
 
-**Release Date: June CHANGEME, 2019**
+**Release Date: July 8, 2019**
 
 ### Features
 
@@ -13,6 +13,26 @@ New features and changes in this release:
 
 * **[Bug Fix]** Fixes [Reverse Log Proxy Egress Dropped Messages Graph Not Displaying](./release-notes.html#rlp-egress-graph).
 * **[Bug Fix]** Fixes the `Log Transport Dropped Egress Messages` graph not displaying when the metrics are all 0.
+
+### Known Issues
+
+This release has the following known issues.
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the app `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2 leave a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, update vSphere to v6.5 update 2 or later. Or, you can stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+
+Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
+
+These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
+
+No corrective action is required and it will self-resolve if possible.
 
 ## <a id='v1.6.0'></a>v1.6.0
 
@@ -57,6 +77,12 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+####<a id='transport-dropped-egress-graph'></a> Log Transport Dropped Egress Messages Graph Not Displaying
+
+If all values for `loggregator.doppler.dropped.egress` are 0, the `Log Transport Dropped Egress Messages` graph will not display.
+
+This has been fixed in Healthwatch 1.6.1+.
 
 ####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
 
