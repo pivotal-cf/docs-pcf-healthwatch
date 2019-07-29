@@ -12,15 +12,11 @@ owner: PCF Healthwatch
 New features and changes in this release:
 
 * **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
+* **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
 
 ### Known Issues
 
 This release has the following known issues.
-
-####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
-
-If there are no `cf-syslog-drain` metrics emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
-
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
