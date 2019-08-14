@@ -14,7 +14,8 @@ New features and changes in this release:
 * **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
 * **[Bug Fix]** Correct the threshold for [Syslog Adapter Capacity](api/alerts.html#thresholds).
 * **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
-
+* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection. After 20 resets of the Spring Application Context, the app instance will purposely crash and let Diego re-schedule it, providing a fresh container and JVM instance.
+* **[Bug Fix]** Fix `healthwatch-ingestor` crash in cases where GoRouter receives an HTTP request with non-standard HTTP method, resulting in a HttpStartStop metric with a null HTTP method value.
 
 ### Known Issues
 
