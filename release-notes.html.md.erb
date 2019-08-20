@@ -12,6 +12,83 @@ owner: PCF Healthwatch
 * Maintenance update of the following dependencies:
     - CF CLI now v6.45.0
 
+### Known Issues
+
+This release has the following known issues.
+
+#### Supermetrics Collection Stops During Database Migration
+
+While the PCF Healthwatch internal database migrates from MariaDB to Percona, upgrading to Healthwatch v1.4 from v1.3 may stop supermetrics collection for about 15 minutes. For more information, see [Troubleshooting PCF Healthwatch](./troubleshooting.html).
+
+
+#### PCF Healthwatch Does Not Distinguish Between PCF Deployment and Isolation Segments by Default
+
+When using PCF Healthwatch v1.4 with Pivotal Application Service (PAS) v2.4, you must enable **Use "cf" as deployment name in emitted metrics instead of unique name** in the **Advanced Features** pane of the PAS tile. This setting enables PCF Healthwatch to distinguish between the core PCF deployment and Isolation Segments. The corresponding manifest property is `advanced_features.properties.enable_cf_metric_name`.
+
+This checkbox is enabled by default when upgrading from PAS v2.3. It is disabled by default on clean installs of PAS v2.4.
+
+
+#### Update Active Locks Alert Configuration if Zero-Downtime is Enabled
+
+In PAS v2.4, **Disable Zero Downtime App Deployments** is an optional feature in the **Advanced Features** pane. This field changes the Active Locks KPI from `4` to `5`. The `locket.ActiveLocks` alert in Healthwatch v1.4 alerts on the value of `4` for the Active Locks KPI.
+
+If the zero-downtime feature is enabled, use the [Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `5`. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
+
+For more information about the Active Locks KPI, see [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
+
+You can send the following JSON payload to the PCF Healthwatch API to update active locks: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":5,\"type\":\"EQUALITY\"}}"`
+
+If you are using PCF Healthwatch v1.4 with PAS v2.3, you must change the alert configuration back to `4` by sending the following payload to the PCF Healthwatch API: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"`
+
+
+#### Isolation Segment Routing Stoplight Displays Critical State if Apps Not Pushed to Isolation Segment
+
+If you installed an Isolation Segment with Isolated Routing and have not pushed apps to the Isolation Segment, the `gorouter.ms_since_last_registry_update` metric is emitted with a value of `9223372036.85s`. This causes the Isolation Segment Routing stoplight to enter a critical (red) state. The routing stoplight recovers when an app is pushed to the Isolation Segment.
+
+
+#### Applying Changes to BOSH Director Tile During Healthwatch BOSH Health Check Causes
+
+If you apply changes to the BOSH Director tile while the PCF Healthwatch `bosh-health-check` is executing, BOSH may lose track of IP addresses that are in use at the IaaS-level.
+
+This manifests as the error message `Detected IP conflicts with other VMs on the same networks`.
+
+To resolve this issue, delete orphaned VMs at the IaaS level.
+
+This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
+
+
+#### Performance Issues with healthwatch-ingestor App
+
+Some customers have reported intermittent crashes in the `healthwatch-ingestor` app.
+
+This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
+
+#### Changes in Capacity Values for Windows-based Diego Cells
+
+Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
+    * If Isolation Segments are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
+    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both Windows-based cells and Linux-based cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
+
+For more information about Isolation Segments, see [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html).
+
+#### Hidden PAS MySQL KPI Charts
+
+The following three[PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are hidden. These charts will be available in a future patch version of PCF Healthwatch:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
+#### vSAN Object Count Causes Disk Space to Fill
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2, which causes the disk to slowly fill. Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub. To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+
+#### False Drop in Diego Cell Capacity Graphs
+
+Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
+
+If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
+
 ###<a id='v1.4.6'></a>v1.4.6
 
 **Release Date: June 3, 2019**
@@ -29,7 +106,84 @@ owner: PCF Healthwatch
     - pxc-release now 0.15.0
     - Redis now 3.2.13
     - Spring IO Platform now Brussels-SR17
-    
+
+### Known Issues
+
+This release has the following known issues.
+
+#### Supermetrics Collection Stops During Database Migration
+
+While the PCF Healthwatch internal database migrates from MariaDB to Percona, upgrading to Healthwatch v1.4 from v1.3 may stop supermetrics collection for about 15 minutes. For more information, see [Troubleshooting PCF Healthwatch](./troubleshooting.html).
+
+
+#### PCF Healthwatch Does Not Distinguish Between PCF Deployment and Isolation Segments by Default
+
+When using PCF Healthwatch v1.4 with Pivotal Application Service (PAS) v2.4, you must enable **Use "cf" as deployment name in emitted metrics instead of unique name** in the **Advanced Features** pane of the PAS tile. This setting enables PCF Healthwatch to distinguish between the core PCF deployment and Isolation Segments. The corresponding manifest property is `advanced_features.properties.enable_cf_metric_name`.
+
+This checkbox is enabled by default when upgrading from PAS v2.3. It is disabled by default on clean installs of PAS v2.4.
+
+
+#### Update Active Locks Alert Configuration if Zero-Downtime is Enabled
+
+In PAS v2.4, **Disable Zero Downtime App Deployments** is an optional feature in the **Advanced Features** pane. This field changes the Active Locks KPI from `4` to `5`. The `locket.ActiveLocks` alert in Healthwatch v1.4 alerts on the value of `4` for the Active Locks KPI.
+
+If the zero-downtime feature is enabled, use the [Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `5`. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
+
+For more information about the Active Locks KPI, see [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
+
+You can send the following JSON payload to the PCF Healthwatch API to update active locks: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":5,\"type\":\"EQUALITY\"}}"`
+
+If you are using PCF Healthwatch v1.4 with PAS v2.3, you must change the alert configuration back to `4` by sending the following payload to the PCF Healthwatch API: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"`
+
+
+#### Isolation Segment Routing Stoplight Displays Critical State if Apps Not Pushed to Isolation Segment
+
+If you installed an Isolation Segment with Isolated Routing and have not pushed apps to the Isolation Segment, the `gorouter.ms_since_last_registry_update` metric is emitted with a value of `9223372036.85s`. This causes the Isolation Segment Routing stoplight to enter a critical (red) state. The routing stoplight recovers when an app is pushed to the Isolation Segment.
+
+
+#### Applying Changes to BOSH Director Tile During Healthwatch BOSH Health Check Causes
+
+If you apply changes to the BOSH Director tile while the PCF Healthwatch `bosh-health-check` is executing, BOSH may lose track of IP addresses that are in use at the IaaS-level.
+
+This manifests as the error message `Detected IP conflicts with other VMs on the same networks`.
+
+To resolve this issue, delete orphaned VMs at the IaaS level.
+
+This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
+
+
+#### Performance Issues with healthwatch-ingestor App
+
+Some customers have reported intermittent crashes in the `healthwatch-ingestor` app.
+
+This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
+
+#### Changes in Capacity Values for Windows-based Diego Cells
+
+Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
+    * If Isolation Segments are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
+    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both Windows-based cells and Linux-based cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
+
+For more information about Isolation Segments, see [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html).
+
+#### Hidden PAS MySQL KPI Charts
+
+The following three[PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are hidden. These charts will be available in a future patch version of PCF Healthwatch:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
+#### vSAN Object Count Causes Disk Space to Fill
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2, which causes the disk to slowly fill. Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub. To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+
+#### False Drop in Diego Cell Capacity Graphs
+
+Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
+
+If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
+
 ###<a id='v1.4.5'></a>v1.4.5
 
 **Release Date: February 19, 2019**
@@ -42,9 +196,191 @@ owner: PCF Healthwatch
 * **[Bug Fix]** Healthwatch correctly dispatches alerts based on `AvailableFreeChunksDisk`.
 * **[Bug Fix]** The isolation segments detail pages correctly show the appropriate number of available segments.
 
+### Known Issues
+
+This release has the following known issues.
+
+#### Supermetrics Collection Stops During Database Migration
+
+While the PCF Healthwatch internal database migrates from MariaDB to Percona, upgrading to Healthwatch v1.4 from v1.3 may stop supermetrics collection for about 15 minutes. For more information, see [Troubleshooting PCF Healthwatch](./troubleshooting.html).
+
+
+#### PCF Healthwatch Does Not Distinguish Between PCF Deployment and Isolation Segments by Default
+
+When using PCF Healthwatch v1.4 with Pivotal Application Service (PAS) v2.4, you must enable **Use "cf" as deployment name in emitted metrics instead of unique name** in the **Advanced Features** pane of the PAS tile. This setting enables PCF Healthwatch to distinguish between the core PCF deployment and Isolation Segments. The corresponding manifest property is `advanced_features.properties.enable_cf_metric_name`.
+
+This checkbox is enabled by default when upgrading from PAS v2.3. It is disabled by default on clean installs of PAS v2.4.
+
+
+#### Update Active Locks Alert Configuration if Zero-Downtime is Enabled
+
+In PAS v2.4, **Disable Zero Downtime App Deployments** is an optional feature in the **Advanced Features** pane. This field changes the Active Locks KPI from `4` to `5`. The `locket.ActiveLocks` alert in Healthwatch v1.4 alerts on the value of `4` for the Active Locks KPI.
+
+If the zero-downtime feature is enabled, use the [Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `5`. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
+
+For more information about the Active Locks KPI, see [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
+
+You can send the following JSON payload to the PCF Healthwatch API to update active locks: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":5,\"type\":\"EQUALITY\"}}"`
+
+If you are using PCF Healthwatch v1.4 with PAS v2.3, you must change the alert configuration back to `4` by sending the following payload to the PCF Healthwatch API: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"`
+
+
+#### Isolation Segment Routing Stoplight Displays Critical State if Apps Not Pushed to Isolation Segment
+
+If you installed an Isolation Segment with Isolated Routing and have not pushed apps to the Isolation Segment, the `gorouter.ms_since_last_registry_update` metric is emitted with a value of `9223372036.85s`. This causes the Isolation Segment Routing stoplight to enter a critical (red) state. The routing stoplight recovers when an app is pushed to the Isolation Segment.
+
+
+#### Isolation Segment Capacity Stoplight May Display Inaccurate Warning State
+
+In rare circumstances, an Isolation Segment Capacity stoplight on the PCF Healthwatch Dashboard may be in a warning (yellow) state when it should critical (red) state.
+
+
+#### Applying Changes to BOSH Director Tile During Healthwatch BOSH Health Check Causes
+
+If you apply changes to the BOSH Director tile while the PCF Healthwatch `bosh-health-check` is executing, BOSH may lose track of IP addresses that are in use at the IaaS-level.
+
+This manifests as the error message `Detected IP conflicts with other VMs on the same networks`.
+
+To resolve this issue, delete orphaned VMs at the IaaS level.
+
+This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
+
+
+#### Performance Issues with healthwatch-ingestor App
+
+Some customers have reported intermittent crashes in the `healthwatch-ingestor` app.
+
+This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
+
+#### Changes in Capacity Values for Windows-based Diego Cells
+
+Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
+    * If Isolation Segments are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
+    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both Windows-based cells and Linux-based cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
+
+For more information about Isolation Segments, see [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html).
+
+#### Hidden PAS MySQL KPI Charts
+
+The following three[PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are hidden. These charts will be available in a future patch version of PCF Healthwatch:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
+#### vSAN Object Count Causes Disk Space to Fill
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2, which causes the disk to slowly fill. Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub. To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+
+#### False Drop in Diego Cell Capacity Graphs
+
+Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
+
+If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
+
+
+
 ###<a id='v1.4.4'></a>v1.4.4
 
 **Release Date: November 14, 2018**
+
+### Known Issues
+
+This release has the following known issues.
+
+#### Supermetrics Collection Stops During Database Migration
+
+While the PCF Healthwatch internal database migrates from MariaDB to Percona, upgrading to Healthwatch v1.4 from v1.3 may stop supermetrics collection for about 15 minutes. For more information, see [Troubleshooting PCF Healthwatch](./troubleshooting.html).
+
+
+#### PCF Healthwatch Does Not Distinguish Between PCF Deployment and Isolation Segments by Default
+
+When using PCF Healthwatch v1.4 with Pivotal Application Service (PAS) v2.4, you must enable **Use "cf" as deployment name in emitted metrics instead of unique name** in the **Advanced Features** pane of the PAS tile. This setting enables PCF Healthwatch to distinguish between the core PCF deployment and Isolation Segments. The corresponding manifest property is `advanced_features.properties.enable_cf_metric_name`.
+
+This checkbox is enabled by default when upgrading from PAS v2.3. It is disabled by default on clean installs of PAS v2.4.
+
+
+#### Update Active Locks Alert Configuration if Zero-Downtime is Enabled
+
+In PAS v2.4, **Disable Zero Downtime App Deployments** is an optional feature in the **Advanced Features** pane. This field changes the Active Locks KPI from `4` to `5`. The `locket.ActiveLocks` alert in Healthwatch v1.4 alerts on the value of `4` for the Active Locks KPI.
+
+If the zero-downtime feature is enabled, use the [Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `5`. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
+
+For more information about the Active Locks KPI, see [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
+
+You can send the following JSON payload to the PCF Healthwatch API to update active locks: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":5,\"type\":\"EQUALITY\"}}"`
+
+If you are using PCF Healthwatch v1.4 with PAS v2.3, you must change the alert configuration back to `4` by sending the following payload to the PCF Healthwatch API: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"`
+
+
+#### Available Free Chunks Disk Alert Not Forwarded to Email, Slack, or Webhook
+
+The `healthwatch.Diego.AvailableFreeChunksDisk` alert is visible in the PCF Healthwatch UI, but does not get sent to email, Slack, or webhook subscribers through PCF Event Alerts. This will be fixed in the next patch release of PCF Healthwatch.
+
+
+#### Isolation Segment Routing Stoplight Displays Critical State if Apps Not Pushed to Isolation Segment
+
+If you installed an Isolation Segment with Isolated Routing and have not pushed apps to the Isolation Segment, the `gorouter.ms_since_last_registry_update` metric is emitted with a value of `9223372036.85s`. This causes the Isolation Segment Routing stoplight to enter a critical (red) state. The routing stoplight recovers when an app is pushed to the Isolation Segment.
+
+
+#### Isolation Segment Capacity Stoplight May Display Inaccurate Warning State
+
+In rare circumstances, an Isolation Segment Capacity stoplight on the PCF Healthwatch Dashboard may be in a warning (yellow) state when it should critical (red) state.
+
+
+#### Applying Changes to BOSH Director Tile During Healthwatch BOSH Health Check Causes
+
+If you apply changes to the BOSH Director tile while the PCF Healthwatch `bosh-health-check` is executing, BOSH may lose track of IP addresses that are in use at the IaaS-level.
+
+This manifests as the error message `Detected IP conflicts with other VMs on the same networks`.
+
+To resolve this issue, delete orphaned VMs at the IaaS level.
+
+This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
+
+
+#### Performance Issues with healthwatch-ingestor and cf-health-check Apps
+
+Some customers have reported intermittent crashes in the `healthwatch-ingestor` and `cf-health-check` apps.
+
+This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
+
+#### Changes in Capacity Values for Windows-based Diego Cells
+
+Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
+    * If Isolation Segments are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
+    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both Windows-based cells and Linux-based cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
+
+For more information about Isolation Segments, see [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html).
+
+#### Hidden PAS MySQL KPI Charts
+
+The following three[PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are hidden. These charts will be available in a future patch version of PCF Healthwatch:
+    * Query Rate
+    * MySQL CPU Busy Time
+    * Percentage of Max Connections Used
+
+#### Fixed Limit on Alerts
+
+Healthwatch has a fixed limit on alerts. Foundations that are busy or long-running may reach the limit on alerts.
+This results in the following error message:
+
+```
+INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
+```
+
+To resolve this issue, upgrade to Healthwatch v1.4.5 or later.
+
+#### vSAN Object Count Causes Disk Space to Fill
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2, which causes the disk to slowly fill. Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub. To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+
+#### False Drop in Diego Cell Capacity Graphs
+
+Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
+
+If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
 
 ##<a id='new'></a>New Features in v1.4
 
@@ -82,104 +418,6 @@ For further information about the new dashboard in PCF Healthwatch 1.4, includin
     - Flyway Command-line and Library now v5.2.1
     - OpenJDK now v1.8.0_192-b03
     - Spring now Brussels-SR14
-
-##<a id='issues'></a>Known Issues
-
-This release has the following known issues.
-
-### Supermetrics Collection Stops During Database Migration
-
-While the PCF Healthwatch internal database migrates from MariaDB to Percona, upgrading to Healthwatch v1.4 from v1.3 may stop supermetrics collection for about 15 minutes. For more information, see [Troubleshooting PCF Healthwatch](./troubleshooting.html).
-
-
-### PCF Healthwatch Does Not Distinguish Between PCF Deployment and Isolation Segments by Default
-
-When using PCF Healthwatch v1.4 with Pivotal Application Service (PAS) v2.4, you must enable **Use "cf" as deployment name in emitted metrics instead of unique name** in the **Advanced Features** pane of the PAS tile. This setting enables PCF Healthwatch to distinguish between the core PCF deployment and Isolation Segments. The corresponding manifest property is `advanced_features.properties.enable_cf_metric_name`.
-
-This checkbox is enabled by default when upgrading from PAS v2.3. It is disabled by default on clean installs of PAS v2.4.
-
-
-### Update Active Locks Alert Configuration if Zero-Downtime is Enabled
-
-In PAS v2.4, **Disable Zero Downtime App Deployments** is an optional feature in the **Advanced Features** pane. This field changes the Active Locks KPI from `4` to `5`. The `locket.ActiveLocks` alert in Healthwatch v1.4 alerts on the value of `4` for the Active Locks KPI. 
-
-If the zero-downtime feature is enabled, use the [Healthwatch API](./api/alerts.html#post) to update the alert configuration to a value of `5`. The corresponding manifest property is `advanced_features.properties.cloud_controller_temporary_disable_deployments`.
-
-For more information about the Active Locks KPI, see [Active Locks KPI](https://docs.pivotal.io/pivotalcf/2-4/monitoring/kpi.html#ActiveLocks).
-
-You can send the following JSON payload to the PCF Healthwatch API to update active locks: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":5,\"type\":\"EQUALITY\"}}"`
-
-If you are using PCF Healthwatch v1.4 with PAS v2.3, you must change the alert configuration back to `4` by sending the following payload to the PCF Healthwatch API: `"{\"query\":\"origin == 'locket' and name == 'ActiveLocks'\",\"threshold\":{\"critical\":4,\"type\":\"EQUALITY\"}}"`
-
-
-### Available Free Chunks Disk Alert Not Forwarded to Email, Slack, or Webhook
-
-The `healthwatch.Diego.AvailableFreeChunksDisk` alert is visible in the PCF Healthwatch UI, but does not get sent to email, Slack, or webhook subscribers through PCF Event Alerts. This will be fixed in the next patch release of PCF Healthwatch.
-
-
-### Isolation Segment Routing Stoplight Displays Critical State if Apps Not Pushed to Isolation Segment
-
-If you installed an Isolation Segment with Isolated Routing and have not pushed apps to the Isolation Segment, the `gorouter.ms_since_last_registry_update` metric is emitted with a value of `9223372036.85s`. This causes the Isolation Segment Routing stoplight to enter a critical (red) state. The routing stoplight recovers when an app is pushed to the Isolation Segment.
-
-
-### Isolation Segment Capacity Stoplight May Display Inaccurate Warning State
-
-In rare circumstances, an Isolation Segment Capacity stoplight on the PCF Healthwatch Dashboard may be in a warning (yellow) state when it should critical (red) state.
-
-
-### Applying Changes to BOSH Director Tile During Healthwatch BOSH Health Check Causes 
-
-If you apply changes to the BOSH Director tile while the PCF Healthwatch `bosh-health-check` is executing, BOSH may lose track of IP addresses that are in use at the IaaS-level.
-
-This manifests as the error message `Detected IP conflicts with other VMs on the same networks`.
-
-To resolve this issue, delete orphaned VMs at the IaaS level. 
-
-This will be fixed in upcoming Operations Manager patch releases (`2.4.x` and `2.3.x`).
-
-
-### Performance Issues with healthwatch-ingestor and cf-health-check Apps
-
-Some customers have reported intermittent crashes in the `healthwatch-ingestor` and `cf-health-check` apps.
-
-This issue is being investigated. If an application instance crashes, the Diego architecture in Pivotal Cloud Foundry will replace the instance with [minimal downtime](https://docs.pivotal.io/pivotalcf/2-3/concepts/high-availability.html#health-management-apps).
-
-### Changes in Capacity Values for Windows-based Diego Cells
-
-Windows-based Diego cells created by Pivotal Application Service for Windows emit platform metrics with a hard-coded deployment value of `cf`. This can result in the following impacts to capacity values shown by PCF Healthwatch or other consumers of monitoring metrics:
-    * If Isolation Segments are used in combination with Isolated Windows-based Diego cells: Any Windows-based cells that are isolated to a given isolation segment are reporting as part of the core cf system deployment. This means that the isolation segment(s) capacity values will be under-reporting (i.e., only including Linux-based cells and excluding Windows-based cells), and the core cf system deployment will be over-reporting capacity (including Windows-based cells from isolation segments as part of the core cf system capacity).
-    * If Isolation Segments are not used: The core CF system deployment will correctly show total capacity, however both Windows-based cells and Linux-based cells will be grouped together in PCF Healthwatch capacity assessments such as capacity remaining and number of free chunks of memory.
-
-For more information about Isolation Segments, see [Isolation Segments](https://docs.pivotal.io/pivotalcf/2-3/adminguide/isolation-segments.html).
-
-### Hidden PAS MySQL KPI Charts
-
-The following three[PAS MySQL KPI](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html#kpi4MySQL) charts are hidden. These charts will be available in a future patch version of PCF Healthwatch:
-    * Query Rate
-    * MySQL CPU Busy Time
-    * Percentage of Max Connections Used
-
-### Fixed Limit on Alerts
-
-Healthwatch has a fixed limit on alerts. Foundations that are busy or long-running may reach the limit on alerts.
-This results in the following error message: 
-
-```
-INSERT INTO alert_status Duplicate entry '8388607' for key 'PRIMARY'
-```
-
-To resolve this issue, upgrade to Healthwatch v1.4.5 or later. 
-
-### vSAN Object Count Causes Disk Space to Fill
-
-The vSAN object count increases on vSphere versions earlier than v6.5 update 2, which causes the disk to slowly fill. Healthwatch deploys the application `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2, which is in lock with vSAN, leave behind a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub. To address the issue, you can update vSphere to v6.5 update 2 and later. If updating vSphere is not an option, stop the `bosh-health-check` to slow down the increase in vSAN object count.
-
-
-### False Drop in Diego Cell Capacity Graphs
-
-Healthwatch periodically registers a false drop in Diego Cell Capacity graphs. Healthwatch ingests metrics from Diego once per minute. Occasionally, Diego emits metrics to Healthwatch outside of the minute window. This causes Healthwatch to register a false drop in the Diego Cell Capacity metric.
-
-If the drop in Diego Cell Capacity is not longer than one minute, it does not represent a true drop in Diego Cell Capacity and can be disregarded.
 
 ##<a id='breaking-automation'></a>Breaking Changes for Automated Pipelines
 The available values for the `.properties.syslog_selector` property have changed:
