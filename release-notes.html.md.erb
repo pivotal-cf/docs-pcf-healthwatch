@@ -11,6 +11,7 @@ owner: PCF Healthwatch
 
 New features and changes in this release:
 
+* **[Feature Improvement]** Remove metric, graph, and alert associated to [`Route Registration Messages Delta`](https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#route-registration) when running PAS 2.4+. This metric was removed in PAS 2.4 so related graphs and alerts should not display. The current associated alert will be resolved automatically.
 * **[Bug Fix]** Correct the threshold for [Syslog Adapter Capacity](api/alerts.html#thresholds).
 * **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
 * **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection. After 20 resets of the Spring Application Context, the app instance will purposely crash and let Diego re-schedule it, providing a fresh container and JVM instance.
