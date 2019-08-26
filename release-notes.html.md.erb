@@ -43,6 +43,13 @@ This release has the following known issues:
 
 If there are no `cf-syslog-drain` metrics are emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
 
+####<a id='loggregator-ingress-graph'></a> Log Transport Loss Rate Graph y-axis Breaks With Negative Values
+
+In the case that some metrics are missing from a period of time in a calculation, a negative number can occur. The y-axis does not handle the negative value and breaks as long as the negative value is in scope. The negative value causes the y-axis markers to be skewed and much larger than the actual value.
+Values in the line, tooltip, and alerts are all still valid.
+
+This issue resolves itself when a negative value does not display on graph.
+
 ## <a id='v1.5.2'></a>v1.5.2
 
 **Release Date: March 29, 2019**
