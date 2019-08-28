@@ -71,6 +71,11 @@ This release has the following known issues:
 
 If there are no `cf-syslog-drain` metrics are emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
 
+####<a id='log-throughput-graph'></a> Occasional inaccurate spikes in Log Transport Throughput graph
+
+The graph might spike inaccurately when doing a deployment upgrade or when the loggregator system is overloaded.
+
+
 ####<a id='loggregator-ingress-graph'></a> Log Transport Loss Rate Graph y-axis Breaks With Negative Values
 
 In the case that some metrics are missing from a period of time in a calculation, a negative number can occur. The y-axis does not handle the negative value and breaks as long as the negative value is in scope. The negative value causes the y-axis markers to be skewed and much larger than the actual value.
@@ -100,6 +105,10 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+####<a id='log-throughput-graph'></a> Occasional inaccurate spikes in Log Transport Throughput graph
+
+The graph might spike inaccurately when doing a deployment upgrade or when the loggregator system is overloaded.
 
 #### <a id='missing-data'></a> Healthwatch Has Missing or Incorrect Data
 
