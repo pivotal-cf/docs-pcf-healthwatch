@@ -11,6 +11,7 @@ owner: PCF Healthwatch
 
 New features and changes in this release:
 
+* Remove metric, graph, and alert associated to [`Route Registration Messages Delta`](https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#route-registration). This metric was removed in PAS 2.4 so related graphs and alerts should not display. The current associated alert will be resolved automatically.
 * **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
 * **[Bug Fix]** Correct the threshold for [Syslog Adapter Capacity](api/alerts.html#thresholds).
 * **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
