@@ -28,23 +28,22 @@ A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 `GET /v1/canary?deployment=cf`
 
-To view the currently configured canary URL, run the following command:
+To view the currently configured canary URL, run one of the following commands:
 
-```
-$ uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf
-```
+- If you are using PAS v2.4 with **Use "cf" as deployment name** unchecked or if you are using PAS v2.5.
+  ```
+  uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID
+  ```
 
-or
+- If you are using PAS v2.3 or earlier or if you are using PAS v2.4 with **Use "cf" as deployment name** checked.
+  ```
+  uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf
+  ```
 
-```
-$ uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID
-```
 
-If on PAS 2.4 with `Use "cf" as deployment name` unchecked or on PAS 2.5.
+<p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. The endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes. <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page.</p>
 
-<p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes. <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page.</p>
-
-This returns a JSON object in the following format:
+The command returns a JSON object in the following format:
 
 ```
   {
