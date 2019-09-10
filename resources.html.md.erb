@@ -1,17 +1,17 @@
 ---
-title: PCF Healthwatch Resources
-owner: PCF Healthwatch
+title: Pivotal Healthwatch Resources
+owner: Pivotal Healthwatch
 ---
 
 This topic describes resource requirements for Pivotal Cloud Foundry (PCF) Healthwatch.
 
-##<a id="requirements"></a>PCF Healthwatch Tile
+##<a id="requirements"></a>Pivotal Healthwatch Tile
 
-You can configure PCF Healthwatch resources in the **Resource Config** section of the PCF Healthwatch tile. By default, PCF Healthwatch automatically selects the instance type that is best suited for each job.
+You can configure Pivotal Healthwatch resources in the **Resource Config** section of the Pivotal Healthwatch tile. By default, Pivotal Healthwatch automatically selects the instance type that is best suited for each job.
 
-<p class="note"><strong>Note</strong>: The automatically selected values that you see in the <strong>Resource Config</strong> section of the PCF Healthwatch tile depend on the available resources for your PCF deployment.</p>
+<p class="note"><strong>Note</strong>: The automatically selected values that you see in the <strong>Resource Config</strong> section of the Pivotal Healthwatch tile depend on the available resources for your PCF deployment.</p>
 
-The following table provides the default resource and IP requirements for installing the PCF Healthwatch tile.
+The following table provides the default resource and IP requirements for installing the Pivotal Healthwatch tile.
 
 <table border="1" class="nice">
   <thead>
@@ -60,11 +60,11 @@ The following table provides the default resource and IP requirements for instal
   </tbody>
 </table>
 
-##<a id='healthwatch-apps'></a>PCF Healthwatch Functional Apps
+##<a id='healthwatch-apps'></a>Pivotal Healthwatch Functional Apps
 
-The following table provides the default memory usage and instance count for the CF apps pushed to your deployment by PCF Healthwatch. PCF Healthwatch is highly available by default. If you do not require high availability, you can scale down these instance counts.
+The following table provides the default memory usage and instance count for the CF apps pushed to your deployment by Pivotal Healthwatch. Pivotal Healthwatch is highly available by default. If you do not require high availability, you can scale down these instance counts.
 
-<p class="note"><strong>Note</strong>: The data in this table assumes PCF Healthwatch is in a steady-state. During deployments, resource usage can potentially double because PCF Healthwatch deploys the apps using the blue-green method.</p>
+<p class="note"><strong>Note</strong>: The data in this table assumes Pivotal Healthwatch is in a steady-state. During deployments, resource usage can potentially double because Pivotal Healthwatch deploys the apps using the blue-green method.</p>
 
 <table border="1" class="nice">
   <thead>
@@ -157,7 +157,7 @@ The following table provides the default memory usage and instance count for the
   </tbody>
 </table>
 
-If you want to scale the functional apps created by PCF Healthwatch, see the following recommendations:
+If you want to scale the functional apps created by Pivotal Healthwatch, see the following recommendations:
 
 * BOSH Director health check (the `bosh-health-check` app).
   Only 1 BOSH Director Health Check can run at a time. This should be considered a hard limit.
@@ -169,4 +169,4 @@ If you want to scale the functional apps created by PCF Healthwatch, see the fol
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
 * Ops Manager uptime check (the `opsmanager-health-check` app).
   By default, this is scaled to 2. It is recommended not to exceed 3-5 runners at once.
-* PCF Healthwatch self-monitor and [reporting](http://docs.pivotal.io/pcf-healthwatch/1-1/monitoring.html) (the `healthwatch-meta-monitor` app). This application should not need to be scaled. 
+* Pivotal Healthwatch self-monitor and [reporting](http://docs.pivotal.io/pcf-healthwatch/1-1/monitoring.html) (the `healthwatch-meta-monitor` app). This application should not need to be scaled.

@@ -1,20 +1,20 @@
 ---
-title: PCF Healthwatch Metrics
-owner: PCF Healthwatch
+title: Pivotal Healthwatch Metrics
+owner: Pivotal Healthwatch
 ---
 
 This topic lists the super metrics created by Pivotal Cloud Foundry (PCF) Healthwatch. 
 
-<p class="note"><strong>Note</strong>: For external monitoring consumers, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose. You can retrieve these metrics with a nozzle or through the <a href="using.html#logcache">Log Cache API</a>.</p>
+<p class="note"><strong>Note</strong>: For external monitoring consumers, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator Firehose. You can retrieve these metrics with a nozzle or through the <a href="using.html#logcache">Log Cache API</a>.</p>
 
 ## <a id='sli'></a>Platform Service Level Indicators
 
-PCF Healthwatch generates metrics that directly indicate the health of several platform components.
+Pivotal Healthwatch generates metrics that directly indicate the health of several platform components.
 You can use these metrics with service level objectives to calculate percent availability and error budgets.
 
 ### <a id='cli'></a>Cloud Foundry CLI Health
 
-The Cloud Foundry Command Line Interface (cf CLI) enables developers to create and manage apps on PCF. PCF Healthwatch executes a continuous test suite for validating the core functions of the cf CLI.
+The Cloud Foundry Command Line Interface (cf CLI) enables developers to create and manage apps on PCF. Pivotal Healthwatch executes a continuous test suite for validating the core functions of the cf CLI.
 
 The table below provides information about the cf CLI health smoke tests and the metrics that are generated for these tests.
 
@@ -83,13 +83,13 @@ The table below provides information about the cf CLI health smoke tests and the
 
 <p class="note"><strong>Note</strong>: Timeout metrics are written only when a timeout occurs, after 2 minutes. Their value is always zero.</p>
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>healthwatch</strong> space.</p>
+<p class="note"><strong>Note</strong>: Pivotal Healthwatch runs this test suite in the <strong>system</strong> org and the <strong>healthwatch</strong> space.</p>
 
 ### <a id='opsman'></a>Ops Manager Health
 
-Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to scale PCF. Therefore, it is recommended to continuously monitor Ops Manager health. PCF Healthwatch executes this check as follows:
+Issues with Ops Manager health can impact an operator's ability to perform an upgrade or to scale PCF. Therefore, it is recommended to continuously monitor Ops Manager health. Pivotal Healthwatch executes this check as follows:
 
-<p class="note"><strong>Note</strong>: This metric is not emitted if the Ops Manager health check is disabled. For more information, see <a href="installing.html#healthwatch-opsman">Installing PCF Healthwatch</a>.</p>
+<p class="note"><strong>Note</strong>: This metric is not emitted if the Ops Manager health check is disabled. For more information, see <a href="installing.html#healthwatch-opsman">Installing Pivotal Healthwatch</a>.</p>
 
 <table class="nice">
 <tr>
@@ -109,7 +109,7 @@ Issues with Ops Manager health can impact an operator's ability to perform an up
 ### <a id='canaryapp'></a>Canary App Health
 
 
-App availability and responsiveness issues can significantly impact the experience of end users. By default, PCF Healthwatch uses Apps Manager as a canary app. An excellent indicator for the overall health of apps running on PCF, if Apps Manager is down, it is highly likely other apps are failing as well. If it is up and responsive, then other apps and their underlying routing are likely healthy as well. As of v1.3, you can configure PCF Healthwatch to use a different PCF app for this test. See [Configuring Canary App Health Endpoint](api/canary-configuration.html).
+App availability and responsiveness issues can significantly impact the experience of end users. By default, Pivotal Healthwatch uses Apps Manager as a canary app. An excellent indicator for the overall health of apps running on PCF, if Apps Manager is down, it is highly likely other apps are failing as well. If it is up and responsive, then other apps and their underlying routing are likely healthy as well. As of v1.3, you can configure Pivotal Healthwatch to use a different PCF app for this test. See [Configuring Canary App Health Endpoint](api/canary-configuration.html).
 
 <table class="nice">
 <tr>
@@ -134,7 +134,7 @@ App availability and responsiveness issues can significantly impact the experien
 
 ### <a id='bosh-director'></a>BOSH Director Health
 
-If the BOSH Director is not responsive and functional, BOSH-managed VMs lose their resiliency. It is recommended to continuously monitor the health of the BOSH Director. PCF Healthwatch executes this check as follows:
+If the BOSH Director is not responsive and functional, BOSH-managed VMs lose their resiliency. It is recommended to continuously monitor the health of the BOSH Director. Pivotal Healthwatch executes this check as follows:
 
 <table class="nice">
 <tr>
@@ -151,7 +151,7 @@ If the BOSH Director is not responsive and functional, BOSH-managed VMs lose the
 </tr>
 </table>
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch deploys, stops, starts, and deletes a VM named <code>bosh-health-check</code> as part of this test suite.</p>
+<p class="note"><strong>Note</strong>: Pivotal Healthwatch deploys, stops, starts, and deletes a VM named <code>bosh-health-check</code> as part of this test suite.</p>
 
 <p class="note"><strong>Note</strong>: The timeout metric is written if deploying or deleting the VM takes more than 10 minutes.</p>
 

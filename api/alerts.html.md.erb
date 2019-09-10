@@ -1,9 +1,9 @@
 ---
-title: Configuring PCF Healthwatch Alerts
-owner: PCF Healthwatch
+title: Configuring Pivotal Healthwatch Alerts
+owner: Pivotal Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
+This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs.
 
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
@@ -172,7 +172,7 @@ This returns the number of deleted alert configurations. See the following examp
 
 ## <a id='disable'></a> Disable Alerts on a Metric
 
-PCF Healthwatch does not support disabling alerts on a specific metric. To ensure that PCF Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
+Pivotal Healthwatch does not support disabling alerts on a specific metric. To ensure that Pivotal Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
 
 For more information about thresholds, see [Thresholds](#thresholds).
 
@@ -217,11 +217,11 @@ The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to th
 
 ##<a id='defaults'></a>Supported Alerts
 
-This section describes the default Warning and Critical alerts for PCF Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch. 
+This section describes the default Warning and Critical alerts for Pivotal Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch.
 
-Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following table based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).
+Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following table based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).
 
-By default, PCF Healthwatch includes the following configurable alerts:
+By default, Pivotal Healthwatch includes the following configurable alerts:
 
 <font size=1>
 
@@ -305,9 +305,9 @@ By default, PCF Healthwatch includes the following configurable alerts:
 | Performance Alert: UAA Throughput Rate                                     | uaa.throughput.rate                                | healthwatch                   |                         | Healthwatch         | UPPER          | 15000        | 12000      | Number  | 5                           |
 | Performance Alert: Unhealthy Cells<sup>2</sup>                             | UnhealthyCell                                      | rep                           |                         | Compute Performance | EQUALITY       | 0            |            | Number  | 5                           |
 </font>
-You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
+You can learn more about the metrics Pivotal Healthwatch emits here: [Pivotal Healthwatch Metrics](../metrics.html).
 
-<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).<br/>
+<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).<br/>
 <sup>2</sup> We are alerting by cell for this metric. We will notify at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
 <sup>3</sup> This handles two jobs to accommodate different job names between PAS and SRT*
 
@@ -372,8 +372,8 @@ The response body contains the updated alert configuration. You can then confirm
 ```
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
-##<a id='event-alerts'></a>Configure PCF Healthwatch Alert Notifications
+##<a id='event-alerts'></a>Configure Pivotal Healthwatch Alert Notifications
 
-You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
+You can configure PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. For example, if you configured a Pivotal Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the Pivotal Healthwatch alert.
 
-For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
+For more information about configuring PCF Event Alerts for Pivotal Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
