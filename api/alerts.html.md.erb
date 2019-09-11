@@ -221,7 +221,7 @@ This section describes the default Warning and Critical alerts for PCF Healthwat
 
 Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following tables based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).
 
-By default, PCF Healthwatch includes the configurable alerts in the tables below. 
+By default, PCF Healthwatch includes the configurable alerts in the tables below.
 You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
 
 
@@ -564,7 +564,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Healthwatch Ingestor Data Drops  </td>
         <td>
-            <strong>Name</strong>: ingestor.dropped 
+            <strong>Name</strong>: ingestor.dropped
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Healthwatch
         </td>
@@ -594,7 +594,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Healthwatch Ingestor BOSH System Metrics Ingested</td>
         <td>
-            <strong>Name</strong>: ingestor.ingested.<br/>boshSystemMetrics 
+            <strong>Name</strong>: ingestor.ingested.<br/>boshSystemMetrics
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Healthwatch
         </td>
@@ -773,7 +773,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Number of Router 5XX Server Errors<sup>1</sup></td>
         <td>
-            <strong>Name</strong>: responses.5xx 
+            <strong>Name</strong>: responses.5xx
             <br><strong>Origin</strong>: gorouter
             <br><strong>Category</strong>: Routing
         </td>
@@ -893,7 +893,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>VM Disk Used </td>
         <td>
-            <strong>Name</strong>: system.disk.<br/>system.percent 
+            <strong>Name</strong>: system.disk.<br/>system.percent
             <br><strong>Origin</strong>: bosh-system-metrics-forwarder
             <br><strong>Category</strong>: All Jobs
         </td>
@@ -923,7 +923,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Router Throughput<sup>1</sup>  </td>
         <td>
-            <strong>Name</strong>: total_requests 
+            <strong>Name</strong>: total_requests
             <br><strong>Origin</strong>: gorouter
             <br><strong>Category</strong>: Routing
         </td>
@@ -955,7 +955,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
         <td>
             <strong>Name</strong>: system.mem.percent
             <br><strong>Origin</strong>: bosh-system-metrics-forwarder
-            <br><strong>Category</strong>: All Jobs 
+            <br><strong>Category</strong>: All Jobs
         </td>
         <td>
             <strong>Threshold Type</strong>: UPPER
@@ -1040,7 +1040,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Remaining Cell Disk Available</td>
         <td>
-            <strong>Name</strong>: Diego.<br/>TotalAvailableDiskCapacity.<br/>5M 
+            <strong>Name</strong>: Diego.<br/>TotalAvailableDiskCapacity.<br/>5M
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Capacity
         </td>
@@ -1055,7 +1055,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Remaining Cell Memory Available<sup>1</sup></td>
         <td>
-            <strong>Name</strong>: Diego.<br/>TotalAvailableMemoryCapacity.<br/>5M  
+            <strong>Name</strong>: Diego.<br/>TotalAvailableMemoryCapacity.<br/>5M
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Capacity
         </td>
@@ -1070,7 +1070,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Cell Container Capacity Available </td>
         <td>
-            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableContainerCapacity.<br/>5M 
+            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableContainerCapacity.<br/>5M
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Capacity
         </td>
@@ -1085,7 +1085,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Cell Disk Available</td>
         <td>
-            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableDiskCapacity.<br/>5M 
+            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableDiskCapacity.<br/>5M
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Capacity
         </td>
@@ -1100,7 +1100,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Cell Memory Available<sup>1</sup></td>
         <td>
-            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableMemoryCapacity.<br/>5M 
+            <strong>Name</strong>: Diego.<br/>TotalPercentageAvailableMemoryCapacity.<br/>5M
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Capacity
         </td>
@@ -1179,8 +1179,8 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
         </td>
         <td>
             <strong>Threshold Type</strong>: UPPER
-            <br><strong>Critical</strong>: 250
-            <br><strong>Warning</strong>: 200
+            <br><strong>Critical</strong>: 500
+            <br><strong>Warning</strong>: 450
             <br><strong>Unit</strong>: Number
             <br><strong>Assessment Window (minutes)</strong>: 60
         </td>
@@ -1251,7 +1251,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
 
 <sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).<br/>
 <sup>3</sup> This handles two jobs to accommodate different job names between PAS and SRT*
-                                  
+
 
 ###<a id='service-level-indicators'></a> Service Level Indicators
 
@@ -1278,7 +1278,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Ops Manager Availability</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>OpsMan.available 
+            <strong>Name</strong>: health.check.<br/>OpsMan.available
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Ops Manager
         </td>
@@ -1292,7 +1292,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Canary App Availability</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>CanaryApp.available 
+            <strong>Name</strong>: health.check.<br/>CanaryApp.available
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Canary App
         </td>
@@ -1306,7 +1306,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Canary App Response Time </td>
         <td>
-            <strong>Name</strong>: health.check.<br/>CanaryApp.responseTime 
+            <strong>Name</strong>: health.check.<br/>CanaryApp.responseTime
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: Canary App
         </td>
@@ -1321,7 +1321,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>CF Push Time</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>cliCommand.pushTime 
+            <strong>Name</strong>: health.check.<br/>cliCommand.pushTime
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: CLI
         </td>
@@ -1364,7 +1364,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Can CF Start</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>cliCommand.start 
+            <strong>Name</strong>: health.check.<br/>cliCommand.start
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: CLI
         </td>
@@ -1378,7 +1378,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Can CF Stop</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>cliCommand.stop 
+            <strong>Name</strong>: health.check.<br/>cliCommand.stop
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: CLI
         </td>
@@ -1392,7 +1392,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Can CF Delete</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>cliCommand.delete 
+            <strong>Name</strong>: health.check.<br/>cliCommand.delete
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: CLI
         </td>
@@ -1406,7 +1406,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     <tr>
         <td>Can Receive Logs</td>
         <td>
-            <strong>Name</strong>: health.check.<br/>cliCommand.logs 
+            <strong>Name</strong>: health.check.<br/>cliCommand.logs
             <br><strong>Origin</strong>: healthwatch
             <br><strong>Category</strong>: CLI
         </td>
