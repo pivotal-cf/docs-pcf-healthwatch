@@ -5,7 +5,7 @@ owner: PCF Healthwatch
 
 ## <a id='v1.6.2'></a>v1.6.2
 
-**Release Date: CHANGEME, 2019**
+**Release Date: September 11, 2019**
 
 ### Features
 
@@ -64,6 +64,11 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+####<a id='cell-health-check-graph'></a> Cell Health Check graph is not showing correctly
+
+On the Compute Performance page, the Cell Health Check graph shows no data. Upgrading to Healthwatch 1.6.2+ fixes this issue.
+Alerting on the underlying metric, `rep.UnhealthyCell`, was unaffected.
 
 ####<a id='log-throughput-graph'></a> Occasional inaccurate spikes in Log Transport Throughput graph
 
