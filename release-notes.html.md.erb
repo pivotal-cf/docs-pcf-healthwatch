@@ -5,7 +5,7 @@ owner: PCF Healthwatch
 
 ## <a id='v1.7.0'></a>v1.7.0
 
-**Release Date: CHANGEME, 2019**
+**Release Date: September 20, 2019**
 
 ### Features
 
@@ -13,14 +13,11 @@ New features and changes in this release:
 
 * Remove the default critical and warning threshold for alerts we have learned are highly dependent upon customer environments.
     * For customers doing a fresh install:
-    //TODO: update the table name. verify links work. ask docs for feedback about this being clear/loud enough
-    - They will not receive alerts for metrics with dynamic thresholds, designated by the CHANGEME table. Customer who wants to receive alerts for the metrics with dynamic thresholds need to configure the alert threshold through [HAPI](api/alerts.html#post) explicitly.
+    - They will not receive alerts for metrics with highly variable thresholds, designated by the [Environment Specific Alert](api/alerts.html#environment-specific-alerts) table. Customer who wants to receive alerts for the metrics with dynamic thresholds need to configure the alert threshold through [HAPI](api/alerts.html#post) explicitly.
 
     * For customers upgrading:
-    //TODO: update the link to the unknown content
-    - If they have custom alert thresholds configured through HAPI for the affected metrics, the alert behavior will not be affected by this change. If customers choose to forego their custom thresholds and no longer monitor these metrics, CHANGEME(link to HAPI section).
+    - If they have custom alert thresholds configured through HAPI for the affected metrics, the alert behavior will not be affected by this change. If customers choose to forego their custom thresholds and no longer monitor these metrics, instructions are provided [here](api/alerts.html#Example).
     - If they do not have custom alert thresholds configured, they will no longer receive alerts for the affected metrics. Current in-flight red/yellow alerts will be cleared by green alerts regardless the current metric value.
-
 
 * Remove metric, graph, and alert associated to [`Route Registration Messages Delta`](https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#route-registration). This metric was removed in PAS 2.4 so related graphs and alerts should not display. The current associated alert will be resolved automatically.
 * **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
