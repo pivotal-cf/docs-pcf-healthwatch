@@ -5,22 +5,36 @@ owner: PCF Healthwatch
 
 ## <a id='v1.7.0'></a>v1.7.0
 
-**Release Date: CHANGEME, 2019**
+**Release Date: September 20, 2019**
 
 ### Features
 
 New features and changes in this release:
 
+* Remove the default critical and warning threshold for alerts we have learned are highly dependent upon customer environments.
+    * For customers doing a fresh install:
+    - They will not receive alerts for metrics with highly variable thresholds, designated by the [Environment Specific Alert](api/alerts.html#environment-specific-alerts) table. Customer who wants to receive alerts for the metrics with dynamic thresholds need to configure the alert threshold through [HAPI](api/alerts.html#post) explicitly.
+
+    * For customers upgrading:
+    - If they have custom alert thresholds configured through HAPI for the affected metrics, the alert behavior will not be affected by this change. If customers choose to forego their custom thresholds and no longer monitor these metrics, instructions are provided [here](api/alerts.html#Example).
+    - If they do not have custom alert thresholds configured, they will no longer receive alerts for the affected metrics. Current in-flight red/yellow alerts will be cleared by green alerts regardless the current metric value.
+
+* Remove metric, graph, and alert associated to [`Route Registration Messages Delta`](https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#route-registration). This metric was removed in PAS 2.4 so related graphs and alerts should not display. The current associated alert will be resolved automatically.
 * **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
+* **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
+* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection. After 20 resets of the Spring Application Context, the app instance will purposely crash and let Diego re-schedule it, providing a fresh container and JVM instance.
+* **[Bug Fix]** Fix `healthwatch-ingestor` crash in cases where GoRouter receives an HTTP request with non-standard HTTP method, resulting in a HttpStartStop metric with a null HTTP method value.
+* **[Bug Fix]** Setting `Redis Worker Count` in the Healthwatch Component Config page of Ops Manager successfully changes
+instance number. Previously, changes to this field were not reflected in the Healthwatch deployment.
+* **[Bug Fix]** Delete orphaned `cf-health-check` `smoke-test-app` instances regularly. Previously, `cf-health-check` would occasionally fail
+to delete a smoke test and never cleaned it up.
+* **[Bug Fix]** Fix occasional inaccurate spikes in Log Transport Throughput graph.
+* Maintenance update of the following dependencies:
+  - Spring Boot now 2.1.8
 
 ### Known Issues
 
 This release has the following known issues.
-
-####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
-
-If there are no `cf-syslog-drain` metrics emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
-
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
