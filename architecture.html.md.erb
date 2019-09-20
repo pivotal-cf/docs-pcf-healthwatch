@@ -86,6 +86,12 @@ Pivotal Healthwatch creates the following Functional Apps:
 
 For information about scaling these Pivotal Healthwatch resources, see [Pivotal Healthwatch Resources](resources.html#healthwatch-apps).
 
+## <a id='cf-users'></a>Users Created by Pivotal Healthwatch
+
+Pivotal Healthwatch creates a `healthwatch_space_developer` user and assigns this user the `SpaceDeveloper` role.
+
+The `cf-health-check` app uses the `healthwatch_space_developer` user for CLI command health checks.
+
 ## <a id='networking-rules'></a>Required Networking Rules for Pivotal Healthwatch
 
 Prior to deploying Pivotal Healthwatch, the operator must verify the network configuration necessary to allow Pivotal Healthwatch
