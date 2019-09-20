@@ -3,7 +3,7 @@ title: Configuring Pivotal Healthwatch Alerts
 owner: Pivotal Healthwatch
 ---
 
-This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
+This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. 
 
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
@@ -221,8 +221,8 @@ The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to th
 
 ##<a id='defaults'></a>Supported Alerts
 
-By default, PCF Healthwatch includes the following configurable alerts:
-This section describes the default Warning and Critical alerts for PCF Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch.
+By default, Pivotal Healthwatch includes the following configurable alerts:
+This section describes the default Warning and Critical alerts for Pivotal Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch.
 
 ###<a id='performance-alerts'></a>Performance Alerts
 
@@ -831,7 +831,7 @@ This section describes the default Warning and Critical alerts for PCF Healthwat
     </tr>
 </table>
 
-You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
+You can learn more about the metrics Pivotal Healthwatch emits here: [Pivotal Healthwatch Metrics](../metrics.html).
 
 <sup>1</sup> We are alerting by cell for this metric. We will notify at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
 
@@ -1231,7 +1231,7 @@ The alerts in the table below are highly variable depending on your environment;
 You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health.
 Once you have monitored your system and established baseline values, you can update the threshold values and enable these alerts.
 
-For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).
+For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).
 
 <table>
     <tr>
