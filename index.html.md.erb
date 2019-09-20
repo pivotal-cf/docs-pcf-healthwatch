@@ -1,22 +1,22 @@
 ---
 title: Pivotal Cloud Foundry Healthwatch
-owner: PCF Healthwatch
+owner: Pivotal Healthwatch
 ---
 
 This documentation describes Pivotal Cloud Foundry (PCF) Healthwatch.
 
-## <a id='features'></a>About PCF Healthwatch
+## <a id='features'></a>About Pivotal Healthwatch
 
-PCF Healthwatch is a service for monitoring and alerting on the current health, performance, and capacity of PCF. To help operators understand the operational state of their PCF deployment, PCF Healthwatch:
+Pivotal Healthwatch is a service for monitoring and alerting on the current health, performance, and capacity of PCF. To help operators understand the operational state of their PCF deployment, Pivotal Healthwatch:
 
 * Stores, visualizes and alerts on metrics from core PCF components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of PCF.
-* Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html) and [Access Super Metrics Through the Firehose](using.html#firehose).
+* Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [Pivotal Healthwatch Metrics](metrics.html) and [Access Super Metrics Through the Firehose](using.html#firehose).
 
-All data points are stored in PCF Healthwatch for 25 hours and then pruned. Any active alerts that have been pruned will re-alert every 24 hours if not cleared.
+All data points are stored in Pivotal Healthwatch for 25 hours and then pruned. Any active alerts that have been pruned will re-alert every 24 hours if not cleared.
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about PCF Healthwatch.
+The following table provides version and version-support information about Pivotal Healthwatch.
 
 <table class="nice">
     <th>Element</th>
@@ -57,17 +57,17 @@ The following table provides version and version-support information about PCF H
 
 ## <a id="limitations"></a>Limitations
 
-* PCF Healthwatch is intended to monitor only the PCF foundation it is installed on.
+* Pivotal Healthwatch is intended to monitor only the PCF foundation it is installed on.
 
-## <a id='guide'></a>PCF Healthwatch User Guide ##
+## <a id='guide'></a>Pivotal Healthwatch User Guide ##
 
-* [PCF Healthwatch Architecture](architecture.html)
-* [Installing and Configuring PCF Healthwatch](installing.html)
-* [Using PCF Healthwatch](using.html)
-* [PCF Healthwatch Resources](resources.html)
-* [PCF Healthwatch Metrics](metrics.html)
-* [Monitoring PCF Healthwatch](monitoring.html)
-* [Troubleshooting PCF Healthwatch](troubleshooting.html)
+* [Pivotal Healthwatch Architecture](architecture.html)
+* [Installing and Configuring Pivotal Healthwatch](installing.html)
+* [Using Pivotal Healthwatch](using.html)
+* [Pivotal Healthwatch Resources](resources.html)
+* [Pivotal Healthwatch Metrics](metrics.html)
+* [Monitoring Pivotal Healthwatch](monitoring.html)
+* [Troubleshooting Pivotal Healthwatch](troubleshooting.html)
 * [Updating Alert Configurations](api/alerts.html)
 * [Updating Free Chunk Configurations](api/free-chunks.html)
 * [Release Notes and Known Issues](release-notes.html)

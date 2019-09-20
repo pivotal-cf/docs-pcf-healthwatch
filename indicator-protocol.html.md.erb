@@ -1,6 +1,6 @@
 ---
 title: Indicator Protocol Dashboard (Beta)
-owner: PCF Healthwatch
+owner: Pivotal Healthwatch
 ---
 
 <p class="note warning"><b>Warning: </b>This feature is in Beta. To provide feedback to the Indicator Protocol team, please email <a href="mailto:indicator-protocol@pivotal.io">indicator-protocol@pivotal.io</a>.</p>
@@ -26,7 +26,7 @@ In the following architecture diagram, the `indicator-registration-agent` runs o
 
 This indicator registry defines indicators and runs on the Healthwatch Forwarder VM. Documents are temporarily stored in memory in the registry.
 
-The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. PCF Healthwatch consumes the results of this endpoint and creates a dashboard for each document. If the indicator registry does not receive a re-registered document within 2 hours, the document is evicted and that service’s dashboard will not appear.
+The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. Pivotal Healthwatch consumes the results of this endpoint and creates a dashboard for each document. If the indicator registry does not receive a re-registered document within 2 hours, the document is evicted and that service’s dashboard will not appear.
 
 <%= image_tag './images/indicator-protocol-architecture.png' %>
 
@@ -51,7 +51,7 @@ For more information about runtime config, see [Director Runtime Config](https:/
 
 To enable the Indicator Protocol runtime config add-on, do the following:
 
-1. On the Ops Manager Installation Dashboard, click the **PCF Healthwatch** tile.
+1. On the Ops Manager Installation Dashboard, click the **Pivotal Healthwatch** tile.
 
 1. Navigate to the **Healthwatch Component Config** pane.
 
@@ -61,7 +61,7 @@ To enable the Indicator Protocol runtime config add-on, do the following:
 
 1. On the Ops Manager Installation Dashboard, click **Review Pending Changes**.
 
-1. Enable only PCF Healthwatch. If any other products are enabled, disable them.
+1. Enable only Pivotal Healthwatch. If any other products are enabled, disable them.
 <p class="note"><b>Note:</b>BOSH Director cannot be disabled.</p>
 
 1. Click **Apply Changes**.
@@ -83,4 +83,4 @@ For information about the errand, including implications, see [Upgrade all servi
 
 ## <a id='access'></a>Access the Indicator Protocol Dashboard
 
-To verify that the Indicator Protocol dashboards appear in PCF Healthwatch, view the PCF Healthwatch UI at `https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards`, where `SYSTEM-DOMAIN` is your system domain. 
+To verify that the Indicator Protocol dashboards appear in Pivotal Healthwatch, view the Pivotal Healthwatch UI at `https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards`, where `SYSTEM-DOMAIN` is your system domain.

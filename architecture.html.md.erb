@@ -1,26 +1,26 @@
 ---
-title: PCF Healthwatch Architecture
-owner: PCF Healthwatch
+title: Pivotal Healthwatch Architecture
+owner: Pivotal Healthwatch
 ---
 This topic describes the architecture of Pivotal Cloud Foundry (PCF) Healthwatch.
 
-## <a id='components'></a>PCF Healthwatch Components
+## <a id='components'></a>Pivotal Healthwatch Components
 
-The diagram below shows the architecture of PCF Healthwatch, including the PCF components that PCF Healthwatch interacts with.
+The diagram below shows the architecture of Pivotal Healthwatch, including the PCF components that Pivotal Healthwatch interacts with.
 
 <%= image_tag './images/healthwatch-architecture.png' %>
 
 [View a larger version of this diagram](./images/healthwatch-architecture.png).
 
-PCF Healthwatch deploys several apps as part of its installation process. These apps are responsible for creating the service UI and supporting functional health checks.
+Pivotal Healthwatch deploys several apps as part of its installation process. These apps are responsible for creating the service UI and supporting functional health checks.
 
-## <a id='data-flow'></a>How Data Flows Through PCF Healthwatch
+## <a id='data-flow'></a>How Data Flows Through Pivotal Healthwatch
 
-Data flows through PCF Healthwatch as follows:
+Data flows through Pivotal Healthwatch as follows:
 
 1. In PCF, all platform metrics are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default.
 
-1. The PCF Healthwatch Ingestor app consumes the platform metrics from the Firehose. 
+1. The Pivotal Healthwatch Ingestor app consumes the platform metrics from the Firehose.
 
 1. The Ingestor forwards the platform metrics to Redis, which acts as a buffer. 
 
@@ -28,19 +28,19 @@ Data flows through PCF Healthwatch as follows:
 
 1. The transformed data remains available in the MySQL datastore until it is purged.
 
-###<a id='super'></a> How Product-Created Metrics Flow Through PCF Healthwatch
+###<a id='super'></a> How Product-Created Metrics Flow Through Pivotal Healthwatch
 
-PCF Healthwatch also creates additional metrics of operational value and stores them in the `super_value_metric` table in the datastore. For more information, see [PCF Healthwatch Metrics](metrics.html). These product-created platform metrics take two paths through the system: Contextual Assessments and Functional Apps.
+Pivotal Healthwatch also creates additional metrics of operational value and stores them in the `super_value_metric` table in the datastore. For more information, see [Pivotal Healthwatch Metrics](metrics.html). These product-created platform metrics take two paths through the system: Contextual Assessments and Functional Apps.
 
 #### Contextual Assessments
 
 Contextual Assessments are derived from platform-emitted data, for example, 
-Syslog Drain Binding Capacity. PCF Healthwatch handles this data as follows:
+Syslog Drain Binding Capacity. Pivotal Healthwatch handles this data as follows:
 
 1. The Aggregator app makes additional transformations to the data.
 1. The Aggregator app forwards the data to the Metron Forwarder.
 1. The Metron Forwarder writes the data to the MySQL datastore and also forwards it back into the Firehose for external consumers to use. 
-  <p class="note"><strong>Note</strong>: PCF Healthwatch forwards back into the Firehose only these additional metrics. The service does not forward platform metrics that are already available to the Firehose consumers.</p>
+  <p class="note"><strong>Note</strong>: Pivotal Healthwatch forwards back into the Firehose only these additional metrics. The service does not forward platform metrics that are already available to the Firehose consumers.</p>
 1. The transformed data remains available in the MySQL datastore until it is purged.
 
 All ingested and service-created data points are stored in the datastore for 25 hours and then pruned.
@@ -48,64 +48,64 @@ All ingested and service-created data points are stored in the datastore for 25 
 #### Functional Apps 
 
 Functional Apps execute Health and Uptime tests, for example, CLI Command Health. 
-PCF Healthwatch handles this data as follows:
+Pivotal Healthwatch handles this data as follows:
 
 1. Functional Apps forward their data to the Metron Forwarder.
 1. The Metron Forwarder writes that data to the MySQL datastore and also forwards it back into the Firehose for external consumers to use. This data is then available until it is purged.
-  <p class="note"><strong>Note</strong>: PCF Healthwatch forwards back into the Firehose only these additional metrics. The service does not forward platform metrics that are already available to the Firehose consumers.</p>
+  <p class="note"><strong>Note</strong>: Pivotal Healthwatch forwards back into the Firehose only these additional metrics. The service does not forward platform metrics that are already available to the Firehose consumers.</p>
 
 All ingested and service-created data points are stored in the datastore for 25 hours and then pruned.
 
-### <a id='ha'></a>How PCF Healthwatch Adjusts Data Flow for Higher Availability
+### <a id='ha'></a>How Pivotal Healthwatch Adjusts Data Flow for Higher Availability
 
-When a singleton component becomes temporarily unavailable, such as when a VM restarts when a new stemcell is applied, PCF Healthwatch can adjust its data flow to provide higher availability. This adjusted data flow process is described below.
+When a singleton component becomes temporarily unavailable, such as when a VM restarts when a new stemcell is applied, Pivotal Healthwatch can adjust its data flow to provide higher availability. This adjusted data flow process is described below.
 
   * If Redis is temporarily unavailable, Firehose-based data buffers in the Ingestor until Redis becomes available.
 
-  * If MySQL is temporarily unavailable, Firehose-based data queues in Redis, and data generated by PCF Healthwatch queues in the Metron Forwarder until MySQL becomes available.
+  * If MySQL is temporarily unavailable, Firehose-based data queues in Redis, and data generated by Pivotal Healthwatch queues in the Metron Forwarder until MySQL becomes available.
 
-## <a id='aggregation'></a>How Platform-Emitted Data is Aggregated by PCF Healthwatch
+## <a id='aggregation'></a>How Platform-Emitted Data is Aggregated by Pivotal Healthwatch
 
-All Firehose-emitted platform metrics that PCF Healthwatch ingests are aggregated according to pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can add additional points of interest to the data.
+All Firehose-emitted platform metrics that Pivotal Healthwatch ingests are aggregated according to pre-defined rules before being written to the datastore. This helps avoid the cost of storing raw data, and in the case of gauge values, can add additional points of interest to the data.
 
   * **Counter metrics**: Maximum counter value received for the one-minute aggregation window, from which a minute-to-minute rate is later derived. Unique to the metric name and to the individual metric emitter, per instance, as applicable.
 
   * **Gauge metrics**: Received values for the one-minute aggregation window, aggregated and stored with the following five calculated values per metric: `avg`, `min`, `max`, `med`, `95p`. Unique to the metric name and to the individual emitter, per instance, as applicable.
 
-## <a id='functional-apps'></a>Functional Apps Created by PCF Healthwatch
+## <a id='functional-apps'></a>Functional Apps Created by Pivotal Healthwatch
 
-PCF Healthwatch creates the following Functional Apps:
+Pivotal Healthwatch creates the following Functional Apps:
 
 * BOSH Director health check: the `bosh-health-check` app 
 * BOSH deployment task check: the `bosh-task-check` app 
 * CLI command health check: the `cf-health-check` app 
 * Canary app uptime and response check: the `canaryapp-health-check` app
 * Ops Manager uptime check: the `opsmanager-health-check` app
-* PCF Healthwatch self-monitor and [report](http://docs.pivotal.io/pcf-healthwatch/1-1/monitoring.html): the `healthwatch-meta-monitor` app
-* PCF Healthwatch event monitoring and alert publishing: the `healthwatch-alerts` app
+* Pivotal Healthwatch self-monitor and [report](http://docs.pivotal.io/pcf-healthwatch/1-1/monitoring.html): the `healthwatch-meta-monitor` app
+* Pivotal Healthwatch event monitoring and alert publishing: the `healthwatch-alerts` app
 
-For information about scaling these PCF Healthwatch resources, see [PCF Healthwatch Resources](resources.html#healthwatch-apps).
+For information about scaling these Pivotal Healthwatch resources, see [Pivotal Healthwatch Resources](resources.html#healthwatch-apps).
 
-## <a id='cf-users'></a>Users Created by PCF Healthwatch
+## <a id='cf-users'></a>Users Created by Pivotal Healthwatch
 
-PCF Healthwatch creates a `healthwatch_space_developer` user and assigns this user the `SpaceDeveloper` role.
+Pivotal Healthwatch creates a `healthwatch_space_developer` user and assigns this user the `SpaceDeveloper` role.
 
 The `cf-health-check` app uses the `healthwatch_space_developer` user for CLI command health checks.
 
-## <a id='networking-rules'></a>Required Networking Rules for PCF Healthwatch
+## <a id='networking-rules'></a>Required Networking Rules for Pivotal Healthwatch
 
-Prior to deploying PCF Healthwatch, the operator must verify the network configuration necessary to allow PCF Healthwatch
-components to communicate with each other and certain PCF components. The following table lists the PCF components that PCF Healthwatch needs to connect to, and why.
+Prior to deploying Pivotal Healthwatch, the operator must verify the network configuration necessary to allow Pivotal Healthwatch
+components to communicate with each other and certain PCF components. The following table lists the PCF components that Pivotal Healthwatch needs to connect to, and why.
 
-| Key PCF Components  | Why PCF Healthwatch Needs Access                                                           |
+| Key PCF Components  | Why Pivotal Healthwatch Needs Access                                                           |
 |-----------------|------------------------------------------------------------------------------|
 |BOSH Director    | Information about BOSH Director health and executing IaaS health checks           |
 |BOSH UAA         | Authorization to access the Director                                         |
-|UAA              | Authorization for component metrics, CF Health Checks and PCF Healthwatch UI |
+|UAA              | Authorization for component metrics, CF Health Checks and Pivotal Healthwatch UI |
 |Cloud Controller | CF Health Checks                                                             |
 |Doppler          | Metric Ingestion, Forwarding Metrics to the Firehose                         |
 
-The following table lists the communication paths and ports between PCF Healthwatch components and other PCF Healthwatch and PCF components.
+The following table lists the communication paths and ports between Pivotal Healthwatch components and other Pivotal Healthwatch and PCF components.
 
 | This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                      | Communication direction(s) | Notes                                                                   |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
@@ -126,5 +126,5 @@ The following table lists the communication paths and ports between PCF Healthwa
 | Healthwatch MySQL VM     | No outbound connections                                                                                       |                                                                       |                            |                                                                         |
 | Healthwatch Redis VM     | No outbound connections                                                                                       |                                                                       |                            |                                                                         |
 
-<p class="note"><strong>Note</strong>: If you configure syslog forwarding for PCF Healthwatch then you will need to ensure that network path from each VM as well</p>
-<p class="note"><strong>Note</strong>: PCF Healthwatch depends on the `bosh-system-metrics-forwarder` component in PAS.  For that to work the `trafficcontroller` VM needs to communicate to the BOSH Director on port 25595</p>
+<p class="note"><strong>Note</strong>: If you configure syslog forwarding for Pivotal Healthwatch then you will need to ensure that network path from each VM as well</p>
+<p class="note"><strong>Note</strong>: Pivotal Healthwatch depends on the `bosh-system-metrics-forwarder` component in PAS.  For that to work the `trafficcontroller` VM needs to communicate to the BOSH Director on port 25595</p>

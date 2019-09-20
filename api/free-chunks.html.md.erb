@@ -1,6 +1,6 @@
 ---
 title: Configuring Free Chunk Sizes
-owner: PCF Healthwatch
+owner: Pivotal Healthwatch
 ---
 
 This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure [Available Free Chunks of Memory](../metrics.html#free-memory-chunks) and [Available Free Chunks of Disk](../metrics.html#free-disk-chunks).
@@ -14,7 +14,7 @@ Currently, two main types of free chunk configurations are supported: Global and
 
 ## <a id='prerequisites'></a>Prerequisites and Assumptions
 
-The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the PCF Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
+The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the Pivotal Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
 
 ## <a id='info'></a>Healthwatch API Status
 
@@ -48,7 +48,7 @@ This returns a JSON array of free chunk configurations:
 ]
 ```
 
-<p class="note"><strong>Note</strong>: the value returned in the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: the value returned in the Pivotal Healthwatch API is in megabytes, but the Pivotal Healthwatch UI displays the value in gigabytes.</p>
 
 ## <a id='post'></a>Creating and updating free chunk configurations
 
@@ -77,4 +77,4 @@ Possible successful HTTP response codes:
 - 201: A new record was created
 - 400: Invalid parameters
 
-<p class="note"><strong>Note</strong>: The value supplied to the PCF Healthwatch API is in megabytes, but the PCF Healthwatch UI displays the value in gigabytes.</p>
+<p class="note"><strong>Note</strong>: The value supplied to the Pivotal Healthwatch API is in megabytes, but the Pivotal Healthwatch UI displays the value in gigabytes.</p>

@@ -1,13 +1,13 @@
 ---
-title: Using PCF Healthwatch
-owner: PCF Healthwatch
+title: Using Pivotal Healthwatch
+owner: Pivotal Healthwatch
 ---
 
 This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
 
-##<a id='dashboard-overview'></a>The PCF Healthwatch Dashboard
+##<a id='dashboard-overview'></a>The Pivotal Healthwatch Dashboard
 
-The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
+The Pivotal Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
 into the health the foundation.
 
 <%= image_tag './images/dashboard-all-green.png' %>
@@ -15,27 +15,27 @@ into the health the foundation.
 The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts
 of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
 
-To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [PCF Healthwatch API](./api/index.html) documentation.
+To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [Pivotal Healthwatch API](./api/index.html) documentation.
 
-Note that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
+Note that an out-of-the-box Pivotal Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
 that alerts fire only in the event of meaningful problems, you need to [tune](api/alerts.html#post) some of the alerts to fit the size of your system.
 
-##<a id='access'></a>Accessing PCF Healthwatch
+##<a id='access'></a>Accessing Pivotal Healthwatch
 
-You can access PCF Healthwatch and its data through the PCF Healthwatch UI or directly through the service datastore. In addition, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
+You can access Pivotal Healthwatch and its data through the Pivotal Healthwatch UI or directly through the service datastore. In addition, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
 
-###<a id='ui'></a>Access the PCF Healthwatch UI
+###<a id='ui'></a>Access the Pivotal Healthwatch UI
 
-To access the PCF Healthwatch UI, do the following:
+To access the Pivotal Healthwatch UI, do the following:
 
 1. Navigate to `healthwatch.SYSTEM-DOMAIN`.
 2. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
     <br><br>
-    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users).
+    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the Pivotal Healthwatch UI](installing.html#healthwatch-uaa-users).
 
 ###<a id='mysql'></a>Access Data Through MySQL
 
-You can access metrics data through the PCF Healthwatch datastore. See [PCF Healthwatch Metrics](metrics.html) for the description of available data points.
+You can access metrics data through the Pivotal Healthwatch datastore. See [Pivotal Healthwatch Metrics](metrics.html) for the description of available data points.
 
 The table below provides login information.
 
@@ -50,11 +50,11 @@ The table below provides login information.
 </tr>
 <tr>
   <td>Username</td>
-  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
+  <td>MySQL Admin Password credentials in the Pivotal Healthwatch tile</td>
 </tr>
 <tr>
   <td>Password</td>
-  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
+  <td>MySQL Admin Password credentials in the Pivotal Healthwatch tile</td>
 </tr>
 <tr>
   <td>Database</td>
@@ -76,7 +76,7 @@ To access the MySQL datastore, you can do the following:
 
 ###<a id='firehose'></a>Access Super Metrics Through the Firehose
 
-PCF Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
+Pivotal Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
 
 <pre class="terminal">
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
