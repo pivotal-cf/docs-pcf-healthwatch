@@ -6,7 +6,7 @@ This topic describes the architecture of Pivotal Healthwatch.
 
 ## <a id='components'></a>Pivotal Healthwatch Components
 
-The diagram below shows the architecture of Pivotal Healthwatch, including the PCF components that Pivotal Healthwatch interacts with.
+The diagram below shows the architecture of Pivotal Healthwatch, including the <%= vars.platform_name %> components that Pivotal Healthwatch interacts with.
 
 <%= image_tag './images/healthwatch-architecture.png' %>
 
@@ -18,7 +18,7 @@ Pivotal Healthwatch deploys several apps as part of its installation process. Th
 
 Data flows through Pivotal Healthwatch as follows:
 
-1. In PCF, all platform metrics are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default.
+1. In <%= vars.platform_name %>, all platform metrics are forwarded to the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) by default.
 
 1. The Pivotal Healthwatch Ingestor app consumes the platform metrics from the Firehose.
 
@@ -95,9 +95,9 @@ The `cf-health-check` app uses the `healthwatch_space_developer` user for CLI co
 ## <a id='networking-rules'></a>Required Networking Rules for Pivotal Healthwatch
 
 Prior to deploying Pivotal Healthwatch, the operator must verify the network configuration necessary to allow Pivotal Healthwatch
-components to communicate with each other and certain PCF components. The following table lists the PCF components that Pivotal Healthwatch needs to connect to, and why.
+components to communicate with each other and certain <%= vars.platform_name %> components. The following table lists the <%= vars.platform_name %> components that Pivotal Healthwatch needs to connect to, and why.
 
-| Key PCF Components  | Why Pivotal Healthwatch Needs Access                                                           |
+| Key <%= vars.platform_name %>  Components  | Why Pivotal Healthwatch Needs Access                                                           |
 |-----------------|------------------------------------------------------------------------------|
 |BOSH Director    | Information about BOSH Director health and executing IaaS health checks           |
 |BOSH UAA         | Authorization to access the Director                                         |
@@ -105,7 +105,7 @@ components to communicate with each other and certain PCF components. The follow
 |Cloud Controller | CF Health Checks                                                             |
 |Doppler          | Metric Ingestion, Forwarding Metrics to the Firehose                         |
 
-The following table lists the communication paths and ports between Pivotal Healthwatch components and other Pivotal Healthwatch and PCF components.
+The following table lists the communication paths and ports between Pivotal Healthwatch components and other Pivotal Healthwatch and <%= vars.platform_name %> components.
 
 | This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                      | Communication direction(s) | Notes                                                                   |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
