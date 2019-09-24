@@ -49,6 +49,10 @@ The Indicator Protocol Beta Dashboard charts are populated using data from Log C
 
 No corrective action is required. The issue will self-resolve if possible.
 
+#### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
+
+A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
+
 
 ## <a id='v1.6.1'></a>v1.6.1
 
@@ -89,6 +93,10 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 The Indicator Protocol Beta Dashboard charts are populated using data from Log Cache, which is a component of Loggregator. The charts may fail to load if Log Cache times out while processing the data.
 
 No corrective action is required. The issue will self-resolve if possible.
+
+#### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
+
+A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
 
 ## <a id='v1.6.0'></a>v1.6.0
 
@@ -165,4 +173,8 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
 No corrective action is required and it will self-resolve if possible.
+
+#### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
+
+A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
 
