@@ -52,3 +52,8 @@ These charts are populated using Log Cache, which is part of Loggregator and wil
 
 No corrective action is required and it will self-resolve if possible.
 
+#### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
+
+A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
+
+This issue will be fixed in v1.7.1+.
