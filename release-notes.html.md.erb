@@ -3,6 +3,16 @@ title: PCF Healthwatch v1.6 Release Notes
 owner: PCF Healthwatch
 ---
 
+## <a id='v1.6.4'></a>v1.6.4
+
+**Release Date: CHANGEME, 2019**
+
+### Features
+
+New features and changes in this release:
+
+* Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
+
 ## <a id='v1.6.3'></a>v1.6.3
 
 **Release Date: September 17, 2019**
@@ -51,8 +61,8 @@ No corrective action is required. The issue will self-resolve if possible.
 
 #### Multiple `healthwatch_space_developer` Users Created During Healthwatch Re-installation
 
-When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during 
-the previous tile's deletion. 
+When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during
+the previous tile's deletion.
 
 This causes the `cf-health-check` to fail due to an invalid password for the `healthwatch_space_developer` user.
 
@@ -83,6 +93,10 @@ during upgrades from PCF Healthwatch v1.5.
 Due to this issue, PCF Healthwatch v1.6.2 is no longer available on Pivotal Network.
 
 Install or upgrade to PCF Healthwatch v1.6.3 instead.
+
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
 
 ## <a id='v1.6.1'></a>v1.6.1
 
@@ -140,6 +154,10 @@ No corrective action is required. The issue will self-resolve if possible.
 #### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
 
 A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
+
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
 
 ## <a id='v1.6.0'></a>v1.6.0
 
@@ -233,3 +251,6 @@ No corrective action is required and it will self-resolve if possible.
 
 A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
 
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
