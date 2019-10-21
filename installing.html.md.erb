@@ -130,8 +130,8 @@ Any user with the <code>healthwatch.read</code> or <code>healthwatch.admin</code
 
 To allow other users read-only access to the Healthwatch UI, perform the following steps. This procedure adds the <code>healthwatch.read</code> scope to the desired UAA users using the uaac client.
 
-1. Access the uaac client with `uaac target UAA-URL`.
-1. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
+1. Access the uaac server with `uaac target UAA-URL`.
+1. Login as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
 1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
 1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
 
@@ -142,6 +142,16 @@ The above procedure can be leveraged to add the <code>healthwatch.admin</code> s
 ##<a id='update-alert-thresholds'></a> (Optional) Update Default Alert Thresholds
 
 PCF Healthwatch includes several configurable alerts by deafult. Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health.
+
+To configure Healthwatch alert thresholds, you will first need a UAA client with `healthwatch.admin` authority.
+
+To create a client to configure alert thresholds, perform the following steps:
+
+1. Access the uaac server with `uaac target UAA-URL`.
+1. Login as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
+1. Add new UAA client using `uaac client add --authorities 'healthwatch.admin' --authorized_grant_types 'client_credentials' --secret NEW-SECRET`. When promoted, enter the new client id.
+1. Login as new client using `uaac token client get NEW-CLIENT-ID`. When prompted, enter the secret defined above.
+1. Verify the client has correct permission using `uaac curl 'https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations'`. You should see a list of active alert thresholds.
 
 For more information about the default alerts included with PCF Healthwatch, see [Supported Alerts](./api/alerts.html#defaults).
 
