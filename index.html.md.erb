@@ -12,7 +12,7 @@ Pivotal Healthwatch is a service for monitoring and alerting on the current heal
 * Stores, visualizes and alerts on metrics from core <%= vars.platform_name %> components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of <%= vars.platform_name %>.
 * Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [Pivotal Healthwatch Metrics](metrics.html) and [Access Super Metrics Through the Firehose](using.html#firehose).
 
-Pivotal Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that have been pruned will re-alert every 24 hours if the related metrics have not yet recovered to a normal state.
+Pivotal Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.
 
 ## <a id="snapshot"></a>Product Snapshot
 
