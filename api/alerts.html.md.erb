@@ -5,6 +5,8 @@ owner: PCF Healthwatch
 
 This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
 
+<p class="note"><strong>Note</strong>: PCF Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that have been pruned will re-alert every 24 hours if the related metrics have not yet recovered to a normal state.</p>
+
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
 - View current alert configurations
