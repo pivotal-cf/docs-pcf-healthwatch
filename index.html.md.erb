@@ -12,7 +12,7 @@ PCF Healthwatch is a service for monitoring and alerting on the current health, 
 * Stores, visualizes and alerts on metrics from core PCF components, including BOSH-reported VM metrics. The service covers the recommended [Key Performance Indicators](https://docs.pivotal.io/pivotalcf/monitoring/kpi.html) and [Key Scaling Indicators](https://docs.pivotal.io/pivotalcf/monitoring/key-cap-scaling.html) for a given version of PCF.
 * Executes health checks as continuous validation tests and creates super metrics. The service stores, displays, and forwards this data into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) for external consumption by existing customer solutions. For more information, see [PCF Healthwatch Metrics](metrics.html) and [Access Super Metrics Through the Firehose](using.html#firehose).
 
-All data points are stored in PCF Healthwatch for 25 hours and then pruned. Any active alerts that have been pruned will re-alert every 24 hours if not cleared.
+PCF Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -23,11 +23,11 @@ The following table provides version and version-support information about PCF H
     <th>Details</th>
     <tr>
         <td>Version</td>
-        <td>v1.6.1</td>
+        <td>v1.6.3</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>July 8, 2019</td>
+        <td>September 17, 2019</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
