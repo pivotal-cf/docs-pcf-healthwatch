@@ -67,6 +67,12 @@ New features and changes in this release:
 
 This release has the following known issues:
 
+#### Ineffectual Redis Worker Count Property in Tile Configuration
+
+Setting **Redis Worker Count** in the PCF Healthwatch tile does not change the number of instances of the `healthwatch-worker` app.
+
+This issue has been fixed in Healthwatch v1.5.5.
+
 ####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
 
 If there are no `cf-syslog-drain` metrics are emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
@@ -105,6 +111,12 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+#### Ineffectual Redis Worker Count Property in Tile Configuration
+
+Setting **Redis Worker Count** in the PCF Healthwatch tile does not change the number of instances of the `healthwatch-worker` app.
+
+This issue has been fixed in Healthwatch v1.5.5.
 
 ####<a id='log-throughput-graph'></a> Occasional inaccurate spikes in Log Transport Throughput graph
 
