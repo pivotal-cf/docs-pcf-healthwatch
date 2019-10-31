@@ -65,6 +65,13 @@ New features and changes in this release:
 
 This release has the following known issues.
 
+####<a id='incorrect-upgrade-requirements'></a>Incorrect Upgrade Requirements
+
+Tile metadata in PCF Healthwatch states that a user can upgrade directly from Healthwatch v1.3 to v1.6, but the statement is incorrect.
+To upgrade successfully to v1.6, you need PCF Healthwatch v1.5 or later.
+
+The metadata statement is corrected in Healthwatch v1.6.2.
+
 ####<a id='cell-health-check-graph'></a> Cell Health Check graph is not showing correctly
 
 On the Compute Performance page, the Cell Health Check graph shows no data. Upgrading to Healthwatch 1.6.3+ fixes this issue.
@@ -134,16 +141,23 @@ New features and changes in this release:
 
 This release has the following known issues.
 
+
+####<a id='incorrect-upgrade-requirements'></a>Incorrect Upgrade Requirements
+
+Tile metadata in PCF Healthwatch states that a user can upgrade directly from Healthwatch v1.3 to v1.6, but the statement is incorrect.
+To upgrade successfully to v1.6, you need PCF Healthwatch v1.5 or later.
+
+The metadata statement is corrected in Healthwatch v1.6.2.
+
 ####<a id='log-throughput-graph'></a> Occasional inaccurate spikes in Log Transport Throughput graph
 
 The graph might spike inaccurately when doing a deployment upgrade or when the loggregator system is overloaded.
-
 
 ####<a id='transport-dropped-egress-graph'></a> Log Transport Dropped Egress Messages Graph Not Displaying
 
 If all values for `loggregator.doppler.dropped.egress` are 0, the `Log Transport Dropped Egress Messages` graph will not display.
 
-This has been fixed in Healthwatch 1.6.1+.
+This issue is fixed in Healthwatch v1.6.1.
 
 ####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
 
