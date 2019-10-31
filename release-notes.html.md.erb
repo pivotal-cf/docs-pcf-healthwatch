@@ -81,6 +81,11 @@ Alerting on the underlying metric, `rep.UnhealthyCell`, was unaffected.
 
 The graph might spike inaccurately when doing a deployment upgrade or when the loggregator system is overloaded.
 
+#### Ineffectual "Redis Worker Count" property in tile configuration
+
+Setting **Redis Worker Count** in the PCF Healthwatch tile does not change the number of instances of the `healthwatch-worker` app.
+This has been fixed in Healthwatch 1.6.3+.
+
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
 The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
@@ -153,6 +158,12 @@ The metadata statement is corrected in Healthwatch v1.6.2.
 
 The graph might spike inaccurately when doing a deployment upgrade or when the loggregator system is overloaded.
 
+#### Ineffectual Redis Worker Count Property in Tile Configuration
+
+Setting **Redis Worker Count** in the PCF Healthwatch tile does not change the number of instances of the `healthwatch-worker` app.
+
+This issue is fixed in Healthwatch v1.6.3.
+
 ####<a id='transport-dropped-egress-graph'></a> Log Transport Dropped Egress Messages Graph Not Displaying
 
 If all values for `loggregator.doppler.dropped.egress` are 0, the `Log Transport Dropped Egress Messages` graph will not display.
@@ -162,7 +173,6 @@ This issue is fixed in Healthwatch v1.6.1.
 ####<a id='rlp-egress-graph'></a> Reverse Log Proxy Egress Dropped Messages Graph Not Displaying
 
 If there are no `cf-syslog-drain` metrics emitted, the `Reverse Log Proxy Egress Dropped Messages` graph will not display.
-
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
