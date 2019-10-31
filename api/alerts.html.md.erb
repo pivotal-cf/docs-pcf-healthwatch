@@ -5,6 +5,8 @@ owner: PCF Healthwatch
 
 This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
 
+<p class="note"><strong>Note</strong>: PCF Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.</p>
+
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
 - View current alert configurations
@@ -1077,7 +1079,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
         <td>
             <strong>Threshold Type</strong>: LOWER
             <br><strong>Critical</strong>: 0.35
-            <br><strong>Warning</strong>: 0.4
+            <br><strong>Warning</strong>: 0.35
             <br><strong>Unit</strong>: Percent
             <br><strong>Assessment Window (minutes)</strong>: 30
         </td>
@@ -1092,7 +1094,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
         <td>
             <strong>Threshold Type</strong>: LOWER
             <br><strong>Critical</strong>: 0.35
-            <br><strong>Warning</strong>: 0.4
+            <br><strong>Warning</strong>: 0.35
             <br><strong>Unit</strong>: Percent
             <br><strong>Assessment Window (minutes)</strong>: 30
         </td>
@@ -1107,7 +1109,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
         <td>
             <strong>Threshold Type</strong>: LOWER
             <br><strong>Critical</strong>: 0.35
-            <br><strong>Warning</strong>: 0.4
+            <br><strong>Warning</strong>: 0.35
             <br><strong>Unit</strong>: Percent
             <br><strong>Assessment Window (minutes)</strong>: 30
         </td>
