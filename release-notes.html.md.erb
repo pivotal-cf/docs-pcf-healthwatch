@@ -1,10 +1,10 @@
 ---
-title: Pivotal Healthwatch v1.7 Release Notes
+title: Pivotal Healthwatch v1.8 Release Notes
 owner: Pivotal Healthwatch
 ---
 
 
-## <a id='v1.7.1'></a>v1.7.1
+## <a id='v1.8.0'></a>v1.8.0
 
 **Release Date: CHANGEME, 2019**
 
@@ -12,8 +12,6 @@ owner: Pivotal Healthwatch
 
 New features and changes in this release:
 
-* Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
-* Add Metrics Troubleshooting errand. This is for troubleshooting purpose only, off by default.
 
 ### Known Issues
 
@@ -34,65 +32,3 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
 No corrective action is required and it will self-resolve if possible.
-
-## <a id='v1.7.0'></a>v1.7.0
-
-**Release Date: September 20, 2019**
-
-### Features
-
-New features and changes in this release:
-
-* Remove the default critical and warning threshold for alerts we have learned are highly dependent upon customer environments.
-    * For customers doing a fresh install:
-    - They will not receive alerts for metrics with highly variable thresholds, designated by the [Environment Specific Alert](api/alerts.html#environment-specific-alerts) table. Customer who wants to receive alerts for the metrics with dynamic thresholds need to configure the alert threshold through [HAPI](api/alerts.html#post) explicitly.
-
-    * For customers upgrading:
-    - If they have custom alert thresholds configured through HAPI for the affected metrics, the alert behavior will not be affected by this change. If customers choose to forego their custom thresholds and no longer monitor these metrics, instructions are provided [here](api/alerts.html#Example).
-    - If they do not have custom alert thresholds configured, they will no longer receive alerts for the affected metrics. Current in-flight red/yellow alerts will be cleared by green alerts regardless the current metric value.
-
-* Remove metric, graph, and alert associated to [`Route Registration Messages Delta`](https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#route-registration). This metric was removed in PAS 2.4 so related graphs and alerts should not display. The current associated alert will be resolved automatically.
-* **[Bug Fix]** Correctly handle [rotation of root Certificate Authorities](https://docs.pivotal.io/pivotalcf/security/pcf-infrastructure/api-cert-rotation.html).
-* **[Bug Fix]** Reduce noisiness of `system.healthy` alerts when a BOSH VM is created or deleted.
-* **[Bug Fix]** If `healthwatch-ingestor` fails to receive data after 15 seconds, it will automatically reset its Spring Application Context to re-establish a Firehose connection. After 20 resets of the Spring Application Context, the app instance will purposely crash and let Diego re-schedule it, providing a fresh container and JVM instance.
-* **[Bug Fix]** Fix `healthwatch-ingestor` crash in cases where GoRouter receives an HTTP request with non-standard HTTP method, resulting in a HttpStartStop metric with a null HTTP method value.
-* **[Bug Fix]** Setting `Redis Worker Count` in the Healthwatch Component Config page of Ops Manager successfully changes
-instance number. Previously, changes to this field were not reflected in the Healthwatch deployment.
-* **[Bug Fix]** Delete orphaned `cf-health-check` `smoke-test-app` instances regularly. Previously, `cf-health-check` would occasionally fail
-to delete a smoke test and never cleaned it up.
-* **[Bug Fix]** Fix occasional inaccurate spikes in Log Transport Throughput graph.
-* Maintenance update of the following dependencies:
-  - Spring Boot now 2.1.8
-
-### Known Issues
-
-This release has the following known issues.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
-
-Healthwatch deploys the app `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2 leave a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
-
-To address the issue, update vSphere to v6.5 update 2 or later. Or, you can stop the `bosh-health-check` to slow down the increase in vSAN object count.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
-
-These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
-
-No corrective action is required and it will self-resolve if possible.
-
-#### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
-
-When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during
-the previous tile's deletion.
-
-This causes the `cf-health-check` to fail due to an invalid password for the `healthwatch_space_developer` user.
-
-This issue will be fixed in v1.7.1+.
-
-#### Reverse Log Proxy Loss Rate Alert Fires
-
-Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
