@@ -14,6 +14,10 @@ New features and changes in this release:
 
 * Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
 * Add Metrics Troubleshooting errand. This is for troubleshooting purpose only, off by default.
+* **[Bug Fix]** Fix infinite redirect at login.
+
+* Maintenance update of the following dependencies:
+- Spring Boot now 2.1.9
 
 ### Known Issues
 
@@ -96,3 +100,11 @@ This issue will be fixed in v1.7.1+.
 #### Reverse Log Proxy Loss Rate Alert Fires
 
 Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
+
+#### Infinite login redirect when using private domain suffixes
+
+Certain private domain suffixes (eg, `.local` or `.a`) result an infinite redirect loop when trying to access the Healthwatch UI.
+
+A workaround is to set the `SKIP_CERT_VERIFY` environment variable to `true` on the Healthwatch app. A bug fix is included in `1.7.1`.
+
+The canonical list of public suffixes is available [here](https://publicsuffix.org/list/public_suffix_list.dat).
