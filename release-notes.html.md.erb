@@ -54,17 +54,16 @@ No corrective action is required and it will self-resolve if possible.
 
 #### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
 
-When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during 
+In Healthwatch v1.7.0, when the Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during 
 the previous tile's deletion. 
 
 This causes the `cf-health-check` to fail due to an invalid password for the `healthwatch_space_developer` user.
 
-This issue will be fixed in v1.7.1+.
 
-#### Infinite login redirect when using private domain suffixes
+#### Infinite Login Redirect When Using Private Domain Suffixes
 
-Certain private domain suffixes (eg, `.local` or `.a`) result an infinite redirect loop when trying to access the Healthwatch UI.
+In Healthwatch v1.7.0, certain private domain suffixes, such as `.local` or `.a`, result in an infinite redirect loop when you try to access the Healthwatch UI.
 
-A workaround is to set the `SKIP_CERT_VERIFY` environment variable to `true` on the Healthwatch app. A bug fix is included in `1.7.1`.
+A workaround is to set the `SKIP_CERT_VERIFY` environment variable to `true` on the Healthwatch app.
 
-The canonical list of public suffixes is available [here](https://publicsuffix.org/list/public_suffix_list.dat).
+For the canonical list of public suffixes, see the [Public Suffix List](https://publicsuffix.org/list/public_suffix_list.dat).
