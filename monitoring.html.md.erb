@@ -285,17 +285,16 @@ reference these assessments.</p>
 
 
 
-### <a id="nozzle_disconnects_per_instance"></a>Number of Pivotal Healthwatch Nozzle Disconnects from Firehose 
+### <a id="nozzle_disconnects_per_instance"></a>Number of Pivotal Healthwatch Nozzle Disconnects from RLP 
 
 <table>
     <tr>
         <th width="25%">Description</th>
-        <td><p><strong>Use</strong>: An unusual increase in the number of disconnects from the Firehose typically indicates that you need to
-scale the nozzle up. The Firehose disconnects nozzles that are slow consumers to protect apps from backpressure.
-This metric can also spike during a PAS deployment because the Traffic Controller VMs restart, logging a disconnect.</p>
+        <td><p><strong>Use</strong>: An unusual increase in the number of disconnects from the RLP typically indicates connection issue between
+RLP and the Healthwatch ingestor. This metric can spike during a PAS deployment because the Traffic Controller VMs restart, logging a disconnect.</p>
 
 <p>A prolonged period of losing metrics as a result of disconnects can endanger the assessments that Pivotal Healthwatch
-makes using platform metrics from the Firehose.</p>
+makes using platform metrics from the RLP.</p>
 
 <p><strong>Metrics</strong><br/>
 <em>name</em>: ingestor.disconnects
