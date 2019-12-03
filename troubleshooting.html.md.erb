@@ -121,22 +121,23 @@ or the `healthwatch.ingestor.ingested.boshSystemMetrics` metric has a value of 0
 
 The Healthwatch Ingestor is not receiving BOSH system metrics. There are two likely causes to this:
 
-1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics look at the Pivotal Healthwatch dashboard.  If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the Firehose.
+1. The Healthwatch Ingestor is not receiving *any* metrics from the Loggregator RLP, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator RLP. To determine if the Ingestor isn't receiving any metrics look at the Pivotal Healthwatch dashboard. If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the RLP.
 
-1. The Firehose does not contain BOSH Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
+1. The Loggregator RLP does not contain BOSH Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
 - A bug causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the BOSH Director. This bug is present in Ops Manager versions earlier than v2.2.4 and v2.3.0 and Pivotal Application Service (PAS) versions earlier than v2.2.5 and v2.3.0.
 
 ### Solution
 
-If the Ingestor is not receiving *any* metrics from the Firehose:
+If the Ingestor is not receiving *any* metrics from Loggregator:
 
 - Check the logs from the Healthwatch Ingestor to see any error messages. `cf logs healthwatch-ingestor --recent`
 - Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
 
 If the BOSH System Metrics Forwarder is failing:
 
-- Upgrade PAS and Ops Manager to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
-- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
+- Upgrade PAS and Ops Manager to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Loggregator RLP by running `cf log-stream bosh-system-metrics-forwarder`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
+- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
+  [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs:
   - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
 
 ## <a id='metric-ingestion'></a>No Metrics Being Ingested
@@ -147,29 +148,13 @@ The `healthwatch.ingestor.ingested` metric has a value of 0.
 
 ### Cause
 
-The Healthwatch Ingestor is not receiving any metrics. This could be due to the Loggregator system being in a bad state or the Ingestor not reconnecting to the Firehose.
+The Healthwatch Ingestor is not receiving any metrics. This could be due to the Loggregator system being in a bad state or the Ingestor not reconnecting to the Loggregator RLP.
 
 ### Solution
 
 A few possible solutions are:
 - Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-- After [logging in](https://docs.pivotal.io/pivotalcf/2-3/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
+- After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
+  [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs where the Loggregator RLP
+  proccesses reside:
   - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
-
-## <a id='possible-super-metric-data-gap'></a>Loss of Super Metrics Data During v1.3-v1.4 Migration
-
-### Problem
-
-There is a possible data gap in all charts containing Super Metrics.
-
-### Cause
-
-Healthwatch 1.4 switched from MariaDB to Percona database. 
-During the migration there can be a gap in the calculation/storage of Super Metrics caused by the downtime in database availability. 
-Super Metrics are calculated across a period of time so they require historical data that may lay outside of buffering window. 
-The exact amount of time varies by system but can be around 15 minutes.
-
-### Solution
-
-There is buffering built in to the data collection and Super Metric aggregation to minimize data loss. 
-To further mitigate data loss, manually back up and restore the database. There will still be some gap in Super Metrics while Healthwatch is updating.

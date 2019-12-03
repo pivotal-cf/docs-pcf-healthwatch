@@ -5,7 +5,7 @@ owner: Pivotal Healthwatch
 
 This topic lists the super metrics created by Pivotal Healthwatch. 
 
-<p class="note"><strong>Note</strong>: For external monitoring consumers, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator Firehose. You can retrieve these metrics with a nozzle or through the <a href="using.html#logcache">Log Cache API</a>.</p>
+<p class="note"><strong>Note</strong>: For external monitoring consumers, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator. You can retrieve these metrics with a nozzle or through the <a href="using.html#logcache">Log Cache API</a>.</p>
 
 ## <a id='sli'></a>Platform Service Level Indicators
 
@@ -158,23 +158,6 @@ If the BOSH Director is not responsive and functional, BOSH-managed VMs lose the
 ## <a id='logging-performance'></a> Logging Performance
 
 This section lists metrics used to monitor Loggregator, the <%= vars.platform_name %> component responsible for logging.
-
-### <a id='firehose-loss'></a>Log Transport Loss Rate
-
-This derived metric is recommended for automating and monitoring platform scaling. Two versions of the metric (per minute and per hour) are used to monitor the Loggregator Firehose.
-
-<table class="nice">
-<tr>
-  <th>Reports</th>
-  <th>Metric</th>
-  <th>Description</th>
-</tr>
-<tr>
-  <td>Log Transport Loss Rate</td>
-  <td><code>healthwatch.Firehose.LossRate.1H</code> and <code>healthwatch.Firehose.LossRate.1M</code></td>
-  <td>Loss rate per minute and per hour</td>
-</tr>
-</table>
 
 ### <a id='doppler-capacity'></a>Doppler Message Rate Capacity
 
