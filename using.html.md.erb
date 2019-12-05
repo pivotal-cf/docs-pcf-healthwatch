@@ -22,7 +22,7 @@ that alerts fire only in the event of meaningful problems, you need to [tune](ap
 
 ##<a id='access'></a>Accessing Pivotal Healthwatch
 
-You can access Pivotal Healthwatch and its data through the Pivotal Healthwatch UI or directly through the service datastore. In addition, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
+You can access Pivotal Healthwatch and its data through the Pivotal Healthwatch UI or directly through the service datastore. In addition, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator system.
 
 ###<a id='ui'></a>Access the Pivotal Healthwatch UI
 
@@ -74,9 +74,13 @@ To access the MySQL datastore, you can do the following:
 
 * **Method 3**. Open a tunnel into your IaaS network and connect that way externally.
 
-###<a id='firehose'></a>Access Super Metrics Through the Firehose
+###<a id='firehose'></a>Access Super Metrics Through the Loggregator Firehose
 
-Pivotal Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
+Pivotal Healthwatch forwards the super metrics that it creates into the
+[Loggregator system](https://docs.pivotal.io/platform/application-service/loggregator/architecture.html)
+so that they can be picked up by consumers of the Loggregator Firehose. Below is an example of a product-generated
+metric output received through a
+[Firehose nozzle](https://docs.pivotal.io/platform/application-service/loggregator/architecture.html#loggregator-components).
 
 <pre class="terminal">
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
