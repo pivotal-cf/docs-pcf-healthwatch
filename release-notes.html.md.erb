@@ -14,10 +14,17 @@ New features and changes in this release:
 
 * Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
 * Add Metrics Troubleshooting errand. This is for troubleshooting purpose only, off by default.
+* Remove scientific notation when retrieving alert configurations from the Healthwatch API.
 * **[Bug Fix]** Fix infinite redirect at login.
+* **[Bug Fix]** Fix issue with multiple `healthwatch_space_developer` users on Healthwatch re-install.
+* **[Bug Fix]** Remove unnecessary migration error message during installation.
+* **[Bug Fix]** Fix documentation links from alerts that pointed at older versions of Healthwatch.
+* **[Bug Fix]** Fix issue with duplicate entries in `free_chunk_configuration` table.
 
 * Maintenance update of the following dependencies:
 - Spring Boot now 2.1.9
+- Indicator Protocol now 0.7.17
+- syslog-release now 11.x
 
 ### Known Issues
 
