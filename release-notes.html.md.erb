@@ -23,6 +23,10 @@ New features and changes in this release:
 
 This release has the following known issues.
 
+#### Healthwatch v1.7 and PAS v2.8 Compatibility Limitations
+
+When using Pivotal Healthwatch v1.7 with Pivotal Application Service (PAS) v2.8, the following chart will be blank: `Log Cache Cache Duration`. This is because the underlying metric name has changed from `log_cache.cache_period` to `log_cache.log_cache_cache_period`. You must also leave the following errand disabled: `Metrics Troubleshooting`. Note that this errand is disabled by default, so likely no action is necessary. We recommend using Pivotal Healthwatch v1.8 with PAS v2.8.
+
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
 The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
