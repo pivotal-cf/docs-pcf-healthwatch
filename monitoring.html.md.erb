@@ -45,7 +45,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(health_check_cliCommand_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -95,7 +95,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(health_check_CanaryApp_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -145,7 +145,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(health_check_bosh_director_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -195,7 +195,7 @@ valueMetric:&lt;name:&quot;metrics.published&quot; value:38 unit:&quot;count&quo
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(health_check_OpsMan_probe_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -247,7 +247,7 @@ reference these assessments.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(healthwatch_ui_available{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -307,7 +307,7 @@ makes using platform metrics from the RLP.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(ingestor_disconnects{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -361,7 +361,7 @@ can endanger the assessments that Pivotal Healthwatch makes using platform metri
     <tr>
         <th>PromQL</th>
         <td>
-			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}[5m])</code>
+			<code>avg_over_time(ingestor_dropped{source_id="healthwatch-forwarder",deployment="$deployment"}[5m])</code>
 		</td>
     </tr>
     <tr>
@@ -422,7 +422,7 @@ adversely affect Pivotal Healthwatch’s ability to calculate super value metric
     <tr>
         <th>PromQL</th>
         <td>
-			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>redis_valueMetricQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"} + redis_counterEventQueue_size{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -472,7 +472,7 @@ update the tile configuration so that the next deployment does not override the 
     <tr>
         <th>PromQL</th>
         <td>
-			<code>sum(metrics_published{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}) by (job)</code>
+			<code>sum(metrics_published{source_id="healthwatch-forwarder",deployment="$deployment"}) by (job)</code>
 		</td>
     </tr>
     <tr>
@@ -531,7 +531,7 @@ vary greatly, it is not recommended to alert on this metric itself.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>events_published{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>events_published{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -564,7 +564,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>health_bosh_deployment_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -595,7 +595,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>health_check_cliCommand_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -626,7 +626,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>health_check_OpsMan_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -657,7 +657,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>health_check_CanaryApp_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
@@ -688,7 +688,7 @@ likely indicates problems in the test runner functionality.</p>
     <tr>
         <th>PromQL</th>
         <td>
-			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="<%= ERB REMOVED FOR YAML SAFETY %>"}</code>
+			<code>health_check_bosh_director_probe_count{source_id="healthwatch-forwarder",deployment="$deployment"}</code>
 		</td>
     </tr>
     <tr>
