@@ -12,6 +12,10 @@ owner: Pivotal Healthwatch
 
 New features and changes in this release:
 
+* Ingress metrics from Reverse Log Proxy (Firehose v2), rather than Traffic Controllers (Firehose v1). RLP has a more configurable API and a longer support window. See [Loggregator RLP Documentation](https://github.com/cloudfoundry/loggregator-release#reverse-log-proxy-rlp) for more details.
+* Add Syslog and Forwarder Agents to Pivotal Healthwatch VMs, which emit syslog directly from the VM rather than through the Firehose
+* Remove `Adapter Loss Rate` and `CF Syslog Drain Binding Count` from Healthwatch
+* `log_cache.cache_period` renamed to `log_cache.log_cache_cache_period` to Open Metrics naming conventions
 
 ### Known Issues
 
