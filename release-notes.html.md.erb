@@ -6,16 +6,28 @@ owner: Pivotal Healthwatch
 
 ## <a id='v1.8.0'></a>v1.8.0
 
-**Release Date: CHANGEME, 2019**
+**Release Date: December 17, 2019**
 
 ### Features
 
 New features and changes in this release:
 
+* Ingress metrics from Reverse Log Proxy (Firehose v2), rather than Traffic Controllers (Firehose v1). RLP has a more configurable API and a longer support window. See [Loggregator RLP Documentation](https://github.com/cloudfoundry/loggregator-release#reverse-log-proxy-rlp) for more details.
+* Add Syslog and Forwarder Agents to Pivotal Healthwatch VMs, which emit syslog directly from the VM rather than through the Firehose
+* Remove `Adapter Loss Rate` and `CF Syslog Drain Binding Count` from Healthwatch
+* `log_cache.cache_period` renamed to `log_cache.log_cache_cache_period` to Open Metrics naming conventions
 
 ### Known Issues
 
 This release has the following known issues.
+
+#### BOSH Health Check Fails After Reinstallation
+
+If Healthwatch is uninstalled and re-installed while the BOSH Health Check is running, then the BOSH Health Check fails to deploy, and reports an error in the Healthwatch UI.
+
+To address this issue, manually delete the `bosh-health-check` deployment and restart the `bosh-health-check` app.
+
+This will be fixed in v1.7.2+ and v1.8.1+.
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
