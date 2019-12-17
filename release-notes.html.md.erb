@@ -14,10 +14,17 @@ New features and changes in this release:
 
 * Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
 * Add Metrics Troubleshooting errand. This is for troubleshooting purpose only, off by default.
+* Remove scientific notation when retrieving alert configurations from the Healthwatch API.
 * **[Bug Fix]** Fix infinite redirect at login.
+* **[Bug Fix]** Fix issue with multiple `healthwatch_space_developer` users on Healthwatch re-install.
+* **[Bug Fix]** Remove unnecessary migration error message during installation.
+* **[Bug Fix]** Fix documentation links from alerts that pointed at older versions of Healthwatch.
+* **[Bug Fix]** Fix issue with duplicate entries in `free_chunk_configuration` table.
 
 * Maintenance update of the following dependencies:
 - Spring Boot now 2.1.9
+- Indicator Protocol now 0.7.17
+- syslog-release now 11.x
 
 ### Known Issues
 
@@ -29,7 +36,10 @@ If Healthwatch is uninstalled and re-installed while the BOSH Health Check is ru
 
 To address this issue, manually delete the `bosh-health-check` deployment and restart the `bosh-health-check` app.
 
-This will be fixed in v1.7.2+.
+#### Healthwatch v1.7 and PAS v2.8 Compatibility Limitations
+
+When using Pivotal Healthwatch v1.7 with Pivotal Application Service (PAS) v2.8, the following chart will be blank: `Log Cache Cache Duration`. This is because the underlying metric name has changed from `log_cache.cache_period` to `log_cache.log_cache_cache_period`. You must also leave the following errand disabled: `Metrics Troubleshooting`. Note that this errand is disabled by default, so likely no action is necessary. We recommend using Pivotal Healthwatch v1.8 with PAS v2.8.
+
 
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
