@@ -40,7 +40,6 @@ To address this issue, manually delete the `bosh-health-check` deployment and re
 
 When using Pivotal Healthwatch v1.7 with Pivotal Application Service (PAS) v2.8, the following chart will be blank: `Log Cache Cache Duration`. This is because the underlying metric name has changed from `log_cache.cache_period` to `log_cache.log_cache_cache_period`. You must also leave the following errand disabled: `Metrics Troubleshooting`. Note that this errand is disabled by default, so likely no action is necessary. We recommend using Pivotal Healthwatch v1.8 with PAS v2.8.
 
-
 #### Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
 The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
@@ -56,6 +55,12 @@ Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load wit
 These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
 
 No corrective action is required and it will self-resolve if possible.
+
+#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
+
+In PAS v2.8, a new feature in the Isolation Segment Tile allows you to deploy compute isolation segments without placement tags. This allows you to deploy a separate group of Diego Cells without isolating the Cell capacity from other apps. For more information about this feature, see [Compute and Networking Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation) in _Pivotal Isolation Segment v2.8 Release Notes_.
+
+If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately measure and report on capacity. Capacity charts, calculated capacity metrics such as Free Chunks, and capacity alerts may incorrectly report a lower capacity than is available for apps.
 
 ## <a id='v1.7.0'></a>v1.7.0
 
