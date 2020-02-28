@@ -11,16 +11,16 @@ owner: PCF Healthwatch
 
 New features and changes in this release:
 
-* Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
+* Remove alert associated with the removed metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
 * **[Bug Fix]** Fix infinite redirect at login.
-* **[Bug Fix]** PCF Healthwatch removes the `healthwatch_space_developer` user when the PCF Healthwatch tile is uninstalled.
+* **[Bug Fix]** Remove the `healthwatch_space_developer` user when the PCF Healthwatch tile is uninstalled.
 * **[Bug Fix]** Fix the issue where Super Value Metrics were lost when large volumes of router latency metrics overloaded the ingestor instances.
 * **[Bug Fix]** Fix the installation failure due to duplicated entry in `free_chunks_configuration` which would cause flyway migration failure during Apply Change.
 
 * Maintenance update of the following dependencies:
-- Spring Boot now 2.1.9
-- Indicator Protocol now 0.7.17
-- Syslog release now 11.6.0
+  * Spring Boot now 2.1.9
+  * Indicator Protocol now 0.7.17
+  * Syslog release now 11.6.0
 
 ### Known Issues
 
@@ -36,7 +36,7 @@ To address the issue, update vSphere to v6.5 update 2 or later. Or, stop the `bo
 
 #### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
 
-Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the following error: `"Error fetching graph data."`.
+Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the following error: `"Error fetching graph data."`.
 
 The Indicator Protocol Beta Dashboard charts are populated using data from Log Cache, which is a component of Loggregator. The charts may fail to load if Log Cache times out while processing the data.
 
