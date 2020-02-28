@@ -3,6 +3,53 @@ title: PCF Healthwatch v1.6 Release Notes
 owner: PCF Healthwatch
 ---
 
+## <a id='v1.6.4'></a>v1.6.4
+
+**Release Date: February 28, 2020**
+
+### Features
+
+New features and changes in this release:
+
+* Remove alert associated to the depreciated metric [`Reverse Log Proxy Loss Rate`](https://docs.pivotal.io/platform/monitoring/key-cap-scaling.html#-reverse-log-proxy-loss-rate).
+* **[Bug Fix]** Fix infinite redirect at login.
+* **[Bug Fix]** PCF Healthwatch removes the `healthwatch_space_developer` user when the PCF Healthwatch tile is uninstalled.
+* **[Bug Fix]** Fix the issue where Super Value Metrics were lost when large volumes of router latency metrics overloaded the ingestor instances.
+* **[Bug Fix]** Fix the installation failure due to duplicated entry in `free_chunks_configuration` which would cause flyway migration failure during Apply Change.
+
+* Maintenance update of the following dependencies:
+- Spring Boot now 2.1.9
+- Indicator Protocol now 0.7.17
+- Syslog release now 11.6.0
+
+### Known Issues
+
+This release has the following known issues.
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the app `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2 leave a namespace or folder and subfolders when a VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, update vSphere to v6.5 update 2 or later. Or, stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+
+Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the following error: `"Error fetching graph data."`.
+
+The Indicator Protocol Beta Dashboard charts are populated using data from Log Cache, which is a component of Loggregator. The charts may fail to load if Log Cache times out while processing the data.
+
+No corrective action is required. The issue will self-resolve if possible.
+
+#### Infinite Login Redirect When Using Private Domain Suffixes
+
+Certain private domain suffixes, such as `.local` or `.a`, result an infinite redirect loop when trying to access the Healthwatch UI.
+
+A workaround is to set the `SKIP_CERT_VERIFY` environment variable to `true` on the Healthwatch app.
+
+For the canonical list of public suffixes, see the [Public Suffix List](https://publicsuffix.org/list/public_suffix_list.dat).
+
 ## <a id='v1.6.3'></a>v1.6.3
 
 **Release Date: September 17, 2019**
@@ -51,8 +98,8 @@ No corrective action is required. The issue will self-resolve if possible.
 
 #### Multiple `healthwatch_space_developer` Users Created During Healthwatch Re-installation
 
-When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during 
-the previous tile's deletion. 
+When the PCF Healthwatch tile is re-installed, the `push-apps` errand creates a duplicate `healthwatch_space_developer` user because the pre-existing user is not deleted during
+the previous tile's deletion.
 
 This causes the `cf-health-check` to fail due to an invalid password for the `healthwatch_space_developer` user.
 
@@ -83,6 +130,18 @@ during upgrades from PCF Healthwatch v1.5.
 Due to this issue, PCF Healthwatch v1.6.2 is no longer available on Pivotal Network.
 
 Install or upgrade to PCF Healthwatch v1.6.3 instead.
+
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
+
+#### Infinite login redirect when using private domain suffixes
+
+Certain private domain suffixes (eg, `.local` or `.a`) result an infinite redirect loop when trying to access the Healthwatch UI.
+
+A workaround is to set the `SKIP_CERT_VERIFY` environment variable to `true` on the Healthwatch app. A bug fix is included in `1.6.4`.
+
+The canonical list of public suffixes is available [here](https://publicsuffix.org/list/public_suffix_list.dat).
 
 ## <a id='v1.6.1'></a>v1.6.1
 
@@ -140,6 +199,10 @@ No corrective action is required. The issue will self-resolve if possible.
 #### Multiple `healthwatch_space_developer` CF on Healthwatch re-install
 
 A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
+
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
 
 ## <a id='v1.6.0'></a>v1.6.0
 
@@ -233,3 +296,6 @@ No corrective action is required and it will self-resolve if possible.
 
 A user is created during the `push-apps` errand (which runs during tile installation) to be used during the `cf-health-check` test. This user was not being deleted on tile deletion, so if the tile is re-installed the `cf-health-check` fail because it's using an invalid password for the pre-existing `healthwatch_space_developer` user.
 
+#### Reverse Log Proxy Loss Rate Alert Fires
+
+Occasionally, the alert would fire, although the metric has been remove from Healthwatch v1.5 and above.
