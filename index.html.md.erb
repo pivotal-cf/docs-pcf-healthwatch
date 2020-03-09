@@ -10,18 +10,18 @@ changes.
 
 # Overview
 
-The **Healthwatch** tile consists of Prometheus, Grafana and MySQL. It is the place where metrics can 
+The **Healthwatch** tile consists of a TSDB, Grafana and MySQL. It is the place where metrics can 
 be stored and visualized. The **Healthwatch Exporter for PAS** connects to the Loggregator RLP endpoint and funnels 
-the metrics to a Prometheus exposition endpoint. Both of these tiles can be found under the [Healthwatch][product-url] 
+the metrics to a TSDB exposition endpoint. Both of these tiles can be found under the **Healthwatch** 
 product on PivNet. While the exporter must be installed on the foundation you wish to monitor, the **Healthwatch** 
 tile can be installed on the same foundation or on a different foundation depending upon your desired monitoring configuration. 
 More information about possible configurations can be found in the section on Using Healthwatch.
 
 This section includes instructions on installing and configuring:
   
-  * [Healthwatch]
-  * [Healthwatch Exporter for PAS]
-  * [Healthwatch Exporter for PKS]
+  * [Healthwatch](add link)
+  * [Healthwatch Exporter for PAS](add link)
+  * [Healthwatch Exporter for PKS](add link)
 
 # Architecture
 
@@ -32,18 +32,20 @@ deployed as follows:
 
 ## Healthwatch
 
-The **Healthwatch** tile installs three components: Prometheus, Grafana and MySQL.  MySQL is used only to store the Grafana
-settings and does not store any time series data. It can be deployed in high availability (HA) mode ( 3 MySQL nodes and 2 Proxy nodes) or in non-HA mode
-(1 MySQL node and 1 Proxy node). Grafana may also be scaled horizontally beyond the default single VM. Prometheus can be scaled
-vertically but should not be scaled horizontally. An Nginx proxy is deployed in front of Prometheus to provide authorization to
-and encryption of metrics stored in Prometheus.
+The **Healthwatch** tile installs three components: TSDB, Grafana and MySQL.  MySQL is used only to store the Grafana
+settings and does not store any time series data. 
+
+It can be deployed in high availability (HA) mode ( 3 MySQL nodes and 2 Proxy nodes) or in non-HA mode
+(1 MySQL node and 1 Proxy node). Grafana may also be scaled horizontally beyond the default single VM. TSDB can be scaled
+vertically but should not be scaled horizontally. An Nginx proxy is deployed in front of TSDB to provide authorization to
+and encryption of metrics stored in TSDB.
 
 !architecture here
 
 ## Healthwatch Exporter for PAS
 
 The **Healthwatch Exporter for PAS** installs up to three VMs.  Each VM processes a metric type from the Firehose, either Timer, Gauge or Counter.
-An operator can choose to deploy all three VMs or any subset thereof.  Metrics are then exposed on a secured Prometheus
+An operator can choose to deploy all three VMs or any subset thereof.  Metrics are then exposed on a secured TSDB
 exposition format endpoints.  Theses VMs can be scaled vertically but should not be scaled horizontally.
 
 !architecture here
@@ -51,7 +53,7 @@ exposition format endpoints.  Theses VMs can be scaled vertically but should not
 ## Healthwatch for PKS
 
 The **Healthwatch Exporter for PKS** installs a single VM that collects health metrics from the Bosh Director.  It follows a similar path as what was
-done in PAS to get health metrics into the Firehose.  Metrics are then exposed on a secured Prometheus exposition format endpoint.  This VM can be scaled
+done in PAS to get health metrics into the Firehose.  Metrics are then exposed on a secured TSDB exposition format endpoint.  This VM can be scaled
 vertically but should not be scaled horizontally.
 
 !architecture here
