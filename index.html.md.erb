@@ -20,16 +20,16 @@ More information about possible configurations can be found in the section on [U
 
 This section includes instructions on installing and configuring:
   
-  * [Healthwatch](installing/reliability-view-for-pcf.md)
-  * [Healthwatch Exporter for PAS](installing/reliability-view-pas-exporter.md)
-  * [Healthwatch Exporter for PKS](installing/reliability-view-pks-exporter.md)
+  * [Healthwatch]
+  * [Healthwatch Exporter for PAS]
+  * [Healthwatch Exporter for PKS]
 
 # Architecture
 
 When being used for multi-foundation monitoring, **Healthwatch** and it's exporters will commonly be
 deployed as follows:
 
-![deployment](images/rv-deployment.png)
+!architecture here
 
 ## Healthwatch
 
@@ -39,7 +39,7 @@ settings and does not store any time series data. It can be deployed in high ava
 vertically but should not be scaled horizontally. An Nginx proxy is deployed in front of Prometheus to provide authorization to
 and encryption of metrics stored in Prometheus.
 
-![rv-architecture](images/rv-architecture.png)
+!architecture here
 
 ## Healthwatch Exporter for PAS
 
@@ -47,7 +47,7 @@ The **Healthwatch Exporter for PAS** installs up to three VMs.  Each VM processe
 An operator can choose to deploy all three VMs or any subset thereof.  Metrics are then exposed on a secured Prometheus
 exposition format endpoints.  Theses VMs can be scaled vertically but should not be scaled horizontally.
 
-![pas-exporter-architecture](images/pas-exporter-architecture.png)
+!architecture here
 
 ## Healthwatch for PKS
 
@@ -55,6 +55,6 @@ The **Healthwatch Exporter for PKS** installs a single VM that collects health m
 done in PAS to get health metrics into the Firehose.  Metrics are then exposed on a secured Prometheus exposition format endpoint.  This VM can be scaled
 vertically but should not be scaled horizontally.
 
-![pks-exporter-architecture](images/pks-exporter-architecture.png)
+!architecture here
 
 {% include ".external-links.md" %}
