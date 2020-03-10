@@ -28,7 +28,7 @@ This section includes instructions on installing and configuring:
 When being used for multi-foundation monitoring, **Healthwatch** and it's exporters will commonly be
 deployed as follows:
 
-![alt text](images/Control Plane Architecture .png)
+![alt text](images/ControlPlaneArchitecture.png)
 
 ## Healthwatch
 
@@ -48,7 +48,7 @@ The **Healthwatch Exporter for PAS** installs up to three VMs.  Each VM processe
 An operator can choose to deploy all three VMs or any subset thereof.  Metrics are then exposed on a secured TSDB
 exposition format endpoints.  Theses VMs can be scaled vertically but should not be scaled horizontally.
 
-![alt text](images/Healthwatch Exporter for PAS.png)
+![alt text](images/HealthwatchExporterforPAS.png)
 
 ## Healthwatch for PKS
 
@@ -56,5 +56,5 @@ The **Healthwatch Exporter for PKS** installs a single VM that collects health m
 done in PAS to get health metrics into the Firehose.  Metrics are then exposed on a secured TSDB exposition format endpoint.  This VM can be scaled
 vertically but should not be scaled horizontally.
 
-![alt text](images/Healthwatch Exporter for PKS.png)
+![alt text](images/HealthwatchExporterforPKS.png)
 
