@@ -41,7 +41,7 @@ To configure the Healthwatch tile, perform the following steps:
     1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
        file.
        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-       by [
+       by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
 ](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) . This job can use any of the properties
        defined by Prometheus itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
        scrape job.  The job should not be prepended with the YAML array *-*.
