@@ -7,14 +7,14 @@ This topic describes how to install and configure Healthwatch for Pivotal Cloud 
 
 ## Install Healthwatch
 
-1. Download the product file from [Pivotal Network][product-url].
+1. Download the product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch.
 This adds the tile to your staging area.
 
-!!! info "Installing using Platform Automation"
+<p class="note"><strong>Note:</strong> "Installing using Platform Automation".</p>
     The following config file for the `download-product` task will work to fetch the **Healthwatch** tile
     (without getting the exporters):
     ```yaml
@@ -36,12 +36,13 @@ To configure the Healthwatch tile, perform the following steps:
     1. Select **Network** for installing Healthwatch.
     1. Click **Save**.
 
-1. Navigate to **TSDB Configuration** and do the following:
-    1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which Prometheus scrapes its targets for metrics.
-    1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the prometheus.yml configuration
+1. Navigate to **Time series database(TSDB) Configuration** and do the following:
+    1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics.
+    1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
        file.
        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-       by [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) . This job can use any of the properties
+       by [
+](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) . This job can use any of the properties
        defined by Prometheus itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
        scrape job.  The job should not be prepended with the YAML array *-*.
        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
@@ -70,12 +71,12 @@ To configure the Healthwatch tile, perform the following steps:
        on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
 
-!!! info "Automatic Scrape Job Configuration"
+<p class="note"><strong>Note:</strong> "Installing using Platform Automation" </p>
     When installing **Healthwatch PAS Exporter** or **Healthwatch PKS Exporter** on the same foundation as
     **Healthwatch**, there is no need to manually configure a scrape job for them. These exporters are automatically discovered and scraped.
     This section is for adding additional custom scrape jobs or to scrape exporters installed on different foundations.
 
-!!! warning "Job Names"
+<p class="note warning"><strong>Warning: </strong> "Job Names".</p>
     When configuring custom scrape jobs, it is recommended that you avoid using the following job names:
 
       * `Healthwatch-view-pas-exporter`
