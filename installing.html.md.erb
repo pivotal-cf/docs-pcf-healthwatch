@@ -17,13 +17,13 @@ This adds the tile to your staging area.
 <p class="note"><strong>Note:</strong> Installing using Platform Automation </p>
 
 The following config file for the `download-product` task will work to fetch the **Healthwatch** tile (without getting the exporters):
-    ```yaml
-    ---
-    pivnet-api-token: token
-    pivnet-file-glob: "Healthwatch-view-[^pks|pas]*.pivotal"
-    pivnet-product-slug: Healthwatch_view_pcf
-    product-version-regex: "0.4.*"
-    ```
+```yaml
+---
+pivnet-api-token: token
+pivnet-file-glob: "Healthwatch-view-[^pks|pas]*.pivotal"
+pivnet-product-slug: Healthwatch_view_pcf
+product-version-regex: "0.4.*"
+```
 
 ##  Configure the Healthwatch Tile
 
