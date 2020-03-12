@@ -3,8 +3,6 @@ title: Federation
 owner: Healthwatch
 ---
 
-# Federation
-
 Healthwatch supports Prometheus federation. This is useful if you want to monitor a subset of metrics
 (such as SLI metrics) from multiple foundations without having to store all of the metrics from multiple foundations in 
 a single Prometheus instance. It has been our experience that storing all the Firehose metrics from more than one large PAS foundation into a single Prometheus instance greatly affects the performance of that Prometheus instance. In some cases it has caused it to crash. It is our recommendation to instead federate only SLI metrics from each foundation to the Prometheus residing in the Control Plane.
