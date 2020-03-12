@@ -2,3 +2,55 @@
 title: Grafana Authenticaiton
 owner: Healthwatch
 ---
+
+# Grafana Authentication
+
+By default, Grafana is configured to use basic authentication with username `admin` and a generated password available
+in the "Credentials" tab of the **Reliability View for PCF** tile under `Ui Login`. OAuth is another supported authentication
+mechanism and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
+
+!!! info "Grafana Authentication Documentation"
+    Grafana provides many ways to authenticate users. Some authentication integrations also enable syncing user permissions and org memberships. Visit [Grafana Authentication](https://grafana.com/docs/auth/overview/) for more assistance. 
+
+## Configuring UAA OAuth
+If you would like to specify UAA as your OAuth provider then select `Generic OAuth` as the authentication mechanism for the UI
+in the "UI Configuration" tab. Below is an example configuration for UAA.
+
+![uaa-oauth](../images/uaa-oauth.png)
+
+To configure UAA as the OAuth identity provider, make sure to create a client for `grafana` with scope `openid`,
+authorized grant type `authorization_code`, and a redirect URI pointing at the `
+http://${ROOT_URL_FOR_GRAFANA}:3000/login/generic_oauth`.
+
+```bash
+uaac client add grafana \
+   --scope openid \
+   --secret "$uper$ecret" \
+   --authorities uaa.none \
+   --autoapprove true \
+   --authorized_grant_types authorization_code \
+   --redirect-uri http://1.1.1.1:3000/login/generic_oauth
+```
+
+## Configuring GitHub OAuth
+If you would like to specify GitHub as your OAuth provider then select `Generic OAuth` as the authentication mechanism for the UI
+in the "UI Configuration" tab. Below is an example configuration for GitHub.
+
+![github-oauth](../images/github-oauth.png)
+
+To get the GitHub team ID you would like to use for authentication, you can run the following command. To find the slug
+of your team, it is the last segment in the team's url in the browser (ie. `https://github.com/orgs/acme/teams/team_slug`).
+
+```bash
+curl --silent \
+    --header "Authorization: bearer ${GITHUB_API_TOKEN}" \
+    https://api.github.com/orgs/acme/teams/${GITHUB_TEAM_SLUG} | \
+    jq -r .id
+```
+
+When setting up the GitHub OAuth application you will need to set the `Authorization callback URL` to
+`http://${GRAFANA_ROOT_URL}/login/generic_oauth` where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
+
+## Configuring LDAP Authentication
+If you would like to specify LDAP as your provider then select `LDAP` as the authentication mechanism for the UI
+in the "UI Configuration" tab. For individual field references, see [Grafana LDAP Authentication](https://grafana.com/docs/auth/ldap/).
