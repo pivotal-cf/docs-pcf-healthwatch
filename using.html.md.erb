@@ -1,242 +1,42 @@
 ---
-title: Using PCF Healthwatch
-owner: PCF Healthwatch
+title: Using Healthwatch
+owner: Healthwatch
 ---
 
-This topic describes how to use Pivotal Cloud Foundry (PCF) Healthwatch.
+Healthwatch ships with the following dashboards included under the "Healthwatch" folder in Grafana.
+To access them, go to `Dashboard -> Manage -> Healthwatch` in Grafana.
 
-##<a id='dashboard-overview'></a>The PCF Healthwatch Dashboard
+## Healthwatch - SLOs
+This dashboard will display a row for each instance selected from the corresponding instance drop down at the top
+of the page.  Each row has four panels:
 
-The PCF Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
-into the health the foundation.
+  * The `Up` panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
+    where a 1 indicates it is healthy and a 0 or missing data indicates that it is not healthy. 
+  * The `Exporter SLO` panel shows the percent of time the exporter was up over the selected time range.
+  * The `Error Budget Remaining` panel shows how much time in minutes are left in order
+    to stay within the selected Uptime SLO Target over the currently selected time range. 
+  * The `Minutes of Downtime` panel shows how much downtime, in minutes, the exporters 
+    have experienced during the selected time range.
 
-<%= image_tag './images/dashboard-all-green.png' %>
+## Healthwatch - Exporter Troubleshooting
 
-The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts
-of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
+This dashboard provides a detailed look at the performance of an individual exporter. It
+is helpful to look at these dashboards when you see spotty graphs for a particular metric
+type or if an exporter is not behaving as it should.  The dashboard consists of the following 
+metrics:
 
-To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [PCF Healthwatch API](./api/index.html) documentation.
-
-Note that an out-of-the-box PCF Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
-that alerts fire only in the event of meaningful problems, you need to [tune](api/alerts.html#post) some of the alerts to fit the size of your system.
-
-##<a id='access'></a>Accessing PCF Healthwatch
-
-You can access PCF Healthwatch and its data through the PCF Healthwatch UI or directly through the service datastore. In addition, PCF Healthwatch forwards the metrics that it creates into the Loggregator Firehose.
-
-###<a id='ui'></a>Access the PCF Healthwatch UI
-
-To access the PCF Healthwatch UI, do the following:
-
-1. Navigate to `healthwatch.SYSTEM-DOMAIN`.
-2. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
-    <br><br>
-    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the PCF Healthwatch UI](installing.html#healthwatch-uaa-users).
-
-###<a id='mysql'></a>Access Data Through MySQL
-
-You can access metrics data through the PCF Healthwatch datastore. See [PCF Healthwatch Metrics](metrics.html) for the description of available data points.
-
-The table below provides login information.
-
-<table class="nice">
-<tr>
-  <td>URL</td>
-  <td>MySQL VM IP</td>
-</tr>
-<tr>
-  <td>Port</td>
-  <td>3306</td>
-</tr>
-<tr>
-  <td>Username</td>
-  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
-</tr>
-<tr>
-  <td>Password</td>
-  <td>MySQL Admin Password credentials in the PCF Healthwatch tile</td>
-</tr>
-<tr>
-  <td>Database</td>
-  <td><code>platform_monitoring</code></td>
-</tr>
-<tr>
-  <td>Tables</td>
-  <td><code>value_metric_agg</code>, <code>counter_event_agg</code>, <code>super_value_metric</code>, <code>alert</code> and <code>alert_configuration</code></td>
-</tr>
-</table>
-
-To access the MySQL datastore, you can do the following:
-
-* **Method 1**. Use BOSH to SSH into the MySQL VM and run the `mysql -u root -p` command.
-
-* **Method 2**. Assign an external IP to the MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
-
-* **Method 3**. Open a tunnel into your IaaS network and connect that way externally.
-
-###<a id='firehose'></a>Access Super Metrics Through the Firehose
-
-PCF Healthwatch forwards the super metrics that it creates into the [Loggregator Firehose](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#firehose) so that they can be picked up by existing Firehose consumers. Below is an example of a product-generated metric output received through a [Firehose nozzle](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html#nozzles).
-
-<pre class="terminal">
-origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
-</pre>
-
-### <a id='logcache'></a>Access Super Metrics Through the Log Cache API
-
-<p class="note"><strong>Note</strong>: This feature is available in PAS 2.2.5 and later.</p>
-
-You can access Healthwatch data directly with PromQL queries to the Log Cache API. The following Log Cache endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/): 
-
-- `/api/v1/query`
-- `/api/v1/query_range` 
-
-#### Query Format
-
-To form the promQL query for a metric, do the following:
-
-1. Remove `healthwatch.` from the beginning of the metric name. For example, change `healthwatch.Diego_AvailableFreeChunks` to `Diego_AvailableFreeChunks`.
-1. Replace all non-alphanumeric characters with `_`.
-1. Add `{source_id="healthwatch-forwarder"}` to the end. Log Cache requires `source_id` for all queries.
-
-See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) for for more information about query syntax.
-
-#### Example: Query recent values of Diego Available Free Chunks
-
-This queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
-
-```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
-
-{
-  "status": "success",
-  "data": {
-    "resultType": "matrix",
-    "result": [
-      {
-        "metric": {
-          "deployment": "p-healthwatch-b8f99d6a724dbee699cc",
-          "index": "2336cbbe-e526-45d4-816e-dd2352d4fa0c",
-          "job": "healthwatch-forwarder",
-          "origin": "healthwatch"
-        },
-        "values": [
-          [
-            1536166538000000000,
-            "10"
-          ],
-          [
-            1536166598000000000,
-            "8"
-          ]
-        ]
-      }
-    ]
-  }
-}
-
-```
-
-The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
-
-#### Example: Query the latest value for the CF Push Health Check
-
-This queries the latest value stored in Log Cache for the `cf push` Health Check:
-
-```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
-
-{
-  "status": "success",
-  "data": {
-    "resultType": "vector",
-    "result": [
-      {
-        "metric": {
-          "deployment": "p-healthwatch-b8f99d6a724dbee699cc",
-          "index": "2336cbbe-e526-45d4-816e-dd2352d4fa0c",
-          "job": "healthwatch-forwarder",
-          "origin": "healthwatch"
-        },
-        "value": [
-          1537826971,
-          "1"
-        ]
-      }
-    ]
-  }
-}
-```
-
-The result value of "1" means that `cf push` is currently working. Any other value means that `cf push` has timed out or failed.
-This result could be used by automation tools waiting for `cf push` to become available.
-
-#### Example: Canary App Availability SLI
-
-The Log Cache API can also execute the same query multiple times over a range:
-
-```
-curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
-
-{
-  "status": "success",
-  "data": {
-    "resultType": "matrix",
-    "result": [
-      {
-        "metric": {
-          "deployment": "cf-abc-123",
-          "index": "9496f02a-0a40-427a-b2e3-189e30064031",
-          "job": "healthwatch-forwarder",
-          "origin": "healthwatch"
-        },
-        "values": [
-          [ 1537790009, "1" ],
-          [ 1537790069, "1" ],
-          [ 1537790129, "1" ],
-          [ 1537790189, "1" ],
-          [ 1537790249, "1" ],
-          [ 1537790309, "0" ],
-          [ 1537790369, "1" ],
-          [ 1537790429, "1" ]
-        ],
-      }
-    ]
-  }
-}
-```
-
-The `query_range` endpoint is useful for seeing values over time with a fixed interval (step). This is useful
-for charting, but you can also use it to calculate uptime, based on a critical threshold of `v < 1`:
-
-```
-results [1 1 1 1 1 0 1 1]
-number_of_failed_results (v < 1) = 1
-total_number_of_results = 8
-
-uptime = (total_number_of_results - number_of_failed_results) / total_number_of_results
-uptime = 7 / 8
-uptime = 87.5%
-```
-
-#### Log Cache Data Retention
-
-These queries are subject to the retention time of the Log Cache service. You can discover the oldest metric stored with
-the `/v1/meta` Log Cache API endpoint.
-
-```
-curl "https://log-cache.SYSTEM-DOMAIN/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
-```
-
-If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
-must be scaled up.
-
-#### <a id='healthwatch-alerting-graphs'></a> Alerting and Graphs
-
-The rules for alerting and bucketing graph data are not always the same. As a result there are cases where a graph will have a failing indicator without an alert. This does not indicate a problem with alerting, the two types of information have different behavior rules.
-
-A graph's time bucket turns red when one test in the time period fails. Alerting may have a higher threshold - alert thresholds vary by metric and are based on an average aggregation so more than one failure in a period might be needed to trigger an alert.  
-
-Additionally, not all metrics have alerts associated with them so a complete absence of alerts on a failing chart is not necessarily a problem. 
-
-For more information on alerting rules [see the alerts documentation.](api/alerts.html#thresholds)
+  * Exporter Info: A listing of the `reliabilityView_pasExporter_status` metric that contains
+    runtime information for the exporter.
+  * Exporter JVM Memory: A graph of `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and
+    `jvm_memory_bytes_init` over the time range in order to check for memory leaks.
+  * Ephemeral Disk Usage: A gauge of `system_disk_ephemeral_percent` in order to check in the 
+    disk is nearing capacity.
+  * Rate of Garbage Collection: A graph of the rate of `jvm_gc_collection_seconds_sum` over
+    the time range in order to check if JVM garbage collection is causing issues.
+  * Rate of Envelope Ingress: A graph of the rate of `reliabilityView_pasExporter_ingress_envelopes`
+    over the time range in order to see if there has been a spike in the amount
+    of envelopes received by the exporter.
+  * CPU Usage: A graph of `cpu_usage_user` over the time range in order the see if the CPU used
+    by the exporter is reaching capacity.
+  * Exporter VM Threads: A graph of `jvm_threads_current` and `jvm_threads_peak` over the time range in order to see 
+    if the exporter is leaking threads.  
