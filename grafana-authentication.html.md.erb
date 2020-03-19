@@ -13,10 +13,10 @@ mechanism and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
     Grafana provides many ways to authenticate users. Some authentication integrations also enable syncing user permissions and org memberships. Visit [Grafana Authentication](https://grafana.com/docs/auth/overview/) for more assistance. 
 
 ## Configuring UAA OAuth
-If you would like to specify UAA as your OAuth provider then select `Generic OAuth` as the authentication mechanism for the UI
+If you would like to specify UAA as your OAuth provider then select `UAA` as the authentication mechanism for the UI
 in the "UI Configuration" tab. Below is an example configuration for UAA.
 
-![uaa-oauth](../images/uaa-oauth.png)
+![uaa](../images/uaa.png)
 
 To configure UAA as the OAuth identity provider, make sure to create a client for `grafana` with scope `openid`,
 authorized grant type `authorization_code`, and a redirect URI pointing at the `
@@ -24,10 +24,9 @@ http://${ROOT_URL_FOR_GRAFANA}:3000/login/generic_oauth`.
 
 ```bash
 uaac client add grafana \
-   --scope openid \
+   --scope openid,healthwatch.admin,healthwatch.edit,healthwatch.read \
    --secret "$uper$ecret" \
-   --authorities uaa.none \
-   --autoapprove true \
+   --authorities uaa.resource \
    --authorized_grant_types authorization_code \
    --redirect-uri http://1.1.1.1:3000/login/generic_oauth
 ```
