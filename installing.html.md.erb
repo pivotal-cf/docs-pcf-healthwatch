@@ -85,12 +85,68 @@ To configure the Healthwatch tile, perform the following steps:
     1. Optional: **Select an authentication mechanism for the UI**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](../common-configurations/grafana-authentication.html) for detailed configurations.
     1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
        For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
-1. Navigate to **Blackbox Exporter Configuration** and do the following:
-    1. Optional: Enter **Blackbox Exporter Port** for the process to listen on.  It is only necessary to change from the default port if
+1. Navigate to **Canary URL Configuration** and do the following:
+    1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
        you have a port conflict on the TSDB VM.  The port is defaulted to `9115`.
-    1. Optional: Enter a list of **Blackbox Exporter Targets**.  [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
+    1. Optional: Enter a list of **Target URLs**.  [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
        on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
+
+### PKS Cluster Discovery Configuration
+To configure PKS cluster discovery:
+1. Navigate to **PKS Cluster Discovery Configuration** and do the following:
+    1. Select **Enable**
+    1. Optional: Enter **Scrape Port** for the process to listen on.
+    1. Enter the PKS API Address. This should be the API address you entered in **Ops Manager >Enterprise PKS >PKS API >API Hostname (FQDN)**. For example, `api.pks.example.com`.
+    1. Enter the PKS UAA Client and Secret. You can use the PKS management admin client credential, where the client is `admin` and the secret can be found in **Ops Manager >Enterprise PKS>Credentials>Pks Uaa Management Admin Client**.
+       Otherwise a separete UAA client with full access to the PKS API can be created and entered here.
+    1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
+    1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
+    1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
+1. Go to `Enterprise PKS` tile and for each plan you want to monitoring:
+    1. Navigate to the plan you want to monitor. For example, `Plan 2`.
+    1. Scroll to `(Optional) Add-ons - Use with caution`.
+    1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
+```yaml
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+ name: healthwatch
+rules:
+ - resources:
+     - pods/proxy
+     - pods
+     - nodes
+     - nodes/proxy
+     - namespace/pods
+     - endpoints
+     - services
+   verbs:
+     - get
+     - watch
+     - list
+   apiGroups:
+     - ""
+ - nonResourceURLs: ["/metrics"]
+   verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+ name: healthwatch
+roleRef:
+ apiGroup: ""
+ kind: ClusterRole
+ name: healthwatch
+subjects:
+ - apiGroup: ""
+   kind: User
+   name: healthwatch
+   namespace: pks-system
+```
+If there are already other API resource definitions in the text filed, simply append the above snippet to the end, followed by a newline character.
+<p class="note"><strong>Note:</strong> During Apply Changes, Make sure **Enterprise PKS>Errands>Upgrade all clusters errand is enabled to have the addon resources propagated to on demand clusters.</p>
 
 <p class="note"><strong>Note:</strong> Installing using Platform Automation </p>
 When installing **Healthwatch PAS Exporter** or **Healthwatch PKS Exporter** on the same foundation as
