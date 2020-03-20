@@ -94,6 +94,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 ### PKS Cluster Discovery Configuration
 To configure PKS cluster discovery:
+
 1. Navigate to **PKS Cluster Discovery Configuration** and do the following:
     1. Select **Enable**
     1. Optional: Enter **Scrape Port** for the process to listen on.
@@ -107,6 +108,7 @@ To configure PKS cluster discovery:
     1. Navigate to the plan you want to monitor. For example, `Plan 2`.
     1. Scroll to `(Optional) Add-ons - Use with caution`.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
+
 ```yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -145,6 +147,7 @@ subjects:
    name: healthwatch
    namespace: pks-system
 ```
+
 If there are already other API resource definitions in the text filed, simply append the above snippet to the end, followed by a newline character.
 <p class="note"><strong>Note:</strong> During Apply Changes, Make sure **Enterprise PKS>Errands>Upgrade all clusters errand is enabled to have the addon resources propagated to on demand clusters.</p>
 
