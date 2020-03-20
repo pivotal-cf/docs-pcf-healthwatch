@@ -20,7 +20,7 @@ in the "UI Configuration" tab. Below is an example configuration for UAA.
 
 To configure UAA as the OAuth identity provider, make sure to create a client for `grafana` with scope `openid`,
 authorized grant type `authorization_code`, and a redirect URI pointing at the `
-http://${ROOT_URL_FOR_GRAFANA}:3000/login/generic_oauth`.
+https://${ROOT_URL_FOR_GRAFANA}:3000/login/generic_oauth`.
 
 ```bash
 uaac client add grafana \
@@ -28,7 +28,7 @@ uaac client add grafana \
    --secret "$uper$ecret" \
    --authorities uaa.resource \
    --authorized_grant_types authorization_code \
-   --redirect-uri http://1.1.1.1:3000/login/generic_oauth
+   --redirect-uri https://1.1.1.1:3000/login/generic_oauth
 ```
 
 ## Configuring GitHub OAuth
