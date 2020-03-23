@@ -42,9 +42,8 @@ To configure the Healthwatch tile, perform the following steps:
     1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
        file.
        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-       by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
-](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) . This job can use any of the properties
-       defined by Prometheus itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
+       by [TSDB] This job can use any of the properties
+       defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
        scrape job.  The job should not be prepended with the YAML array *-*.
        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
@@ -88,7 +87,7 @@ To configure the Healthwatch tile, perform the following steps:
 1. Navigate to **Canary URL Configuration** and do the following:
     1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
        you have a port conflict on the TSDB VM.  The port is defaulted to `9115`.
-    1. Optional: Enter a list of **Target URLs**.  [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
+    1. Optional: Enter a list of **Target URLs**.  [The Blackbox Exporter] will run continuous probe tests
        on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
 
@@ -288,8 +287,8 @@ jobs:
 ```
 
 ##  (Optional) Restoring Healthwatch from a BBR Backup
-If you are running nightly backups, you have the ability to restore the Prometheus and Grafana data using Bosh Backup and Restore.
-Be aware that this will delete any existing data on all Prometheus and Grafana VMs and restore them to when the backup was taken.
+If you are running nightly backups, you have the ability to restore the TSDB and Grafana data using Bosh Backup and Restore.
+Be aware that this will delete any existing data on all TSDB and Grafana VMs and restore them to when the backup was taken.
 
 To restore, run the following commands:
 
