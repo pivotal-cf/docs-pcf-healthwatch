@@ -5,7 +5,7 @@ owner: PCF Healthwatch
 
 # IaaS Configuration
 
-# For GCP: Users will need to create a firewall rule to gain access to Grafana.
+## For GCP: Users will need to create a firewall policy.
   * Go to GCP
   * Navigate to VPN and Create a firewall rule. ex. grafana-ui
   * Create a target tag `ui` 
@@ -13,7 +13,7 @@ owner: PCF Healthwatch
   * Add TCP port number 3000
   * Locate and click into the firewall rule in GCP
 
-# For Azure: Users will need to create a firewall policy
+## For Azure: Users will need to create a firewall policy.
   * “Create an Azure Firewall Policy”
   * Create a new resource group
   * Name it something, such as `grafana-ui`
@@ -27,7 +27,7 @@ owner: PCF Healthwatch
     * TCP port number should be 3000
     * Skip ahead to `Review + create`
 
- # For vSphere (NSX-V)
+## For vSphere (NSX-V): Users will need to create a firewall policy.
   * NSX Edges
   * Pick the edge corresponding to your PAS
   * Add Rule > find the rule in the table
@@ -36,7 +36,7 @@ owner: PCF Healthwatch
   * Destination: IP of your grafana vm you’ve created
   * Service: Any
 
- # For AWS
+ ## For AWS: Users will need to create a firewall policy.
   * EC2
   * Security Groups
   * Create a security group
@@ -48,11 +48,3 @@ owner: PCF Healthwatch
     * Source: 0.0.0.0/0
     * Create a security group
   * Go back to your Grafana instance and add your newly created security group to the instance
-
-
-The documentation in this section explains how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to configure PCF Healthwatch.
-For more information, see the following topics:
-
-* [Configuring PCF Healthwatch Alerts](alerts.html)
-* [Configuring Free Chunk Sizes](free-chunks.html)
-* [Configuring Canary App Health Endpoint](canary-configuration.html)
