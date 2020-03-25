@@ -140,7 +140,8 @@ will look something like the following:
 In some deployments in can be beneficial to only ingest certain metrics from a scrape job.  For example, 
 due to storage and cpu contraints an operator may only want to store SLI metrics for a foundation 
 rather than the entirety of the Firehose.  The following example shows how an operatore
-could configure a scrape job to only ingest gauge metrics with the names `some-metric` or `some-metric-2`. 
+could configure a scrape job to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
+ 
 ```yaml
 - job_name: whitelisted-job
   metric_relabel_configs:
