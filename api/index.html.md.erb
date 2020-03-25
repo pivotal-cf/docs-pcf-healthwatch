@@ -1,4 +1,235 @@
 ---
 title: Configuring Healthwatch
-owner: PCF Healthwatch
+owner: Healthwatch
 ---
+
+1. Navigate to **Health Check** and do the following:
+
+  1. Enter **Ops Manager URL**. The URL should include the protocol.  This URL must be reachable from a `cf pushed` application.
+  1. In **BOSH Health Check Availability Zone**, select an AZ for the BOSH Health Check VM.
+    <p class="note"><strong>Note</strong>: On Azure environments, this dropdown is null because Azure does not support AZs.</p>
+
+  1. In **BOSH Health Check VM Type**, select a VM type for the BOSH Health Check VM. The recommended VM type is **small**. The VM resources should include at least:
+    - 1 CPU
+      - 8 GB Disk
+      - 1 GB RAM  
+  If you have add-ons installed, you may need to increase the RAM of the BOSH Health Check VM type. For an example of add-on memory requirements, see the [Prerequisites](https://docs.pivotal.io/addon-antivirus/1-4/install.html#prereqs) section of the ClamAV add-on documentation.
+  1. Optionally, you can also enable the BOSH Deployment Checker.  This adds context to the Pivotal Healthwatch UIn order to monitor other services, an operator can configure scrape configs in the `Scrape Config Jobs` text box on the `TSDB Configuration` tab 
+of the Healthwatch tile. These jobs should follow the format prescribed by the Time Series database (TSDB) 
+project
+On this page we provide commonly used sample job configurations.
+
+### Monitoring TAS from within Foundation
+In order to monitor a single TAS installation, follow the instructions for 
+Installing Healthwatch and the instructions
+for [Installing Healthwatch Exporter for TAS  on
+the same foundation where TAS is installed. **Healthwatch** will automatically detect that the 
+**Healthwatch Exporter for TAS** has also been installed and will start scraping it's metrics.
+
+### Monitoring PKS from within Foundation
+In order to monitor a single PKS installation, follow the instructions for 
+[Installing Healthwatch the same foundation
+where PKS is installed. **Healthwatch** will automatically detect that the **Healthwatch Exporter for PKS**
+is also installed and will begin scraping it's metrics.
+
+### Monitoring TAS and PKS
+In order to monitor a foundation with both TAS and PKS installed, follow the instructions for 
+[Installing Healthwatch the instructions
+for [Installing Healthwatch Exporter for TAS  on
+the same foundation where TAS and PKS are installed. **Healthwatch** will automatically detect
+that it is co-located with both **Healthwatch Exporter for TAS** and **Healthwatch Exporter for PKS** and 
+will begin scraping both endpoints.
+  
+
+## Monitoring TAS from the Control Plane 
+The **Healthwatch** tile can be used from the Control Plane to monitor any number of TAS 
+foundations. To use **Healthwatch** in this way, follow the installation instructions for
+[Installing Healthwatch he control plane, then follow the installation instructions for
+[Installing Healthwatch Exporter for TAS  on each TAS foundation you would like to monitor.
+
+Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary 
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
+can get mTLS client credentials for this scrape config by grabbing the **TAS Exporter Client Mtls** credentials
+from the *Credentials* tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
+will look something like the following:
+```yaml
+- job_name: foundation_name
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: TASexporter
+  static_configs:
+    - targets:
+      - "<gauge exporter ip>:9090"
+      - "<counter exporter ip>:9090"
+      - "<timer exporter ip>:9090"
+```
+
+!!! info "Finding Certificates"
+    The CA certificate is the one generated by Ops Manager on the foundation where the Exporter is installed.
+    It can be retrieved from `<Ops Manager URL>/api/v0/certificate_authorities`. The certificates 
+    for the Exporter can be found on the same Ops Manager under the Exporter tile's 
+    `Credentials` tab. The name of the credential is `TAS Exporter Client Mtls`.
+
+## Monitoring PKS from the Control Plane
+The **Healthwatch** tile can be used from the Control Plane to monitor any number of PKS 
+foundations. To use **Healthwatch** in this way, follow the installation instructions for
+Installing Healthwatch the control plane, then follow the installation instructions for
+Installing Healthwatch Exporter for PKS  on each PKS foundation you would like to monitor.
+
+Once you have finished installing **Healthwatch Exporter for PKS** and completed the necessary 
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
+can get mTLS client credentials for this scrape config by grabbing the **Pks Exporter Client Mtls** credentials
+from the *Credentials* tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
+will look something like the following:
+```yaml
+- job_name: foundation_name
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: pksexporter
+  static_configs:
+    - targets:
+      - "<exporter ip>:9090"
+```
+
+!!! info "Finding Certificates"
+    The CA certificate is the one generated by Ops Manager on the foundation where the Exporter is installed.
+    It can be retrieved from `<Ops Manager URL>/api/v0/certificate_authorities`. The certificates 
+    for the Exporter can be found on the same Ops Manager under the Exporter tile's 
+    `Credentials` tab. The name of the credential is `Pks Exporter Client Mtls`.
+
+## Whitelisting Metrics 
+In some deployments in can be beneficial to only ingest certain metrics from a scrape job.  For example, 
+due to storage and cpu contraints an operator may only want to store SLI metrics for a foundation 
+rather than the entirety of the Firehose.  The following example shows how an operatore
+could configure a scrape job to only ingest gauge metrics with the names `some-metric` or `some-metric-2`. 
+```yaml
+- job_name: whitelisted-job
+  metric_relabel_configs:
+  - source_labels: [__name__]
+    regex: (some-metric|some-metric-2)
+    action: keep
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: TASexporter
+  dns_sd_configs:
+    - names:
+        - q-s4.TAS-exporter-gauge.*.p sh.
+      type: A
+      port: 9090
+  
+```
+
+### Monitoring PKS Master Nodes
+
+When Healthwatch is installed on the same foundation as PKS, it will automatically scrape the `kube-scheduler`
+and `kube-controller-manager` processes on the Master VM. More metrics (such as `etcd` metrics) can be made available
+by enabling the `TSDB_client` Telegraf output on the master VM. To do that, go to the **Monitoring** tab in the
+PKS tile, and enter the following configuration in the "Setup Telegraf Outputs" section:
+
+```toml
+[[outputs.TSDB_client]]
+  listen = ":9273"
+```
+
+This will expose additional metrics on a `/metrics` endpoint on port `9273`. In order to scrape these metrics, add the
+following scrape configuration to the **TSDB Configuration** section of the Healthwatch tile:
+
+```yaml
+- job_name: cluster_master_telegraf
+  dns_sd_configs:
+    - names:
+        - q-s4.master.*.*.bosh.
+      type: A
+      port: 9273
+```
+
+This example uses [Bosh DNS][bosh-dns] to automatically discover all master VMs
+which now have Telegraf available on port `9273`.
+
+{% include ".external-links.md" %}
+I graphs of when BOSH deployments have occurred.
+       1. Select **Enable** in the `Bosh Deployment Checker` section.
+       1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
+       <p class="note"><strong>Note:</strong> In previous versions of Pivotal Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
+            1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or TAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
+            <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+            1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
+            <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+  1. Click **Save**.
