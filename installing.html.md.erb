@@ -41,7 +41,7 @@ To configure the Healthwatch tile, perform the following steps:
     1. Click **Save**.
 
 1. Navigate to **Time series database (TSDB) Configuration** and do the following:
-    1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics.
+    1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
     1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
        file.
        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
