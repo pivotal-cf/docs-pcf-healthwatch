@@ -25,7 +25,7 @@ is helpful to look at these dashboards when you see spotty graphs for a particul
 type or if an exporter is not behaving as it should.  The dashboard consists of the following 
 metrics:
 
-  * Exporter Info: A listing of the `reliabilityView_pasExporter_status` metric that contains
+  * Exporter Info: A listing of the `healthwatch_pasExporter_status` metric that contains
     runtime information for the exporter.
   * Exporter JVM Memory: A graph of `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and
     `jvm_memory_bytes_init` over the time range in order to check for memory leaks.
@@ -33,7 +33,7 @@ metrics:
     disk is nearing capacity.
   * Rate of Garbage Collection: A graph of the rate of `jvm_gc_collection_seconds_sum` over
     the time range in order to check if JVM garbage collection is causing issues.
-  * Rate of Envelope Ingress: A graph of the rate of `reliabilityView_pasExporter_ingress_envelopes`
+  * Rate of Envelope Ingress: A graph of the rate of `healthwatch_pasExporter_ingress_envelopes`
     over the time range in order to see if there has been a spike in the amount
     of envelopes received by the exporter.
   * CPU Usage: A graph of `cpu_usage_user` over the time range in order the see if the CPU used
