@@ -15,6 +15,7 @@ a single time series database (TSDB) instance. It has been our experience that s
 1. Add the following scrape config to the **Healthwatch** tile installed on the Control Plane. For the `tls_config` section      in each scrape job, use the `Tsdb Client Mtls` credentials and root Ops Manager CA from the foundation you are federating
    from. Add a federation configuration like the following for each foundation
    you want to monitor. In this example, we are federating all metrics whose name matches the regex `^my_metric_name_regex.*`    from the prometheus instances at addresses `source-prometheus-1`:
+
 ```yaml   
 job_name: example-job-name
 scheme: https
