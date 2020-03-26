@@ -19,10 +19,10 @@ owner: Healthwatch
 ## For Azure: Users will need to create a firewall policy.
   * “Create an Azure Firewall Policy”
   * Create a new resource group
-  * Name it something, such as `grafana-ui`
+  * Name it something, such as `grafana`
   * Under the Rules tab
   * Add a rule collection
-    * Name it something, such as `grafana-ui-port-access`
+    * Name it something, such as `grafana-port-access`
     * Priority 1000
     * Create a rule
     * Source should be (*)
@@ -32,8 +32,8 @@ owner: Healthwatch
 
 ## For GCP: Users will need to create a firewall policy.
   * Go to GCP
-  * Navigate to VPN and Create a firewall rule. ex. grafana-ui
-  * Create a target tag `ui` 
+  * Navigate to VPN and Create a firewall rule. ex. grafana
+  * Create a target tag `grafana` 
   * Set the IP Range to 0.0.0.0/0
   * Add TCP port number 3000
   * Locate and click into the firewall rule in GCP
