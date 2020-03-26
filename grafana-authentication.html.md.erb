@@ -29,6 +29,8 @@ uaac client add grafana \
    --redirect-uri http(s)://[GRAFANA ROOT URL]/login/generic_oauth
 ```
 
+<p class="note"><strong>Note:</strong>Make sure the protocol (http/https) in the redirect uri matches the protocol you choose to use. If you provide the SSL certificate in Grafana Configuration or put a load balancer with SSL termination in from of the Grafana, you should use https. GRAFANA ROOT URL should include port as well.</p>
+
 ## Configuring Generic OAuth
 If you would like to configure any supported OAuth provider then select `Generic OAuth` as the authentication mechanism for the UI
 in the "Grafana Configuration" tab. Below is an example configuration for GitHub.
