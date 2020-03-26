@@ -56,6 +56,16 @@ To configure the Healthwatch tile, perform the following steps:
 ```yaml
 {% include "product-config.yml" %}
 ```
+<p class="note warning"><strong>Warning: </strong>Job Names
+
+When configuring custom scrape jobs, it is recommended that you avoid using the following job names:</p>
+
+      * `Healthwatch-view-pas-exporter`
+      * `Healthwatch-view-pks-exporter`
+      * `tsdb`
+      * `grafana`
+      * `pks-master-kube-scheduler`
+      * `pks-master-kube-controller-manager`
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
@@ -75,9 +85,14 @@ To configure the Healthwatch tile, perform the following steps:
        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
 
 ## PKS Cluster Discovery Configuration
-To configure PKS cluster discovery:
 
-1. Navigate to **PKS Cluster Discovery Configuration** and do the following:
+PKS Cluster Discovery enables users to detect and configure clusters created by the PKS API.
+
+To configure PKS cluster discovery: 
+
+<p class="note"><strong>Note:</strong> PKS Cluster Discovery only applies for foundations running PKS</p>
+
+1. Navigate to **PKS Cluster Discovery Configuration** and do the following: 
     1. Select **Enable**
     1. Optional: Enter **Scrape Port** for the process to listen on.
     1. Enter the PKS API Address. This should be the API address you entered in **Ops Manager >Enterprise PKS >PKS API >API Hostname (FQDN)**. For example, `api.pks.example.com`.
@@ -86,7 +101,7 @@ To configure PKS cluster discovery:
     1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
     1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
     1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
-1. Go to `Enterprise PKS` tile and for each plan you want to monitoring:
+1. Go to `Enterprise PKS` tile and for each plan you want to monitor:
     1. Navigate to the plan you want to monitor. For example, `Plan 2`.
     1. Scroll to `(Optional) Add-ons - Use with caution`.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
@@ -132,17 +147,6 @@ subjects:
 
 If there are already other API resource definitions in the text filed, simply append the above snippet to the end, followed by a newline character.
 <p class="note"><strong>Note:</strong> During Apply Changes, Make sure Enterprise PKS > Errands > Upgrade all clusters errand is enabled to have the addon resources propagated to on demand clusters.</p>
-
-<p class="note warning"><strong>Warning: </strong>Job Names
-
-When configuring custom scrape jobs, it is recommended that you avoid using the following job names:</p>
-
-      * `Healthwatch-view-pas-exporter`
-      * `Healthwatch-view-pks-exporter`
-      * `tsdb`
-      * `grafana`
-      * `pks-master-kube-scheduler`
-      * `pks-master-kube-controller-manager`
 
 1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
 
