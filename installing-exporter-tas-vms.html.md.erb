@@ -15,8 +15,10 @@ Application Service (TAS).
 1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch Exporter for TAS.
 This adds the tile to your staging area.
 
-<p class="note"><strong>Note:</strong> Installing using Platform Automation by following config file for the <code>download-product</code> task will work to fetch the Healthwatch Exporter for TAS tile
-    (without getting Healthwatch or the PKS Exporter):.</p>
+<p class="note"><strong>Note:</strong> Installing using Platform Automation by following config file
+   for the <code>download-product</code> task works to fetch the <strong>Healthwatch Exporter for TAS</strong> tile,
+   without getting Healthwatch or the PKS Exporter.
+</p>
 
 ```yaml
     ---
@@ -43,8 +45,12 @@ To configure the Healthwatch tile, perform the following steps:
 1. *(Optional)* The exporter is defaulted to retrieve counters, gauges, and timers from the Firehose. To limit these options,
    turn off the respective VMs in the **Resource Config** section.
 
-<p class="note"><strong>Note:</strong>Metric Sources </p> The Healthwatch PAS Exporter retrieves metrics from the [Reverse Log Proxy](https://docs.pivotal.io/pivotalcf/2-6/loggregator/architecture.html).
-    This includes all metrics flowing through the Firehose.  Examples of such metrics can be found here: [Monitoring PAS](https://docs.pivotal.io/pivotalcf/2-6/monitoring/index.html).
+<p class="note"><strong>Note:</strong> Metric Sources use <strong>Healthwatch TAS Exporter</strong>
+   to retrieve metrics from the <a href="https://docs.pivotal.io/pivotalcf/loggregator/architecture.html">Reverse Log Proxy</a>).
+   This includes all metrics flowing through the Firehose.
+   Examples of such metrics can be found here: <a href="https://docs.pivotal.io/pivotalcf/monitoring/index.html">Monitoring
+   TAS</a>
+</p>
 
   
 ##  (Optional) Scraping TAS Exporter Metrics
