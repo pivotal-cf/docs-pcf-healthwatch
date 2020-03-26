@@ -2,3 +2,60 @@
 title: Installing Healthwatch Exporter for TAS for VMs
 owner: Healthwatch
 ---
+
+This topic describes how to install and configure Healthwatch Exporter for Tanzu 
+Application Service (TAS).
+
+## Install Healthwatch Exporter for TAS
+
+1. Download the **Healthwatch Exporter for TAS** product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
+
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+
+1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch Exporter for TAS.
+This adds the tile to your staging area.
+
+!!! info "Installing using Platform Automation"
+    The following config file for the `download-product` task will work to fetch the **Healthwatch Exporter for TAS** tile
+    (without getting Healthwatch or the PKS Exporter):
+
+    ```yaml
+    ---
+    pivnet-api-token: token
+    pivnet-file-glob: "Healthwatch-TAS-*.pivotal"
+    pivnet-product-slug: p-healthwatch
+    product-version-regex: "0.4.*"
+    ```
+
+##  Configure the Healthwatch Exporter for TAS Tile
+
+To configure the Healthwatch tile, perform the following steps:
+
+1. Click the **Healthwatch Exporter for TAS** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Assign AZs and Networks** and do the following:
+    1. Select an Availability Zone (AZ) for placing singleton jobs.
+    1. Select one or more AZs for balancing other jobs.
+    1. Select **Network** for installing Healthwatch.
+    1. Click **Save**.
+
+1. *(Optional)* The exporter is defaulted to listen on port `9090`, to change, edit the value in the
+   **TAS Exporter Configuration** section.
+
+1. *(Optional)* The exporter is defaulted to retrieve counters, gauges, and timers from the Firehose. To limit these options,
+   turn off the respective VMs in the **Resource Config** section.
+
+
+!!! info "Metric Sources"
+    The **Healthwatch TAS Exporter** retrieves metrics from the [Reverse Log Proxy](https://docs.pivotal.io/pivotalcf/2-6/loggregator/architecture.html).
+    This includes all metrics flowing through the Firehose.  Examples of such metrics can be found here: [Monitoring TAS](https://docs.pivotal.io/pivotalcf/2-6/monitoring/index.html).
+
+  
+##  (Optional) Scraping TAS Exporter Metrics
+
+If you would like to scrape the TAS Exporter from off the foundation (for example, if you have installed a time series database (TSDB)
+off of the foundation or are using the Healthwatch on the [Control Plane](../using.md))
+then you will need to open network paths from the TSDB to the TAS Exporter VMs.  Instructions for doing so will differ 
+depending on the IAAS being used.  In general, all that is needed is connectivity from the TSDB VM to the Exporter VMs
+over TCP to the configured TAS Exporter Scrape Port (defaulted to 9090).  
+
+{% include ".external-links.md" %}
