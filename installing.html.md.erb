@@ -56,6 +56,10 @@ To configure the Healthwatch tile, perform the following steps:
 ```yaml
 {% include "product-config.yml" %}
 ```
+   1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
+   1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
+
+
 <p class="note warning"><strong>Warning: </strong>Job Names
 
 When configuring custom scrape jobs, it is recommended that you avoid using the following job names:</p>
