@@ -207,11 +207,11 @@ following scrape configuration to the **TSDB Configuration** section of the Heal
 This example uses [Bosh DNS][bosh-dns] to automatically discover all master VMs
 which now have Telegraf available on port `9273`.
 
-       1. Select **Enable** in the `Bosh Deployment Checker` section.
-       1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
-       <p class="note"><strong>Note:</strong> In previous versions of Pivotal Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
-            1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or TAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
-            <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
-            1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
-            <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+   1. Select **Enable** in the `Bosh Deployment Checker` section.
+   1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
+     <p class="note"><strong>Note:</strong> In previous versions of Pivotal Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
+   1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or TAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
+     <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+   1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
+     <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
   1. Click **Save**.
