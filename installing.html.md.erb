@@ -87,7 +87,7 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
 1. Navigate to **Canary URL Configuration** and do the following:
     1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
        you have a port conflict on the TSDB VM.  The port is defaulted to `9115`.
-    1. Optional: Enter a list of **Target URLs**.  [The Blackbox Exporter] will run continuous probe tests
+    1. Optional: Enter a list of **Target URLs**. [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
        on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
 
