@@ -75,6 +75,9 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
        `Root URL For the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
        This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
+       The default port Grafana is listening on is 3000, you need to include the port as part of the URL.
+       <p class="note"><strong>Note:</strong> The URL you entered here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
+
     1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be 
        valid static IPs from the IAAS for the network on which the tile is installed.
     1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
