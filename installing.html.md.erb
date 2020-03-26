@@ -64,7 +64,7 @@ To configure the Healthwatch tile, perform the following steps:
       - 8 GB Disk
       - 1 GB RAM  
   If you have add-ons installed, you may need to increase the RAM of the BOSH Health Check VM type. For an example of add-on memory requirements, see the [Prerequisites](https://docs.pivotal.io/addon-antivirus/1-4/install.html#prereqs) section of the ClamAV add-on documentation.
-  1. Optionally, you can also enable the BOSH Deployment Checker.  This adds context to the Pivotal Healthwatch UI graphs of when BOSH deployments have occurred.
+  1. Optionally, you can also enable the BOSH Deployment Checker.  This adds context to the Healthwatch UI graphs of when BOSH deployments have occurred.
        1. Select **Enable** in the `Bosh Deployment Checker` section.
        1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
        <p class="note"><strong>Note:</strong> In previous versions of Pivotal Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
@@ -74,14 +74,14 @@ To configure the Healthwatch tile, perform the following steps:
             <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
   1. Click **Save**.
 
-1. Navigate to **UI Configuration** and do the following:
+1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-       `Root URL For the UI`. This should be set to the full URL used to access Grafana from a web browser.
+       `Root URL For the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
        This is important if you use Google or GitHub OAuth authentication (for the callback URL to be correct).
-    1. Optional: Enter a list of **Static IPs for the UI VM(s)**.  These IPs should be comma separated and be 
+    1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be 
        valid static IPs from the IAAS for the network on which the tile is installed.
-    1. Optional: **Enable UI Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
-    1. Optional: **Select an authentication mechanism for the UI**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](grafana-authentication.html) for detailed configurations.
+    1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
+    1. Optional: **Select an authentication mechanism for the Grafana**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](grafana-authentication.html) for detailed configurations.
     1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
        For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
 1. Navigate to **Canary URL Configuration** and do the following:
@@ -162,7 +162,7 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
       * `Healthwatch-view-pas-exporter`
       * `Healthwatch-view-pks-exporter`
       * `tsdb`
-      * `ui`
+      * `grafana`
       * `pks-master-kube-scheduler`
       * `pks-master-kube-controller-manager`
 
