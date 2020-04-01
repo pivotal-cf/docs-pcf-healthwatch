@@ -42,6 +42,11 @@ To configure the Healthwatch tile, perform the following steps:
 1. *(Optional)* The exporter is defaulted to listen on port `9090`, to change, edit the value in the
    **TAS Exporter Configuration** section.
 
+1. *(Optional)* Turn on the SVM Forwarder VM in the **Resource Config** section. This will emit the PCF Healthwatch generated
+   super value metrics into the Loggregator Firehose.  This functionality is not needed unless you plan to use a nozzle to 
+   export the super value metrics to an external system.  Note that you may need to run **Apply Changes** again on the 
+   **Healthwatch Exporter for TAS** if it is installed prior to installing **PCF Healthwatch**.
+
 1. *(Optional)* The exporter is defaulted to retrieve counters, gauges, and timers from the Firehose. To limit these options,
    turn off the respective VMs in the **Resource Config** section.
 
