@@ -27,7 +27,7 @@ uaac client add grafana \
    --secret "$uper$ecret" \
    --authorities uaa.resource \
    --authorized_grant_types authorization_code \
-   --redirect-uri http(s)://[GRAFANA ROOT URL]/login/generic_oauth
+   --redirect_uri http(s)://[GRAFANA ROOT URL]/login/generic_oauth
 ```
 
 <p class="note"><strong>Note:</strong>Make sure the protocol (http/https) in the redirect uri matches the protocol you choose to use. If you provide the SSL certificate in Grafana Configuration or put a load balancer with SSL termination in from of the Grafana, you should use https. GRAFANA ROOT URL should include port as well.</p>
