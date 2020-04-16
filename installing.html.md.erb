@@ -197,6 +197,14 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
     1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
        For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
 1. Navigate to **Canary URL Configuration** and do the following:
+    <p class="note"><strong>Note:</strong>
+    Canary applications are those applications you "send in first"
+    and are an indicator of the overall health of your platform.
+    If a canary app is down,
+    there is probably an issue with the platform.
+    For example, Apps Manager would be a good candidate for a canary url.
+    </p>
+
     1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
        you have a port conflict on the TSDB VM.  The port is defaulted to `9115`.
     1. Optional: Enter a list of **Target URLs**. [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
