@@ -19,7 +19,7 @@ in the "Grafana Configuration" tab. Below is an example configuration for UAA.
 To configure UAA as the OAuth identity provider, make sure to create a client for `grafana` with scopes
 `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`,
 authorized grant type `authorization_code`, and a redirect URI pointing at the `
-https://${ROOT_URL_FOR_GRAFANA}:3000/login/generic_oauth`.
+https://${ROOT_URL_FOR_GRAFANA}/login/generic_oauth`.
 
 ```bash
 uaac client add grafana \

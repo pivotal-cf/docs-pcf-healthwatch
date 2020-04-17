@@ -11,7 +11,7 @@ owner: Healthwatch
   * Choose the VPC that your grafana instance is on
     * Add inbound rule
     * TCP
-    * 3000 port
+    * Port 443 if using https or 80 if using http
     * Source: 0.0.0.0/0
     * Create a security group
   * Go back to your Grafana instance and add your newly created security group to the instance
@@ -27,7 +27,7 @@ owner: Healthwatch
     * Create a rule
     * Source should be (*)
     * Destination should be the IP of your grafana VM
-    * TCP port number should be 3000
+    * TCP port number should be 443 if using https or 80 if using http
     * Skip ahead to `Review + create`
 
 ## For GCP: Users will need to create a firewall policy.
@@ -35,7 +35,7 @@ owner: Healthwatch
   * Navigate to VPN and Create a firewall rule. ex. grafana
   * Create a target tag `grafana` 
   * Set the IP Range to 0.0.0.0/0
-  * Add TCP port number 3000
+  * Add TCP port number 443 if using https or 80 if using http
   * Locate and click into the firewall rule in GCP
 
 ## For vSphere (NSX-V): Users will need to create a firewall policy.
