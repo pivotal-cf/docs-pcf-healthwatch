@@ -48,15 +48,15 @@ To configure the Healthwatch tile, perform the following steps:
        by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
        defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
        scrape job.  The job should not be prepended with the YAML array *-*. An example of the scrape config should look like:
-       ```yaml
-       job_name: foundation1
-        metrics_path: /metrics
-        scheme: https
-        static_configs:
-          - targets:
-            - "1.2.3.4:9090"
-            - "5.6.7.8:9090"
-       ```
+```yaml
+job_name: foundation1
+metrics_path: /metrics
+scheme: https
+static_configs:
+  - targets:
+    - "1.2.3.4:9090"
+    - "5.6.7.8:9090"
+```
        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
        and **key_file** properties of the **tls_config**
