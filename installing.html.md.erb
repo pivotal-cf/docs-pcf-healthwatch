@@ -187,11 +187,24 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-       `Root URL For the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
+       `Root URL for the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
        This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
        The default port Grafana is listening on is 3000, you need to include the port as part of the URL.
        <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
 
+    <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
+    1. Optional: Configure the proxy setting for Grafana.
+      1. Select **Enabled**
+      1. Enter the HTTP proxy server address in **HTTP Proxy for Grafana**.
+         This will be used as the proxy URL for HTTP and HTTPS requests
+         unless overridden by **HTTPS Proxy for Grafana** or **No Proxy for Grafana**.
+      1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
+         This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
+      1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
+         This should be a comma seprated list. We recommend to include “*.bosh” and the ip range for the internal networks
+         so that the time series database can still be accessed without going though the proxy.
+         For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
+         10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
     1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be 
        valid static IPs from the IAAS for the network on which the tile is installed.
     1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
@@ -222,7 +235,7 @@ To configure PKS cluster discovery:
 <p class="note"><strong>Note:</strong> PKS Cluster Discovery only applies for foundations running PKS</p>
 
 1. Navigate to **PKS Cluster Discovery Configuration** and do the following: 
-    1. Select **Enable**
+    1. Select **Enabled**
     1. Optional: Enter **Scrape Port** for the process to listen on.
     1. Enter the PKS API Address. This should be the API address you entered in **Ops Manager >Enterprise PKS >PKS API >API Hostname (FQDN)**. For example, `api.pks.example.com`.
     1. Enter the PKS UAA Client and Secret. You can use the PKS management admin client credential, where the client is `admin` and the secret can be found in **Ops Manager >Enterprise PKS>Credentials>Pks Uaa Management Admin Client**.
