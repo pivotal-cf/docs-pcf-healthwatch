@@ -25,3 +25,13 @@ Book repo: https://github.com/pivotal-cf/docs-book-healthwatch
 
 Production pipeline: https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services?group=healthwatch
 Edge pipeline: https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?group=healthwatch-edge
+
+## How to run the docs locally
+1. follow the instruction in https://docs-wiki.cfapps.io/wiki/external/preview-changes.html#preview-bookdocker
+1. cd into `docs-book-healthwatch` and edit the `config.yml`
+    1. under the `sections:` comment out the docs branch that you are not currently working on.
+       this is needed to have `bookdocker watch` works as expected.
+       
+       **NOTE**: Don't commit this file.
+1. run `bookdocker watch` in `docs-book-healthwatch` folder and you will get local preview under: `http://127.0.0.1:4567/platform/healthwatch/<VERSION>/installing.html`
+   If it doesn't work, run it again, and again... till you give up.
