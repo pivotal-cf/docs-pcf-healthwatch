@@ -9,21 +9,28 @@ owner: Healthwatch
 
 ## <a id='2-0'></a>v2.0 beta
 
-**Release Date: March 27, 2020**
+**Release Date: April 27, 2020**
 
 ### Features
 
 New features and changes in this release:
-
-* Retain 6 weeks of data in a time-series database
-* Know your foundation is healthy with Healthwatch default dashboards and alerts
-* Explore metrics and create custom dashboards with Grafana
-* Customize alerts, thresholds, and alerting channels
-* Track Healthwatch SLIs, such as CLI Health and Canary App Health
-* Monitor Tanzu Application Service for VMs and PKS
-* Monitor multiple foundations from a single view
-* Create and track your own service-level objectives
-* Authorize users with UAA, OAuth, LDAP, or basic authentication
+* Include basic Enterprise PKS dashboards
+* Show Indicator Protocol Generated dashboards
+  when they are present and enabled
+* Expose composite/"Super Value Metrics"
+  from Healthwatch 1.x
+  to the metrics pipeline.
+  This will enable users to still see
+  the metrics they are used to seeing from Healthwatch 1
+  in their downstream log consumers
+  if they upgrade their Healthwatch 1.x tile with Healthwatch 2.x.
+* Include new `Cert Expiration` dashboard under `Foundation`
+  that will display the time left until expiration
+  for all discoverable certs
+* Separate Diego Capacity metrics by isolation segment
+  in `Diego/Capacity` dashboard
+* Breaking change: Grafana is now configured to use the default HTTP and HTTPS ports
+  so users don't have to specify a port when visiting their dashboards
 
 
 ### Security Fixes
