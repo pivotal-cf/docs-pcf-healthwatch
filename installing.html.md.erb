@@ -189,7 +189,6 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
        `Root URL for the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
        This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
-       The default port Grafana is listening on is 3000, you need to include the port as part of the URL.
        <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
 
     <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
@@ -292,7 +291,13 @@ If there are already other API resource definitions in the text filed, simply ap
 
 1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
 
-1. In order to access Grafana within Healthwatch an external IP address for the `Grafana` VM is needed along with allowing traffic to the VM on port 3000. A native IaaS load balancer can also be used. 
+1. In order to access Grafana within Healthwatch,
+   an external IP address for the `Grafana` VM is needed
+   along with allowing traffic to the VM on port 443 or 80,
+   depending on whether you configured a certificate
+   in the `Enable HTTPS by providing certificates` field
+   under `Grafana Configuration` in the tile configuration.
+   A native IaaS load balancer can also be used.
 
 ##  (Optional) Backing Up Healthwatch
 
