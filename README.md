@@ -27,11 +27,26 @@ Production pipeline: https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf
 Edge pipeline: https://concourse.run.pivotal.io/teams/cf-docs/pipelines/cf-services-edge?group=healthwatch-edge
 
 ## How to run the docs locally
-1. Follow the instructions in https://docs-wiki.cfapps.io/wiki/external/preview-changes.html#preview-bookdocker
-1. cd into `docs-book-healthwatch` and edit the `config.yml`
+1. Clone the docs layout repository into your workspace:
+
+```
+cd ~/workspace
+git clone git@github.com:pivotal-cf/docs-layout-repo.git
+```
+
+1. Follow the instructions in https://github.com/pivotal-cf-experimental/bookdocker,
+   with the following modification:
+
+    1. Before you copy `bookdocker` into your path,
+    manually edit the Dockerfile configuration inside the `bookdocker/bookdocker` script
+    from `FROM ruby:2.3` to `FROM ruby:2.4`
+    so that it works with the gems we have in `docs-pcf-healthwatch`.
+ 
+1. `cd` into `docs-book-healthwatch` and edit the `config.yml`
     1. Under the `sections:` comment out the docs branch that you are not currently working on.
        This is needed to have `bookdocker watch` work as expected.
        
        **Note:** Don't commit this file.
-1. Run `bookdocker watch` in `docs-book-healthwatch` folder, and you will get local preview under: `http://127.0.0.1:4567/platform/healthwatch/<VERSION>/installing.html`
+1. Run `bookdocker watch` in `docs-book-healthwatch` folder,
+   and you will get local preview under: `http://127.0.0.1:4567/platform/healthwatch/<VERSION>/installing.html`
    If it doesn't work, run it again, and again... and if that doesn't work, ask for help in the #pcf-docs Slack channel.
