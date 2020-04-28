@@ -50,15 +50,19 @@ To configure the Healthwatch tile, perform the following steps:
          defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
          scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
 
-         ```yaml
-         job_name: foundation1
-         metrics_path: /metrics
-         scheme: https
-         static_configs:
-           - targets:
-             - "1.2.3.4:9090"
-             - "5.6.7.8:9090"
-         ```
+               job_name: foundation1
+               metrics_path: /metrics
+               scheme: https
+               static_configs:
+                 - targets:
+                   - "1.2.3.4:9090"
+                   - "5.6.7.8:9090"
+
+       * Test: so what about this?
+
+               ```yaml
+               some_more_yaml: yes
+               ```
 
        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
