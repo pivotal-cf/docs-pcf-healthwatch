@@ -3,7 +3,7 @@ title: Installing Healthwatch
 owner: Healthwatch
 ---
 
-This topic describes how to install and configure Healthwatch. 
+This topic describes how to install and configure Healthwatch.
 
 ## Install Healthwatch
 
@@ -14,10 +14,11 @@ This topic describes how to install and configure Healthwatch.
 1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch.
 This adds the tile to your staging area.
 
-<p class="note"><strong>Note:</strong> Installing using Platform Automation 
+<p class="note"><strong>Note:</strong> Installing using Platform Automation
 
     The following config file for the <code>download-product</code> task will work to fetch the Healthwatch tile (without getting the exporters):
 </p>
+
 ```yaml
 ---
 pivnet-api-token: token
@@ -47,169 +48,170 @@ To configure the Healthwatch tile, perform the following steps:
        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
        by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
        defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
-       scrape job.  The job should not be prepended with the YAML array *-*. An example of the scrape config should look like:
+       scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
 
-```yaml
-job_name: foundation1
-metrics_path: /metrics
-scheme: https
-static_configs:
-  - targets:
-    - "1.2.3.4:9090"
-    - "5.6.7.8:9090"
-```
+       ```yaml
+       job_name: foundation1
+       metrics_path: /metrics
+       scheme: https
+       static_configs:
+         - targets:
+           - "1.2.3.4:9090"
+           - "5.6.7.8:9090"
+       ```
+
        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
        and **key_file** properties of the **tls_config**
        * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
-   1. If using `om` to configure the tile, you will want a configuration like the following:
+    1. If using `om` to configure the tile, you will want a configuration like the following:
 
-```yaml
-product-name: p-reliability-view
-product-properties:
-  .properties.scrape_configs:
-    value:
-      - ca: |
-          -----BEGIN CERTIFICATE-----
-          SECRET
-          -----END CERTIFICATE-----
-        scrape_job: |
-          job_name: foundation1
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "1.2.3.4:9090"
-              - "5.6.7.8:9090"
-        server_name: pasexporter
-        tls_certificates:
-          cert_pem: |
-            -----BEGIN CERTIFICATE-----
-            SECRET
-            -----END CERTIFICATE-----
-          private_key_pem: |
-            -----BEGIN RSA PRIVATE KEY-----
-            SECRET
-            -----END RSA PRIVATE KEY-----
-      - ca: |
-          -----BEGIN CERTIFICATE-----
-          SECRET
-          -----END CERTIFICATE-----
-        scrape_job: |
-          job_name: foundation2
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "9.10.11.12:9090"
-        server_name: pasexporter
-        tls_certificates:
-          cert_pem: |
-            -----BEGIN CERTIFICATE-----
-            SECRET
-            -----END CERTIFICATE-----
-          private_key_pem: |
-            -----BEGIN RSA PRIVATE KEY-----
-            SECRET
-            -----END RSA PRIVATE KEY-----
-  .properties.ui_authentication:
-    selected_option: basic
-    value: basic
-  .tsdb.blackbox_exporter_port:
-    value: 9115
-  .tsdb.scrape_interval:
-    value: 15s
-  .ui.enable_login_form:
-    value: true
-network-properties:
-  network:
-    name: subnet1
-  other_availability_zones:
-  - name: us-central1-f
-  - name: us-central1-c
-  - name: us-central1-b
-  singleton_availability_zone:
-    name: us-central1-f
-resource-config:
-  pxc:
-    instances: automatic
-    persistent_disk:
-      size_mb: automatic
-    instance_type:
-      id: automatic
-    internet_connected: true
-    max_in_flight: 5
-  pxc-proxy:
-    instances: automatic
-    persistent_disk:
-      size_mb: automatic
-    instance_type:
-      id: automatic
-    internet_connected: true
-    max_in_flight: 5
-  tsdb:
-    instances: automatic
-    persistent_disk:
-      size_mb: automatic
-    instance_type:
-      id: automatic
-    internet_connected: true
-    max_in_flight: 1
-  ui:
-    instances: automatic
-    persistent_disk:
-      size_mb: automatic
-    instance_type:
-      id: automatic
-    internet_connected: true
-    max_in_flight: 5
-errand-config:
-  smoke-test:
-    post-deploy-state: true
-  update-admin-password:
-    post-deploy-state: true
-```
+       ```yaml
+       product-name: p-reliability-view
+       product-properties:
+         .properties.scrape_configs:
+           value:
+             - ca: |
+                 -----BEGIN CERTIFICATE-----
+                 SECRET
+                 -----END CERTIFICATE-----
+               scrape_job: |
+                 job_name: foundation1
+                 metrics_path: /metrics
+                 scheme: https
+                 static_configs:
+                   - targets:
+                     - "1.2.3.4:9090"
+                     - "5.6.7.8:9090"
+               server_name: pasexporter
+               tls_certificates:
+                 cert_pem: |
+                   -----BEGIN CERTIFICATE-----
+                   SECRET
+                   -----END CERTIFICATE-----
+                 private_key_pem: |
+                   -----BEGIN RSA PRIVATE KEY-----
+                   SECRET
+                   -----END RSA PRIVATE KEY-----
+             - ca: |
+                 -----BEGIN CERTIFICATE-----
+                 SECRET
+                 -----END CERTIFICATE-----
+               scrape_job: |
+                 job_name: foundation2
+                 metrics_path: /metrics
+                 scheme: https
+                 static_configs:
+                   - targets:
+                     - "9.10.11.12:9090"
+               server_name: pasexporter
+               tls_certificates:
+                 cert_pem: |
+                   -----BEGIN CERTIFICATE-----
+                   SECRET
+                   -----END CERTIFICATE-----
+                 private_key_pem: |
+                   -----BEGIN RSA PRIVATE KEY-----
+                   SECRET
+                   -----END RSA PRIVATE KEY-----
+         .properties.ui_authentication:
+           selected_option: basic
+           value: basic
+         .tsdb.blackbox_exporter_port:
+           value: 9115
+         .tsdb.scrape_interval:
+           value: 15s
+         .ui.enable_login_form:
+           value: true
+       network-properties:
+         network:
+           name: subnet1
+         other_availability_zones:
+         - name: us-central1-f
+         - name: us-central1-c
+         - name: us-central1-b
+         singleton_availability_zone:
+           name: us-central1-f
+       resource-config:
+         pxc:
+           instances: automatic
+           persistent_disk:
+             size_mb: automatic
+           instance_type:
+             id: automatic
+           internet_connected: true
+           max_in_flight: 5
+         pxc-proxy:
+           instances: automatic
+           persistent_disk:
+             size_mb: automatic
+           instance_type:
+             id: automatic
+           internet_connected: true
+           max_in_flight: 5
+         tsdb:
+           instances: automatic
+           persistent_disk:
+             size_mb: automatic
+           instance_type:
+             id: automatic
+           internet_connected: true
+           max_in_flight: 1
+         ui:
+           instances: automatic
+           persistent_disk:
+             size_mb: automatic
+           instance_type:
+             id: automatic
+           internet_connected: true
+           max_in_flight: 5
+       errand-config:
+         smoke-test:
+           post-deploy-state: true
+         update-admin-password:
+           post-deploy-state: true
+       ```
 
-   1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
-   1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
+    1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
+    1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
+    <p class="note warning">
+    <strong>Warning: </strong>Job Names
 
+    When configuring custom scrape jobs, it is recommended that you avoid using the following job names:
 
-<p class="note warning"><strong>Warning: </strong>Job Names
-
-When configuring custom scrape jobs, it is recommended that you avoid using the following job names:</p>
-
-      * `Healthwatch-view-pas-exporter`
-      * `Healthwatch-view-pks-exporter`
-      * `tsdb`
-      * `grafana`
-      * `pks-master-kube-scheduler`
-      * `pks-master-kube-controller-manager`
+    * `Healthwatch-view-pas-exporter`
+    * `Healthwatch-view-pks-exporter`
+    * `tsdb`
+    * `grafana`
+    * `pks-master-kube-scheduler`
+    * `pks-master-kube-controller-manager`
+    </p>
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
        `Root URL for the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
        This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
        <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
-
-    <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
+       <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
     1. Optional: Configure the proxy setting for Grafana.
-      1. Select **Enabled**
-      1. Enter the HTTP proxy server address in **HTTP Proxy for Grafana**.
-         This will be used as the proxy URL for HTTP and HTTPS requests
-         unless overridden by **HTTPS Proxy for Grafana** or **No Proxy for Grafana**.
-      1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
-         This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
-      1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
-         This should be a comma seprated list. VMware recommends to include “*.bosh” and the ip range for the internal networks
-         so that the time series database can still be accessed without going though the proxy.
-         For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
-         10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
-    1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be 
+       1. Select **Enabled**
+       1. Enter the HTTP proxy server address in **HTTP Proxy for Grafana**.
+          This will be used as the proxy URL for HTTP and HTTPS requests
+          unless overridden by **HTTPS Proxy for Grafana** or **No Proxy for Grafana**.
+       1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
+          This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
+       1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
+          This should be a comma seprated list. VMware recommends to include “*.bosh” and the ip range for the internal networks
+          so that the time series database can still be accessed without going though the proxy.
+          For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
+          10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
+    1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
        valid static IPs from the IAAS for the network on which the tile is installed.
     1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
     1. Optional: **Select an authentication mechanism for the Grafana**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](grafana-authentication.html) for detailed configurations.
     1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
        For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
+
 1. Navigate to **Canary URL Configuration** and do the following:
     <p class="note"><strong>Note:</strong>
     Canary applications are those applications you "send in first"
@@ -229,11 +231,11 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
 
 PKS Cluster Discovery enables users to detect and configure clusters created by the PKS API.
 
-To configure PKS cluster discovery: 
+To configure PKS cluster discovery:
 
 <p class="note"><strong>Note:</strong> PKS Cluster Discovery only applies for foundations running PKS</p>
 
-1. Navigate to **PKS Cluster Discovery Configuration** and do the following: 
+1. Navigate to **PKS Cluster Discovery Configuration** and do the following:
     1. Select **Enabled**
     1. Optional: Enter **Scrape Port** for the process to listen on.
     1. Enter the PKS API Address. This should be the API address you entered in **Ops Manager >Enterprise PKS >PKS API >API Hostname (FQDN)**. For example, `api.pks.example.com`.
@@ -242,62 +244,71 @@ To configure PKS cluster discovery:
     1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
     1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
     1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
+
 1. Go to `Enterprise PKS` tile and for each plan you want to monitor:
     1. Navigate to the plan you want to monitor. For example, `Plan 2`.
     1. Scroll to `(Optional) Add-ons - Use with caution`.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
 
-```yaml
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
- name: healthwatch
-rules:
- - resources:
-     - pods/proxy
-     - pods
-     - nodes
-     - nodes/proxy
-     - namespace/pods
-     - endpoints
-     - services
-   verbs:
-     - get
-     - watch
-     - list
-   apiGroups:
-     - ""
- - nonResourceURLs: ["/metrics"]
-   verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
- name: healthwatch
-roleRef:
- apiGroup: ""
- kind: ClusterRole
- name: healthwatch
-subjects:
- - apiGroup: ""
-   kind: User
-   name: healthwatch
-   namespace: pks-system
-```
+       ```yaml
+       ---
+       apiVersion: rbac.authorization.k8s.io/v1
+       kind: ClusterRole
+       metadata:
+        name: healthwatch
+       rules:
+        - resources:
+            - pods/proxy
+            - pods
+            - nodes
+            - nodes/proxy
+            - namespace/pods
+            - endpoints
+            - services
+          verbs:
+            - get
+            - watch
+            - list
+          apiGroups:
+            - ""
+        - nonResourceURLs: ["/metrics"]
+          verbs: ["get"]
+       ---
+       apiVersion: rbac.authorization.k8s.io/v1
+       kind: ClusterRoleBinding
+       metadata:
+        name: healthwatch
+       roleRef:
+        apiGroup: ""
+        kind: ClusterRole
+        name: healthwatch
+       subjects:
+        - apiGroup: ""
+          kind: User
+          name: healthwatch
+          namespace: pks-system
+       ```
 
-If there are already other API resource definitions in the text filed, simply append the above snippet to the end, followed by a newline character.
-<p class="note"><strong>Note:</strong> During Apply Changes, Make sure Enterprise PKS > Errands > Upgrade all clusters errand is enabled to have the addon resources propagated to on demand clusters.</p>
+        If there are already other API resource definitions in the text field,
+        simply append the above snippet to the end,
+        followed by a newline character.
 
-1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
+        <p class="note">
+        <strong>Note:</strong>
+        During Apply Changes,
+        Make sure `Enterprise PKS > Errands > Upgrade all clusters` errand
+        is enabled to have the addon resources propagated to on demand clusters.
+        </p>
 
-1. In order to access Grafana within Healthwatch,
-   an external IP address for the `Grafana` VM is needed
-   along with allowing traffic to the VM on port 443 or 80,
-   depending on whether you configured a certificate
-   in the `Enable HTTPS by providing certificates` field
-   under `Grafana Configuration` in the tile configuration.
-   A native IaaS load balancer can also be used.
+    1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
+
+    1. In order to access Grafana within Healthwatch,
+       an external IP address for the `Grafana` VM is needed
+       along with allowing traffic to the VM on port 443 or 80,
+       depending on whether you configured a certificate
+       in the `Enable HTTPS by providing certificates` field
+       under `Grafana Configuration` in the tile configuration.
+       A native IaaS load balancer can also be used.
 
 ##  (Optional) Backing Up Healthwatch
 

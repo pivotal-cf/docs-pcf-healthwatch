@@ -7,8 +7,14 @@ By default, Grafana is configured to use basic authentication with username `adm
 in the "Credentials" tab of the **Healthwatch** tile under `Grafana Login`. OAuth is another supported authentication
 mechanism and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
 
-<p class="note"><strong>Note: </strong>Grafana Authentication Documentation </p> 
-provides many ways to authenticate users. Some authentication integrations also enable syncing user permissions and org memberships. Visit [Grafana Authentication](https://grafana.com/docs/auth/overview/) for more assistance
+<p class="note">
+    <strong>Note: </strong>
+    Grafana Authentication Documentation
+    provides many ways to authenticate users.
+    Some authentication integrations also enable syncing
+    user permissions and org memberships.
+    Visit [Grafana Authentication](https://grafana.com/docs/auth/overview/) for more assistance.
+</p>
 
 ## Configuring UAA OAuth
 If you would like to specify UAA as your OAuth provider then select `UAA` as the authentication mechanism for Grafana
@@ -18,8 +24,9 @@ in the "Grafana Configuration" tab. Below is an example configuration for UAA.
 
 To configure UAA as the OAuth identity provider, make sure to create a client for `grafana` with scopes
 `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`,
-authorized grant type `authorization_code`, and a redirect URI pointing at the `
-https://${ROOT_URL_FOR_GRAFANA}/login/generic_oauth`.
+authorized grant type `authorization_code`,
+and a redirect URI pointing at
+`https://${ROOT_URL_FOR_GRAFANA}/login/generic_oauth`.
 
 ```bash
 uaac client add grafana \
@@ -30,11 +37,22 @@ uaac client add grafana \
    --redirect_uri http(s)://[GRAFANA ROOT URL]/login/generic_oauth
 ```
 
-<p class="note"><strong>Note:</strong>Make sure the protocol (http/https) in the redirect uri matches the protocol you choose to use. If you provide the SSL certificate in Grafana Configuration or put a load balancer with SSL termination in from of the Grafana, you should use https. GRAFANA ROOT URL should include port as well.</p>
+<p class="note">
+    <strong>Note:</strong>
+    Make sure the protocol (http/https) in the redirect uri
+    matches the protocol you choose to use.
+    If you provide the SSL certificate in Grafana Configuration
+    or put a load balancer with SSL termination in from of the Grafana,
+    you should use https.
+    `GRAFANA ROOT URL` should include port as well.
+</p>
 
 ## Configuring Generic OAuth
-If you would like to configure any supported OAuth provider then select `Generic OAuth` as the authentication mechanism for the UI
-in the "Grafana Configuration" tab. Below is an example configuration for GitHub.
+If you would like to configure
+the supported OAuth provider of your choice,
+then select `Generic OAuth` as the authentication mechanism for the UI
+in the "Grafana Configuration" tab.
+Below is an example configuration for GitHub.
 
 ![github-oauth](../images/github-oauth.png)
 
@@ -48,8 +66,10 @@ curl --silent \
     jq -r .id
 ```
 
-When setting up the GitHub OAuth application you will need to set the `Authorization callback URL` to
-`https://${GRAFANA_ROOT_URL}/login/generic_oauth` where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
+When setting up the GitHub OAuth application,
+you will need to set the `Authorization callback URL`
+to `https://${GRAFANA_ROOT_URL}/login/generic_oauth`,
+where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
 
 ## Configuring LDAP Authentication
 If you would like to specify LDAP as your provider then select `LDAP` as the authentication mechanism for Grafana
