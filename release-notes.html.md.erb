@@ -9,15 +9,12 @@ owner: Healthwatch
 
 ## <a id='2-0'></a>v2.0.1 beta
 
-**Release Date: April 27, 2020**
+**Release Date: April 28, 2020**
 
 ### Features
 
 New features and changes in this release:
 
-* Include basic Enterprise PKS dashboards
-* Show Indicator Protocol Generated dashboards
-  when they are present and enabled
 * Expose composite/"Super Value Metrics"
   from Healthwatch 1.x
   to the metrics pipeline.
@@ -27,11 +24,17 @@ New features and changes in this release:
   if they upgrade their Healthwatch 1.x tile with Healthwatch 2.x.
 * Include new `Cert Expiration` dashboard under `Foundation`
   that will display the time left until expiration
-  for all discoverable certs
+  for all discoverable certs from Ops Manager [API](https://docs.pivotal.io/pivotalcf/2-6/opsman-api/#generating-new-certificates).
+  For OpsMan version <= 2.6, the api does not include the Ops Manager Root CA or product certificates stored in CredHub, version 2.7 and later include those things.
 * Separate Diego Capacity metrics by isolation segment
   in `Diego/Capacity` dashboard
-* Breaking change: Grafana is now configured to use the default HTTP and HTTPS ports
-  so users don't have to specify a port when visiting their dashboards
+
+<p class="note breaking">
+    <strong>Breaking Change: </strong> Grafana is now configured to use the default HTTP and HTTPS ports
+    so users don't have to specify a port when visiting their dashboards.
+    If a load balancer is placed in front of Grafana instance(s),
+    the backend configuration of the load balancer needs to be updated.
+</p>
 
 
 ### Security Fixes
