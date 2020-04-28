@@ -441,14 +441,23 @@ Be aware that this will delete any existing data on all TSDB and Grafana VMs and
 To restore, run the following commands:
 
 ```bash
-mkdir -p $PATH_TO_DEPLOYMENT_BACKUP
-tar xvf rv-backup-*.tar -C $PATH_TO_DEPLOYMENT_BACKUP
+mkdir -p $PATH-TO-DEPLOYMENT-BACKUP
+tar xvf rv-backup-*.tar -C $PATH-TO-DEPLOYMENT-BACKUP
 bbr deployment \
-  --target $BOSH_TARGET \
-  --username $BOSH_CLIENT \
-  --password $BOSH_PASSWORD \
-  --deployment $Healthwatch_VIEW_DEPLOYMENT_NAME \
-  --ca-cert $PATH_TO_BOSH_SERVER_CERTIFICATE \
+  --target $BOSH-TARGET \
+  --username $BOSH-CLIENT \
+  --password $BOSH-PASSWORD \
+  --deployment $Healthwatch-VIEW-DEPLOYMENT-NAME \
+  --ca-cert $PATH-TO-BOSH-SERVER-CERTIFICATE \
   restore \
-  --artifact-path $PATH_TO_DEPLOYMENT_BACKUP
+  --artifact-path $PATH-TO-DEPLOYMENT-BACKUP
 ```
+
+Where:
+
+* `PATH-TO-DEPLOYMENT-BACKUP` is the filepath to your BBR backup.
+* `BOSH-TARGET` is your Bosh Director
+* `BOSH-CLIENT` is your Bosh username
+* `BOSH-PASSWORD` is Bosh user password
+* `Healthwatch-VIEW-DEPLOYMENT-NAME` is the name of your Healthwatch deployment
+* `PATH-TO-BOSH-SERVER-CERTIFICATE` is the Bosh Director CA
