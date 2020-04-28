@@ -44,30 +44,25 @@ To configure the Healthwatch tile, perform the following steps:
 1. Navigate to **Time series database (TSDB) Configuration** and do the following:
     1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
     1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
-       file.
-       * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-         by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
-         defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
-         scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
+        file.
+        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
+            by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
+            defined by TSDB itself except for the`tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
+            scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
 
-               job_name: foundation1
-               metrics_path: /metrics
-               scheme: https
-               static_configs:
-                 - targets:
-                   - "1.2.3.4:9090"
-                   - "5.6.7.8:9090"
-
-       * Test: so what about this?
-
-               ```yaml
-               some_more_yaml: yes
-               ```
-
-       * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
-       * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
-         and **key_file** properties of the **tls_config**
-       * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
+            ```yaml
+            job_name: foundation1
+            metrics_path: /metrics
+            scheme: https
+            static_configs:
+             - targets:
+               - "1.2.3.4:9090"
+               - "5.6.7.8:9090"
+            ```
+        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
+        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
+            and **key_file** properties of the **tls_config**
+        * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
 
     1. If using `om` to configure the tile, you will want a configuration like the following:
 
