@@ -18,6 +18,8 @@ This adds the tile to your staging area.
     <strong>Note:</strong>
     Installing using Platform Automation
 
+    <br/><br/>
+
     The following config file for the <code>download-product</code> task
     will work to fetch the Healthwatch tile (without getting the exporters):
 </p>
@@ -226,12 +228,13 @@ To configure the Healthwatch tile, perform the following steps:
         For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
 
 1. Navigate to **Canary URL Configuration** and do the following:
-    <p class="note"><strong>Note:</strong>
-    Canary applications are those applications you "send in first"
-    and are an indicator of the overall health of your platform.
-    If a canary app is down,
-    there is probably an issue with the platform.
-    For example, Apps Manager would be a good candidate for a canary url.
+    <p class="note">
+        <strong>Note:</strong>
+        Canary applications are those applications you "send in first"
+        and are an indicator of the overall health of your platform.
+        If a canary app is down,
+        there is probably an issue with the platform.
+        For example, Apps Manager would be a good candidate for a canary url.
     </p>
 
     1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
@@ -308,7 +311,7 @@ To configure PKS cluster discovery:
         <p class="note">
             <strong>Note:</strong>
             During Apply Changes,
-            Make sure `Enterprise PKS > Errands > Upgrade all clusters` errand
+            make sure <code>Enterprise PKS > Errands > Upgrade all clusters</code> errand
             is enabled to have the addon resources propagated to on demand clusters.
         </p>
 
