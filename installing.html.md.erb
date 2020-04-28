@@ -184,17 +184,21 @@ To configure the Healthwatch tile, perform the following steps:
     1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
 
 <p class="note warning">
-    <strong>Warning: </strong>Job Names
+    <strong>Warning: </strong>
+    Job Names
 
-    When configuring custom scrape jobs, it is recommended that you avoid using the following job names:
+    <br/><br/>
 
-    * `Healthwatch-view-pas-exporter`
-    * `Healthwatch-view-pks-exporter`
-    * `tsdb`
-    * `grafana`
-    * `pks-master-kube-scheduler`
-    * `pks-master-kube-controller-manager`
+    When configuring custom scrape jobs,
+    it is recommended that you avoid using the following job names:
 </p>
+
+* `Healthwatch-view-pas-exporter`
+* `Healthwatch-view-pks-exporter`
+* `tsdb`
+* `grafana`
+* `pks-master-kube-scheduler`
+* `pks-master-kube-controller-manager`
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
