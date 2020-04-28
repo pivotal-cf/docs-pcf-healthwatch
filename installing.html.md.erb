@@ -21,11 +21,11 @@ This adds the tile to your staging area.
 ```yaml
 ---
 pivnet-api-token: token
-pivnet-file-glob: "Healthwatch-view-[^pks|pas]*.pivotal"
-pivnet-product-slug: Healthwatch_view_pcf
-product-version-regex: "0.4.*"
+pivnet-file-glob: "healthwatch-[^pas|pks].*pivotal"
+pivnet-product-slug: p-healthwatch
+product-version-regex: 2\.0.*
 ```
-<p class="note"><strong>Note:</strong> When Healthwatch PAS Exporter or Healthwatch PKS Exporter on the same foundation as
+<p class="note"><strong>Note:</strong> When Healthwatch Tanzu Application Service Exporter or Healthwatch PKS Exporter on the same foundation as
 Healthwatch, there is no need to manually configure a scrape job for them. These exporters are automatically discovered and scraped.
 This section is for adding additional custom scrape jobs or to scrape exporters installed on different foundations.</p>
 
@@ -200,7 +200,7 @@ When configuring custom scrape jobs, it is recommended that you avoid using the 
       1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
          This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
       1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
-         This should be a comma seprated list. We recommend to include “*.bosh” and the ip range for the internal networks
+         This should be a comma seprated list. VMware recommends to include “*.bosh” and the ip range for the internal networks
          so that the time series database can still be accessed without going though the proxy.
          For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
          10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
@@ -302,7 +302,7 @@ If there are already other API resource definitions in the text filed, simply ap
 ##  (Optional) Backing Up Healthwatch
 
 Healthwatch supports [Bosh Backup and Restore](https://docs.pivotal.io/pivotalcf/2-4/customizing/backup-restore/index.html) functionality.
-We recommend running nightly backups via a Concourse pipeline job like the one below:
+VMware recommends running nightly backups via a Concourse pipeline job like the one below:
 
 ```yaml
 ---
