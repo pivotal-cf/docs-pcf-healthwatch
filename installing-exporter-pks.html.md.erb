@@ -15,8 +15,13 @@ Container Service (PKS).
 1. Under the **Import a Product** button, click **+** next to the version number of Healtwatch Exporter for PKS.
 This adds the tile to your staging area.
 
-<p class="note"><strong>Note: </strong> Installing using Platform Automation by following config file for the <code>download-product</code> task will work to fetch the Healtwatch Exporter for PKS tile
-    (without getting Healtwatch or the TAS exporter):</p>
+<p class="note">
+    <strong>Note: </strong>
+    Installing using Platform Automation
+    by following config file for the <code>download-product</code>
+    task will work to fetch the Healtwatch Exporter for PKS tile
+    (without getting Healtwatch or the TAS exporter):
+</p>
 
 ```yaml
     ---
@@ -40,9 +45,22 @@ To configure the Healtwatch Exporter for PKS tile, perform the following steps:
 1. *(Optional)* The exporter is defaulted to listen on port `9090`, to change, edit the value in the
    **PKS Exporter Configuration** section.
 
-<p class="note"><strong>Note: </strong>Metric Sources</p>
-The Healtwatch PKS Exporter retrieves metrics from the [Bosh System Metrics Server](https://github.com/cloudfoundry/bosh-system-metrics-server-release).
-This includes all of the typical Bosh metrics.  Examples of such metrics can be found here: [System (BOSH) metrics](https://docs.pivotal.io/pivotalcf/2-6/monitoring/kpi.html#bosh).
+<p class="note">
+    <strong>Note: </strong>
+    Metric Sources
+
+    <br/><br/>
+
+    The Healtwatch PKS Exporter retrieves metrics from the
+    <a href="https://github.com/cloudfoundry/bosh-system-metrics-server-release">
+        Bosh System Metrics Server
+    </a>.
+    This includes all of the typical Bosh metrics.
+    Examples of such metrics can be found here:
+    <a href="https://docs.pivotal.io/pivotalcf/2-6/monitoring/kpi.html#bosh">
+        System (BOSH) metrics
+    </a>.
+</p>
 
 ##  (Optional) Scraping PKS Exporter Metrics
 
