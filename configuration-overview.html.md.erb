@@ -4,32 +4,47 @@ owner: Healthwatch
 ---
 
 ### Monitoring TAS from within Foundation
-In order to monitor a single TAS installation, follow the instructions for 
-Installing Healthwatch and the instructions
-for [Installing Healthwatch Exporter for TAS  on
-the same foundation where TAS is installed. **Healthwatch** will automatically detect that the 
-**Healthwatch Exporter for TAS** has also been installed and will start scraping it's metrics.
+In order to monitor a single TAS installation,
+follow the instructions for
+[Installing Healthwatch](installing.html)
+and the instructions for [Installing Healthwatch Exporter for TAS](installing-exporter-tas-vms.html)
+on the same foundation where TAS is installed.
+**Healthwatch** will automatically detect
+that the **Healthwatch Exporter for TAS** has also been installed
+and will start scraping its metrics.
 
 ### Monitoring PKS from within Foundation
-In order to monitor a single PKS installation, follow the instructions for 
-[Installing Healthwatch the same foundation
-where PKS is installed. **Healthwatch** will automatically detect that the **Healthwatch Exporter for PKS**
-is also installed and will begin scraping it's metrics.
+In order to monitor a single PKS installation,
+follow the instructions for
+[Installing Healthwatch](installing.html)
+on the same foundation where PKS is installed.
+**Healthwatch** will automatically detect
+that the **Healthwatch Exporter for PKS** is also installed
+and will begin scraping its metrics.
 
 ### Monitoring TAS and PKS
-In order to monitor a foundation with both TAS and PKS installed, follow the instructions for 
-[Installing Healthwatch the instructions
-for [Installing Healthwatch Exporter for TAS  on
-the same foundation where TAS and PKS are installed. **Healthwatch** will automatically detect
-that it is co-located with both **Healthwatch Exporter for TAS** and **Healthwatch Exporter for PKS** and 
-will begin scraping both endpoints.
+In order to monitor a foundation with both TAS and PKS installed,
+follow the instructions for
+[Installing Healthwatch](installing.html),
+the instructions for [Installing Healthwatch Exporter for TAS](installing-exporter-tas-vms.html),
+and the instructions for [Installing Healthwatch Exporter for PKS](installing-exporter-pks.html),
+on the same foundation where TAS and PKS are installed.
+**Healthwatch** will automatically detect
+that it is co-located with both **Healthwatch Exporter for TAS**
+and **Healthwatch Exporter for PKS**
+and will begin scraping both endpoints.
 
 
 ## Monitoring TAS from the Control Plane 
-The **Healthwatch** tile can be used from the Control Plane to monitor any number of TAS 
-foundations. To use **Healthwatch** in this way, follow the installation instructions for
-[Installing Healthwatch he control plane, then follow the installation instructions for
-[Installing Healthwatch Exporter for TAS  on each TAS foundation you would like to monitor.
+The **Healthwatch** tile
+can be used from the Control Plane
+to monitor any number of TAS foundations.
+To use **Healthwatch** in this way,
+follow the installation instructions for
+[Installing Healthwatch](installing.html) on the control plane,
+then follow the installation instructions for
+[Installing Healthwatch Exporter for TAS](installing-exporter-tas-vms.html)
+on each TAS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary 
 network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
