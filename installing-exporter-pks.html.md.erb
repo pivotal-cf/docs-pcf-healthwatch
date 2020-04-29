@@ -15,21 +15,21 @@ Container Service (PKS).
 1. Under the **Import a Product** button, click **+** next to the version number of Healtwatch Exporter for PKS.
 This adds the tile to your staging area.
 
-<p class="note">
+<div class="note">
     <strong>Note: </strong>
     Installing using Platform Automation
     by following config file for the <code>download-product</code>
     task will work to fetch the Healtwatch Exporter for PKS tile
-    (without getting Healtwatch or the TAS exporter):
-</p>
+    without getting Healtwatch or the TAS exporter:
 
-```yaml
+<pre>
 ---
 pivnet-api-token: token
 pivnet-file-glob: "Healthwatch-pks-*.pivotal"
 pivnet-product-slug: p-healthwatch
 product-version-regex: "0.4.*"
-```
+</pre>
+</div>
 
 ##  Configure the Healtwatch Tile
 
