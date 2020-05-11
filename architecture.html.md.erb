@@ -5,14 +5,14 @@ owner: Healthwatch
 
 # Architecture
 
-When being used for multi-foundation monitoring, **Healthwatch** and it's exporters will commonly be
+When being used for multi-foundation monitoring, **Healthwatch** and its exporters will commonly be
 deployed as follows:
 
 ![alt text](images/ControlPlaneArchitecture.png)
 
 ## Healthwatch
 
-The **Healthwatch** tile installs three components: Time series database (TSDB), Grafana and MySQL.  MySQL is used only to store the Grafana
+The **Healthwatch** tile installs three components: Time series database (TSDB), Grafana, and MySQL.  MySQL is used only to store the Grafana
 settings and does not store any time series data. 
 
 It can be deployed in high availability (HA) mode ( 3 MySQL nodes and 2 Proxy nodes) or in non-HA mode
