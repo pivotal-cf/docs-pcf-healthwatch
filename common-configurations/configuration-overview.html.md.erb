@@ -47,10 +47,10 @@ then follow the installation instructions for
 on each TAS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary 
-network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+network configuration to expose the exporter VMs, add a scrape config to the `TSDB Configuration`
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **TAS Exporter Client Mtls** credentials
-from the *Credentials* tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
+from the `Credentials` tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
 will look something like the following:
 
 ```yaml
@@ -113,10 +113,10 @@ Installing Healthwatch the control plane, then follow the installation instructi
 Installing Healthwatch Exporter for PKS  on each PKS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for PKS** and completed the necessary 
-network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+network configuration to expose the exporter VMs, add a scrape config to the `TSDB Configuration`
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **Pks Exporter Client Mtls** credentials
-from the *Credentials* tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
+from the `Credentials` tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
 will look something like the following:
   
 ```yaml
@@ -172,11 +172,16 @@ will look something like the following:
 </p>
 
 ## Whitelisting Metrics 
-In some deployments in can be beneficial to only ingest certain metrics from a scrape job.  For example,
-due to storage and cpu constraints an operator may only want to store SLI metrics for a foundation
-rather than the entirety of the Firehose.  The following example shows how an operator
-could configure a scrape job to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
-
+In some deployments,
+it can be beneficial to only ingest certain metrics from a scrape job.
+For example,
+due to storage and cpu constraints,
+an operator may only want to store SLI metrics for a foundation,
+rather than the entirety of the Firehose.
+The following example
+shows how an operator could configure a scrape job
+to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
+  
 ```yaml
 - job_name: whitelisted-job
   metric_relabel_configs:
@@ -221,18 +226,26 @@ could configure a scrape job to only ingest gauge metrics with the names `some-m
 
 ### Monitoring PKS Master Nodes
 
-When Healthwatch is installed on the same foundation as PKS, it will automatically scrape the `kube-scheduler`
-and `kube-controller-manager` processes on the Master VM. More metrics (such as `etcd` metrics) can be made available
-by enabling the `TSDB_client` Telegraf output on the master VM. To do that, go to the **Monitoring** tab in the
-PKS tile, and enter the following configuration in the "Setup Telegraf Outputs" section:
+When Healthwatch is installed on the same foundation as PKS,
+it will automatically scrape the `kube-scheduler`
+and `kube-controller-manager` processes on the Master VM.
+More metrics (such as `etcd` metrics)
+can be made available
+by enabling the `TSDB_client` Telegraf output on the master VM.
+To do that,
+go to the `Monitoring` tab in the PKS tile,
+and enter the following configuration in the `Setup Telegraf Outputs` section:
 
 ```toml
 [[outputs.TSDB_client]]
   listen = ":9273"
 ```
 
-This will expose additional metrics on a `/metrics` endpoint on port `9273`. In order to scrape these metrics, add the
-following scrape configuration to the **TSDB Configuration** section of the Healthwatch tile:
+This will expose additional metrics
+on a `/metrics` endpoint on port `9273`.
+In order to scrape these metrics,
+add the following scrape configuration
+to the `TSDB Configuration` section of the Healthwatch tile:
 
 ```yaml
 - job_name: cluster_master_telegraf
@@ -243,7 +256,8 @@ following scrape configuration to the **TSDB Configuration** section of the Heal
       port: 9273
 ```
 
-This example uses [Bosh DNS](https://bosh.io/docs/dns/) to automatically discover all master VMs
+This example uses [Bosh DNS](https://bosh.io/docs/dns/)
+to automatically discover all master VMs,
 which now have Telegraf available on port `9273`.
 
   1. Select **Enable** in the `Bosh Deployment Checker` section.

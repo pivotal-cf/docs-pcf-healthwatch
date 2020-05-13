@@ -3,18 +3,45 @@ title: Federation
 owner: Healthwatch
 ---
 
-Healthwatch supports federation. This is useful if you want to monitor a subset of metrics
-(such as SLI metrics) from multiple foundations without having to store all of the metrics from multiple foundations in 
-a single time series database (TSDB) instance. It has been our experience that storing all the Firehose metrics from more than one large TAS for VMs foundation into a single Prometheus instance greatly affects the performance of that Prometheus instance. In some cases it has caused it to crash. It is our recommendation to instead federate only SLI metrics from each foundation to the Prometheus residing in the Control Plane.
+Healthwatch supports federation.
+This is useful if you want to monitor a subset of metrics (such as SLI metrics)
+from multiple foundations
+without having to store all of the metrics
+from multiple foundations
+in a single time series database (TSDB) instance.
+It has been our experience that storing all the Firehose metrics
+from more than one large TAS for VMs foundation
+in a single Prometheus instance
+greatly affects the performance
+of that Prometheus instance.
+In some cases it causes it to crash.
+To avoid this,
+it is our recommendation
+to federate only SLI metrics from each foundation
+to the Prometheus residing in the Control Plane.
 
-1. Install the Healthwatch tile on the control plane foundation or some other parent foundation designed to
-   monitor child foundations.
-1. Install the appropriate Exporter (Tanzu Application Service or PKS) and Healthwatch tiles on each foundation you want to federate
-   from. The Healthwatch tile installs Prometheus on each child foundation, which is necessary for federation.
-1. Expose the `tsdb` instance on port `4449` for each foundation you will be federating from.
-1. Add the following scrape config to the **Healthwatch** tile installed on the Control Plane. For the `tls_config` section      in each scrape job, use the `Tsdb Client Mtls` credentials and root Ops Manager CA from the foundation you are federating
-   from. Add a federation configuration like the following for each foundation
-   you want to monitor. In this example, we are federating all metrics whose name matches the regex `^my_metric_name_regex.*`    from the prometheus instances at addresses `source-prometheus-1`:
+1. Install the Healthwatch tile on the control plane foundation
+    or some other parent foundation
+    designed to monitor child foundations.
+1. Install the appropriate Exporter (**Tanzu Application Service** or **PKS**)
+    and Healthwatch tiles
+    on each foundation you want to federate from.
+    The Healthwatch tile installs Prometheus on each child foundation,
+    which is necessary for federation.
+1. Expose the `tsdb` instance on port `4449`
+    for each foundation you will be federating from.
+1. Add the following scrape config
+    to the **Healthwatch** tile installed on the Control Plane.
+    For the `tls_config` section in each scrape job,
+    use the `Tsdb Client Mtls` credentials
+    and root Ops Manager CA
+    from the foundation you are federating from.
+    Add a federation configuration like the following
+    for each foundation you want to monitor.
+    In this example, we are federating all metrics
+    whose names match the regex `^my_metric_name_regex.*`
+    from the prometheus instances
+    at the addresses in `targets`--in this case, only `source-prometheus-1`:
 
 ```yaml   
 job_name: example-job-name
@@ -28,7 +55,9 @@ static_configs:
     - ‘source-prometheus-1:4449’
 ```
 
-If using `om` to configure the **Healthwatch** tile, the full `.properties.scrape_configs` property under
-`product-properties` for this configuration might look something like the following:
+If using `om` to configure the **Healthwatch** tile,
+the full `.properties.scrape_configs` property
+under `product-properties` for this configuration
+might look something like the following:
 
 <%= partial 'snippets/federation.md' %>
