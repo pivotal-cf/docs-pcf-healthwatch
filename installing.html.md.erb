@@ -112,9 +112,9 @@ To configure the Healthwatch tile, perform the following steps:
         1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
             This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
         1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
-            This should be a comma separated list. VMware recommends to include “*.bosh” and the ip range for the internal networks
+            This should be a comma separated list. VMware recommends to include "*.bosh" and the ip range for the internal networks
             so that the time series database can still be accessed without going though the proxy.
-            For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
+            For example: "*.bosh,10.0.0.0/8,*.example.com" will configure grafana to access all bosh dns addresses,
             10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
     1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
         valid static IPs from the IAAS for the network on which the tile is installed.

@@ -46,13 +46,13 @@ to the Prometheus residing in the Control Plane.
 ```yaml   
 job_name: example-job-name
 scheme: https
-metrics_path: ‘/federate’
+metrics_path: '/federate'
 params:
-  ‘match[]‘:
-    - ‘{__name__=~“^my_metric_name_regex.*“}’
+  'match[]':
+    - '{__name__=~"^my_metric_name_regex.*"}'
 static_configs:
   - targets:
-    - ‘source-prometheus-1:4449’
+    - 'source-prometheus-1:4449'
 ```
 
 If using `om` to configure the **Healthwatch** tile,
