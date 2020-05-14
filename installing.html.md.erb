@@ -261,9 +261,25 @@ To configure PKS cluster discovery:
     1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
     1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
 
-1. Go to `Enterprise PKS` tile and for each plan you want to monitor:
-    1. Navigate to the plan you want to monitor. For example, `Plan 2`.
-    1. Scroll to `(Optional) Add-ons - Use with caution`.
+1. Navigate to **Enterprise PKS** tile
+    1. Navigate to **Host Monitoring**
+    1. Check **Include etcd metrics**
+    1. Fill in **Setup Telegraf Outputs** with the following:
+
+        ```toml
+        [[outputs.prometheus_client]]
+          ## Address to listen on.
+          listen = ":10200"
+        ```
+        <p class="note">
+            <strong>Note:</strong>
+            It is important to set this port specifically to <code>10200</code>
+            because that is what the scrape config expects.
+        </p>
+
+1. Go to **Enterprise PKS** tile and for each plan you want to monitor:
+    1. Navigate to the plan you want to monitor. For example, **Plan 2**.
+    1. Scroll to **(Optional) Add-ons - Use with caution**.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
 
         ```yaml
@@ -318,11 +334,11 @@ To configure PKS cluster discovery:
     1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
 
     1. In order to access Grafana within Healthwatch,
-       an external IP address for the `Grafana` VM is needed
+       an external IP address for the **Grafana** VM is needed
        along with allowing traffic to the VM on port 443 or 80,
        depending on whether you configured a certificate
-       in the `Enable HTTPS by providing certificates` field
-       under `Grafana Configuration` in the tile configuration.
+       in the **Enable HTTPS by providing certificates** field
+       under **Grafana Configuration** in the tile configuration.
        A native IaaS load balancer can also be used.
 
 ##  (Optional) Backing Up Healthwatch
