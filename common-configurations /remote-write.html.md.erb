@@ -1,0 +1,36 @@
+---
+title: Remote Write
+owner: Healthwatch
+---
+
+TSDB can be configured to write to remote storage,
+in addition to its local time series database.
+This is intended to support long-term storage of monitoring data.
+
+Here's the [full configuration for remote writing](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+
+The form in the **Healthwatch** tile is
+basically a user-friendly input
+to this more complete configuration.
+
+## Configure Remote Write
+
+To configure remote write for the Healthwatch tile,
+perform the following steps:
+
+1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Remote Write Configuration** and do the following:
+    1. Input the **URL** for your storage endpoint.
+        Example: `https://REMOTE-STORAGE-URL`,
+        where `REMOTE-STORAGE-URL` is a fully-qualified domain name.
+    1. Optional: Set a **Remote Timeout**.
+    1. Optional: Enable Basic Authentication
+        to access your storage endpoint via username and password.
+    1. Optional: Configure TLS for your endpoint.
+        If the remote write endpoint requires special handling,
+        for example a self-signed cert or mutual TLS,
+        that can be configured here.
+    1. Optional: Configure a **Proxy URL** to connect to the remote write endpoint.
+    1. Optional: To fine-tune your remote write configuration,
+        look at the `queue_config` section of the documentation linked above.
+    1. Click **Save**.
