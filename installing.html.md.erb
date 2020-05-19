@@ -204,7 +204,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-        `Root URL for the Grafana`. This should be set to the full URL used to access Grafana from a web browser.
+        `Root URL for Grafana`. This should be set to the full URL used to access Grafana from a web browser.
         This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
         <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
         <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
@@ -223,6 +223,20 @@ To configure the Healthwatch tile, perform the following steps:
     1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
         valid static IPs from the IAAS for the network on which the tile is installed.
     1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
+    1. Optional: **Use Indicator Protocol Generated Dashboards**
+        Checking this option will enable generation of dashboards
+        based on indicator documents.
+        <p class="note">
+            <strong>Note:</strong>
+
+            This assumes that the Monitoring Indicator Protocol tile
+            is also installed on this foundation.
+            For more information,
+            visit the product page
+            <a href="https://network.pivotal.io/products/indicator-protocol/">
+              here
+            </a>.
+        </p>
     1. Optional: **Select an authentication mechanism for the Grafana**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](grafana-authentication.html) for detailed configurations.
     1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
         For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
