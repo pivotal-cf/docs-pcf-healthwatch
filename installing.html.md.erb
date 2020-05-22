@@ -54,7 +54,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 1. Navigate to **Time series database (TSDB) Configuration** and do the following:
     1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
-    1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
+    1. Optional: Add additional jobs to the **Additional Scrape Config Jobs**.  This entry section allows you to add jobs to the TSDB.yml configuration
         file.
         * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
             by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
@@ -100,7 +100,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-        `Root URL for Grafana`. This should be set to the full URL used to access Grafana from a web browser.
+        **Root URL for Grafana**. This should be set to the full URL used to access Grafana from a web browser.
         This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
         <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
         <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
@@ -167,8 +167,8 @@ To configure PKS cluster discovery:
     1. Enter the PKS UAA Client and Secret. You can use the PKS management admin client credential, where the client is `admin` and the secret can be found in **Ops Manager >Enterprise PKS>Credentials>Pks Uaa Management Admin Client**.
         Otherwise a separate UAA client with full access to the PKS API can be created and entered here.
     1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
-    1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
-    1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
+    1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, **PKS API Skip SSL Validation** can be selected, but it is not recommended for production use.
+    1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in **Enterprise PKS** tile to have the metrics pulling from the clusters correctly.
 
 1. Navigate to **Enterprise PKS** tile
     1. Navigate to **Host Monitoring**

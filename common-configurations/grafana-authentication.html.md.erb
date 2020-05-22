@@ -5,8 +5,8 @@ owner: Healthwatch
 
 By default, Grafana is configured to use basic authentication
 with username `admin` and a generated password
-available in the `Credentials` tab of the **Healthwatch** tile
-under `Grafana Login`.
+available in the **Credentials** pane of the **Healthwatch** tile
+under **Grafana Login**.
 OAuth is another supported authentication mechanism
 and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
 
@@ -23,8 +23,8 @@ and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
 
 ## Configuring UAA OAuth
 If you would like to specify UAA as your OAuth provider,
-then select `UAA` as the authentication mechanism for Grafana
-in the `Grafana Configuration` pane.
+then select **UAA** as the authentication mechanism for Grafana
+in the **Grafana Configuration** pane.
 Below is an example configuration for UAA.
 
 ![a screenshot of the Grafana Configuration pane, specifically with the UAA authentication mechanism selected. The screenshot shows the Client ID field filled in with grafana, and the URL to UAA field filled in with https://uaa.sys.acme.cf-denver.com](../images/uaa.png)
@@ -58,8 +58,8 @@ uaac client add grafana \
 ## Configuring Generic OAuth
 If you would like to configure
 the supported OAuth provider of your choice,
-then select `Generic OAuth` as the authentication mechanism for the UI
-in the `Grafana Configuration` pane.
+then select **Generic OAuth** as the authentication mechanism for the UI
+in the **Grafana Configuration** pane.
 Below is an example configuration for GitHub.
 
 ![a screenshot of the Grafana Configuration pane, specifically with the Generic OAuth authentication mechanism selected. The screenshot shows the Name field filled in with GitHub, Client ID with an arbitrary string that represents the client ID you would actually get from GitHub, Scopes with user:email,read:org, Authorization URL with https://github.com/login/oauth/authorize, Token URL with https://github.com/login/oauth/access_token, API Url with https://api.github.com/user, Allow Sign Up checkbox checked, Team IDs with 42, and Allowed Organizations with acme](../images/github-oauth.png)
@@ -69,25 +69,26 @@ you can run the following command.
 
 ```bash
 curl --silent \
-    --header "Authorization: bearer ${GITHUB_API_TOKEN}" \
+    --header "Authorization: bearer GITHUB-API-TOKEN" \
     https://api.github.com/orgs/acme/teams/GITHUB-TEAM-SLUG | \
     jq -r .id
 ```
 
 Where:
 
+* `GITHUB-API-TOKEN` is the API token that you got from GitHub.
 * `GITHUB-TEAM-SLUG` is the last segment of the url in the browser
     when visiting the team's page through the GitHub website
     (ie. `https://github.com/orgs/acme/teams/GITHUB-TEAM-SLUG`)
 
 When setting up the GitHub OAuth application,
-you will need to set the `Authorization callback URL`
+you will need to set the **Authorization callback URL**
 to `https://${GRAFANA_ROOT_URL}/login/generic_oauth`,
 where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
 
 ## Configuring LDAP Authentication
 If you would like to specify LDAP as your provider,
-then select `LDAP` as the authentication mechanism for Grafana
-in the `Grafana Configuration` pane.
+then select **LDAP** as the authentication mechanism for Grafana
+in the **Grafana Configuration** pane.
 For individual field references,
 see [Grafana LDAP Authentication](https://grafana.com/docs/auth/ldap/).

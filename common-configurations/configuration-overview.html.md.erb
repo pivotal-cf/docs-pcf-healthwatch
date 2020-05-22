@@ -47,10 +47,10 @@ then follow the installation instructions for
 on each TAS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary 
-network configuration to expose the exporter VMs, add a scrape config to the `TSDB Configuration`
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **TAS Exporter Client Mtls** credentials
-from the `Credentials` tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
+from the **Credentials** tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
 will look something like the following:
 
 ```yaml
@@ -113,10 +113,10 @@ Installing Healthwatch the control plane, then follow the installation instructi
 Installing Healthwatch Exporter for PKS  on each PKS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for PKS** and completed the necessary 
-network configuration to expose the exporter VMs, add a scrape config to the `TSDB Configuration`
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **Pks Exporter Client Mtls** credentials
-from the `Credentials` tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
+from the **Credentials** tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
 will look something like the following:
   
 ```yaml
@@ -233,7 +233,7 @@ More metrics (such as `etcd` metrics)
 can be made available
 by enabling the `TSDB_client` Telegraf output on the master VM.
 To do that,
-go to the `Monitoring` tab in the PKS tile,
+go to the **Monitoring** pane in the PKS tile,
 and enter the following configuration in the `Setup Telegraf Outputs` section:
 
 ```toml
@@ -245,7 +245,7 @@ This will expose additional metrics
 on a `/metrics` endpoint on port `9273`.
 In order to scrape these metrics,
 add the following scrape configuration
-to the `TSDB Configuration` section of the Healthwatch tile:
+to the **TSDB Configuration** pane of the Healthwatch tile:
 
 ```yaml
 - job_name: cluster_master_telegraf
@@ -260,7 +260,7 @@ This example uses [Bosh DNS](https://bosh.io/docs/dns/)
 to automatically discover all master VMs,
 which now have Telegraf available on port `9273`.
 
-  1. Select **Enable** in the `Bosh Deployment Checker` section.
+  1. Select **Enable** in the **Bosh Deployment Checker** section.
   1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
     <p class="note">
         <strong>Note:</strong>
