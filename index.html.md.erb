@@ -37,7 +37,7 @@ When being used for multi-foundation monitoring,
 **Healthwatch** and its exporters
 will commonly be deployed as follows:
 
-![alt text](images/ControlPlaneArchitecture.png)
+![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
 
 ## Healthwatch
 
@@ -56,7 +56,7 @@ An Nginx proxy is deployed in front of TSDB
 to provide authorization to and encryption of
 metrics stored in TSDB.
 
-![alt text](images/Healthwatch.png)
+![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
 ## Healthwatch Exporter for Tanzu Application Service
 
@@ -70,7 +70,7 @@ on a secured endpoint in TSDB exposition format.
 These VMs can be scaled vertically
 but should not be scaled horizontally.
 
-![alt text](images/HealthwatchExporterforPAS.png)
+![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
 ## Healthwatch Exporter for PKS
 
@@ -85,5 +85,5 @@ on a secured endpoint in TSDB exposition format.
 This VM can be scaled vertically
 but should not be scaled horizontally.
 
-![alt text](images/HealthwatchExporterforPKS.png)
+![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the Bosh Director](images/HealthwatchExporterforPKS.png)
 
