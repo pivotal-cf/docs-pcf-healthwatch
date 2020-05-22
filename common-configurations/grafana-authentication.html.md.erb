@@ -24,10 +24,10 @@ and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
 ## Configuring UAA OAuth
 If you would like to specify UAA as your OAuth provider,
 then select `UAA` as the authentication mechanism for Grafana
-in the `Grafana Configuration` tab.
+in the `Grafana Configuration` pane.
 Below is an example configuration for UAA.
 
-![uaa](../images/uaa.png)
+![a screenshot of the Grafana Configuration pane, specifically with the UAA authentication mechanism selected. The screenshot shows the Client ID field filled in with grafana, and the URL to UAA field filled in with https://uaa.sys.acme.cf-denver.com](../images/uaa.png)
 
 Make sure to create a client for `grafana` with scopes
 `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`,
@@ -59,10 +59,10 @@ uaac client add grafana \
 If you would like to configure
 the supported OAuth provider of your choice,
 then select `Generic OAuth` as the authentication mechanism for the UI
-in the `Grafana Configuration` tab.
+in the `Grafana Configuration` pane.
 Below is an example configuration for GitHub.
 
-![github-oauth](../images/github-oauth.png)
+![a screenshot of the Grafana Configuration pane, specifically with the Generic OAuth authentication mechanism selected. The screenshot shows the Name field filled in with GitHub, Client ID with an arbitrary string that represents the client ID you would actually get from GitHub, Scopes with user:email,read:org, Authorization URL with https://github.com/login/oauth/authorize, Token URL with https://github.com/login/oauth/access_token, API Url with https://api.github.com/user, Allow Sign Up checkbox checked, Team IDs with 42, and Allowed Organizations with acme](../images/github-oauth.png)
 
 To get the GitHub team ID you would like to use for authentication,
 you can run the following command.
@@ -88,6 +88,6 @@ where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
 ## Configuring LDAP Authentication
 If you would like to specify LDAP as your provider,
 then select `LDAP` as the authentication mechanism for Grafana
-in the `Grafana Configuration` tab.
+in the `Grafana Configuration` pane.
 For individual field references,
 see [Grafana LDAP Authentication](https://grafana.com/docs/auth/ldap/).
