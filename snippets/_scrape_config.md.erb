@@ -1,5 +1,5 @@
 ```yaml
-product-name: p-reliability-view
+product-name: p-healthwatch2
         product-properties:
           .properties.scrape_configs:
             value:
@@ -46,14 +46,14 @@ product-name: p-reliability-view
                     -----BEGIN RSA PRIVATE KEY-----
                     SECRET
                     -----END RSA PRIVATE KEY-----
-          .properties.ui_authentication:
+          .properties.grafana_authentication:
             selected_option: basic
             value: basic
-          .tsdb.blackbox_exporter_port:
+          .tsdb.canary_exporter_port:
             value: 9115
           .tsdb.scrape_interval:
             value: 15s
-          .ui.enable_login_form:
+          .grafana.enable_login_form:
             value: true
         network-properties:
           network:
@@ -89,7 +89,7 @@ product-name: p-reliability-view
               id: automatic
             internet_connected: true
             max_in_flight: 1
-          ui:
+          grafana:
             instances: automatic
             persistent_disk:
               size_mb: automatic
