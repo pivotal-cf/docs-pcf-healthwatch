@@ -56,4 +56,37 @@ This release has the following fix:
 
 ### Known Issues
 
-There are no known issues for this release.
+* When upgrading the Healthwatch 2.0 tile on a foundation that has been upgraded
+    from an earlier version of OpsMan (2.3 or prior),
+    users may see the following error:
+
+    ```
+    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
+      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+    ```
+    This is fixed in version 2.8 of OpsMan,
+    but there is a workaround for people who are unable to upgrade to 2.8:
+    1. SSH into Ops Manager VM and change user to root.
+    1. Open the rails console:
+
+        ```
+        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
+        ```
+    Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
+    1. Set the decryption passphrase:
+
+        ```
+        irb(main):001:0> EncryptionKey.instance.passphrase = 'MY-DECRYPTION-PASSPHRASE'
+        ```
+    Where `MY-DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
+    1. Update the UAA restricted view access client secret:
+
+        ```
+        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
+        ```
+    1. Exit from rails console and restart the "tempest-web" service:
+
+        ```
+        irb(main):001:0> exit
+        > service tempest-web restart
+        ```
