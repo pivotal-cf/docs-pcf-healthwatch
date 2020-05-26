@@ -64,13 +64,17 @@ To configure the Healthwatch Exporter for PKS tile, perform the following steps:
 
 ## Troubleshooting
 
-It is possible, in some cases, to follow all the steps above
+It is possible to follow all the steps above
 and have PKS Cluster Discovery fail with the following error:
 
 ```
 2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
-java.net.UnknownHostException: test2.hw-cp.cf-denver.com
+java.net.UnknownHostException: CLUSTER-NAME.ENVIRONMENT-DOMAIN
 ```
+
+Where:
+* `CLUSTER-NAME` is the name of the cluster you created
+* `ENVIRONMENT-DOMAIN` is the domain you have set up for your PKS foundation
 
 In this case, you'll need to set up a DNS record for accessing your cluster from the web.
 The DNS record will be a type A record
