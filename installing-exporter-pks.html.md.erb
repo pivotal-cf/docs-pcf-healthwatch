@@ -62,6 +62,23 @@ To configure the Healthwatch Exporter for PKS tile, perform the following steps:
     </a>.
 </p>
 
+## Troubleshooting
+
+It is possible, in some cases, to follow all the steps above
+and have PKS Cluster Discovery fail with the following error:
+
+```
+2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
+java.net.UnknownHostException: test2.hw-cp.cf-denver.com
+```
+
+In this case, you'll need to set up a DNS record for accessing your cluster from the web.
+The DNS record will be a type A record
+with the IP of the cluster's master node set as the **IPv4 Address**.
+You can set the Time To Live (**TTL**) to whatever you desire,
+but on our test environments we make it as short as possible (one second)
+so we can hopefully see cluster discovery up and running as fast as possible.
+
 ##  (Optional) Scraping PKS Exporter Metrics
 
 If you would like to scrape the PKS Exporter from off the foundation (for example, if you have installed a Prometheus
