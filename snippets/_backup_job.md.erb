@@ -40,12 +40,12 @@ resources:
       stop: 00:00
       location: America/Denver
 
-  - name: rv-backup-bucket
+  - name: hw-backup-bucket
     type: gcs-resource
     source:
       bucket: ((gcs-bucket-name))
       json_key: ((service-account-json))
-      regexp: ((gcs-directory))/rv-backup-(.*).tar
+      regexp: ((gcs-directory))/hw-backup-(.*).tar
 
 jobs:
   - name: trigger-backup
@@ -72,7 +72,7 @@ jobs:
             - name: bbr-pipeline-tasks-repo
 
           outputs:
-            - name: rv-backup-artifact
+            - name: hw-backup-artifact
 
           params:
             OPSMAN_URL: ((opsman-url))
@@ -99,12 +99,12 @@ jobs:
                 DEPLOYMENT_NAME=$(jq -r '.[] | select(.type == "p-Healthwatch-view") | .guid' "deployed_products.json")
                 export DEPLOYMENT_NAME
 
-                pushd rv-backup-artifact
+                pushd hw-backup-artifact
                   ${scripts}/deployment-backup
-                  tar -cvf rv-backup-$(date +%Y.%m.%d.%H.%M.%S).tar -- *
+                  tar -cvf hw-backup-$(date +%Y.%m.%d.%H.%M.%S).tar -- *
                 popd
 
-      - put: rv-backup-bucket
+      - put: hw-backup-bucket
         params:
-          file: rv-backup-artifact/rv-backup-*.tar
+          file: hw-backup-artifact/hw-backup-*.tar
 ```
