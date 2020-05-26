@@ -11,7 +11,7 @@ This topic describes how to install and configure Healthwatch.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch.
+1. Under the **Import a Product** button, click `+` next to the version number of Healthwatch.
 This adds the tile to your staging area.
 
 <p class="note">
@@ -54,7 +54,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 1. Navigate to **Time series database (TSDB) Configuration** and do the following:
     1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
-    1. Optional: Add additional jobs to the `Additional Scrape Config Jobs`.  This entry section allows you to add jobs to the TSDB.yml configuration
+    1. Optional: Add additional jobs to the **Additional Scrape Config Jobs**.  This entry section allows you to add jobs to the TSDB.yml configuration
         file.
         * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
             by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
@@ -77,112 +77,8 @@ To configure the Healthwatch tile, perform the following steps:
 
     1. If using `om` to configure the tile, you will want a configuration like the following:
 
-        ```yaml
-        product-name: p-reliability-view
-        product-properties:
-          .properties.scrape_configs:
-            value:
-              - ca: |
-                  -----BEGIN CERTIFICATE-----
-                  SECRET
-                  -----END CERTIFICATE-----
-                scrape_job: |
-                  job_name: foundation1
-                  metrics_path: /metrics
-                  scheme: https
-                  static_configs:
-                    - targets:
-                      - "1.2.3.4:9090"
-                      - "5.6.7.8:9090"
-                server_name: pasexporter
-                tls_certificates:
-                  cert_pem: |
-                    -----BEGIN CERTIFICATE-----
-                    SECRET
-                    -----END CERTIFICATE-----
-                  private_key_pem: |
-                    -----BEGIN RSA PRIVATE KEY-----
-                    SECRET
-                    -----END RSA PRIVATE KEY-----
-              - ca: |
-                  -----BEGIN CERTIFICATE-----
-                  SECRET
-                  -----END CERTIFICATE-----
-                scrape_job: |
-                  job_name: foundation2
-                  metrics_path: /metrics
-                  scheme: https
-                  static_configs:
-                    - targets:
-                      - "9.10.11.12:9090"
-                server_name: pasexporter
-                tls_certificates:
-                  cert_pem: |
-                    -----BEGIN CERTIFICATE-----
-                    SECRET
-                    -----END CERTIFICATE-----
-                  private_key_pem: |
-                    -----BEGIN RSA PRIVATE KEY-----
-                    SECRET
-                    -----END RSA PRIVATE KEY-----
-          .properties.ui_authentication:
-            selected_option: basic
-            value: basic
-          .tsdb.blackbox_exporter_port:
-            value: 9115
-          .tsdb.scrape_interval:
-            value: 15s
-          .ui.enable_login_form:
-            value: true
-        network-properties:
-          network:
-            name: subnet1
-          other_availability_zones:
-          - name: us-central1-f
-          - name: us-central1-c
-          - name: us-central1-b
-          singleton_availability_zone:
-            name: us-central1-f
-        resource-config:
-          pxc:
-            instances: automatic
-            persistent_disk:
-              size_mb: automatic
-            instance_type:
-              id: automatic
-            internet_connected: true
-            max_in_flight: 5
-          pxc-proxy:
-            instances: automatic
-            persistent_disk:
-              size_mb: automatic
-            instance_type:
-              id: automatic
-            internet_connected: true
-            max_in_flight: 5
-          tsdb:
-            instances: automatic
-            persistent_disk:
-              size_mb: automatic
-            instance_type:
-              id: automatic
-            internet_connected: true
-            max_in_flight: 1
-          ui:
-            instances: automatic
-            persistent_disk:
-              size_mb: automatic
-            instance_type:
-              id: automatic
-            internet_connected: true
-            max_in_flight: 5
-        errand-config:
-          smoke-test:
-            post-deploy-state: true
-          update-admin-password:
-            post-deploy-state: true
-        ```
-    1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the Loggregator system to have the calculated metric consumable by third party nozzles.
+        <%= partial 'snippets/scrape_config.md' %>
+    1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
     1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
 
 <p class="note warning">
@@ -204,7 +100,7 @@ To configure the Healthwatch tile, perform the following steps:
 
 1. Navigate to **Grafana Configuration** and do the following:
     1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-        `Root URL for Grafana`. This should be set to the full URL used to access Grafana from a web browser.
+        **Root URL for Grafana**. This should be set to the full URL used to access Grafana from a web browser.
         This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
         <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
         <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
@@ -216,9 +112,9 @@ To configure the Healthwatch tile, perform the following steps:
         1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
             This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
         1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
-            This should be a comma separated list. VMware recommends to include “*.bosh” and the ip range for the internal networks
+            This should be a comma separated list. VMware recommends to include "*.bosh" and the ip range for the internal networks
             so that the time series database can still be accessed without going though the proxy.
-            For example: “*.bosh,10.0.0.0/8,*.example.com” will configure grafana to access all bosh dns addresses,
+            For example: "*.bosh,10.0.0.0/8,*.example.com" will configure grafana to access all bosh dns addresses,
             10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
     1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
         valid static IPs from the IAAS for the network on which the tile is installed.
@@ -271,8 +167,8 @@ To configure PKS cluster discovery:
     1. Enter the PKS UAA Client and Secret. You can use the PKS management admin client credential, where the client is `admin` and the secret can be found in **Ops Manager >Enterprise PKS>Credentials>Pks Uaa Management Admin Client**.
         Otherwise a separate UAA client with full access to the PKS API can be created and entered here.
     1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
-    1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, `PKS API Skip SSL Validation` can be selected, but it is not recommended for production use.
-    1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in `Enterprise PKS` tile to have the metrics pulling from the clusters correctly.
+    1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, **PKS API Skip SSL Validation** can be selected, but it is not recommended for production use.
+    1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in **Enterprise PKS** tile to have the metrics pulling from the clusters correctly.
 
 1. Navigate to **Enterprise PKS** tile
     1. Navigate to **Host Monitoring**
@@ -295,44 +191,7 @@ To configure PKS cluster discovery:
     1. Scroll to **(Optional) Add-ons - Use with caution**.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
 
-        ```yaml
-        ---
-        apiVersion: rbac.authorization.k8s.io/v1
-        kind: ClusterRole
-        metadata:
-          name: healthwatch
-        rules:
-        - resources:
-            - pods/proxy
-            - pods
-            - nodes
-            - nodes/proxy
-            - namespace/pods
-            - endpoints
-            - services
-          verbs:
-            - get
-            - watch
-            - list
-          apiGroups:
-            - ""
-        - nonResourceURLs: ["/metrics"]
-          verbs: ["get"]
-        ---
-        apiVersion: rbac.authorization.k8s.io/v1
-        kind: ClusterRoleBinding
-        metadata:
-          name: healthwatch
-        roleRef:
-          apiGroup: ""
-          kind: ClusterRole
-          name: healthwatch
-        subjects:
-        - apiGroup: ""
-          kind: User
-          name: healthwatch
-          namespace: pks-system
-        ```
+        <%= partial 'snippets/cluster_scraping_config.md' %>
         If there are already other API resource definitions in the text field,
         simply append the above snippet to the end,
         followed by a newline character.
@@ -359,116 +218,7 @@ To configure PKS cluster discovery:
 Healthwatch supports [Bosh Backup and Restore](https://docs.pivotal.io/pivotalcf/2-4/customizing/backup-restore/index.html) functionality.
 VMware recommends running nightly backups via a Concourse pipeline job like the one below:
 
-```yaml
----
-resource_types:
-  - name: gcs-resource
-    type: docker-image
-    source:
-      repository: frodenas/gcs-resource
-
-  - name: pivnet
-    type: docker-image
-    source:
-      repository: pivotalcf/pivnet-resource
-      tag: latest-final
-
-resources:
-  - name: bbr-release
-    type: pivnet
-    source:
-      api_token: ((pivnet-refresh-token))
-      product_slug: p-bosh-backup-and-restore
-
-  - name: bbr-pipeline-tasks-repo
-    type: git
-    source:
-      uri: https://github.com/pivotal-cf/bbr-pcf-pipeline-tasks.git
-      branch: master
-      tag_filter: v1.0.0
-
-  - name: bbr-docker
-    type: docker-image
-    source:
-      repository: cloudfoundrylondon/bbr-pipeline
-      tag: final
-
-  - name: nightly
-    type: time
-    source:
-      interval: 24h
-      start: 22:00
-      stop: 00:00
-      location: America/Denver
-
-  - name: rv-backup-bucket
-    type: gcs-resource
-    source:
-      bucket: ((gcs-bucket-name))
-      json_key: ((service-account-json))
-      regexp: ((gcs-directory))/rv-backup-(.*).tar
-
-jobs:
-  - name: trigger-backup
-    plan:
-      - put: nightly
-
-  - name: nightly-backup
-    plan:
-      - aggregate:
-        - get: nightly
-          trigger: true
-        - get: bbr-docker
-        - get: bbr-release
-        - get: bbr-pipeline-tasks-repo
-      - task: extract-binary
-        file: bbr-pipeline-tasks-repo/tasks/extract-bbr-binary/task.yml
-      - task: run-backup
-        image: bbr-docker
-        config:
-          platform: linux
-
-          inputs:
-            - name: binary
-            - name: bbr-pipeline-tasks-repo
-
-          outputs:
-            - name: rv-backup-artifact
-
-          params:
-            OPSMAN_URL: ((opsman-url))
-            OPSMAN_USERNAME: ((opsman-user.username))
-            OPSMAN_PASSWORD: ((opsman-user.password))
-            OPSMAN_PRIVATE_KEY: ((ops-man-ssh-key.private_key))
-
-          run:
-            path: /bin/bash
-            args:
-              - -c
-              - |
-                #!/usr/bin/env bash
-
-                set -eu
-
-                scripts="${PWD}/bbr-pipeline-tasks-repo/scripts"
-
-                export CLIENT_ID=
-                # shellcheck disable=SC1090
-                source "${scripts}/export-director-metadata"
-
-                om_cmd curl -p /api/v0/deployed/products > deployed_products.json
-                DEPLOYMENT_NAME=$(jq -r '.[] | select(.type == "p-Healthwatch-view") | .guid' "deployed_products.json")
-                export DEPLOYMENT_NAME
-
-                pushd rv-backup-artifact
-                  ${scripts}/deployment-backup
-                  tar -cvf rv-backup-$(date +%Y.%m.%d.%H.%M.%S).tar -- *
-                popd
-
-      - put: rv-backup-bucket
-        params:
-          file: rv-backup-artifact/rv-backup-*.tar
-```
+<%= partial 'snippets/backup_job' %>
 
 ##  (Optional) Restoring Healthwatch from a BBR Backup
 If you are running nightly backups, you have the ability to restore the TSDB and Grafana data using Bosh Backup and Restore.

@@ -3,40 +3,49 @@ title: Using Healthwatch
 owner: Healthwatch
 ---
 
-Healthwatch ships with the following dashboards included under the "Healthwatch" folder in Grafana.
-To access them, go to `Dashboard -> Manage -> Healthwatch` in Grafana.
+Healthwatch ships with the following dashboards
+included under the **Healthwatch** folder in Grafana.
+To access them, go to **Dashboard -> Manage -> Healthwatch** in Grafana.
 
 ## Healthwatch - SLOs
-This dashboard will display a row for each instance selected from the corresponding instance drop down at the top
-of the page.  Each row has four panels:
+This dashboard will display a row
+for each instance selected from the corresponding instance drop down
+at the top of the page.
+Each row has four panels:
 
-  * The `Up` panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
-    where a 1 indicates it is healthy and a 0 or missing data indicates that it is not healthy. 
-  * The `Exporter SLO` panel shows the percent of time the exporter was up over the selected time range.
-  * The `Error Budget Remaining` panel shows how much time in minutes are left in order
-    to stay within the selected Uptime SLO Target over the currently selected time range. 
-  * The `Minutes of Downtime` panel shows how much downtime, in minutes, the exporters 
-    have experienced during the selected time range.
+  * The **Up** panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
+    where a `1` indicates it is healthy
+    and a `0` or missing data indicates that it is not healthy.
+  * The **Exporter SLO** panel shows the percent of time the exporter was up over the selected time range.
+  * The **Error Budget Remaining** panel shows how much time, in minutes, are left,
+    in order to stay within the selected Uptime SLO Target
+    over the currently selected time range.
+  * The **Minutes of Downtime** panel shows how much downtime, in minutes,
+    the exporters have experienced during the selected time range.
 
 ## Healthwatch - Exporter Troubleshooting
 
-This dashboard provides a detailed look at the performance of an individual exporter. It
-is helpful to look at these dashboards when you see spotty graphs for a particular metric
-type or if an exporter is not behaving as it should.  The dashboard consists of the following 
-metrics:
+This dashboard provides a detailed look at the performance of an individual exporter.
+It is helpful to look at these dashboards
+when you see spotty graphs for a particular metric type,
+or if an exporter is not behaving as it should.
+The dashboard consists of the following metrics:
 
   * Exporter Info: A listing of the `healthwatch_pasExporter_status` metric that contains
     runtime information for the exporter.
   * Exporter JVM Memory: A graph of `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and
-    `jvm_memory_bytes_init` over the time range in order to check for memory leaks.
-  * Ephemeral Disk Usage: A gauge of `system_disk_ephemeral_percent` in order to check in the 
+    `jvm_memory_bytes_init` over the time range,
+    in order to check for memory leaks.
+  * Ephemeral Disk Usage: A gauge of `system_disk_ephemeral_percent`, in order to check if the
     disk is nearing capacity.
   * Rate of Garbage Collection: A graph of the rate of `jvm_gc_collection_seconds_sum` over
-    the time range in order to check if JVM garbage collection is causing issues.
+    the time range,
+    in order to check if JVM garbage collection is causing issues.
   * Rate of Envelope Ingress: A graph of the rate of `healthwatch_pasExporter_ingress_envelopes`
-    over the time range in order to see if there has been a spike in the amount
+    over the time range,
+    in order to see if there has been a spike in the amount
     of envelopes received by the exporter.
-  * CPU Usage: A graph of `cpu_usage_user` over the time range in order the see if the CPU used
-    by the exporter is reaching capacity.
-  * Exporter VM Threads: A graph of `jvm_threads_current` and `jvm_threads_peak` over the time range in order to see 
-    if the exporter is leaking threads.  
+  * CPU Usage: A graph of `cpu_usage_user` over the time range,
+    in order the see if the CPU used by the exporter is reaching capacity.
+  * Exporter VM Threads: A graph of `jvm_threads_current` and `jvm_threads_peak` over the time range,
+    in order to see if the exporter is leaking threads.

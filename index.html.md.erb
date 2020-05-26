@@ -10,51 +10,80 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
-Healthwatch is currently in a closed Beta. For questions and/or to report an issue please
-contact your primary Pivotal contact. See release notes for latest information regarding new features and any breaking
-changes.
+Healthwatch is currently in a closed Beta.
+For questions and/or to report an issue
+please contact your primary Pivotal contact.
+See release notes for latest information
+regarding new features and any breaking changes.
 
 # Overview
 
-The **Healthwatch** tile consists of a Time series database (TSDB), Grafana, and MySQL. It is the place where metrics can 
-be stored and visualized. The **Healthwatch Exporter for Tanzu Application Service** connects to the Loggregator RLP endpoint and funnels
-the metrics to a TSDB exposition endpoint. Both of these tiles can be found under the **Healthwatch** 
-product on VMware Tanzu Network. While the exporter must be installed on the foundation you wish to monitor, the **Healthwatch**
-tile can be installed on the same foundation or on a different foundation depending upon your desired monitoring configuration. 
-More information about possible configurations can be found in the section on Using Healthwatch.
+The **Healthwatch** tile consists of a time series database (TSDB), Grafana, and MySQL.
+It is the place where metrics can be stored and visualized.
+The **Healthwatch Exporter for Tanzu Application Service**
+connects to the Loggregator RLP endpoint
+and funnels the metrics to a TSDB exposition endpoint.
+Both of these tiles can be found
+under the **Healthwatch** product on VMware Tanzu Network.
+While the exporter must be installed on the foundation you wish to monitor,
+the **Healthwatch** tile can be installed on the same foundation
+or on a different foundation depending upon your desired monitoring configuration.
+More information about possible configurations
+can be found in the section on [Using Healthwatch](using.html).
 
 # Architecture
 
-When being used for multi-foundation monitoring, **Healthwatch** and it's exporters will commonly be
-deployed as follows:
+When being used for multi-foundation monitoring,
+**Healthwatch** and its exporters
+will commonly be deployed as follows:
 
-![alt text](images/ControlPlaneArchitecture.png)
+![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
 
 ## Healthwatch
 
-The **Healthwatch** tile installs three components: TSDB, Grafana and MySQL.  MySQL is used only to store the Grafana
-settings and does not store any time series data. 
+The **Healthwatch** tile installs three components:
+TSDB, Grafana, and MySQL.
+MySQL is used only to store the Grafana settings
+and does not store any time series data.
 
-It can be deployed in high availability (HA) mode ( 3 MySQL nodes and 2 Proxy nodes) or in non-HA mode
-(1 MySQL node and 1 Proxy node). Grafana may also be scaled horizontally beyond the default single VM. TSDB can be scaled
-vertically but should not be scaled horizontally. An Nginx proxy is deployed in front of TSDB to provide authorization to
-and encryption of metrics stored in TSDB.
+It can be deployed in high availability (HA) mode (3 MySQL nodes and 2 Proxy nodes)
+or in non-HA mode (1 MySQL node and 1 Proxy node).
+Grafana may also be scaled horizontally
+beyond the default single VM.
+TSDB can be scaled vertically
+but should not be scaled horizontally.
+An Nginx proxy is deployed in front of TSDB
+to provide authorization to and encryption of
+metrics stored in TSDB.
 
-![alt text](images/Healthwatch.png)
+![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
 ## Healthwatch Exporter for Tanzu Application Service
 
-The **Healthwatch Exporter for Tanzu Application Service** installs up to three VMs.  Each VM processes a metric type from the Firehose, either Timer, Gauge or Counter.
-An operator can choose to deploy all three VMs or any subset thereof.  Metrics are then exposed on a secured TSDB
-exposition format endpoints.  Theses VMs can be scaled vertically but should not be scaled horizontally.
+The **Healthwatch Exporter for Tanzu Application Service**
+installs up to three VMs.
+Each VM processes a metric type from the Firehose--either Timer, Gauge, or Counter.
+An operator can choose to deploy all three VMs
+or any subset thereof.
+Metrics are then exposed
+on a secured endpoint in TSDB exposition format.
+These VMs can be scaled vertically
+but should not be scaled horizontally.
 
-![alt text](images/HealthwatchExporterforPAS.png)
+![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
 ## Healthwatch Exporter for PKS
 
-The **Healthwatch Exporter for PKS** installs a single VM that collects health metrics from the Bosh Director. It follows a similar path as what was
-done in TAS for VMs to get health metrics into the Firehose.  Metrics are then exposed on a secured TSDB exposition format endpoint.  This VM can be scaled
-vertically but should not be scaled horizontally.
+The **Healthwatch Exporter for PKS**
+installs a single VM
+that collects health metrics from the Bosh Director.
+It follows a similar path
+as what was done in **TAS for VMs**
+to get health metrics into the Firehose.
+Metrics are then exposed
+on a secured endpoint in TSDB exposition format.
+This VM can be scaled vertically
+but should not be scaled horizontally.
 
-![alt text](images/HealthwatchExporterforPKS.png)
+![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the Bosh Director](images/HealthwatchExporterforPKS.png)
 

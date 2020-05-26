@@ -1,0 +1,29 @@
+```yaml
+product-properties:
+  .properties.scrape_configs:
+    value:
+      - ca: |
+          -----BEGIN CERTIFICATE-----
+          SECRET
+          -----END CERTIFICATE-----
+        scrape_job: |
+          job_name: example-job-name
+          scheme: https
+          metrics_path: '/federate'
+          params:
+            'match[]':
+              - '{__name__=~"^my_metric_name_regex.*"}'
+          static_configs:
+            - targets:
+              - 'source-prometheus-1:4449'
+        server_name: prometheus
+        tls_certificates:
+          cert_pem: |
+            -----BEGIN CERTIFICATE-----
+            SECRET
+            -----END CERTIFICATE-----
+          private_key_pem: |
+            -----BEGIN RSA PRIVATE KEY-----
+            SECRET
+            -----END RSA PRIVATE KEY-----
+```

@@ -1,0 +1,110 @@
+```yaml
+---
+resource_types:
+  - name: gcs-resource
+    type: docker-image
+    source:
+      repository: frodenas/gcs-resource
+
+  - name: pivnet
+    type: docker-image
+    source:
+      repository: pivotalcf/pivnet-resource
+      tag: latest-final
+
+resources:
+  - name: bbr-release
+    type: pivnet
+    source:
+      api_token: ((pivnet-refresh-token))
+      product_slug: p-bosh-backup-and-restore
+
+  - name: bbr-pipeline-tasks-repo
+    type: git
+    source:
+      uri: https://github.com/pivotal-cf/bbr-pcf-pipeline-tasks.git
+      branch: master
+      tag_filter: v1.0.0
+
+  - name: bbr-docker
+    type: docker-image
+    source:
+      repository: cloudfoundrylondon/bbr-pipeline
+      tag: final
+
+  - name: nightly
+    type: time
+    source:
+      interval: 24h
+      start: 22:00
+      stop: 00:00
+      location: America/Denver
+
+  - name: rv-backup-bucket
+    type: gcs-resource
+    source:
+      bucket: ((gcs-bucket-name))
+      json_key: ((service-account-json))
+      regexp: ((gcs-directory))/rv-backup-(.*).tar
+
+jobs:
+  - name: trigger-backup
+    plan:
+      - put: nightly
+
+  - name: nightly-backup
+    plan:
+      - aggregate:
+        - get: nightly
+          trigger: true
+        - get: bbr-docker
+        - get: bbr-release
+        - get: bbr-pipeline-tasks-repo
+      - task: extract-binary
+        file: bbr-pipeline-tasks-repo/tasks/extract-bbr-binary/task.yml
+      - task: run-backup
+        image: bbr-docker
+        config:
+          platform: linux
+
+          inputs:
+            - name: binary
+            - name: bbr-pipeline-tasks-repo
+
+          outputs:
+            - name: rv-backup-artifact
+
+          params:
+            OPSMAN_URL: ((opsman-url))
+            OPSMAN_USERNAME: ((opsman-user.username))
+            OPSMAN_PASSWORD: ((opsman-user.password))
+            OPSMAN_PRIVATE_KEY: ((ops-man-ssh-key.private_key))
+
+          run:
+            path: /bin/bash
+            args:
+              - -c
+              - |
+                #!/usr/bin/env bash
+
+                set -eu
+
+                scripts="${PWD}/bbr-pipeline-tasks-repo/scripts"
+
+                export CLIENT_ID=
+                # shellcheck disable=SC1090
+                source "${scripts}/export-director-metadata"
+
+                om_cmd curl -p /api/v0/deployed/products > deployed_products.json
+                DEPLOYMENT_NAME=$(jq -r '.[] | select(.type == "p-Healthwatch-view") | .guid' "deployed_products.json")
+                export DEPLOYMENT_NAME
+
+                pushd rv-backup-artifact
+                  ${scripts}/deployment-backup
+                  tar -cvf rv-backup-$(date +%Y.%m.%d.%H.%M.%S).tar -- *
+                popd
+
+      - put: rv-backup-bucket
+        params:
+          file: rv-backup-artifact/rv-backup-*.tar
+```
