@@ -1,0 +1,34 @@
+---
+title: Certificate Monitoring
+owner: Healthwatch
+---
+
+This topic explains a fairly new concept in Healthwatch:
+monitoring of certificate expiration times.
+This document aims to give an overview
+of how it works, how to set it up,
+and key limitations you should be aware of.
+
+## Certificate Expiration Monitoring
+
+Certificate expiration monitoring is configured by default without requiring user input.
+It makes use of the `$ops_manager.restricted_view_api_access_credentials`
+and `$ops_manager.ca_certificate` variables,
+which is supplied by Ops Manager to
+allow a tile to retrieve some information about an Ops Manager deployment.
+See the [Ops Manager documentation](https://docs.pivotal.io/tiledev/2-8/property-template-references.html#-$ops_manager)
+for more information.
+
+This exporter uses `om` to make a request to Ops Man's
+`/api/v0/deployed/certificates?expires_within=DURATION` endpoint,
+where `DURATION` currently defaults to `1y` and is not configurable.
+
+<p class="note warning">
+    <strong>Warning:</strong>
+    OpsMan 2.6 and earlier does not include the Ops Manager Root CA
+    or product certificates stored in CredHub.
+    OpsMan 2.7 and onward
+    should include certs in the Bosh Director's CredHub,
+    as long as they are associated with a tile / Bosh deployment,
+    but any other certs in CredHub will not be included.
+</p>
