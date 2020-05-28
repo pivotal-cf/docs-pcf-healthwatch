@@ -10,7 +10,7 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
-## <a id='2-0-1'></a>v2.0.1 Beta
+## <a id='2-0-1'></a> v2.0.1 (beta)
 
 **Release Date: April 29, 2020**
 
@@ -18,29 +18,31 @@ owner: Healthwatch
 
 New features and changes in this release:
 
-* Expose composite/"Super Value Metrics"
-  from Healthwatch 1.x
-  to the metrics pipeline.
-  This will enable users to still see
-  the metrics they are used to seeing from Healthwatch 1
-  in their downstream log consumers
-  if they upgrade their Healthwatch 1.x tile with Healthwatch 2.x.
-* Include new **Cert Expiration** dashboard under **Foundation**
-  that will display the time left until expiration
-  for all discoverable certs from Ops Manager [API](https://docs.pivotal.io/pivotalcf/2-6/opsman-api/#generating-new-certificates).
-  For OpsMan version <= 2.6, the api does not include the Ops Manager Root CA or product certificates stored in CredHub, version 2.7 and later include those things.
-* Separate Diego Capacity metrics by isolation segment
-  in **Diego/Capacity** dashboard
-* Enable a proxy setting for Grafana. This allows users to configure alerting in air-gapped environments.
-* Expose Opsman syslog configuration
+* Exposes composite metrics, or "Super Value Metrics",
+  from Healthwatch v1.x to the metrics pipeline.
+  This enables you to still see the same metrics from Healthwatch v1.x
+  in your downstream log consumers if you upgrade from Healthwatch v1.x to Healthwatch v2.x.
+
+* Includes a new **Cert Expiration** dashboard under the **Foundation** tab
+  that displays the time left until expiration for all discoverable certificates
+  from the Ops Manager API.
+  In Ops Manager v2.7 and later, the Ops Manager API includes the Ops Manager root CA
+  and product certificates stored in CredHub.
+
+* Diego Capacity metrics are separated by isolation segment in the **Diego/Capacity** dashboard.
+
+* Enables a proxy setting for Grafana.
+  This allows you to configure alerting in air-gapped environments.
+
+* Exposes Ops Manager syslog configuration.
 
 <p class="note breaking">
-    <strong>Breaking Change: </strong> Grafana is now configured to use the default HTTP and HTTPS ports
-    so users don't have to specify a port when visiting their dashboards.
-    If a load balancer is placed in front of Grafana instance(s),
-    the backend configuration of the load balancer needs to be updated.
+    <strong>Breaking Change:</strong>
+    Grafana is configured to use the default HTTP and HTTPS ports,
+    so you do not have to specify a port when visiting your dashboards.
+    If a load balancer is placed in front of Grafana instances,
+    the back end configuration of the load balancer must be updated.
 </p>
-
 
 ### Security Fixes
 
@@ -50,41 +52,41 @@ This release includes the following security fixes:
 
 ### Resolved Issues
 
-This release has the following fix:
+This release includes the following fix:
 
 * N/A
 
 ### Known Issues
 
-* When upgrading the Healthwatch 2.0 tile on a foundation that has been upgraded
-    from an earlier version of OpsMan (2.3 or prior),
-    users may see the following error:
+* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
+Ops Manager v2.3 or earlier, you may see the following error:
 
     ```
     - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
       - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
     ```
-    This is fixed in version 2.8 of OpsMan,
-    but there is a workaround for people who are unable to upgrade to 2.8:
-    1. SSH into Ops Manager VM and change user to root.
-    1. Open the rails console:
+    This issue is resolved in Ops Manager v2.8.
+    To resolve this issue in Ops Manager v2.7 or earlier:
+    1. SSH into your Ops Manager VM.
+    1. Change the user to `root`.
+    1. Open the Rails console by running:
 
         ```
         > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
         ```
-    Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
-    1. Set the decryption passphrase:
+        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
+    1. Set the decryption passphrase by running:
 
         ```
-        irb(main):001:0> EncryptionKey.instance.passphrase = 'MY-DECRYPTION-PASSPHRASE'
+        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
         ```
-    Where `MY-DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
-    1. Update the UAA restricted view access client secret:
+        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
+    1. Update the UAA restricted view access client secret by running:
 
         ```
         irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
         ```
-    1. Exit from rails console and restart the "tempest-web" service:
+    1. Exit the Rails console and restart the "tempest-web" service by running:
 
         ```
         irb(main):001:0> exit
