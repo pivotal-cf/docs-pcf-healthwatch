@@ -166,6 +166,7 @@ To configure PKS cluster discovery:
     1. Enter the PKS API Address. This should be the API address you entered in **Ops Manager >Enterprise PKS >PKS API >API Hostname (FQDN)**. For example, `api.pks.example.com`.
     1. Enter the PKS UAA Client and Secret. You can use the PKS management admin client credential, where the client is `admin` and the secret can be found in **Ops Manager >Enterprise PKS>Credentials>Pks Uaa Management Admin Client**.
         Otherwise a separate UAA client with full access to the PKS API can be created and entered here.
+    1. Enter the PKS UAA Admin Password. This is required if the option to use UAA as the OIDC provider in **Ops Manager >Enterprise PKS > UAA** is enabled. Otherwise this property can be left blank.
     1. Optional: Enter **Test Frequency** to configure the interval in seconds how frequent the PKS SLI test runs. The PKS SLI test monitors the health of PKS API by logging into the API server, listing all clusters, and logging out the API server.
     1. Enter the PKS API Certificate Authority. This is required if the PKS API is using a self-signed certificate. Alternatively, **PKS API Skip SSL Validation** can be selected, but it is not recommended for production use.
     1. At this point you have finished the configuration needed in Healthwatch tile, there are one additional configuration needed in **Enterprise PKS** tile to have the metrics pulling from the clusters correctly.
