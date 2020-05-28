@@ -32,7 +32,7 @@ depending on your desired monitoring configuration.
 For more information about possible configurations, see [Using Healthwatch](using.html).
 
 
-## <a id='overview'></a> Architecture
+## <a id='architecture'></a> Architecture
 
 The following diagram shows how Healthwatch and its exporters are commonly deployed for
 multi-foundation monitoring:
@@ -40,7 +40,7 @@ multi-foundation monitoring:
 ![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
 
 
-## <a id='overview'></a> Healthwatch Tile
+## <a id='healthwatch'></a> Healthwatch Tile
 
 The Healthwatch tile installs three components: TSDB, Grafana, and MySQL.
 MySQL is used only to store the Grafana settings and does not store any time series data.
@@ -55,7 +55,7 @@ An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics sto
 ![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
 
-## <a id='overview'></a> Healthwatch Exporter for TAS for VMs
+## <a id='healthwatch-tas'></a> Healthwatch Exporter for TAS for VMs
 
 The Healthwatch Exporter for TAS for VMs installs up to three VMs.
 Each VM processes a metric type from the Firehose: timer, gauge, or counter.
@@ -66,7 +66,7 @@ You can scale these VMs vertically but should not scale them horizontally.
 ![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
 
-## <a id='overview'></a> Healthwatch Exporter for PKS
+## <a id='healthwatch-pks'></a> Healthwatch Exporter for PKS
 
 The Healthwatch Exporter for PKS installs a single VM that collects health metrics from the BOSH Director.
 This VM obtains health metrics through the Firehose similarly to TAS for VMs.
