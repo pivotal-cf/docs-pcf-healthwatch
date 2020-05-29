@@ -6,7 +6,7 @@ owner: Healthwatch
 This topic describes how to install and configure Healthwatch Exporter for Pivotal
 Container Service (PKS).
 
-## Install Healthwatch Exporter for PKS
+## <a id="install-healthwatch-exporter-for-pks"></a> Install Healthwatch Exporter for PKS
 
 1. Download the Healthwatch Exporter for TAS product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
 
@@ -31,7 +31,7 @@ product-version-regex: "0.4.*"
 </pre>
 </div>
 
-##  Configure the Healthwatch Tile
+## <a id="configure-the-healthwatch-tile"></a> Configure the Healthwatch Tile
 
 To configure the Healthwatch Exporter for PKS tile, perform the following steps:
 
@@ -62,7 +62,7 @@ To configure the Healthwatch Exporter for PKS tile, perform the following steps:
     </a>.
 </p>
 
-## Troubleshooting
+## <a id="troubleshooting"></a> Troubleshooting
 
 It is possible to follow all the steps above
 and have PKS Cluster Discovery fail with the following error:
@@ -84,7 +84,7 @@ You can set the Time To Live (**TTL**) to whatever you desire,
 but on our test environments we make it as short as possible (one second)
 so we can hopefully see cluster discovery up and running as fast as possible.
 
-##  (Optional) Scraping PKS Exporter Metrics
+## <a id="scraping-pks-exporter-metrics"></a> (Optional) Scraping PKS Exporter Metrics
 
 If you would like to scrape the PKS Exporter from off the foundation (for example, if you have installed a Prometheus
 off of the foundation or are using the Healthwatch on the [Control Plane](../using.md))

@@ -21,7 +21,7 @@ and can be enabled for multiple OAuth providers (UAA, GitHub, etc).
     for more assistance.
 </p>
 
-## Configuring UAA OAuth
+## <a id="configuring-uaa-oauth"></a> Configuring UAA OAuth
 If you would like to specify UAA as your OAuth provider,
 then select **UAA** as the authentication mechanism for Grafana
 in the **Grafana Configuration** pane.
@@ -55,7 +55,7 @@ uaac client add grafana \
     should include port as well.
 </p>
 
-## Configuring Generic OAuth
+## <a id="configuring-generic-oauth"></a> Configuring Generic OAuth
 If you would like to configure
 the supported OAuth provider of your choice,
 then select **Generic OAuth** as the authentication mechanism for the UI
@@ -86,7 +86,7 @@ you will need to set the **Authorization callback URL**
 to `https://${GRAFANA_ROOT_URL}/login/generic_oauth`,
 where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
 
-## Configuring LDAP Authentication
+## <a id="configuring-ldap-authentication"></a> Configuring LDAP Authentication
 If you would like to specify LDAP as your provider,
 then select **LDAP** as the authentication mechanism for Grafana
 in the **Grafana Configuration** pane.
