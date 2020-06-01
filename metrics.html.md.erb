@@ -7,21 +7,20 @@ This topic lists the metrics created by Healthwatch,
 including Tanzu Application Service Exporter and Enterprise PKS Exporter.
 
 <p class="note"><strong>Note</strong>: For external monitoring consumers,
-  Healthwatch expose the metrics that it creates through Prometheus style metrics endpoints.
-  You can retrieve these metrics by querying the metrics endpoints.
+  Healthwatch exposes the metrics that it creates through scrapable metrics endpoints.
   The metrics endpoints are secured by mTLS certs generated using Ops Manager CA cert.
 </p>
 
 ## <a id='sli'></a>Platform Service Level Indicators
 
-Healthwatch generates metrics that directly indicate the health of several platform components.
-You can use these metrics with service level objectives to calculate percent availability and error budgets.
+Healthwatch generates metrics that describe the health of several platform components.
+These metrics can be used to calculate percent availability and error budgets.
 
 ### <a id='cf-cli'></a>Cloud Foundry CLI Health
 
-The Cloud Foundry Command Line Interface (cf CLI) enables developers to create and manage apps on Tanzu Application Service. Healthwatch executes a continuous test suite for validating the core functions of the cf CLI.
+The Cloud Foundry Command Line Interface (`cf` CLI) enables developers to create and manage apps on Tanzu Application Service. Healthwatch executes a continuous test suite to validate the core functions of the `cf` CLI.
 
-The table below provides information about the cf CLI health smoke tests and the metrics that are generated for these tests.
+The table below provides information about the `cf` CLI health smoke tests and the metrics that are generated for these tests.
 
 <table class="nice">
 <tr>
@@ -34,55 +33,55 @@ The table below provides information about the cf CLI health smoke tests and the
   <td>Total test runs</td>
   <td><code>pas_sli_runs_total</code></td>
   <td>5 min</td>
-  <td>Number of times the test suite runs since the process starts.</td>
+  <td>Number of times the test suite has run.</td>
 </tr>
 <tr>
   <td>Total test fails</td>
   <td><code>pas_sli_failures_total</code></td>
   <td>5 min</td>
-  <td>Number of times the test suite fails since the process starts. The test suite fails if any of the task fails.</td>
+  <td>Number of times the test suite has failed. The test suite fails if any of the tasks fail.</td>
 </tr>
 <tr>
   <td>Total cf login fails</td>
   <td><code>pas_sli_task_failures_total{task="login"}</code></td>
   <td>5 min</td>
-  <td>Number of times login fails since the process starts.</td>
+  <td>Number of times login has failed.</td>
 </tr>
 <tr>
   <td>Total cf push fails</td>
   <td><code>pas_sli_task_failures_total{task="push"}</code></td>
   <td>5 min</td>
-  <td>Number of times push fails since the process starts.</td>
+  <td>Number of times push has failed.</td>
 </tr>
 <tr>
   <td>Total cf set-env fails</td>
   <td><code>pas_sli_task_failures_total{task="setEnv"}</code></td>
   <td>5 min</td>
-  <td>Number of times set-env fails since the process starts.</td>
+  <td>Number of times set-env has failed.</td>
 </tr>
 <tr>
   <td>Total cf start fails</td>
   <td><code>pas_sli_task_failures_total{task="start"}</code></td>
   <td>5 min</td>
-  <td>Number of times start fails since the process starts.</td>
+  <td>Number of times start has failed.</td>
 </tr>
 <tr>
   <td>Total cf logs fails</td>
   <td><code>pas_sli_task_failures_total{task="logs"}</code></td>
   <td>5 min</td>
-  <td>Number of times logs fails since the process starts.</td>
+  <td>Number of times logs has failed.</td>
 </tr>
 <tr>
   <td>Total cf stop fails</td>
   <td><code>pas_sli_task_failures_total{task="stop"}</code></td>
   <td>5 min</td>
-  <td>Number of times stop fails since the process starts.</td>
+  <td>Number of times stop has failed.</td>
 </tr>
 <tr>
   <td>Total cf delete fails</td>
   <td><code>pas_sli_task_failures_total{task="delete"}</code></td>
   <td>5 min</td>
-  <td>Number of times delete fails since the process starts.</td>
+  <td>Number of times delete has failed.</td>
 </tr>
 <tr>
   <td>Test app push time</td>
@@ -101,12 +100,12 @@ The table below provides information about the cf CLI health smoke tests and the
 
 ### <a id='pks-cli'></a>PKS CLI Health
 
-The PKS Command Line Interface (pks CLI) enables to create and manage
+The PKS Command Line Interface (PKS CLI) allows the operator to create and manage
 Kubernetes clusters. Healthwatch executes a continuous test suite
-for validating the core functions of the pks CLI.
+to validate the core functions of the PKS CLI.
 
 The table below provides information about the
-pks CLI health smoke tests and the metrics that are generated for these tests.
+PKS CLI Health smoke tests and the metrics that are generated for these tests.
 
 <table class="nice">
 <tr>
@@ -119,38 +118,38 @@ pks CLI health smoke tests and the metrics that are generated for these tests.
   <td>Total test runs</td>
   <td><code>pks_sli_runs_total</code></td>
   <td>1 min</td>
-  <td>Number of times the test suite runs since the process starts.</td>
+  <td>Number of times the test suite runs.</td>
 </tr>
 <tr>
   <td>Total test fails</td>
   <td><code>pks_sli_failures_total</code></td>
   <td>1 min</td>
-  <td>Number of times the test suite fails since the process starts. The test suite fails if any of the task fails.</td>
+  <td>Number of times the test suite has failed. The test suite fails if any of the tasks fail.</td>
 </tr>
 <tr>
   <td>Total pks login fails</td>
   <td><code>pks_sli_task_failures_total{task="login"}</code></td>
   <td>1 min</td>
-  <td>Number of times login fails since the process starts.</td>
+  <td>Number of times login has failed.</td>
 </tr>
 <tr>
   <td>Total pks clusters fails</td>
   <td><code>pks_sli_task_failures_total{task="list"}</code></td>
   <td>1 min</td>
-  <td>Number of times list clusters fails since the process starts.</td>
+  <td>Number of times list clusters has failed.</td>
 </tr>
 <tr>
   <td>Total pks get-credentials fails</td>
   <td><code>pks_sli_task_failures_total{task="get-credentials"}</code></td>
   <td>1 min</td>
-  <td>Number of times get-credentials fails since the process starts. If there is no cluster created on the foundation,
+  <td>Number of times get-credentials has failed. If there is no cluster created on the foundation,
   this metric will report success without actually executing get-credentials command.</td>
 </tr>
 <tr>
   <td>Total pks plans fails</td>
   <td><code>pks_sli_task_failures_total{task="plans"}</code></td>
   <td>1 min</td>
-  <td>Number of times list plans fails since the process starts.</td>
+  <td>Number of times list plans has failed.</td>
 </tr>
 <tr>
   <td>Number of clusters</td>
@@ -176,8 +175,8 @@ pks CLI health smoke tests and the metrics that are generated for these tests.
 ### <a id='bosh-health'></a>BOSH Health
 
 BOSH is the technology behind Ops Manager to manage the
-VMs deployed. If the BOSH Director is not responsive and functional, BOSH-managed VMs lose their resiliency. Healthwatch executes a continuous test suite
-for validating the functionality of BOSH director.
+VMs deployed. If the BOSH Director is not responsive or functional, BOSH-managed VMs lose their resiliency. Healthwatch executes a continuous test suite
+to validate the functionality of BOSH director.
 
 The table below provides information about the metrics that are generated.
 
@@ -192,37 +191,37 @@ The table below provides information about the metrics that are generated.
   <td>Total test runs</td>
   <td><code>bosh_sli_runs_total</code></td>
   <td>5 min</td>
-  <td>Number of times the test suite runs since the process starts.</td>
+  <td>Number of times the test suite runs.</td>
 </tr>
 <tr>
   <td>Total test fails</td>
   <td><code>bosh_sli_failures_total</code></td>
   <td>5 min</td>
-  <td>Number of times the test suite fails since the process starts. The test suite fails if any of the task fails.</td>
+  <td>Number of times the test suite has failed. The test suite fails if any of the tasks has failed.</td>
 </tr>
 <tr>
   <td>Total bosh deployments fails</td>
   <td><code>bosh_sli_task_failures_total{task="deployments"}</code></td>
   <td>5 min</td>
-  <td>Number of times list deployments fails since the process starts.</td>
+  <td>Number of times list deployments has failed.</td>
 </tr>
 <tr>
   <td>Total bosh deploy fails</td>
   <td><code>bosh_sli_task_failures_total{task="deploy"}</code></td>
   <td>5 min</td>
-  <td>Number of times deploy fails since the process starts.</td>
+  <td>Number of times deploy has failed.</td>
 </tr>
 <tr>
   <td>Total bosh delete fails</td>
   <td><code>bosh_sli_task_failures_total{task="delete"}</code></td>
   <td>5 min</td>
-  <td>Number of times delete deployment fails since the process starts.</td>
+  <td>Number of times delete deployment has failed.</td>
 </tr>
 <tr>
   <td>Total bosh tasks fails</td>
   <td><code>bosh_sli_task_failures_total{task="tasks"}</code></td>
   <td>5 min</td>
-  <td>Number of times list running tasks fails since the process starts.</td>
+  <td>Number of times list running tasks has failed.</td>
 </tr>
 <tr>
   <td>BOSH task running</td>
@@ -243,7 +242,7 @@ The table below provides information about the metrics that are generated.
 
 ### <a id='cert-expiration'></a>Certificate Expiration Monitoring
 
-Healthwatch exposes certificate duration to expiration metrics. More information see [here](common-configurations/certificate-monitoring.html).
+Healthwatch exposes metrics about the expiration of certificates. For more information, see [here](common-configurations/certificate-monitoring.html).
 
 The table below provides information about the metrics that are generated.
 
