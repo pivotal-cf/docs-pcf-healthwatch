@@ -10,6 +10,89 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
+## <a id='2-0-2'></a> v2.0.2 (beta)
+
+**Release Date: June 1, 2020**
+
+### Features
+
+New features and changes in this release:
+
+* All Jobs and Job Details dashboards ignores BOSH smoke test deployments.
+
+* Add new PKS dashboards. To see the dashboards, select a **PKS Version to Monitor** in the **Grafana Configuration**.
+
+* Add additional functional test for PKS API, the change can be found in **PKS Control Plane** dashboard.
+
+* Update query for cf push remaining error budget.
+
+* Allow configuring additional cipher suite in the **Grafana Configuration**.
+
+* PKS cluster discovery now support OIDC, **PKS UAA Admin Password** property is required when **Configure created clusters to use UAA as the OIDC provider** in **Enterprise PKS** tile is enabled.
+
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* Only support strong cipher suites in Grafana. The list of the OOTB cipher suite can be found [here](https://github.com/cloudfoundry/tlsconfig/blob/master/config.go#L88-L98).
+
+* Remove extraneous logging in certain components that would log sensitive information under certain configuration.
+
+
+### Resolved Issues
+
+This release includes the following fix:
+
+* PKS cluster discovery **PKS API Skip SSL Validation** option properly skip ssl validation.
+
+* Fix the line chart in **CLI Health** so it stays `0` instead of oscillating when the underlying metric keeps failing.
+
+* Fix the cf cli functional test so it fails properly when unable to get logs for the deployed smoke test app.
+
+* All Jobs and Job Details page use correct query tags when deployed to PKS foundation.
+
+* Indicator Protocol integration properly renders the chart panel name.
+
+
+### Known Issues
+
+* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
+Ops Manager v2.3 or earlier, you may see the following error:
+
+    ```
+    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
+      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+    ```
+    This issue is resolved in Ops Manager v2.8.
+    To resolve this issue in Ops Manager v2.7 or earlier:
+    1. SSH into your Ops Manager VM.
+    1. Change the user to `root`.
+    1. Open the Rails console by running:
+
+        ```
+        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
+        ```
+        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
+    1. Set the decryption passphrase by running:
+
+        ```
+        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
+        ```
+        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
+    1. Update the UAA restricted view access client secret by running:
+
+        ```
+        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
+        ```
+    1. Exit the Rails console and restart the "tempest-web" service by running:
+
+        ```
+        irb(main):001:0> exit
+        > service tempest-web restart
+        ```
+
+
 ## <a id='2-0-1'></a> v2.0.1 (beta)
 
 **Release Date: April 29, 2020**
