@@ -3,7 +3,7 @@ title: Configuration Overview
 owner: Healthwatch
 ---
 
-### Monitoring TAS from within Foundation
+### <a id="monitoring-tas-from-within-foundation"></a> Monitoring TAS from within Foundation
 In order to monitor a single TAS installation,
 follow the instructions for
 [Installing Healthwatch](../installing.html)
@@ -13,7 +13,7 @@ on the same foundation where TAS is installed.
 that the **Healthwatch Exporter for TAS** has also been installed
 and will start scraping its metrics.
 
-### Monitoring PKS from within Foundation
+### <a id="monitoring-pks-from-within-foundation"></a> Monitoring PKS from within Foundation
 In order to monitor a single PKS installation,
 follow the instructions for
 [Installing Healthwatch](../installing.html)
@@ -22,7 +22,7 @@ on the same foundation where PKS is installed.
 that the **Healthwatch Exporter for PKS** is also installed
 and will begin scraping its metrics.
 
-### Monitoring TAS and PKS
+### <a id="monitoring-tas-and-pks"></a> Monitoring TAS and PKS
 In order to monitor a foundation with both TAS and PKS installed,
 follow the instructions for
 [Installing Healthwatch](../installing.html),
@@ -35,7 +35,7 @@ and **Healthwatch Exporter for PKS**
 and will begin scraping both endpoints.
 
 
-## Monitoring TAS from the Control Plane 
+## <a id="monitoring-tas-from-the-control-plane"></a> Monitoring TAS from the Control Plane
 The **Healthwatch** tile
 can be used from the Control Plane
 to monitor any number of TAS foundations.
@@ -106,7 +106,7 @@ will look something like the following:
     The name of the credential is <code>TAS Exporter Client Mtls</code>.
 </p>
 
-## Monitoring PKS from the Control Plane
+## <a id="monitoring-pks-from-the-control-plane"></a> Monitoring PKS from the Control Plane
 The **Healthwatch** tile can be used from the Control Plane to monitor any number of PKS 
 foundations. To use **Healthwatch** in this way, follow the installation instructions for
 Installing Healthwatch the control plane, then follow the installation instructions for
@@ -171,7 +171,7 @@ will look something like the following:
     The name of the credential is <code>Pks Exporter Client Mtls</code>.
 </p>
 
-## Whitelisting Metrics 
+## <a id="whitelisting-metrics"></a> Whitelisting Metrics
 In some deployments,
 it can be beneficial to only ingest certain metrics from a scrape job.
 For example,
@@ -224,7 +224,7 @@ to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
 
 ```
 
-### Monitoring PKS Master Nodes
+### <a id="monitoring-pks-master-nodes"></a> Monitoring PKS Master Nodes
 
 When Healthwatch is installed on the same foundation as PKS,
 it will automatically scrape the `kube-scheduler`
