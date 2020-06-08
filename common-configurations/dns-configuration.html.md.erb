@@ -1,0 +1,50 @@
+---
+title: DNS Configuration
+owner: Healthwatch
+---
+
+This topic both describes the general flow of setting up DNS for your Grafana instance,
+and gives a specific example using GCP.
+
+## General flow
+* Identify the IP of the Grafana VM created by the Healthwatch 2.0 deployment.
+* Create a Type A record pointing to that IP.
+* Wait for DNS to update
+    (this can be sped up by tweaking your computer's DNS settings).
+* Visit the URL you pointed to your Grafana instance
+    and ensure that you land on the Grafana login page as expected.
+
+## GCP Example
+* After signing into your Cloud Console,
+    navigate to **Compute Engine > VM instances**
+* Filter by **grafana** to find the Grafana VM
+    that was created with your Healthwatch deployment.
+* If you only have one foundation, it should be easy to identify the correct vm
+    because it will be the only one listed after the filter.
+    Otherwise, add a filter to narrow it down to a specific foundation.
+    For example, we can find the Grafana instance for our control plan foundation by typing **hw-cp**.
+* Copy the IP in the **External IP** field of the results.
+* Navigate to **Network services > Cloud DNS**.
+* Filter for your foundation's DNS zone.
+    Following our control plane example, we should type **hw-cp-zone**.
+    Click on the zone name to open the interface for editing the zone.
+* Click **Add record set**.
+* Input **grafana** into the **DNS Name** field.
+    Notice that the rest of the domain is already populated
+    because this record is being created within the context of a DNS zone.
+* Make sure **Resource Record Type** is set to **A**.
+* We recommend setting **TTL** (Time To Live) to **1** and **TTL Unit** to **seconds**
+    to reduce the amount of time you'll have to wait to verify the change worked.
+* Paste your IP into the **IPv4 Address** field.
+* Click **CREATE**.
+* Visit `grafana.SYSTEM-DOMAIN`,
+    where `SYSTEM-DOMAIN` is the same URL you would use to visit your Ops Manager (`pcf.SYSTEM-DOMAIN`).
+    In our example, this is `grafana.hw-cp.cf-denver.com`.
+* If this does not yet load the Grafana login page as expected,
+    you can add Google's DNS Server (`8.8.8.8`) to your computer's network configuration.
+    How you go about this will depend on your operating system,
+    but you will likely find adequate instructions by searching for
+    **Add DNS server MY-OS** in your search engine of choice,
+    where `MY-OS` is the operating system of your computer (e.g. OSX, Windows, Ubuntu, etc.).
+* Once you see the Grafana login page,
+    you have confirmed that you have successfully created a DNS entry!
