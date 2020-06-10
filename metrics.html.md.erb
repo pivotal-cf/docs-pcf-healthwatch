@@ -190,49 +190,49 @@ The table below provides information about the metrics that are generated.
 <tr>
   <td>Total test runs</td>
   <td><code>bosh_sli_runs_total</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times the test suite runs.</td>
 </tr>
 <tr>
   <td>Total test fails</td>
   <td><code>bosh_sli_failures_total</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times the test suite has failed. The test suite fails if any of the tasks has failed.</td>
 </tr>
 <tr>
   <td>Total bosh deployments fails</td>
   <td><code>bosh_sli_task_failures_total{task="deployments"}</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times list deployments has failed.</td>
 </tr>
 <tr>
   <td>Total bosh deploy fails</td>
   <td><code>bosh_sli_task_failures_total{task="deploy"}</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times deploy has failed.</td>
 </tr>
 <tr>
   <td>Total bosh delete fails</td>
   <td><code>bosh_sli_task_failures_total{task="delete"}</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times delete deployment has failed.</td>
 </tr>
 <tr>
   <td>Total bosh tasks fails</td>
   <td><code>bosh_sli_task_failures_total{task="tasks"}</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Number of times list running tasks has failed.</td>
 </tr>
 <tr>
   <td>BOSH task running</td>
   <td><code>bosh_deployments_status</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td><code>1</code> = running or <code>0</code> = idle. If bosh tasks fails, this metric will report <code>0</code>.</td>
 </tr>
 <tr>
   <td>Overall smoke test run time</td>
   <td><code>bosh_sli_run_duration_seconds</code></td>
-  <td>5 min</td>
+  <td>10 min</td>
   <td>Time in seconds</td>
 </tr>
 </table>
