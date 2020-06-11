@@ -22,14 +22,14 @@ The high level steps for setting up DNS for a Grafana instance are:
 The following procedure is an example of how to set up DNS for a Grafana instance on GCP.
 
 1. After signing into Google Cloud Console, navigate to **Compute Engine > VM instances**.
-1. Filter the VM instances by `grafana` to find the Grafana VM that was created during your Healthwatch deployment.
-1. If you only have one foundation, only one VM should appear after applying the filter. If you have more than foundation, you can add a filter to narrow down the search to a specific foundation. For example, if you have a control plane foundation named **hw-cp**, you can locate the Grafana instance for that foundation by typing **hw-cp**.
+1. In the **Filter VM Instances** field, enter `grafana` to find the Grafana VM that was created during your Healthwatch deployment.
+1. If you have only one foundation, only one VM should appear after applying the filter. If you have more than foundation, you can add a filter to narrow down the search to a specific foundation. For example, if you have a control plane foundation named `hw-cp`, you can locate the Grafana instance for that foundation by typing `hw-cp`.
 1. Copy the IP address located in the **External IP** field in the search result.
 1. In Google Cloud Console, navigate to **Network services > Cloud DNS**.
-1. Filter DNS zones for your foundation. Following the control plane example, you can type **hw-cp-zone**.
+1. Filter DNS zones for your foundation. Following the control plane example, you can type `hw-cp-zone`.
 1. Click on the zone name to edit the zone.
 1. Click **Add record set**.
-1. Enter **grafana** into the **DNS Name** field.
+1. Enter `grafana` into the **DNS Name** field.
     Notice that the rest of the domain is already populated
     because this record is created within the context of a DNS zone.
 1. Make sure **Resource Record Type** is set to **A**.
