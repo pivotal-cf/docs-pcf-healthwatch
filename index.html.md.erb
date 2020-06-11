@@ -75,18 +75,18 @@ You can scale this VM vertically but should not scale it horizontally.
 
 ![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the Bosh Director](images/HealthwatchExporterforPKS.png)
 
-## Healthwatch FAQ
-1. **Why is DNS important?**
+## <a id='faq'></a> Healthwatch FAQ
 
-    To avoid creating an unnecessary dependency on TAS,
-    the Healthwatch 2.0 tile deployment does not use TAS's GoRouter
+1. **Why is DNS configuration important?**
+
+    To avoid creating an unnecessary dependency on TAS for VMs,
+    the Healthwatch 2.0 tile does not use the Gorouter included in TAS for VMs
     to route the Grafana VM to a subdomain on the foundation.
-    Therefore, for ease of access after setup, it is important
-    to configure a [DNS route to the Grafana VM](common-configurations/dns-configuration.html).
+    Therefore, for ease of access, it is important
+    to configure the Grafana VM with DNS. For more information, see [Configuring DNS for the Grafana VM](common-configurations/dns-configuration.html).
 
 1. **Why is IaaS configuration important?**
 
     The [IaaS Configuration page](common-configurations/iaas-configuration.html) documents
-    the process of creating a firewall policy in each of the various IaaSes.
-    Access to individual VMs is disabled by default, so this is necessary to allow external access to the operator.
-    This allows external access to the Grafana VM so that it can be reached by the operator.
+    the process for creating a firewall policy in each of the various IaaSes.
+    Access to individual VMs is disabled by default, so updating the firewall is necessary to allow the operator to externally access the Grafana VM.
