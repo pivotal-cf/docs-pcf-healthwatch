@@ -171,7 +171,7 @@ will look something like the following:
     The name of the credential is <code>Pks Exporter Client Mtls</code>.
 </p>
 
-## <a id="whitelisting-metrics"></a> Whitelisting Metrics
+## <a id="allowlist-metrics"></a> Adding Metrics to an Allowlist
 In some deployments,
 it can be beneficial to only ingest certain metrics from a scrape job.
 For example,
@@ -183,7 +183,7 @@ shows how an operator could configure a scrape job
 to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
   
 ```yaml
-- job_name: whitelisted-job
+- job_name: allowlisted-job
   metric_relabel_configs:
   - source_labels: [__name__]
     regex: (some-metric|some-metric-2)
