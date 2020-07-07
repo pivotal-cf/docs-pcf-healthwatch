@@ -52,6 +52,15 @@ In PAS v2.8, a new feature in the Isolation Segment Tile allows you to deploy co
 
 If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately measure and report on capacity. Capacity charts, calculated capacity metrics such as Free Chunks, and capacity alerts may incorrectly report a lower capacity than is available for apps.
 
+#### `validate-expected-metrics` fails when external databases are configured
+
+`validate-expected-metrics` expects certain MySQL metrics to be present,
+which will not be the case if you have configured the **External databases** section
+under **Databases** in the **Tanzu Application Service** tile.
+
+As a workaround, you can disable this errand
+under **Errands > Metrics Troubleshooting** in the Healthwatch tile
+when installing it.
 
 ## <a id='v1.8.0'></a>v1.8.0
 
