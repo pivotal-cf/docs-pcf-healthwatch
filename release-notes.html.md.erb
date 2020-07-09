@@ -10,6 +10,88 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
+
+## <a id='2-0-3'></a> v2.0.3 (beta)
+
+**Release Date: July 10, 2020**
+
+### Features
+
+New features and changes in this release:
+
+* Grafana 7.0
+
+* Downsize the exporter VMs to better utilize the resource.
+
+<div class="note breaking">
+    <strong>Breaking Change:</strong>
+    <ul>
+  <li>The server name of all the exporters are changed to <code>hwexporter</code>. If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+  <li>The cert expiration exporter is now moved to TAS and PKS Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+    </ul>
+</div>
+
+### Security Fixes
+
+This release includes the following security fixes:
+
+* Remove extraneous logging in certain components that would log sensitive information under certain configuration.
+
+### Resolved Issues
+
+This release includes the following fix:
+
+* Healthwatch Exporter for PKS now includes metrics to populate BOSH Director Health dashboard properly.
+
+* Fix a query on Tanzu Application Service SLO dashboard.
+
+* Healthwatch SLO populate correct exporter metrics depends on whether TAS or PKS dashboard selected.
+
+* Various dashboard fixes.
+
+### Known Issues
+
+* When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
+  does not have all the required ports opened to get PKS cluster discovery to scrape from on demand K8s clusters correctly.
+  One workaround is to manually modify the load balancer through NSXT api to open up these ports: (10200, 10251, 10252, 8443).
+
+
+* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
+Ops Manager v2.3 or earlier, you may see the following error:
+
+    ```
+    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
+      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+    ```
+    This issue is resolved in Ops Manager v2.8.
+    To resolve this issue in Ops Manager v2.7 or earlier:
+    1. SSH into your Ops Manager VM.
+    1. Change the user to `root`.
+    1. Open the Rails console by running:
+
+        ```
+        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
+        ```
+        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
+    1. Set the decryption passphrase by running:
+
+        ```
+        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
+        ```
+        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
+    1. Update the UAA restricted view access client secret by running:
+
+        ```
+        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
+        ```
+    1. Exit the Rails console and restart the "tempest-web" service by running:
+
+        ```
+        irb(main):001:0> exit
+        > service tempest-web restart
+        ```
+
+
 ## <a id='2-0-2'></a> v2.0.2 (beta)
 
 **Release Date: June 1, 2020**
