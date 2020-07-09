@@ -5,7 +5,7 @@ owner: Healthwatch
 
 This topic describes how to install and configure Healthwatch.
 
-## Install Healthwatch
+## <a id='install'></a> Install Healthwatch
 
 1. Download the product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
 
@@ -32,137 +32,178 @@ product-version-regex: 2\.0.*
 </pre>
 </div>
 
-<p class="note">
-    <strong>Note:</strong>
-    When Healthwatch Tanzu Application Service Exporter
-    or Healthwatch PKS Exporter is on the same foundation as Healthwatch,
-    there is no need to manually configure a scrape job for them.
-    These exporters are automatically discovered and scraped.
-    This section is for adding additional custom scrape jobs or to scrape exporters installed on different foundations.
-</p>
+## <a id='configure'></a> Configure the Healthwatch Tile
 
-##  Configure the Healthwatch Tile
+Click the **Healthwatch** tile on the Ops Manager Installation Dashboard to start the configuration process.
 
-To configure the Healthwatch tile, perform the following steps:
+### <a id='az'></a> Assign AZs and Networks
 
-1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
-1. Navigate to **Assign AZs and Networks** and do the following:
-    1. Select an Availability Zone (AZ) for placing singleton jobs.
-    1. Select one or more AZs for balancing other jobs.
-    1. Select **Network** for installing Healthwatch.
-    1. Click **Save**.
+Navigate to **Assign AZs and Networks** and do the following:
 
-1. Navigate to **Time series database (TSDB) Configuration** and do the following:
-    1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
-    1. Optional: Add additional jobs to the **Additional Scrape Config Jobs**.  This entry section allows you to add jobs to the TSDB.yml configuration
-        file.
-        * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-            by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
-            defined by TSDB itself except for the `tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
-            scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
+1. Select an Availability Zone (AZ) for placing singleton jobs.
+1. Select one or more AZs for balancing other jobs.
+1. Select **Network** for installing Healthwatch.
+1. Click **Save**.
 
-            ```yaml
-            job_name: foundation1
-            metrics_path: /metrics
-            scheme: https
-            static_configs:
-             - targets:
-               - "1.2.3.4:9090"
-               - "5.6.7.8:9090"
-            ```
-        * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
-        * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
-            and **key_file** properties of the **tls_config**
-        * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
+### <a id='tsdb'></a> TSDB Configuration
 
-    1. If using `om` to configure the tile, you will want a configuration like the following:
+Navigate to **Time series database (TSDB) Configuration** and do the following:
 
-        <%= partial 'snippets/scrape_config.md' %>
-    1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
-    1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
+1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
+1. Optional: Add additional jobs to the **Additional Scrape Config Jobs**. This entry section allows you to add any
+     external applications/services that expose a [Prometheus exposition format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
+     metrics endpoint to be scraped by the TSDB. For example, to scrape [Concourse CI metrics](https://concourse-ci.org/metrics.html).
+    * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
+        by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
+        defined by TSDB itself except for the `tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
+        scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
 
-    <div class="note warning">
-    <strong>Warning: </strong>
-    Avoid using these job names when configuring custom scrape jobs:
-
-    <ul>
-     <li><code> Healthwatch-view-pas-exporter</code></li>
-    <li><code> Healthwatch-view-pks-exporter</code></li>
-    <li><code> tsdb</code></li>
-    <li><code> grafana</code></li>
-    <li><code> pks-master-kube-scheduler</code></li>
-    <li><code> pks-master-kube-controller-manager</code></li>
-    </ul>
- </div>
-
-1. Navigate to **Grafana Configuration** and do the following:
-    1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
-        **Root URL for Grafana**. This should be set to the full URL used to access Grafana from a web browser.
-        This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
-        <p class="note"><strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM, or the public IP address of the load balancer that sits in from of the Grafana VMs. The IP address to Grafana can be obtained after Apply Changes.</p>
-        <p class="note">
-            <strong>Note:</strong>
-            For more information about configuring DNS for Grafana, see
-            <a href="common-configurations/dns-configuration.html">
-                Configuring DNS for the Grafana VM
-            </a>.
-        </p>
-        <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
-    1. Optional: Configure the proxy setting for Grafana.
-        1. Select **Enabled**
-        1. Enter the HTTP proxy server address in **HTTP Proxy for Grafana**.
-            This will be used as the proxy URL for HTTP and HTTPS requests
-            unless overridden by **HTTPS Proxy for Grafana** or **No Proxy for Grafana**.
-        1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
-            This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
-        1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
-            This should be a comma separated list. VMware recommends to include "*.bosh" and the ip range for the internal networks
-            so that the time series database can still be accessed without going though the proxy.
-            For example: "*.bosh,10.0.0.0/8,*.example.com" will configure grafana to access all bosh dns addresses,
-            10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
-    1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
-        valid static IPs from the IAAS for the network on which the tile is installed.
-    1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
-    1. Optional: **Use Indicator Protocol Generated Dashboards**
-        Checking this option will enable generation of dashboards
-        based on indicator documents.
-        <p class="note">
-            <strong>Note:</strong>
-            This assumes that the Monitoring Indicator Protocol tile
-            is also installed on this foundation.
-            For more information,
-            visit the product page
-            <a href="https://network.pivotal.io/products/indicator-protocol/">
-              here
-            </a>.
-        </p>
-    1. Optional: **Select an authentication mechanism for the Grafana**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](common-configurations/grafana-authentication.html) for detailed configurations.
-    1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
-        For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
-
-1. Navigate to **Canary URL Configuration** and do the following:
+        ```yaml
+        job_name: foundation1
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+         - targets:
+           - "1.2.3.4:9090"
+           - "5.6.7.8:9090"
+        ```
+    * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
+    * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
+        and **key_file** properties of the **tls_config**
+    * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
     <p class="note">
         <strong>Note:</strong>
-        Canary applications are those applications you "send in first"
-        and are an indicator of the overall health of your platform.
-        If a canary app is down,
-        there is probably an issue with the platform.
-        For example, Apps Manager would be a good candidate for a canary url.
+        When Healthwatch Tanzu Application Service Exporter
+        or Healthwatch PKS Exporter is on the same foundation as Healthwatch,
+        there is no need to manually configure a scrape job for them.
+        These exporters are automatically discovered and scraped.
+        This section is for adding additional custom scrape jobs or to scrape exporters installed on different foundations.
     </p>
+    <div class="note warning">
+      <strong>Warning:</strong>
+      Avoid using these job names when configuring custom scrape jobs:
+      <ul>
+        <li><code> Healthwatch-view-pas-exporter</code></li>
+        <li><code> Healthwatch-view-pks-exporter</code></li>
+        <li><code> tsdb</code></li>
+        <li><code> grafana</code></li>
+        <li><code> pks-master-kube-scheduler</code></li>
+        <li><code> pks-master-kube-controller-manager</code></li>
+      </ul>
+    </div>
+1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
+1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
 
-    1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
-        you have a port conflict on the TSDB VM. The port is defaulted to `9115`.
-    1. Optional: Enter a list of **Target URLs**. [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
-        on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
-        for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
+### <a id='grafana'></a> Grafana Configuration
 
-## PKS Cluster Discovery Configuration
+Navigate to **Grafana Configuration** and do the following:
+
+1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
+    **Root URL for Grafana**. This should be set to the full URL used to access Grafana from a web browser.
+    This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
+    <p class="note">
+      <strong>Note:</strong> The URL you enter here needs to be configured in your DNS provider to point to the public IP address of the Grafana VM,
+      or the public IP address of the load balancer that sits in from of the Grafana VMs.
+      The IP address to Grafana can be obtained after Apply Changes.
+      Grafana will listen on port 443 or 80, depending on whether you configured a certificate in the **Enable HTTPS by providing certificates** field
+      under **Grafana Configuration** in the tile configuration.
+    </p>
+    <p class="note">
+        <strong>Note:</strong>
+        For more information about configuring DNS for Grafana, see
+        <a href="common-configurations/dns-configuration.html">
+            Configuring DNS for the Grafana VM
+        </a>.
+    </p>
+1. Optional: Configure the proxy setting for Grafana.
+    1. Select **Enabled**
+    1. Enter the HTTP proxy server address in **HTTP Proxy for Grafana**.
+        This will be used as the proxy URL for HTTP and HTTPS requests
+        unless overridden by **HTTPS Proxy for Grafana** or **No Proxy for Grafana**.
+    1. Enter the HTTPS proxy server address in **HTTPS Proxy for Grafana**.
+        This will be used as the proxy URL for HTTPS requests unless overridden by **No Proxy for Grafana**.
+    1. Enter the list of the hosts that should be excluded from proxying in **No Proxy for Grafana**.
+        This should be a comma separated list. VMware recommends to include "*.bosh" and the ip range for the internal networks
+        so that the time series database can still be accessed without going though the proxy.
+        For example: "*.bosh,10.0.0.0/8,*.example.com" will configure grafana to access all bosh dns addresses,
+        10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
+    <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
+1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
+    valid static IPs from the IAAS for the network on which the tile is installed.
+1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
+1. Optional: **Use Indicator Protocol Generated Dashboards**
+    Checking this option will enable generation of dashboards
+    based on indicator documents.
+    <p class="note">
+        <strong>Note:</strong>
+        This assumes that the Monitoring Indicator Protocol tile
+        is also installed on this foundation.
+        For more information,
+        visit the product page
+        <a href="https://network.pivotal.io/products/indicator-protocol/">
+          here
+        </a>.
+    </p>
+1. Optional: **Select an authentication mechanism for the Grafana**.  Options include Basic, Generic OAuth(UAA, Github, etc) or LDAP. See [Grafana Authentication](common-configurations/grafana-authentication.html) for detailed configurations.
+1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
+    For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
+
+### <a id='canary'></a> Canary URL Configuration
+
+Navigate to **Canary URL Configuration** and do the following:
+<p class="note">
+    <strong>Note:</strong>
+    Canary applications are those applications you "send in first"
+    and are an indicator of the overall health of your platform.
+    If a canary app is down,
+    there is probably an issue with the platform.
+    For example, Apps Manager would be a good candidate for a canary url.
+</p>
+
+1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
+    you have a port conflict on the TSDB VM. The port is defaulted to `9115`.
+1. Optional: Enter a list of **Target URLs**. [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
+    on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
+    for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
+
+### <a id='remote-write'></a> Remote Write Configuration
+
+TSDB can be configured to write to remote storage,
+in addition to its local time series database.
+This is intended to support long-term storage of monitoring data.
+
+Here is the [full configuration for remote writing](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+
+The form in the **Healthwatch** tile is
+basically a user-friendly input
+to this more complete configuration.
+
+To configure remote write:
+
+Navigate to **Remote Write Configuration** and do the following:
+
+1. Input the **URL** for your storage endpoint.
+    Example: `https://REMOTE-STORAGE-URL`,
+    where `REMOTE-STORAGE-URL` is a fully-qualified domain name.
+1. Optional: Set a **Remote Timeout**.
+1. Optional: Enable Basic Authentication
+    to access your storage endpoint via username and password.
+1. Optional: Configure TLS for your endpoint.
+    If the remote write endpoint requires special handling,
+    for example a self-signed cert or mutual TLS,
+    that can be configured here.
+1. Optional: Configure a **Proxy URL** to connect to the remote write endpoint.
+1. Optional: To fine-tune your remote write configuration,
+    look at the `queue_config` section of the documentation linked above.
+1. Click **Save**.
+
+### <a id='pks-cluster-discovery'></a> PKS Cluster Discovery Configuration
 
 PKS Cluster Discovery enables users to detect and configure clusters created by the PKS API.
 
 To configure PKS cluster discovery:
 
-<p class="note"><strong>Note:</strong> PKS Cluster Discovery only applies for foundations running PKS</p>
+<p class="note"><strong>Note:</strong> PKS Cluster Discovery only applies for foundations running Enterprise PKS</p>
 
 1. Navigate to **PKS Cluster Discovery Configuration** and do the following:
     1. Select **Enabled**
@@ -191,7 +232,7 @@ To configure PKS cluster discovery:
             because that is what the scrape config expects.
         </p>
 
-1. Go to **Enterprise PKS** tile and for each plan you want to monitor:
+1. Navigate to **Enterprise PKS** tile and for each plan you want to monitor:
     1. Navigate to the plan you want to monitor. For example, **Plan 2**.
     1. Scroll to **(Optional) Add-ons - Use with caution**.
     1. Paste the following yaml snippet to the text box to configure roles required to scrape metrics from the clusters:
@@ -208,19 +249,28 @@ To configure PKS cluster discovery:
             is enabled to have the add-on resources propagated to on demand clusters.
         </p>
 
-    1. Return to the Ops Manager Installation Dashboard and click Apply Changes.
+### <a id='resource-config'></a> Resource Config
 
-    1. In order to access Grafana within Healthwatch,
-       an external IP address for the **Grafana** VM is needed
-       along with allowing traffic to the VM on port 443 or 80,
-       depending on whether you configured a certificate
-       in the **Enable HTTPS by providing certificates** field
-       under **Grafana Configuration** in the tile configuration.
-       A native IaaS load balancer can also be used.
+To modify the sizing of the Healthwatch components, for example, TSDB persistent disk size to handle longer data retention, navigate to **Resource Config** and do the following:
 
-##  (Optional) Backing Up Healthwatch
+1. Update the resource configuration for the job need to resize.
+1. Click **Save**.
 
-Healthwatch supports [Bosh Backup and Restore](https://docs.pivotal.io/pivotalcf/2-4/customizing/backup-restore/index.html) functionality.
+### <a id='om'></a> Using om
+
+If using `om` to configure the tile, you will want a configuration like the following:
+
+<%= partial 'snippets/scrape_config.md' %>
+
+## <a id='apply-changes'></a> Apply Changes
+
+1. Return to the Ops Manager Installation Dashboard
+1. Click **Review Pending Changes**. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
+1. Click **Apply Changes**.
+
+## <a id='backup'></a> (Optional) Backing Up Healthwatch
+
+Healthwatch supports [Bosh Backup and Restore](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/index.html) functionality.
 VMware recommends running nightly backups via a Concourse pipeline job like the one below:
 
 <%= partial 'snippets/backup_job' %>
