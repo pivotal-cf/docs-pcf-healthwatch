@@ -24,28 +24,28 @@ New features and changes in this release:
 * Downsize the exporter VMs to better utilize the resource.
 
 <div class="note breaking">
-    <strong>Breaking Change:</strong>
+    <strong>Breaking Changes:</strong>
     <ul>
   <li>The server name of all the exporters are changed to <code>hwexporter</code>. If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
-  <li>The cert expiration exporter is now moved to TAS and PKS Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
     </ul>
 </div>
 
 ### Security Fixes
 
-This release includes the following security fixes:
+This release includes the following security fix:
 
 * Remove extraneous logging in certain components that would log sensitive information under certain configuration.
 
 ### Resolved Issues
 
-This release includes the following fix:
+This release includes the following fixes:
 
 * Healthwatch Exporter for PKS now includes metrics to populate BOSH Director Health dashboard properly.
 
 * Fix a query on Tanzu Application Service SLO dashboard.
 
-* Healthwatch SLO populate correct exporter metrics depends on whether TAS or PKS dashboard selected.
+* Healthwatch SLO populate correct exporter metrics depends on whether TAS for VMs or TKGi dashboard selected.
 
 * Various dashboard fixes.
 
