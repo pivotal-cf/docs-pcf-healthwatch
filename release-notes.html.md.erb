@@ -14,6 +14,13 @@ owner: Healthwatch
 ## <a id='2-0-3'></a> v2.0.3 (beta)
 
 **Release Date: July 10, 2020**
+<div class="note breaking">
+    <strong>Breaking Changes:</strong>
+    <ul>
+  <li>The server name of all the exporters are changed to <code>hwexporter</code>. If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+    </ul>
+</div>
 
 ### Features
 
@@ -22,14 +29,6 @@ New features and changes in this release:
 * Grafana 7.0
 
 * Downsize the exporter VMs to better utilize the resource.
-
-<div class="note breaking">
-    <strong>Breaking Changes:</strong>
-    <ul>
-  <li>The server name of all the exporters are changed to <code>hwexporter</code>. If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
-  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
-    </ul>
-</div>
 
 ### Security Fixes
 
