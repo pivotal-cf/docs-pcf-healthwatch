@@ -28,6 +28,18 @@ An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics sto
 
 ![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
+### <a id='network-rules'></a> Required Networking Rules for Healthwatch
+
+This section only covers the networking rules for the Healthwatch tile.
+The Exporter tiles require additional networking rules,
+which can be found in their respective sections.
+
+| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
+|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
+| grafana                  | <ul> <li>tsdb</li><li>pxc-proxy</li><li>External alerting urls</li><li>External data sources</li><li>External authentication</li><li>External SMTP server</li> </ul>                         |<ul> <li>4449</li><li>3306</li> </ul>          | Additional networking rules might be required for external connections listed. For example, 443 for UAA. |
+| blackbox-exporter        | <ul> <li>External Canary Urls</li> </ul>                     |<ul></ul>  |  Networking rules might be required depending on the external url setup                                                                       |
+| tsdb                     | <ul> <li> All exporter vms </li> </ul>                        |<ul> <li>9090</li></ul>  |    All exporter vms including blackbox-exporter and the corresponding exporter vms from the Exporter tile for the runtime (TAS and/or TKG-i)  |
+| tsdb (pks cluster discovery) | For each cluster: <ul> <li> Kube API Server </li><li> Kube Controller Manager </li> <li> Kube Scheduler</li> <li> ETCD (telegraf output plugin) </li> </ul> | <ul> <li>8443</li><li>10252</li><li>10251</li><li>10200</li></ul>  |    These ports are only needed if configuring PKS Cluster Discovery  |
 
 ## <a id='healthwatch-tas'></a> Healthwatch Exporter for TAS for VMs
 
@@ -40,6 +52,18 @@ You can scale these VMs vertically but should not scale them horizontally.
 ![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
 
+### <a id='network-rules-tas'></a> Required Networking Rules for Healthwatch Exporter for TAS for VMs
+
+| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
+|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
+| bosh-deployments-exporter     | <ul><li>BOSH director UAA</li> <li>BOSH director</li></ul>                         |<ul>  <li>8443</li><li>25555</li> </ul>          | |
+| bosh-health-exporter        | <ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul>                     |<ul> <li>8443</li><li>25555</li> </ul>  |  |
+| cert-expiration-exporter   | <ul> <li> Ops Manager </li> </ul>                        |<ul> <li>443</li></ul>  | |
+| pas-exporter-counter   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
+| pas-exporter-gauge   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
+| pas-exporter-timer   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
+| pas-sli-exporter   | <ul> <li> CAPI </li><li> UAA </li> </ul>                        |<ul> <li>443</li><li>443</li></ul>  | |
+
 ## <a id='healthwatch-pks'></a> Healthwatch Exporter for PKS
 
 The Healthwatch Exporter for PKS installs a single VM that collects health metrics from the BOSH Director.
@@ -48,3 +72,14 @@ Metrics are then exposed on a secured endpoint in TSDB exposition format.
 You can scale this VM vertically but should not scale it horizontally.
 
 ![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
+
+
+### <a id='network-rules-pks'></a> Required Networking Rules for Healthwatch Exporter for PKS
+
+| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
+|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
+| bosh-deployments-exporter     | <ul><li>BOSH director UAA</li> <li>BOSH director</li></ul>                         |<ul>  <li>8443</li><li>25555</li> </ul>          | |
+| bosh-health-exporter        | <ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul>                     |<ul>  <li>8443</li><li>25555</li> </ul>  |  |
+| cert-expiration-exporter   | <ul> <li> Ops Manager </li> </ul>                        |<ul> <li>443</li></ul>  | |
+| pks-exporter   | <ul> <li>BOSH director UAA</li><li>BOSH director metrics</li> </ul>                        |<ul> <li>8443</li><li>25595</li></ul>  | |
+| pks-sli-exporter   | <ul> <li> PKS API UAA </li><li> PKS API</li> </ul>                        |<ul>  <li>8443</li><li>9021</li> </ul>  | |
