@@ -57,6 +57,37 @@ This release includes the following fixes:
 * When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
   does not have all the required ports opened to get PKS cluster discovery to scrape from on demand K8s clusters correctly.
   One workaround is to manually modify the load balancer through NSXT api to open up these ports: (10200, 10251, 10252, 8443).
+  Follow the steps below.
+    1. Run `curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
+        Look for the one that has the `display_name` that starts with `lb-pks` and ends with `virtual-server`.
+    1. Copy the `id` field of this object when you find it.
+    1. Run `curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
+        Where:
+        - `NSX-MGR` is the IP/FQDN of your NSX-T console.
+        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the Load Balancer.
+    1. Copy the JSON that is returned by this command.
+    1. Modify that JSON to have the additional ports that Healthwatch needs,
+        and do a PUT to the API to update the virtual server
+        ```
+        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' -d 'MODIFIED-JSON-DATA'
+        ```
+
+        Where:
+        - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
+           It will look like this:
+
+           ```
+{
+    "...": "...",
+    "ports": [
+        "8443",
+        "10200",
+        "10251",
+        "10252"
+    ],
+    "...": "..."
+}
+           ```
 
 
 * When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
