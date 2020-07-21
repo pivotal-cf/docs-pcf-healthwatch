@@ -50,9 +50,9 @@ This release includes the following fixes:
 
 ### Known Issues
 
-* When Healthwatch is installed with TAS 2.7, 2.7, 2.9 patch versions below 2.7.18, 2.8.12, or 2.9.6,
-  the **Usage Service** Dashboard will not be populated correctly and will trigger alerts associated with `usage_service_app_usage_event_cc_lag_seconds`, etc..
-  One workaround is to go to Grafana -> Alerting -> Alert rules and pause the corresponding alerts.
+* When Healthwatch is installed with TAS for VMs versions v2.7.0 - v2.7.17, v2.8.0 - v2.8.11, or v2.9.0 - v2.9.5,
+  the **Usage Service** Dashboard will not be populated correctly and will trigger alerts tagged with `usage_service_app_usage_event_cc_lag_seconds`.
+  One workaround is to pause reporting these alerts by opening **Grafana** -> **Alerting** -> **Alert rules**, and pause the corresponding alerts.
 
 * When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
   does not have all the required ports opened to get PKS cluster discovery to scrape from on demand K8s clusters correctly.
