@@ -26,14 +26,14 @@ Each row has four panels:
 ## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
 
 
-### <a id='bosh-metrics-exporter'> Bosh Metrics Exporter fails to Connect to Bosh
+### <a id='bosh-metrics-exporter'></a> Bosh Metrics Exporter fails to Connect to Bosh
 
 #### Problem
 
 ```
-ERROR[context.UaaContext[ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
-ERROR[ingress.TokenCallCredentials[ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
-INFO [ingress.EventStreamObserver[ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
+ERROR [context.UaaContext [ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+ERROR [ingress.TokenCallCredentials [ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
 ```
 
 #### Cause
