@@ -23,6 +23,36 @@ Each row has four panels:
   * The **Minutes of Downtime** panel shows how much downtime, in minutes,
     the exporters have experienced during the selected time range.
 
+## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
+
+
+### <a id='bosh-metrics-exporter'> Bosh Metrics Exporter fails to Connect to Bosh
+
+#### Problem
+
+```
+ERROR[context.UaaContext[ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+ERROR[ingress.TokenCallCredentials[ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+INFO [ingress.EventStreamObserver[ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
+```
+
+#### Cause
+
+Bosh Metrics Exporter cannot verify the cert chain of Bosh Director UAA Server.
+
+#### Troubleshooting
+
+This shouldn't normally happen because Bosh Director will put the CA on each VM it manages,
+and that is trusted.
+However, if you do run into this issue,
+follow these steps to confirm that this is the root cause:
+
+1. `ssh` into the `pks-exporter` vm which hosts the BOSH metrics exporter job
+1. `openssl s_client -connect 10.0.0.5:8443` to obtain the certificate used by UAA, and save it to a file (`cert.pem`)
+1. `openssl verify cert.pem` should returned OK, meaning the certificate is trusted and have a valid cert chain. In case it returns
+   invalid cert chain, it will need to be fixed before BOSH metrics exporter can work.
+
+
 ## <a id="healthwatch-exporter-troubleshooting"></a> Healthwatch - Exporter Troubleshooting
 
 This dashboard provides a detailed look at the performance of an individual exporter.
