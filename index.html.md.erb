@@ -34,46 +34,9 @@ For more information about possible configurations, see [Using Healthwatch](usin
 
 ## <a id='architecture'></a> Architecture
 
-The following diagram shows how Healthwatch and its exporters are commonly deployed for
-multi-foundation monitoring:
-
-![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
-
-
-## <a id='healthwatch'></a> Healthwatch Tile
-
-The Healthwatch tile installs three components: TSDB, Grafana, and MySQL.
-MySQL is used only to store the Grafana settings and does not store any time series data.
-
-You can deploy the Healthwatch tile in high availability (HA) mode
-with three MySQL nodes and two MySQL Proxy nodes,
-or in non-HA mode with one MySQL node and one MySQL Proxy node.
-You can also scale Grafana horizontally beyond the default single VM.
-You can scale TSDB vertically but should not scale it horizontally.
-An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics stored in TSDB.
-
-![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
-
-
-## <a id='healthwatch-tas'></a> Healthwatch Exporter for TAS for VMs
-
-The Healthwatch Exporter for TAS for VMs installs up to three VMs.
-Each VM processes a metric type from the Firehose: timer, gauge, or counter.
-An operator can choose to deploy all three VMs or any subset thereof.
-Metrics are then exposed on a secured endpoint in TSDB exposition format.
-You can scale these VMs vertically but should not scale them horizontally.
-
-![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
-
-
-## <a id='healthwatch-pks'></a> Healthwatch Exporter for PKS
-
-The Healthwatch Exporter for PKS installs a single VM that collects health metrics from the BOSH Director.
-This VM obtains health metrics through the Firehose similarly to TAS for VMs.
-Metrics are then exposed on a secured endpoint in TSDB exposition format.
-You can scale this VM vertically but should not scale it horizontally.
-
-![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the Bosh Director](images/HealthwatchExporterforPKS.png)
+Visit the [architecture page](architecture.html)
+for a detailed explanation of the Healthwatch architecture,
+as well as a list of open ports required for each component.
 
 ## <a id='faq'></a> Healthwatch FAQ
 

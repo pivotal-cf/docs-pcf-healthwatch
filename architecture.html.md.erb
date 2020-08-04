@@ -13,7 +13,6 @@ multi-foundation monitoring:
 
 ![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
 
-
 ## <a id='healthwatch'></a> Healthwatch Tile
 
 The Healthwatch tile installs three components: TSDB, Grafana, and MySQL.
@@ -52,7 +51,6 @@ You can scale these VMs vertically but should not scale them horizontally.
 
 ![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
-
 ### <a id='network-rules-tas'></a> Required Networking Rules for Healthwatch Exporter for TAS for VMs
 
 | This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
@@ -74,6 +72,15 @@ You can scale this VM vertically but should not scale it horizontally.
 
 ![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
 
+### How PKS Cluster Discovery works
+
+* Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when PKS is deployed.
+  * This gives the Healthwatch Kubernetes user the privileges necessary to scrape the `$KUBERNETES_API/metrics` endpoint.
+* Get the list of Clusters including the IP addresses of their master nodes (`$PKS_API/v1/clusters`).
+* Fetch mTLS Certificates for use by the Healthwatch Kubernetes user (ex: `$KUBERNETES_API/apis/certificates.k8s.io/v1beta1/certificatesigningrequests`).
+* Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules">Required Ports for PKS Cluster Discovery</a>)
+* Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](installing.html#tsdb).
+* Reload Prometheus to apply the new Scrape Config Jobs. (`$PROMETHEUS_API/-/reload`)
 
 ### <a id='network-rules-pks'></a> Required Networking Rules for Healthwatch Exporter for PKS
 
