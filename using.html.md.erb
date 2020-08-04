@@ -26,7 +26,7 @@ Each row has four panels:
 ## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
 
 
-### <a id='bosh-metrics-exporter'></a> Bosh Metrics Exporter fails to Connect to Bosh
+### <a id='bosh-metrics-exporter'></a> BOSH Metrics Exporter fails to Connect to BOSH
 
 #### Problem
 
@@ -38,19 +38,21 @@ INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRunt
 
 #### Cause
 
-Bosh Metrics Exporter cannot verify the cert chain of Bosh Director UAA Server.
+BOSH Metrics Exporter cannot verify the cert chain of BOSH Director UAA Server.
 
 #### Troubleshooting
 
-This shouldn't normally happen because Bosh Director will put the CA on each VM it manages,
-and that is trusted.
-However, if you do run into this issue,
-follow these steps to confirm that this is the root cause:
+Follow the steps below to confirm the cert chain is invalid.
 
 1. `ssh` into the `pks-exporter` vm which hosts the BOSH metrics exporter job
-1. `openssl s_client -connect 10.0.0.5:8443` to obtain the certificate used by UAA, and save it to a file (`cert.pem`)
-1. `openssl verify cert.pem` should returned OK, meaning the certificate is trusted and have a valid cert chain. In case it returns
-   invalid cert chain, it will need to be fixed before BOSH metrics exporter can work.
+1. `openssl s_client -connect 10.0.0.5:8443` to obtain the certificate used by UAA,
+    and save it to a file (`cert.pem`).
+1. `openssl verify cert.pem` should return the literal string "OK",
+    meaning the certificate is trusted and has a valid certificate chain.
+    Otherwise, if any other message is returned, see
+    [OpenSSL diagnostic documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
+    to troubleshoot and remedy.
+    Certificate errors must be corrected before the BOSH Metrics Exporter will work.
 
 
 ## <a id="healthwatch-exporter-troubleshooting"></a> Healthwatch - Exporter Troubleshooting
