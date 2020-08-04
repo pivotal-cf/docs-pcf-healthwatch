@@ -1,175 +1,82 @@
 ---
-title: Troubleshooting PCF Healthwatch
-owner: PCF Healthwatch
+title: Troubleshooting Healthwatch
+owner: Healthwatch
 ---
 
-<strong><%= modified_date %></strong>
-
-This topic describes how to resolve common issues with Pivotal Cloud Foundry (PCF) Healthwatch.
-
-## <a id='insufficient-resources'></a>Insufficient Memory Resources
-
-Insufficient capacity of Diego cells can cause issues when you install or upgrade PCF Healthwatch.
-
-### Error
-
-The `push-apps` errand fails with a message similar to the following:
-
-<pre class="terminal">
-$ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
-Starting app healthwatch-blue in org system / space healthwatch as admin...  
-FAILED  
-InsufficientResources
-</pre>
-
-### Cause
-
-Diego cells do not have enough resources available to run the PCF Healthwatch apps.
-
-### Solution
-
-To resolve this issue, navigate to the **Resource Config** pane of the Pivotal Application Service (PAS) tile and increase the number of **Diego Cell** instances.  Alternatively, if you do not require high availability, scale down the number of instances in the **Component Config** section of the PCF Healthwatch tile.
-
-## <a id='memory-limit'></a>Memory Limit Errors
-
-Insufficient memory allocation can cause issues when you install or upgrade PCF Healthwatch.
-
-### Error
-
-If a PCF environment exceeds the total memory limit set for the `healthwatch` space in the `system` org, the PCF Healthwatch `push-apps` errand can fail. When this occurs, the error message looks similar to the following:
-
-<pre class="terminal">
-$ /var/vcap/packages/cf-cli/bin/cf start cf-health-check
-Starting app cf-health-check in org system / space healthwatch as admin...
-FAILED
-Server error, status code: 400, error code: 100005, message: You have exceeded your organization's memory limit: app requested more memory than available
-</pre>
-
-### Cause
-
-Your PCF environment has an insufficient total memory quota set for the `healthwatch` space in the `system` org.
-
-The issue should not occur if the Apps Manager errand has run in your environment. Because service tiles use the `system` org to execute smoke tests, the Apps Manager errand sets the default `system` org quota to `runaway`. If the Apps Manager errand has not run or failed, the default `system` quota may not be reset properly.
-
-### Solution
-
-To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
-
-## <a id='opsman-health'></a>Ops Manager Health Check Errors
-
-The Ops Manager Health Check needs the ability to reach Ops Manager on the underlying network.
-
-### Error
-
-This error will appear as constantly failing Ops Manager Health Checks on the Dashboard and **Ops Manager Health Check History** page even though Ops Manager is running.
-
-### Cause
-
-The `opsmanager-health-check` application attempts to connect to Ops Manager in order to verify it is running.  This application needs the correct network settings in order to be able to reach the Ops Manager VM.  If there are firewall rules in place that prevent the network access then this check will continually fail.
-
-### Solution
-
-To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM, do the following:
-
-1. Run `cf ssh opsmanager-health-check` to SSH into the running instance.
-1. Run `curl -k -v $OPSMANAGER_URL` to check the network access.
-
-If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
-
-## <a id='cli-command-health'></a>CLI Command Health Check Errors
-
-Below are suggestions for troubleshooting errors with the CLI Command Health Check.
-
-### Error
-
-The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
-
-### Solution
-
-To troubleshoot these failures, start by examining the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
-
-<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events such as PAS Upgrades or BBR Backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-3/customizing/cfpush-availability-during-upgrade.html">cf push Availability During Pivotal Application Service Upgrades</a> in the PCF Documentation.</p>
-
-## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
-
-### Error
-
-`ERROR: Bosh health check failed to delete deployment "bosh-health-check": Deployment not found`
-
-### Cause
-
-In PCF Healthwatch 1.2.2 and later, PCF Healthwatch uses service broker UAA credentials for the BOSH Health Check. This causes a permission issue if the BOSH Health Check deployment already exists on the Director.
-
-### Solution
-
-Manually delete the existing BOSH Health Check deployment.
-
-
-## <a id='bosh-metric-ingestion'></a>BOSH System Metrics Not Being Ingested
-
-### Error
-
-Either the Smoke Test errand fails with:
-
-`[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
-
-or the `healthwatch.ingestor.ingested.boshSystemMetrics` metric has a value of 0.
-
-<p class="note"><strong>Note</strong>: A symptom of this error is a red <strong>Job Health</strong> panel with no failing jobs noted on the PCF Healthwatch dashboard.</p>
-
-### Cause
-
-The Healthwatch Ingestor is not receiving BOSH system metrics. There are two likely causes to this:
-
-1. The Healthwatch Ingestor is not receiving *any* metrics from the Firehose, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator Traffic Controller. To determine if the Ingestor isn't receiving any metrics look at the PCF Healthwatch dashboard.  If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the Firehose.
-
-1. The Firehose does not contain BOSH Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
-- A bug causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the BOSH Director. This bug is present in Ops Manager versions earlier than v2.2.4 and v2.3.0 and Pivotal Application Service (PAS) versions earlier than v2.2.5 and v2.3.0.
-
-### Solution
-
-If the Ingestor is not receiving *any* metrics from the Firehose:
-
-- Check the logs from the Healthwatch Ingestor to see any error messages. `cf logs healthwatch-ingestor --recent`
-- Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-
-If the BOSH System Metrics Forwarder is failing:
-
-- Upgrade PAS and Ops Manager to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Firehose by running `cf nozzle -n | grep system`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
-- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/pivotalcf/2-0/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
-
-## <a id='metric-ingestion'></a>No Metrics Being Ingested
-
-### Error
-
-The `healthwatch.ingestor.ingested` metric has a value of 0.
-
-### Cause
-
-The Healthwatch Ingestor is not receiving any metrics. This could be due to the Loggregator system being in a bad state or the Ingestor not reconnecting to the Firehose.
-
-### Solution
-
-A few possible solutions are:
-- Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-- After [logging in](https://docs.pivotal.io/pivotalcf/2-3/customizing/trouble-advanced.html) to the BOSH Director, [recreate](https://bosh.io/docs/cli-v2/#deployment-mgmt) the Loggregator Traffic Controller VMs:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
-
-## <a id='possible-super-metric-data-gap'></a>Loss of Super Metrics Data During v1.3-v1.4 Migration
-
-### Problem
-
-There is a possible data gap in all charts containing Super Metrics.
-
-### Cause
-
-Healthwatch 1.4 switched from MariaDB to Percona database. 
-During the migration there can be a gap in the calculation/storage of Super Metrics caused by the downtime in database availability. 
-Super Metrics are calculated across a period of time so they require historical data that may lay outside of buffering window. 
-The exact amount of time varies by system but can be around 15 minutes.
-
-### Solution
-
-There is buffering built in to the data collection and Super Metric aggregation to minimize data loss. 
-To further mitigate data loss, manually back up and restore the database. There will still be some gap in Super Metrics while Healthwatch is updating.
+Healthwatch ships with the following dashboards
+included under the **Healthwatch** folder in Grafana.
+To access them, go to **Dashboard -> Manage -> Healthwatch** in Grafana.
+
+## <a id="healthwatch-slos"></a> Healthwatch - SLOs
+This dashboard will display a row
+for each instance selected from the corresponding instance drop down
+at the top of the page.
+Each row has four panels:
+
+  * The **Up** panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
+    where a `1` indicates it is healthy
+    and a `0` or missing data indicates that it is not healthy.
+  * The **Exporter SLO** panel shows the percent of time the exporter was up over the selected time range.
+  * The **Error Budget Remaining** panel shows how much time, in minutes, are left,
+    in order to stay within the selected Uptime SLO Target
+    over the currently selected time range.
+  * The **Minutes of Downtime** panel shows how much downtime, in minutes,
+    the exporters have experienced during the selected time range.
+
+## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
+
+### <a id='bosh-metrics-exporter'></a> BOSH Metrics Exporter fails to Connect to BOSH
+
+#### Problem
+
+```
+ERROR [context.UaaContext [ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+ERROR [ingress.TokenCallCredentials [ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
+INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
+```
+
+#### Cause
+
+BOSH Metrics Exporter cannot verify the cert chain of BOSH Director UAA Server.
+
+#### Troubleshooting
+
+Follow the steps below to confirm the cert chain is invalid.
+
+1. `ssh` into the `pks-exporter` vm which hosts the BOSH metrics exporter job
+1. `openssl s_client -connect 10.0.0.5:8443` to obtain the certificate used by UAA,
+    and save it to a file (`cert.pem`).
+1. `openssl verify cert.pem` should return the literal string "OK",
+    meaning the certificate is trusted and has a valid certificate chain.
+    Otherwise, if any other message is returned, see
+    [OpenSSL diagnostic documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
+    to troubleshoot and remedy.
+    Certificate errors must be corrected before the BOSH Metrics Exporter will work.
+
+
+## <a id="healthwatch-exporter-troubleshooting"></a> Healthwatch - Exporter Troubleshooting
+
+This dashboard provides a detailed look at the performance of an individual exporter.
+It is helpful to look at these dashboards
+when you see spotty graphs for a particular metric type,
+or if an exporter is not behaving as it should.
+The dashboard consists of the following metrics:
+
+  * Exporter Info: A listing of the `healthwatch_pasExporter_status` metric that contains
+    runtime information for the exporter.
+  * Exporter JVM Memory: A graph of `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and
+    `jvm_memory_bytes_init` over the time range,
+    in order to check for memory leaks.
+  * Ephemeral Disk Usage: A gauge of `system_disk_ephemeral_percent`, in order to check if the
+    disk is nearing capacity.
+  * Rate of Garbage Collection: A graph of the rate of `jvm_gc_collection_seconds_sum` over
+    the time range,
+    in order to check if JVM garbage collection is causing issues.
+  * Rate of Envelope Ingress: A graph of the rate of `healthwatch_pasExporter_ingress_envelopes`
+    over the time range,
+    in order to see if there has been a spike in the amount
+    of envelopes received by the exporter.
+  * CPU Usage: A graph of `cpu_usage_user` over the time range,
+    in order the see if the CPU used by the exporter is reaching capacity.
+  * Exporter VM Threads: A graph of `jvm_threads_current` and `jvm_threads_peak` over the time range,
+    in order to see if the exporter is leaking threads.
