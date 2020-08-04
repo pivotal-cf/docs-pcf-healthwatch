@@ -74,6 +74,10 @@ You can scale this VM vertically but should not scale it horizontally.
 
 ### <a id='pks-cluster-discovery'></a> How PKS Cluster Discovery works
 
+This section describes the process of PKS Cluster Discovery.
+PKS Cluster Discovery generates the scrape config jobs for the on-demand clusters created using TKG-i API.
+This process intermittently scans for new clusters.
+
 * Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when PKS is deployed.
   * This gives the Healthwatch Kubernetes user the privileges necessary to scrape the `$KUBERNETES_API/metrics` endpoint.
 * Get the list of Clusters including the IP addresses of their master nodes (`$PKS_API/v1/clusters`).
