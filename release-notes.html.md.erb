@@ -105,10 +105,11 @@ This release includes the following fixes:
         ```
         Where `MODIFIED-JSON-DATA` contains the additional ports you want to add.
 
-* When PKS cluster discovery is used with PKS deployed on vSphere NSX-T,
-    there is a load balancer created by NSX-T, and that obscures the fact that there are multiple k8s masters.
-    It will be lower than the actual count, depending on how many load balancers there are.
-
+* When you use PKS cluster discovery with PKS deployed on vSphere NSX-T,
+    the count of k8s masters will always be 1.
+    When PKS API creates the cluster on NSX-T,
+    it will also create a load balancer in front of the K8s Control Plane nodes,
+    which causes Healthwatch to not be able to address each node separately.
 
 * When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
 Ops Manager v2.3 or earlier, you may see the following error:
