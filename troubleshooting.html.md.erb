@@ -25,6 +25,31 @@ Each row has four panels:
 
 ## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
 
+### <a id='grafana-smoke-test'></a> Grafana smoke test fails during Apply Changes
+
+#### Problem
+
+During apply changes, the Healthwatch smoke test fails with the following error message:
+`querying for grafana up should be greater than 0`.
+
+#### Cause
+
+When Prometheus tries to scrape metrics from Grafana, it fails to scrape.
+The potential causes include:
+
+- Network issue between the `tsdb` vm instance and `grafana` vm instance
+- Prometheus does not trust the certificate used by Grafana,
+  due to it being a self-signed certificate used without the CA provided in the [Grafana Configuration](installing.html#grafana),
+  or providing a CA that is not the one used to generate the certificate.
+
+#### Troubleshooting
+
+Follow the steps below to identify the issue.
+
+1. `ssh` into the `tsdb` vm which hosts the Prometheus job
+1. `curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'`
+    to obtain Grafana scrape target information, and the `lastError` field will show the reason why it fails to scrape.
+
 ### <a id='bosh-metrics-exporter'></a> BOSH Metrics Exporter fails to Connect to BOSH
 
 #### Problem
