@@ -10,6 +10,55 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
+## <a id='2-0-4'></a> v2.0.4 (beta)
+
+**Release Date: Aug 17, 2020**
+<div class="note breaking">
+    <strong>Breaking Changes:</strong>
+    <ul>
+  <li>The remote write configuration now allows for multiple entries, which breaks the existing tile configuration for remote write.</li>
+  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
+  <li>The TAS and TKG-i dashboard version selection has been updated.</li>
+    </ul>
+</div>
+
+### Features
+
+New features and changes in this release:
+
+* Cert Dashboard now displays the BOSH trusted certificate.
+
+* Add Rabbit MQ monitoring dashboards.
+
+* Allow multiple remote write configurations.
+
+* Add TAS 2.10 dashboards.
+
+* TAS and TKG-i dashboards now support dynamic dashboards based on the tile version(s) installed.
+
+### Resolved Issues
+
+This release includes the following fixes:
+
+* Usage Service dashboard will no longer show up when an early patch version of TAS is installed.
+  Fixes <a href="#usage-service">Usage Service Dashboard alerts on early patches of TAS</a>.
+
+* PKS Cluster Discovery client cert populates correctly.
+
+* TAS MySQL dashboard will not show up if external MySQL is configured for TAS. Fixes <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
+
+* Canary Target URLs can be blank. Fixes <a href="#empty-blackbox-url">Healthwatch fails to install when no canary url is provided</a>.
+
+* Various dashboard fixes.
+
+### Known Issues
+
+* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
+
+* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
+
+* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
+
 
 ## <a id='2-0-3'></a> v2.0.3 (beta)
 
@@ -50,101 +99,17 @@ This release includes the following fixes:
 
 ### Known Issues
 
-* When Healthwatch is installed with TAS for VMs versions v2.7.17 and earlier patches, v2.8.11 and earlier patches, or v2.9.5 and earlier patches,
-  the **Usage Service** Dashboard will not be populated correctly and will trigger alerts tagged with `usage_service_app_usage_event_cc_lag_seconds`.
-  One workaround is to pause reporting these alerts by opening **Grafana** -> **Alerting** -> **Alert rules**, and pause the corresponding alerts.
+* <a href="#usage-service">Usage Service Dashboard alerts on early patches of TAS</a>.
 
-* When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
-  does not have all the ports open that are required for PKS Cluster Discovery to scrape from on demand K8s clusters correctly.
-  One workaround is to manually modify the load balancer through the NSX-T Manager API to open up these ports:
-  10200, 10251, 10252, and 8443.
+* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
 
-    To open the ports:
-    1. Fetch the list of virtual servers:
-       
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
-        ```
+* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
 
-        Where `NSX-T-USERNAME:NSX-T-PASSWORD` is
-        the username and password for logging into the NSX-T console.
-    1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
-       and ending with `virtual-server` and copy the `id` field.
-    1. Fetch the current configuration for the load balancer:
+* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
 
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
-        ```
-        Where:
-        - `NSX-MGR` is the IP/FQDN of your NSX-T console.
-        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the Load Balancer.
-    1. Save the JSON that is returned by this command to a file.
-    1. Modify that JSON to include the additional ports:
+* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
 
-        ```
-        {
-            "...": "...",
-            "ports": [
-                "8443",
-                "10200",
-                "10251",
-                "10252"
-            ],
-            "...": "..."
-        }
-        ```
-    1. Do a PUT to the API to update the virtual server:
-
-        ```
-        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
-          -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
-          -d 'MODIFIED-JSON-DATA'
-        ```
-        Where `MODIFIED-JSON-DATA` contains the additional ports you want to add.
-
-* When you use PKS cluster discovery with PKS deployed on vSphere NSX-T,
-    the count of k8s masters will always be 1.
-    When PKS API creates the cluster on NSX-T,
-    it will also create a load balancer in front of the K8s Control Plane nodes,
-    which causes Healthwatch to not be able to address each node separately.
-
-* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
-Ops Manager v2.3 or earlier, you may see the following error:
-
-    ```
-    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
-      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
-    ```
-    This issue is resolved in Ops Manager v2.8.
-    To resolve this issue in Ops Manager v2.7 or earlier:
-    1. SSH into your Ops Manager VM.
-    1. Change the user to `root`.
-    1. Open the Rails console by running:
-
-        ```
-        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
-        ```
-        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
-    1. Set the decryption passphrase by running:
-
-        ```
-        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
-        ```
-        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
-    1. Update the UAA restricted view access client secret by running:
-
-        ```
-        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
-        ```
-    1. Exit the Rails console and restart the "tempest-web" service by running:
-
-        ```
-        irb(main):001:0> exit
-        > service tempest-web restart
-        ```
+* <a href="#empty-blackbox-url">Healthwatch fails to install when no canary url is provided</a>.
 
 
 ## <a id='2-0-2'></a> v2.0.2 (beta)
@@ -194,40 +159,11 @@ This release includes the following fix:
 
 ### Known Issues
 
-* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
-Ops Manager v2.3 or earlier, you may see the following error:
+* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
 
-    ```
-    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
-      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
-    ```
-    This issue is resolved in Ops Manager v2.8.
-    To resolve this issue in Ops Manager v2.7 or earlier:
-    1. SSH into your Ops Manager VM.
-    1. Change the user to `root`.
-    1. Open the Rails console by running:
+* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
 
-        ```
-        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
-        ```
-        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
-    1. Set the decryption passphrase by running:
-
-        ```
-        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
-        ```
-        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
-    1. Update the UAA restricted view access client secret by running:
-
-        ```
-        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
-        ```
-    1. Exit the Rails console and restart the "tempest-web" service by running:
-
-        ```
-        irb(main):001:0> exit
-        > service tempest-web restart
-        ```
+* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
 
 
 ## <a id='2-0-1'></a> v2.0.1 (beta)
@@ -278,7 +214,23 @@ This release includes the following fix:
 
 ### Known Issues
 
-* When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
+* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
+
+* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
+
+* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
+
+
+
+
+
+## <a id="issues"></a>Known Issues
+
+The following sections describe the known issues in Healthwatch 2.
+
+### <a name="upgrade-from-om-23"></a> Ops Manager pre v2.3 upgrade issue
+
+When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
 Ops Manager v2.3 or earlier, you may see the following error:
 
     ```
@@ -312,3 +264,81 @@ Ops Manager v2.3 or earlier, you may see the following error:
         irb(main):001:0> exit
         > service tempest-web restart
         ```
+
+### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery reports incorrect node count with NSX-T.
+
+When you use PKS cluster discovery with PKS deployed on vSphere NSX-T,
+the count of k8s masters will always be 1.
+When PKS API creates the cluster on NSX-T,
+it will also create a load balancer in front of the K8s Control Plane nodes,
+which causes Healthwatch to not be able to address each node separately.
+
+### <a name="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T.
+
+When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
+does not have all the ports open that are required for PKS Cluster Discovery to scrape from on demand K8s clusters correctly.
+One workaround is to manually modify the load balancer through the NSX-T Manager API to open up these ports:
+10200, 10251, 10252, and 8443.
+
+    To open the ports:
+    1. Fetch the list of virtual servers:
+
+        ```
+        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
+        ```
+
+        Where `NSX-T-USERNAME:NSX-T-PASSWORD` is
+        the username and password for logging into the NSX-T console.
+    1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
+       and ending with `virtual-server` and copy the `id` field.
+    1. Fetch the current configuration for the load balancer:
+
+        ```
+        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
+        ```
+        Where:
+        - `NSX-MGR` is the IP/FQDN of your NSX-T console.
+        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the Load Balancer.
+    1. Save the JSON that is returned by this command to a file.
+    1. Modify that JSON to include the additional ports:
+
+        ```
+        {
+            "...": "...",
+            "ports": [
+                "8443",
+                "10200",
+                "10251",
+                "10252"
+            ],
+            "...": "..."
+        }
+        ```
+    1. Do a PUT to the API to update the virtual server:
+
+        ```
+        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+          -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
+          -d 'MODIFIED-JSON-DATA'
+        ```
+        Where `MODIFIED-JSON-DATA` contains the additional ports you want to add.
+
+### <a name="usage-service"></a> Usage Service Dashboard alerts on early patches of TAS.
+
+When Healthwatch is installed with TAS for VMs versions v2.7.17 and earlier patches, v2.8.11 and earlier patches, or v2.9.5 and earlier patches,
+the **Usage Service** Dashboard will not be populated correctly and will trigger alerts tagged with `usage_service_app_usage_event_cc_lag_seconds`.
+One workaround is to pause reporting these alerts by opening **Grafana** -> **Alerting** -> **Alert rules**, and pause the corresponding alerts.
+
+### <a name="tas-mysql"></a> TAS MySQL dashboard alerts when external MySQL is configured.
+
+When Healthwatch is installed with TAS for VMs with external MySQL, the provided MySQL dashboard will alert.
+Upgrade to 2.0.4+ to resolve this issue.
+
+### <a name="#empty-blackbox-url"></a> Healthwatch fails to install when no canary url is provided.
+
+When there is no canary url provided, Healthwatch renders an invalid configuration file results failure in Apply Changes.
+To workaround this issue, provide at least one canary url in the target urls configuration.
+Upgrade to 2.0.4+ to resolve this issue.
