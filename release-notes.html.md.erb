@@ -22,6 +22,16 @@ owner: Healthwatch
     </ul>
 </div>
 
+### Feature Deprecations
+
+Healthwatch 2.0.4 will be the last version to ship with a default set of Grafana alerts.
+Healthwatch 2.0.5+ will deploy an Alertmanager instance to handle all alerting going forward.
+A default set of Prometheus Alerting Rules specific to TAS/TKG-i versions will be available
+on <a href="https://network.pivotal.io/products/p-healthwatch/">Tanzu Network</a>
+and can be applied through the tile configuration. These default alerting rules will mirror the Grafana
+alerts available in the default 2.0.4 dashboards. Although Healthwatch will no longer ship with
+default Grafana Alerts, Grafana can still be used for alerting purposes through manual alert creation.
+
 ### Features
 
 New features and changes in this release:
