@@ -3,7 +3,7 @@ title: Indicator Protocol Dashboard (Beta)
 owner: Pivotal Healthwatch
 ---
 
-<p class="note warning"><b>Warning: </b>This feature is in Beta. To provide feedback to the Indicator Protocol team, please email <a href="mailto:indicator-protocol@pivotal.io">indicator-protocol@pivotal.io</a>.</p>
+<p class="note warning"><b>Warning: </b>This feature is in beta.</p>
 
 ## <a id='about'></a>Overview
 
@@ -13,12 +13,12 @@ For more information about PromQL, see [Querying Prometheus](https://prometheus.
 
 For more information about Log Cache, see [Loggregator Architecture](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html).
 
-<p class="note"><b>Note:</b> The charts on the Indicator Protocol dashboard are populated by Log Cache, which is a component of Loggregator. Charts on the Indicator Protocol dashboard may display the following error: <code>"Error fetching graph data."</code>. This error is caused because Log Cache times out while it attempts to process data. No corrective action is required. The error will resolve itself if possible.</p>
+<p class="note"><b>Note:</b> The charts on the Indicator Protocol dashboard are populated by Log Cache, which is a component of Loggregator. Charts on the Indicator Protocol dashboard might display the following error: <code>"Error fetching graph data."</code>. This error is caused because Log Cache times out while it attempts to process data. No corrective action is required. The error resolves itself if possible.</p>
 
 
 ## <a id='architecture'></a>Architecture
 
-The Indicator Protocol dashboard is enabled by a Monitoring Indicator Protocol Registration Agent that runs on each BOSH VM. The Monitoring Indicator Protocol Registration Agent watches and inspects the `/var/vcap/jobs` for a document called `indicators.yml` in a `config` folder.
+The Indicator Protocol dashboard is enabled by a Monitoring Indicator Protocol Registration Agent that runs on each BOSH VM. The Monitoring Indicator Protocol Registration Agent watches and inspects the `/var/vcap/jobs` for a document called `indicators.yml` in a `config` directory.
 
 If the agent locates this indicator document, it parses the document and sends the results to the Indicator Registry. This process of registering documents is repeated every 30 seconds.
 
@@ -26,7 +26,7 @@ In the following architecture diagram, the `indicator-registration-agent` runs o
 
 This indicator registry defines indicators and runs on the Healthwatch Forwarder VM. Documents are temporarily stored in memory in the registry.
 
-The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. Pivotal Healthwatch consumes the results of this endpoint and creates a dashboard for each document. If the indicator registry does not receive a re-registered document within 2 hours, the document is evicted and that service’s dashboard will not appear.
+The indicator registry exposes a `/indicator-documents` endpoint, which returns a JSON representation of the indicator documents. Pivotal Healthwatch consumes the results of this endpoint and creates a dashboard for each document. If the indicator registry does not receive a re-registered document within 2 hours, the document is evicted and that service's dashboard does not appear.
 
 <%= image_tag './images/indicator-protocol-architecture.png' %>
 
@@ -35,7 +35,7 @@ The indicator registry exposes a `/indicator-documents` endpoint, which returns 
 
 This section provides instructions for enabling and configuring the Indicator Protocol dashboard.
 
-To enable the Indicator Protocol dashboard, do the following:
+To enable the Indicator Protocol dashboard:
 
 1. Enable the Indicator Protocol runtime config add-on for BOSH Director. See [Enable the Indicator Protocol Add-on](#enable-add-on).
 
@@ -47,9 +47,9 @@ To enable the Indicator Protocol dashboard, you must enable a global BOSH Direct
 
 <p class="note"><b>Note:</b> After you update the runtime config, all deployments are outdated.</p>
 
-For more information about runtime config, see [Director Runtime Config](https://bosh.io/docs/runtime-config/).
+For more information about runtime config, see [Director Runtime Config](https://bosh.io/docs/runtime-config/)in the BOSH documentation.
 
-To enable the Indicator Protocol runtime config add-on, do the following:
+To enable the Indicator Protocol runtime config add-on:
 
 1. On the Ops Manager Installation Dashboard, click the **Pivotal Healthwatch** tile.
 
