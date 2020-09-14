@@ -1,0 +1,12 @@
+```yaml
+# Apply the following if you have the RabbitMQ tile:
+- name: RabbitMQHealth
+  rules:
+    - alert: RabbitMQClusterHealth
+      expr: 'avg by (deployment) (min by (deployment, index) ( (1 - _p_rabbitmq_rabbitmq_system_disk_free_alarm) or (1 - _p_rabbitmq_rabbitmq_system_mem_alarm ) or system_healthy{origin="bosh-system-metrics-forwarder", exported_job=~"rabbitmq-server|rabbitmq-haproxy"} or (_p_rabbitmq_rabbitmq_erlang_reachable_nodes == bool on (deployment) group_left count(system_healthy{origin="bosh-system-metrics-forwarder"}) by (deployment) ) ) ) < .5'
+      for: 5m
+      annotations:
+        summary: "At least 50% of RabbitMQ nodes for a deployment are down"
+        description: |
+          View the RabbitMQ Details dashboard in order to diagnose the issue for the ({{ $labels.deployment }}) deployment.
+```

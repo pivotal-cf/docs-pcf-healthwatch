@@ -1,0 +1,50 @@
+```yaml
+# Apply the following if you have the MySQL tile:
+- name: MySQLHealth
+  rules:
+    - alert: MySQLSingleNodeAndMultiSiteClusterHealth
+      expr: 'avg by (deployment) (_p_mysql_available unless on (index, deployment) _p_mysql_galera_wsrep_ready unless on (index, deployment) _p_mysql_follower_is_follower * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 30) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) < 1'
+      for: 10m
+      annotations:
+        summary: "MySQL Single node or Multi-Site deployment has been unhealthy for 10 minutes"
+        description: |
+          One or more MySQL Single node or Multi-site cluster instances have been unhealthy for at least 10 minutes.
+          This may have an impact on applications connected to those databases.
+
+          Troubleshooting Steps:
+          - Check the MySQL Server logs for errors
+          - Check disk capacity
+          - Check CPU utilization
+          - See more at https://docs.pivotal.io/p-mysql/monitor.html and https://docs.pivotal.io/p-mysql/troubleshoot.html
+    - alert: MySQLLeaderFollowerClusterHealth
+      expr: 'avg by (deployment) (_p_mysql_follower_slave_io_running * on (index, deployment) _p_mysql_follower_slave_sql_running * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 30) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .5'
+      for: 10m
+      annotations:
+        summary: "MySQL Leader-Follower deployment has been unhealthy for 10 minutes"
+        description: |
+          One or more MySQL Leader-Follower cluster instances have been unhealthy for at least 10 minutes.
+          This may have an impact on applications connected to those databases.
+
+          Troubleshooting Steps:
+          - Check the MySQL Server logs for errors
+          - Run the inspect errand to see if nodes are correctly configured for replication
+          - Check disk capacity
+          - Check CPU utilization
+          - See more at https://docs.pivotal.io/p-mysql/monitor.html and https://docs.pivotal.io/p-mysql/troubleshoot.html
+    - alert: MySQLHighAvailabilityClusterHealth
+      expr: 'avg by (deployment) (_p_mysql_galera_wsrep_ready * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 90) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .67'
+      for: 10m
+      annotations:
+        summary: "MySQL High Availability deployment has been unhealthy for 10 minutes"
+        description: |
+          One or more MySQL High Availability cluster instances have been unhealthy for at least 10 minutes.
+          This may have an impact on applications connected to those databases.
+
+          Troubleshooting Steps:
+          - Check the MySQL Server logs for errors
+          - Run mysql-diag on the mysql-jumpbox instance for the cluster to check the cluster's state
+          - Ensure no infrastructure event is affecting intra-cluster communication
+          - Check disk capacity
+          - Check CPU utilization
+          - See more at https://docs.pivotal.io/p-mysql/monitor.html and https://docs.pivotal.io/p-mysql/troubleshoot.html
+```

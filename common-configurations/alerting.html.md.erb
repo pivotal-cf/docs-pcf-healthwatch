@@ -1,0 +1,55 @@
+---
+title: Alerting
+owner: Healthwatch
+---
+
+This topic explains a shift in how Healthwatch handles alerting.
+This document aims to explain how to configure alerting
+in the Healthwatch tile in Ops Manager.
+
+## Alerting
+
+To configure alerting for the Healthwatch tile,
+perform the following steps:
+
+1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
+1. Navigate to **Prometheus Configuration**.
+1. Input the **Alerting Rules YAML** that represents
+    the features of your foundation (explained below).
+1. Click **Save**.
+
+## Which alerts will you need?
+
+You will need different alerting rules
+based on what tiles you have installed in your foundation.
+
+Regardless of what tiles you have installed,
+you'll need the following default config for all foundations,
+which includes: Bosh Director health, cert expiration, and Ops Manager health.
+
+<%= partial '../snippets/base_alerting_rules.md' %>
+
+## Additional alert configurations
+
+Alerting configuration for commonly used tiles can be found below.
+For each of the additional tiles you have,
+add the following alerts to the end of the base YAML above.
+
+### TAS
+
+<%= partial '../snippets/tas_alerting_rules.md' %>
+
+
+### TKG-i
+
+<%= partial '../snippets/tkg-i_alerting_rules.md' %>
+
+
+### MySQL
+
+<%= partial '../snippets/mysql_alerting_rules.md' %>
+
+
+### RabbitMQ
+
+<%= partial '../snippets/rabbitmq_alerting_rules.md' %>
