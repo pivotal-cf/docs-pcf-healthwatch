@@ -20,36 +20,10 @@ perform the following steps:
 
 ## Which alerts will you need?
 
-You will need different alerting rules
-based on what tiles you have installed in your foundation.
+We have included alerting rules files
+for TAS and for TKG-i:
 
-Regardless of what tiles you have installed,
-you'll need the following default config for all foundations,
-which includes: Bosh Director health, cert expiration, and Ops Manager health.
+- <a href="tas_alerting_rules.yml" target="_blank">TAS</a>
+- <a href="tkg-i_alerting_rules.yml" target="_blank">TKG-i</a>
 
-<%= partial '../snippets/base_alerting_rules.md' %>
-
-## Additional alert configurations
-
-Alerting configuration for commonly used tiles can be found below.
-For each of the additional tiles you have,
-add the following alerts to the end of the base YAML above.
-
-### TAS
-
-<%= partial '../snippets/tas_alerting_rules.md' %>
-
-
-### TKG-i
-
-<%= partial '../snippets/tkg-i_alerting_rules.md' %>
-
-
-### MySQL
-
-<%= partial '../snippets/mysql_alerting_rules.md' %>
-
-
-### RabbitMQ
-
-<%= partial '../snippets/rabbitmq_alerting_rules.md' %>
+Please modify these files according to your foundation's specific setup.
