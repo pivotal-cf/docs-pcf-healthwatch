@@ -25,6 +25,62 @@ Each row has four panels:
 
 ## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
 
+### <a id='viewing-the-prometheus-ui'></a> Viewing the Prometheus UI
+
+The Prometheus UI allows users to see currently firing alerts
+and the status of scrape targets, among other things.
+This UI is not secure, however,
+so we cannot make it available by default with the product.
+
+In the event that you need to troubleshoot your Prometheus,
+you can view the Prometheus UI by running the following command
+and then navigating to `localhost:8080` in your browser.
+
+```
+bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts ' -L 8080:localhost:9090'
+```
+
+Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
+shown by the `bosh deployments` command.
+
+<p class="note">
+  <strong>Note</strong>:
+  If the above command fails,
+  look into the
+  <a href="https://bosh.io/docs/sysadmin-commands/#ssh" target="_blank">
+    BOSH documentation
+  </a>
+  to learn how to configure BOSH SSH to run through a gateway.
+</p>
+
+### <a id='viewing-the-alertmanager-ui'></a> Viewing the Alertmanager UI
+
+The Alertmanager UI allows users to see which alerts are currently firing
+and gives the operator the option to silence them.
+This UI is not secure, however,
+so we cannot make it available by default with the product.
+
+In the event that you need to troubleshoot your Alertmanager,
+you can view the Alertmanager UI by running the following command
+and then navigating to `localhost:8081` in your browser.
+
+```
+bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts ' -L 8081:localhost:10401'
+```
+
+Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
+shown by the `bosh deployments` command.
+
+<p class="note">
+  <strong>Note</strong>:
+  If the above command fails,
+  look into the
+  <a href="https://bosh.io/docs/sysadmin-commands/#ssh" target="_blank">
+    BOSH documentation
+  </a>
+  to learn how to configure BOSH SSH to run through a gateway.
+</p>
+
 ### <a id='grafana-smoke-test'></a> Grafana smoke test fails during Apply Changes
 
 #### Problem
