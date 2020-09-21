@@ -7,7 +7,7 @@ This topic describes how to use Pivotal Healthwatch.
 
 ##<a id='dashboard-overview'></a>The Pivotal Healthwatch Dashboard
 
-The Pivotal Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
+The Pivotal Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`. The goal of the user interface is to provide an at-a-glance look
 into the health the foundation.
 
 <%= image_tag './images/dashboard-all-green.png' %>
@@ -28,7 +28,7 @@ You can access Pivotal Healthwatch and its data through the Pivotal Healthwatch 
 
 To access the Pivotal Healthwatch UI, do the following:
 
-1. Navigate to `healthwatch.SYSTEM-DOMAIN`.
+1. Navigate to `healthwatch.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 2. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
     <br><br>
     The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the Pivotal Healthwatch UI](installing.html#healthwatch-uaa-users).
@@ -141,6 +141,8 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Dieg
 
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`
+
 The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
 
 #### Example: Query the latest value for the CF Push Health Check
@@ -171,6 +173,8 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=heal
   }
 }
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`
 
 The result value of "1" means that `cf push` is currently working. Any other value means that `cf push` has timed out or failed.
 This result could be used by automation tools waiting for `cf push` to become available.
@@ -210,6 +214,8 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=15
 }
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`
+
 The `query_range` endpoint is useful for seeing values over time with a fixed interval (step). This is useful
 for charting, but you can also use it to calculate uptime, based on a critical threshold of `v < 1`:
 
@@ -231,6 +237,8 @@ the `/v1/meta` Log Cache API endpoint.
 ```
 curl "https://log-cache.SYSTEM-DOMAIN/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`
 
 If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
 must be scaled up.

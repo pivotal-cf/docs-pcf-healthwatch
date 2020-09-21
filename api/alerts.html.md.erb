@@ -21,8 +21,14 @@ The steps in this document assume that you can [generate bearer tokens for a UAA
 After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, follow these steps to authenticate against UAA:
 
 ```
-uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
 ```
+
+Where:
+
+- `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
+
+- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 At this point you are properly authenticated and ready to start using the Healthwatch Alerts API.
 
@@ -34,6 +40,8 @@ Test the availability of the Healthwatch API by hitting the `/info` endpoint wit
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ##<a id='get'></a>View All Alert Configurations
@@ -44,6 +52,8 @@ To view a list of alert configurations, send a `GET` request to the `/alert-conf
 ```
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 This returns a JSON array of alert configurations:
 
@@ -89,6 +99,8 @@ To narrow the results of a `GET` request, add a `query` to the URL in a paramete
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 This returns a JSON array of alert configurations, filtered against the provided `query`:
 
 ```
@@ -114,8 +126,9 @@ To update an existing alert configuration, make a `POST` request to the `alert-c
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
       --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80},\"enabled\":true}"
-
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 See the following example output:
 
@@ -143,6 +156,8 @@ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
       -H "Content-Type: application/json" \
       --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45}}"
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 A new alert configuration will be enabled by default. You can optionally include `\"enabled\": false` in the request body to override this behavior.
 
@@ -175,6 +190,8 @@ See the following example:
 ```
 uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 This returns the number of deleted alert configurations. See the following example output.
 
@@ -1427,29 +1444,43 @@ By default, Healthwatch sends an alert if the `Diego.TotalPercentageAvailableMem
 However, if your environment has been scaled up to five AZs you may wish to adjust the alert configuration accordingly to 20%, or one in five.
 
 ```
-uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
 
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
       --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3}}"
 ```
 
+Where:
+
+- `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
+
+- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 If you wished to simply disable the alert, you can do so by the following:
 
 ```
-uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+uaac token client get HEALTHWATCH_ADMIN_CLIENT -s HEALTHWATCH_ADMIN_CLIENT_SECRET
 
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
       --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"enabled\": false}"
 ```
 
+Where:
+
+- `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
+
+- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 The response body contains the updated alert configuration. You can confirm your updates:
 
 ```
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 ##<a id='event-alerts'></a>Configure Pivotal Healthwatch Alert Notifications
 
 You can configure PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. For example, if you configured a Pivotal Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the Pivotal Healthwatch alert.

@@ -24,6 +24,8 @@ Test the availability of the Healthwatch API by hitting the `/info` endpoint wit
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ## <a id='get'></a>View all free chunk configurations
@@ -34,6 +36,8 @@ To view a list of free chunk configurations, send a `GET` request to the `/v1/fr
 ```
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 This returns a JSON array of free chunk configurations:
 
@@ -63,6 +67,8 @@ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks" \
 ```
 
 Where:
+
+- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
 
 - The `value` property is required.
 

@@ -22,6 +22,8 @@ To check the availability of the Healthwatch API, run the following command:
 $ curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
 A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ## <a id='get'></a>View Canary URL
@@ -34,7 +36,9 @@ To view the currently configured canary URL, run the following command:
 $ uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID
 ```
 
-<p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes. <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page.</p>
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
+<p class="note"><strong>Note</strong>: The cf deployment is currently the only supported deployment for the canary url configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in the PAS v2.4 release notes. <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page. Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.</p>
 
 This returns a JSON object in the following format:
 
@@ -56,6 +60,13 @@ $ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=
       -H "Content-Type: application/json" \
       --data "{\"url\":\"https://SOME-VALID-URL.com\"}"
 ```
+
+Where:
+
+- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+
+- `SOME-VALID-URL` is the URL you want to have checked for HTTP 200 responses.
+
 ### <a id='responses'></a>Understand the Response
 
 See the following table for possible response codes and their explanations.

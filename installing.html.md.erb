@@ -81,9 +81,9 @@ To configure the Pivotal Healthwatch tile, perform the following steps:
 	     1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
 		   <p class="note"><strong>Note:</strong> In previous versions of Pivotal Healthwatch, the BOSH Deployment Checker used the BOSH Director admin credentials as default values. As of v1.3, the BOSH Deployment Checker defaults to disabled until configured.</p>
 	          1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or PAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
-	          <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+	          <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>, where `BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME` is the username created as a result of these instructions.
 	          1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
-	          <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+	          <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>, where `CLIENT-NAME` and `CLIENT-SECRET` are the desired client name and secret for the Healthwatch BOSH Deployment Checker.
 	1. Click **Save**.
 1. Navigate to **Errands** and make sure:
 
@@ -134,10 +134,10 @@ Any user with the <code>healthwatch.read</code> or <code>healthwatch.admin</code
 
 To allow other users read-only access to the Healthwatch UI, perform the following steps. This procedure adds the <code>healthwatch.read</code> scope to the desired UAA users using the uaac client.
 
-1. Access the uaac server with `uaac target UAA-URL`.
-1. Log in as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
-1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`. When prompted, enter the password.
-1. Enter `uaac member add healthwatch.read UAA-USERNAME` to add the scope to the user.
+1. Access the uaac server with `uaac target UAA-URL`, where `UAA-URL` is the URL for the TAS UAA.
+1. Log in as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret. Where `UAA-ADMIN-CLIENT-USERNAME` is the admin client username for the TAS UAA.
+1. Optional: Add new UAA users using `uaac user add NEW-USER-USERNAME --emails NEW-USER-EMAIL-ADDRESS`.
+1. Enter `uaac member add healthwatch.read NEW-USER-USERNAME` to add the scope to the user.
 
 The above procedure can be leveraged to add the <code>healthwatch.admin</code> scope as well.
 
@@ -151,11 +151,11 @@ To configure Healthwatch alert thresholds, you first need a UAA client with `hea
 
 To create a client to configure alert thresholds, perform the following steps:
 
-1. Access the uaac server with `uaac target UAA-URL`.
-1. Log in as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret.
+1. Access the uaac server with `uaac target UAA-URL`, where `UAA-URL` is the URL for the TAS UAA.
+1. Log in as admin client. Enter `uaac token client get UAA-ADMIN-CLIENT-USERNAME`. When prompted, enter the secret. Where `UAA-ADMIN-CLIENT-USERNAME` is the admin client username for the TAS UAA.
 1. Add new UAA client using `uaac client add --authorities 'healthwatch.admin' --authorized_grant_types 'client_credentials' --secret NEW-SECRET`. When promoted, enter the new client id.
-1. Log in as new client using `uaac token client get NEW-CLIENT-ID`. When prompted, enter the secret defined above.
-1. Verify the client has correct permission using `uaac curl 'https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations'`. You should see a list of active alert thresholds.
+1. Log in as new client using `uaac token client get NEW-CLIENT-ID`, where `NEW-CLIENT-ID` is the id of the client just created. When prompted, enter the secret defined above.
+1. Verify the client has correct permission using `uaac curl 'https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations'`, where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`. You should see a list of active alert thresholds.
 
 For more information about the default alerts included with Pivotal Healthwatch, see [Supported Alerts](./api/alerts.html#defaults).
 

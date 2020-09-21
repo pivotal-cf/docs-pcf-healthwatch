@@ -72,7 +72,7 @@ The `opsmanager-health-check` application attempts to connect to Ops Manager in 
 To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM, do the following:
 
 1. Run `cf ssh opsmanager-health-check` to SSH into the running instance.
-1. Run `curl -k -v $OPSMANAGER_URL` to check the network access.
+1. Run `curl -k -v OPSMANAGER-URL` to check the network access, where `OPSMANAGER-URL` is the URL of the Ops Manager.
 
 If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
 
@@ -138,7 +138,7 @@ If the BOSH System Metrics Forwarder is failing:
 - Upgrade PAS and Ops Manager to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Loggregator RLP by running `cf log-stream bosh-system-metrics-forwarder`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
 - As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
   [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`, where `MY_ENV` is the URL or IP address of the BOSH director.
 
 ## <a id='metric-ingestion'></a>No Metrics Being Ingested
 
@@ -157,4 +157,4 @@ A few possible solutions are:
 - After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
   [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs where the Loggregator RLP
   proccesses reside:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`, where `MY_ENV` is the URL or IP address of the BOSH director.
