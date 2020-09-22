@@ -3,9 +3,10 @@ title: Indicator Protocol Dashboard (Beta)
 owner: Pivotal Healthwatch
 ---
 
-<p class="note warning"><b>Warning: </b>This feature is in beta.</p>
+<p class="note warning"><strong>Warning:</strong> This feature is in beta.</p>
 
-## <a id='about'></a>Overview
+
+## <a id='about'></a> Overview
 
 The Indicator Protocol dashboard allows you to define and monitor custom scaling indicator metrics for the services in your deployment. The dashboard displays charts of indicator metrics, which are defined in an indicator document. The dashboard is populated by data from the Log Cache component of Loggregator using a PromQL query.
 
@@ -13,10 +14,10 @@ For more information about PromQL, see [Querying Prometheus](https://prometheus.
 
 For more information about Log Cache, see [Loggregator Architecture](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html).
 
-<p class="note"><b>Note:</b> The charts on the Indicator Protocol dashboard are populated by Log Cache, which is a component of Loggregator. Charts on the Indicator Protocol dashboard might display the following error: <code>"Error fetching graph data."</code>. This error is caused because Log Cache times out while it attempts to process data. No corrective action is required. The error resolves itself if possible.</p>
+<p class="note"><strong>Note:</strong> The charts on the Indicator Protocol dashboard are populated by Log Cache, which is a component of Loggregator. Charts on the Indicator Protocol dashboard might display the following error: <code>"Error fetching graph data."</code>. This error is caused because Log Cache times out while it attempts to process data. No corrective action is required. The error resolves itself if possible.</p>
 
 
-## <a id='architecture'></a>Architecture
+## <a id='architecture'></a> Architecture
 
 The Indicator Protocol dashboard is enabled by a Monitoring Indicator Protocol Registration Agent that runs on each BOSH VM. The Monitoring Indicator Protocol Registration Agent watches and inspects the `/var/vcap/jobs` for a document called `indicators.yml` in a `config` directory.
 
@@ -31,7 +32,7 @@ The indicator registry exposes a `/indicator-documents` endpoint, which returns 
 <%= image_tag './images/indicator-protocol-architecture.png' %>
 
 
-## <a id='enable-dashboard'></a>Enable and Configure the Indicator Protocol Dashboard
+## <a id='enable-dashboard'></a> Enable and Configure the Indicator Protocol Dashboard
 
 This section provides instructions for enabling and configuring the Indicator Protocol dashboard.
 
@@ -41,11 +42,11 @@ To enable the Indicator Protocol dashboard:
 
 1. Register an indicator document. See [Register an Indicator Document](#indicator-document).
 
-### <a id='enable-add-on'></a>Enable the Indicator Protocol Add-on
+### <a id='enable-add-on'></a> Enable the Indicator Protocol Add-on
 
 To enable the Indicator Protocol dashboard, you must enable a global BOSH Director runtime config add-on for Indicator Protocol. The BOSH Director applies runtime config changes to each deployment during the next BOSH deploy.
 
-<p class="note"><b>Note:</b> After you update the runtime config, all deployments are outdated.</p>
+<p class="note"><strong>Note:</strong> After you update the runtime config, all deployments are outdated.</p>
 
 For more information about runtime config, see [Director Runtime Config](https://bosh.io/docs/runtime-config/)in the BOSH documentation.
 
@@ -62,10 +63,9 @@ To enable the Indicator Protocol runtime config add-on:
 1. On the Ops Manager Installation Dashboard, click **Review Pending Changes**.
 
 1. Enable only Pivotal Healthwatch. If any other products are enabled, disable them.
-<p class="note"><b>Note:</b>BOSH Director cannot be disabled.</p>
+<p class="note"><strong>Note:</strong>BOSH Director cannot be disabled.</p>
 
 1. Click **Apply Changes**.
-
 
 ### <a id='indicator-document'></a>Register an Indicator Document
 
@@ -81,7 +81,7 @@ For example, to enable RabbitMQ dashboards for all On-Demand service instances, 
 
 For information about the errand, including implications, see [Upgrade all service instances errand](https://docs.pivotal.io/rabbitmq-cf/1-15/troubleshoot.html#upgrade-all).
 
-## <a id='access'></a>Access the Indicator Protocol Dashboard
 
-To verify that the Indicator Protocol dashboards appear in Pivotal Healthwatch, view the Pivotal Healthwatch UI at `https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards`,
-where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+## <a id='access'></a> Access the Indicator Protocol Dashboard
+
+To verify that the Indicator Protocol dashboards appear in Pivotal Healthwatch, view the Pivotal Healthwatch UI at `https://healthwatch.SYSTEM-DOMAIN/indicator-dashboards`, where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile.
