@@ -17,9 +17,9 @@ Insufficient capacity of Diego cells can cause issues when you install or upgrad
 The `push-apps` errand fails with a message similar to the following:
 
 <pre class="terminal">
-$ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue  
-Starting app healthwatch-blue in org system / space healthwatch as admin...  
-FAILED  
+$ /var/vcap/packages/cf-cli/bin/cf start healthwatch-blue
+Starting app healthwatch-blue in org system / space healthwatch as admin...
+FAILED
 InsufficientResources
 </pre>
 
@@ -170,15 +170,18 @@ If the BOSH System Metrics Forwarder is failing:
   - Log in to the BOSH Director VM by following one of the procedures in [Create a BOSH Alias](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
   - Recreate the Loggregator Traffic Controller VMs by running:
 
-      ```
-      bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
-      ```
-      Where:
-      - `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
-      - `GUID` is the GUID of the BOSH Director.
-      <br>
-      For more information about recreating VMs, see [Recreate](https://bosh.io/docs/cli-v2/#recreate) in _Commands_ in the BOSH documentation.
-    
+        ```
+        bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
+        ```
+
+        Where:
+        <br>
+        * `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
+        * `GUID` is the GUID of the BOSH Director.
+        <br>
+        <br>
+        For more information about recreating VMs, see [Recreate](https://bosh.io/docs/cli-v2/#recreate) in _Commands_ in the BOSH documentation.
+
 
 ## <a id='metric-ingestion'></a> No Metrics Being Ingested
 
@@ -203,10 +206,12 @@ A few possible solutions are:
 - Recreate the Loggregator Traffic Controller VMs where the Loggregator RLP processes reside.
   - Log in to the BOSH Director VM by following one of the procedures in [Create a BOSH Alias](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
   - Recreate the Loggregator Traffic Controller VMs by running:
-  
-      ```
-      bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
-      ```
-      Where:
-      - `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
-      - `GUID` is the GUID of the BOSH Director.
+
+        ```
+        bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
+        ```
+        
+        Where:
+        <br>
+        * `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
+        * `GUID` is the GUID of the BOSH Director.

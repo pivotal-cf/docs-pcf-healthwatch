@@ -3,7 +3,7 @@ title: Configuring Pivotal Healthwatch Alerts
 owner: Pivotal Healthwatch
 ---
 
-This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. 
+This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs.
 
 <p class="note"><strong>Note</strong>: Pivotal Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.</p>
 
@@ -19,7 +19,7 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 
 The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.pivotal.io/pivotalcf/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
 
-After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, follow these steps to authenticate against UAA:
+After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, authenticate against UAA by running:
 
 ```
 uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
@@ -38,7 +38,7 @@ At this point you are properly authenticated and ready to start using the Health
 
 ## <a id='info'></a> Healthwatch API Status
 
-Test the availability of the Healthwatch API by hitting the `/info` endpoint with a `GET` request:
+To test the availability of the Healthwatch API, send a `GET` request to `/info` endpoint by running:
 
 ```
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
@@ -51,9 +51,9 @@ The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ## <a id='get'></a> View All Alert Configurations
 
-### `GET /v1/alert-configurations`
+### GET /v1/alert-configurations
 
-To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
+To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint by running:
 
 ```
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
@@ -63,7 +63,7 @@ Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs til
 
 This returns a JSON array of alert configurations:
 
-```
+<pre class="terminal">
 [
     {
         "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
@@ -92,26 +92,26 @@ This returns a JSON array of alert configurations:
         }
     }
 ]
-```
+</pre>
 
 The `query` and `threshold` properties are covered in detail below.
 
 
 ## <a id='get_with_query'></a> View Specific Alert Configurations
 
-### `GET /v1/alert-configurations?q=...`
+### GET /v1/alert-configurations?q=...
 
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
 
 ```
-uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'"
 ```
 
 Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of alert configurations, filtered against the provided `query`:
 
-```
+<pre class="terminal">
 [
     {
         "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
@@ -123,12 +123,12 @@ This returns a JSON array of alert configurations, filtered against the provided
         }
     }
 ]
-```
+</pre>
 
 
 ## <a id='post'></a> Update Alert Configurations
 
-### `POST /v1/alert-configurations`
+### POST /v1/alert-configurations
 
 To update an existing alert configuration, make a `POST` request to the `alert-configurations` endpoint with the updated data:
 
@@ -142,7 +142,7 @@ Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs til
 
 See the following example output:
 
-```
+<pre class="terminal">
 {
     "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
     "enabled": true,
@@ -152,16 +152,16 @@ See the following example output:
         "type": "UPPER"
     }
 }
-```
+</pre>
 
-<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>  
+<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. To revert your changes, update the alert back to its default values. For more information, see <a href="#defaults">Supported Alerts</a> below.</p>
 
 
 ## <a id='post2'></a> Create Alert Configurations for Isolation Segments
 
-### `POST /v1/alert-configurations`
+### POST /v1/alert-configurations
 
-Specific thresholds can be set for an isolation segment by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
+Specific thresholds can be set for an isolation segment by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run:
 
 ```
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -181,7 +181,7 @@ The threshold type will be inferred from the deployment-agnostic alert configura
 
 The created alert configuration is echoed back in the following response:
 
-```
+<pre class="terminal">
 {
     "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'",
     "enabled": true,
@@ -191,13 +191,14 @@ The created alert configuration is echoed back in the following response:
         "type": "UPPER"
     }
 }
-```
-<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them with the above method.</p>
+</pre>
+
+<p class="note"><strong>Note</strong>: You can delete isolation segment alert configurations only if you created them with the above method.</p>
 
 
 ## <a id='delete'></a> Delete Isolation Segment Alert Configurations
 
-To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. 
+To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`:
 
 `DELETE /v1/alert-configurations?q=...`
 
@@ -215,9 +216,9 @@ Where:
 
 This returns the number of deleted alert configurations. See the following example output:
 
-```
+<pre class="terminal">
 1
-```
+</pre>
 
 <p class="note"><strong>Note</strong>: You can delete isolation segment alert configurations only if you created them through the Healthwatch API.</p>
 
@@ -1465,7 +1466,7 @@ A best practice deployment of Cloud Foundry includes at least three availability
 
 By default, Healthwatch sends an alert if the `Diego.TotalPercentageAvailableMemoryCapacity.5M` metric falls below 35%, or one in three.
 
-However, if your environment has been scaled up to five AZs you may wish to adjust the alert configuration accordingly to 20%, or one in five.
+However, if your environment has been scaled up to five AZs, you may want to adjust the alert configuration accordingly to 20%, or one in five, by running:
 
 ```
 uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
@@ -1483,7 +1484,7 @@ Where:
 
 - `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-If you wished to simply disable the alert, you can do so by the following:
+To simply disable the alert, run:
 
 ```
 uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
@@ -1503,13 +1504,13 @@ Where:
 
 The response body contains the updated alert configuration:
 
-```
+<pre class="terminal">
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
-```
+</pre>
 
 
 ## <a id='event-alerts'></a> Configure Pivotal Healthwatch Alert Notifications
 
-You can configure PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. For example, if you configured a Pivotal Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the Pivotal Healthwatch alert.
+You can configure Pivotal Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. For example, if you configured a Pivotal Healthwatch alert for memory on a VM, you can use Pivotal Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the Pivotal Healthwatch alert.
 
-For more information about configuring PCF Event Alerts for Pivotal Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
+For more information about configuring Pivotal Event Alerts for Pivotal Healthwatch, see [Pivotal Event Alerts](https://docs.pivotal.io/event-alerts/index.html).

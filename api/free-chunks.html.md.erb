@@ -15,12 +15,12 @@ Currently, two main types of free chunk configurations are supported: Global and
 
 ## <a id='prerequisites'></a> Prerequisites and Assumptions
 
-The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the Pivotal Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
+The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, see [Allow Additional Users to Access the Pivotal Healthwatch UI](../installing.html#healthwatch-uaa-users) in _Installing Pivotal Healthwatch_.
 
 
 ## <a id='info'></a> Healthwatch API Status
 
-Test the availability of the Healthwatch API by hitting the `/info` endpoint with a simple `GET` request:
+To test the availability of the Healthwatch API, send a `GET` request to the `/info` endpoint:
 
 ```
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
@@ -33,7 +33,7 @@ The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
 ## <a id='get'></a> View All Free Chunk Configurations
 
-### `GET /v1/free-chunks`
+### GET /v1/free-chunks
 
 To view a list of free chunk configurations, send a `GET` request to the `/v1/free-chunks` endpoint:
 
@@ -45,7 +45,7 @@ Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example
 
 This returns a JSON array of free chunk configurations:
 
-```
+<pre class="terminal">
 [
   {
     "id": 1,
@@ -54,14 +54,14 @@ This returns a JSON array of free chunk configurations:
     "type": "memory"
   }
 ]
-```
+</pre>
 
 <p class="note"><strong>Note</strong>: the value returned in the Pivotal Healthwatch API is in megabytes, but the Pivotal Healthwatch UI displays the value in gigabytes.</p>
 
 
 ## <a id='post'></a> Create or Update Free Chunk Configurations
 
-### `POST /v1/free-chunks`
+### POST /v1/free-chunks
 
 To create or update a free chunk configuration, make a `POST` request to the `/v1/free-chunks` endpoint with the following structure:
 
@@ -83,8 +83,8 @@ Where:
 
 Possible successful HTTP response codes:
 
-- 200: A record was updated
-- 201: A new record was created
-- 400: Invalid parameters
+- `200`: A record was updated
+- `201`: A new record was created
+- `400`: Invalid parameters
 
 <p class="note"><strong>Note</strong>: The value supplied to the Pivotal Healthwatch API is in megabytes, but the Pivotal Healthwatch UI displays the value in gigabytes.</p>
