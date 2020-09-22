@@ -298,8 +298,10 @@ One workaround is to manually modify the load balancer through the NSX-T Manager
           "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
         ```
 
-        Where `NSX-T-USERNAME:NSX-T-PASSWORD` is
-        the username and password for logging into the NSX-T console.
+        Where:
+        - `NSX-T-USERNAME:NSX-T-PASSWORD` is
+            the username and password for logging into the NSX-T console.
+        - `NSX-MGR` is the IP/FQDN of your NSX-T console.
     1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
        and ending with `virtual-server` and copy the `id` field.
     1. Fetch the current configuration for the load balancer:
