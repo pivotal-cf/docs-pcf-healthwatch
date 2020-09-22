@@ -271,7 +271,11 @@ which now have Telegraf available on port `9273`.
         the BOSH Deployment Checker defaults to disabled until configured.
     </p>
   1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or TAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
-     <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>
+     <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>,
+     where `BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME` is the username created as a result of these instructions.
   1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
-     <pre class="terminal">uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET</pre>
+     <pre class="terminal">
+       uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET
+     </pre>,
+     where `CLIENT-NAME` and `CLIENT-SECRET` are the desired client name and secret for the Healthwatch BOSH Deployment Checker.
   1. Click **Save**.
