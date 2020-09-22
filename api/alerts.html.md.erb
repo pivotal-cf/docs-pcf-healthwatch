@@ -1501,13 +1501,11 @@ Where:
 
 - `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-The response body contains the updated alert configuration. You can confirm your updates:
+The response body contains the updated alert configuration:
 
 ```
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
 ```
-
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 
 ## <a id='event-alerts'></a> Configure Pivotal Healthwatch Alert Notifications
