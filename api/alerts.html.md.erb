@@ -29,7 +29,9 @@ Where:
 
 - `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
 
-- `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+- `HEALTHWATCH-ADMIN-CLIENT-SECRET` is the UAA client secret.
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 At this point you are properly authenticated and ready to start using the Healthwatch Alerts API.
 
@@ -42,7 +44,7 @@ Test the availability of the Healthwatch API by hitting the `/info` endpoint wit
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
@@ -57,7 +59,7 @@ To view a list of alert configurations, send a `GET` request to the `/alert-conf
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of alert configurations:
 
@@ -105,7 +107,7 @@ To narrow the results of a `GET` request, add a `query` to the URL in a paramete
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of alert configurations, filtered against the provided `query`:
 
@@ -136,7 +138,7 @@ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
       --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name'\",\"threshold\":{\"critical\":90,\"warning\":80},\"enabled\":true}"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 See the following example output:
 
@@ -164,10 +166,14 @@ Specific thresholds can be set for an isolation segment by extending existing al
 ```
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45}}"
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'\",\"threshold\":{\"critical\":55,\"warning\":45}}"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where:
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+- `ISOLATION-SEGMENT-NAME` is the name of the isolation segment for which you want to create an alert configuration.
 
 A new alert configuration will be enabled by default. You can optionally include `\"enabled\": false` in the request body to override this behavior.
 
@@ -177,7 +183,7 @@ The created alert configuration is echoed back in the following response:
 
 ```
 {
-    "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'",
+    "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'",
     "enabled": true,
     "threshold": {
         "critical": 55,
@@ -198,18 +204,22 @@ To delete a user-created alert configuration for an isolation segment, add a `qu
 See the following example:
 
 ```
-uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
+uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+Where:
 
-This returns the number of deleted alert configurations. See the following example output.
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+- `ISOLATION-SEGMENT-NAME` is the name of the isolation segment for which you want to create an alert configuration.
+
+This returns the number of deleted alert configurations. See the following example output:
 
 ```
 1
 ```
 
-<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them through the Healthwatch API.</p>
+<p class="note"><strong>Note</strong>: You can delete isolation segment alert configurations only if you created them through the Healthwatch API.</p>
 
 
 ## <a id='queries'></a> Queries
@@ -232,8 +242,8 @@ A well-formed `query` is a valid [Spring Expression Language (SpEL)](https://doc
 
 The following fields can be queried:
 
-- `origin`&nbsp;&nbsp;&nbsp;*(required)*
-- `name`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*(required)*
+- (Required) `origin`&nbsp;&nbsp;&nbsp;
+- (Required) `name`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 - `job`
 - `deployment`
 
@@ -242,9 +252,9 @@ The following fields can be queried:
 
 The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, `"EQUALITY"`, or `"INEQUALITY"`.
 
-Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is *above* the `warning` value, and again when above the `critical` value.
+Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is _above_ the `warning` value, and again when above the `critical` value.
 
-Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls *below* the thresholds.
+Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls _below_ the thresholds.
 
 The `EQUALITY` alerts trigger when the metric value is **not** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
 
@@ -863,9 +873,9 @@ This section describes the default Warning and Critical alerts for Pivotal Healt
     </tr>
 </table>
 
-You can learn more about the metrics Pivotal Healthwatch emits here: [Pivotal Healthwatch Metrics](../metrics.html).
+For more information  about the metrics Pivotal Healthwatch emits, see [Pivotal Healthwatch Metrics](../metrics.html).
 
-<sup>1</sup> We are alerting by cell for this metric. We will notify at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
+<sup>1</sup> Healthwatch alerts by Diego Cell for this metric. Healthwatch notifies at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
 
 ### <a id='scaling-alerts'></a> Scaling Alerts
 
@@ -1242,7 +1252,7 @@ You can learn more about the metrics Pivotal Healthwatch emits here: [Pivotal He
 
 ### <a id='environment-specific-alerts'></a> Environment Specific Alerts
 
-The alerts in the table below are highly variable depending on your environment; therefore, Pivotal recommends customizing their critical and/or warning thresholds based on your environment.
+The alerts in the table below are highly variable depending on your environment. Pivotal recommends customizing their critical and warning thresholds based on your environment.
 <strong>These alerts are disabled by default (the `enabled` property on the alert configuration is `false`) and the default threshold values are 0.</strong>
 
 You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health.
@@ -1401,7 +1411,7 @@ For more information about updating alert configurations in Pivotal Healthwatch,
     </tr>
 </table>
 
-<p class="note warning"><strong>Warning</strong>: Since these alerts have default threshold values of 0, ensure the values are updated before they are enabled.</p>
+<p class="note warning"><strong>Warning</strong>: Since these alerts have default threshold values of <code>0</code>, ensure the values are updated before they are enabled.</p>
 
 
 ## <a id='errors'></a> Errors
@@ -1449,7 +1459,7 @@ This section lists common error messages and their causes.
 **Possible Cause**:  An attempt to create a new alert configuration (ie, for an isolation segment) did not include a valid threshold/s.
 
 
-##<a id='Example'></a>Walkthrough Example
+## <a id='Example'></a> Walkthrough Example
 
 A best practice deployment of Cloud Foundry includes at least three availability zones (AZs). For these types of deployments, Pivotal recommends that you have enough capacity to suffer failure of an entire AZ.
 
@@ -1469,12 +1479,14 @@ Where:
 
 - `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
 
-- `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+- `HEALTHWATCH-ADMIN-CLIENT-SECRET` is the UAA client secret.
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 If you wished to simply disable the alert, you can do so by the following:
 
 ```
-uaac token client get HEALTHWATCH_ADMIN_CLIENT -s HEALTHWATCH_ADMIN_CLIENT_SECRET
+uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
 
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
@@ -1485,7 +1497,9 @@ Where:
 
 - `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
 
-- `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+- `HEALTHWATCH-ADMIN-CLIENT-SECRET` is the UAA client secret.
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 The response body contains the updated alert configuration. You can confirm your updates:
 
