@@ -5,37 +5,39 @@ owner: Pivotal Healthwatch
 
 This topic describes how to use Pivotal Healthwatch.
 
-##<a id='dashboard-overview'></a>The Pivotal Healthwatch Dashboard
 
-The Pivotal Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`. The goal of the user interface is to provide an at-a-glance look
-into the health the foundation.
+## <a id='dashboard-overview'></a> The Pivotal Healthwatch Dashboard
+
+The Pivotal Healthwatch Dashboard is located at `healthwatch.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. The goal of the user interface is to provide an at-a-glance look into the health the foundation.
 
 <%= image_tag './images/dashboard-all-green.png' %>
 
-The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts
-of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
+The dashboard shows a set of panels that surface warning (orange) and critical (red) alerts for different parts of the system. Behind the scenes, the `healthwatch-alerts` app watches metrics to evaluate the health of the platform, and each metric belongs to a category covered by one of the display panels. When a metric reaches a configured alert threshold, an alert fires. The dashboard indicates the alert by changing the color of its category panel to orange or red, depending on the alert severity. Additionally, the alert displays in the Alert Stream panel on the right side of the dashboard.
 
-To see and configure the thresholds for individual alerts, and the categories that the alerts map to, refer to the [Pivotal Healthwatch API](./api/index.html) documentation.
+To see and configure the thresholds for individual alerts and the categories to which the alerts are mapped, see [Pivotal Healthwatch API](./api/index.html).
 
-Note that an out-of-the-box Pivotal Healthwatch installation will likely have noisy alerting, showing false positives. To ensure
-that alerts fire only in the event of meaningful problems, you need to [tune](api/alerts.html#post) some of the alerts to fit the size of your system.
+An out-of-the-box Pivotal Healthwatch installation is likely to have noisy alerting, showing false positives. To ensure
+that alerts fire only in the event of meaningful problems, you must edit some of the alerts to fit the size of your system. For more information, see [Update Alert Configurations](api/alerts.html#post) in _Configuring Pivotal Healthwatch Alerts_.
 
-##<a id='access'></a>Accessing Pivotal Healthwatch
+
+## <a id='access'></a> Accessing Pivotal Healthwatch
 
 You can access Pivotal Healthwatch and its data through the Pivotal Healthwatch UI or directly through the service datastore. In addition, Pivotal Healthwatch forwards the metrics that it creates into the Loggregator system.
 
-###<a id='ui'></a>Access the Pivotal Healthwatch UI
+### <a id='ui'></a> Access the Pivotal Healthwatch UI
 
-To access the Pivotal Healthwatch UI, do the following:
+To access the Pivotal Healthwatch UI:
 
-1. Navigate to `healthwatch.SYSTEM-DOMAIN`.
-2. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
-    <br><br>
-    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the Pivotal Healthwatch UI](installing.html#healthwatch-uaa-users).
+1. Navigate to `healthwatch.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-###<a id='mysql'></a>Access Data Through MySQL
+1. When prompted to log in, enter the username and password of a UAA user that has either the `healthwatch.read` scope or the `healthwatch.admin` scope.
+    <br>
+    <br>
+    The UAA admin user has both the `healthwatch.read` and `healthwatch.admin` scopes by default. If you want to log in with another UAA user, make this user a member of the `healthwatch.read` or `healthwatch.admin` group. For more information, including considerations for which scope to grant, see [Allow Additional Users to Access the Pivotal Healthwatch UI](installing.html#healthwatch-uaa-users) in _Installing Pivotal Healthwatch_.
 
-You can access metrics data through the Pivotal Healthwatch datastore. See [Pivotal Healthwatch Metrics](metrics.html) for the description of available data points.
+### <a id='mysql'></a> Access Data Through MySQL
+
+You can access metrics data through the Pivotal Healthwatch datastore. For descriptions of available data points, see [Pivotal Healthwatch Metrics](metrics.html).
 
 The table below provides login information.
 
@@ -66,15 +68,15 @@ The table below provides login information.
 </tr>
 </table>
 
-To access the MySQL datastore, you can do the following:
+To access the MySQL datastore, you can use one of the following methods:
 
-* **Method 1**. Use BOSH to SSH into the MySQL VM and run the `mysql -u root -p` command.
+* Use BOSH to SSH into the MySQL VM and run the `mysql -u root -p` command.
 
-* **Method 2**. Assign an external IP to the MySQL VM and a firewall rule to open ports 3306 and 3308 and access MySQL externally.
+* Assign an external IP to the MySQL VM and a firewall rule to open ports `3306` and `3308` and access MySQL externally.
 
-* **Method 3**. Open a tunnel into your IaaS network and connect that way externally.
+* Open a tunnel into your IaaS network and connect that way externally.
 
-###<a id='firehose'></a>Access Super Metrics Through the Loggregator Firehose
+### <a id='firehose'></a> Access Super Metrics Through the Loggregator Firehose
 
 Pivotal Healthwatch forwards the super metrics that it creates into the
 [Loggregator system](https://docs.pivotal.io/platform/application-service/loggregator/architecture.html)
@@ -86,9 +88,9 @@ metric output received through a
 origin:"healthwatch" eventType:ValueMetric timestamp:1502293311588995438 deployment:"cf" job:"healthwatch-forwarder" index:"06231d64-ad9f-4112-8423-6b41f44c0cf5" ip:"10.0.4.82" valueMetric:&lt;name:"Firehose.LossRate.1H" value:0 unit:"hr"&gt;
 </pre>
 
-### <a id='logcache'></a>Access Super Metrics Through the Log Cache API
+### <a id='logcache'></a> Access Super Metrics Through the Log Cache API
 
-<p class="note"><strong>Note</strong>: This feature is available in PAS 2.2.5 and later.</p>
+<p class="note"><strong>Note</strong>: This feature is available in Pivotal Application Service (PAS) v2.2.5 and later.</p>
 
 You can access Healthwatch data directly with PromQL queries to the Log Cache API. The following Log Cache endpoints are [Prometheus compatible](https://prometheus.io/docs/prometheus/latest/querying/api/): 
 
@@ -97,17 +99,19 @@ You can access Healthwatch data directly with PromQL queries to the Log Cache AP
 
 #### Query Format
 
-To form the promQL query for a metric, do the following:
+To form the promQL query for a metric:
 
 1. Remove `healthwatch.` from the beginning of the metric name. For example, change `healthwatch.Diego_AvailableFreeChunks` to `Diego_AvailableFreeChunks`.
+
 1. Replace all non-alphanumeric characters with `_`.
+
 1. Add `{source_id="healthwatch-forwarder"}` to the end. Log Cache requires `source_id` for all queries.
 
-See the [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) for for more information about query syntax.
+For more information about query syntax, see [Querying Prometheus](https://prometheus.io/docs/prometheus/latest/querying/basics/) in the Prometheus documentation.
 
-#### Example: Query recent values of Diego Available Free Chunks
+#### Example: Query Recent Values of Diego Available Free Chunks
 
-This queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
+The example `curl` command below queries all values of `Diego_AvailableFreeChunks` over the past two minutes:
 
 ```
 curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Diego_AvailableFreeChunks{source_id="healthwatch-forwarder"}[2m]' -H "Authorization: $(cf oauth-token)"
@@ -141,11 +145,13 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=Dieg
 
 ```
 
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
 The returned values of `[ 1536166538, "10" ]` and `[ 1536166598, "8" ]` mean there were 10 free chunks two minutes ago and eight free chunks one minute ago.
 
-#### Example: Query the latest value for the CF Push Health Check
+#### Example: Query the Latest Value for the cf push Health Check
 
-This queries the latest value stored in Log Cache for the `cf push` Health Check:
+The example `curl` command below queries the latest value stored in Log Cache for the `cf push` Health Check:
 
 ```
 curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=health_check_cliCommand_push{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
@@ -172,12 +178,14 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query" --data-urlencode 'query=heal
 }
 ```
 
-The result value of "1" means that `cf push` is currently working. Any other value means that `cf push` has timed out or failed.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+A resulting value of `1` means that `cf push` is currently working. Any other value means that `cf push` has timed out or failed.
 This result could be used by automation tools waiting for `cf push` to become available.
 
 #### Example: Canary App Availability SLI
 
-The Log Cache API can also execute the same query multiple times over a range:
+The Log Cache API can also execute the same query multiple times over a range, as in the example `curl` command below:
 
 ```
 curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=1537804131&step=60s" --data-urlencode 'query=health_check_CanaryApp_available{source_id="healthwatch-forwarder"}' -H "Authorization: $(cf oauth-token)"
@@ -210,6 +218,8 @@ curl "https://log-cache.SYSTEM-DOMAIN/api/v1/query_range?start=1537782809&end=15
 }
 ```
 
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
 The `query_range` endpoint is useful for seeing values over time with a fixed interval (step). This is useful
 for charting, but you can also use it to calculate uptime, based on a critical threshold of `v < 1`:
 
@@ -225,22 +235,23 @@ uptime = 87.5%
 
 #### Log Cache Data Retention
 
-These queries are subject to the retention time of the Log Cache service. You can discover the oldest metric stored with
-the `/v1/meta` Log Cache API endpoint.
+These queries are subject to the retention time of the Log Cache service. Using the `/v1/meta` Log Cache API endpoint, you can discover the oldest metric stored in Log Cache by running:
 
 ```
 curl "https://log-cache.SYSTEM-DOMAIN/v1/meta" -H "Authorization: $(cf oauth-token)" -k | jq .meta | grep -A 4 healthwatch-forwarder
 ```
+
+Where `SYSTEM-DOMAIN` is the system URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 If you would like to query data over a longer period of time, the instance count and/or RAM of the Doppler VM
 must be scaled up.
 
 #### <a id='healthwatch-alerting-graphs'></a> Alerting and Graphs
 
-The rules for alerting and bucketing graph data are not always the same. As a result there are cases where a graph will have a failing indicator without an alert. This does not indicate a problem with alerting, the two types of information have different behavior rules.
+The rules for alerting and bucketing graph data are not always the same. As a result, there are cases where a graph has a failing indicator without an alert. This does not indicate a problem with alerting, as the two types of information have different behavior rules.
 
-A graph's time bucket turns red when one test in the time period fails. Alerting may have a higher threshold - alert thresholds vary by metric and are based on an average aggregation so more than one failure in a period might be needed to trigger an alert.  
+A graph's time bucket turns red when one test in the time period fails. Alerting may have a higher threshold. Alert thresholds vary by metric and are based on an average aggregation, so more than one failure in a period might be necessary to trigger an alert.  
 
-Additionally, not all metrics have alerts associated with them so a complete absence of alerts on a failing chart is not necessarily a problem. 
+Additionally, not all metrics have alerts associated with them, so a complete absence of alerts on a failing chart is not necessarily a problem. 
 
-For more information on alerting rules [see the alerts documentation.](api/alerts.html#thresholds)
+For more information about alerting rules, see [Thresholds](api/alerts.html#thresholds) in _Configuring Pivotal Healthwatch Alerts_.

@@ -12,11 +12,13 @@ Currently, two main types of free chunk configurations are supported: Global and
 - Create deployment-specific free chunk configurations
   - Applicable for customers isolating Compute (Diego Cells) into Isolation Segments, where different threshold values of concern may be needed
 
-## <a id='prerequisites'></a>Prerequisites and Assumptions
+
+## <a id='prerequisites'></a> Prerequisites and Assumptions
 
 The steps in this document assume you can generate bearer tokens for a UAA client with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes. For detailed instructions on how to add these scopes, refer to the [Allow Additional Users to Access the Pivotal Healthwatch UI](../installing.html#healthwatch-uaa-users) documentation.
 
-## <a id='info'></a>Healthwatch API Status
+
+## <a id='info'></a> Healthwatch API Status
 
 Test the availability of the Healthwatch API by hitting the `/info` endpoint with a simple `GET` request:
 
@@ -24,9 +26,13 @@ Test the availability of the Healthwatch API by hitting the `/info` endpoint wit
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-## <a id='get'></a>View all free chunk configurations
+
+## <a id='get'></a> View All Free Chunk Configurations
+
 ### `GET /v1/free-chunks`
 
 To view a list of free chunk configurations, send a `GET` request to the `/v1/free-chunks` endpoint:
@@ -34,6 +40,8 @@ To view a list of free chunk configurations, send a `GET` request to the `/v1/fr
 ```
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks
 ```
+
+Where `SYSTEM-DOMAIN` is the URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of free chunk configurations:
 
@@ -50,7 +58,8 @@ This returns a JSON array of free chunk configurations:
 
 <p class="note"><strong>Note</strong>: the value returned in the Pivotal Healthwatch API is in megabytes, but the Pivotal Healthwatch UI displays the value in gigabytes.</p>
 
-## <a id='post'></a>Creating and updating free chunk configurations
+
+## <a id='post'></a> Create or Update Free Chunk Configurations
 
 ### `POST /v1/free-chunks`
 
@@ -59,17 +68,18 @@ To create or update a free chunk configuration, make a `POST` request to the `/v
 ```
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/free-chunks" \
       -H "Content-Type: application/json" \
-      --data "{\"value\":8192, \"deployment\":\"prod-isolation-segment\",\"type\":\"memory\"}"
+      --data "{\"value\":VALUE, \"deployment\":\"DEPLOYMENT-NAME\",\"type\":\"FREE-CHUNK-CONFIGURATION-TYPE\"}"
 ```
 
 Where:
 
-- The `value` property is required.
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-- The `type` property is required. You must set it to either `memory` or `disk`.
+- `FREE-CHUNK-CONFIGURATION-VALUE` is the value of the free chunk configuration you want to set.
 
-- The `deployment` property is optional. If you exclude the property, the  global 
-free chunk configuration is updated.
+- `FREE-CHUNK-CONFIGURATION-TYPE` is the free chunk configuration type you want to set. You must set the `type` property to either `memory` or `disk`.
+
+- (Optional) `DEPLOYMENT-NAME` is the name of the deployment for which you want to create or update a free chunk type configuration. If you exclude the `deployment` property, the `POST` request updates the global free chunk configuration.
 
 Possible successful HTTP response codes:
 

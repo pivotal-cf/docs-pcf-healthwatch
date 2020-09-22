@@ -7,7 +7,8 @@ owner: Pivotal Healthwatch
 
 This topic describes how to resolve common issues with Pivotal Healthwatch.
 
-## <a id='insufficient-resources'></a>Insufficient Memory Resources
+
+## <a id='insufficient-resources'></a> Insufficient Memory Resources
 
 Insufficient capacity of Diego cells can cause issues when you install or upgrade Pivotal Healthwatch.
 
@@ -28,9 +29,10 @@ Diego cells do not have enough resources available to run the Pivotal Healthwatc
 
 ### Solution
 
-To resolve this issue, navigate to the **Resource Config** pane of the Pivotal Application Service (PAS) tile and increase the number of **Diego Cell** instances.  Alternatively, if you do not require high availability, scale down the number of instances in the **Component Config** section of the Pivotal Healthwatch tile.
+To resolve this issue, navigate to the **Resource Config** pane of the Tanzu Application Service for VMs (TAS for VMs) tile and increase the number of **Diego Cell** instances.  Alternatively, if you do not require high availability, scale down the number of instances in the **Component Config** section of the Pivotal Healthwatch tile.
 
-## <a id='memory-limit'></a>Memory Limit Errors
+
+## <a id='memory-limit'></a> Memory Limit Errors
 
 Insufficient memory allocation can cause issues when you install or upgrade Pivotal Healthwatch.
 
@@ -55,28 +57,40 @@ The issue should not occur if the Apps Manager errand has run in your environmen
 
 To resolve this issue, you can set the default memory quota for the `healthwatch` space in the `system` org to at least 24 GB and re-run the `push-apps` errand manually.
 
-## <a id='opsman-health'></a>Ops Manager Health Check Errors
+
+## <a id='opsman-health'></a> Ops Manager Health Check Errors
 
 The Ops Manager Health Check needs the ability to reach Ops Manager on the underlying network.
 
 ### Error
 
-This error will appear as constantly failing Ops Manager Health Checks on the Dashboard and `Ops Manager Health Check History` page even though Ops Manager is running.
+This error appears as constantly failing Ops Manager Health Checks on the Dashboard and Ops Manager Health Check History page, even though Ops Manager is running.
 
 ### Cause
 
-The `opsmanager-health-check` application attempts to connect to Ops Manager in order to verify it is running.  This application needs the correct network settings in order to be able to reach the Ops Manager VM.  If there are firewall rules in place that prevent the network access then this check will continually fail.
+The `opsmanager-health-check` app attempts to connect to Ops Manager in order to verify it is running. This app needs the correct network settings in order to reach the Ops Manager VM. If there are firewall rules in place that prevent the network access, this check continually fails.
 
 ### Solution
 
-To determine if the `ops-manager-health-check` app  can reach the Ops Manager VM, do the following:
+To determine if the `ops-manager-health-check` app can reach the Ops Manager VM:
 
-1. Run `cf ssh opsmanager-health-check` to SSH into the running instance.
-1. Run `curl -k -v $OPSMANAGER_URL` to check the network access.
+1. SSH into the running instance. Run:
 
-If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the steps to [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman).
+    ```
+    cf ssh opsmanager-health-check
+    ```
 
-## <a id='cli-command-health'></a>CLI Command Health Check Errors
+1. Check the network access by running:
+
+    ```
+    curl -k -v OPS-MANAGER-URL
+    ```
+    Where `OPS-MANAGER-URL` is the URL of your Ops Manager deployment.
+
+If the steps above are not successful and you cannot modify network access to allow the `opsmanager-health-check` app to reach Ops Manager, the test cannot execute successfully. In that case, follow the procedure in [Disable Ops Manager Continuous Validation Testing](installing.html#healthwatch-opsman) in _Installing Pivotal Healthwatch_.
+
+
+## <a id='cli-command-health'></a> CLI Command Health Check Errors
 
 Below are suggestions for troubleshooting errors with the CLI Command Health Check.
 
@@ -86,11 +100,12 @@ The CLI Command Health Check panel on the Healthwatch dashboard shows failures.
 
 ### Solution
 
-To troubleshoot these failures, start by examining the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
+To troubleshoot these failures, examine the logs from the `cf-health-check` app in the `healthwatch` space under the `system` org. Look for JSON log entries where the `status` field does not equal `"SUCCESS"`. These log entries are the output of the `cf-cli`.  Use this information to begin troubleshooting.
 
-<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events such as PAS Upgrades or BBR Backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-3/customizing/cfpush-availability-during-upgrade.html">cf push Availability During Pivotal Application Service Upgrades</a> in the <%= vars.platform_name %> Documentation.</p>
+<p class="note"><strong>Note</strong>: The CLI Command Health Check may fail during certain events such as TAS for VMs upgrades or BBR backups. For more information, see <a href="https://docs.pivotal.io/pivotalcf/2-3/customizing/cfpush-availability-during-upgrade.html">cf push Availability During TAS for VMs Upgrades</a> in the TAS for VMs documentation.</p>
 
-## <a id='bosh-health'></a>BOSH Health Check Failing After Upgrade
+
+## <a id='bosh-health'></a> BOSH Health Check Failing After Upgrade
 
 ### Error
 
@@ -98,53 +113,78 @@ To troubleshoot these failures, start by examining the logs from the `cf-health-
 
 ### Cause
 
-In Pivotal Healthwatch 1.2.2 and later, Pivotal Healthwatch uses service broker UAA credentials for the BOSH Health Check. This causes a permission issue if the BOSH Health Check deployment already exists on the Director.
+In Pivotal Healthwatch v1.2.2 and later, Pivotal Healthwatch uses service broker UAA credentials for the BOSH Health Check. This causes a permission issue if the BOSH Health Check deployment already exists on the Director.
 
 ### Solution
 
 Manually delete the existing BOSH Health Check deployment.
 
 
-## <a id='bosh-metric-ingestion'></a>BOSH System Metrics Not Being Ingested
+## <a id='bosh-metric-ingestion'></a> BOSH System Metrics Not Being Ingested
 
 ### Error
 
-Either the Smoke Test errand fails with:
+Either the Smoke Test errand fails with the following error:
 
 `[Fail] Bosh metric ingestion [It] Ingests metrics from the director into mysql /var/vcap/packages/healthwatch-data/src/github.com/pivotal-cf/healthwatch-data/data-ingestion/smoketests/bosh_metrics_test.go:50`
 
-or the `healthwatch.ingestor.ingested.boshSystemMetrics` metric has a value of 0.
+Or the `healthwatch.ingestor.ingested.boshSystemMetrics` metric has a value of `0`.
 
-<p class="note"><strong>Note</strong>: A symptom of this error is a red <b>Job Health</b> panel with no failing jobs noted on the Pivotal Healthwatch dashboard.</p>
+<p class="note"><strong>Note</strong>: A symptom of this error is a red <strong>Job Health</strong> panel with no failing jobs noted on the Pivotal Healthwatch dashboard.</p>
 
 ### Cause
 
 The Healthwatch Ingestor is not receiving BOSH system metrics. There are two likely causes to this:
 
-1. The Healthwatch Ingestor is not receiving *any* metrics from the Loggregator RLP, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator RLP. To determine if the Ingestor isn't receiving any metrics look at the Pivotal Healthwatch dashboard. If you don't have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the RLP.
+1. The Healthwatch Ingestor is not receiving *any* metrics from the Loggregator RLP, including BOSH system metrics. This could be an issue with the Ingestor itself or the Loggregator RLP. To determine if the Ingestor isn't receiving any metrics look at the Pivotal Healthwatch dashboard. If you do not have any data in the Router Panel graphs in addition to having 0% Job Health then you are not getting data from the RLP.
 
 1. The Loggregator RLP does not contain BOSH Metrics due to a failure in the `bosh-system-metrics-forwarder` component.
 - A bug causes the BOSH System Metrics Forwarder process to disconnect from the metrics stream emitted by the BOSH Director. This bug is present in Ops Manager versions earlier than v2.2.4 and v2.3.0 and Pivotal Application Service (PAS) versions earlier than v2.2.5 and v2.3.0.
 
 ### Solution
 
-If the Ingestor is not receiving *any* metrics from Loggregator:
+If the Ingestor is not receiving any metrics from Loggregator:
 
-- Check the logs from the Healthwatch Ingestor to see any error messages. `cf logs healthwatch-ingestor --recent`
-- Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
+- Check the logs from the Healthwatch Ingestor to see any error messages by running:
+
+    ```
+    cf logs healthwatch-ingestor --recent
+    ```
+
+- Restart the Healthwatch Ingestor by running:
+
+    ```
+    cf restart healthwatch-ingestor
+    ```
 
 If the BOSH System Metrics Forwarder is failing:
 
-- Upgrade PAS and Ops Manager to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Loggregator RLP by running `cf log-stream bosh-system-metrics-forwarder`.  This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
-- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.  After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
-  [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+- Upgrade Ops Manager and TAS for VMs to versions higher than those listed in the "Cause" section above. You can then validate that there are BOSH system metrics in the Loggregator RLP by running:
 
-## <a id='metric-ingestion'></a>No Metrics Being Ingested
+    ```
+    cf log-stream bosh-system-metrics-forwarder
+    ```
+    This displays metrics such as `system.healthy` and `system.cpu.user` about every 30 seconds.
+
+- As a temporary fix, you can recreate the `loggregator_trafficcontroller` VMs.
+  - Log in to the BOSH Director VM by following one of the procedures in [Create a BOSH Alias](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+  - Recreate the Loggregator Traffic Controller VMs by running:
+
+      ```
+      bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
+      ```
+      Where:
+      - `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
+      - `GUID` is the GUID of the BOSH Director.
+      <br>
+      For more information about recreating VMs, see [Recreate](https://bosh.io/docs/cli-v2/#recreate) in _Commands_ in the BOSH documentation.
+    
+
+## <a id='metric-ingestion'></a> No Metrics Being Ingested
 
 ### Error
 
-The `healthwatch.ingestor.ingested` metric has a value of 0.
+The `healthwatch.ingestor.ingested` metric has a value of `0`.
 
 ### Cause
 
@@ -153,8 +193,20 @@ The Healthwatch Ingestor is not receiving any metrics. This could be due to the 
 ### Solution
 
 A few possible solutions are:
-- Restart the Healthwatch Ingestor: `cf restart healthwatch-ingestor`
-- After [logging in](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) to the BOSH Director,
-  [recreate](https://bosh.io/docs/cli-v2/#recreate) the Loggregator Traffic Controller VMs where the Loggregator RLP
-  proccesses reside:
-  - `bosh -e <MY_ENV> -d cf-<guid> recreate loggregator_trafficcontroller`
+
+- Restart the Healthwatch Ingestor by running:
+
+    ```
+    cf restart healthwatch-ingestor
+    ```
+
+- Recreate the Loggregator Traffic Controller VMs where the Loggregator RLP processes reside.
+  - Log in to the BOSH Director VM by following one of the procedures in [Create a BOSH Alias](https://docs.pivotal.io/platform/customizing/trouble-advanced.html) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+  - Recreate the Loggregator Traffic Controller VMs by running:
+  
+      ```
+      bosh -e ENVIRONMENT-URL-OR-IP -d cf-GUID recreate loggregator_trafficcontroller
+      ```
+      Where:
+      - `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
+      - `GUID` is the GUID of the BOSH Director.
