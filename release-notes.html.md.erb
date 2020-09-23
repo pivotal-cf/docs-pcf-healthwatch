@@ -290,53 +290,66 @@ does not have all the ports open that are required for PKS Cluster Discovery to 
 One workaround is to manually modify the load balancer through the NSX-T Manager API to open up these ports:
 10200, 10251, 10252, and 8443.
 
-    To open the ports:
-    1. Fetch the list of virtual servers:
+To open the ports:
 
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
-        ```
+1. Fetch the list of virtual servers:
 
-        Where:
-        - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
-        - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-        - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
-    1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+      "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
+    ```
+
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+
+1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
        and ending with `virtual-server` and copy the `id` field.
-    1. Fetch the current configuration for the load balancer:
 
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
-        ```
-        Where:
-        - `NSX-MGR` is the IP/FQDN of your NSX-T console.
-        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the Load Balancer.
-    1. Save the JSON that is returned by this command to a file.
-    1. Modify that JSON to include the additional ports:
+1. Fetch the current configuration for the load balancer:
 
-        ```
-        {
-            "...": "...",
-            "ports": [
-                "8443",
-                "10200",
-                "10251",
-                "10252"
-            ],
-            "...": "..."
-        }
-        ```
-    1. Do a PUT to the API to update the virtual server:
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+      https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
+    ```
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
 
-        ```
-        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
-          -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
-          -d 'MODIFIED-JSON-DATA'
-        ```
-        Where `MODIFIED-JSON-DATA` contains the additional ports you want to add.
+1. Save the JSON that is returned by this command to a file.
+
+1. Modify that JSON to include the additional ports:
+
+    ```
+    {
+        "...": "...",
+        "ports": [
+            "8443",
+            "10200",
+            "10251",
+            "10252"
+        ],
+        "...": "..."
+    }
+    ```
+
+1. Do a PUT to the API to update the virtual server:
+
+    ```
+    curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+      https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+      -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
+      -d 'MODIFIED-JSON-DATA'
+    ```
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+    - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
 
 ### <a name="usage-service"></a> Usage Service Dashboard alerts on early patches of TAS.
 
