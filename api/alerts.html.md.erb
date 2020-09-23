@@ -3,7 +3,7 @@ title: Configuring Pivotal Healthwatch Alerts
 owner: Pivotal Healthwatch
 ---
 
-This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs.
+This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring Pivotal Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs.
 
 <p class="note"><strong>Note</strong>: Pivotal Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.</p>
 
@@ -15,7 +15,7 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 - Create or delete deployment-specific configurations based on existing Out-of-the-Box configurations
 
 
-## <a id='prerequisites'></a> Prerequisites/Assumptions
+## <a id='prerequisites'></a> Prerequisites and Assumptions
 
 The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.pivotal.io/pivotalcf/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
 
