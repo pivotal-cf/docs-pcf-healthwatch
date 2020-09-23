@@ -275,7 +275,7 @@ VMware recommends running nightly backups via a Concourse pipeline job like the 
 
 <%= partial 'snippets/backup_job' %>
 
-##  (Optional) Restoring Healthwatch from a BBR Backup
+## <a id='restore'></a> (Optional) Restoring Healthwatch from a BBR Backup
 If you are running nightly backups, you have the ability to restore the TSDB and Grafana data using Bosh Backup and Restore.
 Be aware that this will delete any existing data on all TSDB and Grafana VMs and restore them to when the backup was taken.
 
