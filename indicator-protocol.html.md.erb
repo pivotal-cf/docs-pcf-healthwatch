@@ -38,9 +38,9 @@ This section provides instructions for enabling and configuring the Indicator Pr
 
 To enable the Indicator Protocol dashboard:
 
-1. Enable the Indicator Protocol runtime config add-on for BOSH Director. See [Enable the Indicator Protocol Add-on](#enable-add-on).
+1. Enable the Indicator Protocol runtime config add-on for BOSH Director. For more information, see [Enable the Indicator Protocol Add-on](#enable-add-on) below.
 
-1. Register an indicator document. See [Register an Indicator Document](#indicator-document).
+1. Register an indicator document. For more information, see [Register an Indicator Document](#indicator-document) below.
 
 ### <a id='enable-add-on'></a> Enable the Indicator Protocol Add-on
 
@@ -52,18 +52,22 @@ For more information about runtime config, see [Director Runtime Config](https:/
 
 To enable the Indicator Protocol runtime config add-on:
 
-1. On the Ops Manager Installation Dashboard, click the **Pivotal Healthwatch** tile.
+1. Navigae to the Ops Manager Installation Dashboard.
 
-1. Navigate to the **Healthwatch Component Config** pane.
+1. Click the **Pivotal Healthwatch** tile.
 
-1. Select **Yes** on the **BETA: Enable the Indicator Protocol registration agent add-on?** field.
+1. Select **Healthwatch Component Config**.
+
+1. Under **BETA: Enable the Indicator Protocol registration agent add-on?**, select **Yes**.
 
 1. Click **Save**.
 
-1. On the Ops Manager Installation Dashboard, click **Review Pending Changes**.
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
 
 1. Enable only Pivotal Healthwatch. If any other products are enabled, disable them.
-<p class="note"><strong>Note:</strong> BOSH Director cannot be disabled.</p>
+  <p class="note"><strong>Note:</strong> BOSH Director cannot be disabled.</p>
 
 1. Click **Apply Changes**.
 
@@ -73,13 +77,13 @@ The Indicator Protocol dashboard displays charts of indicator metrics, which are
 
 To register an indicator document for the Indicator Protocol dashboard, whether Pre-Provisioned or On-Demand, you must co-locate the Monitoring Indicator Protocol Registration Agent on each existing service's VM.
 
-For more information about the Monitoring Indicator Protocol Registration Agent, see [Architecture](#architecture).
+For more information about the Monitoring Indicator Protocol Registration Agent, see [Architecture](#architecture) above.
 
-To co-locate the Monitoring Indicator Protocol Registration Agent on each of your existing service's VM, re-deploy each service through BOSH.
+To co-locate the Monitoring Indicator Protocol Registration Agent on each of your existing services' VM, re-deploy each service through BOSH.
 
-For example, to enable RabbitMQ dashboards for all On-Demand service instances, use the `upgrade-all-service-instances` errand.
+For example, to enable VMware Tanzu RabbitMQ dashboards for all On-Demand service instances, use the `upgrade-all-service-instances` errand.
 
-For information about the errand, including implications, see [Upgrade all service instances errand](https://docs.pivotal.io/rabbitmq-cf/1-15/troubleshoot.html#upgrade-all).
+For information about the errand, including implications, see [Upgrade All Service Instances](https://docs.pivotal.io/rabbitmq-cf/troubleshoot.html#upgrade-all) in _Troubleshooting and FAQs for On-Demand VMware Tanzu RabbitMQ [VMs]_ in the VMware Tanzu RabbitMQ documentation.
 
 
 ## <a id='access'></a> Access the Indicator Protocol Dashboard
