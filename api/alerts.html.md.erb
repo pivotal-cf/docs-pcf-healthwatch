@@ -1,11 +1,11 @@
 ---
-title: Configuring PCF Healthwatch Alerts
-owner: PCF Healthwatch
+title: Configuring Pivotal Healthwatch Alerts
+owner: Pivotal Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. 
+This topic describes how to use the Pivotal Healthwatch API to retrieve and configure alert configurations. It also provides information about configuring Pivotal Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs.
 
-<p class="note"><strong>Note</strong>: PCF Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.</p>
+<p class="note"><strong>Note</strong>: Pivotal Healthwatch stores all data points for 25 hours and then prunes them. Any active alerts that are pruned reissue an alert every 24 hours if the related metrics are not yet recovered to a normal state.</p>
 
 Currently, two main types of alert configurations are supported: Out-of-the-Box and Deployment-specific. Through this API, consumers can do the following:
 
@@ -13,44 +13,56 @@ Currently, two main types of alert configurations are supported: Out-of-the-Box 
 - Update Out-of-the-Box threshold values
 - Create or delete deployment-specific configurations based on existing Out-of-the-Box configurations
 
-##<a id='prerequisites'></a>Prerequisites/Assumptions
+
+## <a id='prerequisites'></a> Prerequisites and Assumptions
 
 The steps in this document assume that you can [generate bearer tokens for a UAA client](https://docs.pivotal.io/pivotalcf/uaa/uaa-user-management.html) with the `healthwatch.read` (`GET` only) and `healthwatch.admin` (both `GET` and `POST`) scopes.
 
-After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, follow these steps to authenticate against UAA:
+After creating a user that has `healthwatch.read` or `healthwatch.admin` scopes, authenticate against UAA by running:
 
 ```
-uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
 ```
+
+Where:
+
+- `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
+
+- `HEALTHWATCH-ADMIN-CLIENT-SECRET` is the UAA client secret.
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 At this point you are properly authenticated and ready to start using the Healthwatch Alerts API.
 
-##<a id='info'></a>Healthwatch API Status
 
-Test the availability of the Healthwatch API by hitting the `/info` endpoint with a `GET` request:
+## <a id='info'></a> Healthwatch API Status
+
+To test the availability of the Healthwatch API, send a `GET` request to `/info` endpoint by running:
 
 ```
 curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 The expected response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-##<a id='get'></a>View All Alert Configurations
-### `GET /v1/alert-configurations`
 
-To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint:
+## <a id='get'></a> View All Alert Configurations
+
+### GET /v1/alert-configurations
+
+To view a list of alert configurations, send a `GET` request to the `/alert-configurations` endpoint by running:
 
 ```
 uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of alert configurations:
 
-```
+<pre class="terminal">
 [
     {
         "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
@@ -76,24 +88,26 @@ This returns a JSON array of alert configurations:
         }
     }
 ]
-```
+</pre>
 
 The `query` and `threshold` properties are covered in detail below.
 
-##<a id='get_with_query'></a>View Specific Alert Configurations
-### `GET /v1/alert-configurations?q=...`
+
+## <a id='get_with_query'></a> View Specific Alert Configurations
+
+### GET /v1/alert-configurations?q=...
 
 To narrow the results of a `GET` request, add a `query` to the URL in a parameter named `q`:
 
 ```
-uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'" 
+uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name'"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 This returns a JSON array of alert configurations, filtered against the provided `query`:
 
-```
+<pre class="terminal">
 [
     {
         "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
@@ -104,10 +118,12 @@ This returns a JSON array of alert configurations, filtered against the provided
         }
     }
 ]
-```
+</pre>
 
-##<a id='post'></a>Update Alert Configurations
-### `POST /v1/alert-configurations`
+
+## <a id='post'></a> Update Alert Configurations
+
+### POST /v1/alert-configurations
 
 To update an existing alert configuration, make a `POST` request to the `alert-configurations` endpoint with the updated data:
 
@@ -118,11 +134,11 @@ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
 
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 See the following example output:
 
-```
+<pre class="terminal">
 {
     "query": "origin == 'some_origin' and name == 'Some.Metric.Name'",
     "threshold": {
@@ -131,68 +147,84 @@ See the following example output:
         "type": "UPPER"
     }
 }
-```
+</pre>
 
-<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. In order to revert your changes, update the alert back to its <a href="#defaults">default values</a>.</p>  
+<p class="note warning"><strong>Warning</strong>: These alert configurations cannot be deleted. To revert your changes, update the alert back to its default values. For more information, see <a href="#defaults">Supported Alerts</a> below.</p>
 
-##<a id='post2'></a>Create Alert Configurations for Isolation Segments
-### `POST /v1/alert-configurations`
 
-Specific thresholds can be set for an Isolation Segments by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run the following:
+## <a id='post2'></a> Create Alert Configurations for Isolation Segments
+
+### POST /v1/alert-configurations
+
+Specific thresholds can be set for an isolation segment by extending existing alert configurations with a deployment specifier. For example, to create an isolation segment alert configuration for the above alert, run:
 
 ```
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
       -H "Content-Type: application/json" \
-      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}"
+      --data "{\"query\":\"origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'\",\"threshold\":{\"critical\":55,\"warning\":45,\"type\":\"UPPER\"}}"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where:
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+- `ISOLATION-SEGMENT-NAME` is the name of the isolation segment for which you want to create an alert configuration.
 
 The created alert configuration is echoed back in the following response:
 
-```
+<pre class="terminal">
 {
-    "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'",
+    "query": "origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'",
     "threshold": {
         "critical": 55,
         "warning": 45,
         "type": "UPPER"
     }
 }
+</pre>
+
+<p class="note"><strong>Note</strong>: You can delete isolation segment alert configurations only if you created them with the above method.</p>
+
+
+## <a id='delete'></a> Delete Isolation Segment Alert Configurations
+
+To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`:
+
 ```
-<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them with the above method.</p>
-
-##<a id='delete'></a>Delete Isolation Segment Alert Configurations
-
-To delete a user-created alert configuration for an isolation segment, add a `query` to the URL in a parameter named `q`. 
-
-`DELETE /v1/alert-configurations?q=...`
+DELETE /v1/alert-configurations?q=...
+```
 
 See the following example:
 
 ```
-uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'Some-Isolated-Deployment'"
+uaac curl -X DELETE "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'some_origin' and name == 'Some.Metric.Name' and deployment == 'ISOLATION-SEGMENT-NAME'"
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where:
 
-This returns the number of deleted alert configurations. See the following example output.
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-```
+- `ISOLATION-SEGMENT-NAME` is the name of the isolation segment for which you want to create an alert configuration.
+
+This returns the number of deleted alert configurations. See the following example output:
+
+<pre class="terminal">
 1
-```
+</pre>
 
-<p class="note"><strong>Note</strong>: You can delete Isolation Segment alert configurations only if you created them through the Healthwatch API.</p>
+<p class="note"><strong>Note</strong>: You can delete isolation segment alert configurations only if you created them through the Healthwatch API.</p>
+
 
 ## <a id='disable'></a> Disable Alerts on a Metric
 
-PCF Healthwatch does not support disabling alerts on a specific metric. To ensure that PCF Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
+Pivotal Healthwatch does not support disabling alerts on a specific metric. To ensure that Pivotal Healthwatch does not alert on a metric, update the threshold of the alert to a value that will never trigger an alert.
 
 For more information about thresholds, see [Thresholds](#thresholds).
 
 For more information about updating alert configurations, see [Update Alert Configurations](#post).
 
-##<a id='queries'></a>Queries
+
+## <a id='queries'></a> Queries
 
 The `query` field is used in two ways:
 
@@ -212,34 +244,35 @@ A well-formed `query` is a valid [Spring Expression Language (SpEL)](https://doc
 
 The following fields can be queried:
 
-- `origin`&nbsp;&nbsp;&nbsp;*(required)*
-- `name`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*(required)*
+- (Required) `origin`&nbsp;&nbsp;&nbsp;
+- (Required) `name`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 - `job`
 - `deployment`
 
-##<a id='thresholds'></a>Thresholds
+
+## <a id='thresholds'></a> Thresholds
 
 The `threshold` field contains a threshold `type`, as well as `critical` and `warning` threshold values. The `type` can be `"UPPER"`, `"LOWER"`, `"EQUALITY"`, or `"INEQUALITY"`.
 
-Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is *above* the `warning` value, and again when above the `critical` value.
+Alert configurations whose thresholds are of the `UPPER` type trigger their alerts when the actual metric value is _above_ the `warning` value, and again when above the `critical` value.
 
-Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls *below* the thresholds.
+Thresholds with the `LOWER` type work the same way, except the alerts trigger when the metric falls _below_ the thresholds.
 
 The `EQUALITY` alerts trigger when the metric value is **not** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
 
 The `INEQUALITY` alerts trigger when the metric value **is** exactly equal to the `critical` threshold. These alerts do not have `warning` thresholds.
 
-##<a id='defaults'></a>Supported Alerts
 
-This section describes the default Warning and Critical alerts for PCF Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch. 
+## <a id='defaults'></a> Supported Alerts
 
-Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following tables based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).
+This section describes the default Warning and Critical alerts for Pivotal Healthwatch. Each alert includes recommended thresholds for metrics monitored by Healthwatch.
 
-By default, PCF Healthwatch includes the configurable alerts in the tables below.
-You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatch Metrics](../metrics.html).
+Pivotal recommends customizing the default thresholds for alerts indicated with a <sup>1</sup> in the following tables based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).
 
+By default, Pivotal Healthwatch includes the configurable alerts in the tables below.
+For more information about the metrics Pivotal Healthwatch emits, see [Pivotal Healthwatch Metrics](../metrics.html).
 
-###<a id='performance-alerts'></a>Performance Alerts
+### <a id='performance-alerts'></a> Performance Alerts
 
 <table>
     <tr>
@@ -1010,10 +1043,10 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     </tr>
 </table>
 
-<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).<br/>
-<sup>2</sup> We are alerting by cell for this metric. We will notify at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
+<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).<br/>
+<sup>2</sup> Healthwatch alerts by Diego Cell for this metric. Healthwatch notifies at a critical level when any Diego Cell has been unhealthy for 5 minutes.<br/>
 
-###<a id='scaling-alerts'></a>Scaling Alerts
+### <a id='scaling-alerts'></a> Scaling Alerts
 
 <table>
     <tr>
@@ -1263,7 +1296,7 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     </tr>
 </table>
 
-<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in PCF Healthwatch, see [Update Alert Configurations](#post).<br/>
+<sup>1</sup> Pivotal recommends customizing the default thresholds for these alerts based on your environment. You can determine the best threshold for your environment by monitoring the metrics over time and noting the metric values that indicate acceptable and unacceptable system performance and health. For more information about updating alert configurations in Pivotal Healthwatch, see [Update Alert Configurations](#post).<br/>
 <sup>3</sup> This handles two jobs to accommodate different job names between PAS and SRT*
 
 
@@ -1433,7 +1466,8 @@ You can learn more about the metrics PCF Healthwatch emits here: [PCF Healthwatc
     </tr>
 </table>
 
-##<a id='errors'></a>Errors
+
+## <a id='errors'></a> Errors
 
 This section lists common error messages and their causes.
 
@@ -1472,16 +1506,17 @@ This section lists common error messages and their causes.
 
 **Possible Cause**: An alert configuration does not exist for the targeted metric
 
-##<a id='Example'></a>Walkthrough Example
+
+## <a id='Example'></a> Walkthrough Example
 
 A best practice deployment of Cloud Foundry includes at least three availability zones (AZs). For these types of deployments, Pivotal recommends that you have enough capacity to suffer failure of an entire AZ.
 
 By default, Healthwatch sends an alert if the `Diego.TotalPercentageAvailableMemoryCapacity.5M` metric falls below 35%, or one in three.
 
-However, if your environment has been scaled up to five AZs you may wish to adjust the alert configuration accordingly to 20%, or more in five.
+However, if your environment has been scaled up to five AZs, you may want to adjust the alert configuration accordingly to 20%, or one in five, by running:
 
 ```
-uaac token client get <my_healthwatch_admin_client> -s <my_healthwatch_admin_secret>
+uaac token client get HEALTHWATCH-ADMIN-CLIENT -s HEALTHWATCH-ADMIN-CLIENT-SECRET
 export token=$(uaac context | grep access_token | awk '{print $2}')
 
 uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations"  \
@@ -1489,13 +1524,23 @@ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations
       --data "{\"query\":\"origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'\",\"threshold\":{\"critical\":0.2,\"warning\":0.3,\"type\":\"LOWER\"}}"
 ```
 
-The response body contains the updated alert configuration. You can then confirm the change:
+Where:
 
-```
+- `HEALTHWATCH-ADMIN-CLIENT` is the UAA client with the `healthwatch.read` or `healthwatch.admin` scopes.
+
+- `HEALTHWATCH-ADMIN-CLIENT-SECRET` is the UAA client secret.
+
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+The response body contains the updated alert configuration:
+
+<pre class="terminal">
 uaac curl "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == 'Diego.TotalPercentageAvailableMemoryCapacity.5M'"
-```
-##<a id='event-alerts'></a>Configure PCF Healthwatch Alert Notifications
+</pre>
 
-You can configure PCF Event Alerts to receive push notifications when a PCF Healthwatch alert occurs. For example, if you configured a PCF Healthwatch alert for memory on a VM, you can use PCF Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the PCF Healthwatch alert.
 
-For more information about configuring PCF Event Alerts for PCF Healthwatch, see [PCF Event Alerts](https://docs.pivotal.io/event-alerts/index.html).
+## <a id='event-alerts'></a> Configure Pivotal Healthwatch Alert Notifications
+
+You can configure Pivotal Event Alerts to receive push notifications when a Pivotal Healthwatch alert occurs. For example, if you configured a Pivotal Healthwatch alert for memory on a VM, you can use Pivotal Event Alerts to receive a message on Slack if memory on the VM exceeds the threshold defined in the Pivotal Healthwatch alert.
+
+For more information about configuring Pivotal Event Alerts for Pivotal Healthwatch, see [Pivotal Event Alerts](https://docs.pivotal.io/event-alerts/index.html).

@@ -3,78 +3,75 @@ title: Configuring Canary App Health Endpoint
 owner: PCF Healthwatch
 ---
 
-This topic describes how to use the Pivotal Cloud Foundry (PCF) Healthwatch API to do the following:
+This topic describes how to use the Pivotal Healthwatch API to do view or update the canary app health URL for your Tanzu Application Service (TAS for VMs) deployment.
 
-- View the current canary app health URL for the Pivotal Application Service (PAS) deployment.
-- Update the canary app health URL for the PAS deployment.
+For more information about this metric, see [Canary App Health](../metrics.html#canaryapp) in _Pivotal Healthwatch Metrics_.
 
-See the [Canary App Health](../metrics.html#canaryapp) section for more information about this metric. 
 
-## <a id='prerequisites'></a>Prerequisite
+## <a id='prerequisites'></a> Prerequisite
 
-The steps in this document require that you generate bearer tokens for a UAA client with the `healthwatch.read` and `healthwatch.admin` scopes. For more information on granting these scopes, see [Allow Additional Users to Access the PCF Healthwatch UI](../installing.html#healthwatch-uaa-users). For an example of generating and using a UAAC token for API calls, see [Using the Ops Manager API](https://docs.pivotal.io/pivotalcf/customizing/ops-man-api.html).
+The steps in this document require that you generate bearer tokens for a UAA client with the `healthwatch.read` and `healthwatch.admin` scopes. For more information on granting these scopes, see [Allow Additional Users to Access the Pivotal Healthwatch UI](../installing.html#healthwatch-uaa-users) in _Installing Pivotal Healthwatch_. For an example of generating and using a UAAC token for API calls, see [Using the Ops Manager API](https://docs.pivotal.io/platform/customizing/ops-man-api.html) in the Ops Manager documentation.
 
-## <a id='check-status'></a>Check Healthwatch API Status
 
-To check the availability of the Healthwatch API, run the following command:
+## <a id='check-status'></a> Check Healthwatch API Status
+
+To check the availability of the Healthwatch API, run:
 
 ```
-$ curl https://healthwatch-api.SYSTEM-DOMAIN/info
+curl https://healthwatch-api.SYSTEM-DOMAIN/info
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
 A successful response is a `200`/`OK` with the message `"HAPI is happy"`.
 
-## <a id='get'></a>View Canary URL
 
-`GET /v1/canary?deployment=cf-GUID`
+## <a id='get'></a> View Canary URL
 
-To view the currently configured canary URL, run the following command:
+### GET /v1/canary?deployment=cf-GUID
+
+To view the currently configured canary URL, run:
 
 ```
-$ uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID
+uaac curl https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID
 ```
 
-Where `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
+Where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
 
-<p class="note">
-  <strong>Note:</strong>
-  The cf deployment is currently the only supported deployment for the canary url configuration.
-  These endpoints only support deployment names beginning with <code>cf</code>.
-  For more information about the cf deployment metric change, see
-  <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed "deployment" Field Value for PAS Metrics</a>
-  in the PAS v2.4 release notes.
-  <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page,
-  Where <code>SYSTEM-DOMAIN</code> is the URL configured in the TAS tile. Ex: <code>sys.example.com</code>.
-</p>
+<p class="note"><strong>Note:</strong> The cf deployment is currently the only supported deployment for the canary URL configuration. These endpoints only support deployment names beginning with <code>cf</code>. For more information about the cf deployment metric change, see <a href="https://docs.pivotal.io/pivotalcf/2-4/pcf-release-notes/breaking-changes.html#metrics-prefix">Changed “deployment” Field Value for PAS Metrics</a> in <em>Pivotal Application Service v2.4 Release Notes</em>. <code>cf-GUID</code> is shown on the <code>healthwatch.SYSTEM-DOMAIN/diego/capacity</code> page, where `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile.</p>
 
 This returns a JSON object in the following format:
 
-```
+<pre class='terminal'>
   {
     "deployment":"cf-GUID",
-    "url":"CONFIGURED CANARY URL"
+    "url":"CONFIGURED-CANARY-URL"
   }
+</pre>
+
+Where `CONFIGURED-CANARY-URL` is the currently configured canary URL.
+
+
+
+## <a id='post'></a> Update Canary URL
+
+### POST /v1/canary?deployment=cf-GUID
+
+To update the canary URL for a deployment, run:
+
 ```
-
-## <a id='post'></a>Update Canary URL
-
-`POST /v1/canary?deployment=cf-GUID`
-
-To update the canary URL for a deployment, run the following command. Ensure that your URL includes a protocol, such as `https`. 
-
-```
-$ uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID" \
-      -H "Content-Type: application/json" \
-      --data "{\"url\":\"https://SOME-VALID-URL.com\"}"
+uaac curl -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/canary?deployment=cf-GUID" \
+    -H "Content-Type: application/json" \
+    --data "{\"url\":\"https://CANARY-URL.com\"}"
 ```
 
 Where:
-- `SYSTEM-DOMAIN` is the URL configured in the TAS tile. Ex: `sys.example.com`.
-- `SOME-VALID-URL` is the URL you want to have checked for HTTP 200 responses.
 
-### <a id='responses'></a>Understand the Response
+- `SYSTEM-DOMAIN` is the system domain URL configured in the TAS for VMs tile. For example, `sys.example.com`.
+
+- `CANARY-URL` is the URL you want to have checked for HTTP 200 responses.
+
+### <a id='responses'></a> Understand the Response
 
 See the following table for possible response codes and their explanations.
 
@@ -113,7 +110,7 @@ See the following table for possible response codes and their explanations.
 	</tr>
 </table>
 
-See the following table for details about the contents of the response payload, which is in JSON format. 
+See the following table for details about the contents of the response payload, which is in JSON format.
 
 <table>
 	<tr>
