@@ -46,7 +46,7 @@ then follow the installation instructions for
 [Installing Healthwatch Exporter for TAS](../installing-exporter-tas-vms.html)
 on each TAS foundation you would like to monitor.
 
-Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary 
+Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary
 network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **TAS Exporter Client Mtls** credentials
@@ -107,18 +107,18 @@ will look something like the following:
 </p>
 
 ## <a id="monitoring-pks-from-the-control-plane"></a> Monitoring PKS from the Control Plane
-The **Healthwatch** tile can be used from the Control Plane to monitor any number of PKS 
+The **Healthwatch** tile can be used from the Control Plane to monitor any number of PKS
 foundations. To use **Healthwatch** in this way, follow the installation instructions for
 Installing Healthwatch the control plane, then follow the installation instructions for
 Installing Healthwatch Exporter for PKS  on each PKS foundation you would like to monitor.
 
-Once you have finished installing **Healthwatch Exporter for PKS** and completed the necessary 
+Once you have finished installing **Healthwatch Exporter for PKS** and completed the necessary
 network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
 section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
 can get mTLS client credentials for this scrape config by grabbing the **Pks Exporter Client Mtls** credentials
 from the **Credentials** tab of the  **Healthwatch Exporter for PKS** tile in Ops Manager. Your config
 will look something like the following:
-  
+
 ```yaml
 - job_name: foundation_name
   metrics_path: /metrics
@@ -181,7 +181,7 @@ rather than the entirety of the Firehose.
 The following example
 shows how an operator could configure a scrape job
 to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
-  
+
 ```yaml
 - job_name: allowlisted-job
   metric_relabel_configs:
@@ -260,22 +260,33 @@ This example uses [Bosh DNS](https://bosh.io/docs/dns/)
 to automatically discover all master VMs,
 which now have Telegraf available on port `9273`.
 
-  1. Select **Enable** in the **Bosh Deployment Checker** section.
-  1. Enter a BOSH UAA client and secret with an authority of `bosh.read`.
+1. Under **Bosh Deployment Checker**, select **Enable**.
+
+1. Enter a BOSH UAA client and secret with the `bosh.read` authority.
     <p class="note">
         <strong>Note:</strong>
         In previous versions of Pivotal Healthwatch,
         the BOSH Deployment Checker
         used the BOSH Director admin credentials as default values.
-        As of v1.3,
+        As of Pivotal Healthwatch v1.3,
         the BOSH Deployment Checker defaults to disabled until configured.
     </p>
-  1. Follow the instructions for [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/pivotalcf/2-3/customizing/opsmanager-create-bosh-client.html) to target the BOSH UAA and log in with an admin credential. Ensure that you are targeting the BOSH UAA and not Ops Manager or TAS UAA. If your BOSH Director is SSO-enabled, run the following command to log into the UAA:
-     <pre class="terminal">uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME</pre>,
-     where `BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME` is the username created as a result of these instructions.
-  1. Create a UAA Client for the Healthwatch BOSH task check using the following command:
-     <pre class="terminal">
-       uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET
-     </pre>,
-     where `CLIENT-NAME` and `CLIENT-SECRET` are the desired client name and secret for the Healthwatch BOSH Deployment Checker.
-  1. Click **Save**.
+
+1. Target the BOSH UAA instance and log in with an admin credential by following the procedure in [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/platform/customizing/opsmanager-create-bosh-client.html). Ensure that you are targeting the BOSH UAA instance and not the Ops Manager or TAS for VMs UAA instance. If your BOSH Director is SSO-enabled, log in to the BOSH UAA instance by running:
+
+    ```
+    uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME
+    ```
+    Where `BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME` is the username you created.
+
+1. Create a UAA client for the Healthwatch BOSH task check by running:
+
+    ```
+    uaac client add CLIENT-NAME --authorized\_grant\_types client\_credentials --authorities bosh.read --secret CLIENT-SECRET
+    ```
+
+    Where:
+    * `CLIENT-NAME` is the client name you want to set for the Healthwatch BOSH Deployment Checker.
+    * `CLIENT-SECRET` is the client secret you want to set for the Healthwatch BOSH Deployment Checker.
+
+1. Click **Save**.
