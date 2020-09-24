@@ -231,97 +231,101 @@ This release includes the following fix:
 * <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
 
 
+## <a id="issues"></a> Known Issues
 
-
-
-## <a id="issues"></a>Known Issues
-
-The following sections describe the known issues in Healthwatch 2.
+Healthwatch v2.0 includes the following known issues:
 
 ### <a name="upgrade-from-om-23"></a> Ops Manager pre v2.3 upgrade issue
 
 When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
 Ops Manager v2.3 or earlier, you may see the following error:
 
+<pre class="terminal">
+- Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
+  - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+</pre>
+
+This issue is resolved in Ops Manager v2.8.
+
+To resolve this issue in Ops Manager v2.7 or earlier:
+
+1. SSH into your Ops Manager VM.
+
+1. Change the user to `root`.
+
+1. Open the Rails console by running:
+
     ```
-    - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
-      - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+    > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
     ```
-    This issue is resolved in Ops Manager v2.8.
-    To resolve this issue in Ops Manager v2.7 or earlier:
-    1. SSH into your Ops Manager VM.
-    1. Change the user to `root`.
-    1. Open the Rails console by running:
+    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Ops Manager deployment.
 
-        ```
-        > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='INFRASTRUCTURE' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
-        ```
-        Where `INFRASTRUCTURE` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`.
-    1. Set the decryption passphrase by running:
+1. Set the decryption passphrase by running:
 
-        ```
-        irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
-        ```
-        Where `DECRYPTION-PASSPHRASE` is the correct decryption passphrase.
-    1. Update the UAA restricted view access client secret by running:
+    ```
+    irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
+    ```
+    Where `DECRYPTION-PASSPHRASE` is the decryption passphrase you want to set.
 
-        ```
-        irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
-        ```
-    1. Exit the Rails console and restart the "tempest-web" service by running:
+1. Update the UAA restricted view access client secret by running:
 
-        ```
-        irb(main):001:0> exit
-        > service tempest-web restart
-        ```
+    ```
+    irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
+    ```
 
-### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery reports incorrect node count with NSX-T.
+1. Exit the Rails console and restart the `tempest-web` service by running:
 
-When you use PKS cluster discovery with PKS deployed on vSphere NSX-T,
-the count of k8s masters will always be 1.
+    ```
+    irb(main):001:0> exit
+    > service tempest-web restart
+    ```
+
+### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery Reports Incorrect Node Count with NSX-T
+
+When you use PKS Cluster Discovery with PKS deployed on vSphere NSX-T,
+the count of PKS masters is always 1.
 When PKS API creates the cluster on NSX-T,
-it will also create a load balancer in front of the K8s Control Plane nodes,
-which causes Healthwatch to not be able to address each node separately.
+it also creates a load balancer in front of the PKS Control Plane nodes,
+which prevents Healthwatch from addressing each node separately.
 
 ### <a name="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T.
 
-When PKS cluster discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
-does not have all the ports open that are required for PKS Cluster Discovery to scrape from on demand K8s clusters correctly.
-One workaround is to manually modify the load balancer through the NSX-T Manager API to open up these ports:
-10200, 10251, 10252, and 8443.
+When PKS Cluster Discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
+does not have all the ports open that are required for PKS Cluster Discovery to scrape from on-demand PKS clusters correctly.
+One workaround is to manually modify the load balancer through the NSX-T Manager API to open the
+`10200`, `10251`, `10252`, and `8443` ports.
 
 To open the ports:
 
-1. Fetch the list of virtual servers:
+1. Fetch the list of virtual servers by running:
 
     ```
     curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      "https://NSX-MGR/api/v1/loadbalancer/virtual-servers" | jq .`
+      "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
     ```
-
     Where:
     - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
     - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
 
 1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
        and ending with `virtual-server` and copy the `id` field.
 
-1. Fetch the current configuration for the load balancer:
+1. Fetch the current configuration for the load balancer by running:
 
     ```
     curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID`
+      https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
     ```
     Where:
     - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
     - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
     - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
 
 1. Save the JSON that is returned by this command to a file.
 
-1. Modify that JSON to include the additional ports:
+1. Modify the JSON file to include the additional ports:
 
     ```
     {
@@ -336,18 +340,18 @@ To open the ports:
     }
     ```
 
-1. Do a PUT to the API to update the virtual server:
+1. Send a PUT request to the API to update the virtual server by running:
 
     ```
     curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      https://NSX-MGR/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+      https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
       -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
       -d 'MODIFIED-JSON-DATA'
     ```
     Where:
     - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
     - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
     - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
     - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
 
