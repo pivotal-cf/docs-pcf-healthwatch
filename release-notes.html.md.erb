@@ -3,6 +3,70 @@ title: Pivotal Healthwatch v1.8 Release Notes
 owner: Pivotal Healthwatch
 ---
 
+## <a id='v1.8.2'></a>v1.8.2
+
+**Release Date: September 29, 2020**
+
+### Features
+
+New features and changes in this release:
+
+* Add support for TAS 2.10.
+* **[Bug Fix]** Add a workaround for the Azure bug where running the `Push Monitoring Components (push-apps)` errand fails on Azure.
+For more information, see the Known Issues section.
+* **[Bug Fix]** Clean up `cf-health-check` temporary files periodically to limit disk usage.
+
+### Known Issues
+
+This release has the following known issues.
+
+#### `push-apps` fails on Azure
+
+The Push Monitoring Components errand pushes the Healthwatch components
+in parallel which can fail on Azure.
+
+As a workaround, you can change the errand's deployment strategy from parallel to sequential
+using the **Healthwatch Component Config > Push Healthwatch Applications in Parallel** checkbox
+in the Healthwatch tile when installing it.
+
+#### BOSH Health Check Fails After Reinstallation
+
+If Healthwatch is uninstalled and re-installed while the BOSH Health Check is running, then the BOSH Health Check fails to deploy and reports an error in the Healthwatch UI.
+
+To address this issue, manually delete the `bosh-health-check` deployment and restart the `bosh-health-check` app.
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere versions earlier than v6.5 update 2.
+
+Healthwatch deploys the app `bosh-health-check`, which deploys and deletes a VM every 10 minutes. vSphere versions earlier than v6.5 update 2 leave a namespace or folder and subfolders when the VM is deleted. The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN. For more information about the vSAN known issue, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165) in GitHub.
+
+To address the issue, update vSphere to v6.5 update 2 or later. Or, you can stop the `bosh-health-check` to slow down the increase in vSAN object count.
+
+#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+
+Occasionally, the Indicator Protocol Beta Dashboard charts will fail to load with the error: `"Error fetching graph data."`.
+
+These charts are populated using Log Cache, which is part of Loggregator and will fail periodically due to Log Cache timing out while attempting to process the data.
+
+No corrective action is required and it will self-resolve if possible.
+
+#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
+
+In PAS v2.8, a new feature in the Isolation Segment Tile allows you to deploy compute isolation segments without placement tags. This allows you to deploy a separate group of Diego Cells without isolating the Cell capacity from other apps. For more information about this feature, see [Compute and Networking Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation) in _Pivotal Isolation Segment v2.8 Release Notes_.
+
+If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately measure and report on capacity. Capacity charts, calculated capacity metrics such as Free Chunks, and capacity alerts may incorrectly report a lower capacity than is available for apps.
+
+#### `validate-expected-metrics` fails when external databases are configured
+
+`validate-expected-metrics` expects certain MySQL metrics to be present,
+which will not be the case if you have configured the **External databases** section
+under **Databases** in the **Tanzu Application Service** tile.
+
+As a workaround, you can disable this errand
+under **Errands > Metrics Troubleshooting** in the Healthwatch tile
+when installing it.
+
 ## <a id='v1.8.1'></a>v1.8.1
 
 **Release Date: March 11, 2020**
@@ -23,6 +87,15 @@ New features and changes in this release:
 ### Known Issues
 
 This release has the following known issues.
+
+#### `push-apps` fails on Azure
+
+The Push Monitoring Components errand pushes the Healthwatch components
+in parallel which can fail on Azure.
+
+As a workaround, you can change the errand's deployment strategy from parallel to sequential
+using the **Healthwatch Component Config > Push Healthwatch Applications in Parallel** checkbox
+in the Healthwatch tile when installing it.
 
 #### BOSH Health Check Fails After Reinstallation
 
