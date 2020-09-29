@@ -29,6 +29,13 @@ As a workaround, you can change the errand's deployment strategy from parallel t
 using the **Healthwatch Component Config > Push Healthwatch Applications in Parallel** checkbox
 in the Healthwatch tile when installing it.
 
+#### `smoke-tests` Fails when installed with TAS SRT 2.8+
+
+In TAS SRT 2.8+, the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics
+fail to be emitted due to a bug resulting in the `smoke-tests` errand failing.
+
+The current workaround is to disable the `smoke-tests` errand until a fix is available for TAS SRT.
+
 #### BOSH Health Check Fails After Reinstallation
 
 If Healthwatch is uninstalled and re-installed while the BOSH Health Check is running, then the BOSH Health Check fails to deploy and reports an error in the Healthwatch UI.
@@ -88,7 +95,7 @@ New features and changes in this release:
 
 This release has the following known issues.
 
-#### `push-apps` fails on Azure
+#### `push-apps` Fails on Azure
 
 The Push Monitoring Components errand pushes the Healthwatch components
 in parallel which can fail on Azure.
@@ -96,6 +103,13 @@ in parallel which can fail on Azure.
 As a workaround, you can change the errand's deployment strategy from parallel to sequential
 using the **Healthwatch Component Config > Push Healthwatch Applications in Parallel** checkbox
 in the Healthwatch tile when installing it.
+
+#### `smoke-tests` Fails when installed with TAS SRT 2.8+
+
+In TAS SRT 2.8+, the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics
+fail to be emitted due to a bug resulting in the `smoke-tests` errand failing.
+
+The current workaround is to disable the `smoke-tests` errand until a fix is available for TAS SRT.
 
 #### BOSH Health Check Fails After Reinstallation
 
