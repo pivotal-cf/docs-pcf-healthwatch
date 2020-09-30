@@ -13,17 +13,65 @@ To configure alerting for the Healthwatch tile,
 perform the following steps:
 
 1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
-1. Navigate to **Prometheus Configuration**.
+1. Navigate to **Alertmanager Configuration** tab.
 1. Input the **Alerting Rules YAML** that represents
-    the features of your foundation (explained below).
+    the PromQL expressions to alert on for your foundation (explained below).
+1. Input the **Routing Rules YAML** that represents
+    the notification destinations for specific alerts on your foundation (explained below).
+1. Create the Alert Receivers that are referenced by the **Routing Rules** YAML (explained below).
 1. Click **Save**.
 
-## Which alerts will you need?
+## Configure Your Alerting Rules
 
-We have included alerting rules files
-for TAS and for TKG-i:
+We have created Prometheus alerting rules files for TAS and for TKG-i
+that can be used as a starting point for observing your foundation:
 
 - <a href="tas_alerting_rules.yml" target="_blank">TAS</a>
 - <a href="tkg-i_alerting_rules.yml" target="_blank">TKG-i</a>
 
-Please modify these files according to your foundation's specific setup.
+Please choose the file that correlates to your foundation,
+modify that file according to your observability requirements,
+and paste the contents into the **Alerting Rules YAML** field.
+
+For more information, please visit
+[the Alerting Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+
+## Configure Your Routing Rules
+
+Routing rules define where Alertmanager sends specific triggering alerts
+as well as configuration around alerts such as frequency and grouping.
+Please provide the entire `route` structure as defined in the
+[Alertmanager Configuration Documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
+
+For example:
+
+```
+receiver: 'default-receiver'
+group_wait: 30s
+group_interval: 5m
+repeat_interval: 4h
+group_by: [cluster, alertname]
+```
+
+## Configure Alert Receivers
+
+Alert Receivers define the notification channels that are used by the Routing Rules YAML.
+
+The supported receivers are Email, PagerDuty, Slack, and Webhook.
+For each receiver, the base configuration can be provided in the field entitled "Receiver Configuration".
+The structure of the YAML for this field is defined in the associated
+[Documentation](https://prometheus.io/docs/alerting/latest/configuration/#receiver).
+
+Authentication and TLS settings are optional and are provided separately.
+As a result, the associated fields should not be included in the provided base **Receiver Configuration**.
+
+Any receivers provided with the same name will be merged into a single receiver. For example:
+
+- Two email receivers. Each with a receiver name of "Foundation" and distinct email addresses.
+- One email receiver with a receiver name of "Clusters".
+- One PagerDuty receiver with a receiver name of "Foundation".
+
+Would result in the following:
+
+- One receiver with a name of "Foundation" containing two email configurations and a PagerDuty configuration.
+- One receiver with a name of "Clusters" containing one email configuration.
