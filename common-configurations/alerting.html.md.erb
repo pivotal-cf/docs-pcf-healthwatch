@@ -7,21 +7,23 @@ This topic explains a shift in how Healthwatch handles alerting.
 This document aims to explain how to configure alerting
 in the Healthwatch tile in Ops Manager.
 
-## Alerting
+## <a id='configure'></a>Alerting
 
-To configure alerting for the Healthwatch tile,
-perform the following steps:
+To configure alerting for the Healthwatch tile:
 
 1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
 1. Navigate to **Alertmanager Configuration** tab.
-1. Input the **Alerting Rules YAML** that represents
-    the PromQL expressions to alert on for your foundation (explained below).
-1. Input the **Routing Rules YAML** that represents
-    the notification destinations for specific alerts on your foundation (explained below).
-1. Create the Alert Receivers that are referenced by the **Routing Rules** YAML (explained below).
+1. For **Alerting Rules YAML**, enter YAML to configure alerts for your foundation.
+  Use PromQL expressions to define the alerts.
+  See [Configure Your Alerting Rules](#alerting-rules) below.
+1. For **Routing Rules YAML**, enter YAML that contains
+    the notification destinations for specific alerts on your foundation.
+    See [Configure Your Routing Rules](#routing-rules) below.
+1. Create the Alert Receivers that are referenced by the routing rules YAML.
+  See [Configure Alert Receivers](#alert-receivers) below.
 1. Click **Save**.
 
-## Configure Your Alerting Rules
+## <a id='alerting-rules'></a>Configure Your Alerting Rules
 
 We have created Prometheus alerting rules files for TAS and for TKG-i
 that can be used as a starting point for observing your foundation:
@@ -29,19 +31,18 @@ that can be used as a starting point for observing your foundation:
 - <a href="tas_alerting_rules.yml" target="_blank">TAS</a>
 - <a href="tkg-i_alerting_rules.yml" target="_blank">TKG-i</a>
 
-Please choose the file that correlates to your foundation,
+Choose the file that correlates to your foundation,
 modify that file according to your observability requirements,
 and paste the contents into the **Alerting Rules YAML** field.
 
-For more information, please visit
-[the Alerting Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+For more information, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) in the
+Prometheus documentation.
 
-## Configure Your Routing Rules
+## <a id='routing-rules'></a>Configure Your Routing Rules
 
 Routing rules define where Alertmanager sends specific triggering alerts
 as well as configuration around alerts such as frequency and grouping.
-Please provide the entire `route` structure as defined in the
-[Alertmanager Configuration Documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
+Provide the entire `route` structure.
 
 For example:
 
@@ -53,25 +54,29 @@ repeat_interval: 4h
 group_by: [cluster, alertname]
 ```
 
-## Configure Alert Receivers
+For more information, see the Alertmanager configuration in the [Prometheus](https://prometheus.io/docs/alerting/latest/configuration/#route) documentation.
 
-Alert Receivers define the notification channels that are used by the Routing Rules YAML.
+## <a id='alert-receivers'></a>Configure Alert Receivers
+
+Alert Receivers define the notification channels that are used by the routing rules YAML.
 
 The supported receivers are Email, PagerDuty, Slack, and Webhook.
-For each receiver, the base configuration can be provided in the field entitled "Receiver Configuration".
-The structure of the YAML for this field is defined in the associated
-[Documentation](https://prometheus.io/docs/alerting/latest/configuration/#receiver).
+For each receiver, the base configuration can be provided in the **Receiver Configuration** field.
+
+For information about the structure of the YAML for this field, see the [Prometheus](https://prometheus.io/docs/alerting/latest/configuration/#receiver) documentation.
 
 Authentication and TLS settings are optional and are provided separately.
-As a result, the associated fields should not be included in the provided base **Receiver Configuration**.
+Do not include the associated fields in the provided base receiver configuration.
 
-Any receivers provided with the same name will be merged into a single receiver. For example:
+Any receivers provided with the same name are merged into a single receiver.
 
-- Two email receivers. Each with a receiver name of "Foundation" and distinct email addresses.
-- One email receiver with a receiver name of "Clusters".
-- One PagerDuty receiver with a receiver name of "Foundation".
+For example:
 
-Would result in the following:
+- Two email receivers, each named "Foundation" with distinct email addresses
+- One email receiver named "Clusters"
+- One PagerDuty receiver named "Foundation"
 
-- One receiver with a name of "Foundation" containing two email configurations and a PagerDuty configuration.
-- One receiver with a name of "Clusters" containing one email configuration.
+The example above results in the following:
+
+- One receiver named "Foundation" containing two email configurations and a PagerDuty configuration
+- One receiver named "Clusters" containing one email configuration
