@@ -129,7 +129,7 @@ Navigate to **Grafana Configuration** and do the following:
         10.0.0.0/8 internal addresses and *.example.com directly without going though the proxy.
     <p class="note"><strong>Note:</strong> Proxy settings are only required if you are deploying Healthwatch in an air-gapped environment and want to set up alert channels to external addresses. For example, attempting to send alerts to the external Slack webhook.</p>
 1. Optional: Enter a list of **Static IPs for the Grafana VM(s)**.  These IPs should be comma separated and be
-    valid static IPs from the IAAS for the network on which the tile is installed.
+    valid static IPs outside of the reserved ranges specified in the Bosh Director tile.
 1. Optional: **Enable Grafana Login Form**  Disabling this option will prevent anyone, including the admin user, from logging in with Basic Authentication
 1. Optional: **Use Indicator Protocol Generated Dashboards**
     Checking this option will enable generation of dashboards
