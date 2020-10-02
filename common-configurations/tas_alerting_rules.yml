@@ -139,7 +139,7 @@ groups:
   - name: TASRouter
     rules:
       - alert: TASRouterHealth
-        expr: 'system_healthy{exported_job="router", origin="system_metrics_agent"} <= 0'
+        expr: 'system_healthy{exported_job="router", origin="bosh-system-metrics-forwarder"} <= 0'
         for: 10m
         annotations:
           summary: "The Tanzu Application Service Router is down"
@@ -149,7 +149,7 @@ groups:
             Troubleshooting Steps:
             Review detailed Tanzu Application Service Router metrics and logs for details on the cause of the error.
       - alert: TASRouterCPUUtilization
-        expr: 'system_cpu_user{exported_job="router", origin="system_metrics_agent"} >= 80'
+        expr: 'system_cpu_user{exported_job="router", origin="bosh-system-metrics-forwarder"} >= 80'
         for: 5m
         annotations:
           summary: "The Tanzu Application Service Router is experiencing average CPU utilization above 80%"
@@ -175,7 +175,7 @@ groups:
   - name: TASUAA
     rules:
       - alert: TASUAAHealth
-        expr: 'system_healthy{exported_job="uaa", origin="system_metrics_agent"} <= 0'
+        expr: 'system_healthy{exported_job="uaa", origin="bosh-system-metrics-forwarder"} <= 0'
         for: 10m
         annotations:
           summary: "A UAA VM has been unhealthy for 10 minutes"
