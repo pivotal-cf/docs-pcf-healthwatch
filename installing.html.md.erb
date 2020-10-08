@@ -162,11 +162,13 @@ Navigate to **Canary URL Configuration** and do the following:
 
 1. Optional: Enter **Exporter Port** for the process to listen on. It is only necessary to change from the default port if
     you have a port conflict on the TSDB VM. The port is defaulted to `9115`.
-1. Optional: Enter the **Ops Manager URL**. This will create a canary target URL against the Ops Manager which will drive the `Foundation/Ops Manager Health` dashboard.
+1. Optional: Enter the **Ops Manager URL**. This creates a canary target URL
+against Ops Manager which drives the **Foundation/Ops Manager Health** dashboard.
     <p class="note">
       <strong>Note:</strong>
-        If you have SAML enabled for Ops Manager then change the Ops Manager URL
-        to `https://<opsman url>/api/v0/info`. This will allow the canary check to succeed.
+        If you have SAML enabled for Ops Manager, enter
+        `https://OPS-MANAGER-URL/api/v0/info`. Where `OPS-MANAGER-URL` is
+        your Ops Manager URL. Otherwise, the canary check will fail.
     </p>
 1. Optional: Enter a list of **Target URLs**. [The Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) will run continuous probe tests
     on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
