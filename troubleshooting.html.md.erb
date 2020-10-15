@@ -37,7 +37,7 @@ you can view the Prometheus UI by running the following command
 and then navigating to `localhost:8080` in your browser.
 
 ```
-bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts ' -L 8080:localhost:9090'
+bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts='-L 8080:localhost:9090'
 ```
 
 Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
@@ -65,7 +65,7 @@ you can view the Alertmanager UI by running the following command
 and then navigating to `localhost:8081` in your browser.
 
 ```
-bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts ' -L 8081:localhost:10401'
+bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb --opts='-L 8082:localhost:10401'
 ```
 
 Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
