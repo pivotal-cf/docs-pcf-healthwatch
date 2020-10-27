@@ -52,7 +52,7 @@ groups:
         expr: 'increase(pks_sli_task_failures_total[2m]) <= 0'
         for: 10m
         annotations:
-          summary: "The Tanzu Kubernetes Grid Integrated Edition SLI test ({{ $labels.display_name }}) has been failing for at least 10 minutes."
+          summary: "The Tanzu Kubernetes Grid Integrated Edition SLI test ({{ $labels.task }}) has been failing for at least 10 minutes."
           description: |
             Tanzu Kubernetes Grid Integrated Edition SLI Tests run every 1 minute by default. This setting is configurable in Ops Manager and may have been changed. These tests are intended to give Platform Operators confidence that Application Developers can successfully interact with and manage applications in their clusters.
             Note: the sli tests will report a failure if any task (e.g. `login`, `clusters`) takes more than 1 minute to complete.
