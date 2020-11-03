@@ -97,6 +97,35 @@ The table below provides information about the `cf` CLI health smoke tests and t
 </tr>
 </table>
 
+
+| Test            | Metric               | Frequency | Description                             |
+|-----------------|----------------------|-----------|-----------------------------------------|
+| Total test runs | `pas_sli_runs_total` | 5 min     | Number of times the test suite has run. |
+|                 |                      |           |                                         |
+|                 |                      |           |                                         |
+
+pas_sli_durations_seconds_bucket
+pas_sli_durations_seconds_count
+pas_sli_durations_seconds_sum
+pas_sli_exporter_status
+pas_sli_failures_total
+pas_sli_run_duration_seconds
+pas_sli_runs_total
+pas_sli_task_duration_seconds_bucket
+pas_sli_task_duration_seconds_count
+pas_sli_task_duration_seconds_sum
+pas_sli_task_failures_total{task="delete"}
+pas_sli_task_failures_total{task="login"}
+pas_sli_task_failures_total{task="logs"}
+pas_sli_task_failures_total{task="push"}
+pas_sli_task_failures_total{task="setEnv"}
+pas_sli_task_failures_total{task="start"}
+pas_sli_task_failures_total{task="stop"}
+pas_sli_task_run_duration_seconds{task="push"}
+pas_sli_task_runs_total
+
+
+
 <p class="note"><strong>Note</strong>: The Cloud Foundry CLI health checks each have a timeout of 2 minutes (default value).</p>
 
 ### <a id='pks-cli'></a>PKS CLI Health
@@ -173,6 +202,25 @@ PKS CLI Health smoke tests and the metrics that are generated for these tests.
 </table>
 
 
+pks_sli_duration_seconds_bucket
+pks_sli_duration_seconds_count
+pks_sli_duration_seconds_sum
+pks_sli_exporter_status
+pks_sli_failures_total
+pks_sli_number_of_clusters
+pks_sli_run_duration_seconds
+pks_sli_runs_total
+pks_sli_task_duration_seconds_bucket
+pks_sli_task_duration_seconds_count
+pks_sli_task_duration_seconds_sum
+pks_sli_task_failures_total{task="clusters"}
+pks_sli_task_failures_total{task="get-credentials"}
+pks_sli_task_failures_total{task="login"}
+pks_sli_task_failures_total{task="plans"}
+pks_sli_task_run_duration_seconds{task="get-credentials"}
+pks_sli_task_runs_total
+
+
 ### <a id='bosh-health'></a>BOSH Health
 
 BOSH is the technology behind Ops Manager to manage the
@@ -241,6 +289,39 @@ The table below provides information about the metrics that are generated.
 <p class="note"><strong>Note</strong>: Healthwatch deploys and deletes a VM named <code>bosh-health-exporter</code> as part of this test suite.</p>
 
 
+bosh_deployment
+bosh_deployments_status
+bosh_sli_duration_seconds_bucket
+bosh_sli_duration_seconds_count
+bosh_sli_duration_seconds_sum
+bosh_sli_exporter_status
+bosh_sli_failures_total
+bosh_sli_run_duration_seconds
+bosh_sli_runs_total
+bosh_sli_task_duration_seconds_bucket
+bosh_sli_task_duration_seconds_count
+bosh_sli_task_duration_seconds_sum
+bosh_sli_task_failures_total{task="delete"}
+bosh_sli_task_failures_total{task="deploy"}
+bosh_sli_task_failures_total{task="deployments"}
+bosh_sli_task_failures_total{task="tasks"}
+bosh_sli_task_run_duration_seconds
+bosh_sli_task_runs_total
+health_bosh_deployment_probe_count
+health_check_bosh_director_probe_availability
+health_check_bosh_director_probe_count
+health_check_bosh_director_success
+healthwatch_boshExporter_ingressLatency_seconds_bucket
+healthwatch_boshExporter_ingressLatency_seconds_count
+healthwatch_boshExporter_ingressLatency_seconds_sum
+healthwatch_boshExporter_ingress_envelopes
+healthwatch_boshExporter_metricConversion_seconds_bucket
+healthwatch_boshExporter_metricConversion_seconds_count
+healthwatch_boshExporter_metricConversion_seconds_sum
+healthwatch_boshExporter_status
+ingestor_ingested_boshSystemMetrics
+
+
 ### <a id='cert-expiration'></a>Certificate Expiration Monitoring
 
 Healthwatch exposes metrics about the expiration of certificates. For more information, see [here](common-configurations/certificate-monitoring.html).
@@ -261,6 +342,12 @@ The table below provides information about the metrics that are generated.
   <td>How long in seconds until certain certificate(s) expire.</td>
 </tr>
 </table>
+
+
+probe_http_ssl
+probe_ssl_earliest_cert_expiry
+probe_ssl_last_chain_expiry_timestamp_seconds
+ssl_certificate_expiry_seconds{exported_instance=~".*"}
 
 
 ### <a id='blackbox'></a>Canary URL Health
@@ -290,3 +377,21 @@ along with the response time metrics.
 </tr>
 </table>
 
+
+probe_dns_lookup_time_seconds
+probe_duration_seconds
+probe_failed_due_to_regex
+probe_http_content_length
+probe_http_duration_seconds
+probe_http_last_modified_timestamp_seconds
+probe_http_redirects
+probe_http_ssl
+probe_http_status_code
+probe_http_uncompressed_body_length
+probe_http_version
+probe_ip_addr_hash
+probe_ip_protocol
+probe_ssl_earliest_cert_expiry
+probe_ssl_last_chain_expiry_timestamp_seconds
+probe_success{instance=~".*"}
+probe_tls_version_info
