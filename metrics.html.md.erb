@@ -104,9 +104,9 @@ The table below provides information about the `cf` CLI health smoke tests and t
 |                 |                      |           |                                         |
 |                 |                      |           |                                         |
 
-pas_sli_durations_seconds_bucket
-pas_sli_durations_seconds_count
-pas_sli_durations_seconds_sum
+pas_sli_duration_seconds_bucket
+pas_sli_duration_seconds_count
+pas_sli_duration_seconds_sum
 pas_sli_exporter_status
 pas_sli_failures_total
 pas_sli_run_duration_seconds
@@ -124,6 +124,15 @@ pas_sli_task_failures_total{task="stop"}
 pas_sli_task_run_duration_seconds{task="push"}
 pas_sli_task_runs_total
 
+
+### PAS
+
+healthwatch_pasExporter_counterConversion_seconds
+healthwatch_pasExporter_evictedMetrics
+healthwatch_pasExporter_gaugeConversion_seconds
+healthwatch_pasExporter_ingressLatency_seconds
+healthwatch_pasExporter_ingress_envelopes
+healthwatch_pasExporter_status
 
 
 <p class="note"><strong>Note</strong>: The Cloud Foundry CLI health checks each have a timeout of 2 minutes (default value).</p>
@@ -289,37 +298,31 @@ The table below provides information about the metrics that are generated.
 <p class="note"><strong>Note</strong>: Healthwatch deploys and deletes a VM named <code>bosh-health-exporter</code> as part of this test suite.</p>
 
 
-bosh_deployment
-bosh_deployments_status
-bosh_sli_duration_seconds_bucket
-bosh_sli_duration_seconds_count
-bosh_sli_duration_seconds_sum
-bosh_sli_exporter_status
-bosh_sli_failures_total
-bosh_sli_run_duration_seconds
-bosh_sli_runs_total
-bosh_sli_task_duration_seconds_bucket
-bosh_sli_task_duration_seconds_count
-bosh_sli_task_duration_seconds_sum
-bosh_sli_task_failures_total{task="delete"}
-bosh_sli_task_failures_total{task="deploy"}
-bosh_sli_task_failures_total{task="deployments"}
-bosh_sli_task_failures_total{task="tasks"}
-bosh_sli_task_run_duration_seconds
-bosh_sli_task_runs_total
-health_bosh_deployment_probe_count
-health_check_bosh_director_probe_availability
-health_check_bosh_director_probe_count
-health_check_bosh_director_success
-healthwatch_boshExporter_ingressLatency_seconds_bucket
-healthwatch_boshExporter_ingressLatency_seconds_count
-healthwatch_boshExporter_ingressLatency_seconds_sum
-healthwatch_boshExporter_ingress_envelopes
-healthwatch_boshExporter_metricConversion_seconds_bucket
-healthwatch_boshExporter_metricConversion_seconds_count
-healthwatch_boshExporter_metricConversion_seconds_sum
-healthwatch_boshExporter_status
-ingestor_ingested_boshSystemMetrics
+bosh_deployments_status                                  | Bosh Deployments status, a 1 indicates a deployment is occurring on the director
+bosh_sli_duration_seconds_bucket                         | Number of seconds it took for the SLI test suite to run, grouped by duration
+bosh_sli_duration_seconds_count                          | Total number of metrics in all the buckets
+bosh_sli_duration_seconds_sum                            | Total value of the metrics in all the buckets
+bosh_sli_exporter_status                                 | Exporter status, a 1 indicates the exporter is running and healthy
+bosh_sli_failures_total                                  | Total number of failures of the SLI test suite
+bosh_sli_run_duration_seconds                            | Number of seconds it took for the SLI test suite to run
+bosh_sli_runs_total                                      | Total number of runs of the SLI test suite. Use bosh_sli_failures_total / bosh_sli_runs_total to get failure rate.
+bosh_sli_task_duration_seconds_bucket                    | Number of seconds it took for a particular task to run, grouped by duration
+bosh_sli_task_duration_seconds_count                     | Total number of metrics in all the buckets
+bosh_sli_task_duration_seconds_sum                       | Total value of the metrics in all the buckets
+bosh_sli_task_failures_total{task="delete"}              | Total number of failures for an SLI "delete" task
+bosh_sli_task_failures_total{task="deploy"}              | Total number of failures for an SLI "deploy" task
+bosh_sli_task_failures_total{task="deployments"}         | Total number of failures for an SLI "deployments" task
+bosh_sli_task_failures_total{task="tasks"}               | Total number of failures for an SLI "tasks" task
+bosh_sli_task_run_duration_seconds                       | Number of seconds it took for a particular task to run
+bosh_sli_task_runs_total                                 | Total number of runs for a particular SLI task. Use bosh_sli_task_failures_total / bosh_sli_task_runs_total to get failure rate.
+healthwatch_boshExporter_ingressLatency_seconds_bucket   | Number of seconds it took to process a batch of Loggregator envelopes, grouped by latency
+healthwatch_boshExporter_ingressLatency_seconds_count    | Total number of metrics in all the buckets
+healthwatch_boshExporter_ingressLatency_seconds_sum      | Total value of the metrics in all the buckets
+healthwatch_boshExporter_ingress_envelopes               | Number of envelopes received by observability metrics agent
+healthwatch_boshExporter_metricConversion_seconds_bucket | Number of seconds it took to convert a bosh metric to a Prometheus gauge, grouped by duration
+healthwatch_boshExporter_metricConversion_seconds_count  | Total number of metrics in all the buckets
+healthwatch_boshExporter_metricConversion_seconds_sum    | Total value of the metrics in all the buckets
+healthwatch_boshExporter_status                          | Exporter status, a 1 indicates the exporter is running and healthy
 
 
 ### <a id='cert-expiration'></a>Certificate Expiration Monitoring
@@ -378,20 +381,92 @@ along with the response time metrics.
 </table>
 
 
-probe_dns_lookup_time_seconds
-probe_duration_seconds
-probe_failed_due_to_regex
-probe_http_content_length
-probe_http_duration_seconds
-probe_http_last_modified_timestamp_seconds
-probe_http_redirects
-probe_http_ssl
-probe_http_status_code
-probe_http_uncompressed_body_length
-probe_http_version
-probe_ip_addr_hash
-probe_ip_protocol
-probe_ssl_earliest_cert_expiry
-probe_ssl_last_chain_expiry_timestamp_seconds
-probe_success{instance=~".*"}
-probe_tls_version_info
+
+
+
+
+`probe_dns_additional_rrs`                      | Returns number of entries in the additional resource record list
+`probe_dns_answer_rrs`                          | Returns number of entries in the answer resource record list
+`probe_dns_authority_rrs`                       | Returns number of entries in the authority resource record list
+`probe_dns_duration_seconds`                    | Duration of DNS request by phase
+`probe_dns_lookup_time_seconds`                 | Returns the time taken for probe dns lookup in seconds
+`probe_dns_serial`                              | Returns the serial number of the zone
+`probe_duration_seconds`                        | Returns how long the probe took to complete in seconds
+`probe_failed_due_to_regex`                     | Indicates if probe failed due to regex
+`probe_http_content_length`                     | Length of http content response
+`probe_http_duration_seconds`                   | Duration of http request by phase, summed over all redirects
+`probe_http_last_modified_timestamp_seconds`    | Returns the Last-Modified HTTP response header in unixtime
+`probe_http_redirects`                          | The number of redirects
+`probe_http_ssl`                                | Indicates if SSL was used for the final redirect
+`probe_http_status_code`                        | Response HTTP status code
+`probe_http_uncompressed_body_length`           | Length of uncompressed response body
+`probe_http_version`                            | Returns the version of HTTP of the probe response
+`probe_icmp_duration_seconds`                   | Duration of icmp request by phase
+`probe_icmp_reply_hop_limit`                    | Replied packet hop limit (TTL for ipv4)
+`probe_ip_addr_hash`                            | Specifies the hash of IP address. It's useful to detect if the IP address changes.
+`probe_ip_protocol`                             | Specifies whether probe ip protocol is IP4 or IP6
+`probe_ssl_earliest_cert_expiry`                | Returns earliest SSL cert expiry in unixtime
+`probe_ssl_last_chain_expiry_timestamp_seconds` | Returns last SSL chain expiry in unixtime
+`probe_ssl_last_chain_info`                     | Contains SSL leaf certificate information
+`probe_success`                                 | Displays whether or not the probe was a success
+`probe_tls_version_info`                        | Returns the TLS version used, or NaN when unknown
+
+
+
+
+\.new(Gauge|Counter|Const)
+
+
+### Prometheus Exposition
+
+healthwatch_prometheusExpositionLatency_seconds
+healthwatch_prometheusExposition_expiredMetrics
+healthwatch_prometheusExposition_histogramMapConversion
+healthwatch_prometheusExposition_metricMapConversion
+healthwatch_prometheusExposition_metricSorting
+
+
+
+### SVM Forwarder
+
+failed_scrapes_total
+last_total_attempted_scrapes
+last_total_failed_scrapes
+last_total_scrape_duration
+scrape_targets_total
+
+
+### SVMs
+
+The following metrics are Healthwatch 1.x metrics
+that are still available for use by turning on the SVM Forwarder.
+See the [Release Notes](./release-notes.html#2-0-1) for more information.
+
+Diego_AvailableFreeChunksDisk
+Diego_AvailableFreeChunks
+Diego_LRPsAdded_1H
+Diego_TotalAvailableContainerCapacity_5M
+Diego_TotalPercentageAvailableDiskCapacity_5M
+Diego_TotalAvailableMemoryCapacity_5M
+Diego_TotalPercentageAvailableContainerCapacity_5M
+Diego_TotalAvailableDiskCapacity_5M
+Doppler_MessagesAverage_1M
+Firehose_LossRate_1H
+Firehose_LossRate_1M
+SyslogDrain_RLP_LossRate_1M
+SyslogAgent_LossRate_1M
+uaa_throughput_rate
+Diego_TotalPercentageAvailableMemoryCapacity_5M
+health_check_CanaryApp_available
+health_check_CanaryApp_responseTime
+health_check_bosh_director_success                       | BOSH SLI test status, 1 indicates success
+health_check_cliCommand_login
+health_check_cliCommand_push
+health_check_cliCommand_pushTime
+health_check_cliCommand_start
+health_check_cliCommand_logs
+health_check_cliCommand_stop
+health_check_cliCommand_delete
+health_check_cliCommand_probe_count
+health_check_cliCommand_success
+bosh_deployment
