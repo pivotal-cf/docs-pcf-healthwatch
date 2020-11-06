@@ -12,18 +12,29 @@ owner: Healthwatch
 
 ## <a id='2-0-5'></a> v2.0.5 (Beta)
 
-**Release Date: TBD**
+**Release Date: Nov 6, 2020**
 <div class="note breaking">
     <strong>Breaking Changes:</strong>
     <ul>
+      <li>Prometheus Alertmanager replaces Grafana alerts. Any edited or custom alerts you have
+      will not be transferred. Custom alerts will remain in Grafana alerts and can be manually
+      moved to Alertmanager
+      </li>
+      <li>Update Certificate Expiration alert threshold from 14 days to 30 days</li>
     </ul>
 </div>
 
-### Feature Deprecations
-
 ### Features
 
+* Add Alertmanager (as a replacement for Grafana alerts), including transferring of
+existing alerting rules. For more information on alerting rules, see [Alerting](https://docs.pivotal
+.io/healthwatch/2-0/common-configurations/alerting.html) to view all alerting rules.
+* Add support for TAS 2.10, TKGI 1.8, and TKGI 1.9
+* Add Subject Alternative Name (SAN) to all mTLS certificates
+
 ### Resolved Issues
+
+* Fix issue discovering TKGI clusters in NSX-T
 
 ### Known Issues
 
@@ -34,6 +45,11 @@ owner: Healthwatch
   to "Tanzu Kubernetes Grid Integrated" and "TKGI" respectively.
   This should help mitigate user confusion at inconsistent branding
   since the rename of PKS to TKGI.
+* Confirm support of pkcs8 keys in custom scrape configs
+* Improve log messages when PKS Cluster Discovery fails to authenticate
+* Update Certificate Expiration alert threshold from 14 days to 30 days
+* Update layout of the "Job Details" page to enhance readability
+* Change netty logging level to "FATAL" to mitigate overzealous logging
 
 ### Packaged OSS Components
 
