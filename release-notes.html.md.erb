@@ -16,21 +16,19 @@ owner: Healthwatch
 <div class="note breaking">
     <strong>Breaking Changes:</strong>
     <ul>
-      <li>Alertmanager replaces Grafana alerts. NOTE: no edited or custom alerts will be
-      transferred</li>
+      <li>Prometheus Alertmanager replaces Grafana alerts. Any edited or custom alerts you have
+      will not be transferred. Custom alerts will remain in Grafana alerts and can be manually
+      moved to Alertmanager
+      </li>
       <li>Update Certificate Expiration alert threshold from 14 days to 30 days</li>
     </ul>
 </div>
 
-### Feature Deprecations
-
-* Healthwatch 2.0.5 removed default alerting rules from Grafana alerts. These rules have been
-transferred to Alertmanager.
-
 ### Features
 
-* Add Prometheus Alertmanager (as a replacement for Grafana alerts), including transferring of
-existing alerting rules. You can visit our documentation [here](https://docs.pivotal.io/healthwatch/2-0/common-configurations/alerting.html) to view all alerting rules.
+* Add Alertmanager (as a replacement for Grafana alerts), including transferring of
+existing alerting rules. For more information on alerting rules, see [Alerting](https://docs.pivotal
+.io/healthwatch/2-0/common-configurations/alerting.html) to view all alerting rules.
 * Add support for TAS 2.10, TKGI 1.8, and TKGI 1.9
 * Add Subject Alternative Name (SAN) to all mTLS certificates
 
