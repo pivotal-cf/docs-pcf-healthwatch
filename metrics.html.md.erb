@@ -16,12 +16,13 @@ including Tanzu Application Service Exporter and Enterprise PKS Exporter.
 Healthwatch generates metrics that describe the health of several platform components.
 These metrics can be used to calculate percent availability and error budgets.
 
-### SLI Tests
+### <a id='sli-tests'></a>SLI Tests
 
-We have a generic underlying component in our code called the `SLITestRunner`
+We have a generic underlying component in our code called the SLI Test Runner
 which can be configured to run tasks that will provide Service Level Indicators
 for command line applications and processes. Thus, you will see a pattern emerge
 between certain metrics (`bosh_sli_...`, `pas_sli_...`, `pks_sli_...`).
+Here are the ones that `bosh`, `pas`, and `pks` should all have in common.
 
 | Metric                                                  | Description                                                                                                                      |
 |---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -43,7 +44,9 @@ Where `COMPONENT` is the platform or CLI tested (e.g. `bosh`, `pas`, `pks`).
 
 ### <a id='cf-cli'></a>Cloud Foundry CLI Health
 
-The Cloud Foundry Command Line Interface (`cf` CLI) enables developers to create and manage apps on Tanzu Application Service. Healthwatch executes a continuous test suite to validate the core functions of the `cf` CLI.
+The Cloud Foundry Command Line Interface (`cf` CLI)
+enables developers to create and manage apps on Tanzu Application Service.
+Healthwatch executes a continuous test suite to validate the core functions of the `cf` CLI.
 
 The table below provides information about the `cf` CLI health smoke tests and the metrics that are generated for these tests.
 
@@ -57,17 +60,21 @@ The table below provides information about the `cf` CLI health smoke tests and t
 | `pas_sli_task_failures_total{task="start"}`  | Total number of failures for a `cf start` command on PAS   |
 | `pas_sli_task_failures_total{task="stop"}`   | Total number of failures for a `cf stop` command on PAS    |
 
-### PAS
+### <a id='pas'></a>PAS Exporter
 
-healthwatch_pasExporter_counterConversion_seconds
-healthwatch_pasExporter_evictedMetrics
-healthwatch_pasExporter_gaugeConversion_seconds
-healthwatch_pasExporter_ingressLatency_seconds
-healthwatch_pasExporter_ingress_envelopes
-healthwatch_pasExporter_status
+These metrics correspond to the health of the PAS Exporter process,
+which is a process that takes metrics from the Firehose
+and makes them accessible on a Prometheus-compatible metrics endpoint.
 
+| Metric                                              | Description                                                                     |
+|-----------------------------------------------------|---------------------------------------------------------------------------------|
+| `healthwatch_pasExporter_counterConversion_seconds` | Number of seconds it took to convert a counter envelope to a Prometheus counter |
+| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                                   |
+| `healthwatch_pasExporter_gaugeConversion_seconds`   | Number of seconds it took to convert a gauge envelope to a Prometheus gauge     |
+| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes              |
+| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                     |
+| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy              |
 
-<p class="note"><strong>Note</strong>: The Cloud Foundry CLI health checks each have a timeout of 2 minutes (default value).</p>
 
 ### <a id='pks-cli'></a>PKS CLI Health
 
@@ -85,15 +92,20 @@ PKS CLI Health smoke tests and the metrics that are generated for these tests.
 | `pks_sli_task_failures_total{task="login"}`           | Total number of failures for a `pks login` command           |
 | `pks_sli_task_failures_total{task="plans"}`           | Total number of failures for a `pks plans` command           |
 
+
 ### <a id='bosh-health'></a>BOSH Health
 
 BOSH is the technology behind Ops Manager to manage the
-VMs deployed. If the BOSH Director is not responsive or functional, BOSH-managed VMs lose their resiliency. Healthwatch executes a continuous test suite
+VMs deployed. If the BOSH Director is not responsive or functional, BOSH-managed VMs lose their resiliency.
+Healthwatch executes a continuous test suite
 to validate the functionality of BOSH director.
 
 The table below provides information about the metrics that are generated.
 
-<p class="note"><strong>Note</strong>: Healthwatch deploys and deletes a VM named <code>bosh-health-exporter</code> as part of this test suite.</p>
+<p class="note">
+  <strong>Note</strong>:
+  Healthwatch deploys and deletes a VM named <code>bosh-health-exporter</code> as part of this test suite.
+</p>
 
 | Metric                                                     | Description                                                                                   |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
@@ -114,30 +126,14 @@ The table below provides information about the metrics that are generated.
 
 ### <a id='cert-expiration'></a>Certificate Expiration Monitoring
 
-Healthwatch exposes metrics about the expiration of certificates. For more information, see [here](common-configurations/certificate-monitoring.html).
+Healthwatch exposes metrics about the expiration of certificates.
+For more information, see [here](common-configurations/certificate-monitoring.html).
 
 The table below provides information about the metrics that are generated.
 
-<table class="nice">
-<tr>
-  <th>Test</th>
-  <th>Metric</th>
-  <th>Frequency</th>
-  <th>Description</th>
-</tr>
-<tr>
-  <td>Certificate time to expire</td>
-  <td><code>ssl_certificate_expiry_seconds{exported_instance=~".*"}</code></td>
-  <td>1 min</td>
-  <td>How long in seconds until certain certificate(s) expire.</td>
-</tr>
-</table>
-
-
-probe_http_ssl
-probe_ssl_earliest_cert_expiry
-probe_ssl_last_chain_expiry_timestamp_seconds
-ssl_certificate_expiry_seconds{exported_instance=~".*"}
+| Metric                                                    | Description                                       |
+|-----------------------------------------------------------|---------------------------------------------------|
+| `ssl_certificate_expiry_seconds{exported_instance=~".*"}` | Duration in seconds until the certificate expires |
 
 
 ### <a id='blackbox'></a>Canary URL Health
@@ -174,56 +170,62 @@ along with the response time metrics.
 | `probe_success`                                 | Displays whether or not the probe was a success                                    |
 | `probe_tls_version_info`                        | Returns the TLS version used, or NaN when unknown                                  |
 
-### Prometheus Exposition
 
-healthwatch_prometheusExpositionLatency_seconds
-healthwatch_prometheusExposition_expiredMetrics
-healthwatch_prometheusExposition_histogramMapConversion
-healthwatch_prometheusExposition_metricMapConversion
-healthwatch_prometheusExposition_metricSorting
+### <a id="prometheus-exposition"></a>Prometheus Exposition
 
-
-
-### SVM Forwarder
-
-failed_scrapes_total
-last_total_attempted_scrapes
-last_total_failed_scrapes
-last_total_scrape_duration
-scrape_targets_total
+| Metric                                                    | Description                                                        |
+|-----------------------------------------------------------|--------------------------------------------------------------------|
+| `healthwatch_prometheusExpositionLatency_seconds`         | Number of seconds it took to render Prometheus scrape page         |
+| `healthwatch_prometheusExposition_expiredMetrics`         | Number of metrics expired from exporter cache                      |
+| `healthwatch_prometheusExposition_histogramMapConversion` | Time it takes to convert histogram collection to a map             |
+| `healthwatch_prometheusExposition_metricMapConversion`    | Time it takes to convert metrics collection to a map               |
+| `healthwatch_prometheusExposition_metricSorting`          | Time it takes to sort metrics when rendering Prometheus exposition |
 
 
-### SVMs
+### <a id="svm-forwarder"></a>SVM Forwarder
+
+| Metric                         | Description                                                               |
+|--------------------------------|---------------------------------------------------------------------------|
+| `failed_scrapes_total`         | Total number of failed scrapes for the target source_id.                  |
+| `last_total_attempted_scrapes` | Count of attempted scrapes during last round of scraping.                 |
+| `last_total_failed_scrapes`    | Count of failed scrapes during last round of scraping.                    |
+| `last_total_scrape_duration`   | Time in milliseconds to scrape all targets in last round of scraping.     |
+| `scrape_targets_total`         | Total number of scrape targets identified from prom scraper config files. |
+
+
+### <a id="svms"></a>SVMs
 
 The following metrics are Healthwatch 1.x metrics
 that are still available for use by turning on the SVM Forwarder.
 See the [Release Notes](./release-notes.html#2-0-1) for more information.
 
-Diego_AvailableFreeChunksDisk
-Diego_AvailableFreeChunks
-Diego_LRPsAdded_1H
-Diego_TotalAvailableContainerCapacity_5M
-Diego_TotalPercentageAvailableDiskCapacity_5M
-Diego_TotalAvailableMemoryCapacity_5M
-Diego_TotalPercentageAvailableContainerCapacity_5M
-Diego_TotalAvailableDiskCapacity_5M
-Doppler_MessagesAverage_1M
-Firehose_LossRate_1H
-Firehose_LossRate_1M
-SyslogDrain_RLP_LossRate_1M
-SyslogAgent_LossRate_1M
-uaa_throughput_rate
-Diego_TotalPercentageAvailableMemoryCapacity_5M
-health_check_CanaryApp_available
-health_check_CanaryApp_responseTime
-health_check_bosh_director_success                       | BOSH SLI test status, 1 indicates success
-health_check_cliCommand_login
-health_check_cliCommand_push
-health_check_cliCommand_pushTime
-health_check_cliCommand_start
-health_check_cliCommand_logs
-health_check_cliCommand_stop
-health_check_cliCommand_delete
-health_check_cliCommand_probe_count
-health_check_cliCommand_success
-bosh_deployment
+| Metric                                               | Description                                                                                         |
+|------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| `Diego_AppsDomainSynced`                             | ?                                                                                                   |
+| `Diego_AvailableFreeChunksDisk`                      | Diego Available Free Chunks of Disk                                                                 |
+| `Diego_AvailableFreeChunks`                          | Diego Available Free Chunks of Memory                                                               |
+| `Diego_LRPsAdded_1H`                                 | Rate of Change in Running App Instances                                                             |
+| `Diego_TotalAvailableDiskCapacity_5M`                | Remaining Cell Disk Available                                                                       |
+| `Diego_TotalAvailableMemoryCapacity_5M`              | Remaining Cell Memory Available                                                                     |
+| `Diego_TotalPercentageAvailableContainerCapacity_5M` | Diego Container Capacity                                                                            |
+| `Diego_TotalPercentageAvailableDiskCapacity_5M`      | Diego Cell Disk                                                                                     |
+| `Diego_TotalPercentageAvailableMemoryCapacity_5M`    | Diego Cell Memory                                                                                   |
+| `Doppler_MessagesAverage_1M`                         | Doppler Message Rate Average                                                                        |
+| `Firehose_LossRate_1H`                               | Log Transport Loss Rate                                                                             |
+| `Firehose_LossRate_1M`                               | Log Transport Loss Rate                                                                             |
+| `SyslogAgent_LossRate_1M`                            | Syslog Agent Loss Rate                                                                              |
+| `SyslogDrain_RLP_LossRate_1M`                        | Reverse Log Proxy Loss Rate                                                                         |
+| `bosh_deployment`                                    |                                                                                                     |
+| `health_check_bosh_director_success`                 | BOSH SLI test status, 1 indicates success                                                           |
+| `health_check_CanaryApp_available`                   | Canary App Availability                                                                             |
+| `health_check_CanaryApp_responseTime`                | Canary App Response Time                                                                            |
+| `health_check_cliCommand_delete`                     | Can CF Delete                                                                                       |
+| `health_check_cliCommand_login`                      | Can CF Login                                                                                        |
+| `health_check_cliCommand_logs`                       | Can Receive Logs                                                                                    |
+| `health_check_cliCommand_probe_count`                | Number of Healthwatch CLI Command Health probe assessments completed in the measured time interval. |
+| `health_check_cliCommand_pushTime`                   | CF Push Time                                                                                        |
+| `health_check_cliCommand_push`                       | Can CF Push                                                                                         |
+| `health_check_cliCommand_start`                      | Can CF Start                                                                                        |
+| `health_check_cliCommand_stop`                       | Can CF Stop                                                                                         |
+| `health_check_cliCommand_success`                    | Overall success of the CF CLI SLI tests                                                             |
+| `uaa_throughput_rate`                                | UAA Throughput Rate                                                                                 |
