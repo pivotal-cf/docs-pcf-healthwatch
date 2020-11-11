@@ -24,21 +24,21 @@ for command line applications and processes. Thus, you will see a pattern emerge
 between certain metrics (`bosh_sli_...`, `pas_sli_...`, `pks_sli_...`).
 Here are the ones that `bosh`, `pas`, and `pks` should all have in common.
 
-| Metric                                                  | Description                                                                                                                      |
-|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `COMPONENT_deployments_status`                          | Bosh Deployments status, a 1 indicates a deployment is occurring on the director                                                 |
-| `COMPONENT_sli_duration_seconds_bucket`                 | Number of seconds it took for the SLI test suite to run, grouped by duration                                                     |
-| `COMPONENT_sli_duration_seconds_count`                  | Total number of metrics in all the buckets                                                                                       |
-| `COMPONENT_sli_duration_seconds_sum`                    | Total value of the metrics in all the buckets                                                                                    |
-| `COMPONENT_sli_exporter_status`                         | Exporter status, a 1 indicates the exporter is running and healthy                                                               |
-| `COMPONENT_sli_failures_total`                          | Total number of failures of the SLI test suite                                                                                   |
-| `COMPONENT_sli_run_duration_seconds`                    | Number of seconds it took for the SLI test suite to run                                                                          |
-| `COMPONENT_sli_runs_total`                              | Total number of runs of the SLI test suite. Use bosh_sli_failures_total / bosh_sli_runs_total to get failure rate.               |
-| `COMPONENT_sli_task_duration_seconds_bucket`            | Number of seconds it took for a particular task to run, grouped by duration                                                      |
-| `COMPONENT_sli_task_duration_seconds_count`             | Total number of metrics in all the buckets                                                                                       |
-| `COMPONENT_sli_task_duration_seconds_sum`               | Total value of the metrics in all the buckets                                                                                    |                                                                            |
-| `COMPONENT_sli_task_run_duration_seconds`               | Number of seconds it took for a particular task to run                                                                           |
-| `COMPONENT_sli_task_runs_total`                         | Total number of runs for a particular SLI task. Use bosh_sli_task_failures_total / bosh_sli_task_runs_total to get failure rate. |
+| Metric                                                  | Description                                                                                                                          |
+|---------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `COMPONENT_deployments_status`                          | Bosh Deployments status, a 1 indicates a deployment is occurring on the director                                                     |
+| `COMPONENT_sli_duration_seconds_bucket`                 | Number of seconds it took for the SLI test suite to run, grouped by duration                                                         |
+| `COMPONENT_sli_duration_seconds_count`                  | Total number of metrics in all the buckets                                                                                           |
+| `COMPONENT_sli_duration_seconds_sum`                    | Total value of the metrics in all the buckets                                                                                        |
+| `COMPONENT_sli_exporter_status`                         | Exporter status, a 1 indicates the exporter is running and healthy                                                                   |
+| `COMPONENT_sli_failures_total`                          | Total number of failures of the SLI test suite                                                                                       |
+| `COMPONENT_sli_run_duration_seconds`                    | Number of seconds it took for the SLI test suite to run                                                                              |
+| `COMPONENT_sli_runs_total`                              | Total number of runs of the SLI test suite. Use `bosh_sli_failures_total` / `bosh_sli_runs_total` to get failure rate.               |
+| `COMPONENT_sli_task_duration_seconds_bucket`            | Number of seconds it took for a particular task to run, grouped by duration                                                          |
+| `COMPONENT_sli_task_duration_seconds_count`             | Total number of metrics in all the buckets                                                                                           |
+| `COMPONENT_sli_task_duration_seconds_sum`               | Total value of the metrics in all the buckets                                                                                        |
+| `COMPONENT_sli_task_run_duration_seconds`               | Number of seconds it took for a particular task to run                                                                               |
+| `COMPONENT_sli_task_runs_total`                         | Total number of runs for a particular SLI task. Use `bosh_sli_task_failures_total` / `bosh_sli_task_runs_total` to get failure rate. |
 
 Where `COMPONENT` is the platform or CLI tested (e.g. `bosh`, `pas`, `pks`).
 
@@ -184,13 +184,13 @@ along with the response time metrics.
 
 ### <a id="svm-forwarder"></a>SVM Forwarder
 
-| Metric                         | Description                                                               |
-|--------------------------------|---------------------------------------------------------------------------|
-| `failed_scrapes_total`         | Total number of failed scrapes for the target source_id.                  |
-| `last_total_attempted_scrapes` | Count of attempted scrapes during last round of scraping.                 |
-| `last_total_failed_scrapes`    | Count of failed scrapes during last round of scraping.                    |
-| `last_total_scrape_duration`   | Time in milliseconds to scrape all targets in last round of scraping.     |
-| `scrape_targets_total`         | Total number of scrape targets identified from prom scraper config files. |
+| Metric                         | Description                                                              |
+|--------------------------------|--------------------------------------------------------------------------|
+| `failed_scrapes_total`         | Total number of failed scrapes for the target `source_id`                |
+| `last_total_attempted_scrapes` | Count of attempted scrapes during last round of scraping                 |
+| `last_total_failed_scrapes`    | Count of failed scrapes during last round of scraping                    |
+| `last_total_scrape_duration`   | Time in milliseconds to scrape all targets in last round of scraping     |
+| `scrape_targets_total`         | Total number of scrape targets identified from prom scraper config files |
 
 
 ### <a id="svms"></a>SVMs
@@ -201,31 +201,31 @@ See the [Release Notes](./release-notes.html#2-0-1) for more information.
 
 | Metric                                               | Description                                                                                         |
 |------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| `Diego_AppsDomainSynced`                             | ?                                                                                                   |
-| `Diego_AvailableFreeChunksDisk`                      | Diego Available Free Chunks of Disk                                                                 |
-| `Diego_AvailableFreeChunks`                          | Diego Available Free Chunks of Memory                                                               |
-| `Diego_LRPsAdded_1H`                                 | Rate of Change in Running App Instances                                                             |
-| `Diego_TotalAvailableDiskCapacity_5M`                | Remaining Cell Disk Available                                                                       |
-| `Diego_TotalAvailableMemoryCapacity_5M`              | Remaining Cell Memory Available                                                                     |
-| `Diego_TotalPercentageAvailableContainerCapacity_5M` | Diego Container Capacity                                                                            |
-| `Diego_TotalPercentageAvailableDiskCapacity_5M`      | Diego Cell Disk                                                                                     |
-| `Diego_TotalPercentageAvailableMemoryCapacity_5M`    | Diego Cell Memory                                                                                   |
-| `Doppler_MessagesAverage_1M`                         | Doppler Message Rate Average                                                                        |
-| `Firehose_LossRate_1H`                               | Log Transport Loss Rate                                                                             |
-| `Firehose_LossRate_1M`                               | Log Transport Loss Rate                                                                             |
-| `SyslogAgent_LossRate_1M`                            | Syslog Agent Loss Rate                                                                              |
-| `SyslogDrain_RLP_LossRate_1M`                        | Reverse Log Proxy Loss Rate                                                                         |
-| `bosh_deployment`                                    |                                                                                                     |
+| `Diego_AppsDomainSynced`                             | Whether or not Cloud Controller and Diego are in sync                                               |
+| `Diego_AvailableFreeChunksDisk`                      | Available free chunks of disk in Diego                                                              |
+| `Diego_AvailableFreeChunks`                          | Available free chunks of memory in Diego                                                            |
+| `Diego_LRPsAdded_1H`                                 | Rate of change in running app instances in 1 hour intervals                                         |
+| `Diego_TotalAvailableDiskCapacity_5M`                | Remaining cell disk available in Diego in 5 minute intervals                                        |
+| `Diego_TotalAvailableMemoryCapacity_5M`              | Remaining cell memory available in Diego in 5 minute intervals                                      |
+| `Diego_TotalPercentageAvailableContainerCapacity_5M` | Percentage of total available container capacity in Diego in 5 minute intervals                     |
+| `Diego_TotalPercentageAvailableDiskCapacity_5M`      | Percentage of total available disk in the Diego cells in 5 minute intervals                         |
+| `Diego_TotalPercentageAvailableMemoryCapacity_5M`    | Percentage of total available memory in the Diego cells in 5 minute intervals                       |
+| `Doppler_MessagesAverage_1M`                         | Average Doppler message rate in 1 minute intervals                                                  |
+| `Firehose_LossRate_1H`                               | Log transport loss rate in 1 hour intervals                                                         |
+| `Firehose_LossRate_1M`                               | Log transport loss rate in 1 minute intervals                                                       |
+| `SyslogAgent_LossRate_1M`                            | Syslog Agent loss rate in 1 minute intervals                                                        |
+| `SyslogDrain_RLP_LossRate_1M`                        | Reverse Log Proxy loss rate in 1 minute intervals                                                   |
+| `bosh_deployment`                                    | Represents `bosh_deployments_status`, a 1 indicates a deployment is occurring on the director       |
 | `health_check_bosh_director_success`                 | BOSH SLI test status, 1 indicates success                                                           |
-| `health_check_CanaryApp_available`                   | Canary App Availability                                                                             |
-| `health_check_CanaryApp_responseTime`                | Canary App Response Time                                                                            |
-| `health_check_cliCommand_delete`                     | Can CF Delete                                                                                       |
-| `health_check_cliCommand_login`                      | Can CF Login                                                                                        |
-| `health_check_cliCommand_logs`                       | Can Receive Logs                                                                                    |
-| `health_check_cliCommand_probe_count`                | Number of Healthwatch CLI Command Health probe assessments completed in the measured time interval. |
-| `health_check_cliCommand_pushTime`                   | CF Push Time                                                                                        |
-| `health_check_cliCommand_push`                       | Can CF Push                                                                                         |
-| `health_check_cliCommand_start`                      | Can CF Start                                                                                        |
-| `health_check_cliCommand_stop`                       | Can CF Stop                                                                                         |
+| `health_check_CanaryApp_available`                   | Whether the canary app is available                                                                 |
+| `health_check_CanaryApp_responseTime`                | Response time of the canary app                                                                     |
+| `health_check_cliCommand_delete`                     | Can CF delete?                                                                                      |
+| `health_check_cliCommand_login`                      | Can CF login?                                                                                       |
+| `health_check_cliCommand_logs`                       | Can receive logs?                                                                                   |
+| `health_check_cliCommand_probe_count`                | Number of Healthwatch CLI command health probe assessments completed in the measured time interval. |
+| `health_check_cliCommand_pushTime`                   | CF app push time                                                                                    |
+| `health_check_cliCommand_push`                       | Can CF push?                                                                                        |
+| `health_check_cliCommand_start`                      | Can CF start?                                                                                       |
+| `health_check_cliCommand_stop`                       | Can CF stop?                                                                                        |
 | `health_check_cliCommand_success`                    | Overall success of the CF CLI SLI tests                                                             |
-| `uaa_throughput_rate`                                | UAA Throughput Rate                                                                                 |
+| `uaa_throughput_rate`                                | UAA throughput rate                                                                                 |
