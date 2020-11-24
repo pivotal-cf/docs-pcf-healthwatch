@@ -182,6 +182,9 @@ If the BOSH System Metrics Forwarder is failing:
         <br>
         For more information about recreating VMs, see [Recreate](https://bosh.io/docs/cli-v2/#recreate) in _Commands_ in the BOSH documentation.
 
+If the BOSH System Metrics Forwarder and ingestors are running as expected then check for clock drift:
+
+- The errand runs on the healthwatch forwarders. If the clocks on the healthwatch forwarders are "in the future" then the errand will be looking for mysql metric entries with a timestamp that the metrics source's will never be able to reach (because they are "in the past") before the errand's timeout. SSH onto the healthwatch forwarders and run `date` to see if they are "in the future" compare to other machines in the environment.
 
 ## <a id='metric-ingestion'></a> No Metrics Being Ingested
 
@@ -215,3 +218,6 @@ A few possible solutions are:
         <br>
         * `ENVIRONMENT-URL-OR-IP` is the URL or IP address of the BOSH Director.
         * `GUID` is the GUID of the BOSH Director.
+
+
+- Check for clock drift - The errand runs on the healthwatch forwarders. If the clocks on the healthwatch forwarders are "in the future" then the errand will be looking for mysql metric entries with a timestamp that the metrics source's will never be able to reach (because they are "in the past") before the errand's timeout. SSH onto the healthwatch forwarders and run `date` to see if they are "in the future" compare to other machines in the environment.
