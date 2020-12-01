@@ -182,9 +182,13 @@ If the BOSH System Metrics Forwarder is failing:
         <br>
         For more information about recreating VMs, see [Recreate](https://bosh.io/docs/cli-v2/#recreate) in _Commands_ in the BOSH documentation.
 
-If the BOSH System Metrics Forwarder and ingestors are running as expected then check for clock drift:
+If the BOSH System Metrics Forwarder and ingestors are running as expected:
 
-- The errand runs on the healthwatch forwarders. If the clocks on the healthwatch forwarders are "in the future" then the errand will be looking for mysql metric entries with a timestamp that the metrics source's will never be able to reach (because they are "in the past") before the errand's timeout. SSH onto the healthwatch forwarders and run `date` to see if they are "in the future" compare to other machines in the environment.
+- Check for clock drift. If the clock on the Healthwatch Forwarder is in the future, the errand is looking for MySQL metric entries with a timestamp that the metrics sources cannot reach before errand timeout. <br>
+To check for clock drift:
+  1. SSH onto the Healthwatch Forwarder VM. 
+  1. Run `date` and see if the date is in the future compared to other machines in the environment.
+  1. If the date out of sync, investigate and sync your Network Time Protocol (NTP) servers. 
 
 ## <a id='metric-ingestion'></a> No Metrics Being Ingested
 
@@ -220,4 +224,8 @@ A few possible solutions are:
         * `GUID` is the GUID of the BOSH Director.
 
 
-- Check for clock drift - The errand runs on the healthwatch forwarders. If the clocks on the healthwatch forwarders are "in the future" then the errand will be looking for mysql metric entries with a timestamp that the metrics source's will never be able to reach (because they are "in the past") before the errand's timeout. SSH onto the healthwatch forwarders and run `date` to see if they are "in the future" compare to other machines in the environment.
+- Check for clock drift. If the clock on the Healthwatch Forwarder is in the future, the errand is looking for MySQL metric entries with a timestamp that the metrics sources cannot reach before errand timeout. <br>
+To check for clock drift:
+  1. SSH onto the Healthwatch Forwarder VM. 
+  1. Run `date` and see if the date is in the future compared to other machines in the environment.
+  1. If the date out of sync, investigate and sync your Network Time Protocol (NTP) servers. 
