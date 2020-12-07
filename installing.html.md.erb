@@ -2,60 +2,79 @@
 title: Installing Healthwatch
 owner: Healthwatch
 ---
+<strong><%= modified_date %></strong>
 
 This topic describes how to install and configure Healthwatch.
 
-## <a id='install'></a> Install Healthwatch
+## <a id='overview'></a> Overview
 
-1. Download the product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
+DESCRIBE THE SUBJECT OF THIS TOPIC...SHOULD WE MENTION WHEN WE INSTALL THE EXPORTERS HERE? USE TEXT FROM "HEALTHWATCH" OVERVIEW?
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+To install and configure Healthwatch: 
 
-1. Under the **Import a Product** button, click `+` next to the version number of Healthwatch.
-This adds the tile to your staging area.
+1. [Install Healthwatch Tile](#install)
+1. [Access Healthwatch Tile Configuration](#xxx)
+1. [Assign AZs and Networks](#xxx)
+1. [Configure Grafana (Optional)](#xxx)
+1. [Configure Prometheus (Optional)](#xxx)
+1. [Configure Canary URL (Optional)](#xxx)
+1. [Configure Remote Write (Optional)](#xxx)
+1. [Configure PKS Discovery (Optional)](#xxx)
 
-<div class="note">
-    <strong>Note:</strong>
-    Installing using Platform Automation
+## <a id='install'></a> Install Healthwatch Tile
+There are two ways to access and install the Healthwatch file. You can download the file from Pivotal Network or fetch the file using Platform Automation.
 
-    <br/><br/>
+### <a id=`pivnet`></a> Install from Pivotal Network
+STEM SENTENCE...why would you want to use Piv Net over Platform Automation? 
+ 
+1. Navigate to [Pivotal Network](https://network.pivotal.io/products/p-healthwatch/) and log in, if prompted.
+1. From the **Releases** dropdown, select the release you want to install.
+1. Click **Healthwatch for Pivotal Platform** to download the `.pivotal` file.
+1. Navigate to the Ops Manager Installation Dashboard.
+1. Under the **Import a Product** button, click `+` next to the version number of Healthwatch to add the tile to your staging area. For more information, see [Adding and Deleting Products](../ops-manager/install/add-delete.html).
 
-    The following config file for the <code>download-product</code> task
+### <a id=`platform-automation`></a> Install with Platform Automation 
+You can use Platform Automation to fetch the Healthwatch tile using a config file. For more information about Platform Automation, see xxx. IS THIS THE RIGHT DOC? https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html
+
+1. Where do you enter the following config? [Look up Platform Automation docs]
+1. The following config file for the `download-product` task
     works to fetch the Healthwatch tile (without getting the exporters):
 
-<pre>
+```
 ---
 pivnet-api-token: token
 pivnet-file-glob: "healthwatch-[^pas|pks].*pivotal"
 pivnet-product-slug: p-healthwatch
 product-version-regex: 2\.0.*
-</pre>
-</div>
+```
 
-## <a id='configure'></a> Configure the Healthwatch Tile
+## <a id='configure'></a> Access Healthwatch Tile Configuration
+This section describes how to configure any pane in the Healthwatch tile.
 
-Click the **Healthwatch** tile on the Ops Manager Installation Dashboard to start the configuration process.
+1. Navigate to the Ops Manager Installation Dashboard. 
+1. Click the **Healthwatch** tile.
 
 ### <a id='az'></a> Assign AZs and Networks
+STEM SENTENCE.... SEE THIS: https://docs.pivotal.io/application-service/2-10/operating/configure-pas.html
+Steps or table?
 
-Navigate to **Assign AZs and Networks** and do the following:
-
+1. Select **Assign AZs and Networks**.
 1. Select an Availability Zone (AZ) for placing singleton jobs.
 1. Select one or more AZs for balancing other jobs.
 1. Select **Network** for installing Healthwatch.
 1. Click **Save**.
 
-### <a id='tsdb'></a> TSDB Configuration
+### <a id='tsdb'></a> Configure Prometheus
+Stem sentence...
 
-Navigate to **Time series database (TSDB) Configuration** and do the following:
-
-1. Optional: Modify the **Scrape Interval** as desired. This controls the frequency at which the TSDB scrapes its targets for metrics. Healthwatch recommends using a 15 seconds scraping interval to provide balance between metric detail and storage consumption.
-1. Optional: Add additional jobs to the **Additional Scrape Config Jobs**. This entry section allows you to add any
+1. Select **Prometheus Configuration**.
+1. (Optional) Modify the **Scrape Interval** as desired. This controls the frequency at which Prometheus scrapes its targets for metrics. Use a 15-second scraping interval to provide balance between metric detail and storage consumption.
+1. (Optional) Add additional jobs to the **Additional Scrape Config Jobs**. This entry section allows you to add any
      external applications/services that expose a [Prometheus exposition format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
-     metrics endpoint to be scraped by the TSDB. For example, to scrape [Concourse CI metrics](https://concourse-ci.org/metrics.html).
+     metrics endpoint to be scraped by Prometheus. For example, to scrape [Concourse CI metrics](https://concourse-ci.org/metrics.html).
     * The first field, **TSDB Scrape job**  takes a YAML formatted job in the format specified
-        by [TSDB](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
-        defined by TSDB itself except for the `tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
+        by [Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) This job can use any of the properties
+        defined by Prometheus itself except for the `tls_config` property.  The entries for that can be filled in below. Note that this box takes a single
         scrape job.  The job should not be prepended with the YAML array `-`. An example of the scrape config should look like:
 
         ```yaml
@@ -67,10 +86,10 @@ Navigate to **Time series database (TSDB) Configuration** and do the following:
            - "1.2.3.4:9090"
            - "5.6.7.8:9090"
         ```
-    * Optional: **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
-    * Optional: **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
+    * (Optional) **TLS Config Certificate Authority** This field takes a CA Certificate that will end up in the **ca_file** property of the **tls_config**.
+    * (Optional) **TLS Config Certificate and Private Key** This field takes a Certificate and Private key.  These properties will end up in the **cert_file**
         and **key_file** properties of the **tls_config**
-    * Optional: **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
+    * (Optional) **TLS Config Server Name** This field takes a string server name that will end up in the **server_name** field of the **tls_config**
     <p class="note">
         <strong>Note:</strong>
         When Healthwatch Tanzu Application Service Exporter
@@ -91,14 +110,14 @@ Navigate to **Time series database (TSDB) Configuration** and do the following:
         <li><code> pks-master-kube-controller-manager</code></li>
       </ul>
     </div>
-1. Optional: Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
-1. Optional: Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
+1. (Optional) Change the **Chunk Size (Disk) MB** for calculating the available disk chunks super value metric (SVM). Healthwatch dashboards do not rely on this parameter at all, the purpose of the option is for legacy firehose integration to generate the Diego_AvailableFreeChunksDisk metric only. The legacy firehose integration calculates the metric using Prometheus Query Language (PromQL) and puts them back to the loggregator system to have the calculated metric consumable by third party nozzles.
+1. (Optional) Change the **Chunk Size (Memory) MB** for calculating the available memory chunks SVM. The purpose of this option is the same as above.
 
-### <a id='grafana'></a> Grafana Configuration
+### <a id='grafana'></a> Configure Grafana
 
 Navigate to **Grafana Configuration** and do the following:
 
-1. Optional: If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
+1. (Optional) If you configured Grafana to be accessible from outside the BOSH network, you may want to specify the
     **Root URL for Grafana**. This should be set to the full URL used to access Grafana from a web browser.
     This property must be set for Generic OAuth or UAA to redirect correctly. It is also used to generate links to Grafana in alert messages.
     <p class="note">
@@ -148,7 +167,7 @@ Navigate to **Grafana Configuration** and do the following:
 1. Optional: **Enable SMTP for Grafana Alerts** Enabling this option will allow Grafana to send emails for alerts that are configured through the dashboard.
     For individual field references, see [Grafana SMTP Configuration](https://grafana.com/docs/installation/configuration/#smtp).
 
-### <a id='canary'></a> Canary URL Configuration
+### <a id='canary'></a> Configure Canary URLs
 
 Navigate to **Canary URL Configuration** and do the following:
 <p class="note">
@@ -174,7 +193,7 @@ against Ops Manager which drives the **Foundation/Ops Manager Health** dashboard
     on the URLs and record the results in the TSDB.  These probe tests are useful for generating SLI type metrics. There are no additional scrape configuration jobs necessary
     for the URLs entered here. They will be automatically added to the TSDB scrape jobs.
 
-### <a id='remote-write'></a> Remote Write Configuration
+### <a id='remote-write'></a> Configure Remote Write
 
 TSDB can be configured to write to remote storage,
 in addition to its local time series database.
@@ -205,7 +224,7 @@ Navigate to **Remote Write Configuration** and do the following:
     look at the `queue_config` section of the documentation linked above.
 1. Click **Save**.
 
-### <a id='pks-cluster-discovery'></a> PKS Cluster Discovery Configuration
+### <a id='pks-cluster-discovery'></a> Configure PKS Cluster Discovery
 
 PKS Cluster Discovery enables users to detect and configure clusters created by the PKS API.
 
@@ -276,6 +295,7 @@ If using `om` to configure the tile, you will want a configuration like the foll
 1. Click **Review Pending Changes**. For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/platform/customizing/review-pending-changes.html).
 1. Click **Apply Changes**.
 
+THIS CAN BE ITS OWN TOPIC>>>
 ## <a id='backup'></a> (Optional) Backing Up Healthwatch
 
 Healthwatch supports [Bosh Backup and Restore](https://docs.pivotal.io/pivotalcf/customizing/backup-restore/index.html) functionality.
