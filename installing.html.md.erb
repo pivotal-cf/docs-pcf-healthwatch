@@ -21,6 +21,9 @@ see [Install the Healthwatch Tile](#install) below.
 1. Configure the Healthwatch tile. For more information, see [Configure Healthwatch](#configure)
 below.
 
+1. Deploy the Healthwatch tile. For more information, see [Deploy Healthwatch](#apply-changes)
+below.
+
 1. (Optional) After you manually configure and deploy Healthwatch for the first time, you can
 use the `om` CLI to modify your configuration settings and re-deploy the tile. For more information,
 see [Configuring and Deploying Healthwatch Using the om CLI](#om) below.
@@ -176,41 +179,42 @@ in the Prometheus repository on GitHub.
   configure. This job can use any of the properties defined by Prometheus except the `tls_config`
   property. Do not prefix the configuration YAML with a dash. For example:
 
-      ```
-      job_name: foundation-1
-      metrics_path: /metrics
-      scheme: https
-      static_configs:
-       - targets:
-         - "1.2.3.4:9090"
-         - "5.6.7.8:9090"
-      ```
-      For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
-      in _Configuration_ in the Prometheus documentation.
-      <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code> property,
-        do not use the following job names:
-        <ul>
-          <li><code>Healthwatch-view-pas-exporter</code></li>
-          <li><code>Healthwatch-view-pks-exporter</code></li>
-          <li><code>tsdb</code></li>
-          <li><code>grafana</code></li>
-          <li><code>pks-master-kube-scheduler</code></li>
-          <li><code>pks-master-kube-controller-manager</code></li>
-        </ul>
-      </div>
+        ```
+        job_name: foundation-1
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+         - targets:
+           - "1.2.3.4:9090"
+           - "5.6.7.8:9090"
+        ```
+        For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+        in _Configuration_ in the Prometheus documentation.
+        <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code> property,
+          do not use the following job names:
+          <ul>
+            <li><code>Healthwatch-view-pas-exporter</code></li>
+            <li><code>Healthwatch-view-pks-exporter</code></li>
+            <li><code>tsdb</code></li>
+            <li><code>grafana</code></li>
+            <li><code>pks-master-kube-scheduler</code></li>
+            <li><code>pks-master-kube-controller-manager</code></li>
+          </ul>
+        </div>
   1. (Optional) To configure TLS communication between Prometheus and your external app or
   service:
-    1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
-    signs the certificates you provide in the **TLS Config Certificate and Private Key** field
-    below. This CA appears as the `ca_file` property in the `tls_config` section of the Prometheus
-    configuration file.
-    1. For **TLS Config Certificate and Private Key**, provide at least one certificate and
-    private key to enable TLS communication between Prometheus and your external app or service.
-    These certificates and private keys appear as the `cert_file` and `key_file` properties
-    in the `tls_config` section of the Prometheus configuration file.
-    1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS communication
-    between Prometheus and your external app or service. This server name appears as the `server_name`
-    property in the `tls_config` section of the Prometheus configuration file.
+      1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
+      signs the certificates you provide in the **TLS Config Certificate and Private Key**
+      field below. This CA appears as the `ca_file` property in the `tls_config` section of
+      the Prometheus configuration file.
+      1. For **TLS Config Certificate and Private Key**, provide at least one certificate and
+      private key to enable TLS communication between Prometheus and your external app or service.
+      These certificates and private keys appear as the `cert_file` and `key_file` properties
+      in the `tls_config` section of the Prometheus configuration file.
+      1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS
+      communication between Prometheus and your external app or service. This server name appears
+      as the `server_name` property in the `tls_config` section of the Prometheus configuration
+      file.
 
 1. (Optional) For **Chunk Size (Disk) MB**, enter in MB the  for calculating the available disk chunks super value metric (SVM). Foundations using a Firehose v1 integration use this SVM to generate the `Diego_AvailableFreeChunksDisk` metric. The Firehose v1 integration calculates the `Diego_AvailableFreeChunksDisk` metric and sends it back to the Loggregator system so third-party nozzles can consume it. For more information, see []().
 
@@ -252,22 +256,22 @@ the Grafana VM, see [Configuring DNS for the Grafana VM](common-configurations/d
 the Grafana VM to make HTTP and HTTPS proxy requests:
   1. To disable HTTP and HTTPS proxy requests, select **Disabled**.
   1. To configure proxy settings for the Grafana VM:
-    1. Select **Enabled**.
-    1. For **HTTP Proxy for Grafana**, enter your HTTP proxy server URL. The Grafana VM uses
-    this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts you configure
-    in the **HTTPS Proxy for Grafana** and **No Proxy for Grafana** fields below.
-    1. For **HTTPS Proxy for Grafana**, enter your HTTPS proxy server URL. The Grafana VM uses
-    this URL as the proxy URL for all HTTPS requests except those from hosts you configure
-    in the **No Proxy for Grafana** field below.
-    1. For **No Proxy for Grafana**, enter a comma-separated list of the hosts you want to
-    exclude from proxying. VMware recommends including `*.bosh` and the range of your internal
-    network IP addresses so the Grafana VM can still access Prometheus without going though
-    the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana VM to access
-    all BOSH DNS addresses and all internal network IP addresses containing `10.0.0.0/8` or
-    `*.example.com` directly, without going though the proxy.
-    <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you
-      are deploying Healthwatch in an air-gapped environment and want to configure alert channels
-      to external addresses, such as the external Slack webhook.</p>
+      1. Select **Enabled**.
+      1. For **HTTP Proxy for Grafana**, enter your HTTP proxy server URL. The Grafana VM uses
+      this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts you
+      configure in the **HTTPS Proxy for Grafana** and **No Proxy for Grafana** fields below.
+      1. For **HTTPS Proxy for Grafana**, enter your HTTPS proxy server URL. The Grafana VM
+      uses this URL as the proxy URL for all HTTPS requests except those from hosts you configure
+      in the **No Proxy for Grafana** field below.
+      1. For **No Proxy for Grafana**, enter a comma-separated list of the hosts you want to
+      exclude from proxying. VMware recommends including `*.bosh` and the range of your internal
+      network IP addresses so the Grafana VM can still access Prometheus without going though
+      the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana VM to access
+      all BOSH DNS addresses and all internal network IP addresses containing `10.0.0.0/8`
+      or `*.example.com` directly, without going though the proxy.
+      <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you
+        are deploying Healthwatch in an air-gapped environment and want to configure alert
+        channels to external addresses, such as the external Slack webhook.</p>
 
 1. (Optional) For **Static IPs for the Grafana VM(s)**, enter a comma-separated list of valid
 static IP addresses that you want to reserve for the Grafana VM. These IP addresses must not
@@ -316,22 +320,23 @@ method you want the Grafana VM to use:
 from Grafana.
   * To diable email alerts, select **Disabled**.
   * To enable email alerts:
-    1. Select **Enabled**.
-    1. For **Host Name**, enter the host name of your SMTP server.
-    1. For **Port**, enter the port of your SMTP server.
-    1. For **Username**, enter your SMTP authentication username.
-    1. For **Password**, enter your SMTP authentication password.
-    1. (Optional) To enable [the Grafana VM? SMTP server?] to skip SSL validation during TLS handshakes, enable the **Skip SSL Verification** checkbox.
-    1. For **From Address**, enter the sender email address that appears on outgoing email
-    alerts.
-    1. For **From Name**, enter the sender name that appears on outgoing email alerts.
-    1. For **EHLO Identity**, enter a name for the client identity that your SMTP server uses
-    when sending EHLO commands.
-    1. For **TLS Credentials**, enter the credentials the Grafana VM uses to communicate with
-    your SMTP server over TLS. [How? Cert/private key/CA?]
-
-For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
-in the Grafana documentation.
+      1. Select **Enabled**.
+      1. For **Host Name**, enter the host name of your SMTP server.
+      1. For **Port**, enter the port of your SMTP server.
+      1. For **Username**, enter your SMTP authentication username.
+      1. For **Password**, enter your SMTP authentication password.
+      1. (Optional) To enable [the Grafana VM? SMTP server?] to skip SSL validation during TLS handshakes, enable the **Skip SSL Verification** checkbox.
+      1. For **From Address**, enter the sender email address that appears on outgoing email
+      alerts.
+      1. For **From Name**, enter the sender name that appears on outgoing email alerts.
+      1. For **EHLO Identity**, enter a name for the client identity that your SMTP server
+      uses when sending EHLO commands.
+      1. For **TLS Credentials**, enter the credentials the Grafana VM uses to communicate
+      with your SMTP server over TLS. [How? Cert/private key/CA?]
+      <br>
+      <br>
+    For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
+    in the Grafana documentation.
 
 1. Click **Save**.
 
@@ -356,8 +361,9 @@ To configure the **Canary URL Configuration** pane:
 1. (Optional) For **Ops Manager URL**, enter the fully-qualified domain name (FQDN) of your
 Ops Manager deployment. This creates a canary target URL for Ops Manager from which the Foundation/Ops Manager Health dashboard [what does this dashboard get from the canary target URL?].
     <p class="note"><strong>Note:</strong> If you have SAML authentication enabled for Ops
-      Manager, enter <code>https://OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
-      is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
+      Manager, enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where
+      <code>OPS-MANAGER-FQDN</code> is the FQDN of your your Ops Manager deployment. Otherwise,
+      the canary test fails.</p>
 
 1. (Optional) Under **Target URLs**, you can configure canary target URLs. Prometheus runs
 continuous canary tests to these URLs and records the results. To configure canary target URLs:
@@ -435,7 +441,7 @@ section of the remote write configuration:
   in the `queue_config` section of the remote write configuration.
   1. For **Batch Send Deadline (seconds)**, enter in seconds the maximum amount of time Prometheus
   can wait before sending a batch of samples to a shard, whether that shard has reached the limit
-  configured in *Maximum Number of Samples Per Send** or not. This number appears as the `batch_send_deadline`
+  configured in **Maximum Number of Samples Per Send** or not. This number appears as the `batch_send_deadline`
   property in the `queue_config` section of the remote write configuration.
   1. For **Minimum Backoff Time (milliseconds)**, enter in milliseconds the minimum amount
   of time Prometheus can wait before retrying a failed request to the remote storage endpoint.
@@ -612,11 +618,10 @@ which transport protocol Healthwatch uses to forward system logs to your externa
   1. For **SSL Certificate**, enter the SSL certificate for your external destination.
 
 1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch can hold in
-a buffer at a time before sending them to your external destination. The default value is `100,000`.
+a buffer at a time before sending them to your external destination. The default value is `100000`.
 
 1. (Optional) To forward debug logs to your external destination, enable the **Forward Debug
-Logs** checkbox. This checkbox is disabled by default. If you enable forwarding of debug logs,
-Healthwatch may generate a large amount of log data.
+Logs** checkbox. This checkbox is disabled by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration**
 in RainerScript syntax. For more information about custom syslog rules, see [Customizing Platform
@@ -651,18 +656,7 @@ To configure the **Resource Config** pane:
 1. Click **Save**.
 
 
-## <a id='om'></a> Configuring and Deploying Healthwatch Using the om CLI
-
-After you manually configure and deploy the Healthwatch tile for the first time, you can use
-the `om` CLI to modify your configuration settings and re-deploy the tile using an automation
-script like the following example:
-
-<%= partial 'snippets/scrape_config.md' %>
-
-For more information, see the [om](https://github.com/pivotal-cf/om) repository on GitHub.
-
-
-## <a id='apply-changes'></a> Apply Changes
+## <a id='apply-changes'></a> Deploy Healthwatch
 
 To complete your installation of the Healthwatch tile:
 
@@ -676,4 +670,24 @@ For more information, see [Reviewing Pending Product Changes](https://docs.pivot
 in the Ops Manager documentation.
 
 
+## <a id='om'></a> Configuring and Deploying Healthwatch Using the om CLI
+
+After you manually configure and deploy the Healthwatch tile for the first time, you can use
+the `om` CLI to modify your configuration settings and re-deploy the tile using an automation
+script like the following example:
+
+<%= partial 'snippets/scrape_config.md' %>
+
+For more information, see the [om](https://github.com/pivotal-cf/om) repository on GitHub.
+
+
 ## <a id='next-steps'></a> Next Steps
+
+After you have successfully installed the Healthwatch tile, continue to one of the following
+topics to install exporter tiles on the foundations you want to monitor:
+
+* If you have TAS for VMs installed on a foundation you want to monitor, see [Installing Healthwatch
+Exporter for TAS for VMs](installing-exporter-tas-vms.html).
+
+* If you have TKGI installed on a foundation you want to monitor, see [Installing Healthwatch
+Exporter for TKGI](installing-exporter-pks.html).
