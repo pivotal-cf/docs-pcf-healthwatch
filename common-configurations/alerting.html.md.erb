@@ -3,80 +3,286 @@ title: Alerting
 owner: Healthwatch
 ---
 
-This topic explains a shift in how Healthwatch handles alerting.
-This document aims to explain how to configure alerting
-in the Healthwatch tile in Ops Manager.
+This topic explains how to configure alerting in Healthwatch.
 
-## <a id='configure'></a>Alerting
 
-To configure alerting for the Healthwatch tile:
+## <a id='overview'></a> Overview
 
-1. Click the **Healthwatch** tile on the Ops Manager Installation Dashboard.
-1. Navigate to **Alertmanager Configuration**. 
-1. For **Alerting Rules YAML**, enter YAML to configure alerts for your foundation.
-  Use PromQL expressions to define the alerts.
-  See [Configure Your Alerting Rules](#alerting-rules) below.
-1. For **Routing Rules YAML**, enter YAML that contains
-    the notification destinations for specific alerts on your foundation.
-    See [Configure Your Routing Rules](#routing-rules) below.
-1. Create the Alert Receivers that are referenced by the routing rules YAML.
-  See [Configure Alert Receivers](#alert-receivers) below.
+In Healthwatch, you can configure Prometheus to send alerts to an Alertmanager according to
+alerting rules you configure. The Alertmanager then manages those alerts by removing duplicate
+alerts, grouping alerts together, and routing those groups to alert receiver integrations such
+as email, PagerDuty, or Slack. The Alertmanager also silences and inhibits alerts according
+to the alerting rules you configure.
+
+For more information, see [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+in the Prometheus documentation.
+
+
+## <a id='configure'></a> Configure Alerting
+
+In the **Alertmanager Configuration** pane, you configure alerting rules, routing rules, and
+alert receivers for the Alertmanager to use.
+
+The **Alertmanager Configuration** pane configures the Alertmanager configuration file. For
+more information, see [Configuration](https://prometheus.io/docs/alerting/latest/configuration/)
+in the Prometheus documentation.
+
+To configure the **Alertmanager Configuration** pane:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select **Alertmanager Configuration**.
+
+1. For **Alerting Rules YAML**, provide in YAML format the rule statements that define which
+alerts the Alertmanager sends to your alert receivers:
+  1. The following YAML files contain alerting rules for VMware Tanzu Application Service for
+  VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI). Choose the
+  YAML file that corresponds to your runtime:
+      * [TAS for VMs](tas_alerting_rules.yml)
+      * [TKGI](tkg-i_alerting_rules.yml)
+  1. Modify the YAML file according to the observability requirements for your foundation.
+  1. Paste the contents of the YAML file into **Alerting Rules YAML**.
+  <br>
+  <br>
+  For more information, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
+  in the Prometheus documentation.
+
+1. For **Routing Rules YAML**, provide the route block that defines where the Alertmanager
+sends alerts, how frequently the Alertmanager sends alerts, and how the Alertmanager groups
+alerts together. This route block appears in the `route` section of the Alertmanager configuration
+file. You must define all `route` configuration parameters. For information about the parameters
+you must provide, see [&#60;route>](https://prometheus.io/docs/alerting/latest/configuration/#route)
+in _Configuration_ in the Prometheus documentation.
+
+1. (Optional) For **Inhibit Rules YAML**, provide in YAML format the rule statements that define
+which alerts the Alertmanager does not send to your alert receivers. These rule statements
+appear in the `inhibit_rules` section of the Alertmanager configuration file. For more information,
+see [&#60;inhibit_rule>](https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule)
+in _Configuration_ in the Prometheus documentation.
+
+1. Configure the alert receivers that you specified in **Routing Rules YAML** in a previous
+step. These alert receiver configurations appear in the `receivers` section of the Alertmanager
+configuration file. For more information, see [&#60;receiver>](https://prometheus.io/docs/alerting/latest/configuration/#receiver)
+in _Configuration_ in the Prometheus documentation.
+  <div class='note'><strong>Notes:</strong>
+    <ul>
+      <li>If you want to provide authentication and TLS communication settings for your alert
+        receivers, you must provide them in the associated alert receiver configuration fields
+        described below. If the base configuration YAML for your alert receivers include fields
+        for authentication and TLS communication settings, do not include them when you provide
+        the configuration YAML for your alert receivers in the <strong>Receiver Configuration</strong>
+        fields.</li>
+      <br>
+      <li>If you configure two or more alert receivers with the same name, the Alertmanager
+        merges them into a single alert receiver. For more information, see <a href="combine-receivers">
+        Combining Alert Receivers</a> below.</li>
+    </ul>
+  </div>
+    * To configure email receivers:
+      1. Click **Add**.
+      1. For **Receiver Name**, enter the name you want to give your email receiver.
+      1. For **Receiver Configuration**, provide the configuration YAML for your email receiver.
+      Do not prefix the configuration YAML with a dash. For more information about the YAML
+      structure for this field, see [&#60;email_config>](https://prometheus.io/docs/alerting/latest/configuration/#email_config)
+      in _Configuration_ in the Prometheus documentation.
+      1. (Optional) To configure SMTP authentication between the Alertmanager and your email
+      receiver, configure the following fields:
+          1. For **Authentication Password**, enter your SMTP authentication password.
+          1. For **Authentication Secret**, enter your SMTP authentication secret.
+      1. (Optional) To configure TLS communication between the Alertmanager and your email
+      receiver, configure the following fields:
+          1. For **TLS Config Certificate Authority**, provide a certificate authority (CA)
+          that signs the certificates you provide in the **TLS Config Certificate and Private
+          Key** field below.
+          1. For **TLS Config Certificate and Private Key**, provide at least one certificate
+          and private key to enable TLS communication between the Alertmanager and your email
+          receiver.
+          1. For **TLS Config Server Name**, enter the name of the SMTP server that facilitates
+          TLS communication between the Alertmanager and your email receiver.
+          1. If the certificate you provided in the **TLS Config Certificate and Private Key**
+          field is signed by a self-signed CA or a certificate that is signed by a self-signed
+          CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation
+          during TLS handshakes.
+          <br>
+          <br>
+          For more information about configuring TLS communication, see [&#60;tls_config>]
+          (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
+          in the Prometheus documentation.
+    * To configure PagerDuty receivers:
+      1. Click **Add**.
+      1. For **Receiver Name**, enter the name you want to give your PagerDuty receiver.
+      1. For **Receiver Configuration**, provide the configuration YAML for your PagerDuty
+      receiver. Do not prefix the configuration YAML with a dash. For more information about
+      the YAML structure for this field, see [&#60;pagerduty_config>](https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config)
+      in _Configuration_ in the Prometheus documentation.
+      1. Enter your PagerDuty integration key in one of the following fields:
+          * If you selected Events API v2 as your integration type in PagerDuty, enter your
+          PagerDuty integration key in **Routing Key**.
+          * If you selected Prometheus as your integration type in PagerDuty, enter your PagerDuty
+          integration key in **Service Key**.
+      1. (Optional) To configure the HTTP client that your PagerDuty receiver uses to communicate
+      with HTTP-based API services, configure one of the following options:
+          * To configure your HTTP client to authenticate API services using basic authentication,
+          enter the username and either the password or the password file associated with your
+          HTTP client in **Basic Authorization**.
+          * To configure your HTTP client to authenticate API services using a bearer token
+          or bearer token file, enter either the bearer token or the filepath for the bearer
+          token file associated with your HTTP client in **Bearer Token**.
+          <br>
+          <br>
+          For more information about configuring an HTTP client, see [&#60;http_config>](https://prometheus.io/docs/alerting/latest/configuration/#http_config)
+          in _Configuration_ in the Prometheus documentation.
+      1. (Optional) To configure TLS communication between the Alertmanager and your PagerDuty
+      receiver, configure the following fields:
+          1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates
+          you provide in the **TLS Config Certificate and Private Key** field below.
+          1. For **TLS Config Certificate and Private Key**, provide at least one certificate
+          and private key to enable TLS communication between the Alertmanager and your PagerDuty
+          receiver.
+          1. For **TLS Config Server Name**, enter the name of the PagerDuty server that facilitates
+          TLS communication between the Alertmanager and your PagerDuty receiver.
+          1. If the certificate you provided in the **TLS Config Certificate and Private Key**
+          field is signed by a self-signed CA or a certificate that is signed by a self-signed
+          CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation
+          during TLS handshakes.
+          <br>
+          <br>
+          For more information about configuring TLS communication, see [&#60;tls_config>]
+          (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
+          in the Prometheus documentation.
+    * To configure Slack receivers:
+      1. Click **Add**.
+      1. For **Receiver Name**, enter the name you want to give your Slack receiver.
+      1. For **Receiver Configuration**, provide the configuration YAML for your Slack receiver.
+      Do not prefix the configuration YAML with a dash. For more information about the YAML
+      structure for this field, see [&#60;slack_config>](https://prometheus.io/docs/alerting/latest/configuration/#slack_config)
+      in _Configuration_ in the Prometheus documentation.
+      1. For **Slack API URL**, enter the Slack webhook URL for your Slack receiver.
+      1. (Optional) To configure the HTTP client that your Slack receiver uses to communicate
+      with HTTP-based API services, configure one of the following options:
+          * To configure your HTTP client to authenticate API services using basic authentication,
+          enter the username and either the password or the password file associated with your
+          HTTP client in **Basic Authorization**.
+          * To configure your HTTP client to authenticate API services using a bearer token
+          or bearer token file, enter either the bearer token or the filepath for the bearer
+          token file associated with your HTTP client in **Bearer Token**.
+          <br>
+          <br>
+          For more information about configuring an HTTP client, see [&#60;http_config>](https://prometheus.io/docs/alerting/latest/configuration/#http_config)
+          in _Configuration_ in the Prometheus documentation.
+      1. (Optional) To configure TLS communication between the Alertmanager and your Slack
+      receiver, configure the following fields:
+          1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates
+          you provide in the **TLS Config Certificate and Private Key** field below.
+          1. For **TLS Config Certificate and Private Key**, provide at least one certificate
+          and private key to enable TLS communication between the Alertmanager and your Slack
+          receiver.
+          1. For **TLS Config Server Name**, enter the name of the Slack server that facilitates
+          TLS communication between the Alertmanager and your Slack receiver.
+          1. If the certificate you provided in the **TLS Config Certificate and Private Key**
+          field is signed by a self-signed CA or a certificate that is signed by a self-signed
+          CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation
+          during TLS handshakes.
+          <br>
+          <br>
+          For more information about configuring TLS communication, see [&#60;tls_config>]
+          (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
+          in the Prometheus documentation.
+    * To configure webhook receivers:
+      1. Click **Add**.
+      1. For **Receiver Name**, enter the name you want to give your webhook receiver.
+      1. For **Receiver Configuration**, provide the configuration YAML for your webhook receiver.
+      Do not prefix the configuration YAML with a dash. For more information about the YAML
+      structure for this field, see [&#60;webhook_config>](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config)
+      in _Configuration_ in the Prometheus documentation.
+      1. (Optional) To configure the HTTP client that your webhook receiver uses to communicate
+      with HTTP-based API services, configure one of the following options:
+          * To configure your HTTP client to authenticate API services using basic authentication,
+          enter the username and either the password or the password file associated with your
+          HTTP client in **Basic Authorization**.
+          * To configure your HTTP client to authenticate API services using a bearer token
+          or bearer token file, enter either the bearer token or the filepath for the bearer
+          token file associated with your HTTP client in **Bearer Token**.
+          <br>
+          <br>
+          For more information about configuring an HTTP client, see [&#60;http_config>](https://prometheus.io/docs/alerting/latest/configuration/#http_config)
+          in _Configuration_ in the Prometheus documentation.
+      1. (Optional) To configure TLS communication between the Alertmanager and your webhook
+      receiver, configure the following fields:
+          1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates
+          you provide in the **TLS Config Certificate and Private Key** field below.
+          1. For **TLS Config Certificate and Private Key**, provide at least one certificate
+          and private key to enable TLS communication between the Alertmanager and your webhook
+          receiver.
+          1. For **TLS Config Server Name**, enter the name of the webhook server that facilitates
+          TLS communication between the Alertmanager and your webhook receiver.
+          1. If the certificate you provided in the **TLS Config Certificate and Private Key**
+          field is signed by a self-signed CA or a certificate that is signed by a self-signed
+          CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation
+          during TLS handshakes.
+          <br>
+          <br>
+          For more information about configuring TLS communication, see [&#60;tls_config>]
+          (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
+          in the Prometheus documentation.
+        <p class='note'><strong>Note:</strong> You can also configure custom alert receiver
+          integrations that are not natively supported by the Alertmanager through the webhook
+          receiver. For more information about configuring custom alert receiver integrations,
+          see <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">&#60;webhook_config></a>
+          in <em>Configuration</em> in the Prometheus documentation.</p>
+
 1. Click **Save**.
 
-## <a id='alerting-rules'></a>Configure Your Alerting Rules
+### <a id='combine-receivers'></a> Combining Alert Receivers
 
-We have created Prometheus alerting rules files for TAS and for TKG-i
-that can be used as a starting point for observing your foundation:
+If you configure two or more alert receivers with the same name, the Alertmanager merges them
+into a single alert receiver. For example, if you configure:
 
-- <a href="tas_alerting_rules.yml" target="_blank">TAS</a>
-- <a href="tkg-i_alerting_rules.yml" target="_blank">TKG-i</a>
+* Two email receivers named "Foundation" with distinct email addresses
+* One PagerDuty receiver named "Foundation"
+* One email receiver named "Clusters"
 
-Choose the file that correlates to your foundation,
-modify that file according to your observability requirements,
-and paste the contents into the **Alerting Rules YAML** field.
+Then the Alertmanager merges them into the following alert receivers:
 
-For more information, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) in the
-Prometheus documentation.
+* One alert receiver named "Foundation" containing two email configurations and a PagerDuty
+configuration
+* One alert receiver named "Clusters" containing one email configuration
 
-## <a id='routing-rules'></a>Configure Your Routing Rules
-
-Routing rules define where Alertmanager sends specific triggering alerts
-as well as configuration around alerts such as frequency and grouping.
-Provide the entire `route` structure.
-
-For example:
+The example below shows how the Alertmanager combines the alert receivers described above in
+its configuration file:
 
 ```
-receiver: 'default-receiver'
-group_wait: 30s
-group_interval: 5m
-repeat_interval: 4h
-group_by: [cluster, alertname]
+receivers:
+- name: 'Foundation'
+  email_configs:
+  - to: 'operator1@example.org'
+    from: global.smtp_from
+    smarthost: global.smtp_smarthost
+    hello: global.smtp_hello
+    html: '{{ template "email.default.html" . }}'
+    text: "This is an alert."
+  - to: 'operator2@example.org'
+    from: global.smtp_from
+    smarthost: global.smtp_smarthost
+    hello: global.smtp_hello
+    html: '{{ template "email.default.html" . }}'
+    text: "This is an alert."
+  pagerduty_configs:
+  - service_key: operator-1-key
+    url: global.pagerduty_url
+    client: '{{ template "pagerduty.default.client" . }}'
+    client_url: '{{ template "pagerduty.default.clientURL" . }}'
+    description: '{{ template "pagerduty.default.description" .}}'
+    severity: 'error'
+
+- name: 'Clusters'
+  email_configs:
+  - to: 'operator1@example.org'
+    from: global.smtp_from
+    smarthost: global.smtp_smarthost
+    hello: global.smtp_hello
+    html: '{{ template "email.default.html" . }}'
+    text: "This is an alert."
 ```
-
-For more information, see the Alertmanager configuration in the [Prometheus](https://prometheus.io/docs/alerting/latest/configuration/#route) documentation.
-
-## <a id='alert-receivers'></a>Configure Alert Receivers
-
-Alert Receivers define the notification channels that are used by the routing rules YAML.
-
-The supported receivers are Email, PagerDuty, Slack, and Webhook.
-For each receiver, the base configuration can be provided in the **Receiver Configuration** field.
-
-For information about the structure of the YAML for this field, see the [Prometheus](https://prometheus.io/docs/alerting/latest/configuration/#receiver) documentation.
-
-Authentication and TLS settings are optional and are provided separately.
-Do not include the associated fields in the provided base receiver configuration.
-
-Any receivers provided with the same name are merged into a single receiver.
-
-For example:
-
-- Two email receivers, each named "Foundation" with distinct email addresses
-- One email receiver named "Clusters"
-- One PagerDuty receiver named "Foundation"
-
-The example above results in the following:
-
-- One receiver named "Foundation" containing two email configurations and a PagerDuty configuration
-- One receiver named "Clusters" containing one email configuration
