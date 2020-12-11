@@ -95,7 +95,16 @@ in the Platform Automation documentation.
 
 This section describes how to configure the Healthwatch tile.
 
-To configure the Healthwatch tile: [How optional are all these panes really?]
+To configure the Healthwatch tile:
+
+<p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch tile to
+ensure that it successfully deploys before you manually configure it, or you want to configure
+it using an automation script through the <code>om</code> CLI, you only need to configure the
+<strong>Assign AZ and Networks</strong> pane. Otherwise, VMware recommends also configuring
+at minimum the <strong>Prometheus Configuration</strong> pane if you are monitoring VMware
+Tanzu Application Service for VMs (TAS for VMs), or the <strong>Prometheus Configuration</strong>
+and <strong>TKGI Cluster Discovery Configuration</strong> panes if you are monitoring Tanzu
+Kubernetes Grid Integrated Edition (TKGI).</p>
 
 1. Click the **Healthwatch** tile.
 
@@ -240,17 +249,19 @@ To configure the **Grafana Configuration** pane:
 
 1. Select **Grafana Configuration**.
 
-1. If you configured your Grafana VM to allow access from a URL outside your BOSH network,
-enter the full URL in **Root URL for Grafana**. You must provide this URL to enable generic
-OAuth or UAA to redirect to the Grafana [VM? UI?]. [What generates links? Alertmanager?] also uses this URL to generate links to Grafana [VM? UI?] in alert messages.
+1. If you configured your Grafana VM to allow access to the Grafana UI from a URL outside your
+BOSH network, enter the full URL in **Root URL for Grafana**. You must provide this URL to
+enable generic OAuth or UAA to redirect users to the Grafana UI. The Alertmanager also uses
+this URL to generate links to the Grafana UI in alert messages.
 <br>
 <br>
 This URL must be configured in your DNS provider to point to the public IP address of either
 a single Grafana VM or the load balancer in front of multiple Grafana VMs. You can obtain this
-IP address after you deploy the Healthwatch tile for the first time. Your Grafana VMs listen
-on either port `443` or `80`, depending on whether you provide an SSL certificate in the **Enable
-HTTPS by providing certificates** field below. For more information about configuring DNS for
-the Grafana VM, see [Configuring DNS for the Grafana VM](common-configurations/dns-configuration.html).
+IP address to configure **Root URL for Grafana** after you deploy the Healthwatch tile for
+the first time. Your Grafana VMs listen on either port `443` or `80`, depending on whether
+you provide an SSL certificate in the **Enable HTTPS by providing certificates** field below.
+For more information about configuring DNS for the Grafana VM, see [Configuring DNS for the
+Grafana VM](common-configurations/dns-configuration.html).
 
 1. Under **Enable HTTP(s) Proxy Settings for Grafana**, choose whether to enable or disable
 the Grafana VM to make HTTP and HTTPS proxy requests:
@@ -277,15 +288,21 @@ the Grafana VM to make HTTP and HTTPS proxy requests:
 static IP addresses that you want to reserve for the Grafana VM. These IP addresses must not
 be within the reserved IP ranges you configured in the BOSH Director tile.
 
-1. (Optional) To prevent users from logging in to [the Grafana VM? Grafana UI?] with basic authentication, including admin users, clear the **Enable Grafana Login Form** checkbox.
+1. (Optional) To prevent users from logging in to Grafana UI with basic authentication, including
+admin users, clear the **Enable Grafana Login Form** checkbox.
 
-1. (Optional) If you have the Monitoring Indicator Protocol tile installed on your foundation, enable the **Use Indicator Protocol Generated Dashboards** checkbox to enable [the Grafana VM? Grafana UI?] to generate dashboards [Healthwatch dashboards? Grafana dashboards?] based on indicator documents [?]. This checkbox is disabled by default. For more information about Monitoring Indicator Protocol, see [Indicator Protocol Dashboard (Beta)](indicator-protocol.html) and the [Monitoring Indicator Protocol](https://github.com/pivotal/monitoring-indicator-protocol) repository on GitHub.
+1. (Optional) If you have the Monitoring Indicator Protocol tile installed on your foundation,
+enable the **Use Indicator Protocol Generated Dashboards** checkbox to enable the Grafana VM
+to generate dashboards [Healthwatch dashboards? Grafana dashboards? Both?] based on indicator
+documents the Monitoring Indicator Protocol tile generates. This checkbox is disabled by default.
+For more information about Monitoring Indicator Protocol, see [Indicator Protocol Dashboard
+(Beta)](indicator-protocol.html) and the [Monitoring Indicator Protocol](https://github.com/pivotal/monitoring-indicator-protocol)
+repository on GitHub.
 
 1. Under **Discover Product Dashboards**, select how you want the Grafana VM to discover the
 runtimes in your foundations.
     * **Dynamic:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
-    Tanzu Application Service for VMs (TAS for VMs) or Tanzu Kubernetes Grid Integrated Edition
-    (TKGI) that are currently installed on your foundation.
+    TAS for VMs or TKGI that are currently installed on your foundation.
     * **Manual:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
     TAS for VMs or TKGI you specify in **TAS Version to Monitor** and **TKGI Version to Monitor**.
     * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
@@ -317,7 +334,7 @@ method you want the Grafana VM to use:
     (https://grafana.com/docs/grafana/latest/auth/ldap/) in the Grafana documentation.
 
 1. Under **Enable SMTP for Grafana Alerts**, choose whether to enable or disable email alerts
-from Grafana.
+from Grafana [VM? UI?].
   * To diable email alerts, select **Disabled**.
   * To enable email alerts:
       1. Select **Enabled**.
@@ -369,9 +386,8 @@ Ops Manager deployment. This creates a canary target URL for Ops Manager from wh
 continuous canary tests to these URLs and records the results. To configure canary target URLs:
   1. Click **Add**.
   1. For **HTTP(S) URL**, enter the URL to which you want Prometheus to send canary tests.
-  VMware recommends including `apps.sys.[FOUNDATION-URL]` if you have TAS for VMs installed,
-  or `api.pks.[FOUNDATION-URL]:8443` if you have TKGI installed, where `FOUNDATION-URL` is
-  [the OM FQDN?].
+  VMware recommends including `apps.sys.FOUNDATION-URL` if you have TAS for VMs installed,
+  or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is [the OM FQDN?].
   <p class='note'><strong>Note:</strong> Prometheus automatically configures scrape jobs for
     these URLs. You do not need to configure additional scrape jobs for them in the <strong>Prometheus
     Configuration</strong> pane.</p>
@@ -402,8 +418,8 @@ where `REMOTE-STORAGE-FQDN` is the FQDN of your remote database.
 must [wait? try to make?] requests to the remote write endpoint before [what?].
 
 1. (Optional) To enable Prometheus to access your storage endpoint with a username and password:
-  1. For **Basic Auth Username**, enter your basic authorization username. [For Healthwatch? Prometheus? Something else?]
-  1. For **Basic Auth Password**, enter your basic authorization password. [For Healthwatch? Prometheus? Something else?]
+  1. For **Basic Auth Username**, enter your basic authorization username. [For Healthwatch? The remote database? Something else?]
+  1. For **Basic Auth Password**, enter your basic authorization password. [For Healthwatch? The remote database? Something else?]
 
 1. (Optional) To configure TLS communication between Prometheus and your remote storage endpoint:
   1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates you
@@ -674,11 +690,12 @@ in the Ops Manager documentation.
 
 After you manually configure and deploy the Healthwatch tile for the first time, you can use
 the `om` CLI to modify your configuration settings and re-deploy the tile using an automation
-script like the following example:
+script similar to the following example:
 
 <%= partial 'snippets/scrape_config.md' %>
 
-For more information, see the [om](https://github.com/pivotal-cf/om) repository on GitHub.
+For more information about configuring and deploying tiles with the `om` CLI, see the [om]
+(https://github.com/pivotal-cf/om) repository on GitHub.
 
 
 ## <a id='next-steps'></a> Next Steps
