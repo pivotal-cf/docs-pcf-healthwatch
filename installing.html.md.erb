@@ -38,10 +38,10 @@ to monitor.
 
 There are two ways you can install the Healthwatch tile:
 
-* Download the Healthwatch file from VMware Tanzu Network. For more information, see [Install
+* Download the Healthwatch tile from VMware Tanzu Network. For more information, see [Install
 Healthwatch from VMware Tanzu Network](#pivnet) below.
 
-* Fetch the file using Platform Automation. For more information, see [Install Healthwatch
+* Fetch the tile using Platform Automation. For more information, see [Install Healthwatch
 with Platform Automation](#platform-automation) below.
 
 ### <a id='pivnet'></a> Install Healthwatch from VMware Tanzu Network
@@ -487,7 +487,7 @@ To configure the **TKGI Cluster Discovery Configuration** pane:
     * **Enabled:** This option enables TKGI cluster discovery and reveals the configuration
     fields described in the steps below.
 
-1. (Optional) For **Scrape Port**, enter a port where [the Healthwatch tile?] exposes a Prometheus scrape endpoint.
+1. (Optional) For **Scrape Port**, enter a port where [the Healthwatch Exporter for TKGI tile?] exposes a Prometheus scrape endpoint.
 
 1. For **TKGI API Address**, enter the TKGI API domain you configured in the **API Hostname
 (FQDN)** field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
@@ -522,7 +522,7 @@ to a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Mana
 Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 
 1. (Optional) For **Test Frequency in Seconds**, enter in seconds how frequently you want the
-TKGI Scalable Link Interface (SLI) test to run. The TKGI SLI test monitors the health of the
+TKGI Service Level Indicator (SLI) test to run. The TKGI SLI test monitors the health of the
 TKGI API by logging into the TKGI API server, listing all TKGI clusters, and logging out of
 the TKGI API server.
 
@@ -658,10 +658,12 @@ To configure the **Resource Config** pane:
 
 1. Select **Resource Config**.
 
-1. (Optional) To scale a job, select the dropdown for the resource you want to modify:
+1. (Optional) To scale a job, select an option from the dropdown for the resource you want
+to modify:
     * **Instances:** Configures the number of instances each job has.
-    * **VM Type:** Configures the
-    * **Persistent Disk Type:** Configures
+    * **VM Type:** Configures the type of VM used in each instance.
+    * **Persistent Disk Type:** Configures the amount of persistent disk space to allocate
+    to the job.
 
 1. (Optional) To add a load balancer to a job:
   1. Click the icon next to the job name.
