@@ -2,49 +2,337 @@
 title: Installing Healthwatch Exporter for PKS
 owner: Healthwatch
 ---
+CHECK THAT ALL THE FIELDS ARE THE SAME.
+This topic describes how to install and configure the Healthwatch Exporter for Tanzu Kubernetes Grid Integrated (TKGI).
 
-This topic describes how to install and configure Healthwatch Exporter for Pivotal
-Container Service (PKS).
+## <a id="install-healthwatch-exporter-for-pks"></a> Install Healthwatch Exporter for TKGI
 
-## <a id="install-healthwatch-exporter-for-pks"></a> Install Healthwatch Exporter for PKS
+## <a id="overview"></a> Overview
 
-1. Download the Healthwatch Exporter for TAS product file from [Healthwatch](https://network.pivotal.io/products/p-healthwatch/).
+When installed on a foundation you want to monitor, the Healthwatch Exporter for TKGI
+tile deploys a metric exporter VM to process each type of metric on the foundation. Healthwatch
+Exporter for TKGI sends metrics through the Firehose to a Prometheus exposition endpoint
+on the associated metric exporter VM. The Prometheus VM in the Healthwatch tile then scrapes
+the exposition endpoint on the metric exporter VM and brings those metrics into the Healthwatch
+tile.
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+To install and configure the Healthwatch Exporter for TKGI tile:
 
-1. Under the **Import a Product** button, click **+** next to the version number of Healthwatch Exporter for PKS.
-This adds the tile to your staging area.
+1. Install the Healthwatch Exporter for TKGI tile in the Ops Manager Installation Dashboard.
+For more information, see [Install the Healthwatch Exporter for TKGI Tile](#install)
+below.
 
-<div class="note">
-    <strong>Note: </strong>
-    Installing using Platform Automation
-    by following config file for the <code>download-product</code>
-    task will work to fetch the Healthwatch Exporter for PKS tile
-    without getting Healthwatch or the TAS exporter:
+1. Configure the Healthwatch Exporter for TKGI tile. For more information, see [Configure
+the Healthwatch Exporter for TKGI Tile](#configure) below.
 
-<pre>
----
-pivnet-api-token: token
-pivnet-file-glob: "Healthwatch-pks-*.pivotal"
-pivnet-product-slug: p-healthwatch
-product-version-regex: "0.4.*"
-</pre>
-</div>
+1. Once you have finished installing and configuring Healthwatch Exporter for TKGI,
+add a scrape configuration job in the **Prometheus Configuration** pane of the Healthwatch
+tile so Prometheus can scrape metrics from the metric exporter VMs.
 
-## <a id="configure-the-healthwatch-tile"></a> Configure the Healthwatch Tile
 
-To configure the Healthwatch Exporter for PKS tile, perform the following steps:
+## <a id="install"></a> Install the Healthwatch Exporter for TKGI Tile
 
-1. Click the **Healthwatch Exporter for PKS** tile on the Ops Manager Installation Dashboard.
-1. Navigate to **Assign AZs and Networks** and do the following:
-    1. Select an Availability Zone (AZ) for placing singleton jobs.
-    1. Select one or more AZs for balancing other jobs.
-    1. Select **Network** for installing Healthwatch.
-    1. Click **Save**.
+There are two ways you can install the Healthwatch Exporter for TKGI tile:
 
-1. *(Optional)* The exporter is defaulted to listen on port `9090`, to change, edit the value in the
-   **PKS Exporter Configuration** section.
+* Download the Healthwatch Exporter for TKGI tile from VMware Tanzu Network. For more
+information, see [Install Healthwatch Exporter for TKGI from VMware Tanzu Network](#pivnet)
+below.
 
+* Fetch the tile using Platform Automation. For more information, see [Install Healthwatch
+Exporter for TKGI with Platform Automation](#platform-automation) below.
+
+### <a id='pivnet'></a> Install the Healthwatch Exporter for TKGI from VMware Tanzu Network
+
+If you are manually configuring the Healthwatch Exporter for TKGI tile, you can install
+the tile from VMware Tanzu Network.
+
+To install the Healthwatch Exporter for TKGI tile from VMware Tanzu Network:
+
+1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
+VMware Tanzu Network.
+
+1. From the **Releases** dropdown, select the version you want to install.
+
+1. Click **Healthwatch Exporter for TKGI** to download the Healthwatch Exporter for TKGI `.pivotal` file.
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Under the **Import a Product** button, click the **+** icon next to the Healthwatch Exporter
+for TKGI listing to add the tile to your staging area. For more information, see [Adding
+and Deleting Products](https://docs.pivotal.io/ops-manager/install/add-delete.html) in the
+Ops Manager documentation.
+
+### <a id='platform-automation'></a> Install Healthwatch Exporter for TKGI with Platform Automation
+
+If you want to use automation scripts to configure the Healthwatch Exporter for TKGI
+tile, you can use Platform Automation to fetch the tile using a configuration file.
+
+1. Create a configuration file for the `download-product` task of your automated pipeline.
+The following configuration file fetches the Healthwatch Exporter for TKGI tile from
+VMware Tanzu Network:
+
+    ```
+    ---
+    pivnet-api-token: token
+    pivnet-file-glob: "Healthwatch-pks-*.pivotal"
+    pivnet-product-slug: p-healthwatch
+    product-version-regex: "0.4.*"
+    ```
+    For more information, see [Download](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download)
+    in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
+
+1. Upload and stage the Healthwatch Exporter for TKGI tile to the Ops Manager Installation
+Dashboard. For more information, see [Upload and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
+in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
+
+For more information about adding a product to the Ops Manager Installation Dashboard through
+Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
+in the Platform Automation documentation.
+
+
+## <a id="configure"></a> Configure the Healthwatch Exporter for TKGI Tile
+
+This section describes how to configure the Healthwatch Exporter TKGI tile.
+
+To configure the Healthwatch Exporter TKGI tile:
+
+1. Click the **Healthwatch Exporter for TKGI** tile.
+
+1. Assign jobs to your Availability Zones (AZs) and networks. For more information, see [Assign
+AZs and Networks](#az) below.
+
+1. (Optional) Configure the **TKGI Exporter Configuration** pane. For more information, see
+[(Optional) Configure TKGI Metric Exporter VMs](#exporter-config) below.
+
+>>>>NEW SECTION>>>>
+1. (Optional) Configure the **TKGI SLI Exporter Configuration** pane. For more information, see
+[(Optional) Configure TKGI SLI Exporter VMs](#sli-config) below.
+
+1. (Optional) Configure the **BOSH Health Exporter** pane. For more information, see [(Optional)
+Configure the BOSH Health Metric Exporter VM](#bosh-exporter) below.
+
+1. (Optional) Configure the **Bosh Deployments Exporter Configuration** pane. For more information,
+see [(Optional) Configure the BOSH Deployment Metric Exporter VM](#bosh-deployments) below.
+
+1. (Optional) Configure the **Errands** pane. For more information, see [(Optional) Configure
+Errands](#errands) below.
+
+1. (Optional) Configure the **Syslog** pane. For more information, see [(Optional) Configure
+Syslog](#syslog) below.
+
+1. (Optional) Configure the **Resource Config** pane. For more information, see [(Optional)
+Configure Resources](#resource-config) below.
+    
+### <a id='az'></a> Assign AZs and Networks
+
+In the **Assign AZ and Networks** pane, you assign jobs to your AZs and networks.
+
+To configure the **Assign AZ and Networks** pane:
+
+1. Select **Assign AZs and Networks**.
+
+1. Under **Place singleton jobs in**, select the first AZ. Ops Manager runs any job with a
+single instance in this AZ.
+
+1. Under **Balance other jobs in**, select one or more other AZs. Ops Manager balances instances
+of jobs with more than one instance across the AZs that you specify.
+
+1. From the **Network** dropdown, select the runtime network that you created when configuring
+the BOSH Director tile.
+
+1. Click **Save**.
+
+### <a id='exporter-config'></a> (Optional) Configure TKGI Metric Exporter VMs
+
+In the **TKGI Exporter Configuration** pane, you configure static IP addresses for each metric
+exporter VM in the Healthwatch Exporter for TKGI tile. There are three metric exporter
+VMs that each process a single metric type from the Firehose: counter, gauge, or timer. You
+can deploy all three VMs or any subset thereof. After processing these metrics, the metric
+exporter VMs expose them in Prometheus exposition format on a secured endpoint.
+
+You can also deploy two other VMs: the Service Level Indicator (SLI) metric exporter VM and
+the certificate expiration metric exporter VM.
+
+To configure the **TKGI Exporter Configuration** pane:
+
+<p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TKGI
+  Exporter Configuration</strong> must not be within the reserved IP ranges you configured
+  in the BOSH Director tile.</p>
+
+1. Select **TKGI Exporter Configuration**.
+
+1. (Optional) For **Static IP for TKGI Counter Exporter VM**, enter a valid static IP address
+that you want to reserve for the counter metric exporter VM.
+
+1. (Optional) For **Static IP for TKGI Gauge Exporter VM**, enter a valid static IP address
+that you want to reserve for the gauge metric exporter VM.
+
+1. (Optional) For **Static IP for TKGI Timer Exporter VM**, enter a valid static IP address
+that you want to reserve for the timer metric exporter VM.
+
+1. (Optional) For **Static IP for TKGI SLI Exporter VM**, enter a valid static IP address that
+you want to reserve for the SLI metric exporter VM. The SLI metric exporter VM processes SLIs
+that allow you to monitor whether key features of Healthwatch are working as expected, such
+as the Cloud Foundry Command-Line Interface (cf CLI). [Is it just cf CLI health now? Or does this also include BOSH health, canary app health, and OM health?] These SLIs are the most important operational metrics emitted about Healthwatch itself, as they indicate the reliability of the assessments Healthwatch is making. For more information, see [Cloud Foundry CLI Health](metrics.html#cf-cli) in _Healthwatch Metrics_.
+
+1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
+that you want to reserve for the certificate expiration metric exporter VM. The certificate
+expiration metric exporter VM exposes metrics about when certificates in your [Healthwatch? OM?] deployment are due to expire. For more information, see [Certificate Expiration Monitoring](metrics.html#cert-expiration) in _Healthwatch Metrics_ and [Certificate Monitoring](common-configurations/certificate-monitoring.html).
+
+1. Click **Save**.
+
+>>>>NEW SECTION>>>>
+### <a id='sli-config'></a> (Optional) Configure the TKGI SLI Exporter VM?
+
+NEEDS STEPS
+
+### <a id='bosh-exporter'></a> (Optional) Configure the BOSH Health Metric Exporter VM
+
+In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
+`bosh-health-exporter` VM. Healthwatch Exporter for TKGI deploys and deletes the `bosh-health-exporter`
+VM as part of a suite of tests that the tile continuously runs to validate the health of the
+BOSH Director. For more information, see [BOSH Health](metrics.html#bosh-health) in _Healthwatch
+Metrics_.
+
+To configure the **BOSH Health Exporter Configuration** pane:
+
+1. Select **BOSH Health Exporter Configuration**.
+
+1. Under **BOSH Health Check Availability Zone**, select the AZ on which you want the exporter
+tile to deploy the `bosh-health-exporter` VM.
+
+1. Under **BOSH Health Check VM Type**, select from the dropdown the type of VM you want the
+exporter tile to deploy.
+
+1. Click **Save**.
+
+### <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
+
+In the **Bosh Deployments Exporter Configuration** pane, you configure [what? Does this have to do with the `bosh_deployments_status` metric?].
+For more information, see [BOSH Health](metrics.html#bosh-health) in _Healthwatch Metrics_.
+
+To configure the **Bosh Deployments Exporter Configuration** pane:
+
+1. Select **Bosh Deployments Exporter Configuration**.
+
+1. For **Bosh Client Username and Secret**, enter the client username and client secret for [what?] to access the BOSH Director VM through the [BOSH Director? BOSH? OM?] API. [Where can the user find these?]
+
+1. For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address that
+you want to reserve for the BOSH deployment metric exporter VM. This IP address must not be
+within the reserved IP ranges you configured in the BOSH Director tile.
+
+1. Click **Save**.
+
+### <a id='errands'></a> (Optional) Configure Errands
+
+Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product,
+such as a new version of Healthwatch Exporter for TKGI. There are two types of errands:
+_post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before
+the product in uninstalled.
+
+By default, Ops Manager always runs all errands.
+
+In the **Errands** pane, you can select **On** to always run an errand or **Off** to never
+run it.
+
+For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager]
+(https://docs.pivotal.io/ops-manager/install/managing_errands.html) in the Ops Manager documentation.
+
+To configure the **Errands** pane:
+
+1. Select **Errands**.
+
+1. Choose whether to always run or never run the following errands:
+    * **Smoke Tests:** Verifies that the exporter VMs are running.
+    * **Cleanup:** Cleans up the [`bosh-health-exporter` VM?].
+
+1. Click **Save**.
+
+### <a id='syslog'></a> (Optional) Configure Syslog
+
+In the **Syslog** pane, you can configure system logging in Healthwatch Exporter for TAS for
+VMs to forward log messages from tile component VMs to an external destination for troubleshooting,
+such as a remote server or external syslog aggregation service.
+
+To configure the **Syslog** pane:
+
+1. Select **Syslog**.
+
+1. Under **Do you want to configure Syslog forwarding?**, select one of the following options:
+    * **No, do not forward Syslog:** Disables syslog forwarding.
+    * **Yes:** Enables syslog forwarding and allows you to edit the configuration fields described
+    below.
+
+1. For **Address**, enter the IP address or DNS domain name of your external destination.
+
+1. For **Port**, enter a port on which your external destination listens.
+
+1. For **Transport Protocol**, select **TCP** or **UDP** from the dropdown. This determines
+which transport protocol Healthwatch Exporter for TKGI uses to forward system logs to
+your external destination.
+
+1. (Optional) To transmit logs over TLS:
+  1. Select the **Enable TLS** checkbox. This checkbox is disabled by default.
+  1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
+  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+
+1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for
+TKGI can hold in a buffer at a time before sending them to your external destination.
+The default value is `100000`.
+
+1. (Optional) To forward debug logs to your external destination, enable the **Forward Debug
+Logs** checkbox. This checkbox is disabled by default.
+
+1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration**
+in RainerScript syntax. For more information about custom syslog rules, see [Customizing Platform
+Log Forwarding](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html)
+in the TAS for VMs documentation. For more information about RainerScript syntax, see the [rsyslog]
+(https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
+
+1. Click **Save Syslog Settings**.
+
+### <a id='resource-config'></a> (Optional) Configure Resources
+
+In the **Resource Config** pane, you can scale Healthwatch Exporter for TKGI component
+VMs up or down according to the needs of your deployment, as well as associate load balancers
+with a group of VMs. For example, you can scale the persistent disk size of a metric exporter
+VM to enable longer data retention.
+
+To configure the **Resource Config** pane:
+
+1. Select **Resource Config**.
+
+1. (Optional) To scale a job, select an option from the dropdown for the resource you want
+to modify:
+    * **Instances:** Configures the number of instances each job has.
+    * **VM Type:** Configures the type of VM used in each instance.
+    * **Persistent Disk Type:** Configures the amount of persistent disk space to allocate
+    to the job.
+
+1. (Optional) To add a load balancer to a job:
+  1. Click the icon next to the job name.
+  1. For **Load Balancers**, enter the name of your load balancer.
+  1. Ensure that the **Internet Connected** checkbox is disabled. Enabling this checkbox gives
+  VMs a public IP address that enables outbound Internet access.
+
+1. (Optional) The instance count for the SVM Forwarder VM is set to `0` by default. This VM
+emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To enable
+the SVM Forwarder VM, increase the instance count by selecting from the **Instances** dropdown.
+You do not need to enable this VM unless your foundation uses the Firehose v1 integration and
+a third-party nozzle to export the SVMs to an external system, such as a remote server or a
+syslog aggregatation service.
+  <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS for
+    VMs tile before installing the Healthwatch tile, you may need to re-deploy Healthwatch
+    Exporter for TKGI after enabling the SVM Forwarder VM. For more information, see
+    <a href="#apply-changes">Deploy Healthwatch Exporter for TKGI</a> below.</p>
+
+1. (Optional) Healthwatch Exporter for TKGI enables the counter, gauge, and timer metric
+exporter VMs by default. If you do not want to collect all of these metric types, set the instance
+count for the associated VMs to `0`.
+
+1. Click **Save**.
+
+CAN THIS INFO GO SOMEPLACE ELSE??>>>
 <p class="note">
     <strong>Note: </strong>
     Metric Sources
@@ -62,6 +350,7 @@ To configure the Healthwatch Exporter for PKS tile, perform the following steps:
     </a>.
 </p>
 
+WE NEED A BETTER NAME FOR THIS SECTION>>>>CAN WE WORK IT INTO THE PROCEDURE AS A STEP?
 ## <a id="troubleshooting"></a> Troubleshooting
 
 It is possible to follow all the steps above
@@ -84,6 +373,7 @@ You can set the Time To Live (**TTL**) to whatever you desire,
 but on our test environments we make it as short as possible (one second)
 so we can hopefully see cluster discovery up and running as fast as possible.
 
+HIDE THIS SECTION IN A NOTE >>>>>>
 ## <a id="scraping-pks-exporter-metrics"></a> (Optional) Scraping PKS Exporter Metrics
 
 If you would like to scrape the PKS Exporter from off the foundation (for example, if you have installed a Prometheus
@@ -91,3 +381,16 @@ off of the foundation or are using the Healthwatch on the [Control Plane](../usi
 then you will need to open network paths from the Prometheus to the PKS Exporter VMs.  Instructions for doing so will differ
 depending on the IAAS being used.  In general, all that is needed is connectivity from the Prometheus VM to the Exporter VMs
 over TCP to the configured PKS Exporter Scrape Port (defaulted to 9090).
+
+## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TKGI
+
+To complete your installation of the Healthwatch Exporter for TKGI tile:
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html)
+in the Ops Manager documentation.
