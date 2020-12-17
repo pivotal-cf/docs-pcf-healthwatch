@@ -27,7 +27,7 @@ The **Alertmanager Configuration** pane configures the Alertmanager configuratio
 more information, see [Configuration](https://prometheus.io/docs/alerting/latest/configuration/)
 in the Prometheus documentation.
 
-To configure the **Alertmanager Configuration** pane:
+To configure alerting through the **Alertmanager Configuration** pane:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -81,7 +81,7 @@ in _Configuration_ in the Prometheus documentation.
     </ul>
   </div>
     * To configure email receivers:
-      1. Click **Add**.
+      1. Under **Email Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your email receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your email receiver.
       Do not prefix the configuration YAML with a dash. For more information about the YAML
@@ -111,7 +111,7 @@ in _Configuration_ in the Prometheus documentation.
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
     * To configure PagerDuty receivers:
-      1. Click **Add**.
+      1. Under **PagerDuty Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your PagerDuty receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your PagerDuty
       receiver. Do not prefix the configuration YAML with a dash. For more information about
@@ -153,7 +153,7 @@ in _Configuration_ in the Prometheus documentation.
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
     * To configure Slack receivers:
-      1. Click **Add**.
+      1. Under **Slack Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your Slack receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your Slack receiver.
       Do not prefix the configuration YAML with a dash. For more information about the YAML
@@ -191,7 +191,7 @@ in _Configuration_ in the Prometheus documentation.
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
     * To configure webhook receivers:
-      1. Click **Add**.
+      1. Under **Webhook Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your webhook receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your webhook receiver.
       Do not prefix the configuration YAML with a dash. For more information about the YAML
@@ -235,7 +235,8 @@ in _Configuration_ in the Prometheus documentation.
 
 1. Click **Save**.
 
-### <a id='combine-receivers'></a> Combining Alert Receivers
+
+## <a id='combine-receivers'></a> Combining Alert Receivers
 
 If you configure two or more alert receivers with the same name, the Alertmanager merges them
 into a single alert receiver. For example, if you configure:
