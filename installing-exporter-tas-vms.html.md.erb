@@ -26,8 +26,8 @@ below.
 the Healthwatch Exporter for TAS for VMs Tile](#configure) below.
 
 1. Once you have finished installing and configuring Healthwatch Exporter for TAS for VMs,
-add a scrape configuration job in the **Prometheus Configuration** pane of the Healthwatch
-tile so Prometheus can scrape metrics from the metric exporter VMs.
+add a scrape job in the **Prometheus Configuration** pane of the Healthwatch tile so Prometheus
+can scrape metrics from the metric exporter VMs.
 
 
 ## <a id="install"></a> Install the Healthwatch Exporter for TAS for VMs Tile
@@ -75,7 +75,7 @@ VMware Tanzu Network:
     ```
     ---
     pivnet-api-token: token
-    pivnet-file-glob: "Healthwatch-TAS-*.pivotal"
+    pivnet-file-glob: "Healthwatch-TAS-*.pivotal" [Is this all capitalized correctly?]
     pivnet-product-slug: p-healthwatch
     product-version-regex: "0.4.*"
     ```
@@ -147,8 +147,8 @@ VMs that each process a single metric type from the Firehose: counter, gauge, or
 can deploy all three VMs or any subset thereof. After processing these metrics, the metric
 exporter VMs expose them in Prometheus exposition format on a secured endpoint.
 
-You can also deploy two other VMs: the Service Level Indicator (SLI) metric exporter VM and
-the certificate expiration metric exporter VM.
+You can also deploy two other VMs: the Service Level Indicator (SLI) exporter VM and the certificate
+expiration metric exporter VM.
 
 To configure the **TAS Exporter Configuration** pane:
 
@@ -168,9 +168,9 @@ that you want to reserve for the gauge metric exporter VM.
 that you want to reserve for the timer metric exporter VM.
 
 1. (Optional) For **Static IP for TAS SLI Exporter VM**, enter a valid static IP address that
-you want to reserve for the SLI metric exporter VM. The SLI metric exporter VM processes SLIs
-that allow you to monitor whether key features of Healthwatch are working as expected, such
-as the Cloud Foundry Command-Line Interface (cf CLI). [Is it just cf CLI health now? Or does this also include BOSH health, canary app health, and OM health?] These SLIs are the most important operational metrics emitted about Healthwatch itself, as they indicate the reliability of the assessments Healthwatch is making. For more information, see [Cloud Foundry CLI Health](metrics.html#cf-cli) in _Healthwatch Metrics_.
+you want to reserve for the SLI exporter VM. The SLI exporter VM processes SLIs that allow
+you to monitor whether key features of Healthwatch are working as expected, such as the Cloud
+Foundry Command-Line Interface (cf CLI). [Is it just cf CLI health now? Or does this also include BOSH health, canary app health, and OM health?] These SLIs are the most important operational metrics emitted about Healthwatch itself, as they indicate the reliability of the assessments Healthwatch is making. For more information, see [Cloud Foundry CLI Health](metrics.html#cf-cli) in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
 that you want to reserve for the certificate expiration metric exporter VM. The certificate
@@ -220,7 +220,7 @@ within the reserved IP ranges you configured in the BOSH Director tile.
 Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product,
 such as a new version of Healthwatch Exporter for TAS for VMs. There are two types of errands:
 _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before
-the product in uninstalled.
+the product is uninstalled.
 
 By default, Ops Manager always runs all errands.
 
@@ -327,7 +327,7 @@ count for the associated VMs to `0`.
 HIDE THIS SECTION IN A NOTE >>>>>>
 (Optional) Scraping TAS Exporter Metrics
 
-If you would like to scrape metric exporter VMs from outside your foundation [what does this even mean?] (for example, if you have installed a time series database (TSDB) outside your foundation or are using the Healthwatch tile on the [Control Plane](../using.md)), then you must open network paths from the TSDB to the metric exporter VMs. The procedure to open these network paths differs depending on your foundation's IaaS. In general, you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the TAS Exporter Scrape Port (defaulted to `9090`) you configured in the **Prometheus Configuration** pane of the Healthwatch tile.
+If you would like to scrape metric exporter VMs from outside your foundation [what does this even mean?] (for example, if you have installed a time series database (TSDB) outside your foundation or are using the Healthwatch tile on the Control Plane), then you must open network paths from the TSDB to the metric exporter VMs. The procedure to open these network paths differs depending on your foundation's IaaS. In general, you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the TAS Exporter Scrape Port (defaulted to `9090`) you configured in the **Prometheus Configuration** pane of the Healthwatch tile.
 
 
 ## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TAS for VMs
