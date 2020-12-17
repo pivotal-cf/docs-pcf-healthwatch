@@ -63,11 +63,17 @@ see [&#60;inhibit_rule>](https://prometheus.io/docs/alerting/latest/configuratio
 in _Configuration_ in the Prometheus documentation.
 
 1. Configure the alert receivers that you specified in **Routing Rules YAML** in a previous
-step. These alert receiver configurations appear in the `receivers` section of the Alertmanager
+step. You can configure email, PagerDuty, Slack, and webhook alert receivers in the Healthwatch
+tile. These alert receiver configurations appear in the `receivers` section of the Alertmanager
 configuration file. For more information, see [&#60;receiver>](https://prometheus.io/docs/alerting/latest/configuration/#receiver)
 in _Configuration_ in the Prometheus documentation.
   <div class='note'><strong>Notes:</strong>
     <ul>
+      <li>You can also configure custom alert receiver integrations that are not natively supported
+        by the Alertmanager through webhook receivers. For more information about configuring
+        custom alert receiver integrations, see <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">&#60;webhook_config></a>
+        in <em>Configuration</em> in the Prometheus documentation.</li>
+      <br>
       <li>If you want to provide authentication and TLS communication settings for your alert
         receivers, you must provide them in the associated alert receiver configuration fields
         described below. If the base configuration YAML for your alert receivers include fields
@@ -227,11 +233,6 @@ in _Configuration_ in the Prometheus documentation.
           For more information about configuring TLS communication, see [&#60;tls_config>]
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
-        <p class='note'><strong>Note:</strong> You can also configure custom alert receiver
-          integrations that are not natively supported by the Alertmanager through the webhook
-          receiver. For more information about configuring custom alert receiver integrations,
-          see <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">&#60;webhook_config></a>
-          in <em>Configuration</em> in the Prometheus documentation.</p>
 
 1. Click **Save**.
 
