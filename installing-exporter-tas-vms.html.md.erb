@@ -29,8 +29,8 @@ the Healthwatch Exporter for TAS for VMs Tile](#configure) below.
 Healthwatch Exporter for TAS for VMs](#apply-changes) below.
 
 1. Once you have finished installing and configuring Healthwatch Exporter for TAS for VMs,
-add a scrape job in the **Prometheus Configuration** pane of the Healthwatch tile so Prometheus
-can scrape metrics from the metric exporter VMs. [Just one scrape job for the whole Exporter tile, or one for each VM?] For more information, see [Add a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch](#add-scrape-job) below.
+add a scrape job in the **Prometheus Configuration** pane of the Healthwatch tile so the Prometheus
+VM can scrape metrics from the metric exporter VMs. [Just one scrape job for the whole Exporter tile, or one for each VM?] For more information, see [Add a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch](#add-scrape-job) below.
 
 
 ## <a id="install"></a> Install the Healthwatch Exporter for TAS for VMs Tile
@@ -78,7 +78,7 @@ VMware Tanzu Network:
     ```
     ---
     pivnet-api-token: token
-    pivnet-file-glob: "Healthwatch-TAS-*.pivotal" [Is this all capitalized correctly?]
+    pivnet-file-glob: "Healthwatch-TAS-*.pivotal" [Is this correct?]
     pivnet-product-slug: p-healthwatch
     product-version-regex: "0.4.*"
     ```
@@ -201,7 +201,7 @@ To configure the **BOSH Health Exporter Configuration** pane:
 1. Select **BOSH Health Exporter Configuration**.
 
 1. Under **BOSH Health Check Availability Zone**, select the AZ on which you want the exporter
-tile to deploy the `bosh-health-exporter` VM.
+tile to deploy the BOSH health metric exporter VM.
 
 1. Under **BOSH Health Check VM Type**, select from the dropdown the type of VM you want the
 exporter tile to deploy.

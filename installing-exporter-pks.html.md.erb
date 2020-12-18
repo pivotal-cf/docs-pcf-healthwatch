@@ -24,9 +24,12 @@ For more information, see [Install the Healthwatch Exporter for TKGI Tile](#inst
 1. Configure the Healthwatch Exporter for TKGI tile. For more information, see [Configure the
 Healthwatch Exporter for TKGI Tile](#configure) below.
 
+1. Deploy the Healthwatch Exporter for TKGI tile. For more information, see [Deploy Healthwatch
+Exporter for TKGI](#apply-changes) below.
+
 1. Once you have finished installing and configuring Healthwatch Exporter for TKGI, add a scrape
-job in the **Prometheus Configuration** pane of the Healthwatch tile so Prometheus can scrape
-metrics from the metric exporter VMs.
+job in the **Prometheus Configuration** pane of the Healthwatch tile so the Prometheus VM can
+scrape metrics from the metric exporter VMs. [Just one scrape job for the whole Exporter tile, or one for each VM?] For more information, see [Add a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch](#add-scrape-job) below.
 
 
 ## <a id="install"></a> Install the Healthwatch Exporter for TKGI Tile
@@ -73,7 +76,7 @@ Tanzu Network:
     ```
     ---
     pivnet-api-token: token
-    pivnet-file-glob: "Healthwatch-pks-*.pivotal" [Is this all capitalized correctly?]
+    pivnet-file-glob: "Healthwatch-pks-*.pivotal" [Is this correct?]
     pivnet-product-slug: p-healthwatch
     product-version-regex: "0.4.*"
     ```
@@ -143,7 +146,7 @@ the BOSH Director tile.
 ### <a id='exporter-config'></a> (Optional) Configure TKGI Metric Exporter VMs
 
 In the **TKGI Exporter Configuration** pane, you configure static IP addresses for the TKGI
-Exporter and certificate expiration metric exporter VMs in the Healthwatch Exporter for TKGI
+exporter and certificate expiration metric exporter VMs in the Healthwatch Exporter for TKGI
 tile. After processing these metrics, the metric exporter VMs expose them in Prometheus exposition
 format on a secured endpoint.
 
@@ -157,20 +160,26 @@ To configure the **TKGI Exporter Configuration** pane:
 
 1. (Optional) For **Static IP for TKGI Exporter VM**, enter a valid static IP address that
 you want to reserve for the TKGI exporter VM. The TKGI exporter VM collects health metrics
-from the BOSH Director.
+from the BOSH Director. For more information, see [PKS Exporter (pks-exporter)](metrics.html#pks-exporter)
+in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
 that you want to reserve for the certificate expiration metric exporter VM. The certificate
-expiration metric exporter VM exposes metrics about when certificates in your [Healthwatch? OM?] deployment are due to expire. For more information, see [Certificate Expiration Monitoring](metrics.html#cert-expiration) in _Healthwatch Metrics_ and [Certificate Monitoring](common-configurations/certificate-monitoring.html).
+expiration metric exporter VM exposes metrics about when certificates in your Ops Manager deployment
+are due to expire. For more information, see [Cert Expiration Exporter (cert-expiration-exporter)]
+(metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Certificate Monitoring]
+(common-configurations/certificate-monitoring.html).
 
 1. Click **Save**.
 
 ### <a id='sli-config'></a> (Optional) Configure the TKGI SLI Exporter VM
 
-In the **TKGI SLI Exporter Configuration** pane, you configure the service level indicator
-(SLI) exporter VM. The SLI exporter VM processes SLIs that allow you to monitor whether key
-features of Healthwatch are working as expected, such as the Cloud Foundry Command-Line Interface
-(cf CLI). [Should this be the TKGI CLI instead?] [Is it just cf CLI health now? Or does this also include BOSH health, canary app health, and OM health?] These SLIs are the most important operational metrics emitted about Healthwatch itself, as they indicate the reliability of the assessments Healthwatch is making. For more information, see [Cloud Foundry CLI Health](metrics.html#cf-cli) in _Healthwatch Metrics_.
+In the **TKGI SLI Exporter Configuration** pane, you configure the TKGI service level indicator
+(SLI) exporter VM. The TKGI SLI exporter VM processes SLIs that allow you to monitor whether
+the core functions of the TKGI Command-Line Interface (TKGI CLI) are working as expected. The
+TKGI CLI enables developers to create and manage Kubernetes clusters through TKGI. For more
+information, see [PKS SLI Exporter (pks-sli-exporter)](metrics.html##pks-sli-exporter) in _Healthwatch
+Metrics_.
 
 To configure the **TKGI SLI Exporter Configuration** pane:
 
@@ -178,7 +187,7 @@ To configure the **TKGI SLI Exporter Configuration** pane:
 to reserve for the SLI metric exporter VM. This IP address must not be within the reserved
 IP ranges you configured in the BOSH Director tile.
 
-1. For **Test Frequency in Seconds**, enter in seconds how frequently you want the SLI [test? metric exporter VM?] to [run? emit metrics?]. The TKGI SLI test monitors the health of the TKGI API by logging into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API server [?].
+1. For **Test Frequency in Seconds**, enter in seconds how frequently you want the SLI [test? metric exporter VM?] to [run? emit metrics?].
 
 1. (Optional) To configure TLS communication between the TKGI SLI exporter VM and the TKGI
 API, choose one of the following options:
@@ -200,17 +209,19 @@ API, choose one of the following options:
 ### <a id='bosh-exporter'></a> (Optional) Configure the BOSH Health Metric Exporter VM
 
 In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
-`bosh-health-exporter` VM. Healthwatch Exporter for TKGI deploys and deletes the `bosh-health-exporter`
-VM as part of a suite of tests that the tile continuously runs to validate the health of the
-BOSH Director. For more information, see [BOSH Health](metrics.html#bosh-health) in _Healthwatch
-Metrics_.
+BOSH health metric exporter VM. Healthwatch Exporter for TKGI periodically deploys the BOSH
+health metric exporter VM. This VM creates a BOSH deployment, runs SLI tests on the BOSH deployment
+to validate the health of the BOSH Director, and deletes the BOSH deployment once the SLI tests
+are complete. Healthwatch Exporter for TKGI then deletes the BOSH health metric exporter VM.
+For more information, see [Bosh Health Exporter (bosh-health-exporter)](metrics.html#bosh-health-exporter)
+in _Healthwatch Metrics_.
 
 To configure the **BOSH Health Exporter Configuration** pane:
 
 1. Select **BOSH Health Exporter Configuration**.
 
 1. Under **BOSH Health Check Availability Zone**, select the AZ on which you want the exporter
-tile to deploy the `bosh-health-exporter` VM.
+tile to deploy the BOSH health metric exporter VM.
 
 1. Under **BOSH Health Check VM Type**, select from the dropdown the type of VM you want the
 exporter tile to deploy.
@@ -219,14 +230,18 @@ exporter tile to deploy.
 
 ### <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
 
-In the **Bosh Deployments Exporter Configuration** pane, you configure [what? Does this have to do with the `bosh_deployments_status` metric?].
-For more information, see [BOSH Health](metrics.html#bosh-health) in _Healthwatch Metrics_.
+In the **Bosh Deployments Exporter Configuration** pane, you configure the authentication credentials
+and a static IP address for the BOSH deployment metric exporter VM. This VM periodically checks
+to see if any BOSH deployments other than the one created by the BOSH health metric exporter
+VM are running. For more information, see [Bosh Deployments Exporter (bosh-deployments-exporter)]
+(metrics.html#bosh-deployments-exporter) in _Healthwatch Metrics_.
 
 To configure the **Bosh Deployments Exporter Configuration** pane:
 
 1. Select **Bosh Deployments Exporter Configuration**.
 
-1. For **Bosh Client Username and Secret**, enter the client username and client secret for [what?] to access the BOSH Director VM through the [BOSH Director? BOSH? OM?] API. [Where can the user find these?]
+1. For **Bosh Client Username and Secret**, enter the client username and secret for the BOSH
+deployment metric exporter VM to access the BOSH Director VM through the BOSH Director API. [Where can the user find these?]
 
 1. For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address that
 you want to reserve for the BOSH deployment metric exporter VM. This IP address must not be
@@ -328,61 +343,17 @@ to modify:
 1. (Optional) The instance count for the SVM Forwarder VM is set to `0` by default. This VM
 emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To enable
 the SVM Forwarder VM, increase the instance count by selecting from the **Instances** dropdown.
-You do not need to enable this VM unless your foundation uses the Firehose v1 integration and
-a third-party nozzle to export the SVMs to an external system, such as a remote server or a
-syslog aggregatation service. [Does any of this exist in this tile?]
+You do not need to enable this VM unless your foundation uses a Pivotal Healthwatch v1.8 or
+earlier integration and a third-party nozzle to export the SVMs to an external system, such
+as a remote server or a syslog aggregatation service. For more information about the SVM Forwarder
+VM, see [SVM Forwarder Monitoring Metrics (svm-forwarder)](metrics.html#svm-forwarder) in _Healthwatch
+Metrics_. [Does any of this exist in this tile?]
   <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TKGI
     tile before installing the Healthwatch tile, you may need to re-deploy Healthwatch Exporter
     for TKGI after enabling the SVM Forwarder VM. For more information, see <a href="#apply-changes">Deploy
     Healthwatch Exporter for TKGI</a> below.</p>
 
 1. Click **Save**.
-
-CAN THIS INFO GO SOMEPLACE ELSE??>>>
-<p class="note">
-    <strong>Note: </strong>
-    Metric Sources
-
-    <br/><br/>
-
-    The Healthwatch PKS Exporter retrieves metrics from the
-    <a href="https://github.com/cloudfoundry/bosh-system-metrics-server-release">
-        Bosh System Metrics Server
-    </a>.
-    This includes all of the typical Bosh metrics.
-    Examples of such metrics can be found here:
-    <a href="https://docs.pivotal.io/pivotalcf/2-6/monitoring/kpi.html#bosh">
-        System (BOSH) metrics
-    </a>.
-</p>
-
-WE NEED A BETTER NAME FOR THIS SECTION>>>>CAN WE WORK IT INTO THE PROCEDURE AS A STEP?
-## <a id="troubleshooting"></a> Troubleshooting
-
-It is possible to follow all the steps above
-and have PKS Cluster Discovery fail with the following error:
-
-```
-2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
-java.net.UnknownHostException: CLUSTER-NAME.ENVIRONMENT-DOMAIN
-```
-
-Where:
-
-* `CLUSTER-NAME` is the name of the cluster you created
-* `ENVIRONMENT-DOMAIN` is the domain you have set up for your PKS foundation
-
-In this case, you'll need to set up a DNS record for accessing your cluster from the web.
-The DNS record will be a type A record
-with the IP of the cluster's master node set as the **IPv4 Address**.
-You can set the Time To Live (**TTL**) to whatever you desire,
-but on our test environments we make it as short as possible (one second)
-so we can hopefully see cluster discovery up and running as fast as possible.
-
-HIDE THIS SECTION IN A NOTE >>>>>>
-## <a id="scraping-pks-exporter-metrics"></a> (Optional) Scraping TKGI Exporter Metrics
-
-If you would like to scrape metric exporter VMs from outside your foundation [what does this even mean?] (for example, if you have installed a time series database (TSDB) outside your foundation or are using the Healthwatch tile on the Control Plane), then you must open network paths from the TSDB to the metric exporter VMs. The procedure to open these network paths differs depending on your foundation's IaaS. In general, you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the TKGI Exporter Scrape Port (defaulted to `9090`) you configured in the **Prometheus Configuration** pane of the Healthwatch tile.
 
 
 ## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TKGI
@@ -397,3 +368,17 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html)
 in the Ops Manager documentation.
+
+
+## <a id='add-scrape-job'></a> Add a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
+
+
+### <a id='scraping-external'></a> Collecting Metrics Outside Your Foundation
+
+You can collect metrics from Healthwatch Exporter for TKGI in a database or service that is
+located outside your foundation, such as in an external time series database (TSDB) or an installation
+of Healthwatch on the TKGI Control Plane. [Is this what the _Federation_ topic is talking about?]
+
+To enable an external database or service to scrape metrics from the metrics exporter VMs in
+Healthwatch Exporter for TKGI, you must open network paths from the external database or service
+to the metric exporter VMs. [From/to, or between/and?] The procedure to open these network paths differs depending on your foundation's IaaS. In general [meaning for most IaaSes?], you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the port specified in the scrape job configuration for Healthwatch Exporter for TKGI located in the **Prometheus Configuration** pane of the Healthwatch tile. For more information, see [Federation](federation.html) [is this correct?].
