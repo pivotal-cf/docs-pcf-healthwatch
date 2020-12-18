@@ -27,7 +27,7 @@ the Healthwatch Exporter for TAS for VMs Tile](#configure) below.
 
 1. Once you have finished installing and configuring Healthwatch Exporter for TAS for VMs,
 add a scrape job in the **Prometheus Configuration** pane of the Healthwatch tile so Prometheus
-can scrape metrics from the metric exporter VMs.
+can scrape metrics from the metric exporter VMs. [Just one scrape job for the whole Exporter tile, or one for each VM?] For more information, see [Add a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch](#add-scrape-job) below.
 
 
 ## <a id="install"></a> Install the Healthwatch Exporter for TAS for VMs Tile
@@ -338,18 +338,6 @@ count for the VMs associated with the metrics you do not want to collect to `0`.
 1. Click **Save**.
 
 
-## <a id='scraping-external'></a> Collecting Metrics Outside Your Foundation
-
-You can collect metrics from Healthwatch Exporter for TAS for VMs in a database or service
-that is located outside your foundation, such as in an external time series database (TSDB)
-or an installation of Healthwatch on the Tanzu Kubernetes Grid Integrated Edition (TKGI) Control
-Plane. [Is this what the _Federation_ topic is talking about?]
-
-To enable an external database or service to scrape metrics from the metrics exporter VMs in
-Healthwatch Exporter for TAS for VMs, you must open network paths from the external database
-or service to the metric exporter VMs. [From/to, or between/and?] The procedure to open these network paths differs depending on your foundation's IaaS. In general [meaning for most IaaSes?], you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the port specified in the scrape job configuration for Healthwatch Exporter for TAS for VMs located in the **Prometheus Configuration** pane of the Healthwatch tile. For more information, see [Federation](federation.html) [is this correct?].
-
-
 ## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TAS for VMs
 
 To complete your installation of the Healthwatch Exporter for TAS for VMs tile:
@@ -362,3 +350,18 @@ To complete your installation of the Healthwatch Exporter for TAS for VMs tile:
 
 For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html)
 in the Ops Manager documentation.
+
+
+## <a id='add-scrape-job'></a> Add a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch
+
+
+### <a id='scraping-external'></a> Collecting Metrics Outside Your Foundation
+
+You can collect metrics from Healthwatch Exporter for TAS for VMs in a database or service
+that is located outside your foundation, such as in an external time series database (TSDB)
+or an installation of Healthwatch on the Tanzu Kubernetes Grid Integrated Edition (TKGI) Control
+Plane. [Is this what the _Federation_ topic is talking about?]
+
+To enable an external database or service to scrape metrics from the metrics exporter VMs in
+Healthwatch Exporter for TAS for VMs, you must open network paths from the external database
+or service to the metric exporter VMs. [From/to, or between/and?] The procedure to open these network paths differs depending on your foundation's IaaS. In general [meaning for most IaaSes?], you only need to configure the Prometheus VM to connect to the metric exporter VMs over TCP using the port specified in the scrape job configuration for Healthwatch Exporter for TAS for VMs located in the **Prometheus Configuration** pane of the Healthwatch tile. For more information, see [Federation](federation.html) [is this correct?].
