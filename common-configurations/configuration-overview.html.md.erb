@@ -260,33 +260,4 @@ This example uses [Bosh DNS](https://bosh.io/docs/dns/)
 to automatically discover all master VMs,
 which now have Telegraf available on port `9273`.
 
-1. Under **Bosh Deployment Checker**, select **Enable**.
-
-1. Enter a BOSH UAA client and secret with the `bosh.read` authority.
-    <p class="note">
-        <strong>Note:</strong>
-        In previous versions of Pivotal Healthwatch,
-        the BOSH Deployment Checker
-        used the BOSH Director admin credentials as default values.
-        As of Pivotal Healthwatch v1.3,
-        the BOSH Deployment Checker defaults to disabled until configured.
-    </p>
-
-1. Target the BOSH UAA instance and log in with an admin credential by following the procedure in [Creating UAA Clients for BOSH Director](https://docs.pivotal.io/platform/customizing/opsmanager-create-bosh-client.html). Ensure that you are targeting the BOSH UAA instance and not the Ops Manager or TAS for VMs UAA instance. If your BOSH Director is SSO-enabled, log in to the BOSH UAA instance by running:
-
-    ```
-    uaac token sso get BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME
-    ```
-    Where `BOSH-DIRECTOR-UAA-LOGIN-CLIENT-USERNAME` is the username you created.
-
-1. Create a UAA client for the Healthwatch BOSH task check by running:
-
-    ```
-    uaac client add CLIENT-NAME --authorized_grant_types client_credentials --authorities bosh.read --secret CLIENT-SECRET
-    ```
-
-    Where:
-    * `CLIENT-NAME` is the client name you want to set for the Healthwatch BOSH Deployment Checker.
-    * `CLIENT-SECRET` is the client secret you want to set for the Healthwatch BOSH Deployment Checker.
-
 1. Click **Save**.
