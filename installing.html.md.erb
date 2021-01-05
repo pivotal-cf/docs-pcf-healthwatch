@@ -24,10 +24,10 @@ below.
 1. Deploy the Healthwatch tile. For more information, see [Deploy Healthwatch](#apply-changes)
 below.
 
-After completing the procedures in this topic, continue to either [Installing Healthwatch Exporter
+After completing the procedures in this topic, continue to [Installing Healthwatch Exporter
 for TAS for VMs](installing-exporter-tas-vms.html) or [Installing Healthwatch Exporter for
-TKGI](installing-exporter-pks.html) to install exporter tiles for the foundations you want
-to monitor.
+TKGI](installing-exporter-pks.html) to install and configure exporter tiles for the foundations
+you want to monitor.
 
 
 ## <a id='install'></a> Install the Healthwatch Tile
@@ -158,7 +158,7 @@ the BOSH Director tile.
 ### <a id='prometheus'></a> (Optional) Configure Prometheus
 
 In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
-from the exporters in each foundation.
+from the exporter tiles in each foundation.
 
 The **Prometheus Configuration** pane configures the `scrape_config` and `tls_config` sections
 of the Prometheus configuration file. For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
@@ -169,19 +169,20 @@ To configure the **Prometheus Configuration** pane:
 1. Select **Prometheus Configuration**.
 
 1. For **Scrape Interval**, specify the frequency at which you want the Prometheus VM to scrape
-exporters for metrics. You can enter a value string that specifies `ns`, `us`, `µs`, `ms`,
+exporter tiles for metrics. You can enter a value string that specifies `ns`, `us`, `µs`, `ms`,
 `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage, VMware recommends
 using the default value of `15s`, or 15 seconds.
 
-1. (Optional) To configure the Prometheus VM to scrape metrics from exporters installed on
-other foundations or from external apps or services, configure additional scrape jobs under
+1. (Optional) To configure the Prometheus VM to scrape metrics from exporter tiles installed
+on other foundations or from external apps or services, configure additional scrape jobs under
 **Additional Scrape Config Jobs**. You can configure scrape jobs for any app or service that
 exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information
 about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
 in the Prometheus repository on GitHub.
   <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
-    exporters installed on the same foundation as Healthwatch. You do not need to configure
-    scrape jobs for these exporters.</p>
+    exporter tiles that are installed on the same foundation as Healthwatch. You do not need
+    to configure scrape jobs for these exporter tiles. You only need to configure scrape jobs
+    for exporter tiles that are installed on other foundations.</p>
   1. Click **Add**.
   1. For **TSDB Scrape job**, provide the configuration YAML for the scrape job you want to
   configure. This job can use any of the properties defined by Prometheus except the `tls_config`
@@ -557,7 +558,7 @@ to a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Mana
 Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 
 1. (Optional) For **Test Frequency in Seconds**, enter in seconds how frequently you want the
-TKGI Service Level Indicator (SLI) test to run. The TKGI SLI test monitors the health of the
+TKGI service level indicator (SLI) test to run. The TKGI SLI test monitors the health of the
 TKGI API by logging into the TKGI API server, listing all TKGI clusters, and logging out of
 the TKGI API server.
 
