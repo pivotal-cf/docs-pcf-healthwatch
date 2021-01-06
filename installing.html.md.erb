@@ -95,7 +95,7 @@ To configure the Healthwatch tile:
 
 <div class='note'><strong>Notes:</strong>
   <ul>
-    <li>If you want to quickly deploy the Healthwatch tile to ensure that it successfully deploys
+    <li>If you want to quickly deploy the Healthwatch tile to ensure that it deploys successfully
       before you fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong>
       pane.</li>
     <li>If you are using Healthwatch to monitor foundations that are running Tanzu Kubernetes
@@ -161,7 +161,9 @@ In the **Prometheus Configuration** pane, you configure the Prometheus VM to scr
 from the exporter tiles in each foundation.
 
 The **Prometheus Configuration** pane configures the `scrape_config` and `tls_config` sections
-of the Prometheus configuration file. For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
+of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
+(https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and
+[&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
 in _Configuration_ in the Prometheus documentation.
 
 To configure the **Prometheus Configuration** pane:
@@ -174,9 +176,9 @@ exporter tiles for metrics. You can enter a value string that specifies `ns`, `u
 using the default value of `15s`, or 15 seconds.
 
 1. (Optional) To configure the Prometheus VM to scrape metrics from exporter tiles installed
-on other foundations or from external apps or services, configure additional scrape jobs under
-**Additional Scrape Config Jobs**. You can configure scrape jobs for any app or service that
-exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information
+on other foundations or from external services or databases, configure additional scrape jobs
+under **Additional Scrape Config Jobs**. You can configure scrape jobs for any app or service
+that exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information
 about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
 in the Prometheus repository on GitHub.
   <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
@@ -211,17 +213,17 @@ in the Prometheus repository on GitHub.
           </ul>
         </div>
   1. (Optional) To configure TLS communication between the Prometheus VM and your external
-  app or service:
+  service or database:
       1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
       signs the certificates you provide in the **TLS Config Certificate and Private Key**
       field below. This CA appears as the `ca_file` property in the `tls_config` section of
       the Prometheus configuration file.
       1. For **TLS Config Certificate and Private Key**, provide at least one certificate and
-      private key to enable TLS communication between the Prometheus VM and your external app
-      or service. These certificates and private keys appear as the `cert_file` and `key_file`
+      private key to enable TLS communication between the Prometheus VM and your external service
+      or database. These certificates and private keys appear as the `cert_file` and `key_file`
       properties in the `tls_config` section of the Prometheus configuration file.
       1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS
-      communication between the Prometheus VM and your external app or service. This server
+      communication between the Prometheus VM and your external service or database. This server
       name appears as the `server_name` property in the `tls_config` section of the Prometheus
       configuration file.
 
