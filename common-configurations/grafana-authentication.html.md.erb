@@ -1,40 +1,42 @@
 ---
-title: Grafana Authentication
+title: Configuring OAuth for the Grafana VM
 owner: Healthwatch
 ---
-#CAN WE RE-TITLE THIS "CONFIGURING GRAFANA OAUTH"? 
+
 #WE NEED TO LINK TO THIS TOPIC FROM THE GRAFANA STEP IN "INSTALLING HEALTHWATCH."
 
 <strong><%= modified_date %></strong>
 
 This topic describes how to configure OAuth for your Grafana VM.
 
+
 ## <a id='overview'></a> Overview
 
 By default, you authenticate to your Grafana VM with the username `admin` and the password generated in the **Credentials** pane of the **Healthwatch** tile
 under **Grafana Login**. However, you can configure an OAuth provider for THIS REASON and THIS REASON...WHY WOULD YOU WANT TO USE OAUTH INSTEAD OF THE DEFAULT? TO LIMIT USER ACCESS? TO IMPROVE SECURITY? SIMPLICITY? SOME OTHER REASON?
 
-The following sections describe how to configure [User Account and Authentication (UAA)](#configuring-uaa-oauth), [LDAP](#configuring-ldap-authentication), or [any other OAuth provider](#configuring-generic-oauth) that Grafana supports. For a list of Grafana-supported authentication integrations, see the [Grafana documentation](https://grafana.com/docs/auth/overview/). 
+The following sections describe how to configure [User Account and Authentication (UAA)](#configuring-uaa-oauth), [LDAP](#configuring-ldap-authentication), or [any other OAuth provider](#configuring-generic-oauth) that Grafana supports. For a list of Grafana-supported authentication integrations, see the [Grafana documentation](https://grafana.com/docs/auth/overview/).
 
 
 ## <a id="configuring-uaa-oauth"></a> Configure UAA OAuth
-To use UAA as your OAuth provider: 
 
-1. Navigate to the Ops Manager Installation Dashboard. 
+To use UAA as your OAuth provider:
+
+1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
 1. Select **Grafana Configuration**.
 
-1. Under **Select an authentication mechanism for Grafana**, select **UAA**. 
+1. Under **Select an authentication mechanism for Grafana**, select **UAA**.
 
 ![Grafana Configuration pane with UAA authentication selected. The Client ID field is filled in with 'Grafana', and the UAA URL field is filled in with a demo URL.](../images/uaa.png)
 
 1. For **Client ID**, enter `grafana`.
 
-1. For **Client Secret**, WHERE DO YOU FIND THE CLIENT SECRET? 
+1. For **Client Secret**, WHERE DO YOU FIND THE CLIENT SECRET?
 
-1. For **URL for UAA Server**, enter the root URL for your UAA server. For example, `https://uaa.sys.acme.cd-denver.com`. SHOULD WE USE PLACEHOLDER TEXT FOR THIS EXAMPLE? 
+1. For **URL for UAA Server**, enter the root URL for your UAA server. For example, `https://uaa.sys.acme.cd-denver.com`. SHOULD WE USE PLACEHOLDER TEXT FOR THIS EXAMPLE?
 
 1. For TLS CA, WHAT DO YOU DO ADD HERE? ... enable the **Skip TLS Verification** checkbox if...
 
@@ -63,20 +65,22 @@ uaac client add grafana \
     should include port as well.
 </p>
 
-## <a id="configuring-generic-oauth"></a> Configure Generic OAuth
-If you have another OAuth provider you want to use, such as GitHub, configure it here. 
 
-1. Navigate to the Ops Manager Installation Dashboard. 
+## <a id="configuring-generic-oauth"></a> Configure Generic OAuth
+
+If you have another OAuth provider you want to use, such as GitHub, configure it here.
+
+1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
 1. Select **Grafana Configuration**.
 
-1. Under **Select an authentication mechanism for Grafana**, select **Generic OAuth**. 
+1. Under **Select an authentication mechanism for Grafana**, select **Generic OAuth**.
 
 ![a screenshot of the Grafana Configuration pane, specifically with the Generic OAuth authentication mechanism selected. The screenshot shows the Name field filled in with GitHub, Client ID with an arbitrary string that represents the client ID you would actually get from GitHub, Scopes with user:email,read:org, Authorization URL with https://github.com/login/oauth/authorize, Token URL with https://github.com/login/oauth/access_token, API Url with https://api.github.com/user, Allow Sign Up checkbox checked, Team IDs with 42, and Allowed Organizations with acme](../images/github-oauth.png)
 
-1. For **Name**, enter the name of the OAuth provider. IS FOR THE USER'S REFERENCE ONLY? OR DOES THIS FIELD SHOW UP SOMEWHERE? 
+1. For **Name**, enter the name of the OAuth provider. IS FOR THE USER'S REFERENCE ONLY? OR DOES THIS FIELD SHOW UP SOMEWHERE?
 
 1. For **Client ID**, run the following command and enter SOMETHING FROM THE OUTPUT?:
 CAN WE GENERALIZE THE EXAMPLE WITH MORE PLACEHOLDERS? THAT MIGHT BE MORE HELPFUL THAN A GITHUB-ONLY EXAMPLE.
@@ -100,16 +104,18 @@ you will need to set the **Authorization callback URL**
 to `https://${GRAFANA_ROOT_URL}/login/generic_oauth`,
 where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
 
+
 ## <a id="configuring-ldap-authentication"></a> Configure LDAP Authentication
+
 To use LDAP as your OAuth provider:
 
-1. Navigate to the Ops Manager Installation Dashboard. 
+1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
 1. Select **Grafana Configuration**.
 
-1. Under **Select an authentication mechanism for Grafana**, select **LDAP**. 
+1. Under **Select an authentication mechanism for Grafana**, select **LDAP**.
 
 ARE THERE MORE FIELDS THAT APPEAR WHEN YOU SELECT LDAP?
 
