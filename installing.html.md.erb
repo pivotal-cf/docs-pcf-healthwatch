@@ -24,15 +24,10 @@ below.
 1. Deploy the Healthwatch tile. For more information, see [Deploy Healthwatch](#apply-changes)
 below.
 
-After completing the procedures in this topic, continue to [Installing Healthwatch Exporter
-for TAS for VMs](installing-exporter-tas-vms.html) or [Installing Healthwatch Exporter for
-TKGI](installing-exporter-pks.html) to install and configure exporter tiles for the foundations
-you want to monitor.
-
 
 ## <a id='install'></a> Install the Healthwatch Tile
 
-There are two ways you can install the Healthwatch tile:
+There are two ways to install the Healthwatch tile:
 
 * Download the Healthwatch tile from VMware Tanzu Network. For more information, see [Install
 Healthwatch from VMware Tanzu Network](#pivnet) below.
@@ -42,8 +37,8 @@ with Platform Automation](#platform-automation) below.
 
 ### <a id='pivnet'></a> Install Healthwatch from VMware Tanzu Network
 
-If you are manually configuring Healthwatch, you can install the Healthwatch tile from VMware
-Tanzu Network.
+If you are manually configuring Healthwatch, install the Healthwatch tile from VMware Tanzu
+Network.
 
 To install the Healthwatch tile from VMware Tanzu Network:
 
@@ -62,8 +57,10 @@ to add the tile to your staging area. For more information, see [Adding and Dele
 
 ### <a id='platform-automation'></a> Install Healthwatch with Platform Automation
 
-If you want to use automation scripts to configure Healthwatch, you can use Platform Automation
-to fetch the Healthwatch tile using a configuration file.
+If you want to use automation scripts to configure Healthwatch, use Platform Automation to
+fetch the Healthwatch tile using a configuration file.
+
+To fetch the Healthwatch tile using a configuration file:
 
 1. Create a configuration file for the `download-product` task of your automated pipeline.
 The following configuration file fetches the Healthwatch tile from VMware Tanzu Network:
@@ -82,7 +79,7 @@ The following configuration file fetches the Healthwatch tile from VMware Tanzu 
 information, see [Upload and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
 in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
 
-For more information about adding a product to the Ops Manager Installation Dashboard through
+For more information about adding a product to the Ops Manager Installation Dashboard with
 Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
 in the Platform Automation documentation.
 
@@ -250,10 +247,6 @@ service.
 
 In the **Alertmanager Configuration** pane, you configure alerting for Healthwatch.
 
-The **Alertmanager Configuration** pane configures the Alertmanager configuration file. For
-more information, see [Configuration](https://prometheus.io/docs/alerting/latest/configuration/)
-in the Prometheus documentation.
-
 To configure the **Alertmanager Configuration** pane, see [Alerting](common-configurations/alerting.html).
 
 ### <a id='grafana'></a> (Optional) Configure Grafana
@@ -380,7 +373,7 @@ from the Grafana UI.
 ### <a id='canary'></a> (Optional) Configure Canary URLs
 
 In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporter
-in the Prometheus VM sends canary tests. Testing a canary target URL allow you to gauge the
+in the Prometheus VM sends canary tests. Testing a canary target URL allows you to gauge the
 overall health and accessibility of an app, runtime, or deployment.
 
 The **Canary URL Configuration** pane configures the Blackbox Exporter in the Prometheus VM.
@@ -716,14 +709,14 @@ to modify:
 ## <a id='om'></a> Configuring and Deploying Healthwatch Using the om CLI
 
 If you want to configure and deploy the Healthwatch tile using an automation script, you can
-do so using the `om` CLI. Below is an example of an automation script that configures and deploys
-Healthwatch:
+do so using the `om` CLI. VMware recommends configuring and deploying Healthwatch manually
+the first time, so you can see which properties in the automation script correlate to the configuration
+settings present in the Healthwatch UI before you modify and re-deploy the tile with the `om`
+CLI.
+
+Below is an example of an automation script that configures and deploys Healthwatch:
 
 <%= partial 'snippets/scrape_config.md' %>
-
-VMware recommends configuring and deploying Healthwatch manually the first time, so you can
-see which properties in the automation script correlate to the configuration settings present
-in the Healthwatch UI before you modify and re-deploy the tile with the `om` CLI.
 
 For more information about configuring and deploying tiles with the `om` CLI, see the [om]
 (https://github.com/pivotal-cf/om) repository on GitHub.
