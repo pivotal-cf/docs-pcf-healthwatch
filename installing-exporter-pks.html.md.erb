@@ -44,8 +44,8 @@ To manually install, configure, and deploy the Healthwatch Exporter for TKGI til
 1. Download and install the Healthwatch Exporter for TKGI tile from VMware Tanzu Network. For
 more information, see [Install Healthwatch Exporter for TKGI](#install) below.
 
-1. Configure the Healthwatch Exporter for TKGI tile through the Healthwatch Exporter for TKGI
-UI. For more information, see [Configure Healthwatch Exporter for TKGI](#configure) below.
+1. Configure the Healthwatch Exporter for TKGI tile through the tile UI. For more information,
+see [Configure Healthwatch Exporter for TKGI](#configure) below.
 
 1. Deploy the Healthwatch Exporter for TKGI tile through the Ops Manager Installation Dashboard.
 For more information, see [Deploy Healthwatch Exporter for TKGI](#apply-changes) below.
@@ -82,8 +82,10 @@ Manager documentation.
 
 ## <a id='configure'></a> Configure Healthwatch Exporter for TKGI
 
-After installing Healthwatch Exporter for TKGI, you configure it through the Healthwatch Exporter
-for TKGI UI.
+After installing Healthwatch Exporter for TKGI, you configure the metric exporter VMs deployed
+by Healthwatch Exporter for TKGI through the tile UI. You can also configure errands and system
+logging, as well as scale VM instances up or down and configure load balancers for multiple
+VM instances.
 
 To configure the Healthwatch Exporter for TKGI tile:
 
@@ -354,10 +356,10 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 
 ### <a id='resource-config'></a> (Optional) Configure Resources
 
-In the **Resource Config** pane, you can scale Healthwatch Exporter for TKGI VMs up or down
-according to the needs of your deployment, as well as associate load balancers with a group
-of VMs. For example, you can scale the persistent disk size of a metric exporter VM to enable
-longer data retention.
+In the **Resource Config** pane, you can scale VMs in Healthwatch Exporter for TKGI VMs up
+or down according to the needs of your deployment, as well as associate load balancers with
+a group of VMs. For example, you can scale the persistent disk size of a metric exporter VM
+to enable longer data retention.
 
 To configure the **Resource Config** pane:
 
