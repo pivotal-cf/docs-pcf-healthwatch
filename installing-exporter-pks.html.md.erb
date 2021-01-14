@@ -16,12 +16,25 @@ see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline
 
 When installed on a foundation you want to monitor, Healthwatch Exporter for TKGI deploys metric
 exporter VMs to process service level indicators (SLIs) related to the health of your TKGI
-deployment.
+deployment. The Prometheus VM that exists within your metrics monitoring system then scrapes
+the Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into
+your monitoring system.
 
-The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
-exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system. This monitoring system can be the Healthwatch tile installed on an Ops Manager foundation
-or a service or database located outside your Ops Manager foundation.
+For more information about the architecture of the Healthwatch Exporter for TKGI tile, see
+[Healthwatch Exporter for TKGI](architecture.html#healthwatch-pks) in _Healthwatch Architecture_.
+
+
+## <a id='prerequisite'></a> Prerequisite
+
+Before you deploy Healthwatch Exporter for TKGI, you must have a metrics monitoring system
+that collects metrics using a Prometheus VM instance. This monitoring system can be one of
+the following:
+
+* The Healthwatch tile installed on either the same Ops Manager foundation as Healthwatch Exporter
+for TKGI or a different Ops Manager foundation.
+
+* A service or database located outside your Ops Manager foundation, such as an external time
+series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane.
 
 
 ## <a id='procedure'></a> Procedure
@@ -387,7 +400,7 @@ job in the Prometheus VM that exists within your metrics monitoring system, unle
 Healthwatch Exporter for TKGI on the same Ops Manager foundation as the Healthwatch tile. Follow
 the procedure in one of the following sections, depending on which monitoring system you use:
 
-* If you monitor metrics using the Healthwatch tile on your Ops Manager foundation, see [Configure
+* If you monitor metrics using the Healthwatch tile on an Ops Manager foundation, see [Configure
 a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch](#scraping-healthwatch) below.
   <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
   of Healthwatch Exporter for TKGI that are not on the same foundation as your Healthwatch
@@ -395,9 +408,9 @@ a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch](#scraping-healthw
   exporter tiles that are installed on the same foundation as Healthwatch.</p>
 
 * If you monitor metrics using a service or database located outside your Ops Manager foundation,
-such as an external time series database (TSDB) or an installation of Healthwatch on the TKGI
-Control Plane, see [Configure a Scrape Job for Healthwatch Exporter for TKGI in an External
-Monitoring System](#scraping-external) below.
+such as an external TSDB or an installation of Healthwatch on the TKGI Control Plane, see [Configure
+a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System](#scraping-external)
+below.
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
 
