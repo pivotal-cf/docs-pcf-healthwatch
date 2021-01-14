@@ -1,61 +1,56 @@
 ---
-title: Installing Healthwatch Exporter for TKGI
+title: Installing, Configuring, and Deploying Healthwatch Exporter for TKGI
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure the Healthwatch Exporter for Tanzu Kubernetes
-Grid Integrated (TKGI).
+This topic describes how to install, configure, and deploy the Healthwatch Exporter for Tanzu
+Kubernetes Grid Integrated (TKGI) tile.
 
 
 ## <a id='overview'></a> Overview of Healthwatch Exporter for TKGI
 
-When installed on a foundation you want to monitor, the Healthwatch Exporter for TKGI tile
-deploys metric exporter VMs to process service level indicators (SLIs) related to the health
-of your TKGI deployment.
+When installed on a foundation you want to monitor, Healthwatch Exporter for TKGI deploys metric
+exporter VMs to process service level indicators (SLIs) related to the health of your TKGI
+deployment.
 
 The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
 exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system. This monitoring system can be the Healthwatch tile installed on your Ops Manager foundation
+system. This monitoring system can be the Healthwatch tile installed on an Ops Manager foundation
 or a service or database located outside your Ops Manager foundation.
 
 
-## <a id='procedure'></a> Installation Procedure
+## <a id='procedure'></a> Procedure
 
-To install and configure the Healthwatch Exporter for TKGI tile:
+There are two ways to install, configure, and deploy Healthwatch Exporter for TKGI: manually, and through an
+automated pipeline. To install, configure, and deploy Healthwatch Exporter for TKGI through an automated pipeline,
+see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
 
-1. Install the Healthwatch Exporter for TKGI tile in the Ops Manager Installation Dashboard.
-For more information, see [Install the Healthwatch Exporter for TKGI Tile](#install) below.
+To manually install, configure, and deploy the Healthwatch Exporter for TKGI tile:
 
-1. Configure the Healthwatch Exporter for TKGI tile. For more information, see [Configure the
-Healthwatch Exporter for TKGI Tile](#configure) below.
+1. Download and install the Healthwatch Exporter for TKGI tile from VMware Tanzu Network. For
+more information, see [Install Healthwatch Exporter for TKGI](#install) below.
 
-1. Deploy the Healthwatch Exporter for TKGI tile. For more information, see [Deploy Healthwatch
-Exporter for TKGI](#apply-changes) below.
+1. Configure the Healthwatch Exporter for TKGI tile through the Healthwatch Exporter for TKGI
+UI. For more information, see [Configure Healthwatch Exporter for TKGI](#configure) below.
 
-1. Once you have finished installing and configuring Healthwatch Exporter for TKGI, configure
-a scrape job for Healthwatch Exporter for TKGI in the Prometheus VM that exists within your
-monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter
+1. Deploy the Healthwatch Exporter for TKGI tile through the Ops Manager Installation Dashboard.
+For more information, see [Deploy Healthwatch Exporter for TKGI](#apply-changes) below.
+
+1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for TKGI,
+configure a scrape job for Healthwatch Exporter for TKGI in the Prometheus VM that exists within
+your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter
 for TKGI](#scrape-job-config) below.
+  <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
+  of Healthwatch Exporter for TKGI that are not on the same foundation as your Healthwatch
+  installation. The Prometheus VM in the Healthwatch tile automatically discovers and scrapes
+  exporter tiles that are installed on the same foundation as Healthwatch.</p>
 
 
-## <a id='install'></a> Install the Healthwatch Exporter for TKGI Tile
+## <a id='install'></a> Install Healthwatch Exporter for TKGI
 
-There are two ways to install the Healthwatch Exporter for TKGI tile:
-
-* Download the Healthwatch Exporter for TKGI tile from VMware Tanzu Network. For more information,
-see [Install Healthwatch Exporter for TKGI from VMware Tanzu Network](#pivnet) below.
-
-* Fetch the tile using Platform Automation. For more information, see [Install Healthwatch
-Exporter for TKGI with Platform Automation](#platform-automation) below.
-
-### <a id='pivnet'></a> Install the Healthwatch Exporter for TKGI from VMware Tanzu Network
-
-If you are manually configuring the Healthwatch Exporter for TKGI tile, install the Healthwatch
-Exporter for TKGI tile from VMware Tanzu Network.
-
-To install the Healthwatch Exporter for TKGI tile from VMware Tanzu Network:
+To install the Healthwatch Exporter for TKGI tile:
 
 1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
 VMware Tanzu Network.
@@ -72,42 +67,13 @@ for TKGI listing to add the tile to your staging area. For more information, see
 Deleting Products](https://docs.pivotal.io/ops-manager/install/add-delete.html) in the Ops
 Manager documentation.
 
-### <a id='platform-automation'></a> Install Healthwatch Exporter for TKGI with Platform Automation
 
-If you want to use automation scripts to configure the Healthwatch Exporter for TKGI tile,
-use Platform Automation to fetch the Healthwatch Exporter for TKGI tile using a configuration
-file.
+## <a id='configure'></a> Configure Healthwatch Exporter for TKGI
 
-To fetch the Healthwatch Exporter for TKGI tile using a configuration file:
+After installing Healthwatch Exporter for TKGI, you configure it through the Healthwatch Exporter
+for TKGI UI.
 
-1. Create a configuration file for the `download-product` task of your automated pipeline.
-The following configuration file fetches the Healthwatch Exporter for TKGI tile from VMware
-Tanzu Network:
-
-    ```
-    ---
-    pivnet-api-token: token
-    pivnet-file-glob: "healthwatch-pks-*.pivotal"
-    pivnet-product-slug: p-healthwatch
-    product-version-regex: "0.4.*"
-    ```
-    For more information, see [Download](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download)
-    in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
-
-1. Upload and stage the Healthwatch Exporter for TKGI tile to the Ops Manager Installation
-Dashboard. For more information, see [Upload and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
-in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
-
-For more information about adding a product to the Ops Manager Installation Dashboard through
-Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
-in the Platform Automation documentation.
-
-
-## <a id='configure'></a> Configure the Healthwatch Exporter for TKGI Tile
-
-This section describes how to configure the Healthwatch Exporter TKGI tile.
-
-To configure the Healthwatch Exporter TKGI tile:
+To configure the Healthwatch Exporter for TKGI tile:
 
 <p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter
   for TKGI tile to ensure that it deploys successfully before you fully configure it, you only
