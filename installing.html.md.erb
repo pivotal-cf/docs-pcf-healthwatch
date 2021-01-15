@@ -13,10 +13,10 @@ Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipel
 
 ## <a id='overview'></a> Overview
 
-The Healthwatch tile monitors metrics across multiple foundations by scraping metrics from
-Healthwatch Exporter tiles installed on each foundation. For more information about the architecture
-of the Healthwatch tile, see [Healthwatch Tile](architecture.html#healthwatch) in _Healthwatch
-Architecture_.
+The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
+from Healthwatch Exporter tiles installed on each foundation. For more information about the
+architecture of the Healthwatch tile, see [Healthwatch Tile](architecture.html#healthwatch)
+in _Healthwatch Architecture_.
 
 To manually install, configure, and deploy Healthwatch:
 
@@ -50,7 +50,7 @@ to add the tile to your staging area. For more information, see [Adding and Dele
 
 ## <a id='configure'></a> Configure Healthwatch
 
-After installing Healthwatch, you configure it through the Healthwatch UI.
+After installing Healthwatch, you configure the VMs  through the tile UI.
 
 To configure the Healthwatch tile:
 
@@ -119,10 +119,11 @@ the BOSH Director tile.
 ### <a id='prometheus'></a> (Optional) Configure Prometheus
 
 In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
-from the exporter tiles in each foundation.
+from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
+or databases from which you want to collect metrics.
 
-The **Prometheus Configuration** pane configures the `scrape_config` and `tls_config` sections
-of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
+The **Prometheus Configuration** pane also configures the `scrape_config` and `tls_config`
+sections of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
 (https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and
 [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
 in _Configuration_ in the Prometheus documentation.
@@ -132,20 +133,19 @@ To configure the **Prometheus Configuration** pane:
 1. Select **Prometheus Configuration**.
 
 1. For **Scrape Interval**, specify the frequency at which you want the Prometheus VM to scrape
-exporter tiles for metrics. You can enter a value string that specifies `ns`, `us`, `µs`, `ms`,
-`s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage, VMware recommends
-using the default value of `15s`, or 15 seconds.
+Prometheus exposition endpoints for metrics. You can enter a value string that specifies `ns`,
+`us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage,
+VMware recommends using the default value of `15s`, or 15 seconds.
 
-1. (Optional) To configure the Prometheus VM to scrape metrics from exporter tiles installed
-on other foundations or from external services or databases, configure additional scrape jobs
-under **Additional Scrape Config Jobs**. You can configure scrape jobs for any app or service
-that exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information
-about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
-in the Prometheus repository on GitHub.
+1. (Optional) To configure the Prometheus VM to scrape metrics from the Healthwatch Exporter
+tiles installed on other Ops Manager foundations or from external services or databases, configure
+additional scrape jobs under **Additional Scrape Config Jobs**. You can configure scrape jobs
+for any app or service that exposes metrics using a Prometheus exposition format, such as Concourse
+CI. For more information about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md) in the Prometheus repository on GitHub.
   <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
-    exporter tiles that are installed on the same foundation as Healthwatch. You do not need
-    to configure scrape jobs for these exporter tiles. You only need to configure scrape jobs
-    for exporter tiles that are installed on other foundations.</p>
+    Healthwatch Exporter tiles that are installed on the same foundation as Healthwatch. You
+    do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need
+    to configure scrape jobs for Healthwatch Exporter tiles that are installed on other foundations.</p>
   1. Click **Add**.
   1. For **TSDB Scrape job**, provide the configuration YAML for the scrape job you want to
   configure. This job can use any of the properties defined by Prometheus except the `tls_config`
@@ -218,14 +218,19 @@ To configure the **Alertmanager Configuration** pane, see [Alerting](common-conf
 In the **Grafana Configuration** pane, you configure how users access and authenticate with
 the Grafana UI, as well as which dashboards appear in the Grafana UI.
 
+The **Grafana Configuration** pane also configures the Grafana configuration file. For more
+information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
+in the Grafana documentation.
+
 To configure the **Grafana Configuration** pane:
 
 1. Select **Grafana Configuration**.
 
 1. If you configured your Grafana VM to allow access to the Grafana UI from a URL outside your
 BOSH network, enter the full URL in **Root URL for Grafana**. You must provide this URL to
-enable generic OAuth or UAA to redirect users to the Grafana UI. The Alertmanager also uses
-this URL to generate links to the Grafana UI in alert messages.
+enable generic OAuth or UAA to redirect users to the Grafana UI. Alertmanager also uses this
+URL to generate links to the Grafana UI in alert messages. This URL appears as the `root_url`
+property in the `[server]` section of the Grafana configuration file.
 <br>
 <br>
 This URL must be configured in your DNS provider to point to the public IP address of either
@@ -284,8 +289,8 @@ runtimes in your foundations.
     * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
     for TAS for VMs or TKGI.
 
-1. (Optional) If you want Grafana to create a dashboard for RabbitMQ, select the **Enable RabbitMQ
-dashboards** checkbox. This checkbox is disabled by default.
+1. (Optional) If you want the Grafana VM to create a dashboard for RabbitMQ, select the **Enable
+RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
 
 1. (Optional) To enable HTTPS for the Grafana VM, provide one or more SSL certificates in **Enable
 HTTPS by providing certificates**.
@@ -314,19 +319,31 @@ from the Grafana UI.
   * To diable email alerts, select **Disabled**. Email alerts are disabled by default.
   * To enable email alerts:
       1. Select **Enabled**.
-      1. For **Host Name**, enter the host name of your SMTP server.
-      1. For **Port**, enter the port of your SMTP server.
-      1. For **Username**, enter your SMTP authentication username.
-      1. For **Password**, enter your SMTP authentication password.
+      1. For **Host Name**, enter the host name of your SMTP server. This host name appears
+      as the `host` property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Port**, enter the port of your SMTP server. This port appears as the `port`
+      property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Username**, enter your SMTP authentication username. This username appears as
+      the `user` property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Password**, enter your SMTP authentication password. This password appears as
+      the `password` property in the `[smtp]` section of the Grafana configuration file.
       1. (Optional) To enable the Grafana VM to skip SSL validation when communicating with
-      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox.
+      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox
+      appears as the `skip_verify` property in the `[smtp]` section of the Grafana configuration
+      file.
       1. For **From Address**, enter the sender email address that appears on outgoing email
-      alerts.
-      1. For **From Name**, enter the sender name that appears on outgoing email alerts.
+      alerts. This email address appears as the `from_address` property in the `[smtp]` section
+      of the Grafana configuration file.
+      1. For **From Name**, enter the sender name that appears on outgoing email alerts. This
+      name appears as the `from_name` property in the `[smtp]` section of the Grafana configuration
+      file.
       1. For **EHLO Identity**, enter a name for the client identity that your SMTP server
-      uses when sending EHLO commands.
+      uses when sending EHLO commands. This name appears as the `ehlo_identity` property in
+      the `[smtp]` section of the Grafana configuration file.
       1. For **TLS Credentials**, enter a certificate and private key to enable the Grafana
-      VM to communicate with your SMTP server over TLS.
+      VM to communicate with your SMTP server over TLS. This certificate and private key appear
+      as the `cert_file` and `key_file` properties in the `[smtp]` section of the Grafana configuration
+      file.
       <br>
       <br>
     For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
