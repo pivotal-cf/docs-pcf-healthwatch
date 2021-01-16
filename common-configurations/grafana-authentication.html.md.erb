@@ -1,5 +1,5 @@
 ---
-title: Configuring OAuth for the Grafana VM
+title: Configuring Grafana Authentication
 owner: Healthwatch
 ---
 
@@ -7,68 +7,29 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure OAuth for your Grafana VM.
+This topic describes how to configure different authentication methods for users to log in to the Grafana UI.
 
 
-## <a id='overview'></a> Overview
+## <a id='overview'></a> Overview of Authentication for the Grafana UI
 
-By default, you authenticate to your Grafana VM with the username `admin` and the password generated in the **Credentials** pane of the **Healthwatch** tile
-under **Grafana Login**. However, you can configure an OAuth provider for THIS REASON and THIS REASON...WHY WOULD YOU WANT TO USE OAUTH INSTEAD OF THE DEFAULT? TO LIMIT USER ACCESS? TO IMPROVE SECURITY? SIMPLICITY? SOME OTHER REASON?
+By default, you log in to the Grafana UI using basic authentication, with the username `admin` and the password generated in the **Credentials** pane of the **Healthwatch** tile under **Grafana Login**. However, you can configure the Grafana UI to use a different authentication method.
 
-The following sections describe how to configure [User Account and Authentication (UAA)](#configuring-uaa-oauth), [LDAP](#configuring-ldap-authentication), or [any other OAuth provider](#configuring-generic-oauth) that Grafana supports. For a list of Grafana-supported authentication integrations, see the [Grafana documentation](https://grafana.com/docs/auth/overview/).
+The authentication configuration settings in the **Grafana Configuration** pane configure properties in the Grafana configuration file. For more information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
 
+The sections in this topic describe how to configure different authentication mechanisms for users to log in to the Grafana UI:
 
-## <a id="configuring-uaa-oauth"></a> Configure UAA OAuth
+* A Grafana-supported OAuth provider. For more information, see [Configure Generic OAuth](#configuring-generic-oauth).
 
-To use UAA as your OAuth provider:
+* User Account and Authentication (UAA). For more information, see [Configure UAA OAuth](#configuring-uaa-oauth) below.
 
-1. Navigate to the Ops Manager Installation Dashboard.
-
-1. Click the **Healthwatch** tile.
-
-1. Select **Grafana Configuration**.
-
-1. Under **Select an authentication mechanism for Grafana**, select **UAA**.
-
-![Grafana Configuration pane with UAA authentication selected. The Client ID field is filled in with 'Grafana', and the UAA URL field is filled in with a demo URL.](../images/uaa.png)
-
-1. For **Client ID**, enter `grafana`.
-
-1. For **Client Secret**, WHERE DO YOU FIND THE CLIENT SECRET?
-
-1. For **URL for UAA Server**, enter the root URL for your UAA server. For example, `https://uaa.sys.acme.cd-denver.com`. SHOULD WE USE PLACEHOLDER TEXT FOR THIS EXAMPLE?
-
-1. For TLS CA, WHAT DO YOU DO ADD HERE? ... enable the **Skip TLS Verification** checkbox if...
-
-WHAT DO YOU DO WITH THIS SCRIPT?
-Create a client for `grafana` with the scopes: `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`,
-authorized grant type `authorization_code`,
-and a redirect URI pointing at
-`https://${ROOT_URL_FOR_GRAFANA}/login/generic_oauth`.
-
-```bash
-uaac client add grafana \
-   --scope openid,healthwatch.admin,healthwatch.edit,healthwatch.read \
-   --secret "$uper$ecret" \
-   --authorities uaa.resource \
-   --authorized_grant_types authorization_code \
-   --redirect_uri http(s)://[GRAFANA ROOT URL]/login/generic_oauth
-```
-<p class="note">
-    <strong>Note:</strong>
-    Make sure the protocol (HTTP or HTTPS) in the redirect URL
-    matches the protocol you choose to use.
-    If you provide the SSL certificate in Grafana Configuration
-    or put a load balancer with SSL termination in from of the Grafana,
-    you should use HTTPS.
-    <code>GRAFANA ROOT URL</code>
-    should include port as well.
-</p>
+For a list of Grafana-supported authentication integrations, see [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/).
 
 
 ## <a id="configuring-generic-oauth"></a> Configure Generic OAuth
 
-If you have another OAuth provider you want to use, such as GitHub, configure it here.
+If you want the Grafana UI to authenticate users through a generic OAuth provider, such as GitHub, configure it here. For more information about configuring generic OAuth authentication, see [Generic OAuth Authentication](https://grafana.com/docs/grafana/latest/auth/generic-oauth/) in the Grafana documentation.
+
+To configure generic OAuth authentication for Grafana:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -78,36 +39,138 @@ If you have another OAuth provider you want to use, such as GitHub, configure it
 
 1. Under **Select an authentication mechanism for Grafana**, select **Generic OAuth**.
 
-![a screenshot of the Grafana Configuration pane, specifically with the Generic OAuth authentication mechanism selected. The screenshot shows the Name field filled in with GitHub, Client ID with an arbitrary string that represents the client ID you would actually get from GitHub, Scopes with user:email,read:org, Authorization URL with https://github.com/login/oauth/authorize, Token URL with https://github.com/login/oauth/access_token, API Url with https://api.github.com/user, Allow Sign Up checkbox checked, Team IDs with 42, and Allowed Organizations with acme](../images/github-oauth.png)
+1. For **Name**, enter the name of the OAuth provider you want to configure. This name appears as the `name` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-1. For **Name**, enter the name of the OAuth provider. IS FOR THE USER'S REFERENCE ONLY? OR DOES THIS FIELD SHOW UP SOMEWHERE?
+1. For **Client ID** and **Client Secret**:
+  1. Run: [Can we get a more generalized example command that will work for more than just GitHub?]
 
-1. For **Client ID**, run the following command and enter SOMETHING FROM THE OUTPUT?:
-CAN WE GENERALIZE THE EXAMPLE WITH MORE PLACEHOLDERS? THAT MIGHT BE MORE HELPFUL THAN A GITHUB-ONLY EXAMPLE.
+      ```
+      curl --silent \
+          --header "Authorization: bearer GITHUB-API-TOKEN" \
+          https://api.github.com/orgs/acme/teams/GITHUB-TEAM-SLUG | \
+          jq -r .id
+      ```
+      Where:
+      * `GITHUB-API-TOKEN` is the API token that you got from GitHub.
+      * `GITHUB-TEAM-SLUG` is the last segment of the URL in the browser when visiting the team page through the GitHub website. For example, `https://github.com/orgs/acme/teams/GITHUB-TEAM-SLUG`.
+      <p class='note'><strong>Note:</strong> When configuring GitHub as your OAuth provider for Grafana, set the <strong>Authorization callback URL</strong> to <code>https://GRAFANA-ROOT-URL/login/generic_oauth</code>, where <code>GRAFANA_ROOT_URL</code> is the root URL of your Grafana instance.</p>
+      1. From the output of the command you ran in the previous step, record the client ID and client secret.
+      1. In the **Healthwatch** tile, enter the client ID and client secret you recorded in the previous step into **Client ID** and **Client Secret**. This client ID and client secret appear as the `client_id` and `client_secret` properties in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-```bash
-curl --silent \
-    --header "Authorization: bearer GITHUB-API-TOKEN" \
-    https://api.github.com/orgs/acme/teams/GITHUB-TEAM-SLUG | \
-    jq -r .id
-```
+1. For **Scopes**, enter a comma-separated list of OAuth scopes. [What are these?] This list appears as the `scopes` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-Where:
+1. For **Authorization URL**, enter the authorization URL [what is this?] of your OAuth provider server. This URL appears as the `auth_url` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-* `GITHUB-API-TOKEN` is the API token that you got from GitHub.
-* `GITHUB-TEAM-SLUG` is the last segment of the url in the browser
-    when visiting the team's page through the GitHub website
-    (ie. `https://github.com/orgs/acme/teams/GITHUB-TEAM-SLUG`)
+1. For **Token URL**, enter the token URL [what is this?] of your OAuth provider server. This URL appears as the `token_url` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-When setting up the GitHub OAuth application,
-you will need to set the **Authorization callback URL**
-to `https://${GRAFANA_ROOT_URL}/login/generic_oauth`,
-where `GRAFANA_ROOT_URL` is the root URL of your Grafana instance.
+1. For **Api URL**, enter the API URL [what is this?] of your OAuth provider server. This URL appears as the `api_url` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Email Attribute Name**, . This name appears as the `email_attribute_name` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Allowed Domains**, enter a comma-[ or space-?]separated list of domains. Configuring this field limits Grafana UI access to users who belong to one or more of the listed domains. This list appears as the `allowed_domains` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Hosted Domain**, enter the . This domain appears as the `` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) To allow new users to [create a Grafana account? log in to the Grafana UI?] with their existing OAuth credentials, enable the **Allow Sign Up** checkbox. Disabling this checkbox allows only pre-existing Grafana users to [create a Grafana account? log in to the Grafana UI?] with their existing OAuth credentials. [Is this enabled or disabled by default?] This checkbox appears as the `allow_sign_up` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Team IDs**, enter a comma-[ or space-?]separated list of teams. Configuring this field limits Grafana UI access to users who belong to one or more of the listed teams. This list appears as the `team_ids` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Allowed Organizations**, enter a comma-[ or space-?]separated list of organizations. Configuring this field limits Grafana UI access to users who belong to one or more of the listed organizations. This list appears as the `allowed_organizations` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) For **Allowed Groups**, enter a comma-[ or space-?]separated list of groups. Configuring this field limits Grafana UI access to users who belong to one or more of the listed groups. This list appears as the `allowed_groups` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. (Optional) To configure TLS communication between the Grafana [VM? UI?] and your OAuth provider:
+  1. For **TLS Credentials**, provide at least one certificate and private key to enable TLS communication between the Grafana [VM? UI?] and your OAuth provider. These certificates and private keys appear as the `tls_client_cert` and `tls_client_key` properties in the `[auth.generic_oauth]` section of the Grafana configuration file.
+  1. For **TLS CA**, provide a certificate authority (CA) that signs the certificates you provide in the **TLS Credentials** field above. This CA appears as the `tls_client_ca` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+  1. (Optional) To enable the Grafana [VM? UI?] to skip SSL validation when communicating with your OAuth provider over TLS, enable the **Skip TLS Verification** checkbox. [Is this enabled or disabled by default?] This checkbox appears as the `tls_skip_verify_insecure` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+  1. (Optional) To allow [the OAuth provider?] to send client credentials [the user?] to the OAuth provider server through POST [what's this, again?], enable the **Send Client Credentials via POST** checkbox. [Is this enabled or disabled by default?] [Why would you want to allow this?] This checkbox appears as the `` property in the `[auth.generic_oauth]` section of the Grafana configuration file.
+
+1. Click **Save**.
+
+
+## <a id="configuring-uaa-oauth"></a> Configure UAA OAuth
+
+To configure UAA authentication for Grafana:
+
+1. Create a new UAA client for the Grafana [VM? UI?]. For more information, see [Create a UAA Client for the Grafana VM/UI](#create-uaa-client) below.
+
+1. Configure the `grafana` UAA client in the Healthwatch tile. For more information, see [Configure the UAA Client in Healthwatch](#configure-client) below.
+
+### <a id='create-uaa-client'></a> Create a UAA Client for the Grafana [VM? UI?]
+
+To create a UAA client for the Grafana [VM? UI?]:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **BOSH Director** tile.
+
+1. Select the **Status** tab.
+
+1. Record the **BOSH Director IP Address**, **Uaa Login Client Credentials**, and **Uaa Admin User Credentials**. For **Uaa Login Client Credentials** and **Uaa Admin User Credentials**, click **Link to Credential** to obtain the client secret.
+
+1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+
+1. Target the UAA instance for the BOSH Director by running:
+
+    ```
+    uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
+    ```
+    Where `BOSH-DIRECTOR-IP` is the IP address of your BOSH Director instance that you recorded from the **Status** tab in the BOSH Director tile in a previous step.
+
+1. Log in to the UAA instance by running:
+
+    ```
+    uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
+    ```
+    Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the **Status** tab in the BOSH Director tile in a previous step.
+
+1. When prompted, enter the UAA admin client username and secret you recorded in a previous step.
+
+1. Create a UAA client for the Grafana [VM? UI?] by running:
+
+    ```
+    uaac client add grafana \
+       --scope openid,healthwatch.admin,healthwatch.edit,healthwatch.read \
+       --secret CLIENT-SECRET \
+       --authorities uaa.resource \
+       --authorized_grant_types authorization_code \
+       --redirect_uri [PROTOCOL]://GRAFANA-ROOT-URL/login/generic_oauth
+    ```
+    Where:
+    * `CLIENT-SECRET` is the client secret you want to set for the `grafana` UAA client.
+    * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured your Grafana VM to use in the **Grafana Configuration** pane.
+    * `GRAFANA-ROOT-URL` is the root URL for your Grafana instance. If your Grafana VM uses HTTPS, include the port for your [Grafana VM? UAA instance?] in `GRAFANA-ROOT-URL`. For example, `https://GRAFANA-ROOT-URL:[any specific port?]`.
+
+### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
+
+After you create a UAA client for the Grafana [VM? UI?], you must configure it in the Healthwatch tile. [How does having a UAA client influence/change how the Grafana configuration file gets configured?]
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select **Grafana Configuration**.
+
+1. Under **Select an authentication mechanism for Grafana**, select **UAA**.
+
+1. For **Client ID**, enter `grafana`.
+
+1. For **Client Secret**, enter the client secret you set for the `grafana` UAA client you created in [Create a UAA Client for the Grafana VM/UI](#create-uaa-client) above. [What does that "Change" link do?].
+
+1. For **URL for UAA**, enter the root URL of your UAA server. For example, `https://uaa.sys.acme.cd-denver.com`. [What parts make up a UAA server's root URL? Is there a system domain? App domain? Does this involve an FQDN?]
+
+1. (Optional) To enable TLS communication between the Grafana [VM? UI?] and your UAA server, configure one of the following options:
+  * To configure the Grafana [VM? UI?] to use a self-signed CA or a certificate that is signed by a self-signed CA when communicating with your UAA server over TLS, provide the CA in **TLS CA**.
+  * If you do not provide a self-signed CA or a certificate that is signed by a self-signed CA in the **TLS CA** field, enable the **Skip TLS Verification** checkbox to enable the Grafana [VM? UI?] to skip SSL validation when connecting to the UAA server. [Is this enabled or disabled by default?]
+
+1. Click **Save**.
 
 
 ## <a id="configuring-ldap-authentication"></a> Configure LDAP Authentication
 
-To use LDAP as your OAuth provider:
+When you configure LDAP authentication for Grafana, users can log in to the Grafana UI with their LDAP credentials. You can also specify mappings between LDAP group memberships and Grafana org user roles. For more information about configuring LDAP authentication, see [LDAP Authentication](https://grafana.com/docs/auth/ldap/) in the Grafana documentation.
+
+To configure LDAP authentication for Grafana:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -117,7 +180,38 @@ To use LDAP as your OAuth provider:
 
 1. Under **Select an authentication mechanism for Grafana**, select **LDAP**.
 
-ARE THERE MORE FIELDS THAT APPEAR WHEN YOU SELECT LDAP?
+1. For **Host**, enter the [name? domain? IP address?] of your LDAP server host. [Can you enter multiple hosts?] This [name? domain? IP address?] appears as the `host` property in the `[auth.ldap]` section of the Grafana configuration file.
 
-For individual field references,
-see [Grafana LDAP Authentication](https://grafana.com/docs/auth/ldap/).
+1. For **Port**, enter the port for your LDAP server host. The default port is `389` when the **Use SSL** checkbox is disabled, or `636` when the **Use SSL** checkbox is enabled. This port appears as the `port` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. (Optional) To allow new users to [create a Grafana account? log in to the Grafana UI?] with [their existing?] LDAP credentials, enable the **Allow sign up** checkbox. Disabling this checkbox allows only pre-existing Grafana users to [create a Grafana account? log in to the Grafana UI?] with [their existing?] LDAP credentials. [Is this enabled or disabled by default?] This checkbox appears as the `allow_sign_up` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. (Optional) To enable the LDAP server to use SSL validation when authenticating user credentials, enable the **Use SSL** checkbox. [Does this enable the LDAP server to use SSL validation? Or should it be enabled if the LDAP server already configured to do so?] [Is there a reason why you would not want this?] [Is this enabled or disabled by default?] This checkbox appears as the `use_ssl` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. (Optional) To enable the LDAP server to create a connection that is initially unsecured, then upgrade to a secure TLS connection, enable the **Start TLS** checkbox. [Does this enable the LDAP server to follow START_TLS pattern? Or should it be enabled if the LDAP server already configured to do so?] [Why would you want the server to do this?] [Is this enabled or disabled by default?] This checkbox appears as the `start_tls` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. (Optional) To enable the Grafana [VM? UI?] to skip SSL validation when communicating with the LDAP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox appears as the `ssl_skip_verify` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Bind DN**, enter the distinguished name (DN) for binding to the LDAP server. For example, `"cn=admin,dc=grafana,dc=org"`. This DN appears as the `bind_dn` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Bind password**, enter the password for binding to the LDAP server. For example, `grafana`. This password appears as the `bind_password` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **User search filter**, enter a string that defines LDAP user search criteria. This string appears as the `search_filter` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Search base DNS**, enter the [location? DNS?] in the LDAP directory tree from which any LDAP user search begins. The typical LDAP search base matches your domain name. This [location? DNS?] appears as the `search_base_dns` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Group search filter**, enter a string that defines LDAP group search criteria. This string appears as the `group_search_filter` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Group search base DNS**, enter the [location? DNS?] in the LDAP directory tree from which the LDAP group search begins. This [location? DNS?] appears as the `group_search_base_dns` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Group search filter user attribute**, enter [a string? a DN?] that defines [what?]. This [string? DN?] appears as the `group_search_filter_user_attribute` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Server attributes**, enter [an array of TOML objects?] of server attribute entries. Each entry must start with [servers.attributes]. This list appears under `[servers.attributes]` in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. For **Server group mappings**, enter [an array of TOML objects?] of server group mappings. Each entry must start with [[servers.group_mappings]]. Each [object?] appears under a `[[servers.group_mappings]]` heading in the `[auth.ldap]` section of the Grafana configuration file. For more information, see [Group Mappings](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings) in _LDAP Authentication_ in the Grafana documentation.
+
+1. (Optional) To configure TLS communication between the Grafana [VM? UI?] and your LDAP server:
+  1. For **TLS Credentials**, provide at least one certificate and private key to enable TLS communication between the Grafana [VM? UI?] and your LDAP server. These certificates and private keys appear as the `client_cert` and `client_key` properties in the `[auth.ldap]` section of the Grafana configuration file.
+  1. For **TLS CA**, provide a CA that signs the certificates you provide in the **TLS Credentials** field above. This CA appears as the `root_ca_cert` property in the `[auth.ldap]` section of the Grafana configuration file.
+
+1. Click **Save**.
