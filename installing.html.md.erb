@@ -1,38 +1,51 @@
 ---
-title: Installing, Configuring, and Deploying Healthwatch
+title: Installing Healthwatch
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to manually install, configure, and deploy the Healthwatch tile.
-
-To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing,
-Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
+This topic describes how to install and configure Healthwatch.
 
 
 ## <a id='overview'></a> Overview
 
-The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
-from Healthwatch Exporter tiles installed on each foundation. For more information about the
-architecture of the Healthwatch tile, see [Healthwatch Tile](architecture.html#healthwatch)
-in _Healthwatch Architecture_.
+The Healthwatch tile monitors metrics across multiple foundations using exporter tiles from
+each foundation.
 
-To manually install, configure, and deploy Healthwatch:
+To install and configure Healthwatch:
 
-1. Download and install the Healthwatch tile from VMware Tanzu Network. For more information,
-see [Install Healthwatch](#install) below.
+1. Install the Healthwatch tile in the Ops Manager Installation Dashboard. For more information,
+see [Install the Healthwatch Tile](#install) below.
 
-1. Configure the Healthwatch tile through the tile UI. For more information, see [Configure
-Healthwatch](#configure) below.
+1. Configure the Healthwatch tile. For more information, see [Configure Healthwatch](#configure)
+below.
 
-1. Deploy the Healthwatch tile through the Ops Manager Installation Dashboard. For more information,
-see [Deploy Healthwatch](#apply-changes) below.
+1. Deploy the Healthwatch tile. For more information, see [Deploy Healthwatch](#apply-changes)
+below.
+
+After completing the procedures in this topic, continue to [Installing Healthwatch Exporter
+for TAS for VMs](installing-exporter-tas-vms.html) or [Installing Healthwatch Exporter for
+TKGI](installing-exporter-pks.html) to install and configure exporter tiles for the foundations
+you want to monitor.
 
 
-## <a id='install'></a> Install Healthwatch
+## <a id='install'></a> Install the Healthwatch Tile
 
-To install the Healthwatch tile:
+There are two ways you can install the Healthwatch tile:
+
+* Download the Healthwatch tile from VMware Tanzu Network. For more information, see [Install
+Healthwatch from VMware Tanzu Network](#pivnet) below.
+
+* Fetch the tile using Platform Automation. For more information, see [Install Healthwatch
+with Platform Automation](#platform-automation) below.
+
+### <a id='pivnet'></a> Install Healthwatch from VMware Tanzu Network
+
+If you are manually configuring Healthwatch, you can install the Healthwatch tile from VMware
+Tanzu Network.
+
+To install the Healthwatch tile from VMware Tanzu Network:
 
 1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
 VMware Tanzu Network.
@@ -47,10 +60,36 @@ VMware Tanzu Network.
 to add the tile to your staging area. For more information, see [Adding and Deleting Products]
 (https://docs.pivotal.io/ops-manager/install/add-delete.html) in the Ops Manager documentation.
 
+### <a id='platform-automation'></a> Install Healthwatch with Platform Automation
 
-## <a id='configure'></a> Configure Healthwatch
+If you want to use automation scripts to configure Healthwatch, you can use Platform Automation
+to fetch the Healthwatch tile using a configuration file.
 
-After installing Healthwatch, you configure the VMs  through the tile UI.
+1. Create a configuration file for the `download-product` task of your automated pipeline.
+The following configuration file fetches the Healthwatch tile from VMware Tanzu Network:
+
+    ```
+    ---
+    pivnet-api-token: token
+    pivnet-file-glob: "healthwatch-[^pas|pks].*pivotal"
+    pivnet-product-slug: p-healthwatch
+    product-version-regex: 2\.0.*
+    ```
+    For more information, see [Download](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download)
+    in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
+
+1. Upload and stage the Healthwatch tile to the Ops Manager Installation Dashboard. For more
+information, see [Upload and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
+in _Extending a Pipeline to Install a Product_ in the Platform Automation documentation.
+
+For more information about adding a product to the Ops Manager Installation Dashboard through
+Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
+in the Platform Automation documentation.
+
+
+## <a id='configure'></a> Configure the Healthwatch Tile
+
+This section describes how to configure the Healthwatch tile.
 
 To configure the Healthwatch tile:
 
@@ -119,11 +158,10 @@ the BOSH Director tile.
 ### <a id='prometheus'></a> (Optional) Configure Prometheus
 
 In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
-from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
-or databases from which you want to collect metrics.
+from the exporter tiles in each foundation.
 
-The **Prometheus Configuration** pane also configures the `scrape_config` and `tls_config`
-sections of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
+The **Prometheus Configuration** pane configures the `scrape_config` and `tls_config` sections
+of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
 (https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and
 [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
 in _Configuration_ in the Prometheus documentation.
@@ -133,19 +171,20 @@ To configure the **Prometheus Configuration** pane:
 1. Select **Prometheus Configuration**.
 
 1. For **Scrape Interval**, specify the frequency at which you want the Prometheus VM to scrape
-Prometheus exposition endpoints for metrics. You can enter a value string that specifies `ns`,
-`us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage,
-VMware recommends using the default value of `15s`, or 15 seconds.
+exporter tiles for metrics. You can enter a value string that specifies `ns`, `us`, `µs`, `ms`,
+`s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage, VMware recommends
+using the default value of `15s`, or 15 seconds.
 
-1. (Optional) To configure the Prometheus VM to scrape metrics from the Healthwatch Exporter
-tiles installed on other Ops Manager foundations or from external services or databases, configure
-additional scrape jobs under **Additional Scrape Config Jobs**. You can configure scrape jobs
-for any app or service that exposes metrics using a Prometheus exposition format, such as Concourse
-CI. For more information about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md) in the Prometheus repository on GitHub.
+1. (Optional) To configure the Prometheus VM to scrape metrics from exporter tiles installed
+on other foundations or from external services or databases, configure additional scrape jobs
+under **Additional Scrape Config Jobs**. You can configure scrape jobs for any app or service
+that exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information
+about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md)
+in the Prometheus repository on GitHub.
   <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
-    Healthwatch Exporter tiles that are installed on the same foundation as Healthwatch. You
-    do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need
-    to configure scrape jobs for Healthwatch Exporter tiles that are installed on other foundations.</p>
+    exporter tiles that are installed on the same foundation as Healthwatch. You do not need
+    to configure scrape jobs for these exporter tiles. You only need to configure scrape jobs
+    for exporter tiles that are installed on other foundations.</p>
   1. Click **Add**.
   1. For **TSDB Scrape job**, provide the configuration YAML for the scrape job you want to
   configure. This job can use any of the properties defined by Prometheus except the `tls_config`
@@ -173,8 +212,8 @@ CI. For more information about Prometheus exposition formats, see [Exposition fo
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
-  1. (Optional) To configure TLS communication between the Prometheus VM and your external
-  service or database:
+  1. (Optional) To enable TLS communication between the Prometheus VM and your external service
+  or database:
       1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
       signs the certificates you provide in the **TLS Config Certificate and Private Key**
       field below. This CA appears as the `ca_file` property in the `tls_config` section of
@@ -194,7 +233,7 @@ to calculate the available disk chunks super value metric (SVM). If you rely on 
 v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses this SVM to
 calculate the `Diego_AvailableFreeChunksDisk` metric. The Pivotal Healthwatch integration sends
 the `Diego_AvailableFreeChunksDisk` metric back into Loggregator so third-party nozzles can
-send it to external destinations, such as a remote server or external aggregation service.
+send it to external destinations, such as a remote server or external aggregatation service.
 
 1. (Optional) For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify
 for chunks of free memory. The default value is `4096`. Healthwatch uses this free memory chunk
@@ -202,7 +241,7 @@ size to calculate the available memory chunks super value metric (SVM). If you r
 Healthwatch v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses
 this SVM to calculate the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch
 integration sends the `Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party
-nozzles can send it to external destinations, such as a remote server or external aggregation
+nozzles can send it to external destinations, such as a remote server or external aggregatation
 service.
 
 1. Click **Save**.
@@ -211,6 +250,10 @@ service.
 
 In the **Alertmanager Configuration** pane, you configure alerting for Healthwatch.
 
+The **Alertmanager Configuration** pane configures the Alertmanager configuration file. For
+more information, see [Configuration](https://prometheus.io/docs/alerting/latest/configuration/)
+in the Prometheus documentation.
+
 To configure the **Alertmanager Configuration** pane, see [Alerting](common-configurations/alerting.html).
 
 ### <a id='grafana'></a> (Optional) Configure Grafana
@@ -218,19 +261,14 @@ To configure the **Alertmanager Configuration** pane, see [Alerting](common-conf
 In the **Grafana Configuration** pane, you configure how users access and authenticate with
 the Grafana UI, as well as which dashboards appear in the Grafana UI.
 
-The **Grafana Configuration** pane also configures the Grafana configuration file. For more
-information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
-in the Grafana documentation.
-
 To configure the **Grafana Configuration** pane:
 
 1. Select **Grafana Configuration**.
 
 1. If you configured your Grafana VM to allow access to the Grafana UI from a URL outside your
 BOSH network, enter the full URL in **Root URL for Grafana**. You must provide this URL to
-enable generic OAuth or UAA to redirect users to the Grafana UI. Alertmanager also uses this
-URL to generate links to the Grafana UI in alert messages. This URL appears as the `root_url`
-property in the `[server]` section of the Grafana configuration file.
+enable generic OAuth or UAA to redirect users to the Grafana UI. The Alertmanager also uses
+this URL to generate links to the Grafana UI in alert messages.
 <br>
 <br>
 This URL must be configured in your DNS provider to point to the public IP address of either
@@ -289,8 +327,8 @@ runtimes in your foundations.
     * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
     for TAS for VMs or TKGI.
 
-1. (Optional) If you want the Grafana VM to create a dashboard for RabbitMQ, select the **Enable
-RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
+1. (Optional) If you want Grafana to create a dashboard for RabbitMQ, select the **Enable RabbitMQ
+dashboards** checkbox. This checkbox is disabled by default.
 
 1. (Optional) To enable HTTPS for the Grafana VM, provide one or more SSL certificates in **Enable
 HTTPS by providing certificates**.
@@ -319,31 +357,19 @@ from the Grafana UI.
   * To diable email alerts, select **Disabled**. Email alerts are disabled by default.
   * To enable email alerts:
       1. Select **Enabled**.
-      1. For **Host Name**, enter the host name of your SMTP server. This host name appears
-      as the `host` property in the `[smtp]` section of the Grafana configuration file.
-      1. For **Port**, enter the port of your SMTP server. This port appears as the `port`
-      property in the `[smtp]` section of the Grafana configuration file.
-      1. For **Username**, enter your SMTP authentication username. This username appears as
-      the `user` property in the `[smtp]` section of the Grafana configuration file.
-      1. For **Password**, enter your SMTP authentication password. This password appears as
-      the `password` property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Host Name**, enter the host name of your SMTP server.
+      1. For **Port**, enter the port of your SMTP server.
+      1. For **Username**, enter your SMTP authentication username.
+      1. For **Password**, enter your SMTP authentication password.
       1. (Optional) To enable the Grafana VM to skip SSL validation when communicating with
-      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox
-      appears as the `skip_verify` property in the `[smtp]` section of the Grafana configuration
-      file.
+      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox.
       1. For **From Address**, enter the sender email address that appears on outgoing email
-      alerts. This email address appears as the `from_address` property in the `[smtp]` section
-      of the Grafana configuration file.
-      1. For **From Name**, enter the sender name that appears on outgoing email alerts. This
-      name appears as the `from_name` property in the `[smtp]` section of the Grafana configuration
-      file.
+      alerts.
+      1. For **From Name**, enter the sender name that appears on outgoing email alerts.
       1. For **EHLO Identity**, enter a name for the client identity that your SMTP server
-      uses when sending EHLO commands. This name appears as the `ehlo_identity` property in
-      the `[smtp]` section of the Grafana configuration file.
+      uses when sending EHLO commands.
       1. For **TLS Credentials**, enter a certificate and private key to enable the Grafana
-      VM to communicate with your SMTP server over TLS. This certificate and private key appear
-      as the `cert_file` and `key_file` properties in the `[smtp]` section of the Grafana configuration
-      file.
+      VM to communicate with your SMTP server over TLS.
       <br>
       <br>
     For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
@@ -354,7 +380,7 @@ from the Grafana UI.
 ### <a id='canary'></a> (Optional) Configure Canary URLs
 
 In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporter
-in the Prometheus VM sends canary tests. Testing a canary target URL allows you to gauge the
+in the Prometheus VM sends canary tests. Testing a canary target URL allow you to gauge the
 overall health and accessibility of an app, runtime, or deployment.
 
 The **Canary URL Configuration** pane configures the Blackbox Exporter in the Prometheus VM.
@@ -423,7 +449,7 @@ fails.
   1. For **Basic Auth Password**, enter the password that the Prometheus VM uses to log in
   to your remote storage endpoint.
 
-1. (Optional) To configure TLS communication between the Prometheus VM and your remote storage
+1. (Optional) To enable TLS communication between the Prometheus VM and your remote storage
 endpoint:
   1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates you
   provide in the **TLS Config Certificate and Private Key** field below. This CA appears as
@@ -538,8 +564,8 @@ TKGI service level indicator (SLI) test to run. The TKGI SLI test monitors the h
 TKGI API by logging into the TKGI API server, listing all TKGI clusters, and logging out of
 the TKGI API server.
 
-1. (Optional) To configure TLS communication between Healthwatch and the TKGI API, configure
-one of the following options:
+1. (Optional) To enable TLS communication between Healthwatch and the TKGI API, configure one
+of the following options:
     * To configure Healthwatch to use a self-signed CA or a certificate that is signed by a
     self-signed CA when communicating with the TKGI API over TLS, provide the CA in **TKGI
     API Certificate Authority**. If you provide a self-signed CA, it must be the same CA that
@@ -687,6 +713,22 @@ to modify:
 1. Click **Save**.
 
 
+## <a id='om'></a> Configuring and Deploying Healthwatch Using the om CLI
+
+If you want to configure and deploy the Healthwatch tile using an automation script, you can
+do so using the `om` CLI. Below is an example of an automation script that configures and deploys
+Healthwatch:
+
+<%= partial 'snippets/scrape_config.md' %>
+
+VMware recommends configuring and deploying Healthwatch manually the first time, so you can
+see which properties in the automation script correlate to the configuration settings present
+in the Healthwatch UI before you modify and re-deploy the tile with the `om` CLI.
+
+For more information about configuring and deploying tiles with the `om` CLI, see the [om]
+(https://github.com/pivotal-cf/om) repository on GitHub.
+
+
 ## <a id='apply-changes'></a> Deploy Healthwatch
 
 To complete your installation of the Healthwatch tile:
@@ -704,10 +746,10 @@ in the Ops Manager documentation.
 ## <a id='next-steps'></a> Next Steps
 
 After you have successfully installed the Healthwatch tile, continue to one of the following
-topics to install Healthwatch Exporter tiles on the foundations you want to monitor:
+topics to install exporter tiles on the foundations you want to monitor:
 
-* If you have TAS for VMs installed on a foundation you want to monitor, see [Installing, Configuring,
-and Deploying Healthwatch Exporter for TAS for VMs](installing-exporter-tas-vms.html).
+* If you have TAS for VMs installed on a foundation you want to monitor, see [Installing Healthwatch
+Exporter for TAS for VMs](installing-exporter-tas-vms.html).
 
-* If you have TKGI installed on a foundation you want to monitor, see [Installing, Configuring,
-and Deploying Healthwatch Exporter for TKGI](installing-exporter-pks.html).
+* If you have TKGI installed on a foundation you want to monitor, see [Installing Healthwatch
+Exporter for TKGI](installing-exporter-pks.html).
