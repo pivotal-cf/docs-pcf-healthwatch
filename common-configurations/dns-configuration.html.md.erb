@@ -3,23 +3,41 @@ title: Configuring DNS for the Grafana VM
 owner: Healthwatch
 ---
 
-This topic describes the general flow of setting up DNS for your Grafana instance
+<strong><%= modified_date %></strong>
+
+This topic describes how to set up DNS for your Grafana instance [SHOULD WE USE VM HERE? IMPLIED IN TITLE.] 
 and provides a specific configuration example using Google Cloud Platform (GCP).
 
-## <a id="gen-flow"></a> General Flow
+## <a id="overview"></a> Overview of Configuring DNS
+IS THIS TOPIC SOMETHING THE AUDIENCE WILL ACCESS BY GOOGLING? OR DO THEY ARRIVE AT THIS DOC FROM ANOTHER TOPIC? IS IT OPTIONAL? (DNS LETS YOU CUSTOMIZE URL FOR VM...SHOULD WE EXPLAIN THAT OR IS IT OBVIOUS TO OUR AUDIENCE?
 
-The high level steps for setting up DNS for a Grafana instance are:
+THIS IS A NUGGET FROM THE INDEX PAGE:
+Q: Why is DNS configuration important?
+A: To avoid creating an unnecessary dependency on TAS for VMs, the Healthwatch 2.0 tile does not use the Gorouter included in TAS for VMs to route the Grafana VM to a subdomain on the foundation. Therefore, for ease of access, it is important to configure the Grafana VM with DNS. For more information, see Configuring DNS for the Grafana VM.
 
-1. Identify the IP address of the Grafana VM created by the Healthwatch 2.0 deployment.
-1. Create a Type A DNS record pointing to that IP address.
+
+
+## <a id="overview"></a> Configure DNS
+STEM SENTENCE.
+
+1. Identify the IP address of the Grafana VM created by the Healthwatch 2.0 deployment. 
+
+1. Create a Type A DNS record pointing to that IP address. 
+
 1. Wait for DNS to update. 
-    <p class="note"><strong>Note:</strong> You can speed this process up by modifying your computer's DNS settings.</p>
-1. Visit the URL that you configured as a DNS record to point to your Grafana instance.
-1. Ensure that the Grafana login page appears as expected.
 
-## <a id="gcp-example"></a> GCP Example
+    <p class="note"><strong>Note:</strong> You can speed this process up by modifying your computer's DNS settings.</p>
+    
+1. Visit the URL that you configured as a DNS record to point to your Grafana instance. 
+
+1. Ensure that the Grafana login page appears as expected. 
+
+## <a id="gcp-example"></a> GCP Example 
+CAN WE MAKE THESE GENERAL STEPS OR DO STEPS VARY TOO MUCH DEPENDING ON YOUR PLATFORM? CAN WE LINK OUT TO THE CLOUD PROVIDERS' DOCS FOR THIS?
+GCP, AZURE, AWS, OPENSTACK, VSPHERE, EDGE. 
 
 The following procedure is an example of how to set up DNS for a Grafana instance on GCP.
+THE GCP DOCS ARE DIFFERENT DEPENDING ON THE OS OF THE VM.
 
 1. After signing into Google Cloud Console, navigate to **Compute Engine > VM instances**.
 1. In the **Filter VM Instances** field, enter `grafana` to find the Grafana VM that was created during your Healthwatch deployment.
