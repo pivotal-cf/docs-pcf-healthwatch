@@ -333,14 +333,15 @@ of the Grafana configuration file. The default value is the value of the `userna
 This value appears as the `group_search_filter_user_attribute` property in the `[auth.ldap]`
 section of the Grafana configuration file.
 
-1. (Optional) For **Server attributes**, enter in TOML format a list of the LDAP attributes
-that your LDAP server uses. Each entry must start with `[servers.attributes]`. This list appears
-under `[servers.attributes]` in the `[auth.ldap]` section of the Grafana configuration file.
+1. (Optional) For **Server attributes**, enter in TOML format tables of the LDAP attributes
+that your LDAP server uses. Each table must use the table name `[servers.attributes]`. These
+tables appears under `[servers.attributes]` in the `[auth.ldap]` section of the Grafana configuration
+file.
 
-1. (Optional) For **Server group mappings**, enter in TOML format a list of LDAP groups mapped
-to a Grafana org and role. Each entry must start with `[[servers.group_mappings]]`. Each entry
-appears under a `[[servers.group_mappings]]` heading in the `[auth.ldap]` section of the Grafana
-configuration file. For more information, see [Group Mappings](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings)
+1. (Optional) For **Server group mappings**, enter in TOML format an array of tables of LDAP
+groups mapped to a Grafana org and role. Each table must use the table name `[[servers.group_mappings]]`.
+This array of tables appears under a `[[servers.group_mappings]]` heading in the `[auth.ldap]`
+section of the Grafana configuration file. For more information, see [Group Mappings](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings)
 in _LDAP Authentication_ in the Grafana documentation.
 
 1. (Optional) To configure TLS communication between the Grafana VM and your LDAP server:
