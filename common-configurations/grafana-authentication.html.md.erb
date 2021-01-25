@@ -14,12 +14,12 @@ to the Grafana UI.
 By default, users log in to the Grafana UI using basic authentication. However, you can configure
 the Grafana UI to use a different authentication method instead.
 
-The authentication configuration settings in the **Grafana Configuration** pane configure properties
-in the Grafana configuration file. For more information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
-in the Grafana documentation.
+The values that you enter in the fields in the **Grafana Configuration** pane define their
+corresponding properties in the Grafana configuration file. For more information, see [Configuration]
+(https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
 
-The sections in this topic describe how to configure different authentication mechanisms for
-users to log in to the Grafana UI:
+The sections in this topic describe how to configure different authentication methods for users
+to log in to the Grafana UI:
 
 * Generic OAuth. For more information, see [Configure Generic OAuth Authentication](#configure-generic-oauth)
 below.
@@ -92,34 +92,38 @@ this field limits Grafana UI access to users who belong to one or more of the li
 This list appears as the `allowed_domains` property in the `[auth.generic_oauth]` section of
 the Grafana configuration file.
 
-1. (Optional) For **Hosted Domain**, enter the domain of your Grafana instance. This domain
-appears as the `domain` property in the `[server]` section of the Grafana configuration file.
-You only need to configure this field if your OAuth provider requires a callback URL that uses
-the root URL of your Grafana instance.
+1. For **Hosted Domain**, enter the domain of your Grafana instance. This domain appears as
+the `domain` property in the `[server]` section of the Grafana configuration file. You need
+to configure this field if your OAuth provider requires a callback URL that uses the root URL
+of your Grafana instance. If your OAuth provider does not require a callback URL, do not configure
+this field.
 
 1. (Optional) To allow new users to log in to the Grafana UI with their existing OAuth credentials,
 enable the **Allow Sign Up** checkbox. This checkbox is enabled by default. Disabling this
-checkbox allows only pre-existing Grafana users to log in to the Grafana UI with their existing
-OAuth credentials. This checkbox appears as the `allow_sign_up` property in the `[auth.generic_oauth]`
-section of the Grafana configuration file.
+checkbox prevents users without a pre-existing Grafana account from logging in to the Grafana
+UI with their existing OAuth credentials. This checkbox appears as the `allow_sign_up` property
+in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-1. (Optional) For **Team IDs**, enter a comma-separated list of teams. Configuring this field
-limits Grafana UI access to users who belong to one or more of the listed teams. You only need
-to configure this field if your OAuth provider allows you to separate users into teams. This
-list appears as the `team_ids` property in the `[auth.generic_oauth]` section of the Grafana
-configuration file.
+1. For **Team IDs**, enter a comma-separated list of teams. Configuring this field limits Grafana
+UI access to users who belong to one or more of the listed teams. You need to configure this
+field if your OAuth provider allows you to separate users into teams. If your OAuth provider
+does not allow you to separate users into teams, do not configure this field. This list appears
+as the `team_ids` property in the `[auth.generic_oauth]` section of the Grafana configuration
+file.
 
-1. (Optional) For **Allowed Organizations**, enter a comma-separated list of orgs. Configuring
-this field limits Grafana UI access to users who belong to one or more of the listed orgs.
-You only need to configure this field if your OAuth provider allows you to separate users into
-orgs. This list appears as the `allowed_organizations` property in the `[auth.generic_oauth]`
-section of the Grafana configuration file.
-
-1. (Optional) For **Allowed Groups**, enter a comma-separated list of groups. Configuring this
-field limits Grafana UI access to users who belong to one or more of the listed groups. You
-only need to configure this field if your OAuth provider allows you to separate users into
-groups. This list appears as the `allowed_groups` property in the `[auth.generic_oauth]` section
+1. For **Allowed Organizations**, enter a comma-separated list of orgs. Configuring this field
+limits Grafana UI access to users who belong to one or more of the listed orgs. You need to
+configure this field if your OAuth provider allows you to separate users into orgs. If your
+OAuth provider does not allow you to separate users into orgs, do not configure this field.
+This list appears as the `allowed_organizations` property in the `[auth.generic_oauth]` section
 of the Grafana configuration file.
+
+1. For **Allowed Groups**, enter a comma-separated list of groups. Configuring this field limits
+Grafana UI access to users who belong to one or more of the listed groups. You need to configure
+this field if your OAuth provider allows you to separate users into groups. If your OAuth provider
+does not allow you to separate users into groups, do not configure this field. This list appears
+as the `allowed_groups` property in the `[auth.generic_oauth]` section of the Grafana configuration
+file.
 
 1. (Optional) To configure TLS communication between the Grafana VM and your OAuth provider server:
   1. For **TLS Credentials**, provide at least one certificate and private key to enable TLS
@@ -280,9 +284,9 @@ file.
 
 1. (Optional) To allow new users to log in to the Grafana UI with their existing LDAP credentials,
 enable the **Allow sign up** checkbox. This checkbox is enabled by default. Disabling this
-checkbox allows only pre-existing Grafana users to log in to the Grafana UI with their existing
-LDAP credentials. This checkbox appears as the `allow_sign_up` property in the `[auth.ldap]`
-section of the Grafana configuration file.
+checkbox prevents users without a pre-existing Grafana account from logging in to the Grafana
+UI with their existing LDAP credentials. This checkbox appears as the `allow_sign_up` property
+in the `[auth.ldap]` section of the Grafana configuration file.
 
 1. (Optional) To enable the LDAP server to communicate with the Grafana VM over TLS when authenticating
 user credentials, enable the **Use SSL** checkbox. This checkbox is disabled by default. This
