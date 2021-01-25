@@ -125,10 +125,10 @@ In the **Prometheus Configuration** pane, you configure the Prometheus VM to scr
 from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
 or databases from which you want to collect metrics.
 
-The **Prometheus Configuration** pane also configures the `scrape_config` and `tls_config`
-sections of the Prometheus configuration file. For more information, see [&#60;scrape_config>]
-(https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and
-[&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
+The values that you enter in the fields in the **Prometheus Configuration** pane also define
+their corresponding properties in the `scrape_config` and `tls_config` sections of the Prometheus
+configuration file. For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+and [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
 in _Configuration_ in the Prometheus documentation.
 
 To configure the **Prometheus Configuration** pane:
@@ -222,9 +222,9 @@ In the **Grafana Configuration** pane, you configure how users access and authen
 the Grafana UI, as well as which dashboards appear in the Grafana UI. For more information
 about the Grafana UI as it relates to Healthwatch, see [Healthwatch](index.html).
 
-The **Grafana Configuration** pane also configures the Grafana configuration file. For more
-information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
-in the Grafana documentation.
+The values that you enter in the fields in the **Grafana Configuration** pane also define their
+corresponding properties the Grafana configuration file. For more information, see [Configuration]
+(https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
 
 To configure the **Grafana Configuration** pane:
 
@@ -407,8 +407,9 @@ data that is older than six weeks in a remote database or storage endpoint. For 
 remote databases and storage endpoints, see [Remote Endpoints and Storage](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage)
 in _Integrations_ in the Prometheus documentation.
 
-The **Remote Write Configuration** pane configures the `remote_write` section of the Prometheus
-configuration file. For more information, see [&#60;remote_write>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write)
+The values that you enter in the fields in the **Remote Write Configuration** pane also define
+their corresponding properties in the `remote_write` section of the Prometheus configuration
+file. For more information, see [&#60;remote_write>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write)
 in _Configuration_ in the Prometheus documentation.
 
 To configure the **Remote Write Configuration** pane:
@@ -569,7 +570,7 @@ of the following options:
 1. Enable the **Include etcd metrics** checkbox to send etcd server and debugging metrics to
 Healthwatch.
 
-1. For **Setup Telegraf Outputs**, provide the following configuration file:
+1. For **Setup Telegraf Outputs**, provide the following TOML configuration file:
 
     ```toml
     [[outputs.prometheus_client]]
