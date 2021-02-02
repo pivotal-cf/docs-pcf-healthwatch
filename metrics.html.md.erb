@@ -3,11 +3,11 @@ title: Healthwatch Metrics
 owner: Healthwatch
 ---
 
-This topic lists the metrics created by Healthwatch,
-including Tanzu Application Service Exporter and Enterprise PKS Exporter.
+This topic lists the metrics created [ARE THEY "CREATED"?] by Healthwatch,
+including Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated (TKGI).
 
-Prometheus scrapes the `/metrics` endpoint for each of the Exporters.
-The frequency with which it scrapes can be configured in the Healthwatch tile.
+Prometheus scrapes the `/metrics` endpoint for each of the exporters.
+The frequency with which it scrapes can be configured in the Healthwatch tile. [ADD LINK HERE]
 
 <p class="note"><strong>Note</strong>: For external monitoring consumers,
   Healthwatch exposes the metrics that it creates through scrapable metrics endpoints.
@@ -17,8 +17,7 @@ The frequency with which it scrapes can be configured in the Healthwatch tile.
 <p class="note">
   <strong>Note</strong>:
   The VM names for each of these sections are in parenthesis.
-  All of these vms are deployed from either the PAS Exporter Tile
-  or the PKS Exporter Tile unless otherwise mentioned.
+  All of these VMs are deployed from either Healthwatch Exporter for TAS for VMs or Healthwatch Exporter for TKGI unless otherwise mentioned.
 </p>
 
 ## <a id='bosh-sli'></a> Bosh Service Level Indicator Metrics
@@ -29,7 +28,7 @@ Healthwatch executes a continuous test suite
 to validate the functionality of BOSH director.
 
 There are three exporters that handle SLI metrics for BOSH,
-the Bosh Deployments Exporter, the Bosh Health Exporter, and the PKS Exporter.
+the Bosh Deployments Exporter, the Bosh Health Exporter, and the Healthwatch Exporter for TKGI.
 
 ### <a id='bosh-deployments-exporter'></a> Bosh Deployments Exporter (bosh-deployments-exporter)
 
@@ -85,10 +84,10 @@ The Bosh Health Exporter periodically creates and deletes a BOSH deployment.
 Healthwatch generates metrics that describe the health of several platform components.
 These metrics can be used to calculate percent availability and error budgets.
 
-### <a id='pas-sli-exporter'></a> PAS SLI Exporter (pas-sli-exporter)
+### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter (pas-sli-exporter)
 
 The Cloud Foundry Command Line Interface (`cf` CLI)
-enables developers to create and manage apps on Tanzu Application Service.
+enables developers to create and manage apps on TAS for VMs.
 Healthwatch executes a continuous test suite to validate the core functions of the `cf` CLI.
 
 The table below provides information about the `cf` CLI health smoke tests and the metrics that are generated for these tests.
@@ -107,22 +106,22 @@ The table below provides information about the `cf` CLI health smoke tests and t
 | `pas_sli_task_duration_seconds_sum`          | Total value of the metrics in all the buckets                                                                          |
 | `pas_sli_task_run_duration_seconds`          | Number of seconds it took for a particular task to run                                                                 |
 | `pas_sli_task_runs_total`                    | Total number of runs for a particular SLI task. Use `pas_sli_task_failures` / `pas_sli_task_runs` to get failure rate. |
-| `pas_sli_task_failures_total{task="delete"}` | Total number of failures for a `cf delete` command on PAS                                                              |
-| `pas_sli_task_failures_total{task="login"}`  | Total number of failures for a `cf login` command on PAS                                                               |
-| `pas_sli_task_failures_total{task="logs"}`   | Total number of failures for a `cf logs` command on PAS                                                                |
-| `pas_sli_task_failures_total{task="push"}`   | Total number of failures for a `cf push` command on PAS                                                                |
-| `pas_sli_task_failures_total{task="setEnv"}` | Total number of failures for a `cf set-env` command on PAS                                                             |
-| `pas_sli_task_failures_total{task="start"}`  | Total number of failures for a `cf start` command on PAS                                                               |
-| `pas_sli_task_failures_total{task="stop"}`   | Total number of failures for a `cf stop` command on PAS                                                                |
+| `pas_sli_task_failures_total{task="delete"}` | Total number of failures for a `cf delete` command on TAS for VMs                                                              |
+| `pas_sli_task_failures_total{task="login"}`  | Total number of failures for a `cf login` command on TAS for VMs                                                               |
+| `pas_sli_task_failures_total{task="logs"}`   | Total number of failures for a `cf logs` command on TAS for VMs                                                                |
+| `pas_sli_task_failures_total{task="push"}`   | Total number of failures for a `cf push` command on TAS for VMs                                                                |
+| `pas_sli_task_failures_total{task="setEnv"}` | Total number of failures for a `cf set-env` command on TAS for VMs                                                             |
+| `pas_sli_task_failures_total{task="start"}`  | Total number of failures for a `cf start` command on TAS for VMs                                                               |
+| `pas_sli_task_failures_total{task="stop"}`   | Total number of failures for a `cf stop` command on TAS for VMs                                                                |
 
 ### <a id='pks-sli-exporter'></a> PKS SLI Exporter (pks-sli-exporter)
 
-The PKS Command Line Interface (PKS CLI) allows the operator to create and manage
+The TKGI Command Line Interface (TKGI CLI) allows the operator to create and manage
 Kubernetes clusters. Healthwatch executes a continuous test suite
-to validate the core functions of the PKS CLI.
+to validate the core functions of the TKGI CLI.
 
 The table below provides information about the
-PKS CLI Health smoke tests and the metrics that are generated for these tests.
+TKGI CLI Health smoke tests and the metrics that are generated for these tests.
 
 | Metric                                                | Description                                                                                                            |
 |-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
@@ -146,7 +145,7 @@ PKS CLI Health smoke tests and the metrics that are generated for these tests.
 ### <a id='cert-expiration-exporter'></a> Cert Expiration Exporter (cert-expiration-exporter)
 
 Healthwatch exposes metrics about the expiration of certificates.
-For more information, see [here](common-configurations/certificate-monitoring.html).
+For more information, see [Certificate Monitoring](common-configurations/certificate-monitoring.html).
 
 The table below provides information about the metrics that are generated.
 
@@ -235,9 +234,9 @@ See the [Release Notes](./release-notes.html#2-0-1) for more information.
 
 The following metrics exist for the purpose of monitoring the Healthwatch components.
 
-### <a id='pks-exporter'></a> PKS Exporter (pks-exporter)
+### <a id='pks-exporter'></a> Healthwatch Exporter for TKGI (pks-exporter)
 
-The PKS Exporter makes BOSH System metrics for PKS available in Prometheus.
+The Healthwatch Exporter for TKGI makes BOSH System metrics for TKGI available in Prometheus.
 
 | Metric                                                     | Description                                                                                   |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
@@ -250,7 +249,7 @@ The PKS Exporter makes BOSH System metrics for PKS available in Prometheus.
 | `healthwatch_boshExporter_metricConversion_seconds_sum`    | Total value of the metrics in all the buckets                                                 |
 | `healthwatch_boshExporter_status`                          | Exporter status, a 1 indicates the exporter is running and healthy                            |
 
-### <a id='pas-exporters'></a> PAS Exporter VMs (pas-exporter-*)
+### <a id='pas-exporters'></a> Healthwatch Exporter for TAS for VMs (pas-exporter-*)
 
 These following exporters take metrics from the Firehose
 and make them accessible on a Prometheus-compatible `/metrics` endpoint.
@@ -258,9 +257,9 @@ and make them accessible on a Prometheus-compatible `/metrics` endpoint.
 Each of the following exporters handles a specific subset of the Firehose metrics.
 The names of the exporters correspond to the metrics they export.
 
-#### <a id='pas-exporter-counter'></a> PAS Counter Exporter (pas-exporter-counter)
+#### <a id='pas-exporter-counter'></a> TAS for VMs Counter Exporter (pas-exporter-counter)
 
-The PAS Counter Exporter makes Loggregator Firehose Counter metrics available in Prometheus.
+The TAS for VMs Counter Exporter makes Loggregator Firehose Counter metrics available in Prometheus.
 
 | Metric                                              | Description                                                                     |
 |-----------------------------------------------------|---------------------------------------------------------------------------------|
@@ -270,9 +269,9 @@ The PAS Counter Exporter makes Loggregator Firehose Counter metrics available in
 | `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                     |
 | `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy              |
 
-#### <a id='pas-exporter-gauge'></a> PAS Gauge Exporter (pas-exporter-gauge)
+#### <a id='pas-exporter-gauge'></a> TAS for VMs Gauge Exporter (pas-exporter-gauge)
 
-The PAS Gauge Exporter makes Loggregator Firehose Gauge metrics available in Prometheus.
+The TAS for VMs Gauge Exporter makes Loggregator Firehose Gauge metrics available in Prometheus.
 
 | Metric                                              | Description                                                                 |
 |-----------------------------------------------------|-----------------------------------------------------------------------------|
@@ -282,9 +281,9 @@ The PAS Gauge Exporter makes Loggregator Firehose Gauge metrics available in Pro
 | `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                 |
 | `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy          |
 
-#### <a id='pas-exporter-timer'></a> PAS Timer Exporter (pas-exporter-timer)
+#### <a id='pas-exporter-timer'></a> TAS for VMs Timer Exporter (pas-exporter-timer)
 
-The PAS Timer Exporter makes Loggregator Firehose Timer metrics available in Prometheus.
+The TAS for VMs Timer Exporter makes Loggregator Firehose Timer metrics available in Prometheus.
 
 | Metric                                              | Description                                                        |
 |-----------------------------------------------------|--------------------------------------------------------------------|
