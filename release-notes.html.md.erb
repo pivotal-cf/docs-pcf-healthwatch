@@ -3,6 +3,114 @@ title: Pivotal Healthwatch v1.8 Release Notes
 owner: Pivotal Healthwatch
 ---
 
+## <a id='v1.8.4'></a> v1.8.4
+
+**Release Date: February 3, 2021**
+
+### Features
+
+New features and changes in this release:
+
+* Upgrades Java version for security fix.
+
+### Known Issues
+
+This release has the following known issues:
+
+#### Push Monitoring Components Errand Fails on Azure
+
+The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
+can cause the errand to fail on Azure.
+
+To work around this issue:
+
+1. In the Healthwatch tile, select **Healthwatch Component Config**.
+
+1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
+changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
+
+1. Click **Save**.
+
+1. Re-deploy Healthwatch.
+
+#### Smoke Tests Errand Fails When Installed with TAS for VMs Small Footprint v2.8 and Later
+
+In VMware Tanzu Application Service for VMs (TAS for VMs) Small Footprint v2.8 and later, a
+bug causes Loggregator to fail to emit the `loggregator.syslog_agent.ingress.all_drains` and
+`loggregator.syslog_agent.dropped.egress` metrics. This causes the Smoke Tests errand in Healthwatch
+to fail.
+
+To work around this issue:
+
+1. In the Healthwatch tile, select **Errands**.
+
+1. Set the **Smoke Tests** errand to **Off**.
+
+1. Click **Save**.
+
+1. Re-deploy Healthwatch.
+
+#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+
+The vSAN object count increases on vSphere v6.5.1 and earlier.
+
+Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
+vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
+The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
+For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
+in GitHub.
+
+To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
+app to slow down the increase in vSAN object count.
+
+#### BOSH Health Check Fails After Re-Installating Healthwatch
+
+If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
+the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
+
+To address this issue:
+
+1. Manually delete the `bosh-health-check` deployment.
+
+1. Restart the `bosh-health-check` app.
+
+#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+
+Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
+fetching graph data."`
+
+These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
+when it times out while attempting to process the data.
+
+No corrective action is required.
+
+#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
+
+In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
+tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
+Cell capacity from other apps. For more information about this feature, see [Compute and Networking
+Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
+in _Pivotal Isolation Segment v2.8 Release Notes_.
+
+If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
+measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
+and capacity alerts may incorrectly report a lower capacity than is available for apps.
+
+#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
+
+The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
+TAS for VMs to use external databases, the errand fails.
+
+To work around this issue:
+
+1. In the Healthwatch tile, select **Errands**.
+
+1. Set the **Metrics Troubleshooting** errand to **Off**.
+
+1. Click **Save**.
+
+1. Re-deploy Healthwatch.
+
 ## <a id='v1.8.3'></a> v1.8.3
 
 **Release Date: January 14, 2021**
