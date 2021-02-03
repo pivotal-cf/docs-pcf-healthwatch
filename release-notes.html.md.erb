@@ -21,6 +21,13 @@ owner: Healthwatch
       Now, the default is to not skip SSL validation.
       This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
       </li>
+      <li>Add a default scrape config for scraping metrics from RabbitMQ.
+      Previously, this scrape config needed to be added manually in the Healthwatch tile configuration.
+      Now, the RabbitMQ scrape config will automatically be generated if "Enable RabbitMQ dashboards"
+      is checked in the Healthwatch tile configuration.
+      If there is a manually defined scrape config for RabbitMQ in the Healthwatch tile configuration,
+      it will need to be removed.
+      </li>
     </ul>
 </div>
 
@@ -34,6 +41,8 @@ Healthwatch 2.0.6+ emit these metrics as `tkgi_*` and `tas_*` respectively.
 * Add high availability Alertmanager and Prometheus using Promxy.
 
 * Add MySQL tile monitoring dashboard.
+
+* Add automatically generated RabbitMQ scrape config when RabbitMQ Grafana dashboards are enabled.
 
 ### Resolved Issues
 
