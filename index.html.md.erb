@@ -3,53 +3,111 @@ title: Healthwatch
 owner: Healthwatch
 ---
 
-<p class="note warning">
-    <strong>Warning:</strong>
-    The Healthwatch tiles are currently in beta
-    and are intended for evaluation and test purposes only.
-    Do not use this product in a production environment.
-</p>
+<p class="note warning"><strong>Warning:</strong> The Healthwatch and Healthwatch Exporter
+  tiles are currently in closed beta and are intended for evaluation and test purposes only.
+  Do not use this product in a production environment. To ask questions or report an issue,
+  contact your primary VMware contact.</p>
 
-Healthwatch is currently in closed beta.
-To ask questions or report an issue, contact your primary VMware contact.
+Healthwatch enables operators to monitor metrics related to the functionality of your Ops Manager
+platform.
+
 For information about new features and breaking changes, see [Healthwatch Release Notes](release-notes.html).
 
 
-## <a id='overview'></a> Overview
+## <a id='overview'></a> Overview of Healthwatch
 
-The Healthwatch tile consists of a time series database (TSDB), Grafana, and MySQL.
-In the Healthwatch tile, metrics can be stored and visualized.
+There are three tiles that gather metrics from your Ops Manager foundations: Healthwatch, Healthwatch
+Exporter for Tanzu Application Service for VMs (TAS for VMs), and Healthwatch Exporter for
+Tanzu Kubernetes Grid Integrated Edition (TKGI). You can download all three of these tiles
+from the [Healthwatch](https://network.pivotal.io/products/p-healthwatch) page on VMware Tanzu
+Network.
 
-The Healthwatch Exporter for Tanzu Application Service (TAS for VMs) connects to the
-Loggregator RLP endpoint and funnels the metrics to a TSDB exposition endpoint.
+The **Healthwatch** tile gathers metrics across multiple Ops Manager foundations by scraping
+them from Healthwatch Exporter tiles installed on each foundation. Healthwatch deploys instances
+of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch
+Exporter tiles and enables you to configure alerts with Alertmanager. Healthwatch then exports
+the collected metrics to dashboards in Grafana, enabling you to visualize the data with charts
+and graphs and create customized dashboards for long-term monitoring and troubleshooting.
 
-You can find both of these tiles on the [Healthwatch](https://network.pivotal.io/products/p-healthwatch)
-page on VMware Tanzu Network.
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
+type of metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for
+TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint
+on the associated metric exporter VMs. The Prometheus VM that exists within your metrics monitoring
+system then scrapes the exposition endpoints on the metric exporter VMs and imports those metrics
+into your monitoring system.
 
-While you must install the exporter on the foundation you want to monitor,
-you can install the Healthwatch tile on the same foundation or on a different foundation,
-depending on your desired monitoring configuration.
-For more information about possible configurations, see [Using Healthwatch](troubleshooting.html).
+The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate service
+level indicators (SLIs) related to the health of your TKGI deployment. The Prometheus VM that
+exists within your metrics monitoring system then scrapes the Prometheus exposition endpoints
+on the metric exporter VMs and imports those metrics into your monitoring system.
+
+While you must install a Healthwatch Exporter tile on each Ops Manager foundation you want
+to
+monitor, you can install the Healthwatch tile on the same foundation or on a different foundation,
+depending on your desired monitoring configuration. You can also configure the Healthwatch
+Exporter tiles to expose metrics to a service or database located outside your Ops Manager
+foundation, such as an external time series database (TSDB) or an installation of the Healthwatch
+tile on the TKGI Control Plane. For a detailed explanation of the Healthwatch architecture,
+a list of open ports required for each component, and possible configurations for monitoring
+metrics with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
 
 
-## <a id='architecture'></a> Architecture
+## <a id='features'></a> Features
 
-Visit the [architecture page](architecture.html)
-for a detailed explanation of the Healthwatch architecture,
-as well as a list of open ports required for each component.
+The sections below describe the features included in Healthwatch, Healthwatch Exporter for
+TAS for VMs, and Healthwatch Exporter for TKGI.
 
-## <a id='faq'></a> Healthwatch FAQ
+### <a id='healthwatch'></a> Healthwatch
 
-1. **Why is DNS configuration important?**
+Healthwatch includes the following features:
 
-    To avoid creating an unnecessary dependency on TAS for VMs,
-    the Healthwatch 2.0 tile does not use the Gorouter included in TAS for VMs
-    to route the Grafana VM to a subdomain on the foundation.
-    Therefore, for ease of access, it is important
-    to configure the Grafana VM with DNS. For more information, see [Configuring DNS for the Grafana VM](common-configurations/dns-configuration.html).
+* **Prometheus:**
+  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related
+  to the functionality of platform- and runtime-level components that include the following:
+    * SLIs for the BOSH Director
+    * SLIs for TAS for VMs components
+    * SLIs for TKGI components
+    * When Ops Manager certificates are due to expire
+    * Canary URL tests for TAS for VMs apps
+    * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+    * BOSH system metrics for TKGI
+    * VMs deployed by Healthwatch Exporter tiles
+  * Stores metrics for up to six weeks
+  * Can write to remote storage in addition to its local TSDB
 
-1. **Why is IaaS configuration important?**
+* **Grafana:** Enables you to visualize the collected metrics data in charts and graphs, as
+well as create customized dashboards for easier monitoring and troubleshooting
 
-    The [IaaS Configuration page](common-configurations/iaas-configuration.html) documents
-    the process for creating a firewall policy in each of the various IaaSes.
-    Access to individual VMs is disabled by default, so updating the firewall is necessary to allow the operator to externally access the Grafana VM.
+* **Alertmanager:** Manages and sends alerts according to the alerting rules you configure
+
+* Supports Ops Manager v2.7 through v2.10, Pivotal Application Service (PAS) v2.7 and v2.8,
+TAS for VMs v2.9 and v2.10, Enterprise Pivotal Container Service (Enterprise PKS) v1.8, and
+TKGI v1.9
+
+### <a id='exporter-tas'></a> Healthwatch Exporter for TAS for VMs
+
+Healthwatch Exporter for TAS for VMs includes the following features:
+
+* Exposes metrics related to the functionality of TAS for VMs components, TAS for VMs apps,
+and the Healthwatch Exporter for TAS for VMs tile that include the following:
+  * SLIs for TAS for VMs components
+  * Canary URL tests for TAS for VMs apps
+  * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+  * Super Value Metrics (SVMs) from Healthwatch v1
+  * VMs deployed by Healthwatch Exporter for TAS for VM
+
+* Can be scraped by a Prometheus VM in an installation of Healthwatch deployed on an Ops Manager
+foundation, or a Healthwatch installation, service, or database outside your Ops Manager foundation
+
+### <a id='exporter-tkgi'></a> Healthwatch Exporter for TKGI
+
+Healthwatch Exporter for TKGI includes the following features:
+
+* Exposes metrics related to the functionality of TKGI components and the Healthwatch Exporter
+for TKGI tile that include the following:
+  * SLIs for TKGI components
+  * BOSH system metrics for TKGI
+  * VMs deployed by Healthwatch Exporter for TKGI
+
+* Can be scraped by a Prometheus VM in an installation of Healthwatch deployed on an Ops Manager
+foundation, or a Healthwatch installation, service, or database outside your Ops Manager foundation
