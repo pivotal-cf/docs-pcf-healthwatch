@@ -11,15 +11,18 @@ to the Grafana UI.
 
 ## <a id='overview'></a> Overview of Grafana Authentication
 
-By default, users log in to the Grafana UI using basic authentication. However, you can configure
-the Grafana UI to use a different authentication method instead.
+By default, users log in to the Grafana UI using basic authentication. With basic authentication,
+all users log in to the Grafana UI using the username `admin` and the admin login credentials
+found in the **Credentials** tab of the Healthwatch tile.
 
-The values that you enter in the fields in the **Grafana Configuration** pane define their
-corresponding properties in the Grafana configuration file. For more information, see [Configuration]
-(https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
+However, you can configure the Grafana UI to use a different authentication method instead.
+This enables users to use their own credentials to log in to the Grafana UI.
 
 The sections in this topic describe how to configure different authentication methods for users
 to log in to the Grafana UI:
+
+* Basic authentication. For more information, see [Configure Basic Authentication](#configure-basic-auth)
+below.
 
 * Generic OAuth. For more information, see [Configure Generic OAuth Authentication](#configure-generic-oauth)
 below.
@@ -31,6 +34,36 @@ below.
 
 For a list of Grafana-supported authentication integrations, see [User Authentication Overview]
 (https://grafana.com/docs/grafana/latest/auth/overview/) in the Grafana documentation.
+
+The values that you enter in the fields in the **Grafana Configuration** pane define their
+corresponding properties in the Grafana configuration file. For more information, see [Configuration]
+(https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
+
+
+## <a id='configure-basic-auth'></a> Configure Basic Authentication
+
+When you configure basic authentication for Grafana, all users log in to the Grafana UI using
+the username `admin` and the admin login credentials found in the **Credentials** tab of the
+Healthwatch tile.
+
+To configure basic authentication for Grafana:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select **Grafana Configuration**.
+
+1. Under **Select an authentication mechanism for Grafana**, select **Basic**.
+
+1. Click **Save**.
+
+1. Select the **Credentials** tab.
+
+1. Under **Grafana**, click **Link to Credential** for **Admin Login Password**.
+
+1. Record the login password. This is the password all users must use to log in to the Grafana
+UI.
 
 
 ## <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
