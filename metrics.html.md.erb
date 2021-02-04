@@ -2,12 +2,13 @@
 title: Healthwatch Metrics
 owner: Healthwatch
 ---
+CHLOE: CHECKED THE CF CLI COMMANDS IN THIS DOC AGAINST CF CLI V7 AND NONE ARE AFFECTED BY THE UPGRADE.
 
-This topic lists the metrics created [ARE THEY "CREATED"?] by Healthwatch,
+This topic lists the metrics created [IS "CREATED" THE BEST VERB?] by Healthwatch,
 including Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated (TKGI).
 
 Prometheus scrapes the `/metrics` endpoint for each of the exporters.
-The frequency with which it scrapes can be configured in the Healthwatch tile. [ADD LINK HERE]
+The frequency with which it scrapes can be configured in the Healthwatch tile.
 
 <p class="note"><strong>Note</strong>: For external monitoring consumers,
   Healthwatch exposes the metrics that it creates through scrapable metrics endpoints.
@@ -86,35 +87,35 @@ These metrics can be used to calculate percent availability and error budgets.
 
 ### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter (pas-sli-exporter)
 
-The Cloud Foundry Command Line Interface (`cf` CLI)
+The Cloud Foundry Command Line Interface (cf CLI)
 enables developers to create and manage apps on TAS for VMs.
-Healthwatch executes a continuous test suite to validate the core functions of the `cf` CLI.
+Healthwatch executes a continuous test suite to validate the core functions of the cf CLI.
 
-The table below provides information about the `cf` CLI health smoke tests and the metrics that are generated for these tests.
+The table below provides information about the cf CLI health smoke tests and the metrics that are generated for these tests.
 
 | Metric                                       | Description                                                                                                            |
 |----------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| `pas_sli_duration_seconds_bucket`            | Number of seconds it took for the SLI test suite to run, grouped by duration                                           |
-| `pas_sli_duration_seconds_count`             | Total number of metrics in all the buckets                                                                             |
-| `pas_sli_duration_seconds_sum`               | Total value of the metrics in all the buckets                                                                          |
-| `pas_sli_exporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy                                                     |
-| `pas_sli_failures_total`                     | Total number of failures of the SLI test suite                                                                         |
-| `pas_sli_run_duration_seconds`               | Number of seconds it took for the SLI test suite to run                                                                |
-| `pas_sli_runs_total`                         | Total number of runs of the SLI test suite. Use `pas_sli_failures_total` / `pas_sli_runs_total` to get failure rate.   |
-| `pas_sli_task_duration_seconds_bucket`       | Number of seconds it took for a particular task to run, grouped by duration                                            |
-| `pas_sli_task_duration_seconds_count`        | Total number of metrics in all the buckets                                                                             |
-| `pas_sli_task_duration_seconds_sum`          | Total value of the metrics in all the buckets                                                                          |
-| `pas_sli_task_run_duration_seconds`          | Number of seconds it took for a particular task to run                                                                 |
-| `pas_sli_task_runs_total`                    | Total number of runs for a particular SLI task. Use `pas_sli_task_failures` / `pas_sli_task_runs` to get failure rate. |
-| `pas_sli_task_failures_total{task="delete"}` | Total number of failures for a `cf delete` command on TAS for VMs                                                              |
-| `pas_sli_task_failures_total{task="login"}`  | Total number of failures for a `cf login` command on TAS for VMs                                                               |
-| `pas_sli_task_failures_total{task="logs"}`   | Total number of failures for a `cf logs` command on TAS for VMs                                                                |
-| `pas_sli_task_failures_total{task="push"}`   | Total number of failures for a `cf push` command on TAS for VMs                                                                |
-| `pas_sli_task_failures_total{task="setEnv"}` | Total number of failures for a `cf set-env` command on TAS for VMs                                                             |
-| `pas_sli_task_failures_total{task="start"}`  | Total number of failures for a `cf start` command on TAS for VMs                                                               |
-| `pas_sli_task_failures_total{task="stop"}`   | Total number of failures for a `cf stop` command on TAS for VMs                                                                |
+| `tas_sli_duration_seconds_bucket`            | Number of seconds it took for the SLI test suite to run, grouped by duration                                           |
+| `tas_sli_duration_seconds_count`             | Total number of metrics in all the buckets                                                                             |
+| `tas_sli_duration_seconds_sum`               | Total value of the metrics in all the buckets                                                                          |
+| `tas_sli_exporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy                                                     |
+| `tas_sli_failures_total`                     | Total number of failures of the SLI test suite                                                                         |
+| `tas_sli_run_duration_seconds`               | Number of seconds it took for the SLI test suite to run                                                                |
+| `tas_sli_runs_total`                         | Total number of runs of the SLI test suite. Use `tas_sli_failures_total` / `tas_sli_runs_total` to get failure rate.   |
+| `tas_sli_task_duration_seconds_bucket`       | Number of seconds it took for a particular task to run, grouped by duration                                            |
+| `tas_sli_task_duration_seconds_count`        | Total number of metrics in all the buckets                                                                             |
+| `tas_sli_task_duration_seconds_sum`          | Total value of the metrics in all the buckets                                                                          |
+| `tas_sli_task_run_duration_seconds`          | Number of seconds it took for a particular task to run                                                                 |
+| `tas_sli_task_runs_total`                    | Total number of runs for a particular SLI task. Use `tas_sli_task_failures` / `tas_sli_task_runs` to get failure rate. |
+| `tas_sli_task_failures_total{task="delete"}` | Total number of failures for a `cf delete` command on TAS for VMs                                                              |
+| `tas_sli_task_failures_total{task="login"}`  | Total number of failures for a `cf login` command on TAS for VMs                                                               |
+| `tas_sli_task_failures_total{task="logs"}`   | Total number of failures for a `cf logs` command on TAS for VMs                                                                |
+| `tas_sli_task_failures_total{task="push"}`   | Total number of failures for a `cf push` command on TAS for VMs                                                                |
+| `tas_sli_task_failures_total{task="setEnv"}` | Total number of failures for a `cf set-env` command on TAS for VMs                                                             |
+| `tas_sli_task_failures_total{task="start"}`  | Total number of failures for a `cf start` command on TAS for VMs                                                               |
+| `tas_sli_task_failures_total{task="stop"}`   | Total number of failures for a `cf stop` command on TAS for VMs                                                                |
 
-### <a id='pks-sli-exporter'></a> PKS SLI Exporter (pks-sli-exporter)
+### <a id='tkgi-sli-exporter'></a> TKGI SLI Exporter (pks-sli-exporter)
 
 The TKGI Command Line Interface (TKGI CLI) allows the operator to create and manage
 Kubernetes clusters. Healthwatch executes a continuous test suite
@@ -125,22 +126,22 @@ TKGI CLI Health smoke tests and the metrics that are generated for these tests.
 
 | Metric                                                | Description                                                                                                            |
 |-------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| `pks_sli_duration_seconds_bucket`                     | Number of seconds it took for the SLI test suite to run, grouped by duration                                           |
-| `pks_sli_duration_seconds_count`                      | Total number of metrics in all the buckets                                                                             |
-| `pks_sli_duration_seconds_sum`                        | Total value of the metrics in all the buckets                                                                          |
-| `pks_sli_exporter_status`                             | Exporter status, a 1 indicates the exporter is running and healthy                                                     |
-| `pks_sli_failures_total`                              | Total number of failures of the SLI test suite                                                                         |
-| `pks_sli_run_duration_seconds`                        | Number of seconds it took for the SLI test suite to run                                                                |
-| `pks_sli_runs_total`                                  | Total number of runs of the SLI test suite. Use `pks_sli_failures_total` / `pks_sli_runs_total` to get failure rate.   |
-| `pks_sli_task_duration_seconds_bucket`                | Number of seconds it took for a particular task to run, grouped by duration                                            |
-| `pks_sli_task_duration_seconds_count`                 | Total number of metrics in all the buckets                                                                             |
-| `pks_sli_task_duration_seconds_sum`                   | Total value of the metrics in all the buckets                                                                          |
-| `pks_sli_task_run_duration_seconds`                   | Number of seconds it took for a particular task to run                                                                 |
-| `pks_sli_task_runs_total`                             | Total number of runs for a particular SLI task. Use `pks_sli_task_failures` / `pks_sli_task_runs` to get failure rate. |
-| `pks_sli_task_failures_total{task="clusters"}`        | Total number of failures for a `pks clusters` command                                                                  |
-| `pks_sli_task_failures_total{task="get-credentials"}` | Total number of failures for a `pks get-credentials` command                                                           |
-| `pks_sli_task_failures_total{task="login"}`           | Total number of failures for a `pks login` command                                                                     |
-| `pks_sli_task_failures_total{task="plans"}`           | Total number of failures for a `pks plans` command                                                                     |
+| `tkgi_sli_duration_seconds_bucket`                     | Number of seconds it took for the SLI test suite to run, grouped by duration                                           |
+| `tkgi_sli_duration_seconds_count`                      | Total number of metrics in all the buckets                                                                             |
+| `tkgi_sli_duration_seconds_sum`                        | Total value of the metrics in all the buckets                                                                          |
+| `tkgi_sli_exporter_status`                             | Exporter status, a 1 indicates the exporter is running and healthy                                                     |
+| `tkgi_sli_failures_total`                              | Total number of failures of the SLI test suite                                                                         |
+| `tkgi_sli_run_duration_seconds`                        | Number of seconds it took for the SLI test suite to run                                                                |
+| `tkgi_sli_runs_total`                                  | Total number of runs of the SLI test suite. Use `tkgi_sli_failures_total` / `tkgi_sli_runs_total` to get failure rate.   |
+| `tkgi_sli_task_duration_seconds_bucket`                | Number of seconds it took for a particular task to run, grouped by duration                                            |
+| `tkgi_sli_task_duration_seconds_count`                 | Total number of metrics in all the buckets                                                                             |
+| `tkgi_sli_task_duration_seconds_sum`                   | Total value of the metrics in all the buckets                                                                          |
+| `tkgi_sli_task_run_duration_seconds`                   | Number of seconds it took for a particular task to run                                                                 |
+| `tkgi_sli_task_runs_total`                             | Total number of runs for a particular SLI task. Use `tkgi_sli_task_failures` / `tkgi_sli_task_runs` to get failure rate. |
+| `tkgi_sli_task_failures_total{task="clusters"}`        | Total number of failures for a `tkgi clusters` command                                                                  |
+| `tkgi_sli_task_failures_total{task="get-credentials"}` | Total number of failures for a `tkgi get-credentials` command                                                           |
+| `tkgi_sli_task_failures_total{task="login"}`           | Total number of failures for a `tkgi login` command                                                                     |
+| `tkgi_sli_task_failures_total{task="plans"}`           | Total number of failures for a `tkgi plans` command                                                                     |
 
 ### <a id='cert-expiration-exporter'></a> Cert Expiration Exporter (cert-expiration-exporter)
 
@@ -197,7 +198,7 @@ along with the response time metrics.
 The following metrics are Healthwatch 1.x metrics
 that are made available in the Loggregator Firehose for external use.
 They are created in Prometheus and are made available by the SVM Forwarder VM.
-See the [Release Notes](./release-notes.html#2-0-1) for more information.
+For more information, see [Healthwatch Release Notes](./release-notes.html#2-0-1).
 
 | Metric                                               | Description                                                                                         |
 |------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -263,11 +264,11 @@ The TAS for VMs Counter Exporter makes Loggregator Firehose Counter metrics avai
 
 | Metric                                              | Description                                                                     |
 |-----------------------------------------------------|---------------------------------------------------------------------------------|
-| `healthwatch_pasExporter_counterConversion_seconds` | Number of seconds it took to convert a counter envelope to a Prometheus counter |
-| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                                   |
-| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes              |
-| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                     |
-| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy              |
+| `healthwatch_tasExporter_counterConversion_seconds` | Number of seconds it took to convert a counter envelope to a Prometheus counter |
+| `healthwatch_tasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                                   |
+| `healthwatch_tasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes              |
+| `healthwatch_tasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                     |
+| `healthwatch_tasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy              |
 
 #### <a id='pas-exporter-gauge'></a> TAS for VMs Gauge Exporter (pas-exporter-gauge)
 
@@ -275,11 +276,11 @@ The TAS for VMs Gauge Exporter makes Loggregator Firehose Gauge metrics availabl
 
 | Metric                                              | Description                                                                 |
 |-----------------------------------------------------|-----------------------------------------------------------------------------|
-| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                               |
-| `healthwatch_pasExporter_gaugeConversion_seconds`   | Number of seconds it took to convert a gauge envelope to a Prometheus gauge |
-| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes          |
-| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                 |
-| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy          |
+| `healthwatch_tasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                               |
+| `healthwatch_tasExporter_gaugeConversion_seconds`   | Number of seconds it took to convert a gauge envelope to a Prometheus gauge |
+| `healthwatch_tasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes          |
+| `healthwatch_tasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                 |
+| `healthwatch_tasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy          |
 
 #### <a id='pas-exporter-timer'></a> TAS for VMs Timer Exporter (pas-exporter-timer)
 
@@ -287,10 +288,10 @@ The TAS for VMs Timer Exporter makes Loggregator Firehose Timer metrics availabl
 
 | Metric                                              | Description                                                        |
 |-----------------------------------------------------|--------------------------------------------------------------------|
-| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                      |
-| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes |
-| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent        |
-| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy |
+| `healthwatch_tasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                      |
+| `healthwatch_tasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes |
+| `healthwatch_tasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent        |
+| `healthwatch_tasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy |
 
 ### <a id="prometheus-exposition"></a> Prometheus Exposition
 
@@ -308,7 +309,7 @@ These metrics come from by the majority of the exporter VMs and relate to the `/
 ### <a id="svm-forwarder"></a> SVM Forwarder Monitoring Metrics (svm-forwarder)
 
 The SVM Forwarder makes Healthwatch 1.x Super Value Metrics available in the Loggregator Firehose for external use.
-See the [Release Notes](./release-notes.html#2-0-1) for more information.
+For more information, see [Healthwatch Release Notes](./release-notes.html#2-0-1).
 
 | Metric                         | Description                                                              |
 |--------------------------------|--------------------------------------------------------------------------|
