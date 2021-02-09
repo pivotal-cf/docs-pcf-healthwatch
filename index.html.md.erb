@@ -4,67 +4,61 @@ owner: Healthwatch
 ---
 
 <p class="note warning"><strong>Warning:</strong> The Healthwatch and Healthwatch Exporter
-  tiles are currently in closed beta and are intended for evaluation and test purposes only.
-  Do not use this product in a production environment. To ask questions or report an issue,
-  contact your primary VMware contact.</p>
+  tiles are in closed beta and are intended for evaluation and test purposes only. Do not use
+  this product in a production environment. To ask questions or report an issue, contact your
+  primary VMware contact.</p>
 
-Healthwatch enables operators to monitor metrics related to the functionality of your Ops Manager
-platform.
+This topic provides an overview of Healthwatch features and functionality.
 
 For information about new features and breaking changes, see [Healthwatch Release Notes](release-notes.html).
 
 
 ## <a id='overview'></a> Overview of Healthwatch
 
-There are three tiles that gather metrics from your Ops Manager foundations: Healthwatch, Healthwatch
-Exporter for Tanzu Application Service for VMs (TAS for VMs), and Healthwatch Exporter for
-Tanzu Kubernetes Grid Integrated Edition (TKGI). You can download all three of these tiles
-from the [Healthwatch](https://network.pivotal.io/products/p-healthwatch) page on VMware Tanzu
-Network.
+Healthwatch enables you to monitor metrics related to the functionality of your Ops Manager
+platform.
+
+A complete Healthwatch installation includes the Healthwatch tile, as well as at least one
+Healthwatch Exporter tile. There are Healthwatch Exporter tiles for both the Tanzu Application
+Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
+
+You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor.
+You can install the Healthwatch tile on the same foundation or on a different foundation, depending
+on your desired monitoring configuration.
+
+You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database
+located outside your Ops Manager foundation, such as an external time series database (TSDB)
+or an installation of the Healthwatch tile on the TKGI Control Plane.
+
+For a detailed explanation of the Healthwatch architecture, a list of open ports required for
+each component, and possible configurations for monitoring metrics with Ops Manager or an external
+service or database, see [Reference Architecture](architecture.html).
+
+For more information about each of these tiles, see the following sections below:
+
+* [Overview of the Healthwatch Tile](#healthwatch)
+* [Overview of the Healthwatch Exporter for TAS for VMs Tile](#exporter-tas)
+* [Overview of the Healthwatch Exporter for TKGI Tile](#exporter-tkgi)
+
+### <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
 The **Healthwatch** tile gathers metrics across multiple Ops Manager foundations by scraping
-them from Healthwatch Exporter tiles installed on each foundation. Healthwatch deploys instances
-of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch
-Exporter tiles and enables you to configure alerts with Alertmanager. Healthwatch then exports
-the collected metrics to dashboards in Grafana, enabling you to visualize the data with charts
-and graphs and create customized dashboards for long-term monitoring and troubleshooting.
+them from Healthwatch Exporter tiles installed on each foundation.
 
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
-type of metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for
-TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint
-on the associated metric exporter VMs. The Prometheus VM that exists within your metrics monitoring
-system then scrapes the exposition endpoints on the metric exporter VMs and imports those metrics
-into your monitoring system.
+Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and
+stores metrics from the Healthwatch Exporter tiles and enables you to configure alerts with
+Alertmanager.
 
-The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate service
-level indicators (SLIs) related to the health of your TKGI deployment. The Prometheus VM that
-exists within your metrics monitoring system then scrapes the Prometheus exposition endpoints
-on the metric exporter VMs and imports those metrics into your monitoring system.
-
-While you must install a Healthwatch Exporter tile on each Ops Manager foundation you want
-to
-monitor, you can install the Healthwatch tile on the same foundation or on a different foundation,
-depending on your desired monitoring configuration. You can also configure the Healthwatch
-Exporter tiles to expose metrics to a service or database located outside your Ops Manager
-foundation, such as an external time series database (TSDB) or an installation of the Healthwatch
-tile on the TKGI Control Plane. For a detailed explanation of the Healthwatch architecture,
-a list of open ports required for each component, and possible configurations for monitoring
-metrics with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
-
-
-## <a id='features'></a> Features
-
-The sections below describe the features included in Healthwatch, Healthwatch Exporter for
-TAS for VMs, and Healthwatch Exporter for TKGI.
-
-### <a id='healthwatch'></a> Healthwatch
+Healthwatch then exports the collected metrics to dashboards in Grafana, enabling you to visualize
+the data with charts and graphs and create customized dashboards for long-term monitoring and
+troubleshooting.
 
 Healthwatch includes the following features:
 
 * **Prometheus:**
   * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related
   to the functionality of platform- and runtime-level components that include the following:
-      * SLIs for the BOSH Director
+      * Service level indicators (SLIs) for the BOSH Director
       * SLIs for TAS for VMs components
       * SLIs for TKGI components
       * When Ops Manager certificates are due to expire
@@ -80,34 +74,51 @@ well as create customized dashboards for easier monitoring and troubleshooting
 
 * **Alertmanager:** Manages and sends alerts according to the alerting rules you configure
 
-* Supports Ops Manager v2.7 through v2.10, Pivotal Application Service (PAS) v2.7 and v2.8,
-TAS for VMs v2.9 and v2.10, Enterprise Pivotal Container Service (Enterprise PKS) v1.8, and
-TKGI v1.9
+### <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
 
-### <a id='exporter-tas'></a> Healthwatch Exporter for TAS for VMs
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
+type of metric related to the health of your TAS for VMs deployment.
 
-Healthwatch Exporter for TAS for VMs includes the following features:
+Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
+exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
+your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
+VMs and imports those metrics into your monitoring system.
 
-* Exposes metrics related to the functionality of TAS for VMs components, TAS for VMs apps,
-and the Healthwatch Exporter for TAS for VMs tile that include the following:
-  * SLIs for TAS for VMs components
-  * Canary URL tests for TAS for VMs apps
-  * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
-  * Super Value Metrics (SVMs) from Healthwatch v1
-  * VMs deployed by Healthwatch Exporter for TAS for VM
+Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality
+of TAS for VMs components, TAS for VMs apps, and the Healthwatch Exporter for TAS for VMs tile:
 
-* Can be scraped by a Prometheus VM in an installation of Healthwatch deployed on an Ops Manager
-foundation, or a Healthwatch installation, service, or database outside your Ops Manager foundation
+* SLIs for TAS for VMs components
+* Canary URL tests for TAS for VMs apps
+* Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+* Super Value Metrics (SVMs) from Healthwatch v1
+* VMs deployed by Healthwatch Exporter for TAS for VM
 
-### <a id='exporter-tkgi'></a> Healthwatch Exporter for TKGI
+### <a id='exporter-tkgi'></a> Overview of the Healthwatch Exporter for TKGI Tile
 
-Healthwatch Exporter for TKGI includes the following features:
+The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
+to the health of your TKGI deployment.
 
-* Exposes metrics related to the functionality of TKGI components and the Healthwatch Exporter
-for TKGI tile that include the following:
-  * SLIs for TKGI components
-  * BOSH system metrics for TKGI
-  * VMs deployed by Healthwatch Exporter for TKGI
+The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
+exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
+system.
 
-* Can be scraped by a Prometheus VM in an installation of Healthwatch deployed on an Ops Manager
-foundation, or a Healthwatch installation, service, or database outside your Ops Manager foundation
+Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of
+TKGI components and the Healthwatch Exporter for TKGI tile:
+
+* SLIs for TKGI components
+* BOSH system metrics for TKGI
+* VMs deployed by Healthwatch Exporter for TKGI
+
+
+## <a id='product-snapshot'></a> Product Snapshot
+
+The following table provides version and version support information about Healthwatch:
+
+| Element | Details |
+| ------- | ------- |
+| Version | v2.0 |
+| Release date |  |
+| Compatible Ops Manager versions | v2.7, v2.8, v2.9, v2.10 |
+| Compatible Pivotal Application Service (PAS) and TAS for VMs versions | v2.7, v2.8, v2.9, v2.10 |
+| Compatible Enterprise Pivotal Container Service (Enterprise PKS) and TKGI versions | v1.8, v1.9 |
+| IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
