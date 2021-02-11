@@ -452,7 +452,7 @@ To resolve this issue in Ops Manager v2.7 or earlier:
 ### <a name="tkgi-dropped-clusters"></a> TKGi Clusters are not Monitored When Master Node is Shut Down
 
 When you use PKS Cluster Discovery with TKGi,
-clusters are no longer monitored if the Master Node is shut down..
+clusters are no longer monitored if the Master Node is shut down.
 Upgrade to 2.0.6+ to resolve this issue.
 
 ### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery Reports Incorrect Node Count with NSX-T
@@ -542,19 +542,19 @@ One workaround is to pause reporting these alerts by opening **Grafana** -> **Al
 When Healthwatch is installed with TAS for VMs with external MySQL, the provided MySQL dashboard will alert.
 Upgrade to 2.0.4+ to resolve this issue.
 
-### <a name="#empty-blackbox-url"></a> Healthwatch fails to install when no canary url is provided.
+### <a name="empty-blackbox-url"></a> Healthwatch fails to install when no canary url is provided.
 
 When there is no canary url provided, Healthwatch renders an invalid configuration file results failure in Apply Changes.
 To workaround this issue, provide at least one canary url in the target urls configuration.
 Upgrade to 2.0.4+ to resolve this issue.
 
-### <a name="#tas-tkgi-dashboards-provision-when-disabled"></a> TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration
+### <a name="tas-tkgi-dashboards-provision-when-disabled"></a> TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration
 
 When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to "Disabled",
 the dashboards would show up in Grafana anyway.
 Upgrade to 2.0.6+ to resolve this issue.
 
-### <a name="#tas-tkgi-dashboards-not-removed-when-disabled"></a> TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration
+### <a name="tas-tkgi-dashboards-not-removed-when-disabled"></a> TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration
 
 When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to anything other than "Disabled",
 the appropriate dashboards are installed.
