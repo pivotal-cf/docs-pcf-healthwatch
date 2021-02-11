@@ -10,6 +10,61 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
+## <a id='2-0-6'></a> v2.0.6 (Beta)
+
+**Release Date: Feb 3, 2021**
+<div class="note breaking">
+    <strong>Breaking Changes:</strong>
+    <ul>
+      <li>Add a configuration checkbox for skipping SSL validation for the Ops Manager Canary URL.
+      Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
+      Now, the default is to not skip SSL validation.
+      This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
+      </li>
+      <li>Add a default scrape config for scraping metrics from RabbitMQ.
+      Previously, this scrape config needed to be added manually in the Healthwatch tile configuration.
+      Now, the RabbitMQ scrape config will automatically be generated if "Enable RabbitMQ dashboards"
+      is checked in the Healthwatch tile configuration.
+      If there is a manually defined scrape config for RabbitMQ in the Healthwatch tile configuration,
+      it will need to be removed.
+      </li>
+    </ul>
+</div>
+
+### Feature Deprecations
+
+Healthwatch 2.0.6 will be the last version to emit metrics with the following patterns: `pks_*` and `pas_*`.
+Healthwatch 2.0.6+ emit these metrics as `tkgi_*` and `tas_*` respectively.
+
+### Features
+
+* Add high availability Alertmanager and Prometheus using Promxy.
+
+* Add MySQL tile monitoring dashboard.
+
+* Add automatically generated RabbitMQ scrape config when RabbitMQ Grafana dashboards are enabled.
+
+### Resolved Issues
+
+* TAS/TKGi dashboards will not be provisioned when set to "Disabled" in the Healthwatch tile configuration. Fixes <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>.
+
+* TAS/TKGi dashboards will be deleted when set to "Disabled" in the Healthwatch tile configuration. Fixes <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>.
+
+* Healthwatch will continue to monitor TKGi clusters even if their Master Node is shut down. Fixes <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>.
+
+* PKS Cluster Discovery will now report the correct node count with NSX-T. Fixes <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
+
+* Healthwatch no longer fails to deploy when the Alertmanager webhook receiver configuration `bearer_token` property is set.
+
+### Packaged OSS Components
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.21.0           |
+| Grafana      | 7.3.4            |
+| Alertmanager | 0.21.0           |
+| Promxy       | 0.0.64           |
+
 ## <a id='2-0-5'></a> v2.0.5 (Beta)
 
 **Release Date: Nov 6, 2020**
@@ -37,6 +92,16 @@ existing alerting rules. For more information on alerting rules, see [Alerting](
 * Fix issue discovering TKGI clusters in NSX-T
 
 ### Known Issues
+
+* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
+
+* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
+
+* Healthwatch fails to deploy when the Alertmanager webhook receiver configuration `bearer_token` property is set. Upgrade to 2.0.6+ to resolve this issue.
 
 ### User Experience Enhancements
 
@@ -118,6 +183,12 @@ This release includes the following fixes:
 
 * <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
 
+* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
+
 ### Packaged OSS Components
 
 | Component    | Packaged Version |
@@ -176,6 +247,12 @@ This release includes the following fixes:
 * <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
 
 * <a href="#empty-blackbox-url">Healthwatch fails to install when no canary url is provided</a>.
+
+* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
 
 ### Packaged OSS Components
 
@@ -238,6 +315,12 @@ This release includes the following fix:
 * <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
 
 * <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
+
+* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
 
 ### Packaged OSS Components
 
@@ -302,6 +385,12 @@ This release includes the following fix:
 
 * <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
 
+* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
+
+* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
+
 ### Packaged OSS Components
 
 | Component    | Packaged Version |
@@ -359,14 +448,20 @@ To resolve this issue in Ops Manager v2.7 or earlier:
     irb(main):001:0> exit
     > service tempest-web restart
     ```
+### <a name="tkgi-dropped-clusters"></a> TKGi Clusters are not Monitored When Master Node is Shut Down
+
+When you use PKS Cluster Discovery with TKGi,
+clusters are no longer monitored if the Master Node is shut down..
+Upgrade to 2.0.6+ to resolve this issue.
 
 ### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery Reports Incorrect Node Count with NSX-T
 
 When you use PKS Cluster Discovery with PKS deployed on vSphere NSX-T,
 the count of PKS masters is always 1.
-When PKS API creates the cluster on NSX-T,
+When the PKS API creates the cluster on NSX-T,
 it also creates a load balancer in front of the PKS Control Plane nodes,
 which prevents Healthwatch from addressing each node separately.
+Upgrade to 2.0.6+ to resolve this issue.
 
 ### <a name="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T.
 
@@ -451,3 +546,17 @@ Upgrade to 2.0.4+ to resolve this issue.
 When there is no canary url provided, Healthwatch renders an invalid configuration file results failure in Apply Changes.
 To workaround this issue, provide at least one canary url in the target urls configuration.
 Upgrade to 2.0.4+ to resolve this issue.
+
+### <a name="#tas-tkgi-dashboards-provision-when-disabled"></a> TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration
+
+When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to "Disabled",
+the dashboards would show up in Grafana anyway.
+Upgrade to 2.0.6+ to resolve this issue.
+
+### <a name="#tas-tkgi-dashboards-not-removed-when-disabled"></a> TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration
+
+When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to anything other than "Disabled",
+the appropriate dashboards are installed.
+Afterwards, when Healthwatch is configured with TAS/TKGi "Version to Monitor" set to "Disabled",
+the TAS/TKGi dashboards would not be deleted and would continue to show up in Grafana.
+Upgrade to 2.0.6+ to resolve this issue.
