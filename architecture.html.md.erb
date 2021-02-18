@@ -23,7 +23,7 @@ with three MySQL nodes and two MySQL Proxy nodes,
 or in non-HA mode with one MySQL node and one MySQL Proxy node.
 You can also scale Grafana horizontally beyond the default single VM.
 You can scale TSDB vertically but should not scale it horizontally.
-An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics stored in TSDB.
+An Nginx proxy is deployed in front of TSDB.
 
 ![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
