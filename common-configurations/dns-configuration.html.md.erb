@@ -1,38 +1,79 @@
 ---
-title: Configuring DNS for the Grafana VM
+title: Configuring DNS for Your Grafana Instance
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure DNS for your Grafana instance.
+This topic describes how to configure a DNS entry for your Grafana instance.
 
 
-## <a id='overview'></a> Overview of DNS for the Grafana VM
+## <a id='overview'></a> Overview of DNS for Your Grafana Instance
+
+Configuring a DNS entry for your Grafana instance enables users to access the Grafana UI more
+easily from outside your BOSH network, including from the links to the Grafana UI that Alertmanager
+provides in alert messages.
 
 To avoid creating an unnecessary dependency on VMware Tanzu Application Service for VMs (TAS
 for VMs), Healthwatch does not use a Gorouter in TAS for VMs to route the Grafana VM to a subdomain
-for your foundation. To facilitate access to the Grafana UI, you must configure a DNS entry
-for the Grafana VM. [What about TKGI? Do you still need to do this for TKGI? Is it optional? Is it possible?]
+for your foundation. To facilitate user access to the Grafana UI, you must configure a DNS
+entry for either the public IP address of a single Grafana VM or the load balancer in front
+of multiple Grafana VMs.
 
 
-## <a id='configure'></a> Configure DNS for the Grafana VM
+## <a id='load-balancer'></a> Configure DNS for a Load Balancer
 
-To configure DNS for the Grafana VM:
+VMware recommends that you create a DNS entry that points to the load balancer associated with
+your Grafana instance, especially if you want to make your Grafana instance highly-available
+(HA).
 
-1. Navigate to the Ops Manager Installation Dashboard.
+To configure a DNS entry for the load balancer associated with your Grafana instance:
 
-1. Click the **Healthwatch** tile.
+1. Ensure that you have associated a load balancer with your Grafana instance. For more information,
+see [Configure Resources](../installing.html#resource-config) in _Installing, Configuring,
+and Deploying Healthwatch_.
 
-1. Select the **Status** tab. [This is actually valid, right?]
+1. Find the public IP address [?] of the load balancer.
 
-1. Record the IP address of the Grafana VM.
+1. Create an A record in your DNS server that points to the public IP address [?] of the load balancer that you recorded in the previous step. For more information, see the documentation for your Iaas:
+  *
+  *
+  *
+  *
+  * 
 
-1. Create an A record in your DNS that points to the Grafana IP address you recorded in the
-previous step.
-
-1. Wait for your DNS to update.
+1. Wait for your DNS server to update.
 
 1. Ensure that the Grafana UI login page appears as expected by navigating to the URL that
-you configured as a DNS entry for your Grafana instance in a web browser. When you see the
-Grafana UI login page, you have successfully created a DNS entry.
+you configured in your DNS entry in a web browser. When you see the Grafana UI login page,
+you have successfully created a DNS entry.
+
+
+## <a id='single-vm'></a> Configure DNS for a Single Grafana VM
+
+To configure a DNS entry for a single Grafana VM:
+
+1. Find the public IP address for your Grafana VM in the user console for your IaaS. For more
+information, see the documentation for your Iaas:
+  *
+  *
+  *
+  *
+  *
+
+1. Record the external IP address of the Grafana VM.
+
+1. Create an A record in your DNS server that points to the public IP address of the Grafana
+VM that you recorded in the previous step. For more information, see the documentation for
+your Iaas:
+  *
+  *
+  *
+  *
+  *
+
+1. Wait for your DNS server to update.
+
+1. Ensure that the Grafana UI login page appears as expected by navigating to the URL that
+you configured in your DNS entry in a web browser. When you see the Grafana UI login page,
+you have successfully created a DNS entry.
