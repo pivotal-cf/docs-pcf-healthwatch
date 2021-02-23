@@ -143,10 +143,11 @@ the BOSH Director tile.
 ### <a id='exporter-config'></a> (Optional) Configure TAS for VMs Metric Exporter VMs
 
 In the **TAS Exporter Configuration** pane, you configure static IP addresses for the metric
-exporter VMs that generate metrics from TAS for VMs. There are three metric exporter VMs that
-each generate a single metric type from the Loggregator Firehose: counter, gauge, or timer.
-You can deploy all three VMs or any subset thereof. After generating these metrics, the metric
-exporter VMs expose them in Prometheus exposition format on a secured endpoint.
+exporter VMs that collect metrics from the Loggregator Firehose in TAS for VMs. There are three
+metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter,
+gauge, or timer. You can deploy all three VMs or any subset thereof. After generating these
+metrics, the metric exporter VMs convert them to a Prometheus exposition format on a secured
+endpoint.
 
 You can also deploy two other VMs: the TAS for VMs service level indicator (SLI) exporter VM
 and the certificate expiration metric exporter VM.
