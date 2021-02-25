@@ -49,7 +49,7 @@ groups:
   - name: KubernetesSLITests
     rules:
       - alert: KubernetesSLITests
-        expr: 'increase(pks_sli_task_failures_total[2m]) <= 0'
+        expr: 'increase(tkgi_sli_task_failures_total[2m]) <= 0'
         for: 10m
         annotations:
           summary: "The Tanzu Kubernetes Grid Integrated Edition SLI test ({{ $labels.task }}) has been failing for at least 10 minutes."
