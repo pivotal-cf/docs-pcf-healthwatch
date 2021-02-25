@@ -36,7 +36,7 @@ groups:
   - name: TanzuApplicationServiceSLOs
     rules:
       - alert: TanzuSLOCFPushErrorBudget
-        expr: '( (1 - (rate(pas_sli_task_failures_total{task="push"}[28d]) / rate(pas_sli_task_runs_total{task="push"}[28d]) ) ) - 0.99) * (28 * 24 * 60) <= 0'
+        expr: '( (1 - (rate(tas_sli_task_failures_total{task="push"}[28d]) / rate(tas_sli_task_runs_total{task="push"}[28d]) ) ) - 0.99) * (28 * 24 * 60) <= 0'
         for: 15m
         annotations:
           summary: "The `cf_push` command is unresponsive"
@@ -50,7 +50,7 @@ groups:
 
             Check the status of these components in order to diagnose the issue.
       - alert: TanzuSLOCFPushAvailability
-        expr: 'rate(pas_sli_task_failures_total{task="push"}[5m:15s]) * 300 > 0'
+        expr: 'rate(tas_sli_task_failures_total{task="push"}[5m:15s]) * 300 > 0'
         for: 10m
         annotations:
           summary: "The `cf_push` command is unresponsive"
@@ -88,7 +88,7 @@ groups:
   - name: TASCLIHealth
     rules:
       - alert: TASCLICommandStatus
-        expr: "increase(pas_sli_task_failures_total[10m]) > 0"
+        expr: "increase(tas_sli_task_failures_total[10m]) > 0"
         for: 10m
         annotations:
           summary: "Healthwatch Tanzu Application Service CLI tests are failing"
