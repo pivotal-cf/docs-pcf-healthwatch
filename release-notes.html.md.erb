@@ -10,18 +10,30 @@ owner: Healthwatch
     Do not use this product in a production environment.
 </p>
 
+## <a id='2-1-0'></a> v2.1.0 (Beta)
+<div class="note breaking">
+    <strong>Breaking Changes:</strong>
+    <ul>
+      <li>SSL validation will be checked by default in the Certificate Exporter.
+     Added a configuration checkbox for skipping SSL validation for the Certificate Exporter in TAS/TKGI.
+     Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
+     This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
+      </li>
+    </ul>
+</div>
+
 ## <a id='2-0-6'></a> v2.0.6 (Beta)
 
 **Release Date: Feb 11, 2021**
 <div class="note breaking">
     <strong>Breaking Changes:</strong>
     <ul>
-      <li>Add a configuration checkbox for skipping SSL validation for the Ops Manager Canary URL.
+      <li>SSL validation will be checked by default in the Ops Manager Canary URL.
+      Added a configuration checkbox for skipping SSL validation for the Ops Manager Canary URL.
       Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
-      Now, the default is to not skip SSL validation.
       This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
       </li>
-      <li>Add a default scrape config for scraping metrics from RabbitMQ.
+      <li>Added a default scrape config for scraping metrics from RabbitMQ.
       Previously, this scrape config needed to be added manually in the Healthwatch tile configuration.
       Now, the RabbitMQ scrape config will automatically be generated if "Enable RabbitMQ dashboards"
       is checked in the Healthwatch tile configuration.
