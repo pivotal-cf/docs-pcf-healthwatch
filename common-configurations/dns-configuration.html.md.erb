@@ -31,32 +31,34 @@ To configure a DNS entry for the load balancer associated with your Grafana inst
 
 1. Ensure that you have associated a load balancer with your Grafana instance. For more information,
 see [Configure Resources](../installing.html#resource-config) in _Installing, Configuring,
-and Deploying Healthwatch_. [DOES THIS LOAD BALANCER HAVE ANYTHING TO DO WITH THE ONES CREATED WHEN DEPLOYING OPS MANAGER?]
+and Deploying Healthwatch_.
 
-1. Find the public IP address for your load balancer. You may have to assign an public or elastic IP address to your load balancer if it does not already have one. For more information, see the documentation for your Iaas:
+1. Find the public IP address for your load balancer. You may need to assign a public or elastic
+IP address to your load balancer if it does not already have one. For more information, see
+the documentation for your IaaS:
+  * **AWS:** If your Ops Manager deployment is on AWS, skip this step. You do not need the
+  public IP address of your load balancer for Grafana to configure a DNS entry in your Amazon
+  DNS.
+  * **Azure:** For more information about finding the public IP address of your Azure load
+  balancer, see the [Azure documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about finding the public IP address of your GCP load balancer,
+  see the [GCP documentation](https://cloud.google.com/load-balancing/docs/https/ext-https-lb-simple#ip-address).
+  * **OpenStack:** For more information about assigning a floating IP address to your OpenStack
+  load balancer, see the [OpenStack documentation](https://docs.openstack.org/liberty/networking-guide/adv-config-lbaas.html).
+  * **vSphere:** For more information about finding the public IP address of your vSphere load balancer, see the vSphere documentation. (Is this different depending on whether you use NSX-T, NSX-V, or neither?)
 
-  * **Amazon Web Services**. If you use AWS for your Iaas, skip this step since you will resolve/configure the DNS without needing the public IP address. 
-
-  * **Microsoft Azure**. For more information on finding the public IP address of your Azure load balancer, see the [AWS documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-
-  * **Google Cloud Platform**. For more information on finding the public IP address of your GCP load balancer, see the [GCP Documentation](https://cloud.google.com/load-balancing/docs/https/ext-https-lb-simple#ip-address).
-
-  * **OpenStack**. [OPENSTACK ONLY WORKS WITH TAS. DOES IT STILL MAKE SENSE TO INCLUDE IT? WOULD A USER HAVE A IAAS FOR TAS AND A DIFFERENT IAAS FOR TKGI?] For more information on assigning a floating IP address to your OpenStack load balancer, see the [OpenStack documentation](https://docs.openstack.org/liberty/networking-guide/adv-config-lbaas.html).
-
-  * **vSphere**. 
-
-1. Create an A record in your DNS server named `grafana` that points to the public IP address of the load balancer that you recorded in the previous step. For more information, see the documentation for your Iaas:
-
-  * **Amazon Web Services**. For more information on AWS DNS, see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html).
-  
-  * **Azure**. For more information on Azure DNS, see the [Azure documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  
-  * **Google Cloud Platform**. For more information on GCP DNS, see the [GCP documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
-  
-  * **OpenStack**. For more information on OpenStack DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html
-).
-  
-  * **vSphere**. For more information on vSphere DNS, see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-56C3BA9A-234E-4D81-A4BC-E2A37892A854.html#:~:text=After%20you%20deploy%20the%20vCenter,appliance%20obtains%20the%20IP%20address.).
+1. Create an A record in your DNS server named `grafana` that points to the public IP address
+of the load balancer that you recorded in the previous step. For more information, see the
+documentation for your IaaS:
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
+  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in [the internal DNS? an external DNS service?], see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
+  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
 
 1. Wait for your DNS server to update.
 
@@ -70,34 +72,33 @@ you have successfully created a DNS entry.
 To configure a DNS entry for a single Grafana VM:
 
 1. Find the public IP address for your Grafana VM in the user console for your IaaS. For more
-information, see the documentation for your Iaas:
-
-  * **Amazon Web Services**. To find the public IP address of a Linux instance, see the [AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a Windows instance, see the [AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses). 
-
-  * **Microsoft Azure**. To create or view a public IP address for an Azure VM, see the [Azure documentation](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
-
-  * **Google Cloud Platform**. To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address). 
-
-  * **OpenStack**. [OPENSTACK ONLY WORKS WITH TAS. DOES IT STILL MAKE SENSE TO INCLUDE IT? WOULD A USER HAVE A IAAS FOR TAS AND A DIFFERENT IAAS FOR TKGI?] To associate a floating IP address to an OpenStack instance, see the [OpenStack documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
-
-  * **vSphere**. To assign a public IP address to a vSphere VM, see the [vSphere documentation](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
+information, see the documentation for your IaaS:
+  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
+  for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
+  To find the public IP address for a Windows instance, see the [AWS documentation for Windows
+  instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
+  (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
+  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
+  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
+  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
+  (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
 
 1. Record the public IP address of the Grafana VM.
 
-1. Create an A record in your DNS server named `grafana` that points to the public IP address of the Grafana
-VM that you recorded in the previous step. For more information, see the documentation for
-your Iaas:
-
-  * **Amazon Web Services**. For more information on AWS DNS, see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html).
-  
-  * **Azure**. For more information on Azure DNS, see the [Azure documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  
-  * **Google Cloud Platform**. For more information on GCP DNS, see the [GCP documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
-  
-  * **OpenStack**. For more information on OpenStack DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html
-).
-  
-  * **vSphere**. For more information on vSphere DNS, see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/5.5/com.vmware.vsphere.upgrade.doc/GUID-20A3A1F0-D7FA-42E7-B974-5093D91010F2.html).
+1. Create an A record in your DNS server named `grafana` that points to the public IP address
+of the Grafana VM that you recorded in the previous step. For more information, see the documentation
+for your IaaS:
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
+  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in [the internal DNS? an external DNS service?], see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
+  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
 
 1. Wait for your DNS server to update.
 
