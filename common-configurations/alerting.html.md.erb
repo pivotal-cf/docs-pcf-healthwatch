@@ -286,3 +286,27 @@ receivers:
     html: '{{ template "email.default.html" . }}'
     text: "This is an alert."
 ```
+
+## <a id='silence'></a> Silencing Alerts
+
+If you want to temporarily silence your alerts without modifying the actual alerting logic, you can utilize a tool
+provided by Alertmanager.
+
+To configure a silence:
+
+1. SSH onto one of the tsdb VMs.
+
+1. Navigate to the tool's directory with `cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin`.
+
+1. Run `./amtool silence add 'alertname=~.+' -d [LENGTH OF TIME] -c '[COMMENT]' --alertmanager.url http://localhost:10401`
+   to silence all alerts matching the alertname regex for the specified length of time.  This particular regex will
+   match all alert names.
+
+This command will return a Silencer ID that can be used with this tool in a variety ways, including ending the silence
+early by running `./amtool silence expire [SILENCE ID] --alertmanager.url http://localhost:10401`.
+
+If you would like to view this in a UI, you can follow the steps in
+https://docs.pivotal.io/healthwatch/2-0/troubleshooting.html under `Viewing the Alertmanager UI` to tunnel into the
+Alertmanager VM.
+
+To learn more about this tool, visit https://github.com/prometheus/alertmanager#amtool or run `./amtool --help`.
