@@ -65,8 +65,7 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times that [the BOSH health SLI test suite fails? specific tests
-      within the BOSH health SLI test suite fail?].</td>
+    <td>The total number of times that [the BOSH health SLI test suite fails? specific tests within the BOSH health SLI test suite fail?].</td>
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-health-exporter"}</code></td>
@@ -153,7 +152,7 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds the BOSH deployment SLI test suite takes to run. [On average? Each time?]</td>
+    <td>The number of seconds the BOSH deployment SLI test suite takes to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code></td>
@@ -188,7 +187,7 @@ The following table describes each metric the BOSH deployment metric exporter VM
 </table>
 
 
-## <a id='platform-sli'></a> Platform SLIs
+## <a id='platform-sli'></a> Platform Metrics
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate
 metrics regarding the health of several Ops Manager and runtime components. You can use these
@@ -230,7 +229,7 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_run_duration_seconds</code></td>
-    <td>The number of seconds the TAS for VMs SLI test suite takes to run. [On average? Each time?]</td>
+    <td>The number of seconds the TAS for VMs SLI test suite takes to run.</td>
   </tr>
   <tr>
     <td><code>tas_sli_runs_total</code></td>
@@ -324,7 +323,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_run_duration_seconds</code></td>
-    <td>The number of seconds the TKGI SLI test suite takes to run. [On average? Each time?]</td>
+    <td>The number of seconds the TKGI SLI test suite takes to run.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_runs_total</code></td>
@@ -386,11 +385,11 @@ The following table describes the metric the certificate expiration metric expor
   </tr>
   <tr>
     <td><code>ssl_certificate_expiry_seconds{exported_instance=~".*"}</code></td>
-    <td>The duration in seconds until [which certificate or certificates?] expires.</td>
+    <td>The time in seconds until [which certificate or certificates?] expires.</td>
   </tr>
 </table>
 
-### <a id='tsdb'></a> Prometheus
+### <a id='tsdb'></a> Prometheus VM
 
 In the **Canary URL Configuration pane** of the Healthwatch tile, you configure target URLs
 to which the Blackbox Exporter in the Prometheus VM sends canary tests. Testing a canary target
@@ -408,19 +407,22 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_dns_additional_rrs</code></td>
-    <td>The number of entries in the additional resource record list. [What's this?]</td>
+    <td>The number of entries in the additional resource record list of the DNS server for
+      the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_answer_rrs</code></td>
-    <td>The number of entries in the answer resource record list. [What's this?]</td>
+    <td>The number of entries in the answer resource record list of the DNS server for the
+      canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_authority_rrs</code></td>
-    <td>The number of entries in the authority resource record list. [What's this?]</td>
+    <td>The number of entries in the authority resource record list of the DNS server for the
+      canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_duration_seconds</code></td>
-    <td>The duration of [each? a single?] DNS request by phase.</td>
+    <td>The duration of the canary test DNS request by phase.</td>
   </tr>
   <tr>
     <td><code>probe_dns_lookup_time_seconds</code></td>
@@ -428,7 +430,7 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_dns_serial</code></td>
-    <td>The serial number of the zone [of what?].</td>
+    <td>The serial number of the DNS zone for your canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_duration_seconds</code></td>
@@ -436,23 +438,23 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_failed_due_to_regex</code></td>
-    <td>Indicates if the canary test failed due to regex [doing what?].</td>
+    <td>Indicates if the canary test failed due to a regex error in the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_http_content_length</code></td>
-    <td>The length of HTTP content response.</td>
+    <td>The length of the HTTP content response from the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_http_duration_seconds</code></td>
-    <td>The duration of [each? a single?] HTTP request by phase, summed over all redirects.</td>
+    <td>The duration of the canary test HTTP request by phase, summed over all redirects.</td>
   </tr>
   <tr>
     <td><code>probe_http_last_modified_timestamp_seconds</code></td>
-    <td>The last-modified HTTP response header in Unix time.</td>
+    <td>The last-modified timestamp for the HTTP response header in Unix time.</td>
   </tr>
   <tr>
     <td><code>probe_http_redirects</code></td>
-    <td>The number of redirects the canary test takes to reach the canary target URL.</td>
+    <td>The number of redirects the canary test goes through to reach the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_http_ssl</code></td>
@@ -460,7 +462,7 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_http_status_code</code></td>
-    <td>The status code of the response HTTP.</td>
+    <td>The status code of the HTTP response from the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_http_uncompressed_body_length</code></td>
@@ -468,19 +470,21 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_http_version</code></td>
-    <td>The version of HTTP the canary test response uses.</td>
+    <td>The version of HTTP the canary test HTTP response uses.</td>
   </tr>
   <tr>
     <td><code>probe_icmp_duration_seconds</code></td>
-    <td>The duration of [each? a single?] ICMP request by phase.</td>
+    <td>The duration of the canary test ICMP request by phase.</td>
   </tr>
   <tr>
     <td><code>probe_icmp_reply_hop_limit</code></td>
-    <td>If the canary test protocol is IPv6, the replied packet hop limit. If the canary test protocol is IPv4, the time-to-live count.</td>
+    <td><strong>If the canary test protocol is IPv6:</strong> The replied packet hop limit.
+      <br>
+      <strong>If the canary test protocol is IPv4:</strong> The time-to-live count.</td>
   </tr>
   <tr>
     <td><code>probe_ip_addr_hash</code></td>
-    <td>The hash [what's this?] of the IP address [of the canary target URL?].</td>
+    <td>The hash of the IP address of the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_ip_protocol</code></td>
@@ -488,15 +492,15 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_ssl_earliest_cert_expiry</code></td>
-    <td>The earliest SSL certificate expiration in Unix time.</td>
+    <td>The earliest SSL certificate expiration for the canary test URL in Unix time.</td>
   </tr>
   <tr>
     <td><code>probe_ssl_last_chain_expiry_timestamp_seconds</code></td>
-    <td>The last SSL chain expiration in Unix time.</td>
+    <td>The last SSL chain expiration for the canary test URL in Unix time.</td>
   </tr>
   <tr>
     <td><code>probe_ssl_last_chain_info</code></td>
-    <td>Information about the SSL leaf certificate. [Of what? The canary test? The canary target URL?]</td>
+    <td>Information about the SSL leaf certificate for the canary test URL.</td>
   </tr>
   <tr>
     <td><code>probe_success</code></td>
@@ -504,13 +508,17 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
   <tr>
     <td><code>probe_tls_version_info</code></td>
-    <td>The TLS version the canary test uses, or NaN [what's this?] when unknown.</td>
+    <td>The TLS version the canary test uses, or <code>NaN</code> when unknown.</td>
   </tr>
 </table>
 
 ### <a id="svms"></a> Super Value Metrics (svm-forwarder)
 
-Super value metrics (SVMs) are Healthwatch v1 metrics that Healthwatch sends to the Loggregator Firehose for external use. They are created in Prometheus and are made available by the SVM Forwarder VM. For more information, see [Healthwatch Release Notes](release-notes.html#2-0-1). [Does this belong with the Healthwatch component metrics instead?]
+Super value metrics (SVMs) are Healthwatch v1 metrics that the Prometheus VM in Healthwatch
+generates these metrics. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back
+into Loggregator so third-party nozzles can send them to external destinations, such as a remote
+server or external aggregation service. For more information, see [Healthwatch Release Notes]
+(release-notes.html#2-0-1). [Does this belong with the Healthwatch component metrics instead?]
 
 The following table describes each metric the SVM Forwarder VM generates:
 
@@ -525,11 +533,11 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>Diego_AvailableFreeChunksDisk</code></td>
-    <td>The available free chunks of disk in Diego. [What does "in Diego" mean, again?]</td>
+    <td>The available free chunks of disk in all Diego Cells.</td>
   </tr>
   <tr>
     <td><code>Diego_AvailableFreeChunks</code></td>
-    <td>The available free chunks of memory in Diego.</td>
+    <td>The available free chunks of memory in all Diego Cells.</td>
   </tr>
   <tr>
     <td><code>Diego_LRPsAdded_1H</code></td>
@@ -537,23 +545,24 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>Diego_TotalAvailableDiskCapacity_5M</code></td>
-    <td>The remaining Diego Cell disk available in Diego in five-minute intervals.</td>
+    <td>The remaining Diego Cell disk available in all Diego Cells in five-minute intervals.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalAvailableMemoryCapacity_5M</code></td>
-    <td>The remaining Diego Cell memory available in Diego in five-minute intervals.</td>
+    <td>The remaining Diego Cell memory available in all Diego Cells in five-minute intervals.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableContainerCapacity_5M</code></td>
-    <td>Percentage of total available container capacity in Diego in five-minute intervals.</td>
+    <td>The percentage of total available container capacity in all Diego Cells in five-minute
+      intervals.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableDiskCapacity_5M</code></td>
-    <td>Percentage of total available disk in [each? all?] Diego Cells in five-minute intervals.</td>
+    <td>The percentage of total available disk in all Diego Cells in five-minute intervals.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableMemoryCapacity_5M</code></td>
-    <td>Percentage of total available memory in [each? all?] Diego Cells in five-minute intervals.</td>
+    <td>The percentage of total available memory in all Diego Cells in five-minute intervals.</td>
   </tr>
   <tr>
     <td><code>Doppler_MessagesAverage_1M</code></td>
@@ -569,11 +578,11 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>SyslogAgent_LossRate_1M</code></td>
-    <td>Syslog Agent loss rate in one-minute intervals.</td>
+    <td>The Syslog Agent loss rate in one-minute intervals.</td>
   </tr>
   <tr>
     <td><code>SyslogDrain_RLP_LossRate_1M</code></td>
-    <td>Reverse Log Proxy loss rate in one-minute intervals.</td>
+    <td>The Reverse Log Proxy loss rate in one-minute intervals.</td>
   </tr>
   <tr>
     <td><code>bosh_deployment</code></td>
@@ -584,7 +593,8 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>health_check_bosh_director_success</code></td>
-    <td>BOSH SLI test status, <code>1</code> indicates success.</td>
+    <td>Whether the BOSH SLI test suite that the BOSH health metric exporter VM ran succeeded
+      or failed. A value of <code>1</code> indicates that the BOSH SLI test suite succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_CanaryApp_available</code></td>
@@ -592,7 +602,7 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>health_check_CanaryApp_responseTime</code></td>
-    <td>The response time of the canary app. [In seconds?]</td>
+    <td>The response time of the canary app. [In seconds? Milliseconds?]</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_delete</code></td>
@@ -629,18 +639,19 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>health_check_cliCommand_success</code></td>
-    <td>The overall success of the SLI tests Healthwatch runs on the cf CLI.</td>
+    <td>The overall success of the SLI tests that Healthwatch runs on the cf CLI.</td>
   </tr>
   <tr>
     <td><code>uaa_throughput_rate</code></td>
-    <td>The UAA throughput rate. [Of what? UAA itself? The cf CLI? TAS for VMs?]</td>
+    <td>The lifetime number of requests completed by the UAA VM, emitted per UAA instance in
+      TAS for VMs. This number includes health checks.</td>
   </tr>
 </table>
 
 
 ## <a id="component-monitoring-metrics"></a> Healthwatch Component Metrics
 
-The following metrics exist for the purpose of monitoring the Healthwatch components. [Really? Are we sure these aren't platform SLIs?]
+The following metrics exist for the purpose of monitoring the Healthwatch components.
 
 ### <a id='pks-exporter'></a> TKGI Metric Exporter VM
 
@@ -656,8 +667,8 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_bucket</code></td>
-    <td>The number of seconds taken to process a batch of Loggregator envelopes, grouped by
-      latency.</td>
+    <td>The number of seconds that the TKGI metric exporter VM takes to process a batch of
+      Loggregator envelopes, grouped by latency.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_count</code></td>
@@ -669,12 +680,13 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes received by the observability metrics agent. [Meaning Loggregator? And/or something else?]</td>
+    <td>The number of envelopes that the observability metrics agent receives from the TKGI
+      metric exporter VM. [Meaning Loggregator? And/or something else?]</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_bucket</code></td>
-    <td>The number of seconds to convert a BOSH metric to a Prometheus gauge, grouped by duration.
-      [Do we know which particular metrics?]</td>
+    <td>The number of seconds that the TKGI metric exporter VM takes to convert a BOSH metric
+      to a Prometheus gauge, grouped by duration. [Do we know which particular metrics?]</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_count</code></td>
@@ -714,19 +726,21 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_counterConversion_seconds</code></td>
-    <td>The number of seconds to convert a counter envelope to a Prometheus counter.</td>
+    <td>The number of seconds that the counter metric exporter VM takes to convert a counter
+      envelope to a Prometheus counter.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
-    <td>The number of metrics evicted [by what?] from [the counter metric exporter VM cache? the TAS exporter tile itself?].</td>
+    <td>The number of metrics that the counter metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds it took process a batch of Loggregator envelopes.</td>
+    <td>The number of seconds that the counter metric exporter VM takes to process a batch
+      of Loggregator envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes received by observability metrics agent.</td>
+    <td>The number of envelopes that the observability metrics agent receives from the counter metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -749,19 +763,21 @@ The following table describes each metric the gauge metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
-    <td>The number of metrics evicted [by what?] from [the gauge metric exporter VM cache? the TAS exporter tile itself?].</td>
+    <td>The number of metrics that the gauge metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_gaugeConversion_seconds</code></td>
-    <td>The number of seconds to convert a gauge envelope to a Prometheus gauge.</td>
+    <td>The number of seconds that the gauge metric exporter VM takes to convert a gauge envelope
+      to a Prometheus gauge.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds to process a batch of Loggregator envelopes.</td>
+    <td>The number of seconds that the gauge metric exporter VM takes to process a batch of
+      Loggregator envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes the observability metrics agent receives.</td>
+    <td>The number of envelopes that the observability metrics agent receives from the gauge metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -784,15 +800,16 @@ The following table describes each metric the timer metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
-    <td>The number of metrics evicted [by what?] from [the timer metric exporter VM cache? the TAS exporter tile itself?].</td>
+    <td>The number of metrics that timer metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds to process a batch of Loggregator envelopes.</td>
+    <td>The number of seconds that timer metric exporter VM takes to process a batch of Loggregator
+      envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes the observability metrics agent receives.</td>
+    <td>The number of envelopes that the observability metrics agent receives from the timer metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -816,23 +833,24 @@ generates:
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExpositionLatency_seconds</code></td>
-    <td>The number of seconds it took to render Prometheus scrape page.</td>
+    <td>The number of seconds that the metric exporter VM takes to render a Prometheus scrape
+      page.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_expiredMetrics</code></td>
-    <td>The number of metrics evicted [by what?] from [the metric exporter VM caches? the TAS exporter tile itself?]</td>
+    <td>The number of metrics that the metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_histogramMapConversion</code></td>
-    <td>The time it takes to convert histogram collection to a map.</td>
+    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to convert histogram collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricMapConversion</code></td>
-    <td>The time it takes to convert metrics collection to a map.</td>
+    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to convert metrics collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricSorting</code></td>
-    <td>The time it takes to sort metrics when rendering Prometheus exposition.</td>
+    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to sort metrics when rendering Prometheus exposition.</td>
   </tr>
 </table>
 

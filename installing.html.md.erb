@@ -201,12 +201,11 @@ send it to external destinations, such as a remote server or external aggregatio
 
 1. (Optional) For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify
 for chunks of free memory. The default value is `4096`. Healthwatch uses this free memory chunk
-size to calculate the available memory chunks super value metric (SVM). If you rely on Pivotal
-Healthwatch v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses
-this SVM to calculate the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch
-integration sends the `Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party
-nozzles can send it to external destinations, such as a remote server or external aggregation
-service.
+size to calculate the available memory chunks SVM. If you rely on Pivotal Healthwatch v1.8
+or earlier for any metrics, the Pivotal Healthwatch integration then uses this SVM to calculate
+the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch integration sends the
+`Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party nozzles can send
+it to external destinations, such as a remote server or external aggregation service.
 
 1. Click **Save**.
 
@@ -304,7 +303,8 @@ CA for those SSL certificates in **CA for SSL certificates**.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana VM,
 enter a comma-separated list of ciphers in **Additional Cipher Suite Support**. For a list
-of supported cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository on GitHub.
+of supported cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522)
+in the Go repository on GitHub.
 
 1. Under **Select an authentication mechanism for Grafana**, select the user authentication
 method you want the Grafana VM to use:
