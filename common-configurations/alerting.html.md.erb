@@ -312,6 +312,8 @@ For more information on logging in with `bosh ssh`, see [BOSH SSH](https://docs.
     Where:
     * `LENGTH-OF-TIME` is the duration of the alert silence in minutes or hours. For example, 30m or 4h.
     * `COMMENT` is any notes about this silence you want to add.
-    In the command above, the regular expression that follows `alertname` silences all alerts. For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
+    In the command above, the regular expression that follows `alertname` silences all alerts. 
+    
+    For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
 
 1. Record the ID string from the output. You can use this ID to end the silence early. For more information on how to end a silence early, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) or run: `./amtool --help`.
