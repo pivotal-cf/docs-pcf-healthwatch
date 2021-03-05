@@ -1,0 +1,49 @@
+---
+title: Configuring Syslog
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+In the **Syslog** pane, you can configure system logging to forward log messages from tile component VMs to an
+external destination for troubleshooting,
+such as a remote server or external syslog aggregation service.
+
+### <a id='syslog'></a> Configure Syslog
+
+To configure the **Syslog** pane:
+
+1. Select **Syslog**.
+
+1. Under **Do you want to configure Syslog forwarding?**, select one of the following options:
+    * **No, do not forward Syslog:** Disables syslog forwarding.
+    * **Yes:** Enables syslog forwarding and allows you to edit the configuration fields described
+    below.
+
+1. For **Address**, enter the IP address or DNS domain name of your external destination.
+
+1. For **Port**, enter a port on which your external destination listens.
+
+1. For **Transport Protocol**, select **TCP** or **UDP** from the dropdown. This determines
+which transport protocol is used to forward system logs toyour external destination.
+
+1. (Optional) To transmit logs over TLS:
+  1. Select the **Enable TLS** checkbox. This checkbox is disabled by default.
+  1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
+  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+
+1. (Optional) For **Queue Size**, specify the number of log messages the process
+ can hold in a buffer at a time before sending them to your external destination.
+The default value is `100000`.
+
+1. (Optional) To forward debug logs to your external destination, enable the **Forward Debug
+Logs** checkbox. This checkbox is disabled by default.
+
+1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration**
+in RainerScript syntax. For more information about custom syslog rules, see [Customizing Platform
+Log Forwarding](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html)
+in the TAS for VMs documentation. For more information about RainerScript syntax, see the [rsyslog]
+(https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
+
+1. Click **Save Syslog Settings**.

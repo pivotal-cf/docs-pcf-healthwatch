@@ -1,0 +1,49 @@
+---
+title: Configuring the Healthwatch Exporter for TAS for VMs
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+When installed on a foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys
+metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
+deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose
+to a Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus VM
+that exists within your metrics monitoring system then scrapes the exposition endpoints on
+the metric exporter VMs and imports those metrics into your monitoring system.
+
+For more information about the architecture of the Healthwatch Exporter for TAS for VMs tile,
+see [Healthwatch Exporter for TAS for VMs](architecture.html#healthwatch-tas) in _Healthwatch
+Architecture_.
+
+## <a id='configure'></a> Configure Healthwatch Exporter for TAS for VMs
+
+After installing Healthwatch Exporter for TAS for VMs, you configure the metric exporter VMs
+deployed by Healthwatch Exporter for TAS for VMs through the tile UI. You can also configure
+errands and system logging, as well as scale VM instances up or down and configure load balancers
+for multiple VM instances.
+
+To configure the Healthwatch Exporter for TAS for VMs tile:
+
+<p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter
+  for TAS for VMs tile to ensure that it deploys successfully before you fully configure it,
+  you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health
+  Exporter Configuration</strong> panes.</p>
+
+
+## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TAS for VMs
+
+To complete your installation of the Healthwatch Exporter for TAS for VMs tile:
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html)
+in the Ops Manager documentation.
+
+

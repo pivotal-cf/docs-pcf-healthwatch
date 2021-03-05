@@ -1,0 +1,23 @@
+---
+title: Healthwatch SLOs
+owner: Healthwatch
+---
+
+Healthwatch ships with the following dashboards
+included under the **Healthwatch** folder in Grafana.
+To access them, go to **Dashboard -> Manage -> Healthwatch** in Grafana.
+
+This dashboard will display a row
+for each instance selected from the corresponding instance drop down
+at the top of the page.
+Each row has four panels:
+
+  * The **Up** panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
+    where a `1` indicates it is healthy
+    and a `0` or missing data indicates that it is not healthy.
+  * The **Exporter SLO** panel shows the percent of time the exporter was up over the selected time range.
+  * The **Error Budget Remaining** panel shows how much time, in minutes, are left,
+    in order to stay within the selected Uptime SLO Target
+    over the currently selected time range.
+  * The **Minutes of Downtime** panel shows how much downtime, in minutes,
+    the exporters have experienced during the selected time range.

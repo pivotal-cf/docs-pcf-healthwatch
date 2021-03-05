@@ -36,79 +36,9 @@ service or database, see [Reference Architecture](architecture.html).
 
 For more information about each of these tiles, see the following sections below:
 
-* [Overview of the Healthwatch Tile](#healthwatch)
-* [Overview of the Healthwatch Exporter for TAS for VMs Tile](#exporter-tas)
-* [Overview of the Healthwatch Exporter for TKGI Tile](#exporter-tkgi)
-
-### <a id='healthwatch'></a> Overview of the Healthwatch Tile
-
-The **Healthwatch** tile gathers metrics across multiple Ops Manager foundations by scraping
-them from Healthwatch Exporter tiles installed on each foundation.
-
-Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and
-stores metrics from the Healthwatch Exporter tiles and enables you to configure alerts with
-Alertmanager.
-
-Healthwatch then exports the collected metrics to dashboards in Grafana, enabling you to visualize
-the data with charts and graphs and create customized dashboards for long-term monitoring and
-troubleshooting.
-
-Healthwatch includes the following features:
-
-* **Prometheus:**
-  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related
-  to the functionality of platform- and runtime-level components that include the following:
-      * Service level indicators (SLIs) for the BOSH Director
-      * SLIs for TAS for VMs components
-      * SLIs for TKGI components
-      * When Ops Manager certificates are due to expire
-      * Canary URL tests for TAS for VMs apps
-      * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
-      * BOSH system metrics for TKGI
-      * VMs deployed by Healthwatch Exporter tiles
-  * Stores metrics for up to six weeks
-  * Can write to remote storage in addition to its local TSDB
-
-* **Grafana:** Enables you to visualize the collected metrics data in charts and graphs, as
-well as create customized dashboards for easier monitoring and troubleshooting
-
-* **Alertmanager:** Manages and sends alerts according to the alerting rules you configure
-
-### <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
-
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
-type of metric related to the health of your TAS for VMs deployment.
-
-Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
-exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
-your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
-VMs and imports those metrics into your monitoring system.
-
-Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality
-of TAS for VMs components, TAS for VMs apps, and the Healthwatch Exporter for TAS for VMs tile:
-
-* SLIs for TAS for VMs components
-* Canary URL tests for TAS for VMs apps
-* Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
-* Super Value Metrics (SVMs) from Healthwatch v1
-* VMs deployed by Healthwatch Exporter for TAS for VM
-
-### <a id='exporter-tkgi'></a> Overview of the Healthwatch Exporter for TKGI Tile
-
-The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
-to the health of your TKGI deployment.
-
-The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
-exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system.
-
-Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of
-TKGI components and the Healthwatch Exporter for TKGI tile:
-
-* SLIs for TKGI components
-* BOSH system metrics for TKGI
-* VMs deployed by Healthwatch Exporter for TKGI
-
+* [Overview of the Healthwatch Tile](healthwatch-tile-overview.html)
+* [Overview of the Healthwatch Exporter for TAS for VMs Tile](healthwatch-exporter-tas-overview.html.md.erb)
+* [Overview of the Healthwatch Exporter for TKGI Tile](healthwatch-exporter-tkgi-overview.html.md.erb)
 
 ## <a id='product-snapshot'></a> Product Snapshot
 

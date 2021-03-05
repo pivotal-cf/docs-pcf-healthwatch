@@ -1,0 +1,31 @@
+---
+title: BOSH Health Metric Exporter VM
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
+BOSH health metric exporter VM. Healthwatch Exporter for TAS for VMs periodically deploys the
+BOSH health metric exporter VM. This VM creates a BOSH deployment, runs SLI tests on the BOSH
+deployment to validate the health of the BOSH Director, and deletes the BOSH deployment once
+the SLI tests are complete. Healthwatch Exporter for TAS for VMs then deletes the BOSH health
+metric exporter VM. For more information, see [Bosh Health Exporter (bosh-health-exporter)]
+(metrics.html#bosh-health-exporter) in _Healthwatch Metrics_.
+
+### <a id='bosh-exporter'></a> Configure the BOSH Health Metric Exporter VM
+
+To configure the **BOSH Health Exporter Configuration** pane:
+
+1. Select **BOSH Health Exporter Configuration**.
+
+1. Under **BOSH Health Check Availability Zone**, select the AZ on which you want Healthwatch
+Exporter for TAS for VMs to deploy the BOSH health metric exporter VM.
+
+1. Under **BOSH Health Check VM Type**, select from the dropdown the type of VM you want Healthwatch
+Exporter for TAS for VMs to deploy.
+
+1. Click **Save**.

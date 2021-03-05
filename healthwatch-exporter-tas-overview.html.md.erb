@@ -1,0 +1,21 @@
+---
+title: Overview of the Healthwatch Exporter for TAS for VMs Tile
+owner: Healthwatch
+---
+
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
+type of metric related to the health of your TAS for VMs deployment.
+
+Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
+exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
+your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
+VMs and imports those metrics into your monitoring system.
+
+Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality
+of TAS for VMs components, TAS for VMs apps, and the Healthwatch Exporter for TAS for VMs tile:
+
+* SLIs for TAS for VMs components
+* Canary URL tests for TAS for VMs apps
+* Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+* Super Value Metrics (SVMs) from Healthwatch v1
+* VMs deployed by Healthwatch Exporter for TAS for VM

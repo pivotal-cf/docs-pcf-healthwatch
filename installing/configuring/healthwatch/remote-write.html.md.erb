@@ -1,0 +1,100 @@
+---
+title: Configure Remote Write
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **Remote Write Configuration** pane, you can configure the Prometheus VM to write to
+remote storage, in addition to its local time series database (TSDB). Healthwatch stores monitoring
+data for six weeks before deleting it. Configuring remote write enables Healthwatch to store
+data that is older than six weeks in a remote database or storage endpoint. For a list of compatible
+remote databases and storage endpoints, see [Remote Endpoints and Storage](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage)
+in _Integrations_ in the Prometheus documentation.
+
+The values that you enter in the fields in the **Remote Write Configuration** pane also define
+their corresponding properties in the `remote_write` section of the Prometheus configuration
+file. For more information, see [&#60;remote_write>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write)
+in _Configuration_ in the Prometheus documentation.
+
+## <a id='remote-write'></a> Configure Remote Write
+
+
+To configure the **Remote Write Configuration** pane:
+
+1. Select **Remote Write Configuration**.
+
+1. Click **Add**.
+
+1. For **URL**, enter the URL for your remote storage endpoint. For example, `https://REMOTE-STORAGE-FQDN`,
+where `REMOTE-STORAGE-FQDN` is the fully qualified domain name of your remote storage endpoint.
+
+1. In **Remote Timeout (seconds)**, enter in seconds the amount of time that the
+Prometheus VM must try to make a request to the remote storage endpoint before the request
+fails.
+
+1. (Optional) To enable the Prometheus VM to write to your storage endpoint using basic authentication:
+  1. For **Basic Auth Username**, enter the username that the Prometheus VM uses to log in
+  to your remote storage endpoint.
+  1. For **Basic Auth Password**, enter the password that the Prometheus VM uses to log in
+  to your remote storage endpoint.
+
+1. (Optional) To enable TLS communication between the Prometheus VM and your remote storage
+endpoint:
+  1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates you
+  provide in the **TLS Config Certificate and Private Key** field below. This CA appears as
+  the `ca_file` property in the `tls_config` section of the `remote_write` configuration.
+  1. For **TLS Config Certificate and Private Key**, provide at least one certificate and private
+  key to enable TLS communication between the Prometheus VM and your remote storage endpoint.
+  These certificates and private keys appear as the `cert_file` and `key_file` properties in
+  the `tls_config` section of the `remote_write` configuration.
+  1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS communication
+  between the Prometheus VM and your remote storage endpoint. This server name appears as the
+  `server_name` property in the `tls_config` section of the `remote_write` configuration.
+  1. If the certificate you provided in the **TLS Config Certificate and Private Key** field
+  is signed by a self-signed CA or a certificate that is signed by a self-signed CA, enable
+  the **TLS Config Skip SSL Validation** checkbox to skip SSL validation during TLS handshakes.
+
+1. (Optional) To enable the Prometheus VM to make HTTP or HTTPS proxy requests to the remote
+storage endpoint, enter a proxy URL in **Proxy URL**.
+
+1. You can configure more granular settings for writing to your remote storage endpoint
+by specifying additional parameters for the shards containing in-memory queues that read from
+the write-ahead log (WAL) in the Prometheus VM. The following fields configure the `queue_config`
+section of the remote write configuration:
+  1. For **Queue Capacity**, enter how many samples the remote storage endpoint can queue in
+  memory per shard before the Prometheus VM blocks the queue from reading from the WAL. This
+  number appears as the `capacity` property in the `queue_config` section of the remote write
+  configuration.
+  1. For **Maximum Number of Shards**, enter the maximum number of shards the Prometheus VM
+  can use for each remote write queue. This number appears as the `max_shards` property in
+  the `queue_config` section of the remote write configuration.
+  1. For **Minimum Number of Shards**, enter the minimum number of shards the Prometheus VM
+  can use for each remote write queue. This number is also the number of shards the Prometheus
+  VM uses when remote write begins after each deployment of the Healthwatch tile. This number
+  appears as the `min_shards` property in the `queue_config` section of the remote write configuration.
+  1. For **Maximum Number of Samples Per Send**, enter the maximum number of samples the Prometheus
+  VM can send to a shard at a time. This number appears as the `max_samples_per_send` property
+  in the `queue_config` section of the remote write configuration.
+  1. For **Batch Send Deadline (seconds)**, enter in seconds the maximum amount of time the
+  Prometheus VM can wait before sending a batch of samples to a shard, whether that shard has
+  reached the limit configured in **Maximum Number of Samples Per Send** or not. This number
+  appears as the `batch_send_deadline` property in the `queue_config` section of the remote
+  write configuration.
+  1. For **Minimum Backoff Time (milliseconds)**, enter in milliseconds the minimum amount
+  of time the Prometheus VM can wait before retrying a failed request to the remote storage
+  endpoint. This number appears as the `min_backoff` property in the `queue_config` section
+  of the remote write configuration.
+  1. For **Maximum Retry Delay (milliseconds)**, enter in milliseconds the maximum amount of
+  time the Prometheus VM can wait before retrying a failed request to the remote storage endpoint.
+  This number appears as the `max_backoff` property in the `queue_config` section of the remote
+  write configuration.
+  <br>
+  <br>
+  For more information about configuring these queue parameters, see [Remote Write Tuning]
+  (https://prometheus.io/docs/practices/remote_write/) in the Prometheus documentation.
+
+1. Click **Save**.

@@ -1,0 +1,54 @@
+---
+title: TAS for VMs Metric Exporter VMs
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **TAS Exporter Configuration** pane, you configure static IP addresses for the metric
+exporter VMs that generate metrics from TAS for VMs. There are three metric exporter VMs that
+each generate a single metric type from the Loggregator Firehose: counter, gauge, or timer.
+You can deploy all three VMs or any subset thereof. After generating these metrics, the metric
+exporter VMs expose them in Prometheus exposition format on a secured endpoint.
+
+You can also deploy two other VMs: the TAS for VMs service level indicator (SLI) exporter VM
+and the certificate expiration metric exporter VM.
+
+### <a id='exporter-config'></a> (Optional) Configure TAS for VMs Metric Exporter VMs
+
+
+To configure the **TAS Exporter Configuration** pane:
+
+<p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TAS
+  Exporter Configuration</strong> pane must not be within the reserved IP ranges you configured
+  in the BOSH Director tile.</p>
+
+1. Select **TAS Exporter Configuration**.
+
+1. (Optional) For **Static IP for TAS Counter Exporter VM**, enter a valid static IP address
+that you want to reserve for the counter metric exporter VM.
+
+1. (Optional) For **Static IP for TAS Gauge Exporter VM**, enter a valid static IP address
+that you want to reserve for the gauge metric exporter VM.
+
+1. (Optional) For **Static IP for TAS Timer Exporter VM**, enter a valid static IP address
+that you want to reserve for the timer metric exporter VM.
+
+1. (Optional) For **Static IP for TAS SLI Exporter VM**, enter a valid static IP address that
+you want to reserve for the TAS for VMs SLI exporter VM. The TAS for VMs SLI exporter VM generates
+SLIs that allow you to monitor whether the core functions of the Cloud Foundry Command-Line
+Interface (cf CLI) are working as expected. The cf CLI enables developers to create and manage
+apps through TAS for VMs. For more information, see [PAS SLI Exporter (pas-sli-exporter)](metrics.html##pas-sli-exporter)
+in _Healthwatch Metrics_.
+
+1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
+that you want to reserve for the certificate expiration metric exporter VM. The certificate
+expiration metric exporter VM exposes metrics about when certificates in your Ops Manager deployment
+are due to expire. For more information, see [Cert Expiration Exporter (cert-expiration-exporter)]
+(metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Certificate Monitoring]
+(common-configurations/certificate-monitoring.html).
+
+1. Click **Save**.

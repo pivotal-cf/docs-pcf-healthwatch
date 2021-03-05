@@ -1,0 +1,23 @@
+---
+title: Healthwatch Metrics
+owner: Healthwatch
+---
+<strong><%= modified_date %></strong>
+
+This topic lists the metrics created by Healthwatch,
+including Tanzu Application Service Exporter and Enterprise PKS Exporter.
+
+Prometheus scrapes the `/metrics` endpoint for each of the Exporters.
+The frequency with which it scrapes can be configured in the Healthwatch tile.
+
+<p class="note"><strong>Note</strong>: For external monitoring consumers,
+  Healthwatch exposes the metrics that it creates through scrapable metrics endpoints.
+  The metrics endpoints are secured by mTLS certs generated using Ops Manager CA cert.
+</p>
+
+<p class="note">
+  <strong>Note</strong>:
+  The VM names for each of these sections are in parenthesis.
+  All of these vms are deployed from either the PAS Exporter Tile
+  or the PKS Exporter Tile unless otherwise mentioned.
+</p>

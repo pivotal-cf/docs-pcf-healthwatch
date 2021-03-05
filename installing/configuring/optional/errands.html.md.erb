@@ -1,0 +1,34 @@
+---
+title: Configuring Errands
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product,
+such as a new version of the Healthwatch Products. There are two types of errands:
+_post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before
+the product is uninstalled.
+
+By default, Ops Manager always runs all errands.
+
+### <a id='errands'></a> Configure Errands
+
+In the **Errands** pane, you can select **On** to always run an errand or **Off** to never
+run it.
+
+For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager]
+(https://docs.pivotal.io/ops-manager/install/managing_errands.html) in the Ops Manager documentation.
+
+To configure the **Errands** pane:
+
+1. Select **Errands**.
+
+1. Choose whether to always run or never run the following errands:
+    * **Smoke Tests:** Verifies that the metric exporter VMs are running.
+    * **Cleanup:** Deletes any existing BOSH deployments created by the BOSH health metric
+    exporter VM for running SLI tests.
+
+1. Click **Save**.

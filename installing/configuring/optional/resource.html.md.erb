@@ -1,0 +1,50 @@
+---
+title: Configuring Resource
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+In the **Resource Config** pane, you can scale VMs in up or down according to the needs of your deployment,
+as well as associate load balancers with a group of VMs. For example, you can scale the persistent disk size
+of a metric exporter VM to enable longer data retention.
+
+### <a id='resource-config'></a> Configure Resources
+
+To configure the **Resource Config** pane:
+
+1. Select **Resource Config**.
+
+1. (Optional) To scale a job, select an option from the dropdown for the resource you want
+to modify:
+    * **Instances:** Configures the number of instances each job has.
+    * **VM Type:** Configures the type of VM used in each instance.
+    * **Persistent Disk Type:** Configures the amount of persistent disk space to allocate
+    to the job.
+
+1. (Optional) To add a load balancer to a job:
+  1. Click the icon next to the job name.
+  1. For **Load Balancers**, enter the name of your load balancer.
+  1. Ensure that the **Internet Connected** checkbox is disabled. Enabling this checkbox gives
+  VMs a public IP address that enables outbound Internet access.
+
+1. (Optional) The instance count for the SVM Forwarder VM is set to `0` by default. This VM
+emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To enable
+the SVM Forwarder VM, increase the instance count by selecting from the **Instances** dropdown.
+You do not need to enable this VM unless your foundation uses a Pivotal Healthwatch v1.8 or
+earlier integration and a third-party nozzle to export the SVMs to an external system, such
+as a remote server or a syslog aggregatation service. For more information about the SVM Forwarder
+VM, see [SVM Forwarder Monitoring Metrics (svm-forwarder)](./metrics/metrics.html#svm-forwarder) in _Healthwatch
+Metrics_.
+  <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter tile before installing
+  the Healthwatch tile, you may need to re-deploy the Healthwatch
+    Exporter after enabling the SVM Forwarder VM. For more information, see
+    <a href="#apply-changes">Deploy Healthwatch Exporter for TAS for VMs</a> below.</p>
+
+1. (Optional) Healthwatch Exporter for TAS for VMs enables the counter, gauge, and timer metric
+exporter VMs by default. If you do not want to collect all of these metric types, set the instance
+count for the VMs associated with the metrics you do not want to collect to `0`.
+
+1. Click **Save**.

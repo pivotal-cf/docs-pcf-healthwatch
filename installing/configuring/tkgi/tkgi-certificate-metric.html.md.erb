@@ -1,0 +1,37 @@
+---
+title: TKGI and Certificate Expiration Metric Exporter VMs
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **TKGI Exporter Configuration** pane, you configure static IP addresses for the TKGI
+metric exporter and certificate expiration metric exporter VMs. After generating these metrics,
+the metric exporter VMs expose them in Prometheus exposition format on a secured endpoint.
+
+To configure the **TKGI Exporter Configuration** pane:
+
+<p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TKGI
+  Exporter Configuration</strong> pane must not be within the reserved IP ranges you configured
+  in the BOSH Director tile.</p>
+
+### <a id='exporter-config'></a> (Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs
+
+1. Select **TKGI Exporter Configuration**.
+
+1. (Optional) For **Static IP for TKGI Exporter VM**, enter a valid static IP address that
+you want to reserve for the TKGI metric exporter VM. The TKGI metric exporter VM collects health
+metrics from the BOSH Director. For more information, see [PKS Exporter (pks-exporter)](metrics.html#pks-exporter)
+in _Healthwatch Metrics_.
+
+1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
+that you want to reserve for the certificate expiration metric exporter VM. The certificate
+expiration metric exporter VM exposes metrics about when certificates in your Ops Manager deployment
+are due to expire. For more information, see [Cert Expiration Exporter (cert-expiration-exporter)]
+(metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Certificate Monitoring]
+(common-configurations/certificate-monitoring.html).
+
+1. Click **Save**.

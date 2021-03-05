@@ -1,0 +1,54 @@
+---
+title: Installing Healthwatch
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to manually install the tiles required for Healthwatch. To run Healthwatch and get data
+you will need to have the Healthwatch tile and at least one of the Healthwatch Exporter tiles. For more information about the
+architecture of the Healthwatch tile, see [Healthwatch Tile](../architecture/architecture.html#healthwatch)
+in _Healthwatch Architecture_.
+
+To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing,
+Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
+
+## <a id='overview'></a> Overview
+
+The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
+from Healthwatch Exporter tiles installed on each foundation. For more information about the
+architecture of the Healthwatch tile, see [Healthwatch Tile](architecture.html#healthwatch)
+in _Healthwatch Architecture_.
+
+## <a id='prerequisite'></a> Prerequisite
+
+Before you deploy Healthwatch Exporter for TAS for VMs, you must have a metrics monitoring
+system that collects metrics using a Prometheus VM instance. This monitoring system can be
+one of the following:
+
+* The Healthwatch tile and a Healthwatch Exporter tile will need to be installed on either the same Ops Manager foundation
+or a different Ops Manager foundation.
+
+* A service or database located outside your Ops Manager foundation, such as an external time
+series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane.
+
+
+## <a id='install'></a> Manually Install Healthwatch
+
+To install a tile:
+
+1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
+VMware Tanzu Network.
+
+1. From the **Releases** dropdown, select the version you want to install.
+
+1. Download the `.pivotal` file for Healthwatch and the respective Exporter depending on your environment. You can
+find the `.pivotal` file by clicking the name of the file.
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click **Import a Product** and select the file you just downloaded.
+
+1. Once the upload is complete, click the **+** icon next to the Healthwatch and Exporter listings
+to add the tiles to your staging area. For more information, see [Adding and Deleting Products]
+(https://docs.pivotal.io/ops-manager/install/add-delete.html) in the Ops Manager documentation.

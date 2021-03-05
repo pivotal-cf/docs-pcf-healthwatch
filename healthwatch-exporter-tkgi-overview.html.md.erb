@@ -1,0 +1,18 @@
+---
+title:  Overview of the Healthwatch Exporter for TKGI Tile
+owner: Healthwatch
+---
+
+The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
+to the health of your TKGI deployment.
+
+The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
+exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
+system.
+
+Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of
+TKGI components and the Healthwatch Exporter for TKGI tile:
+
+* SLIs for TKGI components
+* BOSH system metrics for TKGI
+* VMs deployed by Healthwatch Exporter for TKGI

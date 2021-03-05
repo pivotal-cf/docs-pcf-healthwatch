@@ -1,0 +1,36 @@
+---
+title: Overview of the Healthwatch Tile
+owner: Healthwatch
+---
+
+The **Healthwatch** tile gathers metrics across multiple Ops Manager foundations by scraping
+them from Healthwatch Exporter tiles installed on each foundation.
+
+Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and
+stores metrics from the Healthwatch Exporter tiles and enables you to configure alerts with
+Alertmanager.
+
+Healthwatch then exports the collected metrics to dashboards in Grafana, enabling you to visualize
+the data with charts and graphs and create customized dashboards for long-term monitoring and
+troubleshooting.
+
+Healthwatch includes the following features:
+
+* **Prometheus:**
+  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related
+  to the functionality of platform- and runtime-level components that include the following:
+      * Service level indicators (SLIs) for the BOSH Director
+      * SLIs for TAS for VMs components
+      * SLIs for TKGI components
+      * When Ops Manager certificates are due to expire
+      * Canary URL tests for TAS for VMs apps
+      * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+      * BOSH system metrics for TKGI
+      * VMs deployed by Healthwatch Exporter tiles
+  * Stores metrics for up to six weeks
+  * Can write to remote storage in addition to its local TSDB
+
+* **Grafana:** Enables you to visualize the collected metrics data in charts and graphs, as
+well as create customized dashboards for easier monitoring and troubleshooting
+
+* **Alertmanager:** Manages and sends alerts according to the alerting rules you configure

@@ -11,7 +11,7 @@ This topic describes the architecture of the Healthwatch and Healthwatch Exporte
 The following diagram shows how Healthwatch and its exporters are commonly deployed for
 multi-foundation monitoring:
 
-![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
+![a diagram representing the relationship between a control plane and the foundations that federate to it](../images/ControlPlaneArchitecture.png)
 
 ## <a id='healthwatch'></a> Healthwatch Tile
 
@@ -25,7 +25,7 @@ You can also scale Grafana horizontally beyond the default single VM.
 You can scale TSDB vertically but should not scale it horizontally.
 An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics stored in TSDB.
 
-![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
+![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](../images/Healthwatch.png)
 
 ### <a id='network-rules'></a> Required Networking Rules for Healthwatch
 
@@ -49,7 +49,7 @@ An operator can choose to deploy all three VMs or any subset thereof.
 Metrics are then exposed on a secured endpoint in TSDB exposition format.
 You can scale these VMs vertically but should not scale them horizontally.
 
-![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
+![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](../images/HealthwatchExporterforPAS.png)
 
 ### <a id='network-rules-tas'></a> Required Networking Rules for Healthwatch Exporter for TAS for VMs
 
@@ -70,7 +70,7 @@ This VM obtains health metrics through the Firehose similarly to TAS for VMs.
 Metrics are then exposed on a secured endpoint in TSDB exposition format.
 You can scale this VM vertically but should not scale it horizontally.
 
-![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
+![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](../images/HealthwatchExporterforPKS.png)
 
 ### <a id='pks-cluster-discovery'></a> How PKS Cluster Discovery works
 

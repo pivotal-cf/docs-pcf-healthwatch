@@ -1,0 +1,93 @@
+---
+title: Healthwatch Component Monitoring Metrics
+owner: Healthwatch
+---
+<strong><%= modified_date %></strong>
+
+## <a id="component-monitoring-metrics"></a> Overview
+
+The following metrics exist for the purpose of monitoring the Healthwatch components.
+
+## <a id='pks-exporter'></a> PKS Exporter (pks-exporter)
+
+The PKS Exporter makes BOSH System metrics for PKS available in Prometheus.
+
+| Metric                                                     | Description                                                                                   |
+|------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `healthwatch_boshExporter_ingressLatency_seconds_bucket`   | Number of seconds it took to process a batch of Loggregator envelopes, grouped by latency     |
+| `healthwatch_boshExporter_ingressLatency_seconds_count`    | Total number of metrics in all the buckets                                                    |
+| `healthwatch_boshExporter_ingressLatency_seconds_sum`      | Total value of the metrics in all the buckets                                                 |
+| `healthwatch_boshExporter_ingress_envelopes`               | Number of envelopes received by observability metrics agent                                   |
+| `healthwatch_boshExporter_metricConversion_seconds_bucket` | Number of seconds it took to convert a bosh metric to a Prometheus gauge, grouped by duration |
+| `healthwatch_boshExporter_metricConversion_seconds_count`  | Total number of metrics in all the buckets                                                    |
+| `healthwatch_boshExporter_metricConversion_seconds_sum`    | Total value of the metrics in all the buckets                                                 |
+| `healthwatch_boshExporter_status`                          | Exporter status, a 1 indicates the exporter is running and healthy                            |
+
+## <a id='pas-exporters'></a> PAS Exporter VMs (pas-exporter-*)
+
+These following exporters take metrics from the Firehose
+and make them accessible on a Prometheus-compatible `/metrics` endpoint.
+
+Each of the following exporters handles a specific subset of the Firehose metrics.
+The names of the exporters correspond to the metrics they export.
+
+### <a id='pas-exporter-counter'></a> PAS Counter Exporter (pas-exporter-counter)
+
+The PAS Counter Exporter makes Loggregator Firehose Counter metrics available in Prometheus.
+
+| Metric                                              | Description                                                                     |
+|-----------------------------------------------------|---------------------------------------------------------------------------------|
+| `healthwatch_pasExporter_counterConversion_seconds` | Number of seconds it took to convert a counter envelope to a Prometheus counter |
+| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                                   |
+| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes              |
+| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                     |
+| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy              |
+
+### <a id='pas-exporter-gauge'></a> PAS Gauge Exporter (pas-exporter-gauge)
+
+The PAS Gauge Exporter makes Loggregator Firehose Gauge metrics available in Prometheus.
+
+| Metric                                              | Description                                                                 |
+|-----------------------------------------------------|-----------------------------------------------------------------------------|
+| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                               |
+| `healthwatch_pasExporter_gaugeConversion_seconds`   | Number of seconds it took to convert a gauge envelope to a Prometheus gauge |
+| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes          |
+| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent                 |
+| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy          |
+
+### <a id='pas-exporter-timer'></a> PAS Timer Exporter (pas-exporter-timer)
+
+The PAS Timer Exporter makes Loggregator Firehose Timer metrics available in Prometheus.
+
+| Metric                                              | Description                                                        |
+|-----------------------------------------------------|--------------------------------------------------------------------|
+| `healthwatch_pasExporter_evictedMetrics`            | Number of metrics evicted from exporter cache                      |
+| `healthwatch_pasExporter_ingressLatency_seconds`    | Number of seconds it took process a batch of Loggregator envelopes |
+| `healthwatch_pasExporter_ingress_envelopes`         | Number of envelopes received by observability metrics agent        |
+| `healthwatch_pasExporter_status`                    | Exporter status, a 1 indicates the exporter is running and healthy |
+
+## <a id="prometheus-exposition"></a> Prometheus Exposition
+
+These metrics come from by the majority of the exporter VMs and relate to the `/metrics` endpoint that Prometheus scrapes from.
+
+| Metric                                                    | Description                                                        |
+|-----------------------------------------------------------|--------------------------------------------------------------------|
+| `healthwatch_prometheusExpositionLatency_seconds`         | Number of seconds it took to render Prometheus scrape page         |
+| `healthwatch_prometheusExposition_expiredMetrics`         | Number of metrics expired from exporter cache                      |
+| `healthwatch_prometheusExposition_histogramMapConversion` | Time it takes to convert histogram collection to a map             |
+| `healthwatch_prometheusExposition_metricMapConversion`    | Time it takes to convert metrics collection to a map               |
+| `healthwatch_prometheusExposition_metricSorting`          | Time it takes to sort metrics when rendering Prometheus exposition |
+
+
+## <a id="svm-forwarder"></a> SVM Forwarder Monitoring Metrics (svm-forwarder)
+
+The SVM Forwarder makes Healthwatch 1.x Super Value Metrics available in the Loggregator Firehose for external use.
+See the [Release Notes](./release-notes.html#2-0-1) for more information.
+
+| Metric                         | Description                                                              |
+|--------------------------------|--------------------------------------------------------------------------|
+| `failed_scrapes_total`         | Total number of failed scrapes for the target `source_id`                |
+| `last_total_attempted_scrapes` | Count of attempted scrapes during last round of scraping                 |
+| `last_total_failed_scrapes`    | Count of failed scrapes during last round of scraping                    |
+| `last_total_scrape_duration`   | Time in milliseconds to scrape all targets in last round of scraping     |
+| `scrape_targets_total`         | Total number of scrape targets identified from prom scraper config files |

@@ -1,0 +1,100 @@
+---
+title: Configure Prometheus
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
+from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
+or databases from which you want to collect metrics.
+
+The values that you enter in the fields in the **Prometheus Configuration** pane also define
+their corresponding properties in the `scrape_config` and `tls_config` sections of the Prometheus
+configuration file. For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+and [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
+in _Configuration_ in the Prometheus documentation.
+
+## <a id='prometheus'></a> Configure Prometheus
+
+To configure the **Prometheus Configuration** pane:
+
+1. Select **Prometheus Configuration**.
+
+1. For **Scrape Interval**, specify the frequency at which you want the Prometheus VM to scrape
+Prometheus exposition endpoints for metrics. You can enter a value string that specifies `ns`,
+`us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage,
+VMware recommends using the default value of `15s`, or 15 seconds.
+
+1. (Optional) To configure the Prometheus VM to scrape metrics from the Healthwatch Exporter
+tiles installed on other Ops Manager foundations or from external services or databases, configure
+additional scrape jobs under **Additional Scrape Config Jobs**. You can configure scrape jobs
+for any app or service that exposes metrics using a Prometheus exposition format, such as Concourse
+CI. For more information about Prometheus exposition formats, see [Exposition formats](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md) in the Prometheus repository on GitHub.
+  <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
+    Healthwatch Exporter tiles that are installed on the same foundation as Healthwatch. You
+    do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need
+    to configure scrape jobs for Healthwatch Exporter tiles that are installed on other foundations.</p>
+  1. Click **Add**.
+  1. For **TSDB Scrape job**, provide the configuration YAML for the scrape job you want to
+  configure. This job can use any of the properties defined by Prometheus except the `tls_config`
+  property. Do not prefix the configuration YAML with a dash. For example:
+
+        ```
+        job_name: foundation-1
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+         - targets:
+           - "1.2.3.4:9090"
+           - "5.6.7.8:9090"
+        ```
+        For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+        in _Configuration_ in the Prometheus documentation.
+        <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code> property,
+          do not use the following job names:
+          <ul>
+            <li><code>Healthwatch-view-pas-exporter</code></li>
+            <li><code>Healthwatch-view-pks-exporter</code></li>
+            <li><code>tsdb</code></li>
+            <li><code>grafana</code></li>
+            <li><code>pks-master-kube-scheduler</code></li>
+            <li><code>pks-master-kube-controller-manager</code></li>
+          </ul>
+        </div>
+  1. (Optional) To enable TLS communication between the Prometheus VM and your external service
+  or database:
+      1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
+      signs the certificates you provide in the **TLS Config Certificate and Private Key**
+      field below. This CA appears as the `ca_file` property in the `tls_config` section of
+      the Prometheus configuration file.
+      1. For **TLS Config Certificate and Private Key**, provide at least one certificate and
+      private key to enable TLS communication between the Prometheus VM and your external service
+      or database. These certificates and private keys appear as the `cert_file` and `key_file`
+      properties in the `tls_config` section of the Prometheus configuration file.
+      1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS
+      communication between the Prometheus VM and your external service or database. This server
+      name appears as the `server_name` property in the `tls_config` section of the Prometheus
+      configuration file.
+
+1. For **Chunk Size (Disk) MB**, enter in MB the size that you want to specify for
+chunks of free disk. The default value is `6144`. Healthwatch uses this free disk chunk size
+to calculate the available disk chunks super value metric (SVM). If you rely on Pivotal Healthwatch
+v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses this SVM to
+calculate the `Diego_AvailableFreeChunksDisk` metric. The Pivotal Healthwatch integration sends
+the `Diego_AvailableFreeChunksDisk` metric back into Loggregator so third-party nozzles can
+send it to external destinations, such as a remote server or external aggregation service.
+
+1. For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify
+for chunks of free memory. The default value is `4096`. Healthwatch uses this free memory chunk
+size to calculate the available memory chunks super value metric (SVM). If you rely on Pivotal
+Healthwatch v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses
+this SVM to calculate the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch
+integration sends the `Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party
+nozzles can send it to external destinations, such as a remote server or external aggregation
+service.
+
+1. Click **Save**.

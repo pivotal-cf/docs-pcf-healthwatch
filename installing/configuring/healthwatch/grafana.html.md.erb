@@ -1,15 +1,196 @@
 ---
-title: Configuring Grafana Authentication
+title: Configure Grafana
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure different authentication methods for users to log in
-to the Grafana UI.
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **Grafana Configuration** pane, you configure how users access and authenticate with
+the Grafana UI, as well as which dashboards appear in the Grafana UI. For more information
+about the Grafana UI as it relates to Healthwatch, see [Healthwatch](index.html).
+
+The values that you enter in the fields in the **Grafana Configuration** pane also define their
+corresponding properties the Grafana configuration file. For more information, see [Configuration]
+(https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
+
+## <a id='grafana'></a> Configure Grafana
+
+To configure the **Grafana Configuration** pane:
+
+1. Select **Grafana Configuration**.
+
+1. If you configured your Grafana VM to allow access to the Grafana UI from a URL outside your
+BOSH network, enter the full URL in **Root URL for Grafana**. You must provide this URL to
+enable generic OAuth or UAA to redirect users to the Grafana UI. Alertmanager also uses this
+URL to generate links to the Grafana UI in alert messages. This URL appears as the `root_url`
+property in the `[server]` section of the Grafana configuration file.
+<br>
+<br>
+This URL must be configured in your DNS provider to point to the public IP address of either
+a single Grafana VM or the load balancer in front of multiple Grafana VMs. You can obtain this
+IP address to configure **Root URL for Grafana** after you deploy the Healthwatch tile for
+the first time. Your Grafana VMs listen on either port `443` or `80`, depending on whether
+you provide an SSL certificate in the **Enable HTTPS by providing certificates** field below.
+For more information about configuring DNS for the Grafana VM, see [Configuring DNS for the
+Grafana VM](#dns).
+
+1. Under **Enable HTTP(s) Proxy Settings for Grafana**, choose whether to enable or disable
+the Grafana VM to make HTTP and HTTPS proxy requests:
+  1. To disable HTTP and HTTPS proxy requests, select **Disabled**. HTTP and HTTPS proxy settings
+  are disabled by default.
+  1. To configure proxy settings for the Grafana VM:
+      1. Select **Enabled**.
+      1. For **HTTP Proxy for Grafana**, enter your HTTP proxy server URL. The Grafana VM uses
+      this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts you
+      configure in the **HTTPS Proxy for Grafana** and **No Proxy for Grafana** fields below.
+      1. For **HTTPS Proxy for Grafana**, enter your HTTPS proxy server URL. The Grafana VM
+      uses this URL as the proxy URL for all HTTPS requests except those from hosts you configure
+      in the **No Proxy for Grafana** field below.
+      1. For **No Proxy for Grafana**, enter a comma-separated list of the hosts you want to
+      exclude from proxying. VMware recommends including `*.bosh` and the range of your internal
+      network IP addresses so the Grafana VM can still access the Prometheus VM without going
+      though the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana VM
+      to access all BOSH DNS addresses and all internal network IP addresses containing `10.0.0.0/8`
+      or `*.example.com` directly, without going though the proxy.
+      <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you
+        are deploying Healthwatch in an air-gapped environment and want to configure alert
+        channels to external addresses, such as the external Slack webhook.</p>
+
+1. (Optional) For **Static IPs for the Grafana VM(s)**, enter a comma-separated list of valid
+static IP addresses that you want to reserve for the Grafana VM. These IP addresses must not
+be within the reserved IP ranges you configured in the BOSH Director tile.
+
+1. (Optional) To prevent users from logging in to Grafana UI with basic authentication, including
+admin users, clear the **Enable Grafana Login Form** checkbox. This checkbox is selected by
+default.
+
+1. Under **Discover Product Dashboards**, select how you want the Grafana VM to discover the
+runtimes in your foundations.
+    * **Dynamic:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
+    VMware Tanzu Application Service for VMs (TAS for VMs) or TKGI that are currently installed
+    on your foundation. This option is selected by default.
+    * **Manual:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
+    TAS for VMs or TKGI you specify in **TAS Version to Monitor** and **TKGI Version to Monitor**.
+    * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
+    for TAS for VMs or TKGI.
+
+1. (Optional) If you want the Grafana VM to create a dashboard for RabbitMQ, select the **Enable
+RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
+
+1. (Optional) To enable HTTPS for the Grafana VM, provide one or more SSL certificates in **Enable
+HTTPS by providing certificates**.
+
+1. (Optional) If you provided one or more SSL certificates in the previous step, provide a
+CA for those SSL certificates in **CA for SSL certificates**.
+
+1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana VM,
+enter a comma-separated list of ciphers in **Additional Cipher Suite Support**. For a list
+of supported cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository on GitHub.
+
+1. Under **Select an authentication mechanism for Grafana**, select the user authentication
+method you want the Grafana VM to use:
+    * **Basic:** Enables basic authentication. For more information, see [Configure Basic Authentication]
+    (#configure-basic-auth) in _Configuring
+    Grafana Authentication_.
+    * **Generic OAuth:** Enables OAuth authentication for any supported authentication provider,
+    such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
+    (#configure-generic-oauth) in _Configuring
+    Grafana Authentication_ and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
+    in the Grafana documentation.
+    * **UAA:** Enables UAA authentication. For more information, see [Configure UAA Authentication]
+    (#configure-uaa) in _Configuring Grafana
+    Authentication_.
+    * **LDAP:** Enables LDAP authentication. For more information, see [Configure LDAP Authentication]
+    (#configure-ldap) in _Configuring Grafana
+    Authentication_ and [LDAP Authentication](https://grafana.com/docs/grafana/latest/auth/ldap/)
+    in the Grafana documentation.
+
+1. Under **Enable SMTP for Grafana Alerts**, choose whether to enable or disable email alerts
+from the Grafana UI.
+  * To diable email alerts, select **Disabled**. Email alerts are disabled by default.
+  * To enable email alerts:
+      1. Select **Enabled**.
+      1. For **Host Name**, enter the host name of your SMTP server. This host name appears
+      as the `host` property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Port**, enter the port of your SMTP server. This port appears as the `port`
+      property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Username**, enter your SMTP authentication username. This username appears as
+      the `user` property in the `[smtp]` section of the Grafana configuration file.
+      1. For **Password**, enter your SMTP authentication password. This password appears as
+      the `password` property in the `[smtp]` section of the Grafana configuration file.
+      1. (Optional) To enable the Grafana VM to skip SSL validation when communicating with
+      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox
+      appears as the `skip_verify` property in the `[smtp]` section of the Grafana configuration
+      file.
+      1. For **From Address**, enter the sender email address that appears on outgoing email
+      alerts. This email address appears as the `from_address` property in the `[smtp]` section
+      of the Grafana configuration file.
+      1. For **From Name**, enter the sender name that appears on outgoing email alerts. This
+      name appears as the `from_name` property in the `[smtp]` section of the Grafana configuration
+      file.
+      1. For **EHLO Identity**, enter a name for the client identity that your SMTP server
+      uses when sending EHLO commands. This name appears as the `ehlo_identity` property in
+      the `[smtp]` section of the Grafana configuration file.
+      1. For **TLS Credentials**, enter a certificate and private key to enable the Grafana
+      VM to communicate with your SMTP server over TLS. This certificate and private key appear
+      as the `cert_file` and `key_file` properties in the `[smtp]` section of the Grafana configuration
+      file.
+      <br>
+      <br>
+    For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
+    in the Grafana documentation.
+
+1. Click **Save**.
+
+## <a id='dns'></a> Configure Grafana DNS
+
+This topic describes the general flow of setting up DNS for your Grafana instance
+and provides a specific configuration example using Google Cloud Platform (GCP).
+
+### <a id="gen-flow"></a> General Flow
+
+The high level steps for setting up DNS for a Grafana instance are:
+
+1. Identify the IP address of the Grafana VM created by the Healthwatch 2.0 deployment.
+1. Create a Type A DNS record pointing to that IP address.
+1. Wait for DNS to update.
+    <p class="note"><strong>Note:</strong> You can speed this process up by modifying your computer's DNS settings.</p>
+1. Visit the URL that you configured as a DNS record to point to your Grafana instance.
+1. Ensure that the Grafana login page appears as expected.
+
+### <a id="gcp-example"></a> GCP Example
+
+The following procedure is an example of how to set up DNS for a Grafana instance on GCP.
+
+1. After signing into Google Cloud Console, navigate to **Compute Engine > VM instances**.
+1. In the **Filter VM Instances** field, enter `grafana` to find the Grafana VM that was created during your Healthwatch deployment.
+1. If you have only one foundation, only one VM should appear after applying the filter. If you have more than foundation, you can add a filter to narrow down the search to a specific foundation. For example, if you have a control plane foundation named `hw-cp`, you can locate the Grafana instance for that foundation by typing `hw-cp`.
+1. Copy the IP address located in the **External IP** field in the search result.
+1. In Google Cloud Console, navigate to **Network services > Cloud DNS**.
+1. Filter DNS zones for your foundation. Following the control plane example, you can type `hw-cp-zone`.
+1. Click on the zone name to edit the zone.
+1. Click **Add record set**.
+1. Enter `grafana` into the **DNS Name** field.
+    Notice that the rest of the domain is already populated
+    because this record is created within the context of a DNS zone.
+1. Make sure **Resource Record Type** is set to **A**.
+1. (Optional) Set **TTL** (Time To Live) to **1** and **TTL Unit** to **seconds**
+    to reduce the amount of wait time required to verify that the change worked.
+1. Paste the IP address you retrieved above into the **IPv4 Address** field.
+1. Click **CREATE**.
+1. In a Web browser, visit `grafana.SYSTEM-DOMAIN`,
+    where `SYSTEM-DOMAIN` is the same domain in the URL you use to visit the Ops Manager UI (`pcf.SYSTEM-DOMAIN`).
+    For example, `grafana.hw-cp.cf-denver.com`.
+1. If the Grafana login page does not load as expected,
+    you can try adding Google's Public DNS Server (`8.8.8.8`) to your computer's network configuration.
+    <p class="note"><strong>Note</strong>: Detailed instructions for adding a DNS server to your computer's network configuration depend on the operating system.</p>
+1. When you see the Grafana login page, you have successfully created a DNS entry.
 
 
-## <a id='overview'></a> Overview of Grafana Authentication
+## <a id='overview'></a> Grafana Authentication
 
 By default, users log in to the Grafana UI using basic authentication. With basic authentication,
 all users log in to the Grafana UI using the username `admin` and the admin login credentials
@@ -39,7 +220,7 @@ corresponding properties in the Grafana configuration file. For more information
 (https://grafana.com/docs/grafana/latest/administration/configuration/) in the Grafana documentation.
 
 
-## <a id='configure-basic-auth'></a> Configure Basic Authentication
+### <a id='configure-basic-auth'></a> Configure Basic Authentication
 
 When you configure basic authentication for Grafana, all users log in to the Grafana UI using
 the username `admin` and the admin login credentials found in the **Credentials** tab of the
@@ -65,7 +246,7 @@ To configure basic authentication for Grafana:
 UI.
 
 
-## <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
+### <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
 
 When you configure generic OAuth authentication for Grafana, users can log in to the Grafana
 UI with their credentials for the Grafana-supported OAuth provider of your choice. For more
@@ -183,7 +364,7 @@ file.
 1. Click **Save**.
 
 
-## <a id='configure-uaa'></a> Configure UAA Authentication
+### <a id='configure-uaa'></a> Configure UAA Authentication
 
 When you configure UAA authentication for Grafana, users can log in to the Grafana UI with
 their credentials for the UAA instance of the runtime that is installed on the same foundation
@@ -198,7 +379,7 @@ for the Grafana VM](#create-uaa-client) below.
 1. Configure the `grafana` UAA client in the Healthwatch tile. For more information, see [Configure
 the UAA Client in Healthwatch](#configure-client) below.
 
-### <a id='create-uaa-client'></a> Create a UAA Client for the Grafana VM
+#### <a id='create-uaa-client'></a> Create a UAA Client for the Grafana VM
 
 To facilitate UAA authentication, the Grafana VM must access the UAA instance for your runtime
 through a UAA client.
@@ -254,7 +435,7 @@ tab in your runtime tile in a previous step.
     an SSL certificate in the **Enable HTTPS by providing certificates** field in the **Grafana
     Configuration** pane of the Healthwatch tile.
 
-### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
+#### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
 
 After you create a UAA client for the Grafana VM, you must configure it in the Healthwatch
 tile.
@@ -289,7 +470,7 @@ one of the following options:
 1. Click **Save**.
 
 
-## <a id='configure-ldap'></a> Configure LDAP Authentication
+### <a id='configure-ldap'></a> Configure LDAP Authentication
 
 When you configure LDAP authentication for Grafana, users can log in to the Grafana UI with
 their LDAP credentials. You can also create mappings between LDAP group memberships and Grafana

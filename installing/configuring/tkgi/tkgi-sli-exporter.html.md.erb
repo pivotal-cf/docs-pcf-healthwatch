@@ -1,0 +1,45 @@
+---
+title: TKGI SLI Exporter VM
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+
+In the **TKGI SLI Exporter Configuration** pane, you configure the TKGI SLI exporter VM. The
+TKGI SLI exporter VM generates SLIs that allow you to monitor whether the core functions of
+the TKGI Command-Line Interface (TKGI CLI) are working as expected. The TKGI CLI enables developers
+to create and manage Kubernetes clusters through TKGI. For more information, see [PKS SLI Exporter
+(pks-sli-exporter)](metrics.html#pks-sli-exporter) in _Healthwatch
+Metrics_.
+
+### <a id='sli-config'></a> (Optional) Configure the TKGI SLI Exporter VM
+
+To configure the **TKGI SLI Exporter Configuration** pane:
+
+1. For **Static IP for TKGI SLI Exporter VM**, enter a valid static IP address that you want
+to reserve for the TKGI SLI exporter VM. This IP address must not be within the reserved IP
+ranges you configured in the BOSH Director tile.
+
+1. For **Test Frequency in Seconds**, enter in seconds how frequently you want the TKGI SLI
+exporter VM to run SLI tests.
+
+1. (Optional) To enable TLS communication between the TKGI SLI exporter VM and the TKGI API,
+choose one of the following options:
+    * To configure the TKGI SLI exporter VM to use a self-signed certificate authority (CA)
+    or a certificate that is signed by a self-signed CA when communicating with the TKGI API
+    over TLS:
+        1. For **TKGI API Certificate Authority**, provide the CA. If you provide a self-signed
+        CA, it must be the same CA that signs the certificate in the TKGI API.
+        1. When you provide a self-signed CA or certificate that is signed by a self-signed
+        CA in this field, the **TKGI API Skip SSL Validation** checkbox becomes configurable.
+        Disable the **TKGI API Skip SSL Validation** checkbox.
+    * To configure the TKGI SLI exporter VM to skip SSL validation when communicating with
+    the TKGI API over TLS, leave **TKGI API Certificate Authority** blank. The **TKGI API Skip
+    SSL Validation** checkbox is enabled and not configurable by default. VMware does not recommend
+    skipping SSL validation in a production environment.
+
+1. Click **Save**.

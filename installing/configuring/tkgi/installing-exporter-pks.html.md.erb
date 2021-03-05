@@ -1,0 +1,52 @@
+---
+title: Healthwatch Exporter for TKGI
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+This topic describes how to install, configure, and deploy the Healthwatch Exporter for Tanzu
+Kubernetes Grid Integrated (TKGI) tile.
+
+To install, configure, and deploy Healthwatch Exporter for TKGI through an automated pipeline,
+see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
+
+When installed on a foundation you want to monitor, Healthwatch Exporter for TKGI deploys metric
+exporter VMs to generate service level indicators (SLIs) related to the health of your TKGI
+deployment. The Prometheus VM that exists within your metrics monitoring system then scrapes
+the Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into
+your monitoring system.
+
+For more information about the architecture of the Healthwatch Exporter for TKGI tile, see
+[Healthwatch Exporter for TKGI](architecture.html#healthwatch-pks) in _Healthwatch Architecture_.
+
+## <a id='configure'></a> Configure Healthwatch Exporter for TKGI
+
+After installing Healthwatch Exporter for TKGI, you configure the metric exporter VMs deployed
+by Healthwatch Exporter for TKGI through the tile UI. You can also configure errands and system
+logging, as well as scale VM instances up or down and configure load balancers for multiple
+VM instances.
+
+To configure the Healthwatch Exporter for TKGI tile:
+
+<p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter
+  for TKGI tile to ensure that it deploys successfully before you fully configure it, you only
+  need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Exporter
+  Configuration</strong> panes.</p>
+
+
+## <a id='apply-changes'></a> Deploy Healthwatch Exporter for TKGI
+
+To complete your installation of the Healthwatch Exporter for TKGI tile:
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html)
+in the Ops Manager documentation.
+
+

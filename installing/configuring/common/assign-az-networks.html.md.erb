@@ -1,0 +1,29 @@
+---
+title: Assign AZs and Networks
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> AZs and Networks Overview
+
+WHY ITS REQUIRED
+
+## <a id='az'></a> Assign AZs and Networks
+
+In the **Assign AZ and Networks** pane, you assign jobs to your AZs and networks.
+
+To configure the **Assign AZ and Networks** pane:
+
+1. Select **Assign AZs and Networks**.
+
+1. Under **Place singleton jobs in**, select the first AZ. Ops Manager runs any job with a
+single instance in this AZ.
+
+1. Under **Balance other jobs in**, select one or more other AZs. Ops Manager balances instances
+of jobs with more than one instance across the AZs that you specify.
+
+1. From the **Network** dropdown, select the runtime network that you created when configuring
+the BOSH Director tile.
+
+1. Click **Save**.

@@ -1,0 +1,51 @@
+---
+title: Configure Canary URLs
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='overview'></a> Overview
+
+WHY ITS REQUIRED
+In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporter
+in the Prometheus VM sends canary tests. Testing a canary target URL allows you to gauge the
+overall health and accessibility of an app, runtime, or deployment.
+
+The **Canary URL Configuration** pane configures the Blackbox Exporter in the Prometheus VM.
+For more information, see the [Blackbox exporter](https://github.com/prometheus/blackbox_exporter)
+repository on GitHub.
+
+## <a id='canary'></a> Configure Canary URLs
+
+
+To configure the **Canary URL Configuration** pane:
+
+1. Select **Canary URL Configuration**.
+
+1. For **Exporter Port**, specify the port that the Blackbox Exporter exposes to the Prometheus
+VM. The default port is `9115`. You do not need to specify a different port unless port `9115`
+is already in use on the Prometheus VM.
+
+1. (Optional) For **Ops Manager URL**, enter the fully-qualified domain name (FQDN) of your
+Ops Manager deployment. This creates a canary target URL that allows the Blackbox Exporter
+to test whether the Ops Manager Installation Dashboard is accessible. The results from these
+canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
+  <p class="note"><strong>Note:</strong> If you have SAML authentication enabled for Ops Manager,
+    enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
+    is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
+1.  Skip Ops Manager SSL Validation
+**************************************************************************
+1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus VM
+runs continuous canary tests to these URLs and records the results. To configure canary target
+URLs:
+  1. Click **Add**.
+  1. For **HTTP(S) URL**, enter the URL to which you want the Prometheus VM to send canary
+  tests. VMware recommends including `apps.sys.FOUNDATION-URL` if you have TAS for VMs installed,
+  or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is the
+  root URL of your foundation.
+  <p class='note'><strong>Note:</strong> The Prometheus VM automatically creates scrape jobs
+    for these URLs. You do not need to create additional scrape jobs for them in the <strong>Prometheus
+    Configuration</strong> pane.</p>
+
+1. Click **Save**.

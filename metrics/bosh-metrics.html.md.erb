@@ -1,0 +1,64 @@
+---
+title: Bosh Service Level Indicator Metrics
+owner: Healthwatch
+---
+<strong><%= modified_date %></strong>
+
+## <a id='bosh-sli'></a> Overview
+
+BOSH is the technology behind Ops Manager to manage the
+VMs deployed. If the BOSH Director is not responsive or functional, BOSH-managed VMs lose their resiliency.
+Healthwatch executes a continuous test suite
+to validate the functionality of BOSH director.
+
+There are three exporters that handle SLI metrics for BOSH,
+the Bosh Deployments Exporter, the Bosh Health Exporter, and the PKS Exporter.
+
+## <a id='bosh-deployments-exporter'></a> Bosh Deployments Exporter (bosh-deployments-exporter)
+
+The Bosh Deployments Exporter periodically checks
+to see if any BOSH Deployments other than the one created by the Bosh Health Exporter are running.
+
+| Metric                                                                                | Description                                                                                                                                                                                                              |
+|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `bosh_deployments_status`                                                             | Bosh Deployments status, a 1 indicates a deployment is occurring on the director                                                                                                                                         |
+| `bosh_sli_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}`          | Number of seconds it took for the SLI test suite to run, grouped by duration                                                                                                                                             |
+| `bosh_sli_duration_seconds_count{exported_job="bosh-deployments-exporter"}`           | Total number of metrics in all the buckets                                                                                                                                                                               |
+| `bosh_sli_duration_seconds_sum{exported_job="bosh-deployments-exporter"}`             | Total value of the metrics in all the buckets                                                                                                                                                                            |
+| `bosh_sli_exporter_status{exported_job="bosh-deployments-exporter"}`                  | Exporter status, a 1 indicates the exporter is running and healthy                                                                                                                                                       |
+| `bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}`                   | Total number of failures of the SLI test suite                                                                                                                                                                           |
+| `bosh_sli_run_duration_seconds{exported_job="bosh-deployments-exporter"}`             | Number of seconds it took for the SLI test suite to run                                                                                                                                                                  |
+| `bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}`                       | Total number of runs of the SLI test suite. Use `bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}` / `bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}` to get failure rate.               |
+| `bosh_sli_task_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}`     | Number of seconds it took for a particular task to run, grouped by duration                                                                                                                                              |
+| `bosh_sli_task_duration_seconds_count{exported_job="bosh-deployments-exporter"}`      | Total number of metrics in all the buckets                                                                                                                                                                               |
+| `bosh_sli_task_duration_seconds_sum{exported_job="bosh-deployments-exporter"}`        | Total value of the metrics in all the buckets                                                                                                                                                                            |
+| `bosh_sli_task_run_duration_seconds{exported_job="bosh-deployments-exporter"}`        | Number of seconds it took for a particular task to run                                                                                                                                                                   |
+| `bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}`                  | Total number of runs for a particular SLI task. Use `bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter"}` / `bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}` to get failure rate. |
+| `bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter",task="tasks"}` | Total number of failures for a `bosh tasks` command                                                                                                                                                                      |
+
+## <a id='bosh-health-exporter'></a> Bosh Health Exporter (bosh-health-exporter)
+
+The Bosh Health Exporter periodically creates and deletes a BOSH deployment.
+
+<p class="note">
+  <strong>Note</strong>:
+  The BOSH Health Exporter deploys and deletes a VM named <code>bosh-health-exporter</code> as part of this test suite.
+</p>
+
+| Metric                                                                                 | Description                                                                                                                                                                                        |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `bosh_sli_duration_seconds_bucket{exported_job="bosh-health-exporter"}`                | Number of seconds it took for the SLI test suite to run, grouped by duration                                                                                                                       |
+| `bosh_sli_duration_seconds_count{exported_job="bosh-health-exporter"}`                 | Total number of metrics in all the buckets                                                                                                                                                         |
+| `bosh_sli_duration_seconds_sum{exported_job="bosh-health-exporter"}`                   | Total value of the metrics in all the buckets                                                                                                                                                      |
+| `bosh_sli_exporter_status{exported_job="bosh-health-exporter"}`                        | Exporter status, a 1 indicates the exporter is running and healthy                                                                                                                                 |
+| `bosh_sli_failures_total{exported_job="bosh-health-exporter"}`                         | Total number of failures of the SLI test suite                                                                                                                                                     |
+| `bosh_sli_run_duration_seconds{exported_job="bosh-health-exporter"}`                   | Number of seconds it took for the SLI test suite to run                                                                                                                                            |
+| `bosh_sli_runs_total{exported_job="bosh-health-exporter"}`                             | Total number of runs of the SLI test suite. Use `bosh_sli_failures_total{exported_job="bosh-health-exporter"}` / `bosh_sli_runs_total{exported_job="bosh-health-exporter"}` to get failure rate.   |
+| `bosh_sli_task_duration_seconds_bucket{exported_job="bosh-health-exporter"}`           | Number of seconds it took for a particular task to run, grouped by duration                                                                                                                        |
+| `bosh_sli_task_duration_seconds_count{exported_job="bosh-health-exporter"}`            | Total number of metrics in all the buckets                                                                                                                                                         |
+| `bosh_sli_task_duration_seconds_sum{exported_job="bosh-health-exporter"}`              | Total value of the metrics in all the buckets                                                                                                                                                      |
+| `bosh_sli_task_run_duration_seconds{exported_job="bosh-health-exporter"}`              | Number of seconds it took for a particular task to run                                                                                                                                             |
+| `bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}`                        | Total number of runs for a particular SLI task. Use `bosh_sli_task_failures{exported_job="bosh-health-exporter"}` / `bosh_sli_task_runs{exported_job="bosh-health-exporter"}` to get failure rate. |
+| `bosh_sli_task_failures_total{exported_job="bosh-health-exporter",task="delete"}`      | Total number of failures for a `bosh delete-deployment` command                                                                                                                                    |
+| `bosh_sli_task_failures_total{exported_job="bosh-health-exporter",task="deploy"}`      | Total number of failures for a `bosh deploy` command                                                                                                                                               |
+| `bosh_sli_task_failures_total{exported_job="bosh-health-exporter",task="deployments"}` | Total number of failures for a `bosh deployments` command                                                                                                                                          |

@@ -1,0 +1,73 @@
+---
+title: Configure a Scrape job
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+## <a id='procedure'></a> Overview
+Once you have finished installing, configuring, and deploying Healthwatch Exporter for TKGI,
+configure a scrape job for Healthwatch Exporter for TKGI in the Prometheus VM that exists within
+your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter
+for TKGI](#scrape-job-config) below.
+  <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
+  of Healthwatch Exporter for TKGI that are not on the same foundation as your Healthwatch
+  installation. The Prometheus VM in the Healthwatch tile automatically discovers and scrapes
+  exporter tiles that are installed on the same foundation as Healthwatch.</p>
+
+## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
+
+After you have successfully deployed Healthwatch Exporter for TKGI, you must configure a scrape
+job in the Prometheus VM that exists within your metrics monitoring system, unless you installed
+Healthwatch Exporter for TKGI on the same Ops Manager foundation as the Healthwatch tile. Follow
+the procedure in one of the following sections, depending on which monitoring system you use:
+
+* If you monitor metrics using the Healthwatch tile on an Ops Manager foundation, see [Configure
+a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch](#scraping-healthwatch) below.
+  <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
+  of Healthwatch Exporter for TKGI that are not on the same foundation as your Healthwatch
+  installation. The Prometheus VM in the Healthwatch tile automatically discovers and scrapes
+  exporter tiles that are installed on the same foundation as Healthwatch.</p>
+
+* If you monitor metrics using a service or database located outside your Ops Manager foundation,
+such as an external TSDB or an installation of Healthwatch on the TKGI Control Plane, see [Configure
+a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System](#scraping-external)
+below.
+
+### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
+
+To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your
+Ops Manager foundation, see [(Optional) Configure Prometheus](installing.html#prometheus) in
+_Installing Healthwatch_.
+
+### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System
+
+To configure a scrape job for Healthwatch Exporter for TKGI in a service or database that is
+located outside your Ops Manager foundation:
+
+1. Open network communication paths from your external service or database to the metric exporter
+VMs in Healthwatch Exporter for TKGI. The procedure to open these network paths differs depending
+on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter
+VM, see [Required Networking Rules for Healthwatch Exporter for TKGI](architecture.html#network-rules-pks)
+in _Healthwatch Architecture_.
+
+1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job
+for your Ops Manager foundation. Under `static_config`, specify the TCP ports of each metric
+exporter VM as static targets for the IP address of your external service or database. For
+example:
+
+    ```
+    job_name: foundation-1
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+    - targets:
+      - "1.2.3.4:8443"
+      - "1.2.3.4:25555"
+      - "1.2.3.4:443"
+      - "1.2.3.4:25595"
+      - "1.2.3.4:9021"
+    ```
+    For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+    and [&#60;static_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config)
+    in _Configuration_ in the Prometheus documentation.
