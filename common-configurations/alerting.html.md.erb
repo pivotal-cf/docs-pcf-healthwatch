@@ -296,25 +296,24 @@ The following steps outline how to silence alerts using `amtool` with the BOSH C
 To silence alerts with `amtool`:
 
 1. Use `bosh ssh` to log in to any one of your time series database (TSDB) VMs. It does not matter which TSDB VM. These TSDB VMs are the same as the Prometheus VMs that Healthwatch deployed when you installed the Healthwatch tile unless you configured an external TSDB. 
-
 For more information on logging in with `bosh ssh`, see [BOSH SSH](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_.
 
 1. Navigate to the `amtool` directory by running:
 
-```
-cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin
-```
+  ```
+  cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin
+  ```
 
 1. Silence all alerts for a specific amount of time by running: 
 
-```
-./amtool silence add 'alertname=~.+' -d LENGTH-OF-TIME -c 'COMMENT' --alertmanager.url http://localhost:10401
-```
+  ```
+  ./amtool silence add 'alertname=~.+' -d LENGTH-OF-TIME -c 'COMMENT' --alertmanager.url http://localhost:10401
+  ```
 
-  Where:
-  * `LENGTH-OF-TIME` is the duration of the alert silence in minutes or hours. For example, 30m or 4h.
-  * `COMMENT` is any notes about this silence you want to add.
+    Where:
+    *  `LENGTH-OF-TIME` is the duration of the alert silence in minutes or hours. For example, 30m or 4h.
+    *  `COMMENT` is any notes about this silence you want to add.
 
-In the command above, the regular expression that follows `alertname` silences all alerts. For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
+    In the command above, the regular expression that follows `alertname` silences all alerts. For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
 
 1. Record the ID string from the output. You can use this ID to end the silence early. For more information on how to end a silence early, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) or run: `./amtool --help`.
