@@ -289,24 +289,32 @@ receivers:
 
 ## <a id='silence'></a> Silencing Alerts
 
-If you want to temporarily silence your alerts without modifying the actual alerting logic, you can utilize a tool
-provided by Alertmanager.
+If you want to temporarily silence Alertmanager alerts without modifying the alerting logic, you can use an Alertmanager CLI tool called `amtool` that comes with Alertmanager. 
 
-To configure a silence:
+The following steps outline how to silence alerts using `amtool` with the BOSH CLI. If you prefer to use the Alertmanager UI, see [Viewing the Alertmanager UI](https://docs.pivotal.io/healthwatch/2-0/troubleshooting.html) in _Troubleshooting Healthwatch_. 
 
-1. SSH onto one of the tsdb VMs.
+To silence alerts with `amtool`:
 
-1. Navigate to the tool's directory with `cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin`.
+1. Use `bosh ssh` to log in to any one of your time series database (TSDB) VMs. It does not matter which TSDB VM. These TSDB VMs are the same as the Prometheus VMs that Healthwatch deployed when you installed the Healthwatch tile unless you configured an external TSDB. 
 
-1. Run `./amtool silence add 'alertname=~.+' -d [LENGTH OF TIME] -c '[COMMENT]' --alertmanager.url http://localhost:10401`
-   to silence all alerts matching the alertname regex for the specified length of time.  This particular regex will
-   match all alert names.
+For more information on logging in with `bosh ssh`, see [BOSH SSH](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_.
 
-This command will return a Silencer ID that can be used with this tool in a variety ways, including ending the silence
-early by running `./amtool silence expire [SILENCE ID] --alertmanager.url http://localhost:10401`.
+1. Navigate to the `amtool` directory by running:
 
-If you would like to view this in a UI, you can follow the steps in
-https://docs.pivotal.io/healthwatch/2-0/troubleshooting.html under `Viewing the Alertmanager UI` to tunnel into the
-Alertmanager VM.
+```
+cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin
+```
 
-To learn more about this tool, visit https://github.com/prometheus/alertmanager#amtool or run `./amtool --help`.
+1. Silence all alerts for a specific amount of time by running: 
+
+```
+./amtool silence add 'alertname=~.+' -d LENGTH-OF-TIME -c 'COMMENT' --alertmanager.url http://localhost:10401
+```
+
+  Where:
+  * `LENGTH-OF-TIME` is the duration of the alert silence in minutes or hours. For example, 30m or 4h.
+  * `COMMENT` is any notes about this silence you want to add.
+
+In the command above, the regular expression that follows `alertname` silences all alerts. For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
+
+1. Record the ID string from the output. You can use this ID to end the silence early. For more information on how to end a silence early, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) or run: `./amtool --help`.
