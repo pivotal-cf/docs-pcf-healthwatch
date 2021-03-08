@@ -287,33 +287,95 @@ receivers:
     text: "This is an alert."
 ```
 
-## <a id='silence'></a> Silencing Alerts
 
-If you want to temporarily silence Alertmanager alerts without modifying the alerting logic, you can use an Alertmanager CLI tool called `amtool` that comes with Alertmanager. 
+## <a id='silence'></a> Silence Alerts
 
-The following steps outline how to silence alerts using `amtool` with the BOSH CLI. If you prefer to use the Alertmanager UI, see [Viewing the Alertmanager UI](https://docs.pivotal.io/healthwatch/2-0/troubleshooting.html) in _Troubleshooting Healthwatch_. 
+Alertmanager includes a command-line tool called `amtool`. You can use `amtool` to temporarily
+silence Alertmanager alerts without modifying your alerting rules.
 
-To silence alerts with `amtool`:
+You can also use the Alertmanager UI to view and silence alerts. To access the Alertmanager
+UI, see [Viewing the Alertmanager UI](../troubleshooting.html) in _Troubleshooting Healthwatch_.
 
-1. Use `bosh ssh` to log in to any one of your time series database (TSDB) VMs. It does not matter which TSDB VM. These TSDB VMs are the same as the Prometheus VMs that Healthwatch deployed when you installed the Healthwatch tile unless you configured an external TSDB. 
-For more information on logging in with `bosh ssh`, see [BOSH SSH](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_.
+To silence alerts using `amtool`:
+
+1. SSH onto one of the Prometheus VMs deployed by the Healthwatch tile. Alertmanager replicates
+any changes you make in one Prometheus VM to all other Prometheus VMs. To SSH onto one of the
+Prometheus VMs, see [BOSH SSH](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html#bosh-ssh)
+in _Advanced Troubleshooting with the BOSH CLI_.
 
 1. Navigate to the `amtool` directory by running:
 
     ```
     cd /var/vcap/jobs/alertmanager/packages/alertmanager/bin
     ```
-    
-1. Silence all alerts for a specific amount of time by running:
- 
+
+1. View all of your currently running alerts by running:
+
     ```
-    ./amtool silence add 'alertname=~.+' -d LENGTH-OF-TIME -c 'COMMENT' --alertmanager.url http://localhost:10401
+    amtool -o extended alert
+    ```
+    This command returns a list of all currently running alerts that includes detailed information
+    about each alert, including the name of the alert and the Prometheus instance on which
+    it runs.
+    <br>
+    <br>
+    You can also query the list of alerts by name and instance to view specific alerts.
+    * To query alerts by name, run:
+
+        ```
+        amtool -o extended alert query alertname="ALERT-NAME"
+        ```
+        Where `ALERT-NAME` is the name of the alert you want to silence. You can query the
+        exact name of the alert, or you can query a partial name and include the `.*` regular
+        expression to see all alerts that include the partial name, such as in the following
+        example:
+
+        ```
+        amtool -o extended alert query alertname=~"Test.*"
+        ```
+    * To query alerts by instance, run:
+
+        ```
+        amtool -o extended alert query instance=~".+INSTANCE-NUMBER"
+        ```
+        Where `INSTANCE-NUMBER` is the number of the Prometheus instance for which you want
+        to silence alerts.
+    * To query alerts by name and instance, run:
+
+        ```
+        amtool -o extended alert query alertname=~"ALERT-NAME" instance=~".+INSTANCE-NUMBER"
+        ```
+        Where:
+        * `ALERT-NAME` is the name of the alert you want to silence.
+        * `INSTANCE-NUMBER` is the number of the Prometheus instance for which you want to
+        silence an alert.
+
+
+1. Run one of the following commands to silence either a specific alert or all alerts for a
+specified amount of time:
+  * To silence a specific alert for a specified amount of time, run:
+
+    ```
+    amtool silence add alertname=ALERT-NAME instance=~".+INSTANCE-NUMBER"
     ```
     Where:
-    * `LENGTH-OF-TIME` is the duration of the alert silence in minutes or hours. For example, 30m or 4h.
-    * `COMMENT` is any notes about this silence you want to add.
-    In the command above, the regular expression that follows `alertname` silences all alerts. 
-    
-    For examples on how to silence only specific alerts, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
+    * `ALERT-NAME` is the name of the alert you want to silence.
+    * `INSTANCE-NUMBER` is the number of the Prometheus instance for which you want to
+    silence an alert.
+  * To silence all alerts for a specified amount of time, run:
 
-1. Record the ID string from the output. You can use this ID to end the silence early. For more information on how to end a silence early, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) or run: `./amtool --help`.
+    ```
+    amtool silence add 'alertname=~.+' -d TIME-TO-SILENCE -c 'COMMENT' --alertmanager.url http://localhost:10401
+    ```
+    Where:
+    * `TIME-TO-SILENCE` is the amount of time in minutes or hours you want to silence alerts.
+    For example, `30m` or `4h`.
+    * `COMMENT` is any notes about this silence you want to add.
+    <p class='note'><strong>Note:</strong><code>~.+</code> is a regular expression that includes
+      all alerts in the silence you set.</strong>
+
+1. Record the ID string from the output. You can use this ID to end the silence early. For
+more information, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool)
+or run `amtool --help`.
+
+For more information about how to use `amtool`, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
