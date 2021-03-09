@@ -156,15 +156,14 @@ To configure the **TKGI Exporter Configuration** pane:
 
 1. (Optional) For **Static IP for TKGI Exporter VM**, enter a valid static IP address that
 you want to reserve for the TKGI metric exporter VM. The TKGI metric exporter VM collects health
-metrics from the BOSH Director. For more information, see [PKS Exporter (pks-exporter)](metrics.html#pks-exporter)
+metrics from the BOSH Director. For more information, see [TKGI Metric Exporter VM](metrics.html#pks-exporter)
 in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
 that you want to reserve for the certificate expiration metric exporter VM. The certificate
 expiration metric exporter VM exposes metrics about when certificates in your Ops Manager deployment
-are due to expire. For more information, see [Cert Expiration Exporter (cert-expiration-exporter)]
-(metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Certificate Monitoring]
-(common-configurations/certificate-monitoring.html).
+are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](metrics.html#cert-expiration-exporter)
+in _Healthwatch Metrics_ and [Certificate Monitoring](common-configurations/certificate-monitoring.html).
 
 1. Click **Save**.
 
@@ -173,9 +172,8 @@ are due to expire. For more information, see [Cert Expiration Exporter (cert-exp
 In the **TKGI SLI Exporter Configuration** pane, you configure the TKGI SLI exporter VM. The
 TKGI SLI exporter VM generates SLIs that allow you to monitor whether the core functions of
 the TKGI Command-Line Interface (TKGI CLI) are working as expected. The TKGI CLI enables developers
-to create and manage Kubernetes clusters through TKGI. For more information, see [PKS SLI Exporter
-(pks-sli-exporter)](metrics.html#pks-sli-exporter) in _Healthwatch
-Metrics_.
+to create and manage Kubernetes clusters through TKGI. For more information, see [TKGI SLI
+Exporter VM](metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
 
 To configure the **TKGI SLI Exporter Configuration** pane:
 
@@ -206,11 +204,12 @@ choose one of the following options:
 ### <a id='bosh-exporter'></a> Configure the BOSH Health Metric Exporter VM
 
 In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
-BOSH health metric exporter VM. Healthwatch Exporter for TKGI periodically deploys the BOSH
-health metric exporter VM. This VM creates a BOSH deployment, runs SLI tests on the BOSH deployment
-to validate the health of the BOSH Director, and deletes the BOSH deployment once the SLI tests
-are complete. Healthwatch Exporter for TKGI then deletes the BOSH health metric exporter VM.
-For more information, see [Bosh Health Exporter (bosh-health-exporter)](metrics.html#bosh-health-exporter)
+BOSH health metric exporter VM. Healthwatch Exporter for TKGI deploys the BOSH health metric
+exporter VM, which creates a BOSH deployment every ten minutes. This BOSH deployment deploys
+another VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality
+of the BOSH Director. After the SLI tests are complete, the BOSH health metric exporter VM
+collects the metrics from the `bosh-health-check` VM, then deletes the BOSH deployment and
+the VM. For more information, see [BOSH Health Metric Exporter VM](metrics.html#bosh-health-exporter)
 in _Healthwatch Metrics_.
 
 To configure the **BOSH Health Exporter Configuration** pane:
@@ -228,10 +227,10 @@ Exporter for TKGI to deploy.
 ### <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
 
 In the **Bosh Deployments Exporter Configuration** pane, you configure the authentication credentials
-and a static IP address for the BOSH deployment metric exporter VM. This VM periodically checks
-to see if any BOSH deployments other than the one created by the BOSH health metric exporter
-VM are running. For more information, see [Bosh Deployments Exporter (bosh-deployments-exporter)]
-(metrics.html#bosh-deployments-exporter) in _Healthwatch Metrics_.
+and a static IP address for the BOSH deployment metric exporter VM. This VM checks every 30
+seconds whether any BOSH deployments other than the one created by the BOSH health metric exporter
+VM are running. For more information, see [BOSH Deployment Metric Exporter VM](metrics.html#bosh-deployments-exporter)
+in _Healthwatch Metrics_.
 
 To configure the **Bosh Deployments Exporter Configuration** pane:
 

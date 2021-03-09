@@ -37,9 +37,17 @@ and the BOSH deployment metric exporter.
 
 ### <a id='bosh-health-exporter'></a> BOSH Health Metric Exporter VM
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI periodically [how often is this? Daily? Hourly? Every ten minutes like in Healthwatch 1.7?] deploy the BOSH health metric exporter VM, `bosh-health-exporter`. The BOSH health metric exporter VM creates a BOSH deployment and runs a suite of SLI tests on it to validate the functionality of the BOSH Director. After the SLI tests are complete, the BOSH health metric exporter VM deletes the BOSH deployment. The Healthwatch Exporter tile then deletes the BOSH health metric exporter VM.
+The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment every
+ten minutes. This BOSH deployment deploys another VM, `bosh-health-check`, that runs a suite
+of SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete,
+the BOSH health metric exporter VM collects the metrics from the `bosh-health-check` VM, then
+deletes the BOSH deployment and the VM.
 
 The following table describes each metric the BOSH health metric exporter VM generates:
+
+<p class='note'><strong>Note:</strong> The <code>task</code> tag at the end of a metric denotes
+  which command the metric describes. In the Grafana UI, the command can be found in the <strong>task</strong>
+  column of the table for each metric.</p>
 
 <table>
   <tr>
@@ -48,15 +56,18 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds the BOSH health SLI test suite takes to run [each time the whole suite runs? each time each specific SLI test within the suite runs?], grouped by duration.</td>
+    <td>The number of seconds the BOSH health SLI test suite takes to run, grouped by duration.
+    This metric is also called a <em>bucket</em> of BOSH health SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_count{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of BOSH health SLI test suite duration metrics in all buckets. [What are these buckets? Do we need to define them?]</td>
+    <td>The total number of duration metrics across all BOSH health SLI test suite duration
+      metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_sum{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total value of the BOSH health SLI test suite duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all BOSH health SLI test suite duration
+      metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_exporter_status{exported_job="bosh-health-exporter"}</code></td>
@@ -65,11 +76,12 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times that [the BOSH health SLI test suite fails? specific tests within the BOSH health SLI test suite fail?].</td>
+    <td>The total number of times the BOSH health SLI test suite fails. A failed test suite
+      is one in which any number of tests within the test suite fail.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds the BOSH health SLI test suite takes to run. [On average? Each time?]</td>
+    <td>The number of seconds a single BOSH health SLI test suite takes to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code></td>
@@ -80,23 +92,26 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_bucket{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds it takes [a particular task? each task?] to run, grouped by duration.</td>
+    <td>The number of seconds it takes a task within the BOSH health SLI test suite to run,
+      grouped by duration. This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_count{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of BOSH health SLI test suite task duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_sum{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total value of the BOSH health SLI test suite task duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_run_duration_seconds{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds it takes for a particular task to run. [How do we know which task this metric refers to?]</td>
+    <td>The number of seconds it takes a task to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times a particular task runs [each time the whole suite runs? each time each specific SLI test within the suite runs?]. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>, divide the value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code> by the value of <code>bosh_sli_task_runs{exported_job="bosh-health-exporter"}</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>,
+      divide the value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code>
+      by the value of <code>bosh_sli_task_runs{exported_job="bosh-health-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_failures_total{exported_job="bosh-health-exporter",task="delete"}</code></td>
@@ -114,9 +129,15 @@ The following table describes each metric the BOSH health metric exporter VM gen
 
 ### <a id='bosh-deployments-exporter'></a> BOSH Deployment Metric Exporter VM
 
-The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, periodically [how periodically? Only while `bosh-health-exporter` is still deployed? Does it communicate with `bosh-health-exporter` in any way?] checks to see if any BOSH deployments other than the one created by the BOSH health metric exporter VM are running. [What would happen if other BOSH deployments were running at the same time? Where are these BOSH deployments coming from? Isn't the whole thing running on a BOSH deployment in the first place?]
+The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, checks every 30 seconds
+whether any BOSH deployments other than the one created by the BOSH health metric exporter
+VM are running.
 
 The following table describes each metric the BOSH deployment metric exporter VM generates:
+
+<p class='note'><strong>Note:</strong> The <code>task</code> tag at the end of a metric denotes
+  which command the metric describes. In the Grafana UI, the command can be found in the <strong>task</strong>
+  column of the table for each metric.</p>
 
 <table>
   <tr>
@@ -127,19 +148,22 @@ The following table describes each metric the BOSH deployment metric exporter VM
     <td><code>bosh_deployments_status</code></td>
     <td>Whether any BOSH deployments other than the one created by the BOSH health metric exporter
       VM are running. A value of <code>1</code> indicates that other BOSH deployments are running
-      on the BOSH Director. [Can it be multiple BOSH deployments at once, or does only one other typically run at the same time?]</td>
+      on the BOSH Director.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds the BOSH deployment SLI test suite takes to run [each time the whole suite runs? each time each specific SLI test within the suite runs?], grouped by duration.</td>
+    <td>The number of seconds the BOSH deployment check takes to run, grouped by duration.
+    This metric is also called a <em>bucket</em> of BOSH deployment check duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_count{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of BOSH deployment SLI test suite duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all BOSH deployment check duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_sum{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total value of the BOSH deployment SLI test suite duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all BOSH deployment check duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_exporter_status{exported_job="bosh-deployments-exporter"}</code></td>
@@ -148,38 +172,41 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of times that [the BOSH deployment SLI test suite fails? specific tests within the BOSH deployment SLI test suite fail?].</td>
+    <td>The total number of times the BOSH deployment check fails.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds the BOSH deployment SLI test suite takes to run.</td>
+    <td>The number of seconds a single BOSH deployment check takes to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of times the BOSH deployment SLI test suite runs. To see the failure
-      rate of <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>, divide
-      the value of <code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code>
+    <td>The total number of times the BOSH deployment check runs. To see the failure rate of
+      <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>, divide the
+      value of <code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code>
       by the value of <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds it takes [a particular task? each task?] to run, grouped by duration.</td>
+    <td>The number of seconds it takes a task within the BOSH deployment check to run, grouped
+      by duration. This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_count{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of BOSH deployment SLI test suite task duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_sum{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total value of the BOSH deployment SLI test suite task duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_run_duration_seconds{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds it takes for a particular task to run. [How do we know which task this metric refers to?]</td>
+    <td>The number of seconds it takes a task to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of times a particular task runs [each time the whole suite runs? each time each specific SLI test within the suite runs?]. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>, divide the value of <code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter"}</code> by the value of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>,
+      divide the value of <code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter"}</code>
+      by the value of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter",task="tasks"}</code></td>
@@ -201,6 +228,10 @@ which continuously tests the functionality of the cf CLI.
 
 The following table describes each metric the TAS for VMs SLI exporter VM generates:
 
+<p class='note'><strong>Note:</strong> The <code>task</code> tag at the end of a metric denotes
+  which command the metric describes. In the Grafana UI, the command can be found in the <strong>task</strong>
+  column of the table for each metric.</p>
+
 <table>
   <tr>
     <th>Metric</th>
@@ -208,15 +239,18 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TAS for VMs SLI test suite takes to run [each time the whole suite runs? each time each specific SLI test within the suite runs?], grouped by duration.</td>
+    <td>The number of seconds the TAS for VMs SLI test suite takes to run, grouped by duration.
+    This metric is also called a <em>bucket</em> of TAS for VMs SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_count</code></td>
-    <td>The total number of TAS for VMs SLI test suite duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all TAS for VMs SLI test suite duration
+      metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_sum</code></td>
-    <td>The total value of the TAS for VMs SLI test suite duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all TAS for VMs SLI test suite duration
+      metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_exporter_status</code></td>
@@ -225,7 +259,7 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_failures_total</code></td>
-    <td>The total number of times that [the TAS for VMs SLI test suite fails? specific tests within the TAS for VMs SLI test suite fail?].</td>
+    <td>The total number of times the TAS for VMs SLI test suite fails.</td>
   </tr>
   <tr>
     <td><code>tas_sli_run_duration_seconds</code></td>
@@ -239,23 +273,25 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes [a particular task? each task?] to run, grouped by duration.</td>
+    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run,
+      grouped by duration. This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_count</code></td>
-    <td>The total number of TAS for VMs SLI test suite task duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_sum</code></td>
-    <td>The total value of the TAS for VMs SLI test suite task duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_run_duration_seconds</code></td>
-    <td>The number of seconds it takes for a particular task to run. [How do we know which task this metric refers to?]</td>
+    <td>The number of seconds it takes a task to run.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_runs_total</code></td>
-    <td>The total number of times a particular task runs [each time the whole suite runs? each time each specific SLI test within the suite runs?]. To see the failure rate of <code>tas_sli_task_runs_total</code>, divide the value of <code>tas_sli_task_failures</code> by the value of <code>tas_sli_task_runs</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>tas_sli_task_runs_total</code>,
+      divide the value of <code>tas_sli_task_failures</code> by the value of <code>tas_sli_task_runs</code>.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_failures_total{task="delete"}</code></td>
@@ -287,13 +323,17 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
 </table>
 
-### <a id='tkgi-sli-exporter'></a> TKGI SLI Exporter VM
+### <a id='pks-sli-exporter'></a> TKGI SLI Exporter VM
 
 Operators create and manage Kubernetes clusters using the TKGI Command Line Interface (TKGI
 CLI). Healthwatch Exporter for TKGI deploys the TKGI SLI exporter VM, `pks-sli-exporter`, which
 continuously tests the functionality of the TKGI CLI.
 
 The following table describes each metric the TKGI SLI exporter VM generates:
+
+<p class='note'><strong>Note:</strong> The <code>task</code> tag at the end of a metric denotes
+  which command the metric describes. In the Grafana UI, the command can be found in the <strong>task</strong>
+  column of the table for each metric.</p>
 
 <table>
   <tr>
@@ -302,15 +342,18 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TKGI SLI test suite takes to run [each time the whole suite runs? each time each specific SLI test within the suite runs?], grouped by duration.</td>
+    <td>The number of seconds the TKGI SLI test suite takes to run, grouped by duration. This
+      metric is also called a <em>bucket</em> of TKGI SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_count</code></td>
-    <td>The total number of TKGI SLI test suite duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all TKGI SLI test suite duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_sum</code></td>
-    <td>The total value of the TKGI SLI test suite duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all TKGI SLI test suite duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_exporter_status</code></td>
@@ -319,7 +362,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_failures_total</code></td>
-    <td>The total number of times that [the TKGI SLI test suite fails? specific tests within the TKGI SLI test suite fail?].</td>
+    <td>The total number of times the TKGI SLI test suite fails.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_run_duration_seconds</code></td>
@@ -333,23 +376,25 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes [a particular task? each task?] to run, grouped by duration.</td>
+    <td>The number of seconds it takes a task with the TKGI SLI test suite to run, grouped
+      by duration. This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_duration_seconds_count</code></td>
-    <td>The total number of TKGI SLI test suite task duration metrics in all buckets.</td>
+    <td>The total number of duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_duration_seconds_sum</code></td>
-    <td>The total value of the TKGI SLI test suite task duration metrics in all buckets.</td>
+    <td>The total value of the duration metrics across all task duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_run_duration_seconds</code></td>
-    <td>The number of seconds it takes for a particular task to run. [How do we know which task this metric refers to?]</td>
+    <td>The number of seconds it takes a task to run.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_runs_total</code></td>
-    <td>The total number of times a particular task runs [each time the whole suite runs? each time each specific SLI test within the suite runs?]. To see the failure rate of <code>tkgi_sli_task_runs_total</code>, divide the value of <code>tkgi_sli_task_failures</code> by the value of <code>tkgi_sli_task_runs</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>tkgi_sli_task_runs_total</code>,
+      divide the value of <code>tkgi_sli_task_failures</code> by the value of <code>tkgi_sli_task_runs</code>.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_failures_total{task="clusters"}</code></td>
@@ -385,7 +430,7 @@ The following table describes the metric the certificate expiration metric expor
   </tr>
   <tr>
     <td><code>ssl_certificate_expiry_seconds{exported_instance=~".*"}</code></td>
-    <td>The time in seconds until [which certificate or certificates?] expires.</td>
+    <td>The time in seconds until a certificate expires.</td>
   </tr>
 </table>
 
@@ -396,7 +441,7 @@ to which the Blackbox Exporter in the Prometheus VM sends canary tests. Testing 
 URL allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
 
 On the Prometheus VM, `tsdb`, the Blackbox Exporter job, `blackbox-exporter`, generates canary
-test metrics. [Is this a platform SLI or a Healthwatch component metric?]
+test metrics.
 
 The following table describes each metric the Blackbox Exporter in the Prometheus VM generates:
 
@@ -512,13 +557,13 @@ The following table describes each metric the Blackbox Exporter in the Prometheu
   </tr>
 </table>
 
-### <a id="svms"></a> Super Value Metrics (svm-forwarder)
+### <a id="svms"></a> SVM Forwarder VM
 
 Super value metrics (SVMs) are Healthwatch v1 metrics that the Prometheus VM in Healthwatch
 generates these metrics. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back
 into Loggregator so third-party nozzles can send them to external destinations, such as a remote
 server or external aggregation service. For more information, see [Healthwatch Release Notes]
-(release-notes.html#2-0-1). [Does this belong with the Healthwatch component metrics instead?]
+(release-notes.html#2-0-1).
 
 The following table describes each metric the SVM Forwarder VM generates:
 
@@ -529,60 +574,62 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>Diego_AppsDomainSynced</code></td>
-    <td>Whether Cloud Controller and Diego are in sync. [How is this indicated? Y/N? Yes/No? 1/2?]</td>
+    <td>Whether Cloud Controller and Diego are in sync.</td>
   </tr>
   <tr>
     <td><code>Diego_AvailableFreeChunksDisk</code></td>
-    <td>The available free chunks of disk in all Diego Cells.</td>
+    <td>The available free chunks of disk across all Diego Cells.</td>
   </tr>
   <tr>
     <td><code>Diego_AvailableFreeChunks</code></td>
-    <td>The available free chunks of memory in all Diego Cells.</td>
+    <td>The available free chunks of memory across all Diego Cells.</td>
   </tr>
   <tr>
     <td><code>Diego_LRPsAdded_1H</code></td>
-    <td>The rate of change in running app instances in one-hour intervals.</td>
+    <td>The rate of change in running app instances over a one-hour period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalAvailableDiskCapacity_5M</code></td>
-    <td>The remaining Diego Cell disk available in all Diego Cells in five-minute intervals.</td>
+    <td>The remaining Diego Cell disk available across all Diego Cells over a five-minute period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalAvailableMemoryCapacity_5M</code></td>
-    <td>The remaining Diego Cell memory available in all Diego Cells in five-minute intervals.</td>
+    <td>The remaining Diego Cell memory available across all Diego Cells over a five-minute
+      period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableContainerCapacity_5M</code></td>
-    <td>The percentage of total available container capacity in all Diego Cells in five-minute
-      intervals.</td>
+    <td>The percentage of total available container capacity across all Diego Cells over a
+      five-minute period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableDiskCapacity_5M</code></td>
-    <td>The percentage of total available disk in all Diego Cells in five-minute intervals.</td>
+    <td>The percentage of total available disk across all Diego Cells over a five-minute period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableMemoryCapacity_5M</code></td>
-    <td>The percentage of total available memory in all Diego Cells in five-minute intervals.</td>
+    <td>The percentage of total available memory across all Diego Cells over a five-minute
+      period.</td>
   </tr>
   <tr>
     <td><code>Doppler_MessagesAverage_1M</code></td>
-    <td>The average Doppler message rate in one-minute intervals.</td>
+    <td>The average Doppler message rate over a one-minute period.</td>
   </tr>
   <tr>
     <td><code>Firehose_LossRate_1H</code></td>
-    <td>The log transport loss rate in one-hour intervals.</td>
+    <td>The log transport loss rate over a one-hour period.</td>
   </tr>
   <tr>
     <td><code>Firehose_LossRate_1M</code></td>
-    <td>The log transport loss rate in one-minute intervals.</td>
+    <td>The log transport loss rate over a one-minute period.</td>
   </tr>
   <tr>
     <td><code>SyslogAgent_LossRate_1M</code></td>
-    <td>The Syslog Agent loss rate in one-minute intervals.</td>
+    <td>The Syslog Agent loss rate over a one-minute period.</td>
   </tr>
   <tr>
     <td><code>SyslogDrain_RLP_LossRate_1M</code></td>
-    <td>The Reverse Log Proxy loss rate in one-minute intervals.</td>
+    <td>The Reverse Log Proxy loss rate over a one-minute period.</td>
   </tr>
   <tr>
     <td><code>bosh_deployment</code></td>
@@ -606,20 +653,20 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>health_check_cliCommand_delete</code></td>
-    <td>Whether the `cf delete` command succeeds or fails. [How is this indicated? Y/N? Yes/No? 1/2?]</td>
+    <td>Whether the <code>cf delete</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_login</code></td>
-    <td>Whether the `cf login` command succeeds or fails.</td>
+    <td>Whether the <code>cf login</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_logs</code></td>
-    <td>Whether the `cf logs` command succeeds or fails.</td>
+    <td>Whether the <code>cf logs</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_probe_count</code></td>
     <td>The number of cf CLI health checks that Healthwatch completes in the measured time
-      interval.</td>
+      period.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_pushTime</code></td>
@@ -627,15 +674,15 @@ The following table describes each metric the SVM Forwarder VM generates:
   </tr>
   <tr>
     <td><code>health_check_cliCommand_push</code></td>
-    <td>Whether the `cf push` command succeeds or fails.</td>
+    <td>Whether the <code>cf push</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_start</code></td>
-    <td>Whether the `cf start` command succeeds or fails.</td>
+    <td>Whether the <code>cf start</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_stop</code></td>
-    <td>Whether the `cf stop` command succeeds or fails.</td>
+    <td>Whether the <code>cf stop</code> command succeeds or fails.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_success</code></td>
@@ -667,34 +714,37 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_bucket</code></td>
-    <td>The number of seconds that the TKGI metric exporter VM takes to process a batch of
-      Loggregator envelopes, grouped by latency.</td>
+    <td>The number of seconds the TKGI metric exporter VM takes to process a batch of Loggregator
+      envelopes, grouped by latency. This metric is also called a <em>bucket</em> of ingress
+      latency metrics.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_count</code></td>
-    <td>The total number of ingress latency metrics in all buckets.</td>
+    <td>The total number of ingress latency metrics across all ingress latency metric buckets.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_sum</code></td>
-    <td>The total value of the ingress latency metrics in all buckets.</td>
+    <td>The total value of the ingress latency metrics across all ingress latency metric buckets.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes that the observability metrics agent receives from the TKGI
-      metric exporter VM. [Meaning Loggregator? And/or something else?]</td>
+    <td>The number of envelopes the observability metrics agent receives from the TKGI metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_bucket</code></td>
-    <td>The number of seconds that the TKGI metric exporter VM takes to convert a BOSH metric
-      to a Prometheus gauge, grouped by duration. [Do we know which particular metrics?]</td>
+    <td>The number of seconds the TKGI metric exporter VM takes to convert a BOSH metric to
+      a Prometheus gauge, grouped by duration. This metric is also called a <em>bucket</em>
+      of gauge conversion duration metrics.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_count</code></td>
-    <td>The total number of conversion metrics in all buckets.</td>
+    <td>The total number of conversion metrics across all gauge conversion duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_sum</code></td>
-    <td>The total value of the conversion metrics in all buckets.</td>
+    <td>The total value of the conversion metrics across all gauge conversion duration metric
+      buckets.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_status</code></td>
@@ -726,8 +776,8 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_counterConversion_seconds</code></td>
-    <td>The number of seconds that the counter metric exporter VM takes to convert a counter
-      envelope to a Prometheus counter.</td>
+    <td>The number of seconds the counter metric exporter VM takes to convert a Loggregator
+      counter envelope to a Prometheus counter.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
@@ -735,12 +785,12 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds that the counter metric exporter VM takes to process a batch
-      of Loggregator envelopes.</td>
+    <td>The number of seconds the counter metric exporter VM takes to process a batch of Loggregator
+      counter envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes that the observability metrics agent receives from the counter metric exporter VM.</td>
+    <td>The number of Loggregator counter envelopes the observability metrics agent receives from the counter metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -763,21 +813,21 @@ The following table describes each metric the gauge metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
-    <td>The number of metrics that the gauge metric exporter VM evicts from its cache.</td>
+    <td>The number of metrics the gauge metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_gaugeConversion_seconds</code></td>
-    <td>The number of seconds that the gauge metric exporter VM takes to convert a gauge envelope
-      to a Prometheus gauge.</td>
+    <td>The number of seconds the gauge metric exporter VM takes to convert a Loggregator gauge
+      envelope to a Prometheus gauge.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds that the gauge metric exporter VM takes to process a batch of
-      Loggregator envelopes.</td>
+    <td>The number of seconds the gauge metric exporter VM takes to process a batch of Loggregator
+      gauge envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes that the observability metrics agent receives from the gauge metric exporter VM.</td>
+    <td>The number of Loggregator gauge envelopes the observability metrics agent receives from the gauge metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -800,16 +850,16 @@ The following table describes each metric the timer metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_evictedMetrics</code></td>
-    <td>The number of metrics that timer metric exporter VM evicts from its cache.</td>
+    <td>The number of metrics timer metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds that timer metric exporter VM takes to process a batch of Loggregator
-      envelopes.</td>
+    <td>The number of seconds the timer metric exporter VM takes to process a batch of Loggregator
+      timer envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of envelopes that the observability metrics agent receives from the timer metric exporter VM.</td>
+    <td>The number of Loggregator timer envelopes that the observability metrics agent receives from the timer metric exporter VM.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
@@ -833,28 +883,27 @@ generates:
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExpositionLatency_seconds</code></td>
-    <td>The number of seconds that the metric exporter VM takes to render a Prometheus scrape
-      page.</td>
+    <td>The number of seconds the metric exporter VM takes to render a Prometheus scrape page.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_expiredMetrics</code></td>
-    <td>The number of metrics that the metric exporter VM evicts from its cache.</td>
+    <td>The number of metrics the metric exporter VM evicts from its cache.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_histogramMapConversion</code></td>
-    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to convert histogram collection to a map.</td>
+    <td>The number of seconds the metric exporter VM takes to convert histogram collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricMapConversion</code></td>
-    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to convert metrics collection to a map.</td>
+    <td>The number of seconds the metric exporter VM takes to convert metrics collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricSorting</code></td>
-    <td>The number of [seconds? milliseconds?] that the metric exporter VM takes to sort metrics when rendering Prometheus exposition.</td>
+    <td>The number of seconds the metric exporter VM takes to sort metrics when rendering Prometheus exposition.</td>
   </tr>
 </table>
 
-### <a id="svm-forwarder"></a> SVM Forwarder Monitoring Metrics (svm-forwarder)
+### <a id="svm-forwarder"></a> SVM Forwarder VM
 
 The SVM Forwarder sends Healthwatch v1 SVMs to the Loggregator Firehose for the Prometheus
 VM that exists in an external monitoring service to scrape. For more information, see [2.0.1]
