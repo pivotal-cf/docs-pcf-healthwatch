@@ -1,61 +1,29 @@
 ---
-title: Installing, Configuring, and Deploying Healthwatch
+title: Configuring Healthwatch
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to manually install, configure, and deploy the Healthwatch tile.
+This topic describes how to manually configure and deploy the Healthwatch tile.
 
 To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing,
-Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
+Configuring, and Deploying a Tile Through an Automated Pipeline](../tile-install/automated-pipeline.html).
 
 
-## <a id='overview'></a> Overview
+## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch
 
 The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
 from Healthwatch Exporter tiles installed on each foundation. For more information about the
-architecture of the Healthwatch tile, see [Healthwatch Tile](architecture.html#healthwatch)
+architecture of the Healthwatch tile, see [Healthwatch Tile](../../architecture.html#healthwatch)
 in _Healthwatch Architecture_.
-
-To manually install, configure, and deploy Healthwatch:
-
-1. Download and install the Healthwatch tile from VMware Tanzu Network. For more information,
-see [Install Healthwatch](#install) below.
-
-1. Configure the Healthwatch tile through the tile UI. For more information, see [Configure
-Healthwatch](#configure) below.
-
-1. Deploy the Healthwatch tile through the Ops Manager Installation Dashboard. For more information,
-see [Deploy Healthwatch](#apply-changes) below.
-
-
-## <a id='install'></a> Install Healthwatch
-
-To install the Healthwatch tile:
-
-1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
-VMware Tanzu Network.
-
-1. From the **Releases** dropdown, select the version you want to install.
-
-1. Click **Healthwatch** to download the Healthwatch `.pivotal` file.
-
-1. Navigate to the Ops Manager Installation Dashboard.
-
-1. Under the **Import a Product** button, click the **+** icon next to the Healthwatch listing
-to add the tile to your staging area. For more information, see [Adding and Deleting Products]
-(https://docs.pivotal.io/ops-manager/install/add-delete.html) in the Ops Manager documentation.
-
-
-## <a id='configure'></a> Configure Healthwatch
 
 After installing Healthwatch, you configure Healthwatch component VMs, including the configuration
 files associated with them, through the tile UI. You can also configure errands and system
 logging, as well as scale VM instances up or down and configure load balancers for multiple
 VM instances.
 
-To configure the Healthwatch tile:
+To configure and deploy the Healthwatch tile:
 
 <div class='note'><strong>Notes:</strong>
   <ul>
@@ -68,7 +36,8 @@ To configure the Healthwatch tile:
   </ul>
 </div>
 
-1. Click the **Healthwatch** tile.
+1. Navigate to the Healthwatch tile in the Ops Manager Installation Dashboard. For more information,
+see [Navigate to the Healthwatch Tile](#open-ui) below.
 
 1. Assign jobs to your Availability Zones (AZs) and networks. For more information, see [Assign
 AZs and Networks](#az) below.
@@ -100,7 +69,23 @@ Syslog](#syslog) below.
 1. (Optional) Configure the **Resource Config** pane. For more information, see [(Optional)
 Configure Resources](#resource-config) below.
 
-### <a id='az'></a> Assign AZs and Networks
+1. Deploy Healthwatch. For more information, see [Deploy Healthwatch](#apply-changes) below.
+
+After you have configured and deployed the Healthwatch tile, you can configure and deploy the
+Healthwatch Exporter tiles for the foundations you want to monitor. For more information, see
+[Next Steps](#next-steps) below.
+
+
+## <a id='open-ui'></a> Navigate to the Healthwatch Tile
+
+To navigate to the Healthwatch tile:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+
+## <a id='az'></a> Assign AZs and Networks
 
 In the **Assign AZ and Networks** pane, you assign jobs to your AZs and networks.
 
@@ -119,7 +104,8 @@ the BOSH Director tile.
 
 1. Click **Save**.
 
-### <a id='prometheus'></a> (Optional) Configure Prometheus
+
+## <a id='prometheus'></a> (Optional) Configure Prometheus
 
 In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
 from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
@@ -199,6 +185,7 @@ v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses t
 calculate the `Diego_AvailableFreeChunksDisk` metric. The Pivotal Healthwatch integration sends
 the `Diego_AvailableFreeChunksDisk` metric back into Loggregator so third-party nozzles can
 send it to external destinations, such as a remote server or external aggregation service.
+For more information, see [SVM Forwarder VM](../../metrics.html#svms) in _Healthwatch Metrics_.
 
 1. (Optional) For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify
 for chunks of free memory. The default value is `4096`. Healthwatch uses this free memory chunk
@@ -206,21 +193,24 @@ size to calculate the available memory chunks SVM. If you rely on Pivotal Health
 or earlier for any metrics, the Pivotal Healthwatch integration then uses this SVM to calculate
 the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch integration sends the
 `Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party nozzles can send
-it to external destinations, such as a remote server or external aggregation service.
+it to external destinations, such as a remote server or external aggregation service. For more
+information, see [SVM Forwarder VM](../../metrics.html#svms) in _Healthwatch Metrics_.
 
 1. Click **Save**.
 
-### <a id='alertmanager'></a> (Optional) Configure Alertmanager
+
+## <a id='alertmanager'></a> (Optional) Configure Alertmanager
 
 In the **Alertmanager Configuration** pane, you configure alerting for Healthwatch.
 
-To configure the **Alertmanager Configuration** pane, see [Alerting](common-configurations/alerting.html).
+To configure the **Alertmanager Configuration** pane, see [Alerting](../optional-config/alerting.html).
 
-### <a id='grafana'></a> (Optional) Configure Grafana
+
+## <a id='grafana'></a> (Optional) Configure Grafana
 
 In the **Grafana Configuration** pane, you configure how users access and authenticate with
 the Grafana UI, as well as which dashboards appear in the Grafana UI. For more information
-about the Grafana UI as it relates to Healthwatch, see [Healthwatch](index.html).
+about the Grafana UI as it relates to Healthwatch, see [Healthwatch](../../index.html).
 
 The values that you enter in the fields in the **Grafana Configuration** pane also define their
 corresponding properties the Grafana configuration file. For more information, see [Configuration]
@@ -243,7 +233,7 @@ IP address to configure **Root URL for Grafana** after you deploy the Healthwatc
 the first time. Your Grafana VMs listen on either port `443` or `80`, depending on whether
 you provide an SSL certificate in the **Enable HTTPS by providing certificates** field below.
 For more information about configuring DNS for the Grafana VM, see [Configuring DNS for the
-Grafana VM](common-configurations/dns-configuration.html).
+Grafana VM](dns-configuration.html).
 
 1. Under **Enable HTTP(s) Proxy Settings for Grafana**, choose whether to enable or disable
 the Grafana VM to make HTTP and HTTPS proxy requests:
@@ -279,8 +269,7 @@ default.
 enable the **Use Indicator Protocol Generated Dashboards** checkbox to enable the Grafana VM
 to generate dashboards in the Grafana UI based on indicator documents the Monitoring Indicator
 Protocol tile generates. This checkbox is disabled by default. For more information about Monitoring
-Indicator Protocol, see [Indicator Protocol Dashboard (Beta)](indicator-protocol.html) and
-the [Monitoring Indicator Protocol](https://github.com/pivotal/monitoring-indicator-protocol)
+Indicator Protocol, see the [Monitoring Indicator Protocol](https://github.com/pivotal/monitoring-indicator-protocol)
 repository on GitHub.
 
 1. Under **Discover Product Dashboards**, select how you want the Grafana VM to discover the
@@ -310,20 +299,18 @@ in the Go repository on GitHub.
 1. Under **Select an authentication mechanism for Grafana**, select the user authentication
 method you want the Grafana VM to use:
     * **Basic:** Enables basic authentication. For more information, see [Configure Basic Authentication]
-    (common-configurations/grafana-authentication.html#configure-basic-auth) in _Configuring
-    Grafana Authentication_.
+    (grafana-authentication.html#configure-basic-auth) in _Configuring Grafana Authentication_.
     * **Generic OAuth:** Enables OAuth authentication for any supported authentication provider,
     such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
-    (common-configurations/grafana-authentication.html#configure-generic-oauth) in _Configuring
-    Grafana Authentication_ and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
+    (grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_
+    and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
     in the Grafana documentation.
     * **UAA:** Enables UAA authentication. For more information, see [Configure UAA Authentication]
-    (common-configurations/grafana-authentication.html#configure-uaa) in _Configuring Grafana
-    Authentication_.
+    (grafana-authentication.html#configure-uaa) in _Configuring Grafana Authentication_.
     * **LDAP:** Enables LDAP authentication. For more information, see [Configure LDAP Authentication]
-    (common-configurations/grafana-authentication.html#configure-ldap) in _Configuring Grafana
-    Authentication_ and [LDAP Authentication](https://grafana.com/docs/grafana/latest/auth/ldap/)
-    in the Grafana documentation.
+    (grafana-authentication.html#configure-ldap) in _Configuring Grafana Authentication_ and
+    [LDAP Authentication](https://grafana.com/docs/grafana/latest/auth/ldap/) in the Grafana
+    documentation.
 
 1. Under **Enable SMTP for Grafana Alerts**, choose whether to enable or disable email alerts
 from the Grafana UI.
@@ -362,7 +349,8 @@ from the Grafana UI.
 
 1. Click **Save**.
 
-### <a id='canary'></a> (Optional) Configure Canary URLs
+
+## <a id='canary'></a> (Optional) Configure Canary URLs
 
 In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporter
 in the Prometheus VM sends canary tests. Testing a canary target URL allows you to gauge the
@@ -402,7 +390,8 @@ URLs:
 
 1. Click **Save**.
 
-### <a id='remote-write'></a> (Optional) Configure Remote Write
+
+## <a id='remote-write'></a> (Optional) Configure Remote Write
 
 In the **Remote Write Configuration** pane, you can configure the Prometheus VM to write to
 remote storage, in addition to its local time series database (TSDB). Healthwatch stores monitoring
@@ -492,7 +481,8 @@ section of the remote write configuration:
 
 1. Click **Save**.
 
-### <a id='tkgi-cluster-discovery'></a> (Optional) Configure TKGI Cluster Discovery
+
+## <a id='tkgi-cluster-discovery'></a> (Optional) Configure TKGI Cluster Discovery
 
 In the **TKGI Cluster Discovery Configuration** pane, you can enable the Prometheus VM to detect
 clusters created by the TKGI API and create scrape jobs for them. You only need to configure
@@ -606,7 +596,8 @@ the add-on resources provided in each plan to on-demand clusters.
 
 1. Click **Save**.
 
-### <a id='errands'></a> (Optional) Configure Errands
+
+## <a id='errands'></a> (Optional) Configure Errands
 
 Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product,
 such as a new version of Healthwatch. There are two types of errands: _post-deploy errands_
@@ -631,7 +622,8 @@ To configure the **Errands** pane:
 
 1. Click **Save**.
 
-### <a id='syslog'></a> (Optional) Configure Syslog
+
+## <a id='syslog'></a> (Optional) Configure Syslog
 
 In the **Syslog** pane, you can configure system logging in Healthwatch to forward log messages
 from Healthwatch component VMs to an external destination for troubleshooting, such as a remote
@@ -672,7 +664,8 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 
 1. Click **Save Syslog Settings**.
 
-### <a id='resource-config'></a> (Optional) Configure Resources
+
+## <a id='resource-config'></a> (Optional) Configure Resources
 
 In the **Resource Config** pane, you can scale Healthwatch component VMs up or down according
 to the needs of your deployment, as well as associate load balancers with a group of VMs. For
@@ -716,10 +709,11 @@ in the Ops Manager documentation.
 ## <a id='next-steps'></a> Next Steps
 
 After you have successfully installed the Healthwatch tile, continue to one of the following
-topics to install Healthwatch Exporter tiles on the foundations you want to monitor:
+topics to configure and deploy the Healthwatch Exporter tiles for the foundations you want
+to monitor:
 
-* If you have TAS for VMs installed on a foundation you want to monitor, see [Installing, Configuring,
-and Deploying Healthwatch Exporter for TAS for VMs](installing-exporter-tas-vms.html).
+* If you have TAS for VMs installed on a foundation you want to monitor, see [Configuring Healthwatch
+Exporter for TAS for VMs](configuring-exporter-tas.html).
 
-* If you have TKGI installed on a foundation you want to monitor, see [Installing, Configuring,
-and Deploying Healthwatch Exporter for TKGI](installing-exporter-pks.html).
+* If you have TKGI installed on a foundation you want to monitor, see [Configuring Healthwatch
+Exporter for TKGI](configuring-exporter-tkgi.html).

@@ -11,9 +11,10 @@ Exporter tiles through an automated pipeline.
 To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles manually,
 see the following topics:
 
-* [Installing, Configuring, and Deploying Healthwatch](installing.html)
-* [Installing, Configuring, and Deploying Healthwatch Exporter for TAS for VMs](installing-exporter-tas-vms.html)
-* [Installing, Configuring, and Deploying Healthwatch Exporter for TKGI](installing-exporter-pks.html)
+* [Installing a Tile Manually](installing-manually.html)
+* [Configuring Healthwatch](../tile-config/configuring-healthwatch.html)
+* [Configuring Healthwatch Exporter for TAS for VMs](../tile-config/configuring-exporter-tas.html)
+* [Configuring Healthwatch Exporter for TKGI](../tile-config/configuring-exporter-tkgi.html)
 
 
 ## <a id='overview'></a> Overview of Automated Pipelines
@@ -78,16 +79,19 @@ and paste one of the following sets of properties into your configuration file:
     ```
   <br>
   For more information, see [Download](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download)
-  in _Extending a Pipeline to Install a Product_ and [download-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#download-product) in _Task Reference_ in the Platform Automation documentation.
+  in _Extending a Pipeline to Install a Product_ and [download-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#download-product)
+  in _Task Reference_ in the Platform Automation documentation.
 
 1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell`
 and `upload-and-stage-product` jobs to your configuration file. For more information, see [Upload
 and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
-in _Extending a Pipeline to Install a Product_ and [upload-stemcell](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-stemcell) and [upload-and-stage-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-and-stage-product)
+in _Extending a Pipeline to Install a Product_ and [upload-stemcell](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-stemcell)
+and [upload-and-stage-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-and-stage-product)
 in _Task Reference_ in the Platform Automation documentation.
 
 For more information about adding a product to the Ops Manager Installation Dashboard with
-Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html) in the Platform Automation documentation.
+Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
+in the Platform Automation documentation.
 
 
 ## <a id='om'></a> Configure and Deploy Your Tile Using the om CLI

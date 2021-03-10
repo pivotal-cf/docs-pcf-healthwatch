@@ -291,10 +291,12 @@ receivers:
 ## <a id='silence'></a> Silence Alerts
 
 Alertmanager includes a command-line tool called `amtool`. You can use `amtool` to temporarily
-silence Alertmanager alerts without modifying your alerting rules.
+silence Alertmanager alerts without modifying your alerting rules. For more information about
+how to use `amtool`, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool)
+in the Prometheus repository on GitHub.
 
 You can also use the Alertmanager UI to view and silence alerts. To access the Alertmanager
-UI, see [Viewing the Alertmanager UI](../troubleshooting.html#viewing-the-alertmanager-ui)
+UI, see [Viewing the Alertmanager UI](../../troubleshooting.html#viewing-the-alertmanager-ui)
 in _Troubleshooting Healthwatch_.
 
 To silence alerts using `amtool`:
@@ -371,10 +373,8 @@ specified amount of time:
         For example, `30m` or `4h`.
         * `COMMENT` is any notes about this silence you want to add.
         <p class='note'><strong>Note:</strong><code>~.+</code> is a regular expression that
-          includes all alerts in the silence you set.</strong>
+          includes all alerts in the silence you set.</p>
 
 1. Record the ID string from the output. You can use this ID to end the silence early. For
-more information, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool)
-or run `amtool --help`.
-
-For more information about how to use `amtool`, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool).
+more information, run `amtool --help` or see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool)
+in the Prometheus repository on GitHub.

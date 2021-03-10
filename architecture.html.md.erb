@@ -83,7 +83,7 @@ This process intermittently scans for new clusters.
 * Get the list of Clusters including the IP addresses of their master nodes (`$PKS_API/v1/clusters`).
 * Fetch mTLS Certificates for use by the Healthwatch Kubernetes user (ex: `$KUBERNETES_API/apis/certificates.k8s.io/v1beta1/certificatesigningrequests`).
 * Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules">Required Ports for PKS Cluster Discovery</a>)
-* Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](installing.html#tsdb).
+* Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](install-config/tile-config/configuring-healthwatch.html#tsdb).
 * Reload Prometheus to apply the new Scrape Config Jobs. (`$PROMETHEUS_API/-/reload`)
 
 ### <a id='network-rules-pks'></a> Required Networking Rules for Healthwatch Exporter for PKS

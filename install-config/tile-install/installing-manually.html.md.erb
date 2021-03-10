@@ -1,0 +1,71 @@
+---
+title: Installing a Tile Manually
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to manually install the Healthwatch, Healthwatch Exporter for VMware
+Tanzu Application Service for VMs (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes
+Grid Integrated Edition (TKGI) tiles.
+
+To install, configure, and deploy these tiles through an automated pipeline, see [Installing,
+Configuring, and Deploying a Tile Through an Automated Pipeline](automated-pipeline.html).
+
+
+## <a id='overview'></a> Overview
+
+The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
+from Healthwatch Exporter tiles installed on each foundation. For more information about the
+architecture of each tile, see [Reference Architecture](architecture.html).
+
+To manually install the Healthwatch and Healthwatch Exporter tiles, you must download and install
+the tiles from VMware Tanzu Network. For more information, see [Install a Tile Manually](#install)
+below.
+
+After you have installed the Healthwatch and Healthwatch Exporter tiles, you can configure
+them through the Ops Manager Installation Dashboard. For more information, see [Next Steps]
+(#next-steps) below.
+
+
+## <a id='install'></a> Install a Tile Manually
+
+To install the Healthwatch, Healthwatch Exporter for TAS for VMs, or Healthwatch Exporter for
+TKGI tile:
+
+1. Navigate to the [Healthwatch](https://network.pivotal.io/products/p-healthwatch/) page on
+VMware Tanzu Network.
+
+1. From the **Releases** dropdown, select the version of the tile you want to install.
+
+1. Click the name of the tile you want to install to download the `.pivotal` file for the tile.
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click **Import a Product**.
+
+1. Select the `.pivotal` file that you downloaded from VMware Tanzu Network.
+
+1. Click **Open**. If the tile is successfully uploaded, it appears in the product list beneath
+the **Import a Product** button.
+
+1. Once the upload is complete, click the **+** icon next to the tile listing to add the tile
+to your staging area.
+
+For more information, see [Adding and Deleting Products](https://docs.pivotal.io/ops-manager/install/add-delete.html)
+in the Ops Manager documentation.
+
+
+## <a id='next-steps'></a> Next Steps
+
+After you have successfully installed the Healthwatch tile and the Healthwatch Exporter tiles
+for the foundations you want to monitor, continue to one of the following topics to configure
+each tile you installed:
+
+* To configure and deploy the Healthwatch tile, see [Configuring Healthwatch](../tile-config/configuring-healthwatch.html).
+
+* To configure and deploy the Healthwatch Exporter for TAS for VMs tile, see [Configuring Healthwatch
+Exporter for TAS for VMs](../tile-config/configuring-exporter-tas.html).
+
+* To configure and deploy the Healthwatch Exporter for TKGI tile, see [Configuring Healthwatch
+Exporter for TKGI](../tile-config/configuring-exporter-tkgi.html).

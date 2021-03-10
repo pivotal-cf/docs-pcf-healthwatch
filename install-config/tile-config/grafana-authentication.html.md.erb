@@ -211,7 +211,7 @@ To create a UAA client for the Grafana VM:
 1. Click the **VMware Tanzu Application Service for VMs** or **Tanzu Kubernetes Grid Integrated
 Edition** tile, depending on which runtime you have installed on your foundation.
 
-1. Select the **Status** tab.
+1. Select the **Credentials** tab.
 
 1. Record the **Uaa Login Client Credentials** and **Uaa Admin User Credentials**. For **Uaa
 Login Client Credentials** and **Uaa Admin User Credentials**, click **Link to Credential**
@@ -229,10 +229,10 @@ to obtain the client secret.
     ```
     uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
     ```
-    Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the **Status**
+    Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the **Credentials**
     tab in your runtime tile in a previous step.
 
-1. When prompted, enter the UAA admin client username and secret you recorded from the **Status**
+1. When prompted, enter the UAA admin client username and secret you recorded from the **Credentials**
 tab in your runtime tile in a previous step.
 
 1. Create a UAA client for the Grafana VM by running:
@@ -248,7 +248,7 @@ tab in your runtime tile in a previous step.
     Where:
     * `CLIENT-SECRET` is the client secret you want to set for the `grafana` UAA client.
     * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured your
-    Grafana VM to use in the **Grafana Configuration** pane.
+    Grafana VM to use in the **Grafana Configuration** pane of the Healthwatch tile.
     * `GRAFANA-ROOT-URL` is the root URL for your Grafana instance. If your Grafana VM uses
     HTTPS, include the port for your Grafana VM in `GRAFANA-ROOT-URL`. For example, `https://GRAFANA-ROOT-URL:443`.
     Your Grafana VM listens on either port `443` or `80`, depending on whether you provide
