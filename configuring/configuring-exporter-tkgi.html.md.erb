@@ -9,7 +9,7 @@ This topic describes how to manually configure and deploy the Healthwatch Export
 Kubernetes Grid Integrated (TKGI) tile.
 
 To install, configure, and deploy Healthwatch Exporter for TKGI through an automated pipeline,
-see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](../tile-install/automated-pipeline.html).
+see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch Exporter for TKGI
@@ -19,7 +19,7 @@ exporter VMs to generate service level indicators (SLIs) related to the health o
 deployment. The Prometheus VM that exists within your metrics monitoring system then scrapes
 the Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into
 your monitoring system. For more information about the architecture of the Healthwatch Exporter
-for TKGI tile, see [Healthwatch Exporter for TKGI](../../architecture.html#healthwatch-pks) in _Reference
+for TKGI tile, see [Healthwatch Exporter for TKGI](../architecture.html#healthwatch-pks) in _Reference
 Architecture_.
 
 After installing Healthwatch Exporter for TKGI, you configure the metric exporter VMs deployed
@@ -137,14 +137,14 @@ To configure the **TKGI Exporter Configuration** pane:
 
 1. (Optional) For **Static IP for TKGI Exporter VM**, enter a valid static IP address that
 you want to reserve for the TKGI metric exporter VM. The TKGI metric exporter VM collects health
-metrics from the BOSH Director. For more information, see [TKGI Metric Exporter VM](../../metrics.html#pks-exporter)
+metrics from the BOSH Director. For more information, see [TKGI Metric Exporter VM](../metrics.html#pks-exporter)
 in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
 that you want to reserve for the certificate expiration metric exporter VM. The certificate
 expiration metric exporter VM exposes metrics about when certificates in your Ops Manager deployment
-are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../../metrics.html#cert-expiration-exporter)
-in _Healthwatch Metrics_ and [Certificate Monitoring](../optional-config/certificate-monitoring.html).
+are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../metrics.html#cert-expiration-exporter)
+in _Healthwatch Metrics_ and [Certificate Monitoring](optional-config/certificate-monitoring.html).
 
 1. Click **Save**.
 
@@ -155,7 +155,7 @@ In the **TKGI SLI Exporter Configuration** pane, you configure the TKGI SLI expo
 TKGI SLI exporter VM generates SLIs that allow you to monitor whether the core functions of
 the TKGI Command-Line Interface (TKGI CLI) are working as expected. The TKGI CLI enables developers
 to create and manage Kubernetes clusters through TKGI. For more information, see [TKGI SLI
-Exporter VM](../../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
+Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
 
 To configure the **TKGI SLI Exporter Configuration** pane:
 
@@ -192,7 +192,7 @@ exporter VM, which creates a BOSH deployment every ten minutes. This BOSH deploy
 another VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality
 of the BOSH Director. After the SLI tests are complete, the BOSH health metric exporter VM
 collects the metrics from the `bosh-health-check` VM, then deletes the BOSH deployment and
-the VM. For more information, see [BOSH Health Metric Exporter VM](../../metrics.html#bosh-health-exporter)
+the VM. For more information, see [BOSH Health Metric Exporter VM](../metrics.html#bosh-health-exporter)
 in _Healthwatch Metrics_.
 
 To configure the **BOSH Health Exporter Configuration** pane:
@@ -213,7 +213,7 @@ Exporter for TKGI to deploy.
 In the **Bosh Deployments Exporter Configuration** pane, you configure the authentication credentials
 and a static IP address for the BOSH deployment metric exporter VM. This VM checks every 30
 seconds whether any BOSH deployments other than the one created by the BOSH health metric exporter
-VM are running. For more information, see [BOSH Deployment Metric Exporter VM](../../metrics.html#bosh-deployments-exporter)
+VM are running. For more information, see [BOSH Deployment Metric Exporter VM](../metrics.html#bosh-deployments-exporter)
 in _Healthwatch Metrics_.
 
 To configure the **Bosh Deployments Exporter Configuration** pane:
@@ -237,14 +237,14 @@ BOSH deployment metric exporter VM to access the BOSH Director VM.
         uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
         ```
         Where `BOSH-DIRECTOR-IP` is the IP address of your BOSH Director instance that you
-        recorded from the **Status** tab in the BOSH Director tile in a previous step.
+        recorded from the **Credentials** tab in the BOSH Director tile in a previous step.
     1. Log in to the UAA instance by running:
 
         ```
         uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
         ```
         Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the
-        **Status** tab in the BOSH Director tile in a previous step.
+        **Credentials** tab in the BOSH Director tile in a previous step.
     1. When prompted, enter the UAA admin client username and secret you recorded in a previous
     step.
     1. Create a UAA client for the BOSH deployment metric exporter VM by running:
@@ -259,8 +259,8 @@ BOSH deployment metric exporter VM to access the BOSH Director VM.
         Where:
         * `CLIENT-USERNAME` is the client username you want to set for the UAA client.
         * `CLIENT-SECRET` is the client secret you want to set for the UAA client.
-    1. Return to the **Bosh Deployments Exporter Configuration** pane in the **Healthwatch
-    Exporter for TKGI** tile.
+    1. Return to the **Bosh Deployments Exporter Configuration** pane in the Healthwatch Exporter
+    for TKGI tile.
     1. Enter the username and secret for the UAA client you just created in **Bosh Client Username
     and Secret**.
 
@@ -414,7 +414,7 @@ located outside your Ops Manager foundation:
 1. Open network communication paths from your external service or database to the metric exporter
 VMs in Healthwatch Exporter for TKGI. The procedure to open these network paths differs depending
 on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter
-VM, see [Required Networking Rules for Healthwatch Exporter for TKGI](../../architecture.html#network-rules-pks)
+VM, see [Required Networking Rules for Healthwatch Exporter for TKGI](../architecture.html#network-rules-pks)
 in _Reference Architecture_.
 
 1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job

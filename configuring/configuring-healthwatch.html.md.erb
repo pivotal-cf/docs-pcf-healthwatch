@@ -8,14 +8,14 @@ owner: Healthwatch
 This topic describes how to manually configure and deploy the Healthwatch tile.
 
 To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing,
-Configuring, and Deploying a Tile Through an Automated Pipeline](../tile-install/automated-pipeline.html).
+Configuring, and Deploying a Tile Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch
 
 The Healthwatch tile monitors metrics across multiple Ops Manager foundations by scraping metrics
 from Healthwatch Exporter tiles installed on each foundation. For more information about the
-architecture of the Healthwatch tile, see [Healthwatch Tile](../../architecture.html#healthwatch)
+architecture of the Healthwatch tile, see [Healthwatch Tile](../architecture.html#healthwatch)
 in _Healthwatch Architecture_.
 
 After installing Healthwatch, you configure Healthwatch component VMs, including the configuration
@@ -185,7 +185,7 @@ v1.8 or earlier for any metrics, the Pivotal Healthwatch integration then uses t
 calculate the `Diego_AvailableFreeChunksDisk` metric. The Pivotal Healthwatch integration sends
 the `Diego_AvailableFreeChunksDisk` metric back into Loggregator so third-party nozzles can
 send it to external destinations, such as a remote server or external aggregation service.
-For more information, see [SVM Forwarder VM](../../metrics.html#svms) in _Healthwatch Metrics_.
+For more information, see [SVM Forwarder VM](../metrics.html#svms) in _Healthwatch Metrics_.
 
 1. (Optional) For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify
 for chunks of free memory. The default value is `4096`. Healthwatch uses this free memory chunk
@@ -194,7 +194,7 @@ or earlier for any metrics, the Pivotal Healthwatch integration then uses this S
 the `Diego_AvailableFreeChunksMemory` metric. The Pivotal Healthwatch integration sends the
 `Diego_AvailableFreeChunksMemory` metric back into Loggregator so third-party nozzles can send
 it to external destinations, such as a remote server or external aggregation service. For more
-information, see [SVM Forwarder VM](../../metrics.html#svms) in _Healthwatch Metrics_.
+information, see [SVM Forwarder VM](../metrics.html#svms) in _Healthwatch Metrics_.
 
 1. Click **Save**.
 
@@ -203,14 +203,14 @@ information, see [SVM Forwarder VM](../../metrics.html#svms) in _Healthwatch Met
 
 In the **Alertmanager Configuration** pane, you configure alerting for Healthwatch.
 
-To configure the **Alertmanager Configuration** pane, see [Alerting](../optional-config/alerting.html).
+To configure the **Alertmanager Configuration** pane, see [Alerting](optional-config/alerting.html).
 
 
 ## <a id='grafana'></a> (Optional) Configure Grafana
 
 In the **Grafana Configuration** pane, you configure how users access and authenticate with
 the Grafana UI, as well as which dashboards appear in the Grafana UI. For more information
-about the Grafana UI as it relates to Healthwatch, see [Healthwatch](../../index.html).
+about the Grafana UI as it relates to Healthwatch, see [Healthwatch](../index.html).
 
 The values that you enter in the fields in the **Grafana Configuration** pane also define their
 corresponding properties the Grafana configuration file. For more information, see [Configuration]
@@ -582,7 +582,7 @@ Healthwatch.
   1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to configure
   the roles required to enable the Prometheus VM to scrape metrics from your TKGI clusters:
 
-      <%= partial '../../snippets/cluster_scraping_config.md' %>
+      <%= partial '../snippets/cluster_scraping_config.md' %>
       If **(Optional) Add-ons - Use with caution** already contains other API resource definitions,
       append the above YAML snippet to the end of the existing resource definitions, followed
       by a newline character.

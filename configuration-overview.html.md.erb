@@ -6,8 +6,8 @@ owner: Healthwatch
 ## <a id="monitoring-tas-from-within-foundation"></a> Monitoring TAS from within Foundation
 In order to monitor a single TAS installation,
 follow the instructions for
-[Configuring Healthwatch](install-config/tile-config/configuring-healthwatch.html)
-and the instructions for [Configuring Healthwatch Exporter for TAS for VMs](install-config/tile-config/configuring-exporter-tas.html)
+[Configuring Healthwatch](configuring/configuring-healthwatch.html)
+and the instructions for [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
 on the same foundation where TAS is installed.
 **Healthwatch** will automatically detect
 that the **Healthwatch Exporter for TAS** has also been installed
@@ -16,7 +16,7 @@ and will start scraping its metrics.
 ## <a id="monitoring-pks-from-within-foundation"></a> Monitoring PKS from within Foundation
 In order to monitor a single PKS installation,
 follow the instructions for
-[Configuring Healthwatch](install-config/tile-config/configuring-healthwatch.html)
+[Configuring Healthwatch](configuring/configuring-healthwatch.html)
 on the same foundation where PKS is installed.
 **Healthwatch** will automatically detect
 that the **Healthwatch Exporter for PKS** is also installed
@@ -25,9 +25,9 @@ and will begin scraping its metrics.
 ## <a id="monitoring-tas-and-pks"></a> Monitoring TAS and PKS
 In order to monitor a foundation with both TAS and PKS installed,
 follow the instructions for
-[Configuring Healthwatch](install-config/tile-config/configuring-healthwatch.html),
-the instructions for [Configuring Healthwatch Exporter for TAS for VMs](install-config/tile-config/configuring-exporter-tas.html),
-and the instructions for [Configuring Healthwatch Exporter for TKGI](install-config/tile-config/configuring-exporter-tkgi.html),
+[Configuring Healthwatch](configuring/configuring-healthwatch.html),
+the instructions for [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html),
+and the instructions for [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html),
 on the same foundation where TAS and PKS are installed.
 **Healthwatch** will automatically detect
 that it is co-located with both **Healthwatch Exporter for TAS**
@@ -41,9 +41,9 @@ can be used from the Control Plane
 to monitor any number of TAS foundations.
 To use **Healthwatch** in this way,
 follow the installation instructions for
-[Configuring Healthwatch](install-config/tile-config/configuring-healthwatch.html) on the control plane,
+[Configuring Healthwatch](configuring/configuring-healthwatch.html) on the control plane,
 then follow the installation instructions for
-[Configuring Healthwatch Exporter for TAS for VMs](install-config/tile-config/configuring-exporter-tas.html)
+[Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
 on each TAS foundation you would like to monitor.
 
 Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary
