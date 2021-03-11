@@ -3,35 +3,54 @@ title: Healthwatch Architecture
 owner: Healthwatch
 ---
 
-This topic describes the architecture of the Healthwatch and Healthwatch Exporter tiles.
+<strong><%= modified_date %></strong>
 
+This topic describes the architecture of the Healthwatch tile and the Healthwatch Exporter tiles and outlines the possible configurations for monitoring metrics across multiple foundations. 
 
-## <a id='architecture'></a> Architecture
+## <a id='architecture-overview'></a> Healthwatch Architecture Overview
 
-The following diagram shows how Healthwatch and its exporters are commonly deployed for
-multi-foundation monitoring:
+[COPIED THIS FIRST PARAGRAPH FROM THE INDEX PAGE>>]
+A complete Healthwatch installation includes the Healthwatch tile, as well as at least one
+Healthwatch Exporter tile. There are Healthwatch Exporter tiles for both the Tanzu Application Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
-![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
+For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring metrics across foundations, see the following sections below:
 
-## <a id='healthwatch'></a> Healthwatch Tile
+* [Healthwatch Tile Architecture](#architecture-hw)
+* [Networking Rules for the Healthwatch Tile](#network-rules-hw)
+* [Healthwatch Exporter for TAS for VMs Architecture](#architecture-tas)
+* [Networking Rules for the Healthwatch Exporter for TAS for VMs](#network-rules-tas)
+* [Healthwatch Exporter for TKGI Architecture](#architecture-tkgi)
+* [Networking Rules for the Healthwatch Exporter for TKGI](#network-rules-tkgi)
+* [Configuration Options](#configuration-options)
 
-The Healthwatch tile installs three components: TSDB, Grafana, and MySQL.
-MySQL is used only to store the Grafana settings and does not store any time series data.
+## <a id='architecture-hw'></a> Healthwatch Tile Architecture
 
-You can deploy the Healthwatch tile in high availability (HA) mode
-with three MySQL nodes and two MySQL Proxy nodes,
-or in non-HA mode with one MySQL node and one MySQL Proxy node.
-You can also scale Grafana horizontally beyond the default single VM.
-You can scale TSDB vertically but should not scale it horizontally.
-An Nginx proxy is deployed in front of TSDB to authorize and encrypt metrics stored in TSDB.
+When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana, and MySQL. 
 
+The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and enables you to configure alerts with Alertmanager. Healthwatch then exports the collected metrics to dashboards in Grafana, enabling you to visualize the data with charts and graphs and create customized dashboards for long-term monitoring and troubleshooting. MySQL is used only to store the Grafana settings and does not store any time-series data.
+
+An Nginx proxy is deployed in front of Prometheus.
+
+[I SENT THIS TO CONTENT OPS TO POLISH UP.]
 ![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
-### <a id='network-rules'></a> Required Networking Rules for Healthwatch
 
-This section only covers the networking rules for the Healthwatch tile.
-The Exporter tiles require additional networking rules,
-which can be found in their respective sections.
+### <a id='ha-mode'></a>High Availability
+
+You can deploy the Healthwatch tile in high availability (HA) mode
+with three MySQL nodes and two MySQL Proxy [SHOULD "PROXY" BE LOWERCASE?] nodes,
+or in non-HA mode with one MySQL node and one MySQL Proxy node.
+
+
+### <a id='scaling'></a>Component Scaling
+Healthwatch deploys a single Grafana VM by default, but you can deploy more [WHY WOULD YOU WANT TO SCALE HORIZONTALLY?]. 
+
+Healthwatch deploys two Prometheus VMs by default. You can scale the Prometheus VM vertically [WHEN WOULD YOU WANT TO SCALE IT VERTICALLY? SHOULD WE BE MORE SPECIFIC HERE? E.G. SCALE THE CPU, MEMORY, ETC] but you should not scale it horizontally [WHY NOT?].
+
+
+### <a id='network-rules-hw'></a> Required Networking Rules for the Healthwatch Tile [CAN WE DROP "REQUIRED"?]
+
+[INCLUDE SENTENCE THAT ANSWERS THE QUESTION: WHAT ARE NETWORKING RULES AND WHY DOES THE USER NEED THEM? ALSO, DANA MENTIONED IT'S NOT OBVIOUS THE NETWORKING RULES WOULD BE IN THIS TOPIC. MAYBE THEY SHOULD BE IN A SEPARATE TOPIC?] This section only covers networking rules for the Healthwatch tile. For information on networking rules for the Healthwatch Exporters, see [Networking Rules for the Healthwatch Exporter for TAS for VMs](#network-rules-tas) and [Networking Rules for the Healthwatch Exporter for TKGI](#network-rules-tkgi).
 
 | This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
@@ -41,13 +60,15 @@ which can be found in their respective sections.
 | tsdb (pks cluster discovery) | For each cluster: <ul> <li> Kube API Server </li><li> Kube Controller Manager </li> <li> Kube Scheduler</li> <li> ETCD (telegraf output plugin) </li> </ul> | <ul> <li>8443</li><li>10252</li><li>10251</li><li>10200</li></ul>  |    These ports are only needed if configuring PKS Cluster Discovery  |
 
 
-## <a id='healthwatch-tas'></a> Healthwatch Exporter for TAS for VMs
+## <a id='architecture-tas'></a> Healthwatch Exporter for TAS for VMs Architecture
+
+[WOW. YOUR "INDEX" PAGE IS MUCH MORE DETAILED AND CLEARER THAN THIS. HOW MUCH SHOULD WE DUPLICATE?]
 
 The Healthwatch Exporter for TAS for VMs installs up to three VMs.
 Each VM processes a metric type from the Firehose: timer, gauge, or counter.
-An operator can choose to deploy all three VMs or any subset thereof.
+You can deploy all three VMs or any subset thereof.
 Metrics are then exposed on a secured endpoint in TSDB exposition format.
-You can scale these VMs vertically but should not scale them horizontally.
+You can scale these VMs vertically but should not scale them horizontally [WHY? WHY NOT?].
 
 ![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
@@ -63,30 +84,33 @@ You can scale these VMs vertically but should not scale them horizontally.
 | pas-exporter-timer   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
 | pas-sli-exporter   | <ul> <li> CAPI </li><li> UAA </li> </ul>                        |<ul> <li>443</li><li>443</li></ul>  | |
 
-## <a id='healthwatch-pks'></a> Healthwatch Exporter for PKS
+## <a id='architecture-tkgi'></a> Healthwatch Exporter for TKGI Architecture
 
-The Healthwatch Exporter for PKS installs a single VM that collects health metrics from the BOSH Director.
+The Healthwatch Exporter for TKGI installs a single VM that collects health metrics from the BOSH Director.
 This VM obtains health metrics through the Firehose similarly to TAS for VMs.
 Metrics are then exposed on a secured endpoint in TSDB exposition format.
-You can scale this VM vertically but should not scale it horizontally.
+
+You can scale this VM vertically but should not scale it horizontally. [WHY NOT?]
 
 ![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
 
 ### <a id='pks-cluster-discovery'></a> How PKS Cluster Discovery works
+[I THINK THIS IS WRITTEN AS A PROCEDURE?][WE DESCRIBE THIS PROCESS IN THE CONFIG DOCS.]
 
 This section describes the process of PKS Cluster Discovery.
-PKS Cluster Discovery generates the scrape config jobs for the on-demand clusters created using TKG-i API.
+PKS Cluster Discovery generates the scrape config jobs for the on-demand clusters created using [A? THE?] TKGI API.
 This process intermittently scans for new clusters.
 
-* Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when PKS is deployed.
+* Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when TKGI is deployed.
   * This gives the Healthwatch Kubernetes user the privileges necessary to scrape the `$KUBERNETES_API/metrics` endpoint.
 * Get the list of Clusters including the IP addresses of their master nodes (`$PKS_API/v1/clusters`).
 * Fetch mTLS Certificates for use by the Healthwatch Kubernetes user (ex: `$KUBERNETES_API/apis/certificates.k8s.io/v1beta1/certificatesigningrequests`).
-* Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules">Required Ports for PKS Cluster Discovery</a>)
+* Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules-hw">Required Ports for TKGI Cluster Discovery</a>)
 * Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](installing.html#tsdb).
 * Reload Prometheus to apply the new Scrape Config Jobs. (`$PROMETHEUS_API/-/reload`)
 
-### <a id='network-rules-pks'></a> Required Networking Rules for Healthwatch Exporter for PKS
+### <a id='network-rules-tkgi'></a> Required Networking Rules for Healthwatch Exporter for TKGI
+[THE VM NAMES WEREN'T UPDATED AS OF FEB. ARE THEY STILL OUTDATED?]
 
 | This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
@@ -95,3 +119,26 @@ This process intermittently scans for new clusters.
 | cert-expiration-exporter   | <ul> <li> Ops Manager </li> </ul>                        |<ul> <li>443</li></ul>  | |
 | pks-exporter   | <ul> <li>BOSH director UAA</li><li>BOSH director metrics</li> </ul>                        |<ul> <li>8443</li><li>25595</li></ul>  | |
 | pks-sli-exporter   | <ul> <li> PKS API UAA </li><li> PKS API</li> </ul>                        |<ul>  <li>8443</li><li>9021</li> </ul>  | |
+
+## <a id='configuration-options'></a> Configuration [Options/Architecture/Overview]
+
+Healthwatch is flexible, allowing you to monitor metrics across a variety of platform and foundation configurations. These are the most common configuration scenarios: 
+
+* **TAS for VMs on a single foundation.** If you only have one foundation you need to monitor and you are using TAS for VMs, install the Healthwatch tile and the Healthwatch Exporter for TAS for VMs on the same foundation. The Healthwatch tile will automatically detect that the Healthwatch Exporter for TAS for VMs is installed on the same foundation and will begin scraping its metrics. For more information on installing the Healthwatch tile and the Healthwatch Exporter for TAS for VMs, see [Installing, Configuring, and Deploying Healthwatch](../installing.html)[IS THIS LINK RIGHT?] and [Installing, Configuring, and Deploying Healthwatch Exporter for TAS for VMs](../installing-exporter-tas-vms.html).
+
+* **Tanzu Kubernetes Grid Integrated Edition (TKGI) on a single foundation.** [BLURB LIKE ABOVE]
+
+* **TAS for VMS and TKGI on the same foundation.** [BLURB LIKE ABOVE]
+
+* **TAS for VMs on a separate foundation from a/the control plane [WHAT EXACTLY IS A CONTROL PLANE? SHOULD WE DEFINE IT ON FIRST REFERENCE? IS IT CAPITALIZED?].** 
+
+* **TKGI on a separate foundation from a/the control plane.** 
+
+
+The diagram below illustrates how the Healthwatch tile and Healthwatch Exporter tiles can be deployed for monitoring metrics across multiple foundations using a [control plane/Control Plane].
+
+[THIS DIAGRAM MAKES IT LOOK LIKE YOU INSTALL THE MAIN HW TILE ON EACH FOUNDATION, PLUS THE CONTROL PLANE. YOU ONLY INSTALL THE MAIN TILE ON THE CONTROL PLANE, RIGHT?]
+![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
+
+
+[THERE ARE A FEW MORE SECTIONS OF THE CONFIGURATIONS OVERVIEW TOPIC THAT NEED A HOME BEFORE WE RETIRE IT COMPLETELY.]
