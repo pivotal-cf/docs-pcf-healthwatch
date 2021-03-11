@@ -97,7 +97,7 @@ To navigate to the Healthwatch Exporter for TAS for VMs tile:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click the **Healthwatch Exporter for VMware Tanzu Application Service for VMs** tile.
+1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
 
 
 ## <a id='az'></a> Assign AZs and Networks
@@ -201,14 +201,16 @@ To configure the **Bosh Deployments Exporter Configuration** pane:
 
 1. Select **Bosh Deployments Exporter Configuration**.
 
-1. For **Bosh Client Username and Secret**, you must create a new UAA client to enable the
-BOSH deployment metric exporter VM to access the BOSH Director VM.
+1. (Optional) For **Bosh Client Username and Secret**, you must create a new UAA client to
+enable the BOSH deployment metric exporter VM to access the BOSH Director VM.
     1. Navigate to the Ops Manager Installation Dashboard.
     1. Click the **BOSH Director** tile.
+    1. Select the **Status** tab.
+    1. Record the **BOSH Director IP Address**.
     1. Select the **Credentials** tab.
-    1. Record the **BOSH Director IP Address**, **Uaa Login Client Credentials**, and **Uaa
-    Admin User Credentials**. For **Uaa Login Client Credentials** and **Uaa Admin User Credentials**,
-    click **Link to Credential** to obtain the client secret.
+    1. Record the **Uaa Login Client Credentials**, and **Uaa Admin User Credentials**. For
+    **Uaa Login Client Credentials** and **Uaa Admin User Credentials**, click **Link to Credential**
+    to obtain the client secret.
     1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
     VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
     _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
@@ -218,7 +220,7 @@ BOSH deployment metric exporter VM to access the BOSH Director VM.
         uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
         ```
         Where `BOSH-DIRECTOR-IP` is the IP address of your BOSH Director instance that you
-        recorded from the **Credentials** tab in the BOSH Director tile in a previous step.
+        recorded from the **Status** tab in the BOSH Director tile in a previous step.
     1. Log in to the UAA instance by running:
 
         ```
@@ -245,9 +247,9 @@ BOSH deployment metric exporter VM to access the BOSH Director VM.
     1. Enter the username and secret for the UAA client you just created in **Bosh Client Username
     and Secret**.
 
-1. For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address that
-you want to reserve for the BOSH deployment metric exporter VM. This IP address must not be
-within the reserved IP ranges you configured in the BOSH Director tile.
+1. (Optional) For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address
+that you want to reserve for the BOSH deployment metric exporter VM. This IP address must not
+be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
 
@@ -271,10 +273,13 @@ To configure the **Errands** pane:
 
 1. Select **Errands**.
 
-1. Choose whether to always run or never run the following errands:
+1. (Optional) Choose whether to always run or never run the following errands:
     * **Smoke Tests:** Verifies that the metric exporter VMs are running.
     * **Cleanup:** Deletes any existing BOSH deployments created by the BOSH health metric
     exporter VM for running SLI tests.
+    * **Remove CF SLI User:** Deletes the user account that the TAS for VMs SLI exporter VM
+    creates to run the TAS for VMs SLI test suite. For more information, see [TAS for VMs SLI
+    Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 1. Click **Save**.
 
@@ -289,7 +294,8 @@ To configure the **Syslog** pane:
 
 1. Select **Syslog**.
 
-1. Under **Do you want to configure Syslog forwarding?**, select one of the following options:
+1. (Optional) Under **Do you want to configure Syslog forwarding?**, select one of the following
+options:
     * **No, do not forward Syslog:** Disables syslog forwarding.
     * **Yes:** Enables syslog forwarding and allows you to edit the configuration fields described
     below.
@@ -353,7 +359,9 @@ the SVM Forwarder VM, increase the instance count by selecting from the **Instan
 You do not need to enable this VM unless your foundation uses a Pivotal Healthwatch v1.8 or
 earlier integration and a third-party nozzle to export the SVMs to an external system, such
 as a remote server or a syslog aggregatation service. For more information about the SVM Forwarder
-VM, see [SVM Forwarder VM](../metrics.html#svms) in _Healthwatch Metrics_.
+VM, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM
+Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in
+_Healthwatch Metrics_.
   <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS
     for VMs tile before installing the Healthwatch tile, you may need to re-deploy Healthwatch
     Exporter for TAS for VMs after enabling the SVM Forwarder VM. For more information, see

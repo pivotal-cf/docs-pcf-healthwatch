@@ -60,7 +60,7 @@ To configure basic authentication for Grafana:
 
 1. Select the **Credentials** tab.
 
-1. Under **Grafana**, click **Link to Credential** for **Admin Login Password**.
+1. Under **Grafana**, click **Link to Credential** for **Admin login password**.
 
 1. Record the login password. This is the password all users must use to log in to the Grafana
 UI.
@@ -125,11 +125,11 @@ this field limits Grafana UI access to users who belong to one or more of the li
 This list appears as the `allowed_domains` property in the `[auth.generic_oauth]` section of
 the Grafana configuration file.
 
-1. For **Hosted Domain**, enter the domain of your Grafana instance. This domain appears as
-the `domain` property in the `[server]` section of the Grafana configuration file. You need
-to configure this field if your OAuth provider requires a callback URL that uses the root URL
-of your Grafana instance. If your OAuth provider does not require a callback URL, do not configure
-this field.
+1. (Optional) For **Hosted Domain**, enter the domain of your Grafana instance. This domain
+appears as the `domain` property in the `[server]` section of the Grafana configuration file.
+You must configure this field if your OAuth provider requires a callback URL that uses the
+root URL of your Grafana instance. If your OAuth provider does not require a callback URL,
+do not configure this field.
 
 1. (Optional) To allow new users to log in to the Grafana UI with their existing OAuth credentials,
 enable the **Allow Sign Up** checkbox. This checkbox is enabled by default. Disabling this
@@ -137,22 +137,22 @@ checkbox prevents users without a pre-existing Grafana account from logging in t
 UI with their existing OAuth credentials. This checkbox appears as the `allow_sign_up` property
 in the `[auth.generic_oauth]` section of the Grafana configuration file.
 
-1. For **Team IDs**, enter a comma-separated list of teams. Configuring this field limits Grafana
-UI access to users who belong to one or more of the listed teams. You need to configure this
-field if your OAuth provider allows you to separate users into teams. If your OAuth provider
+1. (Optional) For **Team IDs**, enter a comma-separated list of teams. Configuring this field
+limits Grafana UI access to users who belong to one or more of the listed teams. Configure
+this field if your OAuth provider allows you to separate users into teams. If your OAuth provider
 does not allow you to separate users into teams, do not configure this field. This list appears
 as the `team_ids` property in the `[auth.generic_oauth]` section of the Grafana configuration
 file.
 
-1. For **Allowed Organizations**, enter a comma-separated list of orgs. Configuring this field
-limits Grafana UI access to users who belong to one or more of the listed orgs. You need to
-configure this field if your OAuth provider allows you to separate users into orgs. If your
+1. (Optional) For **Allowed Organizations**, enter a comma-separated list of orgs. Configuring
+this field limits Grafana UI access to users who belong to one or more of the listed orgs.
+Configure this field if your OAuth provider allows you to separate users into orgs. If your
 OAuth provider does not allow you to separate users into orgs, do not configure this field.
 This list appears as the `allowed_organizations` property in the `[auth.generic_oauth]` section
 of the Grafana configuration file.
 
-1. For **Allowed Groups**, enter a comma-separated list of groups. Configuring this field limits
-Grafana UI access to users who belong to one or more of the listed groups. You need to configure
+1. (Optional) For **Allowed Groups**, enter a comma-separated list of groups. Configuring this
+field limits Grafana UI access to users who belong to one or more of the listed groups. Configure
 this field if your OAuth provider allows you to separate users into groups. If your OAuth provider
 does not allow you to separate users into groups, do not configure this field. This list appears
 as the `allowed_groups` property in the `[auth.generic_oauth]` section of the Grafana configuration
