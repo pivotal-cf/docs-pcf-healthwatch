@@ -5,134 +5,300 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes the architecture of the Healthwatch tile and the Healthwatch Exporter tiles and outlines the possible configurations for monitoring metrics across multiple foundations. 
+This topic describes the architecture of the Healthwatch, Healthwatch Exporter for VMware Tanzu
+Application Service for VMs (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid
+Integrated Edition (TKGI) tiles. This topic also describes the possible configurations for
+monitoring metrics across multiple foundations.
 
-## <a id='architecture-overview'></a> Healthwatch Architecture Overview
 
-[COPIED THIS FIRST PARAGRAPH FROM THE INDEX PAGE>>]
+## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
+
+There are three tiles that form the Healthwatch architecture: Healthwatch, Healthwatch Exporter
+for TAS for VMs, and Healthwatch Exporter for TKGI.
+
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one
-Healthwatch Exporter tile. There are Healthwatch Exporter tiles for both the Tanzu Application Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
+Healthwatch Exporter tile. However, you can deploy and use each tile separately as part of
+an alternate monitoring configuration.
 
-For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring metrics across foundations, see the following sections below:
+You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor.
+You can install the Healthwatch tile on the same foundation or on a different foundation, depending
+on your desired monitoring configuration.
+
+You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database
+located outside your Ops Manager foundation, such as an external time series database (TSDB)
+or an installation of the Healthwatch tile on the TKGI Control Plane.
+
+
+
+For a detailed explanation of the architecture for each tile, a list of open ports required
+for each component, and the possible configurations for monitoring metrics across foundations,
+see the following sections:
 
 * [Healthwatch Tile Architecture](#architecture-hw)
-* [Networking Rules for the Healthwatch Tile](#network-rules-hw)
 * [Healthwatch Exporter for TAS for VMs Architecture](#architecture-tas)
-* [Networking Rules for the Healthwatch Exporter for TAS for VMs](#network-rules-tas)
 * [Healthwatch Exporter for TKGI Architecture](#architecture-tkgi)
-* [Networking Rules for the Healthwatch Exporter for TKGI](#network-rules-tkgi)
 * [Configuration Options](#configuration-options)
+
 
 ## <a id='architecture-hw'></a> Healthwatch Tile Architecture
 
-When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana, and MySQL. 
+When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana,
+and MySQL [which MySQL?].
 
-The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and enables you to configure alerts with Alertmanager. Healthwatch then exports the collected metrics to dashboards in Grafana, enabling you to visualize the data with charts and graphs and create customized dashboards for long-term monitoring and troubleshooting. MySQL is used only to store the Grafana settings and does not store any time-series data.
+The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and
+enables you to configure alerts with Alertmanager. Healthwatch then exports the collected metrics
+to dashboards in the Grafana UI, enabling you to visualize the data with charts and graphs
+and create customized dashboards for long-term monitoring and troubleshooting. MySQL is used only to store your Grafana settings and does not store any time-series data.
 
-An Nginx proxy is deployed in front of Prometheus.
+An Nginx proxy is deployed in front of the Prometheus instance.
 
-[I SENT THIS TO CONTENT OPS TO POLISH UP.]
-![a diagram that shows how the TSDB, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
+![A diagram that shows how the Prometheus, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
 
+### <a id='ha-mode'></a> High Availability
 
-### <a id='ha-mode'></a>High Availability
+You can deploy the Healthwatch tile in high availability (HA) mode with three MySQL nodes and
+two MySQL Proxy nodes, or in non-HA mode with one MySQL node and one MySQL Proxy node.
 
-You can deploy the Healthwatch tile in high availability (HA) mode
-with three MySQL nodes and two MySQL Proxy [SHOULD "PROXY" BE LOWERCASE?] nodes,
-or in non-HA mode with one MySQL node and one MySQL Proxy node.
+### <a id='scaling'></a> Component Scaling
 
-
-### <a id='scaling'></a>Component Scaling
-Healthwatch deploys a single Grafana VM by default, but you can deploy more [WHY WOULD YOU WANT TO SCALE HORIZONTALLY?]. 
+Healthwatch deploys a single Grafana VM by default, but you can deploy more [WHY WOULD YOU WANT TO SCALE HORIZONTALLY?].
 
 Healthwatch deploys two Prometheus VMs by default. You can scale the Prometheus VM vertically [WHEN WOULD YOU WANT TO SCALE IT VERTICALLY? SHOULD WE BE MORE SPECIFIC HERE? E.G. SCALE THE CPU, MEMORY, ETC] but you should not scale it horizontally [WHY NOT?].
 
+### <a id='network-rules-hw'></a> Networking Rules for the Healthwatch Tile
 
-### <a id='network-rules-hw'></a> Required Networking Rules for the Healthwatch Tile [CAN WE DROP "REQUIRED"?]
+[INCLUDE SENTENCE THAT ANSWERS THE QUESTION: WHAT ARE NETWORKING RULES AND WHY DOES THE USER NEED THEM? ALSO, DANA MENTIONED IT'S NOT OBVIOUS THE NETWORKING RULES WOULD BE IN THIS TOPIC. MAYBE THEY SHOULD BE IN A SEPARATE TOPIC?] This section only covers networking rules for the Healthwatch tile. For information about networking rules for the Healthwatch Exporter tiles, see [Networking Rules for Healthwatch Exporter for TAS for VMs](#network-rules-tas) and [Networking Rules for Healthwatch Exporter for TKGI](#network-rules-tkgi).
 
-[INCLUDE SENTENCE THAT ANSWERS THE QUESTION: WHAT ARE NETWORKING RULES AND WHY DOES THE USER NEED THEM? ALSO, DANA MENTIONED IT'S NOT OBVIOUS THE NETWORKING RULES WOULD BE IN THIS TOPIC. MAYBE THEY SHOULD BE IN A SEPARATE TOPIC?] This section only covers networking rules for the Healthwatch tile. For information on networking rules for the Healthwatch Exporters, see [Networking Rules for the Healthwatch Exporter for TAS for VMs](#network-rules-tas) and [Networking Rules for the Healthwatch Exporter for TKGI](#network-rules-tkgi).
-
-| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
-|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
-| grafana                  | <ul> <li>tsdb</li><li>pxc-proxy</li><li>External alerting urls</li><li>External data sources</li><li>External authentication</li><li>External SMTP server</li> </ul>                         |<ul> <li>4449</li><li>3306</li> </ul>          | Additional networking rules might be required for external connections listed. For example, 443 for UAA. |
-| blackbox-exporter        | <ul> <li>External Canary Urls</li> </ul>                     |<ul></ul>  |  Networking rules might be required depending on the external url setup                                                                       |
-| tsdb                     | <ul> <li> All exporter vms </li> </ul>                        |<ul> <li>9090</li></ul>  |    All exporter vms including blackbox-exporter and the corresponding exporter vms from the Exporter tile for the runtime (TAS and/or TKG-i)  |
-| tsdb (pks cluster discovery) | For each cluster: <ul> <li> Kube API Server </li><li> Kube Controller Manager </li> <li> Kube Scheduler</li> <li> ETCD (telegraf output plugin) </li> </ul> | <ul> <li>8443</li><li>10252</li><li>10251</li><li>10200</li></ul>  |    These ports are only needed if configuring PKS Cluster Discovery  |
+<table>
+  <tr>
+    <th>This Healthwatch component ...</th>
+    <th>Must communicate with ...</th>
+    <th>Default TCP Port</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td><code>grafana</code></td>
+    <td>
+      <ul>
+        <li><code>tsdb</code></li>
+        <li><code>pxc-proxy</code></li>
+        <li>External alerting URLs</li>
+        <li>External data sources</li>
+        <li>External authentication</li>
+        <li>External SMTP server</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><code>4449</code></li>
+        <li><code>3306</code></li>
+      </ul>
+    </td>
+    <td>Additional networking rules may be required for any external connections listed. For
+      example, <code>443</code> for UAA.</td>
+  </tr>
+  <tr>
+    <td><code>blackbox-exporter</code></td>
+    <td>External canary target URLs</td>
+    <td>N/A</td>
+    <td>Additional networking rules may be required, depending on your external canary target
+      URL configuration.</td>
+  </tr>
+  <tr>
+    <td><code>tsdb</code></td>
+    <td>
+      <ul>
+        <li><code>blackbox-exporter</code></li>
+        <li>All VMs deployed by Healthwatch Exporter tiles</li>
+      </ul>
+    </td>
+    <td><code>9090</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>tsdb</code> (for TKGI cluster discovery)</td>
+    <td>For each cluster:
+      <ul>
+        <li>Kube API Server</li>
+        <li>Kube Controller Manager</li>
+        <li>Kube Scheduler</li>
+        <li>etcd (Telegraf output plugin)</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><code>8443</code></li>
+        <li><code>10252</code></li>
+        <li><code>10251</code></li>
+        <li><code>10200</code></li>
+      </ul>
+    </td>
+    <td>You only need to open these ports if you configure TKGI cluster discovery.</td>
+  </tr>
+</table>
 
 
 ## <a id='architecture-tas'></a> Healthwatch Exporter for TAS for VMs Architecture
 
-[WOW. YOUR "INDEX" PAGE IS MUCH MORE DETAILED AND CLEARER THAN THIS. HOW MUCH SHOULD WE DUPLICATE?]
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
+type of metric related to the health of your TAS for VMs deployment.
 
-The Healthwatch Exporter for TAS for VMs installs up to three VMs.
-Each VM processes a metric type from the Firehose: timer, gauge, or counter.
-You can deploy all three VMs or any subset thereof.
-Metrics are then exposed on a secured endpoint in TSDB exposition format.
+Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
+exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
+your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
+VMs and imports those metrics into your monitoring system.
+
 You can scale these VMs vertically but should not scale them horizontally [WHY? WHY NOT?].
+
+[Something about how this tile can be deployed and used with or without Healthwatch tile; links to sections below]
 
 ![a diagram showing the three discrete VMs that the Healthwatch Exporter for TAS for VMs installs, which send timer, gauge, and counter metrics to the RLP endpoint](images/HealthwatchExporterforPAS.png)
 
-### <a id='network-rules-tas'></a> Required Networking Rules for Healthwatch Exporter for TAS for VMs
+### <a id='network-rules-tas'></a> Networking Rules for Healthwatch Exporter for TAS for VMs
 
-| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
-|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
-| bosh-deployments-exporter     | <ul><li>BOSH director UAA</li> <li>BOSH director</li></ul>                         |<ul>  <li>8443</li><li>25555</li> </ul>          | |
-| bosh-health-exporter        | <ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul>                     |<ul> <li>8443</li><li>25555</li> </ul>  |  |
-| cert-expiration-exporter   | <ul> <li> Ops Manager </li> </ul>                        |<ul> <li>443</li></ul>  | |
-| pas-exporter-counter   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
-| pas-exporter-gauge   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
-| pas-exporter-timer   | <ul> <li> RLP nozzle </li> </ul>                        |<ul> <li>8082</li></ul>  | |
-| pas-sli-exporter   | <ul> <li> CAPI </li><li> UAA </li> </ul>                        |<ul> <li>443</li><li>443</li></ul>  | |
+<table>
+  <tr>
+    <th>This Healthwatch component ...</th>
+    <th>Must communicate with ...</th>
+    <th>Default TCP Port</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td><code>bosh-deployments-exporter</code></td>
+    <td><ul><li>BOSH director UAA</li> <li>BOSH director</li></ul></td>
+    <td><ul>  <li><code>8443</code></li><li><code>25555</code></li> </ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>bosh-health-exporter</code></td>
+    <td><ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul></td>
+    <td><ul> <li><code>8443</code></li><li><code>25555</code></li> </ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>cert-expiration-exporter</code></td>
+    <td><ul> <li> Ops Manager </li> </ul></td>
+    <td><ul> <li><code>443</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pas-exporter-counter</code></td>
+    <td><ul> <li> RLP nozzle </li> </ul></td>
+    <td><ul> <li><code>8082</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pas-exporter-gauge</code></td>
+    <td><ul> <li> RLP nozzle </li> </ul></td>
+    <td><ul> <li><code>8082</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pas-exporter-timer</code></td>
+    <td><ul> <li> RLP nozzle </li> </ul></td>
+    <td><ul> <li><code>8082</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pas-sli-exporter</code></td>
+    <td><ul> <li> CAPI </li><li> UAA </li> </ul></td>
+    <td><ul> <li><code>443</code></li><li><code>443</code></li></ul></td>
+    <td></td>
+  </tr>
+</table>
+
 
 ## <a id='architecture-tkgi'></a> Healthwatch Exporter for TKGI Architecture
 
-The Healthwatch Exporter for TKGI installs a single VM that collects health metrics from the BOSH Director.
-This VM obtains health metrics through the Firehose similarly to TAS for VMs.
-Metrics are then exposed on a secured endpoint in TSDB exposition format.
+The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
+to the health of your TKGI deployment.
+
+The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
+exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
+system.
 
 You can scale this VM vertically but should not scale it horizontally. [WHY NOT?]
 
-![a diagram showing the single VM that the Healthwatch Exporter for PKS installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
+[Something about how this tile can be deployed and used with or without Healthwatch tile; links to sections below]
 
-### <a id='pks-cluster-discovery'></a> How PKS Cluster Discovery works
-[I THINK THIS IS WRITTEN AS A PROCEDURE?][WE DESCRIBE THIS PROCESS IN THE CONFIG DOCS.]
+![a diagram showing the single VM that the Healthwatch Exporter for TKGI installs, which collects metrics from the BOSH Director](images/HealthwatchExporterforPKS.png)
 
-This section describes the process of PKS Cluster Discovery.
-PKS Cluster Discovery generates the scrape config jobs for the on-demand clusters created using [A? THE?] TKGI API.
-This process intermittently scans for new clusters.
+### <a id='pks-cluster-discovery'></a> TKGI Cluster Discovery
 
-* Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when TKGI is deployed.
-  * This gives the Healthwatch Kubernetes user the privileges necessary to scrape the `$KUBERNETES_API/metrics` endpoint.
-* Get the list of Clusters including the IP addresses of their master nodes (`$PKS_API/v1/clusters`).
-* Fetch mTLS Certificates for use by the Healthwatch Kubernetes user (ex: `$KUBERNETES_API/apis/certificates.k8s.io/v1beta1/certificatesigningrequests`).
-* Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules-hw">Required Ports for TKGI Cluster Discovery</a>)
-* Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](installing.html#tsdb).
-* Reload Prometheus to apply the new Scrape Config Jobs. (`$PROMETHEUS_API/-/reload`)
+TKGI cluster discovery generates the scrape config jobs for the on-demand clusters created using the TKGI API. This process intermittently scans for new clusters.
 
-### <a id='network-rules-tkgi'></a> Required Networking Rules for Healthwatch Exporter for TKGI
-[THE VM NAMES WEREN'T UPDATED AS OF FEB. ARE THEY STILL OUTDATED?]
+[Separate conceptual info out of below procedure. Then put procedure in Healthwatch config topic?]
 
-| This Healthwatch component…          | Must communicate with…                                                                                        | Default TCP Port                                                   | Notes                                                                   |
-|--------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------|-------------------------------------------------------------------------|
-| bosh-deployments-exporter     | <ul><li>BOSH director UAA</li> <li>BOSH director</li></ul>                         |<ul>  <li>8443</li><li>25555</li> </ul>          | |
-| bosh-health-exporter        | <ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul>                     |<ul>  <li>8443</li><li>25555</li> </ul>  |  |
-| cert-expiration-exporter   | <ul> <li> Ops Manager </li> </ul>                        |<ul> <li>443</li></ul>  | |
-| pks-exporter   | <ul> <li>BOSH director UAA</li><li>BOSH director metrics</li> </ul>                        |<ul> <li>8443</li><li>25595</li></ul>  | |
-| pks-sli-exporter   | <ul> <li> PKS API UAA </li><li> PKS API</li> </ul>                        |<ul>  <li>8443</li><li>9021</li> </ul>  | |
+1. Create ClusterRole and ClusterRoleBinding for the Healthwatch Kubernetes user when TKGI is deployed. This gives the Healthwatch Kubernetes user the privileges necessary to scrape the `$KUBERNETES_API/metrics` endpoint.
 
-## <a id='configuration-options'></a> Configuration [Options/Architecture/Overview]
+1. Get the list of Clusters including the IP addresses of their master nodes (`$TKGI_API/v1/clusters`).
 
-Healthwatch is flexible, allowing you to monitor metrics across a variety of platform and foundation configurations. These are the most common configuration scenarios: 
+1. Fetch mTLS Certificates for use by the Healthwatch Kubernetes user (ex: `$KUBERNETES_API/apis/certificates.k8s.io/v1beta1/certificatesigningrequests`).
 
-* **TAS for VMs on a single foundation.** If you only have one foundation you need to monitor and you are using TAS for VMs, install the Healthwatch tile and the Healthwatch Exporter for TAS for VMs on the same foundation. The Healthwatch tile will automatically detect that the Healthwatch Exporter for TAS for VMs is installed on the same foundation and will begin scraping its metrics. For more information on installing the Healthwatch tile and the Healthwatch Exporter for TAS for VMs, see [Installing, Configuring, and Deploying Healthwatch](../installing.html)[IS THIS LINK RIGHT?] and [Installing, Configuring, and Deploying Healthwatch Exporter for TAS for VMs](../installing-exporter-tas-vms.html).
+1. Generate a Scrape Config Job for each endpoint that will be scraped per cluster. (<a href="#network-rules-hw">Required Ports for TKGI Cluster Discovery</a>)
 
-* **Tanzu Kubernetes Grid Integrated Edition (TKGI) on a single foundation.** [BLURB LIKE ABOVE]
+1. Merge the generated Scrape Config Jobs with both the default Scrape Config Jobs and the user-provided [Additional Scrape Configs](configuring/configuring-healthwatch.html#tsdb).
 
-* **TAS for VMS and TKGI on the same foundation.** [BLURB LIKE ABOVE]
+1. Reload Prometheus to apply the new Scrape Config Jobs. (`$PROMETHEUS_API/-/reload`)
 
-* **TAS for VMs on a separate foundation from a/the control plane [WHAT EXACTLY IS A CONTROL PLANE? SHOULD WE DEFINE IT ON FIRST REFERENCE? IS IT CAPITALIZED?].** 
+### <a id='network-rules-tkgi'></a> Networking Rules for Healthwatch Exporter for TKGI
 
-* **TKGI on a separate foundation from a/the control plane.** 
+<table>
+  <tr>
+    <th>This Healthwatch component ...</th>
+    <th>Must communicate with ...</th>
+    <th>Default TCP Port</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td><code>bosh-deployments-exporter</code></td>
+    <td><ul><li>BOSH director UAA</li> <li>BOSH director</li></ul></td>
+    <td><ul>  <li><code>8443</code></li><li><code>25555</code></li> </ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>bosh-health-exporter</code></td>
+    <td><ul> <li>BOSH director UAA</li><li>BOSH director</li> </ul></td>
+    <td><ul>  <li><code>8443</code></li><li><code>25555</code></li> </ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>cert-expiration-exporter</code></td>
+    <td><ul> <li> Ops Manager </li> </ul></td>
+    <td><ul> <li><code>443</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pks-exporter</code></td>
+    <td><ul> <li>BOSH director UAA</li><li>BOSH director metrics</li> </ul></td>
+    <td><ul> <li><code>8443</code></li><li><code>25595</code></li></ul></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>pks-sli-exporter</code></td>
+    <td><ul> <li> TKGI API UAA </li><li> TKGI API</li> </ul></td>
+    <td><ul>  <li><code>8443</code></li><li><code>9021</code></li> </ul></td>
+    <td></td>
+  </tr>
+</table>
+
+
+## <a id='configuration-options'></a> Configuration Options
+
+Healthwatch is flexible, allowing you to monitor metrics across a variety of platform and foundation
+configurations. The most common configuration scenarios are as follows:
+
+* **TAS for VMs on a single Ops Manager foundation:** If you only have one foundation you need
+to monitor and you are using TAS for VMs, install the Healthwatch tile and the Healthwatch
+Exporter for TAS for VMs on the same foundation. The Healthwatch tile automatically detects that the Healthwatch Exporter for TAS for VMs is installed on the same foundation and will begin scraping its metrics. For more information on installing the Healthwatch tile and the Healthwatch Exporter for TAS for VMs, see [Installing, Configuring, and Deploying Healthwatch](configuring/configuring-healthwatch.html)[IS THIS LINK RIGHT?] and [Installing, Configuring, and Deploying Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html).
+
+* **TKGI on a single Ops Manager foundation:** [BLURB LIKE ABOVE]
+
+* **TAS for VMS and TKGI on the same Ops Manager foundation:** [BLURB LIKE ABOVE]
+
+* **TAS for VMs on a separate foundation from a/the control plane [WHAT EXACTLY IS A CONTROL PLANE? SHOULD WE DEFINE IT ON FIRST REFERENCE? IS IT CAPITALIZED?].**
+
+* **TKGI on a separate foundation from a/the control plane.**
 
 
 The diagram below illustrates how the Healthwatch tile and Healthwatch Exporter tiles can be deployed for monitoring metrics across multiple foundations using a [control plane/Control Plane].
@@ -141,4 +307,265 @@ The diagram below illustrates how the Healthwatch tile and Healthwatch Exporter 
 ![a diagram representing the relationship between a control plane and the foundations that federate to it](images/ControlPlaneArchitecture.png)
 
 
-[THERE ARE A FEW MORE SECTIONS OF THE CONFIGURATIONS OVERVIEW TOPIC THAT NEED A HOME BEFORE WE RETIRE IT COMPLETELY.]
+### <a id="monitoring-tas-from-within-foundation"></a> Monitoring TAS from within Foundation
+
+In order to monitor a single TAS installation,
+follow the instructions for
+[Configuring Healthwatch](configuring/configuring-healthwatch.html)
+and the instructions for [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
+on the same foundation where TAS is installed.
+**Healthwatch** will automatically detect
+that the **Healthwatch Exporter for TAS** has also been installed
+and will start scraping its metrics.
+
+### <a id="monitoring-pks-from-within-foundation"></a> Monitoring TKGI from within Foundation
+
+In order to monitor a single TKGI installation,
+follow the instructions for
+[Configuring Healthwatch](configuring/configuring-healthwatch.html)
+on the same foundation where TKGI is installed.
+**Healthwatch** will automatically detect
+that the **Healthwatch Exporter for TKGI** is also installed
+and will begin scraping its metrics.
+
+### <a id="monitoring-tas-and-pks"></a> Monitoring TAS and TKGI
+
+In order to monitor a foundation with both TAS and TKGI installed,
+follow the instructions for
+[Configuring Healthwatch](configuring/configuring-healthwatch.html),
+the instructions for [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html),
+and the instructions for [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html),
+on the same foundation where TAS and TKGI are installed.
+**Healthwatch** will automatically detect
+that it is co-located with both **Healthwatch Exporter for TAS**
+and **Healthwatch Exporter for TKGI**
+and will begin scraping both endpoints.
+
+### <a id="monitoring-tas-from-the-control-plane"></a> Monitoring TAS from the Control Plane
+
+The **Healthwatch** tile
+can be used from the Control Plane
+to monitor any number of TAS foundations.
+To use **Healthwatch** in this way,
+follow the installation instructions for
+[Configuring Healthwatch](configuring/configuring-healthwatch.html) on the control plane,
+then follow the installation instructions for
+[Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
+on each TAS foundation you would like to monitor.
+
+Once you have finished installing **Healthwatch Exporter for TAS** and completed the necessary
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
+can get mTLS client credentials for this scrape config by grabbing the **TAS Exporter Client Mtls** credentials
+from the **Credentials** tab of the  **Healthwatch Exporter for TAS** tile in Ops Manager. Your config
+will look something like the following:
+
+```yaml
+- job_name: foundation_name
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: TASexporter
+  static_configs:
+    - targets:
+      - "<gauge exporter ip>:9090"
+      - "<counter exporter ip>:9090"
+      - "<timer exporter ip>:9090"
+```
+<p class="note">
+    <strong>Note:</strong>
+    Finding Certificates
+
+    <br/><br/>
+
+    The CA certificate
+    is the one generated by Ops Manager
+    on the foundation where the Exporter is installed.
+    It can be retrieved from
+    <code>Ops-Manager-URL/api/v0/certificate_authorities</code>.
+    The certificates for the Exporter
+    can be found on the same Ops Manager
+    under the Exporter tile's <code>Credentials</code> tab.
+    The name of the credential is <code>TAS Exporter Client Mtls</code>.
+</p>
+
+### <a id="monitoring-pks-from-the-control-plane"></a> Monitoring TKGI from the Control Plane
+
+The **Healthwatch** tile can be used from the Control Plane to monitor any number of TKGI
+foundations. To use **Healthwatch** in this way, follow the installation instructions for
+Installing Healthwatch the control plane, then follow the installation instructions for
+Installing Healthwatch Exporter for TKGI  on each TKGI foundation you would like to monitor.
+
+Once you have finished installing **Healthwatch Exporter for TKGI** and completed the necessary
+network configuration to expose the exporter VMs, add a scrape config to the **TSDB Configuration**
+section of the **Healthwatch** tile in the Control Plane to scrape the exporter VMs. You
+can get mTLS client credentials for this scrape config by grabbing the **Pks Exporter Client Mtls** credentials
+from the **Credentials** tab of the  **Healthwatch Exporter for TKGI** tile in Ops Manager. Your config
+will look something like the following:
+
+```yaml
+- job_name: foundation_name
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: pksexporter
+  static_configs:
+    - targets:
+      - "<exporter ip>:9090"
+```
+
+<p class="note">
+    <strong>Note:</strong>
+    Finding Certificates
+
+    <br/><br/>
+
+    The CA certificate
+    is the one generated by Ops Manager
+    on the foundation where the Exporter is installed.
+    It can be retrieved from
+    <code>Ops-Manager-URL/api/v0/certificate_authorities</code>.
+    The certificates for the Exporter
+    can be found on the same Ops Manager
+    under the Exporter tile's <code>Credentials</code> tab.
+    The name of the credential is <code>Pks Exporter Client Mtls</code>.
+</p>
+
+### <a id="allowlist-metrics"></a> Adding Metrics to an Allowlist
+In some deployments,
+it can be beneficial to only ingest certain metrics from a scrape job.
+For example,
+due to storage and cpu constraints,
+an operator may only want to store SLI metrics for a foundation,
+rather than the entirety of the Firehose.
+The following example
+shows how an operator could configure a scrape job
+to only ingest gauge metrics with the names `some-metric` or `some-metric-2`.
+
+```yaml
+- job_name: allowlisted-job
+  metric_relabel_configs:
+  - source_labels: [__name__]
+    regex: (some-metric|some-metric-2)
+    action: keep
+  metrics_path: /metrics
+  scheme: https
+  tls_config:
+    ca: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMSUw
+      ...
+      Kqj0ATjsh3/4L7paXAlnhrAzrlmEBclKUaWxY7xati5zqfkQIWXUey6JFbSlOqwl
+      fOThhUwPPzIy/CtSCKY=
+      -----END CERTIFICATE-----
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEijCCA3KgAwIBAgIQVNDMqn2R/G08qg7VBDwoLzANBgkqhkiG9w0BAQsFADBU
+      3QM7YO2iIHA03VLkH2/Y8UPys2cjtRxMkiTBY3gYrdnP82ymw+6DgvHVodfCgVNk
+      ...
+      fQMxJ27wPIzEuB0NkOferZEi318PRwTJWkoEFE30Q+aKoXnWmWIs4chUTeGrNTNU
+      fOTAAUwCCzIy/PIKWY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA5OrJVeDocSD+LAC86vajwwzHk2Dflv3b3tCOMO/mO/9hH/x5
+      wszRJv8wdckUkJrRv9GSbbZGDd0FmMsOl+/SP4WKaKFsQh6Uig1La/W0sMf4AK0M
+      ...
+      1qLvlv1R8T4ZKAi99VYt3g73NjhqgDXt/BtwEXWklfl72I4vIV/VcNaIGuAtCjrX
+      TaHxfBvtOpqNAB1dKQ8tE3gXRxnyHlmQJkwKjUWLIeTkXgVOaZr6Pw==
+      -----END RSA PRIVATE KEY-----
+    server_name: TASexporter
+  dns_sd_configs:
+    - names:
+        - q-s4.TAS-exporter-gauge.*.p sh.
+      type: A
+      port: 9090
+
+```
+
+#### <a id="monitoring-pks-master-nodes"></a> Monitoring TKGI Master Nodes
+
+When Healthwatch is installed on the same foundation as TKGI,
+it will automatically scrape the `kube-scheduler`
+and `kube-controller-manager` processes on the Master VM.
+More metrics (such as `etcd` metrics)
+can be made available
+by enabling the `TSDB_client` Telegraf output on the master VM.
+To do that,
+go to the **Monitoring** pane in the TKGI tile,
+and enter the following configuration in the `Setup Telegraf Outputs` section:
+
+```toml
+[[outputs.TSDB_client]]
+  listen = ":9273"
+```
+
+This will expose additional metrics
+on a `/metrics` endpoint on port `9273`.
+In order to scrape these metrics,
+add the following scrape configuration
+to the **TSDB Configuration** pane of the Healthwatch tile:
+
+```yaml
+- job_name: cluster_master_telegraf
+  dns_sd_configs:
+    - names:
+        - q-s4.master.*.*.bosh.
+      type: A
+      port: 9273
+```
+
+This example uses [Bosh DNS](https://bosh.io/docs/dns/)
+to automatically discover all master VMs,
+which now have Telegraf available on port `9273`.
+
+1. Click **Save**.
