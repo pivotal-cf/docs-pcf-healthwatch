@@ -1,34 +1,50 @@
 ---
-title: Certificate Monitoring
+title: Monitoring Certificate Expiration
 owner: Healthwatch
 ---
 
-This topic explains a fairly new concept in Healthwatch:
-monitoring of certificate expiration times.
-This document aims to give an overview
-of how it works, how to set it up,
-and key limitations you should be aware of.
+This topic describes how to monitor the expiration of Ops Manager certificates using metrics
+collected by the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for
+VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles.
 
-## Certificate Expiration Monitoring
 
-Certificate expiration monitoring is configured by default without requiring user input.
-It makes use of the `$ops_manager.restricted_view_api_access_credentials`
-and `$ops_manager.ca_certificate` variables,
-which are supplied by Ops Manager to
-allow a tile to retrieve some information about an Ops Manager deployment.
-See the [Ops Manager documentation](https://docs.pivotal.io/tiledev/2-8/property-template-references.html#-$ops_manager)
-for more information.
+## <a id='overview'></a> Overview of Certificate Expiration Monitoring
 
-This exporter uses `om` to make a request to Ops Man's
-`/api/v0/deployed/certificates?expires_within=DURATION` endpoint,
-where `DURATION` currently defaults to `1y` and is not configurable.
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate
+expiration metric exporter VM, `cert-expiration-exporter`, which collects metrics that show
+when Ops Manager certificates are due to expire. These certificates include the Ops Manager
+root certificate authority (CA) and leaf certificates for product tiles and BOSH deployments
+that are stored in BOSH CredHub. For more information about these certificates, see [Certificate
+Types](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/certificate-types.html)
+in the Ops Manager documentation.
 
-<p class="note warning">
-    <strong>Warning:</strong>
-    OpsMan 2.6 and earlier does not include the Ops Manager Root CA
-    or product certificates stored in CredHub.
-    OpsMan 2.7 and onward
-    should include certs in the Bosh Director's CredHub,
-    as long as they are associated with a tile / Bosh deployment,
-    but any other certs in CredHub will not be included.
-</p>
+The certificate expiration metric exporter VM uses the `om` CLI to make a GET request to the
+`/api/v0/deployed/certificates` Ops Manager API endpoint with the query parameter `?expires_within=1y`.
+This request returns all certificate expiration dates that are due to occur within one year.
+You cannot configure the certificate expiration metric exporter VM to make a request to the
+Ops Manager API endpoint that specifies a different time period. For more information, about
+the `/api/v0/deployed/certificates` endpoint, see[Getting Information About Certificates from
+Products](https://docs.pivotal.io/platform/2-10/opsman-api/#tag/Certificates/paths/~1api~1v0~1deployed~1certificates/get)
+in the Ops Manager API documentation.
+
+If any CAs and leaf certificates for your deployment are due to expire soon, rotate them before
+they expire to avoid downtime for your deployment. To rotate CAs and leaf certificates, see
+[Overview of Certificate Rotation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/api-cert-rotation.html)
+in the Ops Manager documentation.
+
+
+## <a id='configure-static-ip'></a> Reserving a Static IP Address for the Certificate Expiration Metric Exporter VM
+
+You do not need to configure the certificate expiration metric exporter VM for it to collect
+certificate expiration metrics. However, you can reserve a static IP address for the certificate
+expiration metric exporter VM.
+
+To configure a static IP address for the certificate expiration metric exporter VM, see one
+of the configuration topics for your Healthwatch Exporter for TAS for VMs or Healthwatch Exporter
+for TKGI tile:
+
+* [(Optional) Configure TAS for VMs Metric Exporter VMs](#exporter-config) in _Configuring
+Healthwatch Exporter for TAS for VMs_
+
+* [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs](#exporter-config)
+in _Configuring Healthwatch Exporter for TKGI_.
