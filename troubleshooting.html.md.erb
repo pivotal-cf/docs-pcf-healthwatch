@@ -3,161 +3,218 @@ title: Troubleshooting Healthwatch
 owner: Healthwatch
 ---
 
-Healthwatch ships with the following dashboards
-included under the **Healthwatch** folder in Grafana.
-To access them, go to **Dashboard -> Manage -> Healthwatch** in Grafana.
+This topic describes how to troubleshoot problems and known issues that may arise when deploying
+or operating Healthwatch, Healthwatch Exporter for VMware Tanzu Application Service for VMs
+(TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI).
 
-## <a id="healthwatch-slos"></a> Healthwatch - SLOs
-This dashboard will display a row
-for each instance selected from the corresponding instance drop down
-at the top of the page.
-Each row has four panels:
 
-  * The **Up** panel shows the current health of the [up](https://prometheus.io/docs/concepts/jobs_instances/) metric,
-    where a `1` indicates it is healthy
-    and a `0` or missing data indicates that it is not healthy.
-  * The **Exporter SLO** panel shows the percent of time the exporter was up over the selected time range.
-  * The **Error Budget Remaining** panel shows how much time, in minutes, are left,
-    in order to stay within the selected Uptime SLO Target
-    over the currently selected time range.
-  * The **Minutes of Downtime** panel shows how much downtime, in minutes,
-    the exporters have experienced during the selected time range.
+## <a id="healthwatch-troubleshooting"></a> Accessing VM UIs for Troubleshooting
 
-## <a id="healthwatch-troubleshooting"></a> Healthwatch Troubleshooting
+The sections below describe how to access the user interfaces (UIs) of the Prometheus and Alertmanager
+VMs for troubleshooting.
 
-### <a id='viewing-the-prometheus-ui'></a> Viewing the Prometheus UI
+### <a id='viewing-the-prometheus-ui'></a> Access the Prometheus UI
 
-The Prometheus UI allows users to see currently firing alerts
-and the status of scrape targets, among other things.
-This UI is not secure, however,
-so we cannot make it available by default with the product.
+The Prometheus UI allows you to view various processes on the Prometheus VM, including alerts
+that are currently running and the health status of scrape targets. Because the Prometheus
+UI is not secure, the Healthwatch tile does not include it. However, you can access the Prometheus
+UI to troubleshoot the Prometheus VM.
 
-In the event that you need to troubleshoot your Prometheus,
-you can view the Prometheus UI by running the following command
-and then navigating to `localhost:8082` in your browser.
+To access the Prometheus UI:
 
-```
-bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8082:localhost:9090'
-```
+1. Run:
 
-Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
-shown by the `bosh deployments` command.
+    ```
+    bosh deployments
+    ```
+    This command returns a list of all BOSH deployments that are currently running.
 
-<p class="note">
-  <strong>Note</strong>:
-  If the above command fails,
-  look into the
-  <a href="https://docs.pivotal.io/platform/2-10/customizing/trouble-advanced.html#prepare" target="_blank">
-    Advanced Troubleshooting with the BOSH CLI
-  </a>
-  to learn how to configure BOSH SSH to run through a gateway.
-</p>
+1. Record the name of your Healthwatch deployment.
 
-### <a id='viewing-the-alertmanager-ui'></a> Viewing the Alertmanager UI
+1. Run:
 
-The Alertmanager UI allows users to see which alerts are currently firing
-and gives the operator the option to silence them.
-This UI is not secure, however,
-so we cannot make it available by default with the product.
+    ```
+    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8082:localhost:9090'
+    ```
+    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
+    the previous step.
+    <p class='note'><strong>Note:</strong> If the above command fails, log in to the Prometheus
+      VM using SSH and run the above command again. To log in to the Prometheus VM using SSH,
+      see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH SSH</a>
+      in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
 
-In the event that you need to troubleshoot your Alertmanager,
-you can view the Alertmanager UI by running the following command
-and then navigating to `localhost:8080` in your browser.
+1. In a web browser, navigate to `localhost:8082`. The Prometheus UI appears.
 
-```
-bosh -d HEALTHWATCH-TILE-DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8080:localhost:10401'
-```
+### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
-Where `HEALTHWATCH-TILE-DEPLOYMENT-NAME` is the name of the Healthwatch 2.x deployment
-shown by the `bosh deployments` command.
+The Alertmanager UI allows you to view which alerts are currently running. Because the Alertmanager
+UI is not secure, the Healthwatch tile does not include it. However, you can access the Alertmanager
+UI to troubleshoot or silence alerts.
 
-<p class="note">
-  <strong>Note</strong>:
-  If the above command fails,
-  look into the
-  <a href="https://docs.pivotal.io/platform/2-10/customizing/trouble-advanced.html#prepare" target="_blank">
-    Advanced Troubleshooting with the BOSH CLI
-  </a>
-  to learn how to configure BOSH SSH to run through a gateway.
-</p>
+To access the Alertmanager UI:
 
-### <a id='grafana-smoke-test'></a> Grafana smoke test fails during Apply Changes
+1. Run:
 
-#### Problem
+    ```
+    bosh deployments
+    ```
+    This command returns a list of all BOSH deployments that are currently running.
 
-During apply changes, the Healthwatch smoke test fails with the following error message:
-`querying for grafana up should be greater than 0`.
+1. Record the name of your Healthwatch deployment.
 
-#### Cause
+1. Run:
 
-When Prometheus tries to scrape metrics from Grafana, it fails to scrape.
-The potential causes include:
+    ```
+    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8080:localhost:10401'
+    ```
+    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
+    the previous step.
+    <p class='note'><strong>Note:</strong> If the above command fails, log in to the Alertmanager
+      VM using SSH and run the above command again. To log in to the Alertmanager VM using SSH,
+      see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH SSH</a>
+      in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
 
-- Network issue between the `tsdb` vm instance and `grafana` vm instance
-- Prometheus does not trust the certificate used by Grafana,
-  due to it being a self-signed certificate used without the CA provided in the [Grafana Configuration](configuring/configuring-healthwatch.html#grafana),
-  or providing a CA that is not the one used to generate the certificate.
+1. In a web browser, navigate to `localhost:8080`. The Alertmanager UI appears.
 
-#### Troubleshooting
 
-Follow the steps below to identify the issue.
+## <a id='known-issues'></a> Troubleshooting Known Issues
 
-1. `ssh` into the `tsdb` vm which hosts the Prometheus job
-1. `curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'`
-    to obtain Grafana scrape target information, and the `lastError` field will show the reason why it fails to scrape.
+The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch
+Exporter for TKGI.
 
-### <a id='bosh-metrics-exporter'></a> BOSH Metrics Exporter fails to Connect to BOSH
+### <a id='grafana-smoke-test'></a> Smoke Tests Errand Fails When Deploying Healthwatch
 
-#### Problem
+When you deploy Healthwatch, the **Smoke Tests** errand fails with the following error message:
 
-```
+<pre class="terminal">
+querying for grafana up should be greater than 0
+</pre>
+
+The **Smoke Tests** errand fails because the Prometheus VM fails to scrape metrics from the
+Grafana VM. Potential causes of this failure include:
+
+* There is a network issue between the Prometheus VM and Grafana VM.
+
+* The Grafana VM uses a certificate that does not match the certificate authority (CA) you
+configured in the **Grafana Configuration** pane in the Healthwatch tile, either because it
+is a self-signed certificate, or because the CA you configured in the **Grafana Configuration**
+pane is different from the CA that generated the certificate. As a result, the Prometheus VM
+does not trust the certificate that the Grafana VM uses. For more information about configuring
+a CA for the Grafana VM, see [Grafana Configuration](configuring/configuring-healthwatch.html#grafana)
+in _Configuring Healthwatch_.
+
+To find out why the Prometheus VM fails to scrape metrics from the Grafana VM:
+
+1. Log in to the Prometheus VM using SSH by following the procedure in [BOSH SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh)
+in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+
+1. View information about the Grafana VM scrape target by running:
+
+    ```
+    curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'
+    ```
+    The `lastError` field in the command output describes the reason for the Prometheus VM
+    failing to scrape the Grafana VM.
+
+### <a id='bosh-metrics-exporter'></a> TKGI Metric Exporter VM Fails to Connect to the BOSH Director
+
+When the TKGI metric exporter VM attempts to connect to the BOSH Director, you see the following
+error:
+
+<pre class="terminal">
 ERROR [context.UaaContext [ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
 ERROR [ingress.TokenCallCredentials [ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
 INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
-```
+</pre>
 
-#### Cause
+This error appears when the TKGI metric exporter VM cannot verify that the certificate chain
+of the UAA server for the BOSH Director is valid. To enable the TKGI metric exporter VM to
+connect to the BOSH Director, you must correct any certificate chain errors.
 
-BOSH Metrics Exporter cannot verify the cert chain of BOSH Director UAA Server.
+To check for certificate chain errors in the UAA server for the BOSH Director:
 
-#### Troubleshooting
+1. Log in to the TKGI metric exporter VM using SSH by following the procedure in [BOSH SSH]
+(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting
+with the BOSH CLI_ in the Ops Manager documentation.
 
-Follow the steps below to confirm the cert chain is invalid.
+1. View the certificate that the UAA server uses by running:
 
-1. `ssh` into the `pks-exporter` vm which hosts the BOSH metrics exporter job
-1. `openssl s_client -connect 10.0.0.5:8443` to obtain the certificate used by UAA,
-    and save it to a file (`cert.pem`).
-1. `openssl verify cert.pem` should return the literal string "OK",
-    meaning the certificate is trusted and has a valid certificate chain.
-    Otherwise, if any other message is returned, see
-    [OpenSSL diagnostic documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
-    to troubleshoot and remedy.
-    Certificate errors must be corrected before the BOSH Metrics Exporter will work.
+    ```
+    openssl s_client -connect 10.0.0.5:8443
+    ```
+
+1. Save the certificate as a `cert.pem` file.
+
+1. Run:
+
+    ```
+    openssl verify cert.pem
+    ```
+    If the command returns an `OK` message, the certificate is trusted and has a valid certificate
+    chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
+    to troubleshoot.
 
 
-## <a id="healthwatch-exporter-troubleshooting"></a> Healthwatch - Exporter Troubleshooting
+## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
 
-This dashboard provides a detailed look at the performance of an individual exporter.
-It is helpful to look at these dashboards
-when you see spotty graphs for a particular metric type,
-or if an exporter is not behaving as it should.
-The dashboard consists of the following metrics:
+By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch** folder.
 
-  * Exporter Info: A listing of the `healthwatch_pasExporter_status` metric that contains
-    runtime information for the exporter.
-  * Exporter JVM Memory: A graph of `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and
-    `jvm_memory_bytes_init` over the time range,
-    in order to check for memory leaks.
-  * Ephemeral Disk Usage: A gauge of `system_disk_ephemeral_percent`, in order to check if the
-    disk is nearing capacity.
-  * Rate of Garbage Collection: A graph of the rate of `jvm_gc_collection_seconds_sum` over
-    the time range,
-    in order to check if JVM garbage collection is causing issues.
-  * Rate of Envelope Ingress: A graph of the rate of `healthwatch_pasExporter_ingress_envelopes`
-    over the time range,
-    in order to see if there has been a spike in the amount
-    of envelopes received by the exporter.
-  * CPU Usage: A graph of `cpu_usage_user` over the time range,
-    in order the see if the CPU used by the exporter is reaching capacity.
-  * Exporter VM Threads: A graph of `jvm_threads_current` and `jvm_threads_peak` over the time range,
-    in order to see if the exporter is leaking threads.
+### <a id="healthwatch-slos"></a> Healthwatch - SLOs
+
+The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter
+VM you select from the corresponding metric exporter instance dropdown at the top of the page.
+Each row contains four panels:
+
+* **Up:** The current health of the Prometheus endpoint on the metric exporter VM. A value
+of `1` indicates that the Prometheus endpoint is healthy. A value of `0` or missing data indicates
+that either the Prometheus endpoint is unresponsive or the Prometheus VM failed to scrape the
+Prometheus endpoint. For more information, see [Jobs and Instances](https://prometheus.io/docs/concepts/jobs_instances/)
+in the Prometheus documentation.
+
+* **Exporter SLO:** The percentage of time that the Healthwatch Exporter tile was up and running
+over the selected time period.
+
+* **Error Budget Remaining:** How many minutes are left in the error budget before exceeding
+the selected **Uptime SLO Target** over the selected time period.
+
+* **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during
+the selected time period.
+
+### <a id="healthwatch-exporter-troubleshooting"></a> Troubleshooting Healthwatch Exporter for TAS for VMs
+
+The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics
+that allow you to monitor the performance of each Healthwatch Exporter for TAS for VMs tile
+installed on your foundations. You can use these metrics to troubleshoot when you see inconsistent
+graphs for a particular metric type, or if a Healthwatch Exporter for TAS for VMs tile is not
+behaving as expected.
+
+These dashboards contain the following panels:
+
+* **Exporter Info:** A listing of the `healthwatch_pasExporter_status` metric, showing runtime
+information for Healthwatch Exporter for TAS for VMs.
+
+* **Exporter JVM Memory:** A graph of the `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`,
+and `jvm_memory_bytes_init` metrics, showing the number of used, committed, and initial bytes
+in a given Java virtual machine (JVM) memory area over the selected time period. You can use
+this graph to check for memory leaks.
+
+* **Ephemeral Disk Usage:** A gauge of the `system_disk_ephemeral_percent` metric, showing
+the percentage of the ephemeral disk used. You can use this gauge to determine whether the
+disk is reaching capacity.
+
+* **Rate of Garbage Collection:** A graph of the `jvm_gc_collection_seconds_sum` metric, showing
+the rate of JVM garbage collection over the selected time period. You can use this graph to
+determine whether the JVM garbage collection is functional.
+
+* **Rate of Envelope Ingress:** A graph of the `healthwatch_pasExporter_ingress_envelopes`
+metric, showing the rate of Loggregator envelope ingress over the selected time period. You
+can use this graph to check for spikes in the number of Loggregator envelopes that the metric
+exporter VMs receive.
+
+* **CPU Usage:** A graph of the `cpu_usage_user` metric, showing the percentage of CPU used
+over the selected time period. You can use this graph to determine whether the amount of CPU
+used by Healthwatch Exporter for TAS for VMs is reaching capacity.
+
+* **Exporter VM Threads:** A graph of the `jvm_threads_current` and `jvm_threads_peak` metrics,
+showing the current and peak thread counts of a given JVM over the selected time period. You
+can use this graph to check whether Healthwatch Exporter for TAS for VMs is leaking threads.
