@@ -35,7 +35,7 @@ To configure alerting through the **Alertmanager Configuration** pane:
 
 1. Select **Alertmanager Configuration**.
 
-1. (Optional) For **Alerting Rules YAML**, provide in YAML format the rule statements that
+1. For **Alerting Rules YAML**, provide in YAML format the rule statements that
 define which alerts Alertmanager sends to your alert receivers:
   1. The following YAML files contain alerting rules for VMware Tanzu Application Service for
   VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI). Choose the
@@ -49,7 +49,7 @@ define which alerts Alertmanager sends to your alert receivers:
   For more information, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
   in the Prometheus documentation.
 
-1. (Optional) For **Routing Rules YAML**, provide the route block that defines where Alertmanager
+1. For **Routing Rules YAML**, provide the route block that defines where Alertmanager
 sends alerts, how frequently Alertmanager sends alerts, and how Alertmanager groups alerts
 together. This route block appears in the `route` section of the Alertmanager configuration
 file. You must define all `route` configuration parameters. For information about the parameters
@@ -62,13 +62,19 @@ in the `inhibit_rules` section of the Alertmanager configuration file. For more 
 see [&#60;inhibit_rule>](https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule)
 in _Configuration_ in the Prometheus documentation.
 
-1. (Optional) Configure the alert receivers that you specified in **Routing Rules YAML** in
+## <a id='receivers'></a> Alert Receivers
+
+1. Configure the alert receivers that you specified in **Routing Rules YAML** in
 a previous step. You can configure email, PagerDuty, Slack, and webhook alert receivers in
 the Healthwatch tile. These alert receiver configurations appear in the `receivers` section
 of the Alertmanager configuration file. For more information, see [&#60;receiver>](https://prometheus.io/docs/alerting/latest/configuration/#receiver)
 in _Configuration_ in the Prometheus documentation.
   <div class='note'><strong>Notes:</strong>
     <ul>
+    <li>
+        The name you add your receiver as in the **Routing Rules YAML** needs to match the name you give your receiver.
+    </li>
+    <br>
       <li>You can also configure custom alert receiver integrations that are not natively supported
         by Alertmanager through webhook receivers. For more information about configuring custom
         alert receiver integrations, see <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">&#60;webhook_config></a>
@@ -86,7 +92,8 @@ in _Configuration_ in the Prometheus documentation.
         Combining Alert Receivers</a> below.</li>
     </ul>
   </div>
-    * To configure email receivers:
+
+    ### <a id='email'></a> Email Receivers
       1. Under **Email Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your email receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your email receiver.
@@ -115,14 +122,15 @@ in _Configuration_ in the Prometheus documentation.
           For more information about configuring TLS communication, see [&#60;tls_config>]
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
-    * To configure PagerDuty receivers:
+
+    ### <a id='pager-duty'></a> Pager Duty
       1. Under **PagerDuty Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your PagerDuty receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your PagerDuty
       receiver. Do not prefix the configuration YAML with a dash. For more information about
       the YAML structure for this field, see [&#60;pagerduty_config>](https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config)
       in _Configuration_ in the Prometheus documentation.
-      1. (Optional) Enter your PagerDuty integration key in one of the following fields:
+      1. Enter your PagerDuty integration key in one of the following fields:
           * If you selected Events API v2 as your integration type in PagerDuty, enter your
           PagerDuty integration key in **Routing Key**.
           * If you selected Prometheus as your integration type in PagerDuty, enter your PagerDuty
@@ -157,7 +165,8 @@ in _Configuration_ in the Prometheus documentation.
           For more information about configuring TLS communication, see [&#60;tls_config>]
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
-    * To configure Slack receivers:
+
+    ### <a id='slack'></a> Slack Receivers
       1. Under **Slack Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your Slack receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your Slack receiver.
@@ -194,7 +203,8 @@ in _Configuration_ in the Prometheus documentation.
           For more information about configuring TLS communication, see [&#60;tls_config>]
           (https://prometheus.io/docs/alerting/latest/configuration/#tls_config) in _Configuration_
           in the Prometheus documentation.
-    * To configure webhook receivers:
+
+    ### <a id='webhook'></a> Webhook Receivers
       1. Under **Webhook Receiver Configurations**, click **Add**.
       1. For **Receiver Name**, enter the name you want to give your webhook receiver.
       1. For **Receiver Configuration**, provide the configuration YAML for your webhook receiver.
