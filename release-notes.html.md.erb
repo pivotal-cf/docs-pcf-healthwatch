@@ -58,6 +58,10 @@ Healthwatch 2.0.6+ emit these metrics as `tkgi_*` and `tas_*` respectively.
 
 * Healthwatch no longer fails to deploy when the Alertmanager webhook receiver configuration `bearer_token` property is set.
 
+### Known Issues
+
+* <a href="#pxc-vm-disk-full">PXC VMs Run Out of Disk Space</a>.
+
 ### Packaged OSS Components
 
 | Component    | Packaged Version |
@@ -560,3 +564,8 @@ the appropriate dashboards are installed.
 Afterwards, when Healthwatch is configured with TAS/TKGi "Version to Monitor" set to "Disabled",
 the TAS/TKGi dashboards would not be deleted and would continue to show up in Grafana.
 Upgrade to 2.0.6+ to resolve this issue.
+
+### <a name="pxc-vm-disk-full"></a> PXC VMs Run Out of Disk Space
+
+The PXC VMs can run out of disk space due to binlog files not being cleaned up.
+Upgrade to 2.1.0+ to resolve this issue.
