@@ -62,6 +62,8 @@ Healthwatch 2.0.6+ emit these metrics as `tkgi_*` and `tas_*` respectively.
 
 * <a href="#pxc-vm-disk-full">PXC VMs Run Out of Disk Space</a>.
 
+* <a href="#kubernetes-node-panels-no-data">No Data on TKGI Kubernetes Node Panels</a>.
+
 ### Packaged OSS Components
 
 | Component    | Packaged Version |
@@ -569,3 +571,10 @@ Upgrade to 2.0.6+ to resolve this issue.
 
 The PXC VMs can run out of disk space due to binlog files not being cleaned up.
 Upgrade to 2.1.0+ to resolve this issue.
+
+### <a name="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Panels
+
+This is due to un-exported metrics in Kubernetes.
+See <a href="https://github.com/kubernetes/kubernetes/pull/97006">Fix missing cadvisor machine metrics</a>
+for more information.
+Upgrade to a TKGI version that has a version of Kubernetes greater than 1.19.6 to resolve this issue.
