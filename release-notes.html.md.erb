@@ -3,214 +3,24 @@ title: Healthwatch Release Notes
 owner: Healthwatch
 ---
 
-<p class="note warning">
-    <strong>Warning:</strong>
-    The Healthwatch tiles are currently in beta
-    and are intended for evaluation and test purposes only.
-    Do not use this product in a production environment.
-</p>
+## <a id='2-1-0'></a> v2.1.0
 
-## <a id='2-0-6'></a> v2.0.6 (Beta)
+**Release Date: March 18, 2021**
 
-**Release Date: Feb 11, 2021**
 <div class="note breaking">
-    <strong>Breaking Changes:</strong>
+    <strong>Breaking Changes</strong>
     <ul>
-      <li>Add a configuration checkbox for skipping SSL validation for the Ops Manager Canary URL.
+      <li>Indicator Protocol is no longer shipped with Healthwatch.
+      </li>
+    </ul>
+
+    <strong>Breaking Changes from 2.0.6 (Beta):</strong>
+    <ul>
+      <li>SSL validation will be checked by default in the Certificate Exporter.
+      Added a configuration checkbox for skipping SSL validation for the Certificate Exporter in TAS/TKGI.
       Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
-      Now, the default is to not skip SSL validation.
       This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
       </li>
-      <li>Add a default scrape config for scraping metrics from RabbitMQ.
-      Previously, this scrape config needed to be added manually in the Healthwatch tile configuration.
-      Now, the RabbitMQ scrape config will automatically be generated if "Enable RabbitMQ dashboards"
-      is checked in the Healthwatch tile configuration.
-      If there is a manually defined scrape config for RabbitMQ in the Healthwatch tile configuration,
-      it will need to be removed.
-      </li>
-    </ul>
-</div>
-
-### Feature Deprecations
-
-Healthwatch 2.0.6 will be the last version to emit metrics with the following patterns: `pks_*` and `pas_*`.
-Healthwatch 2.0.6+ emit these metrics as `tkgi_*` and `tas_*` respectively.
-
-### Features
-
-* Add high availability Alertmanager and Prometheus.
-
-* Add MySQL tile monitoring dashboard.
-
-* Add automatically generated RabbitMQ scrape config when RabbitMQ Grafana dashboards are enabled.
-
-* Updated RabbitMQ dashboards.
-
-### Resolved Issues
-
-* TAS/TKGi dashboards will not be provisioned when set to "Disabled" in the Healthwatch tile configuration. Fixes <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>.
-
-* TAS/TKGi dashboards will be deleted when set to "Disabled" in the Healthwatch tile configuration. Fixes <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>.
-
-* Healthwatch will continue to monitor TKGi clusters even if their Master Node is shut down. Fixes <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>.
-
-* PKS Cluster Discovery will now report the correct node count with NSX-T. Fixes <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
-* Healthwatch no longer fails to deploy when the Alertmanager webhook receiver configuration `bearer_token` property is set.
-
-### Known Issues
-
-* <a href="#pxc-vm-disk-full">PXC VMs Run Out of Disk Space</a>.
-
-* <a href="#kubernetes-node-panels-no-data">No Data on TKGI Kubernetes Node Panels</a>.
-
-### Packaged OSS Components
-
-| Component    | Packaged Version |
-|--------------|------------------|
-| Prometheus   | 2.21.0           |
-| Grafana      | 7.3.4            |
-| Alertmanager | 0.21.0           |
-
-## <a id='2-0-5'></a> v2.0.5 (Beta)
-
-**Release Date: Nov 6, 2020**
-<div class="note breaking">
-    <strong>Breaking Changes:</strong>
-    <ul>
-      <li>Prometheus Alertmanager replaces Grafana alerts. Any edited or custom alerts you have
-      will not be transferred. Custom alerts will remain in Grafana alerts and can be manually
-      moved to Alertmanager
-      </li>
-      <li>Update Certificate Expiration alert threshold from 14 days to 30 days</li>
-    </ul>
-</div>
-
-### Features
-
-* Add Alertmanager (as a replacement for Grafana alerts), including transferring of
-existing alerting rules. For more information on alerting rules, see [Alerting](configuring/optional-config/alerting.html) to view all alerting rules.
-* Add support for TAS 2.10, TKGI 1.8, and TKGI 1.9
-* Add Subject Alternative Name (SAN) to all mTLS certificates
-
-### Resolved Issues
-
-* Fix issue discovering TKGI clusters in NSX-T
-
-### Known Issues
-
-* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
-* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
-
-* Healthwatch fails to deploy when the Alertmanager webhook receiver configuration `bearer_token` property is set. Upgrade to 2.0.6+ to resolve this issue.
-
-### User Experience Enhancements
-
-* Remove redundant panels from Exporter Troubleshooting dashboard
-* Rename user-facing instances of "Enterprise PKS" and "PKS"
-  to "Tanzu Kubernetes Grid Integrated" and "TKGI" respectively.
-  This should help mitigate user confusion at inconsistent branding
-  since the rename of PKS to TKGI.
-* Confirm support of pkcs8 keys in custom scrape configs
-* Improve log messages when PKS Cluster Discovery fails to authenticate
-* Update Certificate Expiration alert threshold from 14 days to 30 days
-* Update layout of the "Job Details" page to enhance readability
-* Change netty logging level to "FATAL" to mitigate overzealous logging
-
-### Packaged OSS Components
-
-| Component    | Packaged Version |
-|--------------|------------------|
-| Prometheus   | 2.21.0           |
-| Grafana      | 7.1.5            |
-| Alertmanager | 0.21.0           |
-
-## <a id='2-0-4'></a> v2.0.4 (Beta)
-
-**Release Date: Aug 17, 2020**
-<div class="note breaking">
-    <strong>Breaking Changes:</strong>
-    <ul>
-  <li>The remote write configuration now allows for multiple entries, which breaks the existing tile configuration for remote write.</li>
-  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
-  <li>The TAS and TKG-i dashboard version selection has been updated.</li>
-    </ul>
-</div>
-
-### Feature Deprecations
-
-Healthwatch 2.0.4 will be the last version to ship with a default set of Grafana alerts.
-Healthwatch 2.0.5+ will deploy an Alertmanager instance to handle all alerting going forward.
-A default set of Prometheus Alerting Rules specific to TAS/TKG-i versions will be available
-on <a href="https://network.pivotal.io/products/p-healthwatch/">Tanzu Network</a>
-and can be applied through the tile configuration. These default alerting rules will mirror the Grafana
-alerts available in the default 2.0.4 dashboards. Although Healthwatch will no longer ship with
-default Grafana Alerts, Grafana can still be used for alerting purposes through manual alert creation.
-
-### Features
-
-New features and changes in this release:
-
-* Cert Dashboard now displays the BOSH trusted certificate.
-
-* Add Rabbit MQ monitoring dashboards.
-
-* Allow multiple remote write configurations.
-
-* Add TAS 2.10 dashboards.
-
-* TAS and TKG-i dashboards now support dynamic dashboards based on the tile version(s) installed.
-
-### Resolved Issues
-
-This release includes the following fixes:
-
-* Usage Service dashboard will no longer show up when an early patch version of TAS is installed.
-  Fixes <a href="#usage-service">Usage Service Dashboard alerts on early patches of TAS</a>.
-
-* PKS Cluster Discovery client cert populates correctly.
-
-* TAS MySQL dashboard will not show up if external MySQL is configured for TAS. Fixes <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
-
-* Canary Target URLs can be blank. Fixes <a href="#empty-blackbox-url">Healthwatch fails to install when no canary url is provided</a>.
-
-* Various dashboard fixes.
-
-### Known Issues
-
-* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
-
-* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
-* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
-
-* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
-
-### Packaged OSS Components
-
-| Component    | Packaged Version |
-|--------------|------------------|
-| Prometheus   | 2.20.0           |
-| Grafana      | 7.1.3            |
-| Alertmanager | N/A              |
-
-## <a id='2-0-3'></a> v2.0.3 (Beta)
-
-**Release Date: July 10, 2020**
-<div class="note breaking">
-    <strong>Breaking Changes:</strong>
-    <ul>
-  <li>The server name of all the exporters are changed to <code>hwexporter</code>. If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
-  <li>The cert expiration exporter is now moved to TAS for VMs and TKGi Exporter tiles, instead of in the Healthwatch tile.  If you are setting up scrape config to those exporters, the scrape config needs to be updated.</li>
     </ul>
 </div>
 
@@ -218,197 +28,71 @@ This release includes the following fixes:
 
 New features and changes in this release:
 
-* Grafana 7.0
+#### From 2.0.6
 
-* Downsize the exporter VMs to better utilize the resource.
+* Adds support for TKGI v1.10.
 
-### Security Fixes
+* Removes Indicator Protocol.
 
-This release includes the following security fix:
+* Adds support for setting static IP addresses for the TSDB VMs.
 
-* Remove extraneous logging in certain components that would log sensitive information under certain configuration.
+#### From 1.8.x
 
-### Resolved Issues
+* Uses Highly Available Alertmanager, Grafana, and Prometheus for alerting, display, and metric storage.
 
-This release includes the following fixes:
+* Retains 42 days of all metric data (or 85 percent of persistent disk) in Prometheus, the popular time-series database.
 
-* Healthwatch Exporter for PKS now includes metrics to populate BOSH Director Health dashboard properly.
+* Has the ability to monitor multiple foundations from a single view.
 
-* Fix a query on Tanzu Application Service SLO dashboard.
+* Monitors both VMware Tanzu Application Service and VMware Tanzu Kubernetes Grid Integrated Edition.
 
-* Healthwatch SLO populate correct exporter metrics depends on whether TAS for VMs or TKGi dashboard selected.
+* Includes pre-provisioned dashboards for TAS v2.7, v2.8, v2.9, and v2.10
+  as well as TKGI v1.8, v1.9, and v1.10.
+  By default, Healthwatch 2.1 will dynamically set
+  the dashboard version(s) based on the tile version(s) installed.
 
-* Various dashboard fixes.
+* Includes optional pre-provisioned dashboards for the Rabbit MQ and MySQL tiles.
 
-### Known Issues
+* Includes a **Cert Expiration** dashboard displaying the
+  remaining time until expiration for all discoverable certificates
+  from the Ops Manager API as well as BOSH trusted certificates.
 
-* <a href="#usage-service">Usage Service Dashboard alerts on early patches of TAS</a>.
-
-* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
-
-* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
-* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
-
-* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
-
-* <a href="#empty-blackbox-url">Healthwatch fails to install when no canary url is provided</a>.
-
-* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
-
-### Packaged OSS Components
-
-| Component    | Packaged Version |
-|--------------|------------------|
-| Prometheus   | 2.18.1           |
-| Grafana      | 7.0.5            |
-| Alertmanager | N/A              |
-
-
-## <a id='2-0-2'></a> v2.0.2 (Beta)
-
-**Release Date: June 1, 2020**
-
-### Features
-
-New features and changes in this release:
-
-* All Jobs and Job Details dashboards ignores BOSH smoke test deployments.
-
-* Add new PKS dashboards. To see the dashboards, select a **PKS Version to Monitor** in the **Grafana Configuration**.
-
-* Add additional functional test for PKS API, the change can be found in **PKS Control Plane** dashboard.
-
-* Update query for cf push remaining error budget.
-
-* Allow configuring additional cipher suite in the **Grafana Configuration**.
-
-* PKS cluster discovery now support OIDC, **PKS UAA Admin Password** property is required when **Configure created clusters to use UAA as the OIDC provider** in **Enterprise PKS** tile is enabled.
-
-
-### Security Fixes
-
-This release includes the following security fixes:
-
-* Only support strong cipher suites in Grafana. The list of the OOTB cipher suite can be found [here](https://github.com/cloudfoundry/tlsconfig/blob/master/config.go#L88-L98).
-
-* Remove extraneous logging in certain components that would log sensitive information under certain configuration.
-
-
-### Resolved Issues
-
-This release includes the following fix:
-
-* PKS cluster discovery **PKS API Skip SSL Validation** option properly skip ssl validation.
-
-* Fix the line chart in **CLI Health** so it stays `0` instead of oscillating when the underlying metric keeps failing.
-
-* Fix the cf cli functional test so it fails properly when unable to get logs for the deployed smoke test app.
-
-* All Jobs and Job Details page use correct query tags when deployed to PKS foundation.
-
-* Indicator Protocol integration properly renders the chart panel name.
-
-
-### Known Issues
-
-* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
-* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
-
-* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
-
-* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
-
-### Packaged OSS Components
-
-| Component    | Packaged Version |
-|--------------|------------------|
-| Prometheus   | 2.18.1           |
-| Grafana      | 7.0.3            |
-| Alertmanager | N/A              |
-
-
-## <a id='2-0-1'></a> v2.0.1 (Beta)
-
-**Release Date: April 29, 2020**
-
-### Features
-
-New features and changes in this release:
+* Adds OAuth and LDAP as new authentication methods, in addition to UAA.
 
 * Exposes composite metrics, or "Super Value Metrics",
   from Healthwatch v1.x to the metrics pipeline.
   This enables you to still see the same metrics from Healthwatch v1.x
-  in your downstream log consumers if you upgrade from Healthwatch v1.x to Healthwatch v2.x.
+  in your downstream log consumers if you upgrade from Healthwatch v1.x to Healthwatch v2.1.
 
-* Includes a new **Cert Expiration** dashboard under the **Foundation** tab
-  that displays the time left until expiration for all discoverable certificates
-  from the Ops Manager API.
-  In Ops Manager v2.7 and later, the Ops Manager API includes the Ops Manager root CA
-  and product certificates stored in CredHub.
+* Adds a functional test and associated dashboard for the TKGI API.
 
-* Diego Capacity metrics are separated by isolation segment in the **Diego/Capacity** dashboard.
-
-* Enables a proxy setting for Grafana.
-  This allows you to configure alerting in air-gapped environments.
+* Separates Diego Capacity metrics by isolation segment in the **Diego/Capacity** dashboard.
 
 * Exposes Ops Manager syslog configuration.
 
-<p class="note breaking">
-    <strong>Breaking Change:</strong>
-    Grafana is configured to use the default HTTP and HTTPS ports,
-    so you do not have to specify a port when visiting your dashboards.
-    If a load balancer is placed in front of Grafana instances,
-    the back end configuration of the load balancer must be updated.
-</p>
-
-### Security Fixes
-
-This release includes the following security fixes:
-
-* N/A
+* All Jobs and Job Details dashboards ignore BOSH smoke test deployments.
 
 ### Resolved Issues
 
-This release includes the following fix:
-
-* N/A
+* PXC MySQL VMs disk could become completely full due to PXC storing binlogs in Healthwatch 2.0.x (Beta) releases.
 
 ### Known Issues
 
-* <a href="#pks-cluster-discovery-nsxt-node-count">PKS Cluster Discovery reports incorrect node count with NSX-T</a>.
-
 * <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
 
-* <a href="#tas-mysql">TAS MySQL dashboard alerts when external MySQL is configured</a>.
-
-* <a href="#tas-tkgi-dashboards-provision-when-disabled">TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tas-tkgi-dashboards-not-removed-when-disabled">TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration</a>
-
-* <a href="#tkgi-dropped-clusters">TKGi Clusters are not Monitored When Master Node is Shut Down</a>
+* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
 
 ### Packaged OSS Components
 
 | Component    | Packaged Version |
 |--------------|------------------|
-| Prometheus   | 2.18.1           |
-| Grafana      | 7.0.3            |
-| Alertmanager | N/A              |
-
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.4.2            |
+| Alertmanager | 0.21.0           |
 
 ## <a id="issues"></a> Known Issues
 
-Healthwatch v2.0 includes the following known issues:
+Healthwatch v2.1 includes the following known issues:
 
 ### <a name="upgrade-from-om-23"></a> Ops Manager pre v2.3 upgrade issue
 
@@ -454,20 +138,6 @@ To resolve this issue in Ops Manager v2.7 or earlier:
     irb(main):001:0> exit
     > service tempest-web restart
     ```
-### <a name="tkgi-dropped-clusters"></a> TKGi Clusters are not Monitored When Master Node is Shut Down
-
-When you use PKS Cluster Discovery with TKGi,
-clusters are no longer monitored if the Master Node is shut down.
-Upgrade to 2.0.6+ to resolve this issue.
-
-### <a name="pks-cluster-discovery-nsxt-node-count"></a> PKS Cluster Discovery Reports Incorrect Node Count with NSX-T
-
-When you use PKS Cluster Discovery with PKS deployed on vSphere NSX-T,
-the count of PKS masters is always 1.
-When the PKS API creates the cluster on NSX-T,
-it also creates a load balancer in front of the PKS Control Plane nodes,
-which prevents Healthwatch from addressing each node separately.
-Upgrade to 2.0.6+ to resolve this issue.
 
 ### <a name="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T.
 
@@ -535,43 +205,7 @@ To open the ports:
     - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
     - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
     - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
-
-### <a name="usage-service"></a> Usage Service Dashboard alerts on early patches of TAS.
-
-When Healthwatch is installed with TAS for VMs versions v2.7.17 and earlier patches, v2.8.11 and earlier patches, or v2.9.5 and earlier patches,
-the **Usage Service** Dashboard will not be populated correctly and will trigger alerts tagged with `usage_service_app_usage_event_cc_lag_seconds`.
-One workaround is to pause reporting these alerts by opening **Grafana** -> **Alerting** -> **Alert rules**, and pause the corresponding alerts.
-
-### <a name="tas-mysql"></a> TAS MySQL dashboard alerts when external MySQL is configured.
-
-When Healthwatch is installed with TAS for VMs with external MySQL, the provided MySQL dashboard will alert.
-Upgrade to 2.0.4+ to resolve this issue.
-
-### <a name="empty-blackbox-url"></a> Healthwatch fails to install when no canary url is provided.
-
-When there is no canary url provided, Healthwatch renders an invalid configuration file results failure in Apply Changes.
-To workaround this issue, provide at least one canary url in the target urls configuration.
-Upgrade to 2.0.4+ to resolve this issue.
-
-### <a name="tas-tkgi-dashboards-provision-when-disabled"></a> TAS/TKGi Dashboards Provisioned When set to Disabled in the Healthwatch Tile Configuration
-
-When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to "Disabled",
-the dashboards would show up in Grafana anyway.
-Upgrade to 2.0.6+ to resolve this issue.
-
-### <a name="tas-tkgi-dashboards-not-removed-when-disabled"></a> TAS/TKGi Dashboards are not Removed When set to Disabled in the Healthwatch Tile Configuration
-
-When Healthwatch is installed with the TAS/TKGi "Version to Monitor" options set to anything other than "Disabled",
-the appropriate dashboards are installed.
-Afterwards, when Healthwatch is configured with TAS/TKGi "Version to Monitor" set to "Disabled",
-the TAS/TKGi dashboards would not be deleted and would continue to show up in Grafana.
-Upgrade to 2.0.6+ to resolve this issue.
-
-### <a name="pxc-vm-disk-full"></a> PXC VMs Run Out of Disk Space
-
-The PXC VMs can run out of disk space due to binlog files not being cleaned up.
-Upgrade to 2.1.0+ to resolve this issue.
-
+    
 ### <a name="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Panels
 
 This is due to un-exported metrics in Kubernetes.
