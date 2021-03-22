@@ -54,15 +54,27 @@ the Healthwatch Exporter for TKGI tile on each foundation you want to monitor. F
 see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing,
 Configuring, and Deploying a Tile Through an Automated Pipeline](../../installing/automated-pipeline.html).
 
-1. For each foundation you monitor, expose the Prometheus instance in the Healthwatch tile
-on port `4449`.
+1. For each foundation you monitor, expose the TSDB instances in the Healthwatch tile
+on port `4450`.
+
+<p class='note info'><strong>Info:</strong> In the Highly Available configuration,
+each TSDB VM is scraping the same exact data. When Federating, you can choose to
+scrape both copies of that data into the monitoring foundation's Prometheus. In this case,
+both TSDB instances from the monitored foundations would be used in the scrape config outlined below.
+
+Another option would be to front the TSDB instances with an IAAS component for handling load balancing
+between the two TSDB instances on the monitored foundations. This can accomplished either using DNS or a Load Balancer.
+In both cases, it is recommended to use static IP addresses for both of the TSDB instances. For more information
+about setting static IP addresses for the TSDB instances, see the [Configure Prometheus](../configuring-healthwatch.html#prometheus)
+section of the Configuring Healthwatch docs.
+</p>
 
 1. For each foundation you want to monitor:
   1. Navigate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
   1. Click the **Healthwatch** tile.
   1. Select the **Credentials** tab.
-  1. In the **Tsdb Client Mtls** row, click **Link to Credential**.
-  1. Record the credentials for **Tsdb Client Mtls**.
+  1. In the **Tsdb Client mTLS** row, click **Link to Credential**.
+  1. Record the credentials for **Tsdb Client mTLS**.
   1. Retrieve the Ops Manager root certificate authority (CA) for the foundation you want to
   monitor. For more information, see [Retrieve the Ops Manager Root CA](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs)
   in _Managing Certificates with the Ops Manager API_ in the Ops Manager documentation.
@@ -73,7 +85,7 @@ on port `4449`.
   1. For **TSDB Scrape job**, provide the configuration YAML for a scrape job for the Prometheus
   instance in the Healthwatch tile on the foundation you want to monitor. In the example below,
   the scrape job federates all metrics with names that match the regular expression `^metric_name_regex.*`
-  from the Prometheus instance at the IP address listed under the `targets` property:
+  from the TSDB instance at the IP address listed under the `targets` property:
 
         ```
         job_name: example-job-name
@@ -84,11 +96,18 @@ on port `4449`.
             - '{__name__=~"^metric_name_regex.*"}'
         static_configs:
           - targets:
-            - 'source-prometheus-1:4449'
+            - 'source-tsdb-1:4450'
+            - 'source-tsdb-2:4450'
         ```
+
+        <p class='note info'><strong>Info:</strong>
+        If you are using DNS or a Load Balancer in front of the TSDB instances, the Target list in the scrape config
+        should point to that instead of the IP address of the TSDB instance.
+        </p>
+
   1. For **TLS Config Certificate Authority**, enter the Ops Manager root CA from the foundation
   you want to monitor that you recorded in a previous step.
-  1. For **TLS Config Certificate and Private Key**, enter the **Tsdb Client Mtls** credentials
+  1. For **TLS Config Certificate and Private Key**, enter the **Tsdb Client mTLS** credentials
   from the foundation you want to monitor that you recorded in a previous step.
   1. Click **Save**.
   <br>
