@@ -37,7 +37,8 @@ in the Prometheus documentation.
   from more than one large TAS for VMs foundation in a single Prometheus instance negatively
   affects the performance of that Prometheus instance, sometimes even causing it to crash.
   To avoid this, VMware recommends federating only service level indicator (SLI) metrics from
-  each foundation you monitor to the Prometheus instance in your monitoring foundation.</p>
+  each foundation you monitor to the Prometheus instance in your monitoring foundation.
+</p>
 
 
 ## <a id='federation-config'></a> Configure Federation
@@ -57,16 +58,16 @@ Configuring, and Deploying a Tile Through an Automated Pipeline](../../installin
 1. For each foundation you monitor, expose the TSDB instances in the Healthwatch tile
 on port `4450`.
 
-<p class='note info'><strong>Info:</strong> In the Highly Available configuration,
-each TSDB VM is scraping the same exact data. When Federating, you can choose to
+
+<p class='note info'><strong>Note:</strong> In the Highly Available configuration,
+each TSDB VM is scraping the same exact data. When federating, you can choose to
 scrape both copies of that data into the monitoring foundation's Prometheus. In this case,
 both TSDB instances from the monitored foundations would be used in the scrape config outlined below.
 
-Another option would be to front the TSDB instances with an IAAS component for handling load balancing
-between the two TSDB instances on the monitored foundations. This can accomplished either using DNS or a Load Balancer.
+Another option would be to front the TSDB instances with an IaaS component for handling load balancing
+between the two TSDB instances on the monitored foundations. This can accomplished either using DNS or a load balancer.
 In both cases, it is recommended to use static IP addresses for both of the TSDB instances. For more information
-about setting static IP addresses for the TSDB instances, see the [Configure Prometheus](../configuring-healthwatch.html#prometheus)
-section of the Configuring Healthwatch docs.
+about setting static IP addresses for the TSDB instances, see <a href="../configuring-healthwatch.html#prometheus">Configure Prometheus</a> in <i>Configuring Healthwatch</i>.
 </p>
 
 1. For each foundation you want to monitor:
