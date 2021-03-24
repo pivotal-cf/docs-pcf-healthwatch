@@ -1,25 +1,69 @@
 ---
-title: Healthwatch Resources
+title: Healthwatch Components and Resource Requirements
 owner: Healthwatch
 ---
 
-This topic describes resource requirements for Healthwatch.
+This topic describes Healthwatch tile components and the resource requirements for the Healthwatch
+tile.
 
-## <a id="healthwatch-tile"></a> Healthwatch Tile
+For information about the metric exporter VMs that the Healthwatch Exporter for VMware Tanzu
+Application Service for VMs (TAS for VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid
+Integrated Edition (TKGI) tiles deploy, see [Healthwatch Metrics](metrics.html).
 
-You can configure resources in the **Resource Config** section of the Healthwatch tile. By default, Healthwatch automatically selects the instance type that is best suited for each job.
 
-<p class="note">
-    <strong>Note:</strong>
-    The automatically selected values
-    that you see in the <strong>Resource Config</strong> section of the Healthwatch tile
-    depend on the available resources for your deployment.
-</p>
+## <a id='component-vms'></a> Healthwatch Component VMs
 
-The following table provides the default resource and IP requirements for installing the Healthwatch tile.
+The table below explains each Healthwatch tile component and which VM deploys it:
 
-<table border="1" class="nice">
-  <thead>
+<table>
+  <tr>
+    <th>Component</th>
+    <th>VM Name</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Prometheus</td>
+    <td>tsdb</td>
+    <td>
+      <ul>
+        <li>Collects metrics related to the functionality of platform- and runtime-level components:</li>
+        <li>Stores metrics for up to six weeks</li>
+        <li>Can write to remote storage in addition to its local time-series database (TSDB)</li>
+        <li>Manages and sends alerts through Alertmanager</li>
+        <li>Conducts canary tests through the Blackbox Exporter</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Grafana</td>
+    <td>grafana</td>
+    <td>
+      <ul>
+        <li>Deploys the Grafana UI</li>
+        <li>Authenticates user login credentials</li>
+        <li>Organizes metrics data in charts and graphs</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>MySQL</td>
+    <td>pxc</td>
+    <td>Stores the Grafana settings you configure</td>
+  </tr>
+  <tr>
+    <td>MySQL Proxy</td>
+    <td>pxc-proxy</td>
+    <td>Routes client connections to healthy MySQL nodes and away from unhealthy MySQL nodes</td>
+  </tr>
+</table>
+
+
+## <a id='resource-requirements'></a> Resource Requirements for the Healthwatch Tile
+
+The following table provides the default resource and IP requirements for installing the Healthwatch
+tile:
+
+<table>
   <tr>
     <th>Resource</th>
     <th>Instances</th>
@@ -28,18 +72,16 @@ The following table provides the default resource and IP requirements for instal
     <th>Ephemeral Disk</th>
     <th>Persistent Disk</th>
   </tr>
-  </thead>
-  <tbody>
   <tr>
-    <td>TSDB</td>
-    <td>1</td>
+    <td>Prometheus</td>
+    <td>2</td>
     <td>4</td>
     <td>16&nbsp;GB</td>
     <td>5&nbsp;GB</td>
     <td>512&nbsp;GB</td>
   </tr>
   <tr>
-    <td>MySQL Proxy</td>
+    <td>Grafana</td>
     <td>1</td>
     <td>1</td>
     <td>4&nbsp;GB</td>
@@ -55,12 +97,15 @@ The following table provides the default resource and IP requirements for instal
     <td>10&nbsp;GB</td>
   </tr>
   <tr>
-    <td>Grafana</td>
+    <td>MySQL Proxy</td>
     <td>1</td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
     <td>5&nbsp;GB</td>
   </tr>
-  </tbody>
 </table>
+
+You can scale these resources in the **Resource Config** pane of the Healthwatch tile. Healthwatch
+automatically selects the instance type that is best suited for each job. The instance types
+that Healthwatch selects depend on the available resources for your deployment.
