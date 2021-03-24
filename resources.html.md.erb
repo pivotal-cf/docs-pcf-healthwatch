@@ -17,16 +17,16 @@ The table below explains each Healthwatch tile component and which VM deploys it
 
 <table>
   <tr>
-    <th>Component</th>
-    <th>VM Name</th>
-    <th>Description</th>
+    <th style="width: 15%">Component</th>
+    <th style="width: 15%">VM Name</th>
+    <th style="width: 70%">Description</th>
   </tr>
   <tr>
     <td>Prometheus</td>
-    <td>tsdb</td>
+    <td><code>tsdb</code></td>
     <td>
       <ul>
-        <li>Collects metrics related to the functionality of platform- and runtime-level components:</li>
+        <li>Collects metrics related to the functionality of platform- and runtime-level components</li>
         <li>Stores metrics for up to six weeks</li>
         <li>Can write to remote storage in addition to its local time-series database (TSDB)</li>
         <li>Manages and sends alerts through Alertmanager</li>
@@ -36,7 +36,7 @@ The table below explains each Healthwatch tile component and which VM deploys it
   </tr>
   <tr>
     <td>Grafana</td>
-    <td>grafana</td>
+    <td><code>grafana</code></td>
     <td>
       <ul>
         <li>Deploys the Grafana UI</li>
@@ -47,12 +47,12 @@ The table below explains each Healthwatch tile component and which VM deploys it
   </tr>
   <tr>
     <td>MySQL</td>
-    <td>pxc</td>
+    <td><code>pxc</code></td>
     <td>Stores the Grafana settings you configure</td>
   </tr>
   <tr>
     <td>MySQL Proxy</td>
-    <td>pxc-proxy</td>
+    <td><code>pxc-proxy</code></td>
     <td>Routes client connections to healthy MySQL nodes and away from unhealthy MySQL nodes</td>
   </tr>
 </table>
@@ -106,6 +106,7 @@ tile:
   </tr>
 </table>
 
-You can scale these resources in the **Resource Config** pane of the Healthwatch tile. Healthwatch
-automatically selects the instance type that is best suited for each job. The instance types
-that Healthwatch selects depend on the available resources for your deployment.
+You can scale these resources in the **Resource Config** pane of the Healthwatch tile.
+
+Healthwatch automatically selects the instance type that is best suited for each job. The instance
+types that Healthwatch selects depend on the available resources for your deployment.
