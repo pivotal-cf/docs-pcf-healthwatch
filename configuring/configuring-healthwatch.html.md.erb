@@ -199,8 +199,8 @@ VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarde
 Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid
-static IP addresses that you want to reserve for the TSDB VMs. These IP addresses must not
-be within the reserved IP ranges you configured in the BOSH Director tile.
+static IP addresses that you want to reserve for the Prometheus VMs. These IP addresses must
+not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
 
@@ -280,6 +280,9 @@ runtimes in your foundations.
     TAS for VMs or TKGI you specify in **TAS Version to Monitor** and **TKGI Version to Monitor**.
     * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
     for TAS for VMs or TKGI.
+
+1. (Optional) If you want the Grafana VM to create a dashboard for MySQL, select the **Enable
+MySQL dashboards** checkbox. This checkbox is disabled by default.
 
 1. (Optional) If you want the Grafana VM to create a dashboard for RabbitMQ, select the **Enable
 RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
