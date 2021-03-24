@@ -1,4 +1,4 @@
----
+2.1---
 title: Healthwatch
 owner: Healthwatch
 ---
@@ -38,7 +38,7 @@ For more information about each of these tiles, see the following sections below
 For more information on the limitations and risks of using Healthwatch, see the following sections below:
 
 * [Healthwatch Limitations](#healthwatch-limitations)
-* [Assumed Risks of Using Healthwatch v2.0](#assumed-risks)
+* [Assumed Risks of Using Healthwatch v2.1](#assumed-risks)
 
 ### <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
@@ -123,39 +123,39 @@ The following table provides version and version support information about Healt
 | Compatible Enterprise Pivotal Container Service (Enterprise PKS) and TKGI versions | v1.8, v1.9, v1.10 |
 | IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
 
-## <a id='healthwatch-limitations'></a>Healthwatch v2.0 Limitations
+## <a id='healthwatch-limitations'></a>Healthwatch v2.1 Limitations
 
-The following limitations apply to using Healthwatch v2.0:
+The following limitations apply to using Healthwatch v2.1:
 
-* Healthwatch v2.0 does not support external data stores.
+* Healthwatch v2.1 is designed for platform operators. The best monitoring option for application developers is Tanzu Observability by Wavefront. For more information about Tanzu Observability by Wavefront, see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu Observability by Wavefront documentation.
 
-* Healthwatch v2.0 uses its own SMTP server. You will need to use an outside service for this.
+* Healthwatch v2.1 is not meant to be a long-term data store. It only stores data for six weeks.
 
-* Healthwatch v2.0 does not expose the UI for the open source components Alertmanager and Prometheus because the UIs are not secure. However, you can access the UIs of the Prometheus and Alertmanager VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting](troubleshooting.html) in _Troubleshooting Healthwatch_.
+* If you use an external database to store metrics from Healthwatch v2.1, the Healthwatch support team will not be able to assist in the operation or configuration of the external database beyond the scope of the Healthwatch product.
 
-* Healthwatch v2.0 only supports Slack, PagerDuty, email, and webhooks for alerts. For more information, see [Alerting](configuring/optional-config/alerting.html).
+* Healthwatch v2.1 only supports Slack, PagerDuty, email, and webhooks for alerts. For more information, see [Alerting](configuring/optional-config/alerting.html).
 
-* Healthwatch v2.0 does not include a federated dashboard or an overview dashboard for monitoring multiple TAS for VMs or TKGI foundations. You can create a custom dashboard, but any changes will be overwritten when you upgrade to the next release.
+* Healthwatch v2.1 does not provide an SMTP server. If you want to receive alerts as emails, you will need your own SMTP server. For more information on alerting, see [Alerting](configuring/optional-config/alerting.html).
 
-* Healthwatch v2.0 is not meant to be a long-term data store. It only stores data for six weeks.
+* Healthwatch v2.1 does not create graphs and alerts for every metric emitted from the platform. Instead, the default graphs and alerts curate metrics based on the overall health of the platform and its components.
 
-* Healthwatch v2.0 is not designed to capture all of the metrics from multiple foundations. For more information on the metrics Healthwatch v2.0 stores, see [Healthwatch Metrics](metrics.html).
+* Healthwatch v2.1 is not designed to capture all of the metrics from multiple foundations. For more information on the metrics Healthwatch v2.1 stores, see [Healthwatch Metrics](metrics.html).
 
-* Healthwatch v2.0 is designed for platform operators. The best monitoring option for application developers is Tanzu Observability by Wavefront. For more information about Tanzu Observability by Wavefront, see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu Observability by Wavefront documentation.
+* Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring multiple TAS for VMs or TKGI foundations. However, you can create a custom dashboard.
 
-* Healthwatch v2.0 does not create graphs and alerts for all metrics emitted from the platform. Instead, the default graphs and alerts curate metrics based on the overall health of the platform and its components.
+* Healthwatch v2.1 does not expose the UI for the open source components Alertmanager and Prometheus because the UIs are not secure. However, you can access the UIs of the Prometheus and Alertmanager VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting](troubleshooting.html) in _Troubleshooting Healthwatch_.
 
-* Healthwatch v2.0 does not support Tanzu Kubernetes Grid (TKG) outside of TKGI.
+* Healthwatch v2.1 does not support Tanzu Kubernetes Grid (TKG) outside of TKGI.
 
-## <a id='assumed-risks'></a>Assumed Risks of Using Healthwatch v2.0
+## <a id='assumed-risks'></a>Assumed Risks of Using Healthwatch v2.1
 
-The following list outlines the problems that could arise when using Healthwatch v2.0.
+The following list outlines the problems that could arise when using Healthwatch v2.1.
 
-* Healthwatch v2.0 uses open source components, including Grafana, Prometheus, and Alertmanager. This means VMware does not have direct control over how quickly feature changes and bug fixes make it into these open source components.
+* Healthwatch v2.1 uses open source components, including Grafana, Prometheus, and Alertmanager. This means VMware does not have direct control over how quickly feature changes and bug fixes make it into these open source components.
 
-* If your foundation is tailor-made to your organization, the default Healthwatch v2.0 dashboards in Grafana may not be relevant. To solve this, create custom dashboards in Grafana and adjust the default thresholds.
+* If your foundation is tailor-made to your organization, the default Healthwatch v2.1 dashboards in Grafana may not be relevant. To solve this, create custom dashboards in Grafana and adjust the default thresholds.
 
-* If you create a custom dashboard in Grafana, it will not be updated with future releases of Healthwatch. Similarly, if you edit one of the default dashboards generated by Healthwatch v2.0, it will revert to its default settings when you upgrade to the next release. 
+* If you create a custom dashboard in Grafana, it will not be updated with future releases of Healthwatch. Similarly, if you edit one of the default dashboards generated by Healthwatch v2.1, it will revert to its default settings when you upgrade to the next release. 
 
 * If someone who receives email alerts from Alertmanager leaves your company, the email alerts may bounce. This could cause your email server to disallow the SMTP server and prevent anyone from receiving email alerts.
 
