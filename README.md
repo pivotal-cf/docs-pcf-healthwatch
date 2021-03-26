@@ -7,6 +7,7 @@ This is the source repository for the Pivotal Cloud Foundry (PCF) Healthwatch do
 | Branch Name| Use for… | URL |
 |------------| ---------|-----|
 | master     | DO NOT USE | _n/a_ |
+| 2.1        | 2.1  | https://docs,pivotal.io/healthwatch/2-1/ |
 | 2.0        | 2.0 beta | http://docs.pivotal.io/platform/healthwatch/2-0  |
 | 1.8        | 1.8 | http://docs.pivotal.io/platform/healthwatch/1-8  |
 | 1.7        | 1.7 | http://docs.pivotal.io/platform/healthwatch/1-7  |
