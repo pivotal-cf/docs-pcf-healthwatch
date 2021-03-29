@@ -7,19 +7,19 @@ This is the source repository for the Pivotal Cloud Foundry (PCF) Healthwatch do
 | Branch Name| Use for… | URL |
 |------------| ---------|-----|
 | master     | DO NOT USE | _n/a_ |
-| 2.1        | 2.1  | https://docs,pivotal.io/healthwatch/2-1/ |
-| 2.0        | 2.0 beta | http://docs.pivotal.io/platform/healthwatch/2-0  |
-| 1.8        | 1.8 | http://docs.pivotal.io/platform/healthwatch/1-8  |
-| 1.7        | 1.7 | http://docs.pivotal.io/platform/healthwatch/1-7  |
-| 1.6        | 1.6 | http://docs.pivotal.io/platform/healthwatch/1-6  |
-| 1.5        | 1.5 | http://docs.pivotal.io/platform/healthwatch/1-5  |
-| 1.4        | 1.4 | http://docs.pivotal.io/platform/healthwatch/1-4  |
-| 1.3        | 1.3 | http://docs.pivotal.io/platform/healthwatch/1-3  |
-| 1.2        | 1.2 | http://docs.pivotal.io/platform/healthwatch/1-2  |
-| 1.1        | 1.1 | http://docs.pivotal.io/platform/healthwatch/1-1  |
-| 1.0        | 1.0 | http://docs.pivotal.io/platform/healthwatch/1-0  |
+| 2.1        | 2.1 | https://docs.pivotal.io/healthwatch/2-1/ |
+| 2.0        | 2.0 beta | http://docs.pivotal.io/platform/healthwatch/2-0 |
+| 1.8        | 1.8 | https://docs.pivotal.io/healthwatch/1-8 |
+| 1.7        | 1.7 | https://docs.pivotal.io/healthwatch/1-7 |
+| 1.6        | 1.6 | https://docs.pivotal.io/healthwatch/1-6 |
+| 1.5        | 1.5 | https://docs.pivotal.io/healthwatch/1-5 |
+| 1.4        | 1.4 | https://docs.pivotal.io/healthwatch/1-4 |
+| 1.3        | 1.3 | https://docs.pivotal.io/healthwatch/1-3 |
+| 1.2        | 1.2 | https://docs.pivotal.io/healthwatch/1-2 |
+| 1.1        | 1.1 | https://docs.pivotal.io/healthwatch/1-1 |
+| 1.0        | 1.0 | https://docs.pivotal.io/healthwatch/1-0 |
 
-1.5 and earlier is end of general support. 
+1.5 and earlier is end of general support.
 
 Book repo: https://github.com/pivotal-cf/docs-book-healthwatch
 
@@ -41,11 +41,11 @@ git clone git@github.com:pivotal-cf/docs-layout-repo.git
     manually edit the Dockerfile configuration inside the `bookdocker/bookdocker` script
     from `FROM ruby:2.3` to `FROM ruby:2.4`
     so that it works with the gems we have in `docs-pcf-healthwatch`.
- 
+
 1. `cd` into `docs-book-healthwatch` and edit the `config.yml`
     1. Under the `sections:` comment out the docs branch that you are not currently working on.
        This is needed to have `bookdocker watch` work as expected.
-       
+
        **Note:** Don't commit this file.
 1. Run `bookdocker watch` in `docs-book-healthwatch` folder,
    and you will get local preview under: `http://127.0.0.1:4567/platform/healthwatch/<VERSION>/installing.html`
