@@ -5,71 +5,135 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to upgrade to Healthwatch v2.1 and lists the major differences between Healthwatch v1 and Healthwatch v2.1.
+This topic describes how to upgrade to Healthwatch v2.1 and lists the major differences between Healthwatch v1 and v2.1.
 
 ## <a id='overview'></a> Overview
 
-Healthwatch v2.1 is the GA release of a Healthwatch version that uses the open source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics and receive alerts. Healthwatch v2.1 is so different from Healthwatch v1, it requires installing a new tile.
+Healthwatch v2.1 is the GA release of a Healthwatch version that uses the open source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics and receive alerts. Healthwatch v2.1 is so different from v1, it requires installing a new tile.
 
-For more information about the differences between Healthwatch v1 and Healthwatch v2.1 and how to upgrade, see the following sections below:
+For more information about the differences between Healthwatch v1 and v2.1 and how to upgrade, see the following sections below:
 
-* [Differences between Healthwatch v1 and Healthwatch v2.1](#differences)
+* [Differences between Healthwatch v1 and v2.1](#differences)
 * [Upgrading to Healthwatch v2.1](#upgrade)
 
-## <a id='differences'></a>Differences between Healthwatch v1 and Healthwatch v2.1
+## <a id='differences'></a>Differences between Healthwatch v1 and v2.1
 
-If you are upgrading to Healthwatch v2.1 from Healthwatch v1, the following table describes the biggest differences. 
+If you are upgrading to Healthwatch v2.1 from v1, the following table describes the biggest differences. 
 
-|**Healthwatch v2.1** | Uses the open source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics and receive alerts. These components are highly available.| 
-|**Healthwatch v1** | Uses a homegrown/in-house dashboard to monitor metrics. How are the alerts done? Are they also highly available?|
-|For more information about the architecture of Healthwatch v2.1, see Reference Architure[LINK]. |
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Uses Prometheus to retain all metrics for 42 days or until 85 percent of persistent disk space is full.| 
-|**Healthwatch v1** | Retains metrics for [HOW LONG? AND WHERE?]|
-|For more information about Healthwatch v2.1 metrics, see Healthwatch Metrics[LINK].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Monitors multiple foundations from a single view in Grafana.| |**Healthwatch v1** [only monitors one?][Maybe combine this one with the one below]|
-|For more information about using Healthwatch v2.1 with multiple platforms, see Reference Architecture[LINK].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1**| Works with two VMware platforms and can monitor both concurrently: VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI).| 
-|**Healthwatch v1** | Only monitors TAS for VMs [right?].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Includes default dashboards for TAS for VMs v2.7, v2.8, v2.9, and v2.10, as well as TKGI v1.8, v1.9, and v1.10. Healthwatch v2.1 recognizes automatically the version of TAS for VMs installed and sets the dashboard version accordingly.| |**Healthwatch v1** | [How many TAS versions does it monitor?]|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1**| Includes optional dashboards for the RabbitMQ and MySQL tiles.| |**Healthwatch v1** | [doesn't?]
-|For more information about displaying the RabbitMQ and MySQL dashboards, see Healthwatch Metrics[LINK].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Includes a **Cert Expiration** dashboard that displays the
-  remaining time until expiration for all discoverable certificates
-  from the Ops Manager API and BOSH-trusted certificates.|
-|**Healthwatch v1**| [doesn't?]|
-|For more information about monitoring certificates, see Monitoring Certificate Expiration[LINK].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Healthwatch v2.1 adds OAuth and LDAP authentication methods.| |**Healthwatch v1** | Only uses UAA [right?][but where? it doesn't use Grafana]|
-|For more information about authentication, see Configuring Grafana Authentication[LINK].|
-|-------------------------------------------------------------|
-|**Healthwatch v2.1** | Exposes composite metrics, also called "Super Value Metrics", from Healthwatch v1 to the metrics pipeline. This allows you to see the same metrics from Healthwatch v1 in your downstream log consumers.|
-|**Healthwatch v1** | Displays Super Value Metrics....somewhere.|
-|For more information about Healthwatch 2.1, see Healthwatch Metrics[LINK].|
-|-------------------------------------------------------------|
-|Exclusive to Healthwatch v2.1 |
-|**Healthwatch v2.1** | * Adds a functional test and associated dashboard for the TKGI API.
-* separates Diego Capacity metrics by isolation segment in the **Diego/Capacity** dashboard.
-* exposes Ops Manager syslog configuration.
-* Jobs and Job Details dashboards [how do we denote the name of a dashboard?] ignore BOSH smoke test deployments.
-* For more Healthwatch v2.1 features, see the [Healthwatch v2.1 Release Notes](LINK).
-|-------------------------------------------------------------|
+<table>
+  <tr><th colspan="2" style="text-align: center;"><br>Differences between Healthwatch v1 and v2.1<br><br></th></tr>
+    <tr>
+      <td width="25%"><strong>Healthwatch v2.1</strong></td> 
+      <td>Uses the open source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics and receive alerts. These components are highly available.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>Uses a [homegrown/in-house] dashboard to monitor metrics. [How are the alerts done? Are they also highly available?]</td>
+    </tr>
+    <tr><th colspan="2">For more information about the architecture of Healthwatch v2.1, see <a href="architecture.html">Reference Architecture</a>.</th></tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Uses Prometheus to retain all metrics for 42 days or until 85 percent of persistent disk space is full.</td>
+    </tr>
+    <tr>  
+      <td><strong>Healthwatch v1</strong></td>
+      <td>Retains metrics for [how long? and where?]</td>
+    </tr>
+    <tr><th colspan="2">For more information about Healthwatch v2.1 metrics, see <a href="metrics.html">Healthwatch Metrics</a>.</th>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Monitors multiple foundations from a single view in Grafana.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>[only monitors one?][Maybe combine this one with the one below]</td>
+    </tr>
+    <tr><th colspan="2">For more information about using Healthwatch v2.1 with multiple platforms, see <a href="architecture.html">Reference Architecture</a>.</th>
+    </tr>
+    <tr>  
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Works with two VMware platforms and can monitor both concurrently: VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI).</td>
+    </tr>
+    <tr>  
+      <td><strong>Healthwatch v1</strong></td>
+      <td>Only monitors TAS for VMs [right?].</td>
+    </tr>
+    <tr><th colspan="2"></th>
+    <tr>  
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Includes default dashboards for TAS for VMs v2.7, v2.8, v2.9, and v2.10, as well as TKGI v1.8, v1.9, and v1.10. Healthwatch v2.1 recognizes automatically the version of TAS for VMs installed and sets the dashboard version accordingly.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>[How many TAS versions does it monitor?]</td>
+    </tr>
+    <tr><th colspan="2"></th>
+    <tr>  
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Includes optional dashboards for the RabbitMQ and MySQL tiles.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>[doesn't?]</td>
+    </tr>  
+    <tr><th colspan="2">For more information about displaying the RabbitMQ and MySQL dashboards, see <a href="metrics.html">Healthwatch Metrics</a>.</th>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Includes a <strong>Cert Expiration</strong> dashboard that displays the
+        remaining time until expiration for all discoverable certificates
+        from the Ops Manager API and BOSH-trusted certificates.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>[doesn't?]</td>
+    </tr>
+    <tr><th colspan="2">For more information about monitoring certificates, see <a href="/configuring/optional-config/certificate-monitoring.html">Monitoring Certificate Expiration</a>.</th>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Healthwatch v2.1 adds OAuth and LDAP authentication methods.</td>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v1</strong></td>
+      <td>Only uses UAA [right?][but where? it doesn't use Grafana].</td>
+    </tr>
+    <tr><th colspan="2">For more information about authentication, see <a href="/configuring/grafana-authentication.html">Configuring Grafana Authentication</a>.</th>
+    </tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td>Exposes composite metrics, also called "Super Value Metrics", from Healthwatch v1 to the metrics pipeline. This allows you to see the same metrics from Healthwatch v1 in your downstream log consumers.</td>
+    </tr>
+    <tr>  
+      <td><strong>Healthwatch v1</strong></td>
+      <td>Displays Super Value Metrics....somewhere.</td>
+    </tr>
+    <tr><th colspan="2">For more information about Healthwatch 2.1 metrics, see <a href="metrics.html">Healthwatch Metrics</a>.</th>
+    </tr>
+    <tr><th colspan="2" style="text-align: center;">Exclusive to Healthwatch v2.1</th></tr>
+    <tr>
+      <td><strong>Healthwatch v2.1</strong></td>
+      <td><ul>
+        <li>Adds a functional test and associated dashboard for the TKGI API.</li>
+        <li>Separates Diego Capacity metrics by isolation segment in the <strong>Diego/Capacity</strong> dashboard.</li>
+        <li>Exposes Ops Manager syslog configuration.</li>
+        <li><strong>Jobs</strong> and <strong>Job Details</strong> dashboards ignore BOSH smoke test deployments.</li>
+        <li>For more Healthwatch v2.1 features, see the <a href="release-notes.html">Healthwatch v2.1 Release Notes.</a></li>
+     </tr>
+  </table>
 
 
 ## <a id='upgrade'></a>Upgrading to Healthwatch v2.1
-Stem sentence.
 
-1. Review the risks and limitation of HW2.
+If you are upgrading from Healthwatch v1, you must install a new tile because the architecture of Healthwatch v2.1 is entirely different. You can run Healthwatch v1 and v2.1 at the same time until you decide to uninstall Healthwatch v1.
 
-1. If you have multiple foundations you want to monitor, see Reference Architecture.
+1. Review the limitations and risks of using of Healthwatch v2.1. For more information about the limitations of Healthwatch v2.1, see [Healthwatch v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_. For more information about the risks of using Healthwatch v2.1, see [Assumed Risks of Using Healthwatch v2.1](index.html#assumed-risks) in _Healthwatch_.
 
-1. See Installing Healthwatch. Even if you have HW1, you need to install this tile and exporters separately.
+1. If you have multiple platforms you want to monitor, such as multiple TAS for VMs platforms, TKGI platforms, or a combination of both, review the configuration options for Healthwatch v2.1. For more information about the configuration options, see [Configuration Options](architecture.html#configuration-options) in _Reference Architecture_.
 
-1. Then, see Configuring Healthwatch. 
+1. Download the Healthwatch v2.1 tile on your Ops Manager deployment or Control Plane, even if you have the Healthwatch v1 tile installed already. For more information about installing the Healthwatch v2.1 tile, see [Installing a Tile Manually](/installing/installing-manually.html). 
 
-1. Once you're comfortable with HW2, you can uninstall HW1. 
+1. Configure the Healthwatch component VMs through the tile UI and deploy the tile. For more information about configuring and deploying the tile, see [Configuring Healthwatch](/configuring/configuring-healthwatch.html).  
+
+1. Once you are comfortable with using Healthwatch v2.1, uninstall Healthwatch v1. For more information on uninstalling tiles, see [Delete Products](https://docs.pivotal.io/ops-manager/2-10/install/add-delete.html#del-prod) in _Adding and Deleting Products_. 
