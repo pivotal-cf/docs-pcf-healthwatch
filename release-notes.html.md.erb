@@ -1,90 +1,23 @@
 ---
-title: Healthwatch Release Notes
+title: Healthwatch v2.1 Release Notes
 owner: Healthwatch
 ---
 
-## <a id='2-1-0'></a> v2.1.0
+This topic contains release notes for Healthwatch v2.0.6 and v2.1.
 
-**Release Date: March 18, 2021**
+Healthwath v2.1 is the GA release of a Healthwatch version that is very different from Healthwatch v1. Healthwatch v2.1 uses the open source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics and receive alerts. It requires installing a new tile, even if you currently use Healthwatch v1. For more information about the differences between Healthwatch v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](LINK).
 
-<div class="note breaking">
-    <strong>Breaking Changes</strong>
-    <ul>
-      <li>Indicator Protocol is no longer shipped with Healthwatch.
-      </li>
-    </ul>
+For the highlights of this release, read the blog post [Healthwatch for VMware Tanzu 2.1 Offers Breakthrough Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring).
 
-    <strong>Breaking Changes from 2.0.6 (Beta):</strong>
-    <ul>
-      <li>SSL validation will be checked by default in the Certificate Exporter.
-      Added a configuration checkbox for skipping SSL validation for the Certificate Exporter in TAS/TKGI.
-      Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
-      This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
-      </li>
-    </ul>
-</div>
+For the risks and limitations of Healthwatch v2.1, see [Assumed Risks of Using Healthwatch v2.1](index.html#assumed-risks) and [Healthwatch v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
-### Features
+## <a id='releases'></a> Releases
 
-New features and changes in this release:
+### <a id='2-1-0'></a> v2.1.0
 
-#### From 2.0.6
+**Release Date:** 03/18/2021
 
-* Adds support for TKGI v1.10.
-
-* Removes Indicator Protocol.
-
-* Adds support for setting static IP addresses for the TSDB VMs.
-
-#### From 1.8.x
-
-* Uses Highly Available Alertmanager, Grafana, and Prometheus for alerting, display, and metric storage.
-
-* Retains 42 days of all metric data (or 85 percent of persistent disk) in Prometheus, the popular time-series database.
-
-* Has the ability to monitor multiple foundations from a single view.
-
-* Monitors both VMware Tanzu Application Service and VMware Tanzu Kubernetes Grid Integrated Edition.
-
-* Includes pre-provisioned dashboards for TAS v2.7, v2.8, v2.9, and v2.10
-  as well as TKGI v1.8, v1.9, and v1.10.
-  By default, Healthwatch 2.1 will dynamically set
-  the dashboard version(s) based on the tile version(s) installed.
-
-* Includes optional pre-provisioned dashboards for the Rabbit MQ and MySQL tiles.
-
-* Includes a **Cert Expiration** dashboard displaying the
-  remaining time until expiration for all discoverable certificates
-  from the Ops Manager API as well as BOSH trusted certificates.
-
-* Adds OAuth and LDAP as new authentication methods, in addition to UAA.
-
-* Exposes composite metrics, or "Super Value Metrics",
-  from Healthwatch v1.x to the metrics pipeline.
-  This enables you to still see the same metrics from Healthwatch v1.x
-  in your downstream log consumers if you upgrade from Healthwatch v1.x to Healthwatch v2.1.
-
-* Adds a functional test and associated dashboard for the TKGI API.
-
-* Separates Diego Capacity metrics by isolation segment in the **Diego/Capacity** dashboard.
-
-* Exposes Ops Manager syslog configuration.
-
-* All Jobs and Job Details dashboards ignore BOSH smoke test deployments.
-
-### Resolved Issues
-
-* PXC MySQL VMs disk could become completely full due to PXC storing binlogs in Healthwatch 2.0.x (Beta) releases.
-
-### Known Issues
-
-* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
-
-* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
-
-* <a href="#kubernetes-node-panels-no-data">No Data on TKGI Kubernetes Node Panels</a>.
-
-### Packaged OSS Components
+Healthwatch v2.1.0 uses the following open source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
@@ -92,12 +25,68 @@ New features and changes in this release:
 | Grafana      | 7.4.2            |
 | Alertmanager | 0.21.0           |
 
-## <a id="issues"></a> Known Issues
+### <a id='2-1-0'></a> v2.0.6 [THIS SHOULD EVENTUALLY BE MOVED BACK TO v2.0 RELEASE NOTES, BUT FOR NOW, THE TEAM WANTED PEOPLE TO SEE THEM HERE]
 
-Healthwatch v2.1 includes the following known issues:
+**Release Date:** 02/11/2021
 
-### <a name="upgrade-from-om-23"></a> Ops Manager pre v2.3 upgrade issue
+* **[Feature]** Healthwatch supports TKGI v1.10. [SPELL OUT]
+* **[Feature]** Removes Indicator Protocol.
+* **[Feature]** Adds support for setting static IP addresses for the TSDB VMs.
+* **[Known Issue Fix]** PXC MySQL VMs disk could become completely full due to PXC storing binlogs in Healthwatch 2.0.x releases. [LINK TO KI]
+* See [Breaking Changes](#breaking-change).
+* See [Known Issues](#known-issues).
 
+Healthwatch v2.0.6 uses the following open source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.4.2            |
+| Alertmanager | 0.21.0           |
+
+## <a id='upgrade'></a> How to Upgrade
+
+To upgrade to Healthwatch v2.1, see [Upgrading Healthwatch](LINK).
+
+## <a id='new-features'></a> New Features
+
+Healthwatch v2.0.6 and v2.1 includes the following major features:
+
+### <a id='new-feature-1'></a> New Feature 1
+
+New Feature 1 is added.
+
+For more information about New Feature 1, see [Some Relevant Topic](https://docs.pivotal.io/).
+
+### <a id='new-feature-2'></a> New Feature 2
+
+You can use New Feature 2 to do some new thing that you could not do before.
+
+For more information about New Feature 2, see [Some Relevant Section](https://docs.pivotal.io/) in _Some Relevant Topic_.
+
+## <a id='breaking-change'></a> Breaking Changes
+
+Healthwatch v2.0.6 and v2.1 include the following breaking changes:
+
+### <a id='breaking-change-1'></a> Indicator Protocol is no longer shipped with Healthwatch. [v2.1]
+
+Here is some information about Breaking Change 1.
+
+Here is what you can do about it.
+
+### <a id='breaking-change-2'></a> [HEADER][v2.0.6]
+
+  <li>SSL validation will be checked by default in the Certificate Exporter.
+  Added a configuration checkbox for skipping SSL validation for the Certificate Exporter in TAS/TKGI.
+  Previously, Healthwatch would always skip SSL validation when checking the status of the Ops Manager Canary URL.
+  This checkbox will need to be checked if Ops Manager has been configured with self-signed certificates.
+
+## <a id='known-issues'></a> Known Issues
+
+Healthwatch v2.0.6 and v2.1 include the following known issues:
+
+### <a id="upgrade-from-om-23"></a> Ops Manager pre v2.3 upgrade issue [v2.1]
+[CHECK FORMATTING AGAINST OPS MAN]
 When upgrading the Healthwatch v2.0 tile on a foundation that has been upgraded from
 Ops Manager v2.3 or earlier, you may see the following error:
 
@@ -141,76 +130,85 @@ To resolve this issue in Ops Manager v2.7 or earlier:
     > service tempest-web restart
     ```
 
-### <a name="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T.
+
+### <a id="pks-cluster-discovery-nsxt-ports"></a> PKS Cluster Discovery needs manual configurations on NSX-T. [v2.1]
 
 When PKS Cluster Discovery is used with PKS deployed on vSphere NSX-T, the load balancer created by NSX-T
 does not have all the ports open that are required for PKS Cluster Discovery to scrape from on-demand PKS clusters correctly.
-One workaround is to manually modify the load balancer through the NSX-T Manager API to open the
-`10200`, `10251`, `10252`, and `8443` ports.
+One workaround is to manually modify the load balancer through the NSX-T Manager API to open the `10200`, `10251`, `10252`, and `8443` ports.
 
 To open the ports:
 
-1. Fetch the list of virtual servers by running:
+    1. Fetch the list of virtual servers by running:
 
-    ```
-    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
-    ```
-    Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+        ```
+        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
+        ```
+        Where:
+        - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+        - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
 
-1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
-       and ending with `virtual-server` and copy the `id` field.
+    1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
+           and ending with `virtual-server` and copy the `id` field.
 
-1. Fetch the current configuration for the load balancer by running:
+    1. Fetch the current configuration for the load balancer by running:
 
-    ```
-    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
-    ```
-    Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
-    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+        ```
+        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
+        ```
+        Where:
+        - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+        - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
 
-1. Save the JSON that is returned by this command to a file.
+    1. Save the JSON that is returned by this command to a file.
 
-1. Modify the JSON file to include the additional ports:
+    1. Modify the JSON file to include the additional ports:
 
-    ```
-    {
-        "...": "...",
-        "ports": [
-            "8443",
-            "10200",
-            "10251",
-            "10252"
-        ],
-        "...": "..."
-    }
-    ```
+        ```
+        {
+            "...": "...",
+            "ports": [
+                "8443",
+                "10200",
+                "10251",
+                "10252"
+            ],
+            "...": "..."
+        }
+        ```
 
-1. Send a PUT request to the API to update the virtual server by running:
+    1. Send a PUT request to the API to update the virtual server by running:
 
-    ```
-    curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-      https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
-      -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
-      -d 'MODIFIED-JSON-DATA'
-    ```
-    Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
-    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
-    - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
-    
-### <a name="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Panels
+        ```
+        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+          https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+          -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
+          -d 'MODIFIED-JSON-DATA'
+        ```
+        Where:
+        - `NSX-T-USERNAME` is the username you use to log in to the NSX-T console.
+        - `NSX-T-PASSWORD` is the password you use to log in to the NSX-T console.
+        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your NSX-T console.
+        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+        - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
+        
+
+### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Panels [v2.1]
 
 This is due to un-exported metrics in Kubernetes.
 See <a href="https://github.com/kubernetes/kubernetes/pull/97006">Fix missing cadvisor machine metrics</a>
 for more information.
 Upgrade to a TKGI version that has a version of Kubernetes greater than 1.19.6 to resolve this issue.
+
+Healthwatch v2.0.6 includes the following known issues:
+[ NOT FORMATTED]
+* <a href="#upgrade-from-om-23">Ops Manager pre v2.3 upgrade issue</a>.
+
+* <a href="#pks-cluster-discovery-nsxt-ports">PKS Cluster Discovery needs manual configurations on NSX-T</a>.
+
+* <a href="#kubernetes-node-panels-no-data">No Data on TKGI Kubernetes Node Panels</a>.
