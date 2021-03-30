@@ -71,7 +71,7 @@ The following table explains the biggest differences you will notice when upgrad
       <td><strong>Healthwatch v1</strong></td>
       <td>Does not track certificate expiration.</td>
     </tr>
-    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about monitoring certificates, see <a href="/configuring/optional-config/certificate-monitoring.html">Monitoring Certificate Expiration</a>.</td>
+    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about monitoring certificates, see <a href="configuring/optional-config/certificate-monitoring.html">Monitoring Certificate Expiration</a>.</td>
     </tr>
     <tr>
       <td><strong>Healthwatch v2.1</strong></td>
@@ -91,7 +91,7 @@ The following table explains the biggest differences you will notice when upgrad
       <td><strong>Healthwatch v1</strong></td>
       <td>Uses UAA to access the BOSH Director, component metrics, and the Healthwatch v1 UI.</td>
     </tr>
-    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about authentication, see <a href="/configuring/grafana-authentication.html">Configuring Grafana Authentication</a>.</td>
+    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about authentication, see <a href="configuring/grafana-authentication.html">Configuring Grafana Authentication</a>.</td>
     </tr>
     <tr>
       <td><strong>Healthwatch v2.1</strong></td>
@@ -101,7 +101,7 @@ The following table explains the biggest differences you will notice when upgrad
       <td><strong>Healthwatch v1</strong></td>
       <td>Does not include the Ops Manager syslog configuration feature.</td>
     </tr>
-    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about configuring syslog, see <a href="/configuring/configuring-healthwatch.html#syslog">Configure Syslog</a> in <i>Configuring Healthwatch</i>.</td>
+    <tr><td colspan="2" bgcolor="#f8f8f8">For more information about configuring syslog, see <a href="configuring/configuring-healthwatch.html#syslog">Configure Syslog</a> in <i>Configuring Healthwatch</i>.</td>
     </tr>
     <tr><th colspan="2" style="text-align: center;">Exclusive to Healthwatch v2.1</th></tr>
     <tr>
@@ -126,8 +126,8 @@ Even if you are upgrading from Healthwatch v1, you must install and a configure 
 
 1. If you have multiple Ops Manager foundations you want to monitor, such as multiple TAS for VMs platforms, TKGI platforms, or a combination of both, review the configuration options for Healthwatch v2.1. For more information about the configuration options, see [Configuration Options](architecture.html#configuration-options) in _Reference Architecture_.
 
-1. Install the Healthwatch v2.1 tile and Healthwatch Exporter tile on the Ops Manager foundations you identified in the previous step, even if you have the Healthwatch v1 tile installed already. For more information about installing the Healthwatch v2.1 tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](/installing/installing-manually.html). 
+1. Install the Healthwatch v2.1 tile and Healthwatch Exporter tile on the Ops Manager foundations you identified in the previous step, even if you have the Healthwatch v1 tile installed already. For more information about installing the Healthwatch v2.1 tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html). 
 
-1. Configure the Healthwatch component VMs through the Healthwatch v2.1 tile and Healthwatch Exporter tile UIs and deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](/configuring/configuring-healthwatch.html), [Configuring Healthwatch Exporter for TAS for VMs](/configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for TKGI](/configuring/configuring-exporter-tkgi.html).  
+1. Configure the Healthwatch component VMs through the Healthwatch v2.1 tile and Healthwatch Exporter tile UIs and deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html), [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html).  
 
 1. Once you are comfortable with using Healthwatch v2.1, delete Healthwatch v1. For more information about deleting tiles, see [Delete Products](https://docs.pivotal.io/ops-manager/2-10/install/add-delete.html#del-prod) in _Adding and Deleting Products_. 
