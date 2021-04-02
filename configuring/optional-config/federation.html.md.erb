@@ -37,8 +37,7 @@ in the Prometheus documentation.
   from more than one large TAS for VMs foundation in a single Prometheus instance negatively
   affects the performance of that Prometheus instance, sometimes even causing it to crash.
   To avoid this, VMware recommends federating only service level indicator (SLI) metrics from
-  each foundation you monitor to the Prometheus instance in your monitoring foundation.
-</p>
+  each foundation you monitor to the Prometheus instance in your monitoring foundation.</p>
 
 
 ## <a id='federation-config'></a> Configure Federation
@@ -55,20 +54,8 @@ the Healthwatch Exporter for TKGI tile on each foundation you want to monitor. F
 see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing,
 Configuring, and Deploying a Tile Through an Automated Pipeline](../../installing/automated-pipeline.html).
 
-1. For each foundation you monitor, expose the TSDB instances in the Healthwatch tile
+1. For each foundation you monitor, expose the Prometheus instance in the Healthwatch tile
 on port `4450`.
-
-
-<p class='note info'><strong>Note:</strong> In the Highly Available configuration,
-each TSDB VM is scraping the same exact data. When federating, you can choose to
-scrape both copies of that data into the monitoring foundation's Prometheus. In this case,
-both TSDB instances from the monitored foundations would be used in the scrape config outlined below.
-
-Another option would be to front the TSDB instances with an IaaS component for handling load balancing
-between the two TSDB instances on the monitored foundations. This can accomplished either using DNS or a load balancer.
-In both cases, it is recommended to use static IP addresses for both of the TSDB instances. For more information
-about setting static IP addresses for the TSDB instances, see <a href="../configuring-healthwatch.html#prometheus">Configure Prometheus</a> in <i>Configuring Healthwatch</i>.
-</p>
 
 1. For each foundation you want to monitor:
   1. Navigate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
@@ -86,7 +73,7 @@ about setting static IP addresses for the TSDB instances, see <a href="../config
   1. For **TSDB Scrape job**, provide the configuration YAML for a scrape job for the Prometheus
   instance in the Healthwatch tile on the foundation you want to monitor. In the example below,
   the scrape job federates all metrics with names that match the regular expression `^metric_name_regex.*`
-  from the TSDB instance at the IP address listed under the `targets` property:
+  from the Prometheus instance at the IP address listed under the `targets` property:
 
         ```
         job_name: example-job-name
@@ -100,12 +87,10 @@ about setting static IP addresses for the TSDB instances, see <a href="../config
             - 'source-tsdb-1:4450'
             - 'source-tsdb-2:4450'
         ```
-
-        <p class='note info'><strong>Info:</strong>
-        If you are using DNS or a Load Balancer in front of the TSDB instances, the Target list in the scrape config
-        should point to that instead of the IP address of the TSDB instance.
-        </p>
-
+        <p class='note'><strong>Note:</strong> If you have configured a load balancer or DNS
+          entry for your Prometheus instance, include the IP address for your load balancer
+          or DNS entry in each target listed under the <code>targets</code> property instead
+          of the IP address for your Prometheus instance.</p>
   1. For **TLS Config Certificate Authority**, enter the Ops Manager root CA from the foundation
   you want to monitor that you recorded in a previous step.
   1. For **TLS Config Certificate and Private Key**, enter the **Tsdb Client mTLS** credentials
@@ -122,3 +107,26 @@ about setting static IP addresses for the TSDB instances, see <a href="../config
   For more information about configuring scrape jobs, see [Prometheus Configuration](../configuring-healthwatch.html#prometheus)
   in _Configuring Healthwatch_ and [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
   in _Configuration_ in the Prometheus documentation.
+
+
+## <a id='ha'></a> Federation for a Highly Available Healthwatch Deployment
+
+In a highly available (HA) Healthwatch deployment, each VM in the Prometheus instance in the
+Healthwatch tile scrapes the same data from the metric exporter VMs that the Healthwatch Exporter
+tiles deploy.
+
+When federating metrics, you can configure the Prometheus instance in the Healthwatch tile
+on your monitoring foundation to scrape both copies of that data from the Prometheus instance
+in the Healthwatch tile on each foundation you monitor. To do this, include both VMs in each
+Prometheus instance from the foundations you want to monitor in the scrape job configuration
+YAML.
+
+Alternatively, you can create load balancers or DNS entries in your IaaS console for the Prometheus
+instances on each foundation you monitor, then include the IP addresses for each load balancer
+or DNS entry in the targets listed under the `targets` property in your scrape job configuration
+YAML. For more information, see [Configure Federation](#federation-config) above.
+
+In both cases, VMware recommends configuring static IP addresses for both VMs in each of your
+Prometheus instances. For more information about configuring static IP addresses for Prometheus
+instances, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring
+Healthwatch_.
