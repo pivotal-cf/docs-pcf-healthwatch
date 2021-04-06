@@ -35,6 +35,7 @@ Healthwatch v2.1.0 uses the following open-source component versions:
 
 * **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.10.
 * **[Feature]** You can assign static IP addresses to the TSDB VMs.
+* **[Feature]** Healthwatch replaces Event Alerts with Alertmanager.
 * **[Feature Deprecation]** Healthwatch removes Monitoring Indicator Protocol. 
 * **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select new checkbox.
 * **[Known Issue]** "Unable to render templates" error when upgrading Healthwatch on Ops Manager v2.3-v2.7.
@@ -71,7 +72,14 @@ Your TKGI dashboard in Grafana will update automatically to display TKGI v1.10 u
 You can now assign static IP addresses to your TSDB VMs. If you configured email alerts, you may need to whitelist the IP addresses of your TSDB VMs so your SMTP server does not block them. Once assigned, you can view the IP addresses using the BOSH CLI. 
 
 For more information about assigning IP addresses to your TSDB VMs, see [(Optional) Configure Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
- 
+
+### <a id='replaces-event-alerts'></a> Healthwatch Replaces Event Alerts With Alertmanager
+
+Healthwatch v2.1 does not support Pivotal Event Alerts. 
+
+Healthwatch v2.1 uses Alertmanager, an open-source Prometheus component, to manage and send alerts according to the alerting rules you configure. For more information about configuring alerts, see [Alerting](configuring/optional-config/alerting.html).
+
+
 ### <a id='removes-indicator-protocol'></a> Healthwatch Removes Monitoring Indicator Protocol
 
 Healthwatch no longer supports Monitoring Indicator Protocol and removed the **Indicator Protocol** dashboard.
