@@ -5,7 +5,7 @@ owner: Healthwatch
 
 This topic contains release notes for Healthwatch v2.0.6 and v2.1.
 
-Healthwath v2.1 is the first non-beta release of a Healthwatch version that is very different from Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. It requires installing a new tile, even if you currently use Pivotal Healthwatch v1. For more information about the differences between Pivotal Healthwatch v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+Healthwatch v2.1 is the first non-beta release of a Healthwatch version that is very different from Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. For more information about the differences between Pivotal Healthwatch v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](upgrading-healthwatch.html).
 
 For the highlights of this release, read the blog post [Healthwatch for VMware Tanzu 2.1 Offers Breakthrough Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring) and [New Features](#new-features) below.
 
@@ -19,7 +19,9 @@ For the risks and limitations of Healthwatch v2.1, see [Assumed Risks of Using H
 
 * **[Known Issue Fix]** The MySQL Proxy VMs persistent disk space no longer fills up quickly.
 
-Healthwatch v2.1.0 uses the following open source component versions:
+For more detailed information about this known issue, see [Known Issues](#known-issues) below.
+
+Healthwatch v2.1.0 uses the following open-source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
@@ -35,14 +37,14 @@ Healthwatch v2.1.0 uses the following open source component versions:
 * **[Feature]** You can assign static IP addresses to the TSDB VMs.
 * **[Feature Deprecation]** Healthwatch removes Monitoring Indicator Protocol. 
 * **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select new checkbox.
-* **[Known Issue]** "Unable to render templates" error whn upgrading Healthwatch on Ops Manager v2.7 or earlier.
+* **[Known Issue]** "Unable to render templates" error when upgrading Healthwatch on Ops Manager v2.3-v2.7.
 * **[Known Issue]** You must open VMware NSX-T load balancer ports for TKGI cluster discovery to work.
-* **[Known Issue]** No Data on TKGI Kubernetes Node Dashboard Panel
+* **[Known Issue]** No Data on TKGI **Kubernetes Node** dashboard panel.
 * **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly.
 
 For more detailed information about these new features, breaking changes, or known issues, see [New Features](#new-features), [Breaking Changes](#breaking-changes), and [Known Issues](#known-issues) below.
 
-Healthwatch v2.0.6 uses the following open source component versions:
+Healthwatch v2.0.6 uses the following open-source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
@@ -64,35 +66,35 @@ You can use Healthwatch to monitor TKGI v1.10.
 
 Your TKGI dashboard in Grafana will update automatically to display TKGI v1.10 unless you chose to manually set the dashboard version when you configured the Grafana VM. For more information about setting the TGKI version for your dashboards, see [Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
-### <a id='anchor'></a> Assign Static IP Addresses to TSDB VMs
+### <a id='assign-static-ips'></a> Assign Static IP Addresses to TSDB VMs
 
 You can now assign static IP addresses to your TSDB VMs. If you configured email alerts, you may need to whitelist the IP addresses of your TSDB VMs so your SMTP server does not block them. Once assigned, you can view the IP addresses using the BOSH CLI. 
 
-For more information about assigning IP addresses to your TSDB VMs, see [(Optional) Configure Prometheus] in _Configuring Healthwatch_.
+For more information about assigning IP addresses to your TSDB VMs, see [(Optional) Configure Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
  
 ### <a id='removes-indicator-protocol'></a> Healthwatch Removes Monitoring Indicator Protocol
 
-Healthwatch no longer supports Monitoring Indicator Protocol and removed the Indicator Protocol dashboard.
+Healthwatch no longer supports Monitoring Indicator Protocol and removed the **Indicator Protocol** dashboard.
 
-Your RabbitMQ metrics and dashboards will not be affected.
+Your RabbitMQ metrics and dashboards are not affected.
 
-## <a id='breaking-change'></a> Breaking Changes
+## <a id='breaking-changes'></a> Breaking Changes
 
-Healthwatch v2.0.6 and v2.1 include the following breaking changes [THIS IS FIXED IN v2.1]:
+Healthwatch v2.0.6 includes the following breaking changes:
 
-### <a id='breaking-change-2'></a> Self-Signed Certificates Break Dashboards
+### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
 This breaking change is fixed in Healthwatch v2.1. 
  
-Healthwatch did not require SSL validation of Ops Manager certificates prior to Healthwatch v2.1. Now Healthwatch checks for SSL validation by default. You must choose to skip SSL validation in your Healthwatch and Healthwatch Exporter tiles if your Ops Manager uses self-signed certificates. 
+Healthwatch does not require SSL validation of Ops Manager certificates prior to Healthwatch v2.1. Healthwatch v2.1 checks for SSL validation by default. You must choose to skip SSL validation if your Ops Manager uses self-signed certificates. 
 
 If your **Ops Manager Health** dashboard displays "Not Running," select the **Skip SSL validation** checkbox on the **Canary URL Configuration** pane in your Healthwatch tile. For more information on where to find this checkbox, see [(Optional) Configure Canary URLs](configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
 
-If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate exporter logs, configure your certificate exporter VM to skip SSL validation in the Healthwatch Exporter tile. [COULD POSSIBLY WORD THIS LIKE ABOVE, BUT DOUBLE CHECK]. For more information on configuring your certificate exporter VM, see [(Optional) Configure TAS for VMs Metric Exporter VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_ or [LINK TO TKGI] in _Configuring Healthwatch Exporter for TAS for VMs_.
+If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate exporter logs, Select the **Skip SSL Validation for Cert Expiration** in the exporter configuration pane of the appropriate exporter tile. For more information about finding this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_ or [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs](configuring/configuring-exporter-tkgi.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_. 
 
 ## <a id='known-issues'></a> Known Issues
 
-Healthwatch v2.0.6 and v2.1 include the following known issues:
+Healthwatch v2 includes the following known issues:
 
 ### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Upgrading
 
@@ -144,66 +146,65 @@ If you use TKGI cluster discovery on a VMware NSX-T foundation, the VMware NSX-T
 
 To open the load balancer ports using the VMware NSX-T Manager API:
 
-    1. Retrieve the list of virtual servers by running:
+1. Retrieve the list of virtual servers by running:
 
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
-        ```
-        Where:
-        - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-        - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+    "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
+    ```
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
 
-    1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks`
-           and ending with `virtual-server` and copy the `id` field.
+1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks` and ending with `virtual-server` and copy the `id` field.
 
-    1. Fetch the current configuration for the load balancer by running:
+1. Fetch the current configuration for the load balancer by running:
 
-        ```
-        curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
-        ```
-        Where:
-        - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-        - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
-        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+    https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
+    ```
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
+    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
 
-    1. Save the JSON that is returned by this command to a file.
+1. Save the JSON that is returned by this command to a file.
 
-    1. Modify the JSON file to include the additional ports:
+1. Modify the JSON file to include the additional ports:
 
-        ```
-        {
-            "...": "...",
-            "ports": [
-                "8443",
-                "10200",
-                "10251",
-                "10252"
-            ],
-            "...": "..."
-        }
-        ```
+    ```
+    {
+        "...": "...",
+        "ports": [
+            "8443",
+            "10200",
+            "10251",
+            "10252"
+        ],
+        "...": "..."
+    }
+    ```
 
-    1. Send a PUT request to the API to update the virtual server by running:
+1. Send a PUT request to the API to update the virtual server by running:
 
-        ```
-        curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
-          https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
-          -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
-          -d 'MODIFIED-JSON-DATA'
-        ```
-        Where:
-        - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-        - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-        - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
-        - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
-        - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
+    ```
+    curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+        https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+        -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
+        -d 'MODIFIED-JSON-DATA'
+    ```
+    Where:
+    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
+    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+    - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
         
 
-### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Dashboard
+### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Dashboard Panel
 
 If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard panel might not show data for individual pods. This is due to a Kubernetes v1.19.2 issue.
 
@@ -211,8 +212,8 @@ For more information about the pull request to fix this in Kubernetes, see [Fix 
 
 To fix this issue in Healthwatch now, upgrade to TKGI v1.10 because it uses Kubernetes 1.19.6.
 
-## <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Fast
+### <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Fast
 
-This known issue is fixed in Healthwatch v2.1. For more information about upgrading to Healthwatch v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+This known issue is fixed in Healthwatch v2.1.
 
 In Healthwatch v2.0-beta, the MySQL PXC instance stores too many binlogs, which fills up the persistent disk space for the associated `pxc-proxy` VMs. 
