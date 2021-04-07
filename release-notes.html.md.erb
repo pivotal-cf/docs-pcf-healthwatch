@@ -3,17 +3,25 @@ title: Healthwatch v2.1 Release Notes
 owner: Healthwatch
 ---
 
-This topic contains release notes for Healthwatch v2.0.6 and v2.1. 
+This topic contains release notes for Healthwatch v2.0.6 and v2.1.
 
-<p class='note'><strong>Note:</strong>
-Healthwatch v2.0.6 is a beta version that is no longer available for download. VMware does not recommend using Healthwatch v2.0.6 in production environments.
-</p>
+<p class='note'><strong>Note:</strong> Healthwatch v2.0.6 is a beta version that is no longer
+  available for download. VMware does not recommend using Healthwatch v2.0.6 in production
+  environments.</p>
 
-Healthwatch v2.1 is the first non-beta release of a Healthwatch version that is very different from Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. For more information about the differences between Pivotal Healthwatch v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+Healthwatch v2.1 is very different from Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source
+components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well
+as configure alerts. For more information about the differences between Pivotal Healthwatch
+v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](upgrading-healthwatch.html).
 
-For the highlights of this release, read the blog post [Healthwatch for VMware Tanzu 2.1 Offers Breakthrough Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring) and [New Features](#new-features) below.
+For more information about this release, read [Healthwatch for VMware Tanzu 2.1 Offers Breakthrough
+Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring)
+on the VMware Tanzu blog and [New Features](#new-features) below.
 
-For the risks and limitations of Healthwatch v2.1, see [Assumed Risks of Using Healthwatch v2.1](index.html#assumed-risks) and [Healthwatch v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
+For information about the risks and limitations of Healthwatch v2.1, see [Assumed Risks of
+Using Healthwatch v2.1](index.html#assumed-risks) and [Healthwatch v2.1 Limitations](index.html#healthwatch-limitations)
+in _Healthwatch_.
+
 
 ## <a id='releases'></a> Releases
 
@@ -21,7 +29,7 @@ For the risks and limitations of Healthwatch v2.1, see [Assumed Risks of Using H
 
 **Release Date:** 03/18/2021
 
-* **[Known Issue Fix]** The MySQL Proxy VMs persistent disk space no longer fills up quickly.
+* **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
 
 For more detailed information about this known issue, see [Known Issues](#known-issues) below.
 
@@ -33,23 +41,36 @@ Healthwatch v2.1.0 uses the following open-source component versions:
 | Grafana      | 7.4.2            |
 | Alertmanager | 0.21.0           |
 
-### <a id='2-1-0'></a> v2.0.6
-
-
+### <a id='2-0-6'></a> v2.0.6
 
 **Release Date:** 02/11/2021
 
 * **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.10.
-* **[Feature]** You can assign static IP addresses to the TSDB VMs.
-* **[Feature]** Healthwatch replaces Event Alerts with Alertmanager.
-* **[Feature Deprecation]** Healthwatch removes Monitoring Indicator Protocol. 
-* **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select new checkbox.
-* **[Known Issue]** "Unable to render templates" error when upgrading Healthwatch on Ops Manager v2.3-v2.7.
-* **[Known Issue]** You must open VMware NSX-T load balancer ports for TKGI cluster discovery to work.
-* **[Known Issue]** No Data on TKGI **Kubernetes Node** dashboard panel.
+
+* **[Feature]** You can assign static IP addresses to Prometheus VMs.
+
+* **[Feature]** Healthwatch replaces Pivotal Event Alerts with Alertmanager.
+
+* **[Feature Deprecation]** Healthwatch removes support for Monitoring Indicator Protocol.
+
+* **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select
+the **Skip SSL validation** checkbox in the *Canary URL Configuration** pane of the Healthwatch
+tile.
+
+* **[Known Issue]** You may see an "Unable to render templates" error when upgrading Healthwatch
+on Ops Manager v2.3 through v2.7.
+
+* **[Known Issue]** You must open VMware NSX-T load balancer ports for TKGI cluster discovery
+to work.
+
+* **[Known Issue]** The **Kubernetes Nodes** dashboard in the Grafana UI might not show data
+for individual pods.
+
 * **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly.
 
-For more detailed information about these new features, breaking changes, or known issues, see [New Features](#new-features), [Breaking Changes](#breaking-changes), and [Known Issues](#known-issues) below.
+For more information about these new features, breaking changes, and known issues, see [New
+Features](#new-features), [Breaking Changes](#breaking-changes), and [Known Issues](#known-issues)
+below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -59,38 +80,51 @@ Healthwatch v2.0.6 uses the following open-source component versions:
 | Grafana      | 7.4.2            |
 | Alertmanager | 0.21.0           |
 
+
 ## <a id='upgrade'></a> How to Upgrade
 
-To upgrade to Healthwatch v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+To upgrade from Pivotal Healthwatch v1 to Healthwatch v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+
 
 ## <a id='new-features'></a> New Features
 
-Healthwatch v2.0.6 and v2.1 includes the following major features:
+Healthwatch v2.0.6 and v2.1 include the following major features:
 
-### <a id='supports-tkgi-1.10'></a> Healthwatch Supports TKGI v1.10
+### <a id='supports-tkgi-1-10'></a> Healthwatch Supports TKGI v1.10
 
 You can use Healthwatch to monitor TKGI v1.10.
 
-Your TKGI dashboard in Grafana will update automatically to display TKGI v1.10 unless you chose to manually set the dashboard version when you configured the Grafana VM. For more information about setting the TGKI version for your dashboards, see [Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+Your TKGI dashboard in the Grafana UI updates automatically to display TKGI v1.10 metrics unless
+you manually set the dashboard version when you configure the Grafana VM. For more information
+about setting the TGKI version for your dashboards, see [Configure Grafana](configuring/configuring-healthwatch.html#grafana)
+in _Configuring Healthwatch_.
 
-### <a id='assign-static-ips'></a> Assign Static IP Addresses to TSDB VMs
+### <a id='assign-static-ips'></a> Assign Static IP Addresses to Prometheus VMs
 
-You can now assign static IP addresses to your TSDB VMs. If you configured email alerts, you may need to whitelist the IP addresses of your TSDB VMs so your SMTP server does not block them. Once assigned, you can view the IP addresses using the BOSH CLI. 
+You can assign static IP addresses to your Prometheus VMs.
 
-For more information about assigning IP addresses to your TSDB VMs, see [(Optional) Configure Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
+If you configure email alerts through Alertmanager, you may need to add the IP addresses of
+your Prometheus VMs to your Ops Manager allowlist so your SMTP server does not block them.
+You can then view the IP addresses of your Prometheus VMs using the BOSH CLI.
+
+For more information about assigning IP addresses to your Prometheus VMs, see [(Optional) Configure
+Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
 ### <a id='replaces-event-alerts'></a> Healthwatch Replaces Event Alerts With Alertmanager
 
-Healthwatch v2.1 does not support Pivotal Event Alerts. 
+Healthwatch v2.1 uses Alertmanager, an open-source Prometheus component, to manage and send
+alerts according to the alerting rules you configure. Pivotal Healthwatch v1 used Pivotal Event
+Alerts for managing alerts, which Healthwatch v2.1 does not support.
 
-Healthwatch v2.1 uses Alertmanager, an open-source Prometheus component, to manage and send alerts according to the alerting rules you configure. For more information about configuring alerts, see [Alerting](configuring/optional-config/alerting.html).
-
+For more information about configuring alerts, see [Alerting](configuring/optional-config/alerting.html).
 
 ### <a id='removes-indicator-protocol'></a> Healthwatch Removes Monitoring Indicator Protocol
 
-Healthwatch no longer supports Monitoring Indicator Protocol and removed the **Indicator Protocol** dashboard.
+Healthwatch no longer supports Monitoring Indicator Protocol, and the **Indicator Protocol**
+dashboard is removed from the Grafana UI.
 
-Your RabbitMQ metrics and dashboards are not affected.
+This change does not affect RabbitMQ metrics and dashboards.
+
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
@@ -98,21 +132,33 @@ Healthwatch v2.0.6 includes the following breaking changes:
 
 ### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
-This breaking change is fixed in Healthwatch v2.1. 
- 
-Healthwatch does not require SSL validation of Ops Manager certificates prior to Healthwatch v2.1. Healthwatch v2.1 checks for SSL validation by default. You must choose to skip SSL validation if your Ops Manager uses self-signed certificates. 
+This breaking change is fixed in Healthwatch v2.1.
 
-If your **Ops Manager Health** dashboard displays "Not Running," select the **Skip SSL validation** checkbox on the **Canary URL Configuration** pane in your Healthwatch tile. For more information on where to find this checkbox, see [(Optional) Configure Canary URLs](configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
+While Pivotal Healthwatch v1 does not require SSL validation of Ops Manager certificates, Healthwatch
+v2.1 checks for SSL validation by default. If your Ops Manager deployment uses self-signed
+certificates, you must configure the Healthwatch tile to skip SSL validation.
 
-If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate exporter logs, Select the **Skip SSL Validation for Cert Expiration** in the exporter configuration pane of the appropriate exporter tile. For more information about finding this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_ or [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs](configuring/configuring-exporter-tkgi.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_. 
+If the **Ops Manager Health** dashboard in the Grafana UI displays a "Not Running" error, select
+the **Skip SSL validation** checkbox in the **Canary URL Configuration** pane of the Healthwatch
+tile. For more information about configuring this checkbox, see [(Optional) Configure Canary
+URLs](configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
+
+If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate
+expiration metric logs, select the **Skip SSL Validation for Cert Expiration** in the **TAS
+Exporter Configuration** pane of the Healthwatch Exporter for TAS for VMs tile or the **TKGI
+Exporter Configuration** pane of the Healthwatch Exporter for TKGI tile. For more information
+about configuring this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter VMs]
+(configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter
+for TAS for VMs_ or [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs]
+(configuring/configuring-exporter-tkgi.html#exporter-config) in _Configuring Healthwatch Exporter
+for TKGI_.
+
 
 ## <a id='known-issues'></a> Known Issues
 
-Healthwatch v2 includes the following known issues:
+Healthwatch v2.0.6 and v2.1 include the following known issues:
 
-### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Upgrading
-
-This issue is fixed in Ops Manager v2.8 and later.
+### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Installing or Upgrading
 
 When installing or upgrading to Healthwatch v2.1, you could see the following error:
 
@@ -121,9 +167,12 @@ When installing or upgrading to Healthwatch v2.1, you could see the following er
   - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
 </pre>
 
-This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4-v2.7. To resolve this issue:
+This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through
+v2.7. To resolve this issue:
 
-1. SSH into your Ops Manager VM.
+1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM
+with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced
+Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 1. Change the user to `root`.
 
@@ -132,7 +181,8 @@ This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manage
     ```
     > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
     ```
-    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Ops Manager deployment.
+    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`,
+    depending on the IaaS of your Ops Manager deployment.
 
 1. Set the decryption passphrase by running:
 
@@ -154,11 +204,15 @@ This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manage
     > service tempest-web restart
     ```
 
-### <a id="pks-cluster-discovery-nsxt-ports"></a> VMware NSX-T Requires Opening Load Balancer Ports for TKGI Cluster Discovery
+This issue is fixed in Ops Manager v2.8 and later.
 
-If you use TKGI cluster discovery on a VMware NSX-T foundation, the VMware NSX-T load balancer does not have the required ports open by default. TKGI cluster discovery needs the following ports to scrape on-demand TKGI clusters: `10200`, `10251`, `10252`, and `8443`.
+### <a id="pks-cluster-discovery-nsxt-ports"></a> TKGI Cluster Discovery Requires Opening VMware NSX-T Load Balancer Ports
 
-To open the load balancer ports using the VMware NSX-T Manager API:
+If you enable TKGI cluster discovery on a VMware NSX-T foundation, the VMware NSX-T load balancer
+does not open the required ports by default. To enable your Prometheus instance to scrape on-demand
+TKGI clusters, you must open the following ports: `10200`, `10251`, `10252`, and `8443`.
+
+To open the required load balancer ports using the VMware NSX-T Manager API:
 
 1. Retrieve the list of virtual servers by running:
 
@@ -167,27 +221,29 @@ To open the load balancer ports using the VMware NSX-T Manager API:
     "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
     ```
     Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your
+    VMware NSX-T console.
 
-1. In the output, look for the JSON array item that has the `display_name` starting with `lb-pks` and ending with `virtual-server` and copy the `id` field.
+1. In the output, record the contents of the `id` field in the JSON array item that has the
+`display_name` starting with `lb-pks` and ending with `virtual-server`.
 
-1. Fetch the current configuration for the load balancer by running:
+1. Retrieve the current configuration for the load balancer by running:
 
     ```
     curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
     https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
     ```
     Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
-    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or FQDN of your VMware NSX-T console.
+    * `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
 
-1. Save the JSON that is returned by this command to a file.
+1. Save the output of the command you ran in the previous step as a JSON file.
 
-1. Modify the JSON file to include the additional ports:
+1. Edit the JSON file to include the additional ports, as shown in the example below:
 
     ```
     {
@@ -202,32 +258,32 @@ To open the load balancer ports using the VMware NSX-T Manager API:
     }
     ```
 
-1. Send a PUT request to the API to update the virtual server by running:
+1. Send a PUT request to the VMware NSX-T Manager API to update the virtual server by running:
 
     ```
     curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
         https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
         -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
-        -d 'MODIFIED-JSON-DATA'
+        -d 'JSON-FILE-PORT-DATA'
     ```
     Where:
-    - `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
-    - `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
-    - `NSX-MGR-IP-OR-FQDN` is the IP address or fully qualified domain name (FQDN) of your VMware NSX-T console.
-    - `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
-    - `MODIFIED-JSON-DATA` contains the additional ports you want to add.
-        
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or FQDN of your VMware NSX-T console.
+    * `VIRTUAL-SERVER-UUID` is the unique ID of the load balancer.
+    * `JSON-FILE-PORT-DATA` is the array of the additional ports you added to your JSON file
+    in the previous step.
 
-### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Node Dashboard Panel
+### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Nodes Dashboard
 
-If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard panel might not show data for individual pods. This is due to a Kubernetes v1.19.2 issue.
+If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard in the Grafana UI
+might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.2.
 
-For more information about the pull request to fix this in Kubernetes, see [Fix missing cadvisor machine metrics](https://github.com/kubernetes/kubernetes/pull/97006) in GitHub.
+To fix this issue, upgrade to TKGI v1.10.
 
-To fix this issue in Healthwatch now, upgrade to TKGI v1.10 because it uses Kubernetes 1.19.6.
+### <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Quickly
 
-### <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Fast
+In Healthwatch v2.0.6, the MySQL PXC instance stores too many binlogs, which fills up the persistent
+disk space for MySQL Proxy VMs at a faster rate.
 
-This known issue is fixed in Healthwatch v2.1.
-
-In Healthwatch v2.0-beta, the MySQL PXC instance stores too many binlogs, which fills up the persistent disk space for the associated `pxc-proxy` VMs. 
+This issue is fixed in Healthwatch v2.1.
