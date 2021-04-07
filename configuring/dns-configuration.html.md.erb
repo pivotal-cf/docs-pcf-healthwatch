@@ -15,10 +15,10 @@ easily from outside your BOSH network, including from the links to the Grafana U
 provides in alert messages.
 
 To avoid creating an unnecessary dependency on VMware Tanzu Application Service for VMs (TAS
-for VMs), Healthwatch does not use a Gorouter in TAS for VMs to route the Grafana VM to a subdomain
-for your foundation. To facilitate user access to the Grafana UI, you must configure a DNS
-entry for either the public IP address of a single Grafana VM or the load balancer in front
-of multiple Grafana VMs.
+for VMs), Healthwatch does not use a Gorouter in TAS for VMs to route the Grafana instance
+to a subdomain for your foundation. To facilitate user access to the Grafana UI, you must configure
+a DNS entry for either the public IP address of a single Grafana VM or the load balancer in
+front of the Grafana instance.
 
 
 ## <a id='load-balancer'></a> Configure DNS for a Load Balancer

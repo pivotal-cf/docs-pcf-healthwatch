@@ -106,9 +106,9 @@ the BOSH Director tile.
 
 ## <a id='prometheus'></a> (Optional) Configure Prometheus
 
-In the **Prometheus Configuration** pane, you configure the Prometheus VM to scrape metrics
-from the Healthwatch Exporter tiles installed on each foundation, as well as any external services
-or databases from which you want to collect metrics.
+In the **Prometheus Configuration** pane, you configure the Prometheus instance in the Healthwatch
+tile to scrape metrics from the Healthwatch Exporter tiles installed on each foundation, as
+well as any external services or databases from which you want to collect metrics.
 
 The values that you enter in the fields in the **Prometheus Configuration** pane also define
 their corresponding properties in the `scrape_config` and `tls_config` sections of the Prometheus
@@ -120,21 +120,22 @@ To configure the **Prometheus Configuration** pane:
 
 1. Select **Prometheus Configuration**.
 
-1. For **Scrape Interval**, specify the frequency at which you want the Prometheus VM to scrape
-Prometheus exposition endpoints for metrics. You can enter a value string that specifies `ns`,
-`us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage,
-VMware recommends using the default value of `15s`, or 15 seconds.
+1. For **Scrape Interval**, specify the frequency at which you want the Prometheus instance
+to scrape Prometheus exposition endpoints for metrics. You can enter a value string that specifies
+`ns`, `us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too
+much storage, VMware recommends using the default value of `15s`, or 15 seconds.
 
-1. (Optional) To configure the Prometheus VM to scrape metrics from the Healthwatch Exporter
+1. (Optional) To configure the Prometheus instance to scrape metrics from the Healthwatch Exporter
 tiles installed on other Ops Manager foundations or from external services or databases, configure
 additional scrape jobs under **Additional Scrape Config Jobs**. You can configure scrape jobs
 for any app or service that exposes metrics using a Prometheus exposition format, such as Concourse
 CI. For more information about Prometheus exposition formats, see [Exposition Formats](https://prometheus.io/docs/instrumenting/exposition_formats/)
 in the Prometheus documentation.
-  <p class="note"><strong>Note:</strong> The Prometheus VM automatically discovers and scrapes
-    Healthwatch Exporter tiles that are installed on the same foundation as Healthwatch. You
-    do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need
-    to configure scrape jobs for Healthwatch Exporter tiles that are installed on other foundations.</p>
+  <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and
+    scrapes Healthwatch Exporter tiles that are installed on the same foundation as the Healthwatch
+    tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You
+    only need to configure scrape jobs for Healthwatch Exporter tiles that are installed on
+    other foundations.</p>
   1. Click **Add**.
   1. For **TSDB Scrape job**, provide the configuration YAML for the scrape job you want to
   configure. This job can use any of the properties defined by Prometheus except the `tls_config`
@@ -151,8 +152,8 @@ in the Prometheus documentation.
         ```
         For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
         in _Configuration_ in the Prometheus documentation.
-        <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code> property,
-          do not use the following job names:
+        <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code>
+          property, do not use the following job names:
           <ul>
             <li><code>Healthwatch-view-pas-exporter</code></li>
             <li><code>Healthwatch-view-pks-exporter</code></li>
@@ -162,20 +163,20 @@ in the Prometheus documentation.
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
-  1. (Optional) To enable TLS communication between the Prometheus VM and your external service
-  or database:
+  1. (Optional) To enable TLS communication between the Prometheus instance and your external
+  service or database:
       1. For **TLS Config Certificate Authority**, provide a certificate authority (CA) that
       signs the certificates you provide in the **TLS Config Certificate and Private Key**
       field below. This CA appears as the `ca_file` property in the `tls_config` section of
       the Prometheus configuration file.
       1. For **TLS Config Certificate and Private Key**, provide at least one certificate and
-      private key to enable TLS communication between the Prometheus VM and your external service
-      or database. These certificates and private keys appear as the `cert_file` and `key_file`
-      properties in the `tls_config` section of the Prometheus configuration file.
+      private key to enable TLS communication between the Prometheus instance and your external
+      service or database. These certificates and private keys appear as the `cert_file` and
+      `key_file` properties in the `tls_config` section of the Prometheus configuration file.
       1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS
-      communication between the Prometheus VM and your external service or database. This server
-      name appears as the `server_name` property in the `tls_config` section of the Prometheus
-      configuration file.
+      communication between the Prometheus instance and your external service or database.
+      This server name appears as the `server_name` property in the `tls_config` section of
+      the Prometheus configuration file.
 
 1. For **Chunk Size (Disk) MB**, enter in MB the size that you want to specify for chunks of
 free disk. The default value is `6144`. Healthwatch uses this free disk chunk size to calculate
@@ -198,8 +199,8 @@ VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarde
 Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid
-static IP addresses that you want to reserve for the Prometheus VMs. These IP addresses must
-not be within the reserved IP ranges you configured in the BOSH Director tile.
+static IP addresses that you want to reserve for the Prometheus instance. These IP addresses
+must not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
 
@@ -208,7 +209,7 @@ not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 In the **Alertmanager Configuration** pane, you configure alerting for Healthwatch.
 
-To configure the **Alertmanager Configuration** pane, see [Alerting](optional-config/alerting.html).
+To configure the **Alertmanager Configuration** pane, see [Configuring Alerting](optional-config/alerting.html).
 
 
 ## <a id='grafana'></a> (Optional) Configure Grafana
@@ -225,80 +226,82 @@ To configure the **Grafana Configuration** pane:
 
 1. Select **Grafana Configuration**.
 
-1. (Optional) If you configured your Grafana VM to allow access to the Grafana UI from a URL
-outside your BOSH network, enter the full URL in **Root URL for Grafana**. You must provide
+1. (Optional) If you configured your Grafana instance to allow access to the Grafana UI from
+a URL outside your BOSH network, enter the full URL in **Root URL for Grafana**. You must provide
 this URL to enable generic OAuth or UAA to redirect users to the Grafana UI. Alertmanager also
 uses this URL to generate links to the Grafana UI in alert messages. This URL appears as the
 `root_url` property in the `[server]` section of the Grafana configuration file.
 <br>
 <br>
 This URL must be configured in your DNS provider to point to the public IP address of either
-a single Grafana VM or the load balancer in front of multiple Grafana VMs. You can obtain this
-IP address to configure **Root URL for Grafana** after you deploy the Healthwatch tile for
-the first time. Your Grafana VMs listen on either port `443` or `80`, depending on whether
-you provide an SSL certificate in the **Enable HTTPS by providing certificates** field below.
-For more information about configuring DNS for the Grafana VM, see [Configuring DNS for the
-Grafana VM](dns-configuration.html).
+a single Grafana VM or the load balancer in front of your Grafana instance. You can obtain
+this IP address to configure **Root URL for Grafana** after you deploy the Healthwatch tile
+for the first time. Your Grafana instance listens on either port `443` or `80`, depending on
+whether you provide an SSL certificate in the **Enable HTTPS by providing certificates** field
+below. For more information about configuring DNS for your Grafana instance, see [Configuring
+DNS for Your Grafana Instance](dns-configuration.html).
 
 1. Under **Enable HTTP(s) Proxy Settings for Grafana**, choose whether to enable or disable
-the Grafana VM to make HTTP and HTTPS proxy requests:
+the Grafana instance to make HTTP and HTTPS proxy requests:
   1. To disable HTTP and HTTPS proxy requests, select **Disabled**. HTTP and HTTPS proxy settings
   are disabled by default.
-  1. To configure proxy settings for the Grafana VM:
+  1. To configure proxy settings for the Grafana instance:
       1. Select **Enabled**.
-      1. For **HTTP Proxy for Grafana**, enter your HTTP proxy server URL. The Grafana VM uses
-      this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts you
-      configure in the **HTTPS Proxy for Grafana** and **No Proxy for Grafana** fields below.
-      1. For **HTTPS Proxy for Grafana**, enter your HTTPS proxy server URL. The Grafana VM
+      1. For **HTTP Proxy for Grafana**, enter your HTTP proxy server URL. The Grafana instance
+      uses this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts
+      you configure in the **HTTPS Proxy for Grafana** and **No Proxy for Grafana** fields
+      below.
+      1. For **HTTPS Proxy for Grafana**, enter your HTTPS proxy server URL. The Grafana instance
       uses this URL as the proxy URL for all HTTPS requests except those from hosts you configure
       in the **No Proxy for Grafana** field below.
       1. For **No Proxy for Grafana**, enter a comma-separated list of the hosts you want to
       exclude from proxying. VMware recommends including `*.bosh` and the range of your internal
-      network IP addresses so the Grafana VM can still access the Prometheus VM without going
-      though the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana VM
-      to access all BOSH DNS addresses and all internal network IP addresses containing `10.0.0.0/8`
-      or `*.example.com` directly, without going though the proxy.
+      network IP addresses so the Grafana instance can still access the Prometheus instance
+      without going though the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows
+      the Grafana instance to access all BOSH DNS addresses and all internal network IP addresses
+      containing `10.0.0.0/8` or `*.example.com` directly, without going though the proxy.
       <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you
         are deploying Healthwatch in an air-gapped environment and want to configure alert
         channels to external addresses, such as the external Slack webhook.</p>
 
 1. (Optional) For **Static IPs for the Grafana VM(s)**, enter a comma-separated list of valid
-static IP addresses that you want to reserve for the Grafana VM. These IP addresses must not
-be within the reserved IP ranges you configured in the BOSH Director tile.
+static IP addresses that you want to reserve for the Grafana instance. These IP addresses must
+not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. (Optional) To prevent users from logging in to Grafana UI with basic authentication, including
 admin users, clear the **Enable Grafana Login Form** checkbox. This checkbox is selected by
 default.
 
-1. Under **Discover Product Dashboards**, select how you want the Grafana VM to discover the
-runtimes in your foundations.
-    * **Dynamic:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
-    VMware Tanzu Application Service for VMs (TAS for VMs) or TKGI that are currently installed
-    on your foundation. This option is selected by default.
-    * **Manual:** The Grafana VM creates a dashboard in the Grafana UI for the versions of
-    TAS for VMs or TKGI you specify in **TAS Version to Monitor** and **TKGI Version to Monitor**.
-    * **Disabled:** The Grafana VM does not discover or create dashboards in the Grafana UI
-    for TAS for VMs or TKGI.
+1. Under **Discover Product Dashboards**, select how you want the Grafana instance to discover
+the runtimes in your foundations.
+    * **Dynamic:** The Grafana instance creates a dashboard in the Grafana UI for the versions
+    of VMware Tanzu Application Service for VMs (TAS for VMs) and TKGI that are currently installed
+    on your foundations. This option is selected by default.
+    * **Manual:** The Grafana instance creates a dashboard in the Grafana UI for the versions
+    of TAS for VMs and TKGI you specify in the **TAS Version to Monitor** and **TKGI Version
+    to Monitor** fields.
+    * **Disabled:** The Grafana instance does not discover or create dashboards in the Grafana
+    UI for TAS for VMs or TKGI.
 
-1. (Optional) If you want the Grafana VM to create a dashboard for MySQL, select the **Enable
-MySQL dashboards** checkbox. This checkbox is disabled by default.
+1. (Optional) If you want the Grafana instance to create a dashboard for MySQL, select the
+**Enable MySQL dashboards** checkbox. This checkbox is disabled by default.
 
-1. (Optional) If you want the Grafana VM to create a dashboard for RabbitMQ, select the **Enable
-RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
+1. (Optional) If you want the Grafana instance to create a dashboard for RabbitMQ, select the
+**Enable RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
 
-1. (Optional) To enable HTTPS for the Grafana VM, provide one or more SSL certificates in **Enable
-HTTPS by providing certificates**.
+1. (Optional) To enable HTTPS for the Grafana instance, provide one or more SSL certificates
+in **Enable HTTPS by providing certificates**.
 
 1. (Optional) If you provided one or more SSL certificates in the previous step, provide a
 CA for those SSL certificates in **CA for SSL certificates**.
 
-1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana VM,
+1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
 enter a comma-separated list of ciphers in **Additional Cipher Suite Support**. For a list
 of supported cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522)
 in the Go repository on GitHub.
 
 1. Under **Select an authentication mechanism for Grafana**, select the user authentication
-method you want the Grafana VM to use:
+method you want the Grafana instance to use:
     * **Basic:** Enables basic authentication. For more information, see [Configure Basic Authentication]
     (grafana-authentication.html#configure-basic-auth) in _Configuring Grafana Authentication_.
     * **Generic OAuth:** Enables OAuth authentication for any supported authentication provider,
@@ -326,8 +329,8 @@ from the Grafana UI.
       the `user` property in the `[smtp]` section of the Grafana configuration file.
       1. For **Password**, enter your SMTP authentication password. This password appears as
       the `password` property in the `[smtp]` section of the Grafana configuration file.
-      1. (Optional) To enable the Grafana VM to skip SSL validation when communicating with
-      your SMTP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox
+      1. (Optional) To enable the Grafana instance to skip SSL validation when communicating
+      with your SMTP server over TLS, enable the **Skip SSL Verification** checkbox. This checkbox
       appears as the `skip_verify` property in the `[smtp]` section of the Grafana configuration
       file.
       1. For **From Address**, enter the sender email address that appears on outgoing email
@@ -353,11 +356,11 @@ from the Grafana UI.
 
 ## <a id='canary'></a> (Optional) Configure Canary URLs
 
-In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporter
-in the Prometheus VM sends canary tests. Testing a canary target URL allows you to gauge the
-overall health and accessibility of an app, runtime, or deployment.
+In the **Canary URL Configuration** pane, you configure target URLs to which the Blackbox Exporters
+in the Prometheus instance sends canary tests. Testing a canary target URL allows you to gauge
+the overall health and accessibility of an app, runtime, or deployment.
 
-The **Canary URL Configuration** pane configures the Blackbox Exporter in the Prometheus VM.
+The **Canary URL Configuration** pane configures the Blackbox Exporters in the Prometheus instance.
 For more information, see the [Blackbox exporter](https://github.com/prometheus/blackbox_exporter)
 repository on GitHub.
 
@@ -367,7 +370,7 @@ To configure the **Canary URL Configuration** pane:
 
 1. For **Exporter Port**, specify the port that the Blackbox Exporter exposes to the Prometheus
 VM. The default port is `9115`. You do not need to specify a different port unless port `9115`
-is already in use on the Prometheus VM.
+is already in use on the Prometheus instance.
 
 1. (Optional) For **Ops Manager URL**, enter the fully-qualified domain name (FQDN) of your
 Ops Manager deployment. This creates a canary target URL that allows the Blackbox Exporter
@@ -377,19 +380,19 @@ canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
     enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
     is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
 
-1. (Optional) To enable the Prometheus VM to skip SSL validation when communicating with your
-Ops Manager deployment, enable the **Skip Ops Manager SSL Validation** checkbox.
+1. (Optional) To enable the Prometheus instance to skip SSL validation when communicating with
+your Ops Manager deployment, enable the **Skip Ops Manager SSL Validation** checkbox.
 
-1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus VM
+1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus instance
 runs continuous canary tests to these URLs and records the results. To configure canary target
 URLs:
   1. Click **Add**.
-  1. For **HTTP(S) URL**, enter the URL to which you want the Prometheus VM to send canary
+  1. For **HTTP(S) URL**, enter the URL to which you want the Prometheus instance to send canary
   tests. VMware recommends including `apps.sys.FOUNDATION-URL` if you have TAS for VMs installed,
   or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is the
   root URL of your foundation.
-  <p class='note'><strong>Note:</strong> The Prometheus VM automatically creates scrape jobs
-    for these URLs. You do not need to create additional scrape jobs for them in the <strong>Prometheus
+  <p class='note'><strong>Note:</strong> The Prometheus instance automatically creates scrape
+    jobs for these URLs. You do not need to create additional scrape jobs for them in the <strong>Prometheus
     Configuration</strong> pane.</p>
 
 1. Click **Save**.
@@ -397,12 +400,13 @@ URLs:
 
 ## <a id='remote-write'></a> (Optional) Configure Remote Write
 
-In the **Remote Write Configuration** pane, you can configure the Prometheus VM to write to
-remote storage, in addition to its local time series database (TSDB). Healthwatch stores monitoring
-data for six weeks before deleting it. Configuring remote write enables Healthwatch to store
-data that is older than six weeks in a remote database or storage endpoint. For a list of compatible
-remote databases and storage endpoints, see [Remote Endpoints and Storage](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage)
-in _Integrations_ in the Prometheus documentation.
+In the **Remote Write Configuration** pane, you can configure the Prometheus instance to write
+to remote storage, in addition to its local time series database (TSDB). Healthwatch stores
+monitoring data for six weeks before deleting it. Configuring remote write enables Healthwatch
+to store data that is older than six weeks in a remote database or storage endpoint. For a
+list of compatible remote databases and storage endpoints, see [Remote Endpoints and Storage]
+(https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage) in _Integrations_
+in the Prometheus documentation.
 
 The values that you enter in the fields in the **Remote Write Configuration** pane also define
 their corresponding properties in the `remote_write` section of the Prometheus configuration
@@ -421,43 +425,44 @@ where `REMOTE-STORAGE-FQDN` is the FQDN of your remote storage endpoint.
 1. In **Remote Timeout (seconds)**, enter in seconds the amount of time that the Prometheus
 VM must try to make a request to the remote storage endpoint before the request fails.
 
-1. (Optional) To enable the Prometheus VM to write to your storage endpoint using basic authentication:
-  1. For **Basic Auth Username**, enter the username that the Prometheus VM uses to log in
-  to your remote storage endpoint.
-  1. For **Basic Auth Password**, enter the password that the Prometheus VM uses to log in
-  to your remote storage endpoint.
+1. (Optional) To enable the Prometheus instance to write to your storage endpoint using basic
+authentication:
+  1. For **Basic Auth Username**, enter the username that the Prometheus instance uses to log
+  in to your remote storage endpoint.
+  1. For **Basic Auth Password**, enter the password that the Prometheus instance uses to log
+  in to your remote storage endpoint.
 
-1. (Optional) To enable TLS communication between the Prometheus VM and your remote storage
+1. (Optional) To enable TLS communication between the Prometheus instance and your remote storage
 endpoint:
   1. For **TLS Config Certificate Authority**, provide a CA that signs the certificates you
   provide in the **TLS Config Certificate and Private Key** field below. This CA appears as
   the `ca_file` property in the `tls_config` section of the `remote_write` configuration.
   1. For **TLS Config Certificate and Private Key**, provide at least one certificate and private
-  key to enable TLS communication between the Prometheus VM and your remote storage endpoint.
+  key to enable TLS communication between the Prometheus instance and your remote storage endpoint.
   These certificates and private keys appear as the `cert_file` and `key_file` properties in
   the `tls_config` section of the `remote_write` configuration.
   1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS communication
-  between the Prometheus VM and your remote storage endpoint. This server name appears as the
-  `server_name` property in the `tls_config` section of the `remote_write` configuration.
+  between the Prometheus instance and your remote storage endpoint. This server name appears
+  as the `server_name` property in the `tls_config` section of the `remote_write` configuration.
   1. If the certificate you provided in the **TLS Config Certificate and Private Key** field
   is signed by a self-signed CA or a certificate that is signed by a self-signed CA, enable
   the **TLS Config Skip SSL Validation** checkbox to skip SSL validation during TLS handshakes.
 
-1. (Optional) To enable the Prometheus VM to make HTTP or HTTPS proxy requests to the remote
-storage endpoint, enter a proxy URL in **Proxy URL**.
+1. (Optional) To enable the Prometheus instance to make HTTP or HTTPS proxy requests to the
+remote storage endpoint, enter a proxy URL in **Proxy URL**.
 
 1. You can configure more granular settings for writing to your remote storage endpoint by
 specifying additional parameters for the shards containing in-memory queues that read from
-the write-ahead log (WAL) in the Prometheus VM. The following fields configure the `queue_config`
+the write-ahead log (WAL) in the Prometheus instance. The following fields configure the `queue_config`
 section of the remote write configuration:
   1. For **Queue Capacity**, enter how many samples the remote storage endpoint can queue in
-  memory per shard before the Prometheus VM blocks the queue from reading from the WAL. This
-  number appears as the `capacity` property in the `queue_config` section of the remote write
-  configuration.
-  1. For **Maximum Number of Shards**, enter the maximum number of shards the Prometheus VM
+  memory per shard before the Prometheus instance blocks the queue from reading from the WAL.
+  This number appears as the `capacity` property in the `queue_config` section of the remote
+  write configuration.
+  1. For **Maximum Number of Shards**, enter the maximum number of shards the Prometheus instance
   can use for each remote write queue. This number appears as the `max_shards` property in
   the `queue_config` section of the remote write configuration.
-  1. For **Minimum Number of Shards**, enter the minimum number of shards the Prometheus VM
+  1. For **Minimum Number of Shards**, enter the minimum number of shards the Prometheus instance
   can use for each remote write queue. This number is also the number of shards the Prometheus
   VM uses when remote write begins after each deployment of the Healthwatch tile. This number
   appears as the `min_shards` property in the `queue_config` section of the remote write configuration.
@@ -465,18 +470,18 @@ section of the remote write configuration:
   VM can send to a shard at a time. This number appears as the `max_samples_per_send` property
   in the `queue_config` section of the remote write configuration.
   1. For **Batch Send Deadline (seconds)**, enter in seconds the maximum amount of time the
-  Prometheus VM can wait before sending a batch of samples to a shard, whether that shard has
-  reached the limit configured in **Maximum Number of Samples Per Send** or not. This number
+  Prometheus instance can wait before sending a batch of samples to a shard, whether that shard
+  has reached the limit configured in **Maximum Number of Samples Per Send** or not. This number
   appears as the `batch_send_deadline` property in the `queue_config` section of the remote
   write configuration.
   1. For **Minimum Backoff Time (milliseconds)**, enter in milliseconds the minimum amount
-  of time the Prometheus VM can wait before retrying a failed request to the remote storage
+  of time the Prometheus instance can wait before retrying a failed request to the remote storage
   endpoint. This number appears as the `min_backoff` property in the `queue_config` section
   of the remote write configuration.
   1. For **Maximum Retry Delay (milliseconds)**, enter in milliseconds the maximum amount of
-  time the Prometheus VM can wait before retrying a failed request to the remote storage endpoint.
-  This number appears as the `max_backoff` property in the `queue_config` section of the remote
-  write configuration.
+  time the Prometheus instance can wait before retrying a failed request to the remote storage
+  endpoint. This number appears as the `max_backoff` property in the `queue_config` section
+  of the remote write configuration.
   <br>
   <br>
   For more information about configuring these queue parameters, see [Remote Write Tuning]
@@ -487,9 +492,9 @@ section of the remote write configuration:
 
 ## <a id='tkgi-cluster-discovery'></a> (Optional) Configure TKGI Cluster Discovery
 
-In the **TKGI Cluster Discovery Configuration** pane, you can enable the Prometheus VM to detect
-clusters created by the TKGI API and create scrape jobs for them. You only need to configure
-this pane if you have foundations with TKGI installed.
+In the **TKGI Cluster Discovery Configuration** pane, you can enable the Prometheus instance
+to detect clusters created by the TKGI API and create scrape jobs for them. You only need to
+configure this pane if you have foundations with TKGI installed.
 
 To collect TKGI metrics and view them in the Grafana UI, you must also install and configure
 the Healthwatch Exporter for TKGI on your foundations with TKGI installed. To install the Healthwatch
@@ -508,9 +513,9 @@ To configure the **TKGI Cluster Discovery Configuration** pane:
     fields described in the steps below.
 
 1. For **Scrape Port**, enter a port where the Healthwatch tile exposes an endpoint from which
-the Prometheus VM scrapes metrics detailing the health of the TKGI cluster discovery process.
-These metrics appear in the **Healthwatch - Exporter Troubleshooting** dashboard in the Healthwatch
-tile.
+the Prometheus instance scrapes metrics detailing the health of the TKGI cluster discovery
+process. These metrics appear in the **Healthwatch - Exporter Troubleshooting** dashboard in
+the Healthwatch tile.
 
 1. For **TKGI API Address**, enter the TKGI API domain you configured in the **API Hostname
 (FQDN)** field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
@@ -582,9 +587,9 @@ Healthwatch.
     [[outputs.prometheus_client]]
           listen = ":10200"
     ```
-    You must use `10200` as the listening port to enable the Prometheus VM to scrape Telegraf
-    metrics. For more information about creating a configuration file in TKGI, see [Create
-    a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring
+    You must use `10200` as the listening port to enable the Prometheus instance to scrape
+    Telegraf metrics. For more information about creating a configuration file in TKGI, see
+    [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring
     Telegraf in TKGI_ in the TKGI documentation.
 
 1. Click **Save**.
@@ -592,7 +597,7 @@ Healthwatch.
 1. For each plan you want to monitor:
   1. Select the plan you want to monitor. For example, **Plan 2**.
   1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to configure
-  the roles required to enable the Prometheus VM to scrape metrics from your TKGI clusters:
+  the roles required to enable the Prometheus instance to scrape metrics from your TKGI clusters:
 
       <%= partial '../snippets/cluster_scraping_config.md' %>
 
@@ -630,7 +635,7 @@ To configure the **Errands** pane:
 1. Select **Errands**.
 
 1. (Optional) Choose whether to always run or never run the following errands:
-    * **Smoke Test Errand:** Verifies that the Grafana and Prometheus VMs are running.
+    * **Smoke Test Errand:** Verifies that the Grafana and Prometheus instances are running.
     * **Update Grafana Admin Password:** Updates the admin password for the Grafana UI.
 
 1. Click **Save**.
@@ -682,8 +687,8 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 
 In the **Resource Config** pane, you can scale Healthwatch component VMs up or down according
 to the needs of your deployment, as well as associate load balancers with a group of VMs. For
-example, you can scale the persistent disk size of the Prometheus VM to enable longer data
-retention.
+example, you can scale the persistent disk size of the Prometheus instance to enable longer
+data retention.
 
 To configure the **Resource Config** pane:
 

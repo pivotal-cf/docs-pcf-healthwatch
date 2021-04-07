@@ -17,11 +17,11 @@ VMs to generate component metrics and service level indicators (SLIs) related to
 of your TAS for VMs and TKGI deployments. Each metric exporter VM exposes these metrics and
 SLIs on a Prometheus exposition endpoint, `/metrics`.
 
-The Prometheus VM that exists within your metrics monitoring system then scrapes each `/metrics`
-endpoints on the metric exporter VMs and imports those metrics into your monitoring system.
-You can configure the frequency at which the Prometheus VM scrapes the `/metrics` endpoints
-in the **Prometheus Configuration** pane of the Healthwatch tile. To configure the scrape interval
-for the Prometheus VM, see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus)
+The Prometheus instance that exists within your metrics monitoring system then scrapes each
+`/metrics` endpoints on the metric exporter VMs and imports those metrics into your monitoring
+system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics`
+endpoints in the **Prometheus Configuration** pane of the Healthwatch tile. To configure the
+scrape interval for the Prometheus instance, see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus)
 in _Configuring Healthwatch_.
 
 The name of each metric is is PromQL format. For more information, see [Querying Prometheus]
@@ -477,13 +477,15 @@ The following table describes the metric the certificate expiration metric expor
 ### <a id='tsdb'></a> Prometheus VM
 
 In the **Canary URL Configuration pane** of the Healthwatch tile, you configure target URLs
-to which the Blackbox Exporter in the Prometheus VM sends canary tests. Testing a canary target
-URL allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
+to which the Blackbox Exporters in the Prometheus instance sends canary tests. Testing a canary
+target URL allows you to gauge the overall health and accessibility of an app, runtime, or
+deployment.
 
 On the Prometheus VM, `tsdb`, the Blackbox Exporter job, `blackbox-exporter`, generates canary
 test metrics.
 
-The following table describes each metric the Blackbox Exporter in the Prometheus VM generates:
+The following table describes each metric the Blackbox Exporters in the Prometheus instance
+generates:
 
 <table>
   <tr>
@@ -933,7 +935,7 @@ The following table describes each metric the timer metric exporter VM collects 
 
 ### <a id="prometheus-exposition"></a> Prometheus Exposition Endpoint
 
-Most of the metric exporter VMs generate metrics concerning how the Prometheus VM interacts
+Most of the metric exporter VMs generate metrics concerning how the Prometheus instance interacts
 with the `/metrics` endpoint on each metric exporter VM.
 
 The following table describes each metric the `/metrics` endpoint on each metric exporter VM

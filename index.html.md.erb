@@ -80,8 +80,8 @@ The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to
 type of metric related to the health of your TAS for VMs deployment.
 
 Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
-exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
-your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
+exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists
+within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
 VMs and imports those metrics into your monitoring system.
 
 Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality
@@ -98,9 +98,9 @@ of TAS for VMs components, TAS for VMs apps, and the Healthwatch Exporter for TA
 The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
 to the health of your TKGI deployment.
 
-The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
-exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system.
+The Prometheus instance that exists within your metrics monitoring system then scrapes the
+Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into your
+monitoring system.
 
 Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of
 TKGI components and the Healthwatch Exporter for TKGI tile:
@@ -140,7 +140,7 @@ in _Troubleshooting Healthwatch_.
 
 * Healthwatch v2.1 only supports configuring alert receivers for email, PagerDuty, Slack, and
 webhooks for alerts. For more information, see [Configure Alert Receivers](configuring/optional-config/alerting.html#configure-receivers)
-in _Alerting_.
+in _Configuring Alerting_.
 
 * Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring
 multiple TAS for VMs or TKGI foundations. You can create custom dashboards to monitor multiple

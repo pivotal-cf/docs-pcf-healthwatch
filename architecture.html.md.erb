@@ -146,8 +146,8 @@ The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to
 type of metric related to the health of your TAS for VMs deployment.
 
 Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
-exposition endpoint on the associated metric exporter VMs. The Prometheus VM that exists within
-your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
+exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists
+within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
 VMs and imports those metrics into your monitoring system.
 
 You can scale the VMs that Healthwatch Exporter for TAS for VMs deploys vertically, but should
@@ -245,9 +245,9 @@ VMs component:
 The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
 to the health of your TKGI deployment.
 
-The Prometheus VM that exists within your metrics monitoring system then scrapes the Prometheus
-exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system.
+The Prometheus instance that exists within your metrics monitoring system then scrapes the
+Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into your
+monitoring system.
 
 You can scale the VMs that Healthwatch Exporter for TKGI deploys vertically, but should not
 scale them horizontally.
@@ -462,7 +462,7 @@ in a previous step.
 Healthwatch Exporter for TAS for VMs tile in a previous step.
 
 1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS communication
-between the Prometheus VM in the Healthwatch tile and the metric exporter VMs that Healthwatch
+between the Prometheus instance in the Healthwatch tile and the metric exporter VMs that Healthwatch
 Exporter for TAS for VMs deploys.
 
 ### <a id='tkgi-different-foundation'></a> Monitoring TKGI on a Different Ops Manager Foundation
@@ -525,5 +525,5 @@ in a previous step.
 Healthwatch Exporter for TKGI tile in a previous step.
 
 1. For **TLS Config Server Name**, enter the name of the server that facilitates TLS communication
-between the Prometheus VM in the Healthwatch tile and the metric exporter VMs that Healthwatch
+between the Prometheus instance in the Healthwatch tile and the metric exporter VMs that Healthwatch
 Exporter for TKGI deploys.

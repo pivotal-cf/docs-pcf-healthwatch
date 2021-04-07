@@ -15,10 +15,10 @@ VMs for troubleshooting.
 
 ### <a id='viewing-the-prometheus-ui'></a> Access the Prometheus UI
 
-The Prometheus UI allows you to view various processes on the Prometheus VM, including alerts
-that are currently running and the health status of scrape targets. Because the Prometheus
-UI is not secure, the Healthwatch tile does not include it. However, you can access the Prometheus
-UI to troubleshoot the Prometheus VM.
+The Prometheus UI allows you to view various processes on the VMs in the Prometheus instance
+that the Healthwatch tile deploys, including alerts that are currently running and the health
+status of scrape targets. Because the Prometheus UI is not secure, the Healthwatch tile does
+not include it. However, you can access the Prometheus UI to troubleshoot the Prometheus instance.
 
 To access the Prometheus UI:
 
@@ -38,10 +38,10 @@ To access the Prometheus UI:
     ```
     Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
     the previous step.
-    <p class='note'><strong>Note:</strong> If the above command fails, log in to the Prometheus
-      VM using SSH and run the above command again. To log in to the Prometheus VM using SSH,
-      see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH SSH</a>
-      in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
+    <p class='note'><strong>Note:</strong> If the above command fails, use SSH to log in to
+      one of the VMs in the Prometheus instance and run the above command again. To log in
+      to a Prometheus VM using SSH, see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH
+      SSH</a> in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
 
 1. In a web browser, navigate to `localhost:8082`. The Prometheus UI appears.
 
@@ -90,31 +90,32 @@ When you deploy Healthwatch, the **Smoke Tests** errand fails with the following
 querying for grafana up should be greater than 0
 </pre>
 
-The **Smoke Tests** errand fails because the Prometheus VM fails to scrape metrics from the
-Grafana VM. Potential causes of this failure include:
+The **Smoke Tests** errand fails because the Prometheus instance fails to scrape metrics from
+the Grafana instance. Potential causes of this failure include:
 
-* There is a network issue between the Prometheus VM and Grafana VM.
+* There is a network issue between the Prometheus instance and Grafana instance.
 
-* The Grafana VM uses a certificate that does not match the certificate authority (CA) you
-configured in the **Grafana Configuration** pane in the Healthwatch tile, either because it
-is a self-signed certificate, or because the CA you configured in the **Grafana Configuration**
-pane is different from the CA that generated the certificate. As a result, the Prometheus VM
-does not trust the certificate that the Grafana VM uses. For more information about configuring
-a CA for the Grafana VM, see [Grafana Configuration](configuring/configuring-healthwatch.html#grafana)
+* The Grafana instance uses a certificate that does not match the certificate authority (CA)
+you configured in the **Grafana Configuration** pane in the Healthwatch tile. This could occur
+because the CA you configured in the **Grafana Configuration** pane is either a self-signed
+certificate or a different CA from the one that generated the certificate. As a result, the
+Prometheus instance does not trust the certificate that the Grafana instance uses. For more
+information about configuring a CA for the Grafana instance, see [Grafana Configuration](configuring/configuring-healthwatch.html#grafana)
 in _Configuring Healthwatch_.
 
-To find out why the Prometheus VM fails to scrape metrics from the Grafana VM:
+To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
 
-1. Log in to the Prometheus VM using SSH by following the procedure in [BOSH SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh)
-in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH
+SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced
+Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
-1. View information about the Grafana VM scrape target by running:
+1. View information about the Grafana instance scrape target by running:
 
     ```
     curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'
     ```
-    The `lastError` field in the command output describes the reason for the Prometheus VM
-    failing to scrape the Grafana VM.
+    The `lastError` field in the command output describes the reason for the Prometheus instance
+    failing to scrape the Grafana instance.
 
 ### <a id='bosh-metrics-exporter'></a> TKGI Metric Exporter VM Fails to Connect to the BOSH Director
 
@@ -133,9 +134,8 @@ connect to the BOSH Director, you must correct any certificate chain errors.
 
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
-1. Log in to the TKGI metric exporter VM using SSH by following the procedure in [BOSH SSH]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting
-with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to the TKGI metric exporter VM by following the procedure in [BOSH SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh)
+in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 1. View the certificate that the UAA server uses by running:
 
@@ -157,9 +157,10 @@ with the BOSH CLI_ in the Ops Manager documentation.
 
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
 
-By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch** folder.
+By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch**
+folder.
 
-### <a id="healthwatch-slos"></a> Healthwatch - SLOs
+### <a id="healthwatch-slos"></a> Viewing Healthwatch Exporter Tile Metrics
 
 The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter
 VM you select from the corresponding metric exporter instance dropdown at the top of the page.
@@ -167,8 +168,8 @@ Each row contains four panels:
 
 * **Up:** The current health of the Prometheus endpoint on the metric exporter VM. A value
 of `1` indicates that the Prometheus endpoint is healthy. A value of `0` or missing data indicates
-that either the Prometheus endpoint is unresponsive or the Prometheus VM failed to scrape the
-Prometheus endpoint. For more information, see [Jobs and Instances](https://prometheus.io/docs/concepts/jobs_instances/)
+that either the Prometheus endpoint is unresponsive or the Prometheus instance failed to scrape
+the Prometheus endpoint. For more information, see [Jobs and Instances](https://prometheus.io/docs/concepts/jobs_instances/)
 in the Prometheus documentation.
 
 * **Exporter SLO:** The percentage of time that the Healthwatch Exporter tile was up and running

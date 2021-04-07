@@ -18,7 +18,7 @@ pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automate
 When installed on a foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys
 metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
 deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose
-to a Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus VM
+to a Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus instance
 that exists within your metrics monitoring system then scrapes the exposition endpoints on
 the metric exporter VMs and imports those metrics into your monitoring system. For more information
 about the architecture of the Healthwatch Exporter for TAS for VMs tile, see [Healthwatch Exporter
@@ -74,15 +74,15 @@ VM that exists within your monitoring system. For more information, see [Configu
 Job for Healthwatch Exporter for TAS for VMs](#scrape-job-config) below.
   <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
   of Healthwatch Exporter for TAS for VMs that are not on the same foundation as your Healthwatch
-  installation. The Prometheus VM in the Healthwatch tile automatically discovers and scrapes
-  exporter tiles that are installed on the same foundation as Healthwatch.</p>
+  tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes
+  Healthwatch Exporter tiles that are installed on the same foundation as the Healthwatch tile.</p>
 
 
 ## <a id='prerequisite'></a> Prerequisite
 
 Before you deploy Healthwatch Exporter for TAS for VMs, you must have a metrics monitoring
-system that collects metrics using a Prometheus VM instance. This monitoring system can be
-one of the following:
+system that collects metrics using a Prometheus instance. This monitoring system can be one
+of the following:
 
 * The Healthwatch tile installed on either the same Ops Manager foundation as Healthwatch Exporter
 for TAS for VMs or a different Ops Manager foundation.
@@ -396,16 +396,17 @@ in the Ops Manager documentation.
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs
 
 After you have successfully deployed Healthwatch Exporter for TAS for VMs, you must configure
-a scrape job in the Prometheus VM that exists within your metrics monitoring system. Follow
-the procedure in one of the following sections, depending on which monitoring system you use:
+a scrape job in the Prometheus instance that exists within your metrics monitoring system.
+Follow the procedure in one of the following sections, depending on which monitoring system
+you use:
 
 * If you monitor metrics using the Healthwatch tile on an Ops Manager foundation, see [Configure
 a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch](#scraping-healthwatch)
 below.
   <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations
   of Healthwatch Exporter for TAS for VMs that are not on the same foundation as your Healthwatch
-  installation. The Prometheus VM in the Healthwatch tile automatically discovers and scrapes
-  exporter tiles that are installed on the same foundation as Healthwatch.</p>
+  tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes
+  Healthwatch Exporter tiles that are installed on the same foundation as the Healthwatch tile.</p>
 
 * If you monitor metrics using a service or database located outside your Ops Manager foundation,
 such as an external TSDB or an installation of Healthwatch on the TKGI Control Plane, see [Configure
