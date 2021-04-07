@@ -145,7 +145,7 @@ In addition to the updated features described in the table above, Healthwatch v2
 the following new features:
 
 * Runs a suite of service level indicator (SLI) tests to test the functionality of the TKGI
-API and collects metrics from those tests in the **Kubernetes API Server** dashboard in the Grafana UI. For more
+API and collects metrics from those tests in the **TKGI Control Plane** dashboard in the Grafana UI. For more
 information, see [TKGI SLI Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
 
 * Separates Diego capacity metrics by isolation segment in the **Diego/Capacity** dashboard
@@ -157,15 +157,15 @@ BOSH smoke test deployments.
 * Allows you to include optional dashboards for the RabbitMQ and MySQL tiles in the Grafana
 UI.
 
-* Generates composite metrics called super value metrics (SVMs) from Pivotal Healthwatch v1
-and sends them into Loggregator for third-party nozzles to collect and send to external destinations,
-such as a remote server or external aggregation service. For more information, see [(Optional)
+* Lets you monitor the same super value metrics (SVMs) you see in Pivotal Healthwatch v1. For more information, see [(Optional)
 Configure Prometheus](#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch
 Component Metrics](#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder
 VM - Platform Metrics](#svm-forwarder-platform) in _Healthwatch Metrics_.
 
 * Automatically detects which version of TAS for VMs or TKGI is installed on your foundation
 and creates the appropriate dashboard in the Grafana UI.
+
+* Lets you use the Ops Manager syslog feature to forward log messages from Healthwatch component VMs to an external destination for troubleshooting, such as a remote server or external syslog aggregation service. For more information on how to configure the syslog feature, see [(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
 
 For more information about Healthwatch v2.1 features, see [Healthwatch v2.1 Release Notes]
 (release-notes.html).
@@ -202,7 +202,7 @@ information about configuring and deploying the tiles, see [Configuring Healthwa
 [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html),
 and [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html).
 
-1. Should you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Healthwatch
+1. Should you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile first, then delete the Pivotal Healthwatch
 v1 tile from your Ops Manager foundations. For more information about deleting tiles, see [Delete
 Products](https://docs.pivotal.io/ops-manager/install/add-delete.html#del-prod) in _Adding
 and Deleting Products_.
