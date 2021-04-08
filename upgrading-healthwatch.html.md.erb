@@ -54,7 +54,8 @@ Pivotal Healthwatch v1:
     <td>
       <ul>
         <li><strong>Healthwatch v2.1:</strong> Stores metrics in the time-series database (TSDB)
-          on each Prometheus VM either for 42 days or until 85% of persistent disk space is full.</li>
+          on each Prometheus VM either for 42 days or until 85% of persistent disk space is
+          full.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Stores metrics in MySQL for only 24 hours.</li>
       </ul>
       For more information about Healthwatch v2.1 metrics, see <a href="metrics.html">Healthwatch
@@ -65,12 +66,15 @@ Pivotal Healthwatch v1:
     <td>Alerting</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.1:</strong> Uses Alertmanager, a Prometheus component, to manage and send alerts according to the alerting rules you configure.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service, through which you can subscribe to alerts for specific events using the cf CLI.</li>
+        <li><strong>Healthwatch v2.1:</strong> Uses Alertmanager, a Prometheus component, to
+          manage and send alerts according to the alerting rules you configure.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service,
+          through which you can subscribe to alerts for specific events using the Cloud Foundry
+          Command-Line Interface (cf CLI).</li>
       </ul>
       For more information about configuring alerts, see <a href="configuring/optional-config/alerting.html">Alerting</a>.
     </td>
-  </tr>  
+  </tr>
   <tr>
     <td>Monitoring multiple foundations</td>
     <td>
@@ -145,8 +149,9 @@ In addition to the updated features described in the table above, Healthwatch v2
 the following new features:
 
 * Runs a suite of service level indicator (SLI) tests to test the functionality of the TKGI
-API and collects metrics from those tests in the **TKGI Control Plane** dashboard in the Grafana UI. For more
-information, see [TKGI SLI Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
+API and collects metrics from those tests in the **TKGI Control Plane** dashboard in the Grafana
+UI. For more information, see [TKGI SLI Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch
+Metrics_.
 
 * Separates Diego capacity metrics by isolation segment in the **Diego/Capacity** dashboard
 in the Grafana UI.
@@ -157,15 +162,20 @@ BOSH smoke test deployments.
 * Allows you to include optional dashboards for the RabbitMQ and MySQL tiles in the Grafana
 UI.
 
-* Lets you monitor the same super value metrics (SVMs) you see in Pivotal Healthwatch v1. For more information, see [(Optional)
-Configure Prometheus](#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch
-Component Metrics](#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder
-VM - Platform Metrics](#svm-forwarder-platform) in _Healthwatch Metrics_.
+* Allows you to monitor the same super value metrics (SVMs) you see in Pivotal Healthwatch
+v1. For more information about SVMs, see [(Optional) Configure Prometheus](#prometheus) in
+_Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)
+in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform)
+in _Healthwatch Metrics_.
 
 * Automatically detects which version of TAS for VMs or TKGI is installed on your foundation
 and creates the appropriate dashboard in the Grafana UI.
 
-* Lets you use the Ops Manager syslog feature to forward log messages from Healthwatch component VMs to an external destination for troubleshooting, such as a remote server or external syslog aggregation service. For more information on how to configure the syslog feature, see [(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
+* Allows you to use the Ops Manager syslog forwarding feature to forward log messages from
+Healthwatch component VMs to an external destination for troubleshooting, such as a remote
+server or external syslog aggregation service. For more information about how to configure
+syslog forwarding, see [(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog)
+in _Configuring Healthwatch_.
 
 For more information about Healthwatch v2.1 features, see [Healthwatch v2.1 Release Notes]
 (release-notes.html).
@@ -186,15 +196,15 @@ the limitations of Healthwatch v2.1, see [Healthwatch v2.1 Limitations](index.ht
 in _Healthwatch_. For more information about the risks of using Healthwatch v2.1, see [Assumed
 Risks of Using Healthwatch v2.1](index.html#assumed-risks) in _Healthwatch_.
 
-1. Review the configuration
-options for Healthwatch v2.1 to determine which tiles you must install on your Ops Manager foundations. For more information, see [Configuration Options](architecture.html#configuration-options)
-in _Reference Architecture_.
+1. Review the configuration options for Healthwatch v2.1 to determine which tiles you must
+install on your Ops Manager foundations. For more information, see [Configuration Options] (architecture.html#configuration-options) in _Reference Architecture_.
 
 1. Install the Healthwatch v2.1 tile and Healthwatch Exporter tiles on the Ops Manager foundations
-you want to monitor according to the configuration you identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For
-more information about installing the Healthwatch v2.1 tile and Healthwatch Exporter tiles,
-see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring,
-and Deploying a Tile Through an Automated Pipeline](installing/automated-pipeline.html).
+you want to monitor according to the configuration you identified in the previous step, even
+if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing
+the Healthwatch v2.1 tile and Healthwatch Exporter tiles, see [Installing a Tile Manually]
+(installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through
+an Automated Pipeline](installing/automated-pipeline.html).
 
 1. Configure the Healthwatch component VMs through the Healthwatch v2.1 tile and Healthwatch
 Exporter tile UIs in the Ops Manager Installation Dashboard and deploy the tiles. For more
@@ -202,7 +212,12 @@ information about configuring and deploying the tiles, see [Configuring Healthwa
 [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html),
 and [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html).
 
-1. Should you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile first, then delete the Pivotal Healthwatch
-v1 tile from your Ops Manager foundations. For more information about deleting tiles, see [Delete
-Products](https://docs.pivotal.io/ops-manager/install/add-delete.html#del-prod) in _Adding
-and Deleting Products_.
+1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile
+from your Ops Manager foundations. Then, delete the Pivotal Healthwatch v1 tile from your Ops
+Manager foundations.
+  <p class='note warning'><strong>Warning:</strong> You must delete the Pivotal Event Alerts
+    tile before you delete the Pivotal Healthwatch v1 tile. If you delete the Pivotal Healthwatch
+    v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you
+    must re-add the Pivotal Healthwatch v1 tile to delete the Pivotal Event Alerts tile.</p>
+  For more information about deleting tiles, see [Delete Products](https://docs.pivotal.io/ops-manager/install/add-delete.html#del-prod)
+  in _Adding and Deleting Products_ in the Ops Manager documentation.
