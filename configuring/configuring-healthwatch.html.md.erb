@@ -226,11 +226,15 @@ To configure the **Grafana Configuration** pane:
 
 1. Select **Grafana Configuration**.
 
-1. (Optional) If you configured your Grafana instance to allow access to the Grafana UI from
-a URL outside your BOSH network, enter the full URL in **Root URL for Grafana**. You must provide
-this URL to enable generic OAuth or UAA to redirect users to the Grafana UI. Alertmanager also
-uses this URL to generate links to the Grafana UI in alert messages. This URL appears as the
-`root_url` property in the `[server]` section of the Grafana configuration file.
+1. (Optional) If you configured generic OAuth or UAA authentication for users to log in to
+the Grafana UI, or if you configured alerts through Alertmanager, enter the full URL for the
+Grafana UI in **Root URL for Grafana**. You must provide this URL to enable generic OAuth or
+UAA to redirect users to the Grafana UI. Alertmanager also uses this URL to generate links
+to the Grafana UI in alert messages. This URL appears as the `root_url` property in the `[server]`
+section of the Grafana configuration file.
+  <p class='note'><strong>Note:</strong> Healthwatch v2.1 does not automatically assign a default
+    root URL to the Grafana UI. You must manually enter the root URL for the Grafana instance
+    in the <strong>Root URL for Grafana</strong> field.</p>
 <br>
 <br>
 This URL must be configured in your DNS provider to point to the public IP address of either
