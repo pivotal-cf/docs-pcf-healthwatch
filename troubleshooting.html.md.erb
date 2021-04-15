@@ -82,6 +82,54 @@ To access the Alertmanager UI:
 The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch
 Exporter for TKGI.
 
+### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Installing or Upgrading
+
+When installing or upgrading to Healthwatch v2.1, you could see the following error:
+
+<pre class="terminal">
+- Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
+  - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
+</pre>
+
+This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through
+v2.7. To resolve this issue:
+
+1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM
+with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced
+Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+
+1. Change the user to `root`.
+
+1. Open the Rails console by running:
+
+    ```
+    > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
+    ```
+    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`,
+    depending on the IaaS of your Ops Manager deployment.
+
+1. Set the decryption passphrase by running:
+
+    ```
+    irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
+    ```
+    Where `DECRYPTION-PASSPHRASE` is the decryption passphrase you want to set.
+
+1. Update the UAA restricted view access client secret by running:
+
+    ```
+    irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
+    ```
+
+1. Exit the Rails console and restart the `tempest-web` service by running:
+
+    ```
+    irb(main):001:0> exit
+    > service tempest-web restart
+    ```
+
+This issue is fixed in Ops Manager v2.8 and later.
+
 ### <a id='grafana-smoke-test'></a> Smoke Tests Errand Fails When Deploying Healthwatch
 
 When you deploy Healthwatch, the **Smoke Tests** errand fails with the following error message:
@@ -153,6 +201,150 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     If the command returns an `OK` message, the certificate is trusted and has a valid certificate
     chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
     to troubleshoot.
+
+
+## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
+
+When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus
+instance in the Healthwatch tile has failed to collect metrics from Kubernetes clusters that
+the TKGI API created. This could be because the Prometheus instance either could not detect
+clusters that the TKGI API creates, could not create scrape jobs for the clusters, or could
+not scrape the clusters for metrics.
+
+### <a id='node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
+
+If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard in the Grafana UI
+might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.2.
+
+To fix this issue, upgrade to TKGI v1.10.
+
+### <a id='open-nsxt-ports'></a> Open VMware NSX-T Load Balancer Ports
+
+If you enable TKGI cluster discovery on a VMware NSX-T foundation, the VMware NSX-T load balancer
+does not open the required ports by default. If you do not manually open these ports, the Prometheus
+instance in the Healthwatch tile cannot scrape metrics from the TKGI clusters for which it
+created scrape jobs. To enable your Prometheus instance to scrape on-demand TKGI clusters,
+you must open the following ports: `10200`, `10251`, `10252`, and `8443`.
+
+To open the required load balancer ports using the VMware NSX-T Manager API:
+
+1. Retrieve the list of virtual servers by running:
+
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+    "https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers" | jq .
+    ```
+    Where:
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or fully-qualified domain name (FQDN) of your
+    VMware NSX-T console.
+
+1. In the output, record the contents of the `id` field in the JSON array item that has the
+`display_name` starting with `lb-pks` and ending with `virtual-server`.
+
+1. Retrieve the current configuration for the load balancer by running:
+
+    ```
+    curl -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+    https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID
+    ```
+    Where:
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or FQDN of your VMware NSX-T console.
+    * `VIRTUAL-SERVER-UUID` is the unique ID that identifies the load balancer.
+
+1. Save the output of the command you ran in the previous step as a JSON file.
+
+1. Edit the JSON file to include the additional ports, as shown in the example below:
+
+    ```
+    {
+        "...": "...",
+        "ports": [
+            "8443",
+            "10200",
+            "10251",
+            "10252"
+        ],
+        "...": "..."
+    }
+    ```
+
+1. Send a PUT request to the VMware NSX-T Manager API to update the virtual server by running:
+
+    ```
+    curl -X PUT -u 'NSX-T-USERNAME:NSX-T-PASSWORD' \
+        https://NSX-MGR-IP-OR-FQDN/api/v1/loadbalancer/virtual-servers/VIRTUAL-SERVER-UUID \
+        -H 'X-Allow-Overwrite: true' -H 'Content-type: Application/json' \
+        -d 'JSON-FILE-PORT-DATA'
+    ```
+    Where:
+    * `NSX-T-USERNAME` is the username you use to log in to the VMware NSX-T console.
+    * `NSX-T-PASSWORD` is the password you use to log in to the VMware NSX-T console.
+    * `NSX-MGR-IP-OR-FQDN` is the IP address or FQDN of your VMware NSX-T console.
+    * `VIRTUAL-SERVER-UUID` is the unique ID of the load balancer.
+    * `JSON-FILE-PORT-DATA` is the array of the additional ports you added to your JSON file
+    in the previous step.
+
+### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Cluster
+
+TKGI cluster discovery can fail with the following error:
+
+```
+2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
+java.net.UnknownHostException: CLUSTER-NAME.ENVIRONMENT-DOMAIN
+```
+
+Where:
+
+* `CLUSTER-NAME` is the name of your TKGI cluster.
+* `ENVIRONMENT-DOMAIN` is the domain of your TKGI foundation.
+
+This occurs because the TKGI API cannot access your TKGI cluster from the Internet. To resolve
+this issue, you must configure a DNS entry for the control plane of your TKGI cluster in the
+console for your IaaS.
+
+To configure a DNS entry for the control plane of your TKGI cluster:
+
+1. Find the public IP address for the control plane of your TKGI cluster in the user console
+for your IaaS. For more information, see the documentation for your IaaS:
+  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
+  for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
+  To find the public IP address for a Windows instance, see the [AWS documentation for Windows
+  instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
+  (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
+  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
+  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
+  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
+  (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
+
+1. Record the public IP address of the control plane of your TKGI cluster.
+
+1. Create an A record in your DNS server that points to the public IP address of the control
+plane of your TKGI cluster that you recorded in the previous step. For more information, see
+the documentation for your IaaS:
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
+  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal
+  DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
+  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
+
+1. Wait for your DNS server to update.
+
+
+The IP address of the control plane of your TKGI cluster should be set as the **IPv4 Address**.
+
+To start TKGI cluster discovery as quickly as possible, set the **TTL** to one second.
+
 
 
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
