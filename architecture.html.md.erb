@@ -25,7 +25,7 @@ You can install the Healthwatch tile on the same foundation or on a different fo
 on your desired monitoring configuration.
 
 You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database
-located outside your Ops Manager foundation, such as an external time series database (TSDB)
+located outside your Ops Manager foundation, such as an external time-series database (TSDB)
 or an installation of the Healthwatch tile on the TKGI Control Plane. This does not require
 you to install the Healthwatch tile.
 
@@ -163,7 +163,6 @@ VMs component:
     <th style="width: 22%">This component ...</th>
     <th style="width: 25%">Must communicate with ...</th>
     <th style="width: 20%">Default TCP Port</th>
-    <th style="width: 37%">Notes</th>
   </tr>
   <tr>
     <td><code>bosh-deployments-exporter</code></td>
@@ -179,7 +178,6 @@ VMs component:
         <li><code>25555</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td><code>bosh-health-exporter</code></td>
@@ -195,31 +193,26 @@ VMs component:
         <li><code>25555</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td><code>cert-expiration-exporter</code></td>
     <td>Ops Manager</td>
     <td><code>443</code></td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pas-exporter-counter</code></td>
-    <td>RLP nozzle</td>
+    <td>Reverse Log Proxy (RLP) nozzle</td>
     <td><code>8082</code></td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pas-exporter-gauge</code></td>
     <td>RLP nozzle</td>
     <td><code>8082</code></td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pas-exporter-timer</code></td>
     <td>RLP nozzle</td>
     <td><code>8082</code></td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pas-sli-exporter</code></td>
@@ -235,7 +228,6 @@ VMs component:
         <li><code>443</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
 </table>
 
@@ -261,7 +253,6 @@ The table below describes the ports you must open for each Healthwatch Exporter 
     <th style="width: 22%">This component ...</th>
     <th style="width: 25%">Must communicate with ...</th>
     <th style="width: 20%">Default TCP Port</th>
-    <th style="width: 37%">Notes</th>
   </tr>
   <tr>
     <td><code>bosh-deployments-exporter</code></td>
@@ -277,7 +268,6 @@ The table below describes the ports you must open for each Healthwatch Exporter 
         <li><code>25555</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td><code>bosh-health-exporter</code></td>
@@ -293,13 +283,11 @@ The table below describes the ports you must open for each Healthwatch Exporter 
         <li><code>25555</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td><code>cert-expiration-exporter</code></td>
     <td>Ops Manager</td>
     <td><code>443</code></td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pks-exporter</code></td>
@@ -315,7 +303,6 @@ The table below describes the ports you must open for each Healthwatch Exporter 
         <li><code>25595</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td><code>pks-sli-exporter</code></td>
@@ -331,7 +318,6 @@ The table below describes the ports you must open for each Healthwatch Exporter 
         <li><code>9021</code></li>
       </ul>
     </td>
-    <td></td>
   </tr>
 </table>
 
