@@ -52,12 +52,18 @@ only to store your Grafana settings and does not store any time series data.
 
 An Nginx proxy is deployed in front of the Prometheus instance.
 
-![A diagram that shows how the Prometheus, MySQL instance, and Nginx proxy relate to the Grafana instance](images/Healthwatch.png)
+The diagram below illustrates how metrics flow from the Healthwatch Exporter tile into the Healthwatch tile. The metrics then flow through Prometheus to Grafana and through Alertmanager to alerts.
+
+![An arrow points from the Healthwatch Exporter into the Healthwatch Tile. Inside the tile, the arrow points from Prometheus to Grafana and from Prometheus through Alertmanager to alerts. The MySQL box sits next to Grafana.](images/healthwatch-tile-architecture.png)
 
 ### <a id='ha-mode'></a> High Availability
 
 You can deploy the Healthwatch tile in high availability (HA) mode with three MySQL nodes and
 two MySQL Proxy nodes, or in non-HA mode with one MySQL node and one MySQL Proxy node.
+
+The diagram below shows Grafana reading metrics from Prometheus while sending settings to three MySQL nodes. 
+
+![An arrow depicts Grafana reading metrics from a Prometheus box. Another arrow shows Grafana sending data settings to three overlapping MySQL instances.](images/Healthwatch.png)
 
 ### <a id='scaling'></a> Component Scaling
 
