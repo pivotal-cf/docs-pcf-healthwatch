@@ -34,7 +34,7 @@ To access the Prometheus UI:
 1. Run:
 
     ```
-    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8082:localhost:8082'
+    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 9090:localhost:9090'
     ```
     Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
     the previous step.
@@ -43,7 +43,11 @@ To access the Prometheus UI:
       to a Prometheus VM using SSH, see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH
       SSH</a> in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
 
-1. In a web browser, navigate to `localhost:8082`. The Prometheus UI appears.
+1. Add the TSDB Client mTLS certificate and private key to your operating system's keystore. On OSX, for example, this is done through the `Keychain Access` tool.
+   The certificate and private key can be found in the `TSDB` section of the credentials tab in the Healthwatch tile and are labeled as `Tsdb Client Mtls`.
+   <p class='note'><strong>Note:</strong> The mTLS certificate and private key are required for accessing the Prometheus UI in order to provide increased security.</p>
+
+1. In a web browser, navigate to `localhost:9090`. The browser may ask which certificate to use for mTLS. Select the certificate imported above. The Prometheus UI appears.
 
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
