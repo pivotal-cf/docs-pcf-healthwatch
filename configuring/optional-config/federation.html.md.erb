@@ -97,6 +97,7 @@ on port `4450`.
   you want to monitor that you recorded in a previous step.
   1. For **TLS Config Certificate and Private Key**, enter the **Tsdb Client mTLS** credentials
   from the foundation you want to monitor that you recorded in a previous step.
+  1. For **TLS Config Server Name**, enter `promxy`, which is the CN from the certificate for the target Prometheus instance. This server name appears as the server_name property in the tls_config section of the Prometheus configuration file.
   1. Click **Save**.
   <br>
   <br>
