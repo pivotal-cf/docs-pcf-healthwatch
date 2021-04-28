@@ -8,7 +8,7 @@ or operating Healthwatch, Healthwatch Exporter for VMware Tanzu Application Serv
 (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI).
 
 
-## <a id="healthwatch-troubleshooting"></a> Accessing VM UIs for Troubleshooting
+## <a id='healthwatch-troubleshooting'></a> Accessing VM UIs for Troubleshooting
 
 The sections below describe how to access the user interfaces (UIs) of the Prometheus and Alertmanager
 VMs for troubleshooting.
@@ -82,9 +82,9 @@ To access the Alertmanager UI:
 The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch
 Exporter for TKGI.
 
-### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Installing or Upgrading
+### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
 
-When installing or upgrading to Healthwatch v2.1, you could see the following error:
+When installing or upgrading to Healthwatch v2.1, you see the following error:
 
 <pre class="terminal">
 - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
@@ -205,16 +205,46 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
 
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
+The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana
+UI.
+
+Potential causes of this failure include:
+
+* You are using TKGI v1.9 or earlier. For more information, see [No Data on TKGI Kubernetes
+Nodes Dashboard](#node-panels-no-data) below.
+
+* The Prometheus instance could not detect the clusters. For more information, see [Configure
+DNS for Your TKGI Cluster](#tkgi-dns) below.
+
+* The Prometheus instance could not create scrape jobs for the clusters. For more information,
+see [Configure DNS for Your TKGI Cluster](#tkgi-dns) below.
+
+* The Prometheus instance could not scrape the clusters for metrics. For more information,
+see [Open VMware NSX-T Load Balancer Ports](#open-nsxt-ports) below.
+
+To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see
+[Diagnose Prometheus Scrape Job Failure](#diagnose) below.
+
+### <a id='diagnose'></a> Diagnose Prometheus Scrape Job Failure
+
 When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus
-instance in the Healthwatch tile has failed to collect metrics from on-demand Kubernetes clusters
-created through the TKGI API. This could be because the Prometheus instance either could not
-detect the clusters, could not create scrape jobs for the clusters, or could not scrape the
-clusters for metrics.
+instance in the Healthwatch tile has failed to scrape metrics from on-demand Kubernetes clusters
+created through the TKGI API.
 
+To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters:
 
-to diagnose that, on the tsdb vm run `curl localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq .`
-then find that scrape job in the list, and look for the error description
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH
+SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced
+Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
+1. View information about your Prometheus instance scrape targets by running:
+
+    ```
+    curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq .
+    ```
+
+1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason
+for the Prometheus instance failing to scrape your TKGI clusters.
 
 ### <a id='node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
 
@@ -222,6 +252,65 @@ If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard in the
 might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.2.
 
 To fix this issue, upgrade to TKGI v1.10.
+
+### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Cluster
+
+When TKGI cluster discovery fails, you see the following error:
+
+```
+2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
+java.net.UnknownHostException: CLUSTER-NAME.ENVIRONMENT-DOMAIN
+```
+
+Where:
+
+* `CLUSTER-NAME` is the name of your TKGI cluster.
+* `ENVIRONMENT-DOMAIN` is the domain of your TKGI foundation.
+
+This occurs because the TKGI API cannot access your TKGI cluster from the Internet. To resolve
+this issue, you must configure a DNS entry for the control plane of your TKGI cluster in the
+console for your IaaS.
+
+To configure a DNS entry for the control plane of your TKGI cluster:
+
+1. Find the IP address and hostname of the control plane of your TKGI cluster. For more information,
+see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the
+TKGI documentation.
+
+1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you
+viewed in the previous step. For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
+in the TKGI documentation.
+
+1. In the user console for your IaaS, find the public IP address of the VM that has an internal
+IP address matching the **Kubernetes Master IP(s)** you recorded in the previous step. For
+more information, see the documentation for your IaaS:
+  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
+  for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
+  To find the public IP address for a Windows instance, see the [AWS documentation for Windows
+  instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
+  (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
+  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
+  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
+  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
+  (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
+
+1. Create an A record in your DNS server that points to the public IP address of the control
+plane of your TKGI cluster that you recorded in the previous step. For more information, see
+the documentation for your IaaS:
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
+  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal
+  DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
+  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
+
+1. Wait for your DNS server to update.
 
 ### <a id='open-nsxt-ports'></a> Open VMware NSX-T Load Balancer Ports
 
@@ -293,72 +382,13 @@ To open the required load balancer ports using the VMware NSX-T Manager API:
     * `JSON-FILE-PORT-DATA` is the array of the additional ports you added to your JSON file
     in the previous step.
 
-### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Cluster
-
-TKGI cluster discovery can fail with the following error:
-
-```
-2020-05-20 19:24:02 ERROR k8s.K8sClient [parallel-1] Failed to make request
-java.net.UnknownHostException: CLUSTER-NAME.ENVIRONMENT-DOMAIN
-```
-
-Where:
-
-* `CLUSTER-NAME` is the name of your TKGI cluster.
-* `ENVIRONMENT-DOMAIN` is the domain of your TKGI foundation.
-
-This occurs because the TKGI API cannot access your TKGI cluster from the Internet. To resolve
-this issue, you must configure a DNS entry for the control plane of your TKGI cluster in the
-console for your IaaS.
-
-To configure a DNS entry for the control plane of your TKGI cluster:
-
-1. Find the IP address and hostname of the control plane of your TKGI cluster. For more information,
-see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the
-TKGI documentation.
-
-1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you
-viewed in the previous step. For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
-in the TKGI documentation.
-
-1. In the user console for your IaaS, find the public IP address of the VM that has an internal
-IP address matching the **Kubernetes Master IP(s)** you recorded in the previous step. For
-more information, see the documentation for your IaaS:
-  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
-  for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
-  To find the public IP address for a Windows instance, see the [AWS documentation for Windows
-  instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
-  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
-  (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
-  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
-  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
-  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
-  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
-  (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
-
-1. Create an A record in your DNS server that points to the public IP address of the control
-plane of your TKGI cluster that you recorded in the previous step. For more information, see
-the documentation for your IaaS:
-  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
-  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
-  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
-  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
-  (https://cloud.google.com/dns/docs/records#adding_a_record).
-  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal
-  DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
-  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
-  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
-
-1. Wait for your DNS server to update.
-
 
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
 
 By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch**
 folder.
 
-### <a id="healthwatch-slos"></a> Viewing Healthwatch Exporter Tile Metrics
+### <a id='healthwatch-slos'></a> Viewing Healthwatch Exporter Tile Metrics
 
 The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter
 VM you select from the corresponding metric exporter instance dropdown at the top of the page.
@@ -379,7 +409,7 @@ the selected **Uptime SLO Target** over the selected time period.
 * **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during
 the selected time period.
 
-### <a id="healthwatch-exporter-troubleshooting"></a> Troubleshooting Healthwatch Exporter for TAS for VMs
+### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
 
 The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics
 that allow you to monitor the performance of each Healthwatch Exporter for TAS for VMs tile
