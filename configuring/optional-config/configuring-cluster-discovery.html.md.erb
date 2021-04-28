@@ -30,6 +30,9 @@ below.
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For
 more information, see [Configure TKGI](#configure-tkgi) below.
 
+If TKGI cluster discovery fails after you have completed both parts of the procedure in this
+topic, see [Troubleshooting TKGI Cluster Discovery Failure](#troubleshooting) below.
+
 <p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to
   TKGI and view them in the Grafana UI, you must install and configure the Healthwatch Exporter
   for TKGI on your foundations with TKGI installed. To install the Healthwatch Exporter for
@@ -170,3 +173,10 @@ your TKGI clusters with the roles you created in the **(Optional) Add-ons - Use 
 field of the plans you monitor in a previous step.
 
 1. Click **Save**.
+
+
+## <a id='troubleshooting'></a> Troubleshooting TKGI Cluster Discovery Failure
+
+TKGI cluster discovery can fail if the Prometheus instance fails to scrape metrics from your
+TKGI clusters. To troubleshoot TKGI cluster discovery failure, see [Troubleshooting Missing
+TKGI Cluster Metrics](../../troubleshooting.html#tkgi-clusters) in _Troubleshooting Healthwatch_.
