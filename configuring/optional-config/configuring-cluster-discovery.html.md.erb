@@ -76,13 +76,14 @@ the Grafana UI.
 
 1. For **TKGI API Address**, enter the TKGI API domain you configured in the **API Hostname
 (FQDN)** field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
-For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
-in the TKGI documentation.
+For more information, see [Routing to the TKGI API VM](https://docs.pivotal.io/tkgi/api-auth.html#routing)
+in _TKGI API Authentication_ in the TKGI documentation.
 
 1. For **TKGI UAA Client**, enter one of the following options for the TKGI UAA client username:
     * Enter the TKGI management admin client username `admin`.
     * Create a separate UAA client with access to the TKGI API and enter the client username
     you specify. For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
+    and [Managing Tanzu Kubernetes Grid Integrated Edition Users with UAA](https://docs.pivotal.io/tkgi/manage-users.html)
     in the TKGI documentation.
 
 1. For **TKGI UAA Client Secret**, enter one of the following options for the TKGI UAA client
@@ -157,7 +158,7 @@ in the previous step to the Prometheus instance by running:
 1. Retrieve the list of clusters created through the TKGI API by running:  
 
     ```
-     curl "TKGI-API-IP-ADDRESS/v1/clusters" \
+     curl "https://TKGI-API-IP-ADDRESS/v1/clusters" \
           -X GET
           -H "Authorization: Bearer TKGI-API-ACCESS-TOKEN"
      ```
@@ -169,17 +170,45 @@ in the previous step to the Prometheus instance by running:
 
 1. Record the IP addresses of the control plane nodes of the TKGI clusters you want to monitor.
 
+1. Retrieve the access token for the TKGI UAA client:
+  1. Target your TKGI UAA server by running:
+
+      ```
+      uaac target https://TKGI-API-DOMAIN:8443 --ca-cert CERTIFICATE-PATH
+      ```
+      Where:
+      * `TKGI-API-DOMAIN` the TKGI API domain you configured in the **API Hostname (FQDN)**
+      field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
+      * `CERTIFICATE-PATH` is the path to your Ops Manager root CA certificate.
+  1. Authenticate and obtain an access token for the TKGI UAA client from the UAA server by
+  running:
+
+      ```
+      uaac token client get admin -s TKGI-UAA-CLIENT-SECRET
+      ```
+      Where `TKGI-UAA-CLIENT-SECRET` is the TKGI UAA client secret that you configured in the
+      **TKGI UAA Client Secret** field in the **TKGI Cluster Discovery Configuration** pane
+      of the Healthwatch tile in a previous step.
+  1. Run:
+
+      ```
+      uaac contexts
+      ```
+  1. From the output of the `uaac contexts` command, record the value of the `access_token`
+  field.
+
 1. Retrieve the mutual TLS (mTLS) certificates that the Prometheus instance uses to connect
 to the TKGI UAA client by running: 
 
- ``` 
-    curl "KUBERNETES-API-IP-ADDRESS/apis/certificates.k8s.io/v1beta1/certificatesigningrequests" \
+     ``` 
+    curl "https://KUBERNETES-API-IP-ADDRESS/apis/certificates.k8s.io/v1beta1/certificatesigningrequests" \
           -X GET \
           -H "Authorization: Bearer TKGI-UAA-CLIENT-ACCESS-TOKEN "
     ``` 
     Where:
     * `KUBERNETES-API-IP-ADDRESS` is the IP address of the Kubernetes API.
-    * `TKGI-UAA-CLIENT-ACCESS-TOKEN ` is the access token for the TKGI UAA client.
+    * `TKGI-UAA-CLIENT-ACCESS-TOKEN ` is the access token for the TKGI UAA client that you recorded
+    in the previous step.
 
 1. Return to the **Healthwatch** tile.
 
@@ -187,31 +216,31 @@ to the TKGI UAA client by running: 
 
 1. For each cluster, generate [how?] a scrape job ["for each endpoint that will be scraped per cluster" -- what does that mean?].
 
-```
-job_name: kube-scheduler
-metrics_path: /metrics
-scheme: https
-static_configs:
- - targets:
-   - "PROMETHEUS-INSTANCE-IP-1:8443"
-   - "PROMETHEUS-INSTANCE-IP-2:8443"
-   - "PROMETHEUS-INSTANCE-IP-1:10252"
-   - "PROMETHEUS-INSTANCE-IP-2:10252"
-   - "PROMETHEUS-INSTANCE-IP-1:10251"
-   - "PROMETHEUS-INSTANCE-IP-2:10251"
-   - "PROMETHEUS-INSTANCE-IP-1:10250"
-   - "PROMETHEUS-INSTANCE-IP-2:10250"
-```
-For more information about the ports that must be open for you to configure TKGI cluster discovery, see [Networking Rules for the Healthwatch Tile](../../architecture.html#network-rules-hw) in _Reference Architecture_.
+    ```
+    job_name: kube-scheduler
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+     - targets:
+       - "PROMETHEUS-INSTANCE-IP-1:8443"
+       - "PROMETHEUS-INSTANCE-IP-2:8443"
+       - "PROMETHEUS-INSTANCE-IP-1:10252"
+       - "PROMETHEUS-INSTANCE-IP-2:10252"
+       - "PROMETHEUS-INSTANCE-IP-1:10251"
+       - "PROMETHEUS-INSTANCE-IP-2:10251"
+       - "PROMETHEUS-INSTANCE-IP-1:10250"
+       - "PROMETHEUS-INSTANCE-IP-2:10250"
+    ```
+    For more information about the ports that must be open for you to configure TKGI cluster discovery, see [Networking Rules for the Healthwatch Tile](../../architecture.html#network-rules-hw) in _Reference Architecture_.
 
 1. Merge the generated scrape job configuration YAMLs with both the default Scrape Config Jobs and the user-provided Additional Scrape Configs.  [How does one "merge" these scrape job configs?]
 
 1. Reload the Prometheus instance by running:
 
     ```
-    PROMETHEUS-API-IP-ADDRESS/-/reload
+    curl "https://PROMETHEUS-API-IP-ADDRESS/-/reload"
     ```
-    Where `Prometheus-API-IP-ADDRESS` is the IP address of the Prometheus API. Reloading the
+    Where `PROMETHEUS-API-IP-ADDRESS` is the IP address of the Prometheus API. Reloading the
     Prometheus instance applies the new scrape jobs you configured in the previous step.
 
 
