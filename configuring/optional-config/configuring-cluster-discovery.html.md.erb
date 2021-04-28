@@ -23,30 +23,19 @@ uses to connect to the TKGI API, and the TKGI tile.
 
 To configure TKGI cluster discovery:
 
-1. Ensure that you meet the prerequisite for configuring TKGI cluster discovery. For more information,
-see [Prerequisite](#prerequisite) below.
-
 1. Configure the **TKGI Cluster Discovery Configuration** pane in the Healthwatch tile. For
 more information, see [Configure TKGI Cluster Discovery in Healthwatch](#configure-tkgi-cluster-discovery)
-below.
-
-1. Configure the Prometheus instance to connect to the Kubernetes API and scrape metrics from
-your TKGI clusters. For more information, see [Configure Prometheus](#configure-prometheus)
 below.
 
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For
 more information, see [Configure TKGI](#configure-tkgi) below.
 
-
-## <a id='prerequisite'></a> Prerequisite
-
-To collect TKGI metrics and view them in the Grafana UI, you must install and configure the
-Healthwatch Exporter for TKGI on your foundations with TKGI installed.
-
-To install the Healthwatch Exporter for TKGI tile, see [Installing a Tile Manually](../../installing/installing-manually.html).
-
-To configure the Healthwatch Exporter for TKGI tile, see [Configuring Healthwatch Exporter
-for TKGI](../configuring-exporter-tkgi.html).
+<p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to
+  TKGI and view them in the Grafana UI, you must install and configure the Healthwatch Exporter
+  for TKGI on your foundations with TKGI installed. To install the Healthwatch Exporter for
+  TKGI tile, see <a href="../../installing/installing-manually.html">Installing a Tile Manually</a>.
+  To configure the Healthwatch Exporter for TKGI tile, see <a href="../configuring-exporter-tkgi.html">Configuring
+  Healthwatch Exporter for TKGI</a>.</p>
 
 
 ## <a id='configure-tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery in Healthwatch
@@ -130,124 +119,10 @@ configure one of the following options:
 1. Click **Save**.
 
 
-## <a id='configure-prometheus'></a> Configure Prometheus
-
-After you enable and configure TKGI cluster discovery in **TKGI Cluster Discovery Configuration**
-pane of the Healthwatch tile, you must configure the Prometheus instance to scrape metrics
-from your TKGI clusters.
-
-To configure the Prometheus instance:
-
-1. In a terminal window, create a ClusterRole that grants permissions to scrape the Kubernetes
-API `/metrics` endpoint by running:
-
-    ```
-    kubectl create clusterrole healthwatch --verb=get,watch,list --resource=pods/proxy,pods,nodes,nodes/proxy,namespace/pods,endpoints,services
-    ```
-
-1. Create a ClusterRoleBinding to grant the permissions defined in the ClusterRole you created
-in the previous step to the Prometheus instance by running:
-
-    ```
-    kubectl create clusterrolebinding healthwatch --clusterrole=healthwatch --user=TKGI-UAA-CLIENT-USERNAME
-    ```
-    Where `TKGI-UAA-CLIENT-USERNAME` is the username of the TKGI UAA client that you configured
-    in the **TKGI UAA Client** field in the **TKGI Cluster Discovery Configuration** pane of
-    the Healthwatch tile in a previous step.
-
-1. Retrieve the list of clusters created through the TKGI API by running:  
-
-    ```
-     curl "https://TKGI-API-IP-ADDRESS/v1/clusters" \
-          -X GET
-          -H "Authorization: Bearer TKGI-API-ACCESS-TOKEN"
-     ```
-    Where:
-    * `TKGI-API-IP-ADDRESS` is the IP address of the TKGI API.
-    * `TKGI-API-ACCESS-TOKEN` is your TKGI API access token. To configure an access token for
-    the TKGI API, see [Export TKGI API Access Token](https://docs.pivotal.io/tkgi/login.html#tkgi-api-access)
-    in _Logging In to Tanzu Kubernetes Grid Integrated Edition_ in the TKGI documentation.
-
-1. Record the IP addresses of the control plane nodes of the TKGI clusters you want to monitor.
-
-1. Retrieve the access token for the TKGI UAA client:
-  1. Target your TKGI UAA server by running:
-
-      ```
-      uaac target https://TKGI-API-DOMAIN:8443 --ca-cert CERTIFICATE-PATH
-      ```
-      Where:
-      * `TKGI-API-DOMAIN` the TKGI API domain you configured in the **API Hostname (FQDN)**
-      field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
-      * `CERTIFICATE-PATH` is the path to your Ops Manager root CA certificate.
-  1. Authenticate and obtain an access token for the TKGI UAA client from the UAA server by
-  running:
-
-      ```
-      uaac token client get admin -s TKGI-UAA-CLIENT-SECRET
-      ```
-      Where `TKGI-UAA-CLIENT-SECRET` is the TKGI UAA client secret that you configured in the
-      **TKGI UAA Client Secret** field in the **TKGI Cluster Discovery Configuration** pane
-      of the Healthwatch tile in a previous step.
-  1. Run:
-
-      ```
-      uaac contexts
-      ```
-  1. From the output of the `uaac contexts` command, record the value of the `access_token`
-  field.
-
-1. Retrieve the mutual TLS (mTLS) certificates that the Prometheus instance uses to connect
-to the TKGI UAA client by running: 
-
-     ``` 
-    curl "https://KUBERNETES-API-IP-ADDRESS/apis/certificates.k8s.io/v1beta1/certificatesigningrequests" \
-          -X GET \
-          -H "Authorization: Bearer TKGI-UAA-CLIENT-ACCESS-TOKEN "
-    ``` 
-    Where:
-    * `KUBERNETES-API-IP-ADDRESS` is the IP address of the Kubernetes API.
-    * `TKGI-UAA-CLIENT-ACCESS-TOKEN ` is the access token for the TKGI UAA client that you recorded
-    in the previous step.
-
-1. Return to the **Healthwatch** tile.
-
-1. Select **Prometheus Configuration**.
-
-1. For each cluster, generate [how?] a scrape job ["for each endpoint that will be scraped per cluster" -- what does that mean?].
-
-    ```
-    job_name: kube-scheduler
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-     - targets:
-       - "PROMETHEUS-INSTANCE-IP-1:8443"
-       - "PROMETHEUS-INSTANCE-IP-2:8443"
-       - "PROMETHEUS-INSTANCE-IP-1:10252"
-       - "PROMETHEUS-INSTANCE-IP-2:10252"
-       - "PROMETHEUS-INSTANCE-IP-1:10251"
-       - "PROMETHEUS-INSTANCE-IP-2:10251"
-       - "PROMETHEUS-INSTANCE-IP-1:10250"
-       - "PROMETHEUS-INSTANCE-IP-2:10250"
-    ```
-    For more information about the ports that must be open for you to configure TKGI cluster discovery, see [Networking Rules for the Healthwatch Tile](../../architecture.html#network-rules-hw) in _Reference Architecture_.
-
-1. Merge the generated scrape job configuration YAMLs with both the default Scrape Config Jobs and the user-provided Additional Scrape Configs.  [How does one "merge" these scrape job configs?]
-
-1. Reload the Prometheus instance by running:
-
-    ```
-    curl "https://PROMETHEUS-API-IP-ADDRESS/-/reload"
-    ```
-    Where `PROMETHEUS-API-IP-ADDRESS` is the IP address of the Prometheus API. Reloading the
-    Prometheus instance applies the new scrape jobs you configured in the previous step.
-
-
 ## <a id='configure-tkgi'></a> Configure TKGI
 
-After you configure the Prometheus instance to scrape metrics from your TKGI clusters, you
-must configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters.
+After you you enable and configure TKGI cluster discovery in the Healthwatch tile, you must
+configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters.
 
 To configure TKGI:
 
@@ -276,8 +151,8 @@ Healthwatch.
 1. Click **Save**.
 
 1. For each plan you want to monitor:
-  1. In the TKGI tile, select the plan you want to monitor. For example, **Plan 2**.
-  1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to configure
+  1. Select the plan you want to monitor. For example, **Plan 2**.
+  1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to create
   the roles required to enable the Prometheus instance to scrape metrics from your TKGI clusters:
 
       <%= partial '../../snippets/cluster_scraping_config.md' %>
@@ -290,7 +165,8 @@ Healthwatch.
 
 1. Select **Errands**.
 
-1. Ensure that the **Upgrade all clusters** errand is enabled. Running this errand propogates
-the add-on resources provided in each plan to on-demand clusters.
+1. Ensure that the **Upgrade all clusters** errand is enabled. Running this errand configures
+your TKGI clusters with the roles you created in the **(Optional) Add-ons - Use with caution**
+field of the plans you monitor in a previous step.
 
 1. Click **Save**.
