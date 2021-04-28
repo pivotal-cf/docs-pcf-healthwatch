@@ -206,10 +206,15 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
 When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus
-instance in the Healthwatch tile has failed to collect metrics from Kubernetes clusters that
-the TKGI API created. This could be because the Prometheus instance either could not detect
-clusters that the TKGI API creates, could not create scrape jobs for the clusters, or could
-not scrape the clusters for metrics.
+instance in the Healthwatch tile has failed to collect metrics from on-demand Kubernetes clusters
+created through the TKGI API. This could be because the Prometheus instance either could not
+detect the clusters, could not create scrape jobs for the clusters, or could not scrape the
+clusters for metrics.
+
+
+to diagnose that, on the tsdb vm run `curl localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq .`
+then find that scrape job in the list, and look for the error description
+
 
 ### <a id='node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
 
@@ -308,8 +313,17 @@ console for your IaaS.
 
 To configure a DNS entry for the control plane of your TKGI cluster:
 
-1. Find the public IP address for the control plane of your TKGI cluster in the user console
-for your IaaS. For more information, see the documentation for your IaaS:
+1. Find the IP address and hostname of the control plane of your TKGI cluster. For more information,
+see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the
+TKGI documentation.
+
+1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you
+viewed in the previous step. For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
+in the TKGI documentation.
+
+1. In the user console for your IaaS, find the public IP address of the VM that has an internal
+IP address matching the **Kubernetes Master IP(s)** you recorded in the previous step. For
+more information, see the documentation for your IaaS:
   * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
   for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
   To find the public IP address for a Windows instance, see the [AWS documentation for Windows
@@ -321,8 +335,6 @@ for your IaaS. For more information, see the documentation for your IaaS:
   documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
   * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
   (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
-
-1. Record the public IP address of the control plane of your TKGI cluster.
 
 1. Create an A record in your DNS server that points to the public IP address of the control
 plane of your TKGI cluster that you recorded in the previous step. For more information, see
@@ -339,12 +351,6 @@ the documentation for your IaaS:
   see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
 
 1. Wait for your DNS server to update.
-
-
-The IP address of the control plane of your TKGI cluster should be set as the **IPv4 Address**.
-
-To start TKGI cluster discovery as quickly as possible, set the **TTL** to one second.
-
 
 
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
