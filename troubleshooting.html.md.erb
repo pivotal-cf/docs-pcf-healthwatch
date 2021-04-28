@@ -214,7 +214,8 @@ Potential causes of this failure include:
 Nodes Dashboard](#node-panels-no-data) below.
 
 * The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for
-the clusters. For more information, see [Configure DNS for Your TKGI Cluster](#tkgi-dns) below.
+the clusters, causing TKGI cluster discovery to fail. For more information, see [Configure
+DNS for Your TKGI Cluster](#tkgi-dns) below.
 
 To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see
 [Diagnose Prometheus Scrape Job Failure](#diagnose) below.
@@ -248,7 +249,7 @@ and earlier and Kubernetes v1.20.1 and earlier.
 
 To fix this issue, upgrade to TKGI v1.10.2.
 
-### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Cluster
+### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
 
 When TKGI cluster discovery fails, you see the following error:
 
@@ -262,23 +263,25 @@ Where:
 * `CLUSTER-NAME` is the name of your TKGI cluster.
 * `ENVIRONMENT-DOMAIN` is the domain of your TKGI foundation.
 
-This occurs because the TKGI API cannot access your TKGI cluster from the Internet. To resolve
-this issue, you must configure a DNS entry for the control plane of your TKGI cluster in the
-console for your IaaS.
+This occurs because the TKGI API cannot access your TKGI clusters from the Internet. To resolve
+this issue, you must configure a DNS entry for the control plane of each of your TKGI clusters
+in the console for your IaaS.
 
-To configure a DNS entry for the control plane of your TKGI cluster:
+To configure DNS entries for the control planes of your TKGI clusters:
 
-1. Find the IP address and hostname of the control plane of your TKGI cluster. For more information,
-see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the
-TKGI documentation.
+1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters.
+For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
+in the TKGI documentation.
 
 1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you
 viewed in the previous step. For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
 in the TKGI documentation.
 
-1. In the user console for your IaaS, find the public IP address of the VM that has an internal
-IP address matching the **Kubernetes Master IP(s)** you recorded in the previous step. For
-more information, see the documentation for your IaaS:
+1. In a web browser, log in to the user console for your IaaS.
+
+1. For each TKGI cluster, find the public IP address of the VM that has an internal IP address
+matching the **Kubernetes Master IP(s)** you recorded in a previous step. For more information,
+see the documentation for your IaaS:
   * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
   for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
   To find the public IP address for a Windows instance, see the [AWS documentation for Windows
@@ -291,9 +294,9 @@ more information, see the documentation for your IaaS:
   * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
   (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
 
-1. Create an A record in your DNS server that points to the public IP address of the control
-plane of your TKGI cluster that you recorded in the previous step. For more information, see
-the documentation for your IaaS:
+1. For each TKGI cluster, create an A record in your DNS server that points to the public IP
+address of the control plane of the TKGI cluster that you recorded in the previous step. For
+more information, see the documentation for your IaaS:
   * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
   see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
   * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
