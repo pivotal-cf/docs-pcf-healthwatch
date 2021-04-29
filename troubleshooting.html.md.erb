@@ -208,6 +208,9 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
 The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana
 UI.
 
+To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see
+[Diagnose Prometheus Scrape Job Failure](#diagnose) below.
+
 Potential causes of this failure include:
 
 * You are using TKGI v1.10.0 or v1.10.1. For more information, see [No Data on TKGI Kubernetes
@@ -216,9 +219,6 @@ Nodes Dashboard](#node-panels-no-data) below.
 * The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for
 the clusters, causing TKGI cluster discovery to fail. For more information, see [Configure
 DNS for Your TKGI Cluster](#tkgi-dns) below.
-
-To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see
-[Diagnose Prometheus Scrape Job Failure](#diagnose) below.
 
 ### <a id='diagnose'></a> Diagnose Prometheus Scrape Job Failure
 
