@@ -1,0 +1,99 @@
+---
+title: Using Healthwatch v2.1
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to access and use your Healthwatch dashboards. 
+
+## <a id='overview'></a> Overview
+
+Healthwatch v2.1 uses Grafana to visualize data in charts and graphs.
+Once you have installed and configured the Healthwatch and Healthwatch Exporter tiles, log in to the Grafana UI to view more than 25 default dashboards that show you how your foundation is performing.
+
+For detailed steps on how to access your dashboard and understand how to view and take action on the data, see the following sections: 
+
+* [Accessing Healthwatch Dashboards](#access-dashboards)
+* [Overview of Healthwatch Dashboards](#overview-dashboards)
+
+## <a id='access-dashboards'></a> Accessing Healthwatch Dashboards
+
+To view your Healthwatch dashboards, you must log in to the Grafana UI. The URL and credentials depend on how you configured Grafana authentication in the Healthwatch tile. For more information about configuring Grafana authentication, see [Configuring Grafana Authentication](configuring/grafana-authentication.html).
+
+1. Log in to the Grafana UI using the URL and credentials that correspond with how you configured Grafana authentication. The table below lists the URL and credentials for the most common configurations.
+
+<table>
+    <tr>
+        <th>Authentication</th>
+        <th>URL</th>
+        <th>Credentials</th>
+    </tr>
+    <tr>
+        <td>
+            <strong>Basic</strong>
+        </td>
+        <td>
+            http://localhost:3000/login
+        </td>
+        <td>
+            The username is <code>admin</code>. To find the password, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Credentials</strong> tab, scroll down to the <strong>Grafana</strong> job, and next to <strong>Admin Login Password</strong>, click <strong>Link to Credential</strong>.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Generic OAuth</strong>
+        </td>
+        <td>
+            To find the URL, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Settings</strong> tab, select the <strong>Grafana Configuration</strong> pane, and copy the contents of the <strong>Root URL for Grafana</strong> field.
+        </td>
+        <td>
+            On the Grafana UI login page, click the <strong>OAuth</strong> button to log in with your OAuth credentials.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>UAA</strong>
+        </td>
+        <td>
+            To find the URL, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Settings</strong> tab, select the <strong>Grafana Configuration</strong> pane, and copy the contents of the <strong>Root URL for Grafana</strong> field.
+        </td>
+        <td>
+            On the Grafana UI login page, click the <strong>UAA</strong> button to log in with your UAA credentials.
+        </td>
+    </tr>
+</table>
+    
+1. On the side menubar of the Grafana homepage, hover over the Dashboards icon and click **Manage**. 
+
+A list of folders appears. You may only have a subset of the following folders, depending on your deployment. 
+
+* **Foundation** contains six dashboards that show you how the BOSH Director, Ops Manager, component VMs, and canary apps are functioning, and when certificates will expire.
+
+* **Healthwatch:** contains two dashboards that show you how the Healthwatch tile's exporters and components are functioning.
+
+* **Tanzu Kubernetes Grid Integrated:** contains eight dashboards that show you how your Kubernetes clusters, nodes, controllers, scheduler, API servers, and TKGI Control Plane are performing. 
+
+* **Tanzu Application Service:** contains nine dashboards that show you how your TAS for VMs platform and all its components, applications, and tasks are performing.
+
+* **MySQL:** contains one dashboard that shows you how all your MySQL clusters and nodes are performing. You only see this folder if you configured Healthwatch to monitor your MySQL tile.
+
+* **RabbitMQ:** contains seven dashboards that show you how messages, publishers, consumers, connections, channels, queues, and nodes are going. You only see this folder if you configured Healthwatch to monitor your RabbitMQ tile.
+
+1. Click the folder name to expand a list of the dashboards it contains. 
+1. Click the dashboard name to open it. 
+
+## <a id='overview-dashboards'></a> Overview of Healthwatch Dashboards
+Healthwatch gives you more than 25 default dashboards. Each dashboard contains charts and graphs called panels. Detailed descriptions in each dashboard and panel explain what you are looking at and how to take action. The diagram below shows where to find these descriptions and filter the data. 
+
+<p class="note">
+    <strong>Note:</strong> To edit a dashboard, copy the dashboard and edit the copy.
+</p>
+
+![Screenshot of Grafana dashboard with arrows labeled "A," "B," and "C." Arrow A points to filters. Arrow B points to an expandable "About" header. Arrow C points to hover-over icon in the upper left of a panel.](images/grafana-dashboard-diagram.png)
+
+* **A-Filters:** Select these dropdowns to filter the data.
+* **B-About the Dashboard:** Select this header to expand a description of what the dashboards show you.
+* **C-Panel Information and Troubleshooting:** Hover over this icon for information about what the panel tells you and how to take action. 
+
+For information about how to fine-tune your dashboards, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/dashboards/).  
