@@ -12,10 +12,10 @@ This topic contains release notes for Healthwatch v2.0.6 and v2.1.
 Healthwatch v2.1 is very different from Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source
 components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well
 as configure alerts. For more information about the differences between Pivotal Healthwatch
-v1 and Healthwatch v2 and how to upgrade, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+v1 and Healthwatch v2.1 and how to upgrade to Healthwatch v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
 
-For more information about this release, read [Healthwatch for VMware Tanzu 2.1 Offers Breakthrough
-Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring)
+For more information about Healthwatch v2.1, read [Healthwatch for VMware Tanzu 2.1 Offers
+Breakthrough Platform Monitoring](https://tanzu.vmware.com/content/blog/healthwatch-vmware-tanzu-2-1-platform-monitoring)
 on the VMware Tanzu blog and [New Features](#new-features) below.
 
 For information about the risks and limitations of Healthwatch v2.1, see [Assumed Risks of
@@ -30,8 +30,8 @@ in _Healthwatch_.
 **Release Date:** 03/18/2021
 
 * **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
-
-For more detailed information about this known issue, see [Known Issues](#known-issues) below.
+For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
+(#mysql-proxy-maxed) below.
 
 Healthwatch v2.1.0 uses the following open-source component versions:
 
@@ -46,31 +46,33 @@ Healthwatch v2.1.0 uses the following open-source component versions:
 **Release Date:** 02/11/2021
 
 * **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.10.
+For more information, see [Healthwatch Supports TKGI v1.10](#tkgi-1-10) below.
 
-* **[Feature]** You can assign static IP addresses to Prometheus VMs.
+* **[Feature]** You can assign static IP addresses to Prometheus VMs. For more information,
+see [Assign Static IP Addresses to Prometheus VMs](#assign-static-ips) below.
 
-* **[Feature]** Healthwatch replaces Pivotal Event Alerts with Alertmanager.
+* **[Feature]** Healthwatch replaces Pivotal Event Alerts with Alertmanager. For more information,
+see [Healthwatch Replaces Event Alerts With Alertmanager](#event-alerts) below.
 
 * **[Feature Deprecation]** Healthwatch removes support for Monitoring Indicator Protocol.
+For more information, see [Healthwatch Removes Monitoring Indicator Protocol](#indicator-protocol)
+below.
 
 * **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select
 the **Skip SSL validation** checkbox in the **Canary URL Configuration** pane of the Healthwatch
-tile.
+tile. For more information, see [Self-Signed Certificates Break Dashboards](#self-signed-certs)
+below.
 
 * **[Known Issue]** You may see an "Unable to render templates" error when upgrading Healthwatch
-on Ops Manager v2.3 through v2.7.
-
-* **[Known Issue]** You must open VMware NSX-T load balancer ports for TKGI cluster discovery
-to work.
+on Ops Manager v2.3 through v2.7. For more information, see ["Unable to Render Templates" Error
+When Installing or Upgrading](#upgrade-from-om-23) below.
 
 * **[Known Issue]** The **Kubernetes Nodes** dashboard in the Grafana UI might not show data
-for individual pods.
+for individual pods. For more information, see [No Data on TKGI Kubernetes Nodes Dashboard]
+(#kubernetes-node-panels-no-data) below.
 
-* **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly.
-
-For more information about these new features, breaking changes, and known issues, see [New
-Features](#new-features), [Breaking Changes](#breaking-changes), and [Known Issues](#known-issues)
-below.
+* **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly. For more
+information, see [MySQL Proxy Disk Space Fills Up Quickly](#mysql-proxy-maxed) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -90,7 +92,7 @@ To upgrade from Pivotal Healthwatch v1 to Healthwatch v2.1, see [Upgrading Healt
 
 Healthwatch v2.0.6 and v2.1 include the following major features:
 
-### <a id='supports-tkgi-1-10'></a> Healthwatch Supports TKGI v1.10
+### <a id='tkgi-1-10'></a> Healthwatch Supports TKGI v1.10
 
 You can use Healthwatch to monitor TKGI v1.10.
 
@@ -110,15 +112,15 @@ You can then view the IP addresses of your Prometheus VMs using the BOSH CLI.
 For more information about assigning IP addresses to your Prometheus VMs, see [(Optional) Configure
 Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
-### <a id='replaces-event-alerts'></a> Healthwatch Replaces Event Alerts With Alertmanager
+### <a id='event-alerts'></a> Healthwatch Replaces Event Alerts With Alertmanager
 
 Healthwatch v2.1 uses Alertmanager, an open-source Prometheus component, to manage and send
 alerts according to the alerting rules you configure. Pivotal Healthwatch v1 used Pivotal Event
 Alerts for managing alerts, which Healthwatch v2.1 does not support.
 
-For more information about configuring alerts, see [Alerting](configuring/optional-config/alerting.html).
+For more information about configuring alerts, see [Configuring Alerting](configuring/optional-config/alerting.html).
 
-### <a id='removes-indicator-protocol'></a> Healthwatch Removes Monitoring Indicator Protocol
+### <a id='indicator-protocol'></a> Healthwatch Removes Monitoring Indicator Protocol
 
 Healthwatch no longer supports Monitoring Indicator Protocol, and the **Indicator Protocol**
 dashboard is removed from the Grafana UI.
@@ -156,7 +158,7 @@ for TKGI_.
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
 
-### <a id="upgrade-from-om-23"></a> "Unable to Render Templates" Error When Installing or Upgrading
+### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
 
 This issue is fixed in Ops Manager v2.8 and later.
 
@@ -168,28 +170,26 @@ When installing or upgrading to Healthwatch v2.1, you could see the following er
 </pre>
 
 This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through
-v2.7. 
+v2.7.
 
-For more information about how to fix this issue without upgrading to Ops Manager v2.8, see [HEADER](troubleshooting.html#ANCHOR) in _Troubleshooting_.
+For more information about how to fix this issue without upgrading to Ops Manager v2.8, see
+["Unable to Render Templates" Error When Installing or Upgrading](troubleshooting.html#upgrade-from-om-23)
+in _Troubleshooting Healthwatch_.
 
-### <a id="pks-cluster-discovery-nsxt-ports"></a> TKGI Cluster Discovery Requires Opening VMware NSX-T Load Balancer Ports
+### <a id='kubernetes-node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
 
-If you enable TKGI cluster discovery on a VMware NSX-T foundation, the VMware NSX-T load balancer
-does not open the required ports by default. To enable your Prometheus instance to scrape on-demand
-TKGI clusters, you must open the following ports: `10200`, `10251`, `10252`, and `8443`.
+If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana
+UI might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.6
+and earlier and Kubernetes v1.20.1 and earlier.
 
-For more information about how to open the ports using the VMware NSX-T Manager API, see [HEADER](troubleshooting.html#ANCHOR) in _Troubleshooting_.
-
-### <a id="kubernetes-node-panels-no-data"></a> No Data on TKGI Kubernetes Nodes Dashboard
-
-If you are using TKGI v1.9 or earlier, the **Kubernetes Nodes** dashboard in the Grafana UI
-might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.2.
-
-To fix this issue, upgrade to TKGI v1.10. For more information about upgrading to TKGI v1.10, see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html).
+To fix this issue, upgrade to TKGI v1.10.2. For more information about upgrading to TKGI v1.10.2,
+see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html) in the
+TKGI documentation.
 
 ### <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Quickly
 
 In Healthwatch v2.0.6, the MySQL PXC instance stores too many binlogs, which fills up the persistent
 disk space for MySQL Proxy VMs at a faster rate.
 
-To fix this issue, upgrade to Healthwatch v2.1. For more information about upgrading to Healthwatch v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
+To fix this issue, upgrade to Healthwatch v2.1. For more information about upgrading to Healthwatch
+v2.1, see [Upgrading Healthwatch](upgrading-healthwatch.html).
