@@ -1,89 +1,220 @@
 ---
-title: Using Healthwatch v2.1
+title: Using Healthwatch Dashboards in the Grafana UI
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to access and use your Healthwatch dashboards. 
+This topic describes how to access and use your Healthwatch dashboards in the Grafana user
+interface (UI).
 
-## <a id='overview'></a> Overview
 
-Healthwatch v2.1 uses Grafana to visualize data in charts and graphs.
-Once you have installed and configured the Healthwatch and Healthwatch Exporter tiles, log in to the Grafana UI to view more than 25 default dashboards that show you how your foundation is performing.
+## <a id='overview'></a> Overview of Healthwatch Dashboards in the Grafana UI
 
-For detailed steps on how to access your dashboard and understand how to view and take action on the data, see the following sections: 
+Healthwatch v2.1 uses Grafana to visualize metrics data in charts and graphs. Once you have
+installed and configured the Healthwatch and Healthwatch Exporter tiles, you can log in to
+the Grafana UI to view dashboards that show how your Ops Manager foundations are performing.
 
-* [Accessing Healthwatch Dashboards](#access-dashboards)
-* [Overview of Healthwatch Dashboards](#overview-dashboards)
+Each dashboard contains charts and graphs called panels. Each dashboard and panel contains
+detailed descriptions of the metrics they display and how to troubleshoot your Ops Manager
+foundations based on those metrics.
 
-## <a id='access-dashboards'></a> Accessing Healthwatch Dashboards
 
-To view your Healthwatch dashboards, you must log in to the Grafana UI. The URL and credentials depend on how you configured Grafana authentication in the Healthwatch tile. For more information about configuring Grafana authentication, see [Configuring Grafana Authentication](configuring/grafana-authentication.html).
+## <a id='ui'></a> Using Dashboards in the Grafana UI
 
-1. Log in to the Grafana UI using the URL and credentials that correspond with how you configured Grafana authentication. The following bullets list the URL and credentials for the most common configurations.
+The diagram below shows a dashboard in the Grafana UI:
 
-    <table>
-      <tr>
-          <th colspan="2">Basic</th>
-      </tr>
-      <tr>
-          <td><strong>URL</strong></td>
-          <td>http://localhost:3000/login</td>
-      </tr>
-      <tr>
-          <td><strong>Credentials</strong></td>
-          <td>The username is <code>admin</code>. To find the password, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Credentials</strong> tab, scroll down to the <strong>Grafana</strong> job, and next to <strong>Admin Login Password</strong>, click <strong>Link to Credential</strong>.</td>
-      </tr>
-      <tr>
-          <th colspan="2">Generic OAuth</th>
-      </tr>
-      <tr>
-          <td><strong>URL</strong></td>
-          <td>To find the URL, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Settings</strong> tab, select the <strong>Grafana Configuration</strong> pane, and copy the contents of the <strong>Root URL for Grafana</strong> field.</td>
-      </tr>
-      <tr>
-          <td><strong>Credentials</strong></td>
-          <td>On the Grafana UI login page, click the <strong>OAuth</strong> button to log in with your OAuth credentials.</td>
-      </tr>
-      <tr>
-          <th colspan="2">UAA</th>
-      </tr>
-      <tr>
-          <td><strong>URL</strong></td>
-          <td>To find the URL, click the <strong>Healthwatch</strong> tile in your Ops Manager Installation Dashboard, select the <strong>Settings</strong> tab, select the <strong>Grafana Configuration</strong> pane, and copy the contents of the <strong>Root URL for Grafana</strong> field.</td>
-      </tr>
-      <tr>
-          <td><strong>Credentials</strong></td>
-          <td>On the Grafana UI login page, click the <strong>UAA</strong> button to log in with your UAA credentials.</td>
-      </tr>
-    </table>
+![Screenshot of a dashboard in the Grafana UI with three white boxes labeled "A", "B", and
+"C" in red text. "A" is next to a filter dropdown. "B" is next to an expandable "About" header.
+"C" is next to an icon containing a lowercase "i" in the upper left corner of a panel.](images/grafana-dashboard-diagram.png)
 
-                
-1. On the side menubar of the Grafana homepage, hover over the Dashboards icon and click **Manage**. A list of folders appears. You may only have a subset of the following folders, depending on your deployment. 
-    
-      <ul>
-        <li><strong>Foundation:</strong> contains six dashboards that show you how the BOSH Director, Ops Manager, component VMs, and canary apps are functioning, and when certificates will expire.</li>
-        <li><strong>Healthwatch:</strong> contains two dashboards that show you how the Healthwatch tile's exporters and components are functioning.</li>
-        <li><strong>Tanzu Kubernetes Grid Integrated:</strong> contains eight dashboards that show you how your Kubernetes clusters, nodes, controllers, scheduler, API servers, and TKGI Control Plane are performing.</li>
-        <li><strong>Tanzu Application Service:</strong> contains nine dashboards that show you how your TAS for VMs platform and all its components, applications, and tasks are performing.</li>
-        <li><strong>MySQL:</strong> contains one dashboard that shows you how all your MySQL clusters and nodes are performing. You only see this folder if you configured Healthwatch to monitor your MySQL tile.</li>
-        <li><strong>RabbitMQ:</strong> contains seven dashboards that show you how messages, publishers, consumers, connections, channels, queues, and nodes are going. You only see this folder if you configured Healthwatch to monitor your RabbitMQ tile.</li>
-      </ul>
-1. Click the folder name to expand a list of the dashboards it contains. 
-1. Click the dashboard name to open it. 
+The following list describes each labeled section of the dashboard:
 
-## <a id='overview-dashboards'></a> Overview of Healthwatch Dashboards
-Healthwatch gives you more than 25 default dashboards. Each dashboard contains charts and graphs called panels. Detailed descriptions in each dashboard and panel explain what you are looking at and how to take action. The diagram below shows where to find these descriptions and filter the data. 
+* **A - Filters:** Use these dropdowns to filter the metrics that the dashboard displays.
 
-<p class="note">
-    <strong>Note:</strong> To edit a dashboard, copy the dashboard and edit the copy.
-</p>
+* **B - Dashboard Header:** Click this header to see a description of the metrics that the
+dashboard displays and how to use those metrics for troubleshooting.
 
-![Screenshot of Grafana dashboard with arrows labeled "A," "B," and "C." Arrow A points to filters. Arrow B points to an expandable "About" header. Arrow C points to hover-over icon in the upper left of a panel.](images/grafana-dashboard-diagram.png)
+* **C - Information Icon:** Hover over this icon to see a description of the metrics that the
+panel displays and how to use those metrics for troubleshooting.
 
-* **A:** Select these dropdowns to filter the data.
-* **B:** Select this header to expand a description of what the dashboards show you.
-* **C:** Hover over this icon for information about what the panel tells you and how to take action. 
+You can edit a dashboard by copying the dashboard and editing the dashboard copy. To further
+customize your dashboards, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/dashboards/).
 
-For information about how to fine-tune your dashboards, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/dashboards/).  
+
+## <a id='view-dashboards'></a> View Your Healthwatch Dashboards
+
+To view your Healthwatch dashboards:
+
+1. Find the URL and login credentials for the Grafana UI. For more information, see [Find the
+URL and Login Credentials for the Grafana UI](#url-creds) below.
+
+1. Log in to the Grafana UI and open a dashboard. For more information, see [Access Your Healthwatch
+Dashboards](#access-dashboards) below.
+
+### <a id='url-creds'></a> Find the URL and Login Credentials for the Grafana UI
+
+The URL and credentials you use to log in to the Grafana UI differ depending on the authentication
+method you configured for Grafana in the Healthwatch tile. For more information, see [Configuring
+Grafana Authentication](configuring/grafana-authentication.html).
+
+To find the URL and login credentials for the Grafana UI:
+
+1. Follow one of the procedures below to find the URL for the Grafana UI, according to the
+authentication method you configured for Grafana in the Healthwatch tile:
+  * **Basic authorization:** Navigate to `https://localhost:3000/login` in your web browser.
+  * **Generic OAuth or UAA:** To find the URL for the Grafana UI:
+    1. Navigate to the Ops Manager Installation Dashboard.
+    1. Click the **Healthwatch** tile.
+    1. Select **Grafana Configuration**.
+    1. Record the URL in the **Root URL for Grafana** field.
+
+1. Follow one of the procedures below to find the login credentials for the Grafana UI, according
+to the authentication method you configured for Grafana in the Healthwatch tile:
+  * **Basic authorization:** The username is `admin`. To find the password for the Grafana
+  UI:
+    1. Navigate to the Ops Manager Installation Dashboard.
+    1. Click the **Healthwatch** tile.
+    1. Select the **Credentials** tab.
+    1. Under **Grafana**, click **Link to Credential** next to **Admin login password**.
+    1. Record the login password. This is the password all users must use to log in to the
+    Grafana UI.
+  * **Generic OAuth:** On the Grafana UI login page, click **OAuth** to log in with your OAuth
+  credentials.
+  * **UAA:** On the Grafana UI login page, click **UAA** to log in with your UAA credentials.
+
+### <a id='access-dashboards'></a> Access Your Healthwatch Dashboards
+
+After you have obtained the URL and login credentials for the Grafana UI, you can access your
+Healthwatch dashboards.
+
+To access your Healthwatch dashboards:
+
+1. Log in to the Grafana UI using the URL and credentials you obtained in [Find the URL and
+Login Credentials for the Grafana UI](#url-creds) above.
+
+1. On the left side of the Grafana UI homepage, hover over the **Dashboards** icon on the menu
+bar. A navigation menu appears.
+
+1. Click **Manage**. A list of folders appears.
+
+1. View the dashboards in each folder in one of the following ways:
+  * Click either the name or the expansion arrow on a folder to expand a list of the dashboards
+  it contains.
+  * Click **Go to folder** next to a folder name to navigate to the folder page.
+  * Click the list icon to view a single list of all dashboards contained in all folders. The
+  folder icon is selected by default and groups your dashboards by folder in expandable and
+  collapsible lists.
+
+1. Click a dashboard name to open it.
+
+For detailed explanations of each default dashboard in the Grafana UI, see [Default Dashboards
+in the Grafana UI](#dashboards) below.
+
+
+## <a id='dashboards'></a> Default Dashboards in the Grafana UI
+
+There are 33 total dashboards that Healthwatch creates in the Grafana UI by default. The subsets
+of these dashboards that appear in the Grafana UI depend on which tiles in your Ops Manager
+foundations you have installed and are monitoring.
+
+The following list describes the Healthwatch dashboards you may see in the Grafana UI:
+
+* **Foundation:** Includes the following dashboards:
+  * **All Jobs:** Contains metrics related to the percentage of healthy VMs in your BOSH Director,
+  runtime, Healthwatch, and Healthwatch Exporter tile deployments. You can filter these metrics
+  by deployment.
+  * **BOSH Director Health:** Contains metrics related to the health of the BOSH Director.
+  * **Canary App Health:** Contains metrics related to the availability of the canary app that
+  the Blackbox Exporter uses to run canary tests. You can filter these metrics by canary URL.
+  * **Certificate Expiration:** Contains metrics related to when certificates for your Ops
+  Manager deployment are due to expire. For more information, see [Monitoring Certificate Expiration]
+  (configuring/optional-config/certificate-monitoring.html).
+  * **Job Details:** Contains metrics related to the functionality of each component and VM
+  in your runtime, Healthwatch, and Healthwatch Exporter tile deployments. You can filter these
+  metrics by health status, deployment, job instance, and VM.
+  * **Ops Manager Health:** Contains metrics related to the availability of your Ops Manager
+  deployment.
+
+* **Healthwatch:** Includes the following dashboards:
+  * **Healthwatch - Exporter Troubleshooting:** Contains metrics related to the functionality
+  of the metric exporter VMs that Healthwatch Exporter for TAS for VMs deploys.
+  * **Healthwatch SLOs:** Contains metrics related to the availability of runtime, Healthwatch,
+  and Healtwatch Exporter tile components. You can filter these metrics by uptime service level
+  objective (SLO) target.
+
+* **MySQL:** Includes the following dashboard:
+  * **MySQL Overview:** Contains metrics related to the percentage of healthy MySQL clusters
+  and nodes in your deployment.
+  <p class='note'><strong>Note:</strong> You only see this folder if you configured Healthwatch
+    to monitor your MySQL tile. For more information, see <a href="configuring/configuring-healthwatch.html#grafana">(Optional)
+    Configure Grafana</a> in <em>Configuring Healthwatch</em>.</p>
+
+* **RabbitMQ:** Includes the following dashboards:
+  * **Erlang-Distribution:** Contains metrics related to the functionality of distribution
+  links between RabbitMQ nodes and peers. You can filter these metrics by namespace, RabbitMQ
+  cluster, and process type.
+  * **Erlang-Distributions-Compare:** Contains metrics related to comparing the functionality
+  of distribution links between RabbitMQ nodes and peers. You can filter these metrics by namespace,
+  RabbitMQ cluster, PerfTest instance, percentile, host, and container.
+  * **Erlang-Memory-Allocators:** Contains metrics related to the functionality of your RabbitMQ memory allocators. You can filter these metrics by namespace, RabbitMQ cluster, RabbitMQ node, and Erlang [what's this?] memory allocator.
+  * **RabbitMQ Clusters Overview:** Contains metrics related to the percentage of healthy nodes
+  across all RabbitMQ clusters.
+  * **RabbitMQ-Overview:** Contains metrics related to the functionality of your RabbitMQ cluster
+  nodes. [What about them, exactly?] You can filter these metrics by namespace and RabbitMQ cluster.
+  * **RabbitMQ-PerfTest:** Contains metrics related to the functionality of the PerfTest [what's this?] instances in your RabbitMQ clusters. You can filter these metrics by PerfTest instance and percentile.
+  * **RabbitMQ-Quorum-Queues-Raft:** Contains metrics related to the functionality of the quorum queues in your RabbitMQ clusters. You can filter these metrics by namespace and RabbitMQ cluster.
+  <p class='note'><strong>Note:</strong> You only see this folder if you configured Healthwatch
+    to monitor your RabbitMQ tile. For more information, see <a href="configuring/configuring-healthwatch.html#grafana">(Optional)
+    Configure Grafana</a> in <em>Configuring Healthwatch</em>.</p>
+
+* **Tanzu Application Service:** Includes the following dashboards:
+  * **App Instances:** Contains metrics related to the number and functionality of apps and
+  tasks running on your VMware Tanzu Application Service for VMs (TAS for VMs) deployments.
+  * **CLI Health:** Contains metrics related to the functionality of the Cloud Foundry Command-Line
+  Interface (cf CLI).
+  * **Diego/Capacity:** Contains metrics related to the capacity of all Diego Cells in your
+  TAS for VMs deployments. You can filter these metrics by memory chunk size and disk size.
+  * **Logging and Metrics Pipeline:** Contains metrics related to the health and functionality
+  of the Firehose in your TAS for VMs deployments.
+  * **Router:** Contains metrics related to the health and functionality of the Gorouters in
+  your TAS for VMs deployments.
+  * **Tanzu Application Service SLOs:** Contains metrics related to the availability of the
+  `cf push` command and the canary apps for your TAS for VMs deployments. You can filter these
+  metrics by `cf push` uptime SLO target and canary app uptime SLO target.
+  * **TAS MySQL Health:** Contains metrics related to the health of the MySQL databases for
+  your TAS for VMs deployments.
+  * **UAA:** Contains metrics related to the health and functionality of the UAA instances
+  in your TAS for VMs deployments.
+  * **Usage Service:** Contains metrics related to the health and functionality of the UAA
+  instances in your TAS for VMs deployments.
+  <p class='note'><strong>Note:</strong> You only see this folder if you installed and configured
+    Healthwatch Exporter for TAS for VMs on one or more of your Ops Manager foundations. For
+    more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
+    Exporter for TAS for VMs Architecture</a> in <em>Reference Architecture</em> and <a href="configuring/configuring-exporter-tas">Configuring
+    Healthwatch Exporter for TAS for VMs</a>.</p>
+
+* **Tanzu Kubernetes Grid Integrated:** Includes the following dashboards:
+  * **Kubernetes API Server:** Contains metrics related to the functionality of the Kubernetes
+  API Server instances in your Tanzu Kubernetes Grid Integrated Edition (TKGI) clusters. You
+  can filter these metrics by cluster and instance.
+  * **Kubernetes Cluster Detail:** Contains metrics related to the functionality of the nodes
+  in your TKGI clusters. You can filter these metrics by cluster.
+  * **Kubernetes Clusters Overview:** Contains metrics related to the percentage of healthy
+  control plane nodes across all TKGI clusters.
+  * **Kubernetes Controller Manager:** Contains metrics related to the functionality of the
+  Kubernetes Controller Manager instances in your TKGI clusters. You can filter these metrics
+  by cluster and instance.
+  * **Kubernetes Etcd:** Contains metrics related to the functionality of the etcd instances
+  in your TKGI clusters. You can filter these metrics by cluster and instance.
+  * **Kubernetes Nodes:** Contains metrics related to the functionality of your TKGI cluster
+  nodes. [What about them, exactly?] You can filter these metrics by cluster and instance.
+  * **Kubernetes Scheduler:** Contains metrics related to the functionality of the Kubernetes
+  Scheduler instances in your TKGI clusters. You can filter these metrics by cluster and instance.
+  * **TKGI Control Plane:** Contains metrics related to the functionality of the TKGI Control
+  Plane.
+  <p class='note'><strong>Note:</strong> You only see this folder if you installed and configured
+    Healthwatch Exporter for TKGI on one or more of your Ops Manager foundations. For more
+    information about Healthwatch Exporter for TKGI, see <a href="architecture.html#architecture-tkgi">Healthwatch
+    Exporter for TKGI Architecture</a> in <em>Reference Architecture</em> and <a href="configuring/configuring-exporter-tkgi">Configuring
+    Healthwatch Exporter for TKGI</a>.</p>
