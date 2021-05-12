@@ -172,15 +172,6 @@ server:
   VM skip SSL validation when connecting to your OAuth provider server. This checkbox is disabled
   by default. This checkbox appears as the `tls_skip_verify_insecure` property in the `[auth.generic_oauth]`
   section of the Grafana configuration file.
-  1. To allow the Grafana instance to send user credentials to the OAuth provider server through
-  a POST request, enable the **Send Client Credentials via POST** checkbox. This checkbox is
-  disabled by default. This checkbox appears as the `send_client_credentials_via_post` property
-  in the `[auth.generic_oauth]` section of the Grafana configuration file.
-    <p class='note'><strong>Note:</strong> The <code>send_client_credentials_via_post</code>
-      property is removed in Grafana v6.6 and later. If you are using Grafana v6.6 or later,
-      leave the <strong>Send Client Credentials via POST</strong> checkbox disabled. For more
-      information, see <a href="https://grafana.com/docs/grafana/latest/installation/upgrading/#upgrading-to-v66">Upgrading
-      to v6.6</a> in <em>Upgrade Grafana</em> in the Grafana documentation.</p>
 
 1. Click **Save**.
 
