@@ -38,11 +38,11 @@ and the BOSH deployment metric exporter.
 
 ### <a id='bosh-health-exporter'></a> BOSH Health Metric Exporter VM
 
-The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment every
-ten minutes. This BOSH deployment deploys another VM, `bosh-health-check`, that runs a suite
-of SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete,
-the BOSH health metric exporter VM collects the metrics from the `bosh-health-check` VM, then
-deletes the BOSH deployment and the VM.
+The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment called
+`bosh-health` every ten minutes. This BOSH deployment deploys another VM, `bosh-health-check`,
+that runs a suite of SLI tests to validate the functionality of the BOSH Director. After the
+SLI tests are complete, the BOSH health metric exporter VM collects the metrics from the `bosh-health-check`
+VM, then deletes the `bosh-health` deployment and the `bosh-health-check` VM.
 
 The following table describes each metric the BOSH health metric exporter VM generates:
 
@@ -138,8 +138,8 @@ The following table describes each metric the BOSH health metric exporter VM gen
 ### <a id='bosh-deployments-exporter'></a> BOSH Deployment Metric Exporter VM
 
 The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, checks every 30 seconds
-whether any BOSH deployments other than the one created by the BOSH health metric exporter
-VM are running.
+whether any BOSH deployments other than the `bosh-health` deployment created by the BOSH health
+metric exporter VM are running.
 
 The following table describes each metric the BOSH deployment metric exporter VM generates:
 
@@ -150,10 +150,10 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_deployments_status</code></td>
-    <td>Whether any BOSH deployments other than the one created by the BOSH health metric exporter
-      VM are running. A value of <code>0</code> indicates that no other BOSH deployments are
-      running on the BOSH Director. A value of <code>1</code> indicates that other BOSH deployments
-      are running on the BOSH Director.</td>
+    <td>Whether any BOSH deployments other than <code>bosh-health</code> are running. A value
+      of <code>0</code> indicates that no other BOSH deployments are running on the BOSH Director.
+      A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH
+      Director.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>

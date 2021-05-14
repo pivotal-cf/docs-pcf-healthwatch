@@ -174,12 +174,12 @@ Ops Manager deployment.
 
 In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
 BOSH health metric exporter VM. Healthwatch Exporter for TAS for VMs deploys the BOSH health
-metric exporter VM, which creates a BOSH deployment every ten minutes. This BOSH deployment
-deploys another VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality
-of the BOSH Director. After the SLI tests are complete, the BOSH health metric exporter VM
-collects the metrics from the `bosh-health-check` VM, then deletes the BOSH deployment and
-the VM. For more information, see [BOSH Health Metric Exporter VM](../metrics.html#bosh-health-exporter)
-in _Healthwatch Metrics_.
+metric exporter VM, which creates a BOSH deployment called `bosh-health` every ten minutes.
+The `bosh-health` deployment deploys another VM, `bosh-health-check`, that runs a suite of
+SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete,
+the BOSH health metric exporter VM collects the metrics from the `bosh-health-check` VM, then
+deletes the `bosh-health` deployment and the `bosh-health-check` VM. For more information,
+see [BOSH Health Metric Exporter VM](../metrics.html#bosh-health-exporter) in _Healthwatch Metrics_.
 
 To configure the **BOSH Health Exporter Configuration** pane:
 
