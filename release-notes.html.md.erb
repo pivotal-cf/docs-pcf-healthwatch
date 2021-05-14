@@ -26,9 +26,51 @@ in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-0'></a> v2.1.1
+
+**Release Date:** 05/14/2021
+
+* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs)
+v2.11.
+
+* **[Known Issue Fix]** When uninstalling the Healthwatch Exporter for TAS for VMs tile, the
+`bosh-health` deployment is always deleted.
+
+* **[Bug Fix]** The `uid|title is used more than once` error does not appear in Grafana VM
+logs.
+
+* **[Bug Fix]** The `Failed to read plugin provisioning files from directory` error does not
+appear in Grafana VM logs.
+
+* **[Bug Fix]** The **Uptime SLO Target** filter dropdown appears in the **Healthwatch SLO**
+dashboard in the Grafana UI.
+
+* **[Bug Fix]** **Exporter Availability** graphs in the **Healthwatch SLO Dashboard** show
+six digits of precision.
+
+* **[Bug Fix]** TSDB can now be single VM again (Default: 2 (Highly Available))
+
+* **[Bug Fix]** The BOSH Backup and Restore (BBR) script does not return a `Snapshot failed:
+Client sent an HTTP request to an HTTPS server` error.
+
+* **[Bug Fix]** Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) requires
+the TKGI tile to be installed.
+
+* **[Bug Fix]** Healthwatch Exporter for TAS for VMs requires the TAS for VMs tile to be installed.
+
+* **[Bug Fix]** Healthwatch components deploy across availablity zones (AZs) when you configure
+them to do so.
+
+* **[Bug Fix]** The Ops Manager UAA instance logs canary URL test redirects to the Ops Manager
+Installation Dashboard correctly.
+
 ### <a id='2-1-0'></a> v2.1.0
 
 **Release Date:** 03/18/2021
+
+* **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying
+to create the `bosh-health` deployment. For more information, see [BOSH Health Metric Exporter
+VM Causes 401 Error](#bosh-health-401) below.
 
 * **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
 For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
@@ -67,6 +109,10 @@ below.
 * **[Known Issue]** You may see an "Unable to render templates" error when upgrading Healthwatch
 on Ops Manager v2.3 through v2.7. For more information, see ["Unable to Render Templates" Error
 When Installing or Upgrading](#upgrade-from-om-23) below.
+
+* **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying
+to create the `bosh-health` deployment. For more information, see [BOSH Health Metric Exporter
+VM Causes 401 Error](#bosh-health-401) below.
 
 * **[Known Issue]** The **Kubernetes Nodes** dashboard in the Grafana UI might not show data
 for individual pods. For more information, see [No Data on TKGI Kubernetes Nodes Dashboard]
@@ -176,6 +222,24 @@ v2.7.
 For more information about how to fix this issue without upgrading to Ops Manager v2.8, see
 ["Unable to Render Templates" Error When Installing or Upgrading](troubleshooting.html#upgrade-from-om-23)
 in _Troubleshooting Healthwatch_.
+
+### <a id='bosh-health-401'></a> BOSH Health Metric Exporter VM Causes 401 Error
+
+If you re-install the Healthwatch Exporter for TAS for VMs tile, the BOSH health metric exporter
+VM does not always delete the BOSH deployment it creates, `bosh-health`. This causes the following
+error:
+
+<pre class="terminal">
+Director responded with non-successful status code '401' response
+'{"code":600000,"description":"Require one of the scopes: bosh.admin,
+bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin,
+bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
+</pre>
+
+To fix this issue, upgrade to Healthwatch v2.1.1 or manually delete the `bosh-health` deployment
+using the BOSH CLI. For more information about upgrading to Healthwatch v2.1.1, see [Upgrading
+Healthwatch](upgrading-healthwatch.html). For more information about deleting a BOSH deployment
+using the BOSH CLI, see [the BOSH documentation](https://bosh.io/docs/cli-v2/#delete-deployment).
 
 ### <a id='kubernetes-node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
 
