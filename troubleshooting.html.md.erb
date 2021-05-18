@@ -43,7 +43,19 @@ To access the Prometheus UI:
       to a Prometheus VM using SSH, see <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH
       SSH</a> in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager documentation.</p>
 
-1. In a web browser, navigate to `localhost:8082`. The Prometheus UI appears.
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select the **Credentials** tab.
+
+1. In the **Tsdb Client Mtls** row, click **Link to Credential**.
+
+1. Record the certificate and private key for **Tsdb Client Mtls**.
+
+1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system. 
+
+1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which certificate to use for mTLS, select the certificate you added to the keystore for your operating system in the previous step. The Prometheus UI appears.
 
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
