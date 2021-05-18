@@ -34,7 +34,7 @@ To access the Prometheus UI:
 1. Run:
 
     ```
-    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8082:localhost:8082'
+    bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 9090:localhost:9090'
     ```
     Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
     the previous step.
