@@ -30,10 +30,11 @@ The diagram below shows a dashboard in the Grafana UI:
 
 The following list describes each labeled section of the dashboard:
 
-* **A - Filters:** Use these dropdowns to filter the metrics that the dashboard displays.
+* **A - Filters:** Use these dropdowns to filter the metrics that the dashboard displays. Not
+all dashboards have filters.
 
 * **B - Dashboard Header:** Click this header to see a description of the metrics that the
-dashboard displays and how to use those metrics for troubleshooting.
+dashboard displays, how to use those metrics for troubleshooting, and links to further documentation.
 
 * **C - Information Icon:** Hover over this icon to see a description of the metrics that the
 panel displays and how to use those metrics for troubleshooting.
@@ -118,7 +119,8 @@ There are 33 total dashboards that Healthwatch creates in the Grafana UI by defa
 of these dashboards that appear in the Grafana UI depend on which tiles in your Ops Manager
 foundations you have installed and are monitoring.
 
-The following list describes the Healthwatch dashboards you may see in the Grafana UI:
+The following list describes the default Healthwatch dashboards you may see in the Grafana
+UI:
 
 * **Foundation:** Includes the following dashboards:
   * **All Jobs:** Contains metrics related to the percentage of healthy VMs in your BOSH Director,
@@ -157,13 +159,18 @@ The following list describes the Healthwatch dashboards you may see in the Grafa
   * **Erlang-Distributions-Compare:** Contains metrics related to comparing the functionality
   of distribution links between RabbitMQ nodes and peers. You can filter these metrics by namespace,
   RabbitMQ cluster, PerfTest instance, percentile, host, and container.
-  * **Erlang-Memory-Allocators:** Contains metrics related to the functionality of your RabbitMQ memory allocators. You can filter these metrics by namespace, RabbitMQ cluster, RabbitMQ node, and Erlang [what's this?] memory allocator.
+  * **Erlang-Memory-Allocators:** Contains metrics related to the functionality of your RabbitMQ
+  memory allocators. You can filter these metrics by namespace, RabbitMQ cluster, RabbitMQ
+  node, and Erlang memory allocator.
   * **RabbitMQ Clusters Overview:** Contains metrics related to the percentage of healthy nodes
   across all RabbitMQ clusters.
   * **RabbitMQ-Overview:** Contains metrics related to the functionality of your RabbitMQ cluster
-  nodes. [What about them, exactly?] You can filter these metrics by namespace and RabbitMQ cluster.
-  * **RabbitMQ-PerfTest:** Contains metrics related to the functionality of the PerfTest [what's this?] instances in your RabbitMQ clusters. You can filter these metrics by PerfTest instance and percentile.
-  * **RabbitMQ-Quorum-Queues-Raft:** Contains metrics related to the functionality of the quorum queues in your RabbitMQ clusters. You can filter these metrics by namespace and RabbitMQ cluster.
+  nodes. You can filter these metrics by namespace and RabbitMQ cluster.
+  * **RabbitMQ-PerfTest:** Contains metrics related to the functionality of the PerfTest instances
+  in your RabbitMQ clusters. You can filter these metrics by PerfTest instance and percentile.
+  * **RabbitMQ-Quorum-Queues-Raft:** Contains metrics related to the functionality of the quorum
+  queues in your RabbitMQ clusters. You can filter these metrics by namespace and RabbitMQ
+  cluster.
   <p class='note'><strong>Note:</strong> You only see this folder if you configured Healthwatch
     to monitor your RabbitMQ tile. For more information, see <a href="configuring/configuring-healthwatch.html#grafana">(Optional)
     Configure Grafana</a> in <em>Configuring Healthwatch</em>.</p>
