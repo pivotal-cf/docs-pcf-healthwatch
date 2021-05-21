@@ -39,7 +39,8 @@ To configure alerting through the **Alertmanager Configuration** pane:
 alerts Alertmanager sends to your alert receivers:
   1. The following YAML files contain alerting rules for VMware Tanzu Application Service for
   VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI). Choose the
-  YAML file that corresponds to your runtime:
+  YAML file below that corresponds to your runtime and replace `OPS_MANAGER_URL` with the fully-qualified
+  domain name (FQDN) of your Ops Manager deployment:
       * [TAS for VMs](tas_alerting_rules.yml)
       * [TKGI](tkg-i_alerting_rules.yml)
   1. Modify the YAML file according to the observability requirements for your foundation.
