@@ -47,52 +47,31 @@ customize your dashboards, see the [Grafana documentation](https://grafana.com/d
 
 To view your Healthwatch dashboards:
 
-1. Find the URL and login credentials for the Grafana UI. For more information, see [Find the
-URL and Login Credentials for the Grafana UI](#url-creds) below.
+1. In your web browser, navigate to the URL that you configured in the DNS entry for your Grafana
+instance. For more information, see [Configuring DNS for Your Grafana Instance](configuring/dns-configuration.html).
 
-1. Log in to the Grafana UI and open a dashboard. For more information, see [Access Your Healthwatch
-Dashboards](#access-dashboards) below.
-
-### <a id='url-creds'></a> Find the URL and Login Credentials for the Grafana UI
-
-The URL and credentials you use to log in to the Grafana UI differ depending on the authentication
-method you configured for Grafana in the Healthwatch tile. For more information, see [Configuring
-Grafana Authentication](configuring/grafana-authentication.html).
-
-To find the URL and login credentials for the Grafana UI:
-
-1. Follow one of the procedures below to find the URL for the Grafana UI, according to the
-authentication method you configured for Grafana in the Healthwatch tile:
-  * **Basic authorization:** Navigate to `https://localhost:3000/login` in your web browser.
-  * **Generic OAuth or UAA:** To find the URL for the Grafana UI:
-     1. Navigate to the Ops Manager Installation Dashboard.
-     1. Click the **Healthwatch** tile.
-     1. Select **Grafana Configuration**.
-     1. Record the URL in the **Root URL for Grafana** field.
-
-1. Follow one of the procedures below to find the login credentials for the Grafana UI, according
-to the authentication method you configured for Grafana in the Healthwatch tile:
-  * **Basic authorization:** The username is `admin`. To find the password for the Grafana
-  UI:
-      1. Navigate to the Ops Manager Installation Dashboard.
-      1. Click the **Healthwatch** tile.
-      1. Select the **Credentials** tab.
-      1. Under **Grafana**, click **Link to Credential** next to **Admin login password**.
-      1. Record the login password. This is the password all users must use to log in to the
-    Grafana UI.
+1. Follow one of the procedures below to log in to the Grafana UI, according to the authentication
+method you configured in the Healthwatch tile:
+  * **Basic authorization:** To log in to the Grafana UI using basic authentication:
+      1. Enter the following login credentials:
+          * For **Email or username**, enter `admin`.
+          * For **Password**, enter the password for the Grafana UI that you find in the Healthwatch
+          tile. To find the password for the Grafana UI:
+              1. Navigate to the Ops Manager Installation Dashboard.
+              1. Click the **Healthwatch** tile.
+              1. Select the **Credentials** tab.
+              1. Under **Grafana**, click **Link to Credential** next to **Admin login password**.
+              1. Record the login password. This is the password all users must use to log
+              in to the Grafana UI.
+      1. Click **Log in**.
   * **Generic OAuth:** On the Grafana UI login page, click **OAuth** to log in with your OAuth
   credentials.
   * **UAA:** On the Grafana UI login page, click **UAA** to log in with your UAA credentials.
-
-### <a id='access-dashboards'></a> Access Your Healthwatch Dashboards
-
-After you have obtained the URL and login credentials for the Grafana UI, you can access your
-Healthwatch dashboards.
-
-To access your Healthwatch dashboards:
-
-1. Log in to the Grafana UI using the URL and credentials you obtained in [Find the URL and
-Login Credentials for the Grafana UI](#url-creds) above.
+  * **LDAP:** On the Grafana UI login page, click **LDAP** to log in with your LDAP credentials.
+  <br>
+  <br>
+  For more information about configuring an authentication method for the Grafana UI, see [Configuring
+  Grafana Authentication](configuring/grafana-authentication.html).
 
 1. On the left side of the Grafana UI homepage, hover over the **Dashboards** icon on the menu
 bar. A navigation menu appears.
@@ -109,7 +88,7 @@ bar. A navigation menu appears.
 
 1. Click a dashboard name to open it.
 
-For detailed explanations of each default dashboard in the Grafana UI, see [Default Dashboards
+For detailed descriptions of each default dashboard in the Grafana UI, see [Default Dashboards
 in the Grafana UI](#dashboards) below.
 
 
