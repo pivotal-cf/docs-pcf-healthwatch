@@ -164,7 +164,7 @@ Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 1. View information about the Grafana instance scrape target by running:
 
     ```
-    curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'
+    curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'
     ```
     The `lastError` field in the command output describes the reason for the Prometheus instance
     failing to scrape the Grafana instance.
@@ -239,7 +239,7 @@ Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 1. View information about your Prometheus instance scrape targets by running:
 
     ```
-    curl http://localhost:9090/api/v1/targets | /var/vcap/packages/prometheus_backup_jq/bin/jq .
+    curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq .
     ```
 
 1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason
