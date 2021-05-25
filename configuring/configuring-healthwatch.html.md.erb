@@ -199,10 +199,14 @@ a remote server or external aggregation service. For more information, see [SVM 
 VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch
 Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
 
-1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid
-static IP addresses that you want to reserve for the Prometheus instance. You must enter a separate IP address
-for each Prometheus VM, which by default, is two. These IP addresses
-must not be within the reserved IP ranges you configured in the BOSH Director tile.
+1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses
+must not be within the reserved IP ranges you configured in the BOSH Director tile. To find the IP addresses of the VMs:
+    1. Select the **Status** tab. 
+    1. From the **IPs** column, record the IP addresses of each VM listed in the **TSDB** row.
+
+    <p class="note">
+      <strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.
+    </p>
 
 1. Click **Save**.
 
@@ -373,7 +377,7 @@ To configure the **Canary URL Configuration** pane:
 1. Select **Canary URL Configuration**.
 
 1. For **Exporter Port**, specify the port that the Blackbox Exporter exposes to the Prometheus
-VM. The default port is `9115`. You do not need to specify a different port unless port `9115`
+instance. The default port is `9115`. You do not need to specify a different port unless port `9115`
 is already in use on the Prometheus instance.
 
 1. (Optional) For **Ops Manager URL**, enter the fully-qualified domain name (FQDN) of your
@@ -385,7 +389,7 @@ canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
     is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, enable the **Skip Ops Manager SSL Validation**
-checkbox so the Prometheus VM can communicate with your Ops Manager deployment.
+checkbox so the Prometheus instance can communicate with your Ops Manager deployment.
 
 1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus instance
 runs continuous canary tests to these URLs and records the results. To configure canary target
