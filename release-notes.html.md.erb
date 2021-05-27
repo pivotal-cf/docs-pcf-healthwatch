@@ -81,6 +81,8 @@ Healthwatch v2.1.1 uses the following open-source component versions:
 to create the `bosh-health` deployment. For more information, see [BOSH Health Metric Exporter
 VM Causes 401 Error](#bosh-health-401) below.
 
+* **[Known Issue]** When you scale up VMs, Healthwatch does not automatically distribute additional VMs across availability zones and requires a workaround. For more information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Default](#scaled-vms) below.
+
 * **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
 For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
 (#mysql-proxy-maxed) below.
@@ -129,6 +131,8 @@ for individual pods. For more information, see [No Data on TKGI Kubernetes Nodes
 
 * **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly. For more
 information, see [MySQL Proxy Disk Space Fills Up Quickly](#mysql-proxy-maxed) below.
+
+* **[Known Issue]** When you scale up VMs, Healthwatch does not automatically distribute additional VMs across availability zones and requires a workaround. For more information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Default](#scaled-vms) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -213,6 +217,14 @@ for TKGI_.
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
+
+### <a id='scaled-vms'></a> Scaled VMs Not Distributed Across AZs by Default
+
+This known issue is fixed only for new downloads of Healthwatch v2.1.1. If you upgrade to Healthwatch v2.1.1 from an earlier version of Healthwatch v2, this is still an issue.
+
+If you scale up Healthwatch component VMs, they are not automatically distributed across availablity zones. You must first scale down the VMs, then scale them back up to distribute them evenly across availability zones. 
+
+For more information about scaling Healthwatch component VMs, see [Healthwatch Components and Resource Requirements](resources.html). 
 
 ### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
 
