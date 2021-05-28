@@ -60,10 +60,10 @@ To configure basic authentication and obtain the login password for the Grafana 
 
 1. Select the **Credentials** tab.
 
-1. Under **Grafana**, click **Link to Credential** for **Admin login password**.
+1. In the **Admin Login Password** row of the **Grafana** section, click **Link to Credential**.
 
-1. Record the login password. This is the password all users must use to log in to the Grafana
-UI.
+1. Record the value for `password`. login password. This value is the password that all users
+must use to log in to the Grafana UI.
 
 
 ## <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
@@ -200,33 +200,68 @@ To create a UAA client for the Grafana instance:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click the **BOSH Director** tile.
+1. Click the **VMware Tanzu Application Service** or **Tanzu Kubernetes Grid Integrated Edition**
+tile, depending on which runtime is installed on your foundation.
 
 1. Select the **Credentials** tab.
 
-1. In the rows for **Uaa Login Client Credentials** and **Uaa Admin User Credentials**, click
-**Link to Credential**.
+1. View and record the credentials to log in to the UAA instance for your runtime:
+    * If your Ops Manager deployment uses internal authentication:
+        1. View the credentials for the UAA admin client for your runtime:
+            * **For TAS for VMs:** In the **Admin Client Credentials** row of the **UAA** section,
+            click **Link to Credential**.
+            * **For TKGI:** In the **Pks Uaa Management Admin Client** row, click **Link to
+            Credential**.
+        1. Record the secret for the UAA admin client:
+            * **For TAS for VMs:** Record the value for `password`. This value is the secret
+            for **Admin Client Credentials**.
+            * **For TKGI:** Record the value for `secret`. This value is the secret for **Pks
+            Uaa Management Admin Client**.
+    * If your Ops Manager deployment uses SAML or LDAP authentication:
+        1. View the credentials for the UAA admin client for your runtime:
+            * **For TAS for VMs:** In the **Admin Client Credentials** row of the **UAA** section,
+            click **Link to Credential**.
+            * **For TKGI:** In the **Pks Uaa Management Admin Client** row, click **Link to
+            Credential**.
+        1. Record the secret for the UAA admin client:
+            * **For TAS for VMs:** Record the value for `password`. This value is the secret
+            **Admin Client Credentials**.
+            * **For TKGI:** Record the value for `secret`. This value is the secret for **Pks
+            Uaa Management Admin Client**.
+        1. Return to the Ops Manager Installation Dashboard.
+        1. Click the **BOSH Director** tile.
+        1. Select the **Credentials** tab.
+        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click
+        **Link to Credential**.
+        1. Record the value for `password`. This value is the secret for **Uaa Bosh Client
+        Credentials**.
 
-1. Record the client username and secret for **Uaa Login Client Credentials** and **Uaa Admin
-User Credentials**.
-
-1. Target the server for your TAS for VMs or TKGI UAA instance by running:
+1. Target the server for your UAA instance for your runtime by running:
 
     ```
     uaac target uaa.UAA-DOMAIN
     ```
     Where `UAA-DOMAIN` is the domain of your UAA server.
 
-1. Log in to the UAA instance by running:
+1. Log in to the UAA instance for your runtime:
+    * If your Ops Manager deployment uses internal authentication, run:
 
-    ```
-    uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
-    ```
-    Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the **Credentials**
-    tab in your runtime tile in a previous step.
+        ```
+        uaac token client get admin -s ADMIN-CLIENT-SECRET
+        ```
+        Where `ADMIN-CLIENT-SECRET` is the UAA admin client secret you recorded from the **Credentials**
+        tab in your runtime tile in a previous step.
+    * If your Ops Manager deployment uses SAML or LDAP authentication:
+        1. Run:
 
-1. When prompted, enter the UAA admin client username and secret you recorded from the **Credentials**
-tab in your runtime tile in a previous step.
+            ```
+            uaac token owner get login -s LOGIN-CLIENT-SECRET
+            ```
+            Where `LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the
+            **Credentials** tab in the BOSH Director tile in a previous step.
+        1. When prompted, enter the UAA admin client username `admin` and the UAA admin client
+        secret you recorded from the **Credentials** tab in your runtime tile in a previous
+        step.
 
 1. Create a UAA client for the Grafana instance by running:
 
