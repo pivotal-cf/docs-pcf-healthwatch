@@ -206,6 +206,32 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
     to troubleshoot.
 
+### <a id='redundant-jobs'></a> BOSH Director Status Fails With Second Exporter
+
+When you install a second Healthwatch exporter on the same foundation, the Grafana **BOSH Director Status** panel shows "Not Running" or you see the following error:
+
+<pre class="terminal">
+Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
+</pre>
+
+This error appears when you run both the Healthwatch Exporter for TAS for VMS and the Healthwatch Exporter for TKGI on the same foundation. The second exporter runs the `Bosh Health Exporter`, `Bosh Deployments Exporter`, and `Cert Expiration Exporter` jobs again, which are redundant. You must shut down these jobs for one of the Healthwatch exporters.
+
+To shut down the redundant jobs:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click either the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated tile** or **Healthwatch Exporter for Tanzu Application Service**. It does not matter which one.
+
+1. Select **Resource Config**.
+
+1. Next to **Bosh Health Exporter**, select **0** from the dropdown.
+
+1. Next to **Bosh Deployments Exporter**, select **0** from the dropdown.
+
+1. Next to **Cert Expiration Exporter**, select **0** from the dropdown.
+
+1. Click **Save**
+
 
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
