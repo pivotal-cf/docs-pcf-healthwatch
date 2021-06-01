@@ -49,9 +49,12 @@ To access the Prometheus UI:
 
 1. Record the certificate and private key for **Tsdb Client Mtls**.
 
-1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system. 
+1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous
+step to the keystore for your operating system.
 
-1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which certificate to use for mTLS, select the certificate you added to the keystore for your operating system in the previous step. The Prometheus UI appears.
+1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which
+certificate to use for mTLS, select the certificate you added to the keystore for your operating
+system in the previous step. The Prometheus UI appears.
 
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
@@ -206,31 +209,39 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
     to troubleshoot.
 
-### <a id='redundant-jobs'></a> BOSH Director Status Fails With Second Exporter
+### <a id='redundant-jobs'></a> BOSH Director Status Metrics Fail When Two Healthwatch Exporter Tiles Are Installed
 
-When you install a second Healthwatch exporter on the same foundation, the Grafana **BOSH Director Status** panel shows "Not Running" or you see the following error:
+When you install a second Healthwatch Exporter tile on the same foundation, the **BOSH Director
+Status** panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running"
+or you see the following error:
 
 <pre class="terminal">
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
-This error appears when you run both the Healthwatch Exporter for TAS for VMS and the Healthwatch Exporter for TKGI on the same foundation. The second exporter runs the `Bosh Health Exporter`, `Bosh Deployments Exporter`, and `Cert Expiration Exporter` jobs again, which are redundant. You must shut down these jobs for one of the Healthwatch exporters.
+This error appears when you install both Healthwatch Exporter for TAS for VMS and Healthwatch
+Exporter for TKGI on the same foundation. Both Healthwatch Exporter tiles deploy the BOSH health
+metric exporter VM, BOSH deployment metric exporter VM, and certificate expiration metric exporter
+VM. However, the metrics that each set of metric exporter VMs collect conflict with each other.
+To prevent this, you must scale these metric exporter VMs down to zero instances in one of
+the Healthwatch Exporter tiles.
 
-To shut down the redundant jobs:
+To scale the redundant metric exporter VMs down to zero instances:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click either the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated tile** or **Healthwatch Exporter for Tanzu Application Service**. It does not matter which one.
+1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile or **Healthwatch
+Exporter for Tanzu Application Service** tile.
 
 1. Select **Resource Config**.
 
-1. Next to **Bosh Health Exporter**, select **0** from the dropdown.
+1. In the **Bosh Health Exporter** row, select **0** from the **Instances** dropdown.
 
-1. Next to **Bosh Deployments Exporter**, select **0** from the dropdown.
+1. In the **Bosh Deployments Exporter** row, select **0** from the **Instances** dropdown.
 
-1. Next to **Cert Expiration Exporter**, select **0** from the dropdown.
+1. In the **Cert Expiration Exporter** row, select **0** from the **Instances** dropdown.
 
-1. Click **Save**
+1. Click **Save**.
 
 
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
