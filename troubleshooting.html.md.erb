@@ -219,10 +219,10 @@ or you see the following error:
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
-This error appears when you install both Healthwatch Exporter for TAS for VMS and Healthwatch
+This error appears when you install both Healthwatch Exporter for TAS for VMs and Healthwatch
 Exporter for TKGI on the same foundation. Both Healthwatch Exporter tiles deploy the BOSH health
 metric exporter VM, BOSH deployment metric exporter VM, and certificate expiration metric exporter
-VM. However, the metrics that each set of metric exporter VMs collect conflict with each other.
+VM. The metrics that each set of metric exporter VMs collect conflict with each other.
 To prevent this, you must scale these metric exporter VMs down to zero instances in one of
 the Healthwatch Exporter tiles.
 
