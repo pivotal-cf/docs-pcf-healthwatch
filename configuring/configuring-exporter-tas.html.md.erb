@@ -88,7 +88,8 @@ of the following:
 for TAS for VMs or a different Ops Manager foundation.
 
 * A service or database located outside your Ops Manager foundation, such as an external time
-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane.
+series database (TSDB) or an installation of the Healthwatch tile on the Tanzu Kubernetes Grid
+Integrated Edition (TKGI) Control Plane.
 
 
 ## <a id='open-ui'></a> Navigate to the Healthwatch Exporter for TAS for VMs Tile
@@ -162,6 +163,11 @@ expiration metric exporter VM collects metrics that show when certificates in yo
 deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter
 VM](../metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Monitoring Certificate
 Expiration](optional-config/certificate-monitoring.html).
+  <p class='note'<strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs
+    and Healthwatch Exporter for TKGI installed on the same foundation, scale the certificate
+    expiration metric exporter VM to zero instances in the <strong>Resource Config</strong>
+    pane in one of the Healthwatch Exporter tiles. Otherwise, the two certificate expiration
+    metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, enable the **Skip
 SSL Validation for Cert Expiration** checkbox to enable the certificate expiration metric exporter
@@ -193,6 +199,15 @@ Exporter for TAS for VMs to deploy the BOSH health metric exporter VM.
 Exporter for TAS for VMs to deploy.
 
 1. Click **Save**.
+
+<p class='note'<strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs
+  and Healthwatch Exporter for TKGI installed on the same foundation, scale the BOSH health
+  metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one
+  of the Healthwatch Exporter tiles. Otherwise, the two sets of BOSH health metric exporter
+  VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one set of
+  metrics reports that the BOSH Director is down in the Grafana UI. For more information, see
+  <a href="../troubleshooting.html#bosh-health-metric-errors">BOSH Health Metrics Cause Errors
+  When Two Healthwatch Exporter Tiles Are Installed</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
 
 ## <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
@@ -259,6 +274,12 @@ that you want to reserve for the BOSH deployment metric exporter VM. This IP add
 be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
+
+<p class='note'<strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs
+  and Healthwatch Exporter for TKGI installed on the same foundation, scale the BOSH deployment
+  metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one
+  of the Healthwatch Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs
+  create redundant sets of metrics.</p>
 
 
 ## <a id='errands'></a> (Optional) Configure Errands

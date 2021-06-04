@@ -209,24 +209,26 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
     to troubleshoot.
 
-### <a id='redundant-jobs'></a> BOSH Director Status Metrics Fail When Two Healthwatch Exporter Tiles Are Installed
+### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
-When you install a second Healthwatch Exporter tile on the same foundation, the **BOSH Director
-Status** panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running"
-or you see the following error:
+When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI
+on the same foundation, the **BOSH Director Status** panel in the **BOSH Director Health**
+dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns
+the following error:
 
 <pre class="terminal">
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
-This error appears when you install both Healthwatch Exporter for TAS for VMs and Healthwatch
-Exporter for TKGI on the same foundation. Both Healthwatch Exporter tiles deploy the BOSH health
-metric exporter VM, BOSH deployment metric exporter VM, and certificate expiration metric exporter
-VM. The metrics that each set of metric exporter VMs collect conflict with each other.
-To prevent this, you must scale these metric exporter VMs down to zero instances in one of
-the Healthwatch Exporter tiles.
+This occurs because both Healthwatch Exporter tiles deploy a BOSH health metric exporter VM,
+and both BOSH health metric exporter VMs are named `bosh-health-exporter`. This causes the
+two sets of metrics to collect conflict with each other.
 
-To scale the redundant metric exporter VMs down to zero instances:
+To address this, you must scale the BOSH health metric exporter VM down to zero instances in
+one of the Healthwatch Exporter tiles.
+
+To scale the BOSH health metric exporter VM down to zero instances in one of the Healthwatch
+Exporter tiles:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -237,11 +239,13 @@ Exporter for Tanzu Application Service** tile.
 
 1. In the **Bosh Health Exporter** row, select **0** from the **Instances** dropdown.
 
-1. In the **Bosh Deployments Exporter** row, select **0** from the **Instances** dropdown.
-
-1. In the **Cert Expiration Exporter** row, select **0** from the **Instances** dropdown.
-
 1. Click **Save**.
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
 
 
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
