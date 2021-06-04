@@ -222,7 +222,7 @@ Director responded with non-successful status code '401' response '{"code":60000
 
 This occurs because both Healthwatch Exporter tiles deploy a BOSH health metric exporter VM,
 and both BOSH health metric exporter VMs are named `bosh-health-exporter`. This causes the
-two sets of metrics to collect conflict with each other.
+two sets of metrics to conflict with each other.
 
 To address this, you must scale the BOSH health metric exporter VM down to zero instances in
 one of the Healthwatch Exporter tiles.
