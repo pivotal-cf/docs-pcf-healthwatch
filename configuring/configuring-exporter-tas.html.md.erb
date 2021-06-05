@@ -222,52 +222,10 @@ To configure the **Bosh Deployments Exporter Configuration** pane:
 
 1. Select **Bosh Deployments Exporter Configuration**.
 
-1. (Optional) For **Bosh Client Username and Secret**, you must create a new UAA client to
-enable the BOSH deployment metric exporter VM to access the BOSH Director VM.
-    1. Navigate to the Ops Manager Installation Dashboard.
-    1. Click the **BOSH Director** tile.
-    1. Select the **Status** tab.
-    1. Record the **BOSH Director IP Address**.
-    1. Select the **Credentials** tab.
-    1. In the rows for **Uaa Login Client Credentials** and **Uaa Admin User Credentials**,
-    click **Link to Credential**.
-    1. Record the client username and secret for **Uaa Login Client Credentials** and **Uaa
-    Admin User Credentials**.
-    1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
-    VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
-    _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
-    1. Target the UAA instance for the BOSH Director by running:
-
-        ```
-        uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
-        ```
-        Where `BOSH-DIRECTOR-IP` is the IP address of your BOSH Director instance that you
-        recorded from the **Status** tab in the BOSH Director tile in a previous step.
-    1. Log in to the UAA instance by running:
-
-        ```
-        uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
-        ```
-        Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the
-        **Credentials** tab in the BOSH Director tile in a previous step.
-    1. When prompted, enter the UAA admin client username and secret you recorded in a previous
-    step.
-    1. Create a UAA client for the BOSH deployment metric exporter VM by running:
-
-        ```
-        uaac client add CLIENT-USERNAME \
-          --secret CLIENT-SECRET \
-          --authorized_grant_types client_credentials,refresh_token \
-          --authorities bosh.read \
-          --scope bosh.read
-        ```
-        Where:
-        * `CLIENT-USERNAME` is the client username you want to set for the UAA client.
-        * `CLIENT-SECRET` is the client secret you want to set for the UAA client.
-    1. Return to the **Bosh Deployments Exporter Configuration** pane in the Healthwatch Exporter
-    for TAS for VMs tile.
-    1. Enter the username and secret for the UAA client you just created in **Bosh Client Username
-    and Secret**.
+1. (Optional) For **Bosh Client Username and Secret**, enter the username and secret for the
+UAA client that the BOSH deployment metric exporter VM uses to access the BOSH Director VM.
+For more information, see [Create a UAA Client for the BOSH Deployment Metric Exporter VM]
+(#create-uaa-client) below.
 
 1. (Optional) For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address
 that you want to reserve for the BOSH deployment metric exporter VM. This IP address must not
@@ -280,6 +238,135 @@ be within the reserved IP ranges you configured in the BOSH Director tile.
   metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one
   of the Healthwatch Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs
   create redundant sets of metrics.</p>
+
+### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
+
+To enable the BOSH deployment metric exporter VM to access the BOSH Director VM, you must create
+a new UAA client for the BOSH deployment metric exporter VM. The procedure to create this UAA
+client differs depending on the authentication settings of your Ops Manager deployment.
+
+To create a UAA client for the BOSH deployment metric exporter VM:
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Record the IP address for the BOSH Director VM and the login and admin credentials for the
+BOSH Director UAA instance:
+    * If your Ops Manager deployment uses internal authentication:
+        1. Click the **BOSH Director** tile.
+        1. Select the **Status** tab.
+        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        1. Select the **Credentials** tab.
+        1. In the **Uaa Admin Client Credentials** row of the **BOSH Director** section, click
+        **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Uaa Admin Client
+        Credentials**.
+        1. Return to the **Credentials** tab.
+        1. In the **Uaa Login Client Credentials** row of the **BOSH Director** section, click
+        **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Uaa Login Client
+        Credentials**.
+        <br>
+        <br>
+      For more information about internal authentication settings for your Ops Manager deployment,
+      see [Internal Authentication Settings](https://docs.pivotal.io/ops-manager/pcf-interface.html#internal_auth)
+      in _Using the Ops Manager Interface_ in the Ops Manager documentation.
+    * If your Ops Manager deployment uses SAML authentication:
+        1. Click the user account menu in the upper-right corner of the Ops Manager Installation
+        Dashboard.
+        1. Click **Settings**.
+        1. Select **SAML Settings**.
+        1. Enable the **Provision an Admin Client in the BOSH UAA** checkbox.
+        1. Click **Enable SAML Authentication**.
+        1. Return to the Ops Manager Installation Dashboard.
+        1. Click the **BOSH Director** tile.
+        1. Select the **Status** tab.
+        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        1. Select the **Credentials** tab.
+        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click
+        **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
+        <br>
+        <br>
+      For more information about SAML authentication settings for your Ops Manager deployment,
+      see [SAML Settings](https://docs.pivotal.io/ops-manager/pcf-interface.html#saml) in _Using
+      the Ops Manager Interface_ in the Ops Manager documentation.
+    * If your Ops Manager deployment uses LDAP authentication:
+        1. Click the user account menu in the upper-right corner of the Ops Manager Installation
+        Dashboard.
+        1. Click **Settings**.
+        1. Select **LDAP Settings**.
+        1. Enable the **Provision an Admin Client in the BOSH UAA** checkbox.
+        1. Click **Enable LDAP Authentication**.
+        1. Return to the Ops Manager Installation Dashboard.
+        1. Click the **BOSH Director** tile.
+        1. Select the **Status** tab.
+        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        1. Select the **Credentials** tab.
+        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click
+        **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
+        <br>
+        <br>
+      For more information about LDAP authentication settings for your Ops Manager deployment,
+      see [LDAP Settings](https://docs.pivotal.io/ops-manager/pcf-interface.html#ldap) in _Using
+      the Ops Manager Interface_ in the Ops Manager documentation.
+
+1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM
+with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced
+Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+
+1. Target the UAA instance for the BOSH Director by running:
+
+    ```
+    uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
+    ```
+    Where `BOSH-DIRECTOR-IP` is the IP address for the BOSH Director VM that you recorded from
+    the **Status** tab in the BOSH Director tile in a previous step.
+
+1. Log in to the UAA instance:
+    * If your Ops Manager deployment uses internal authentication, log in to the UAA instance
+    by running:
+
+        ```
+        uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
+        ```
+        Where `UAA-LOGIN-CLIENT-SECRET` is the secret you recorded from the **Uaa Login Client
+        Credentials** row in the **Credentials** tab in the BOSH Director tile in a previous
+        step.
+    * If your Ops Manager deployment uses SAML or LDAP, log in to the UAA instance by running:
+
+        ```
+        uaac token client get bosh_admin_client -s BOSH-UAA-CLIENT-SECRET
+        ```
+        Where `BOSH-UAA-CLIENT-SECRET` is the secret you recorded from the **Uaa Bosh Client
+        Credentials** row in the **Credentials** tab in the BOSH Director tile in a previous
+        step.
+
+1. When prompted, enter the UAA admin client username `admin` and the secret you recorded from
+the **Uaa Admin Client Credentials** row in the **Credentials** tab in the BOSH Director tile
+in a previous step.
+
+1. Create a UAA client for the BOSH deployment metric exporter VM by running:
+
+    ```
+    uaac client add CLIENT-USERNAME \
+     --secret CLIENT-SECRET \
+     --authorized_grant_types client_credentials,refresh_token \
+     --authorities bosh.read \
+     --scope bosh.read
+    ```
+    Where:
+    * `CLIENT-USERNAME` is the username you want to set for the UAA client.
+    * `CLIENT-SECRET` is the secret you want to set for the UAA client.
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
+
+1. Select **Bosh Deployments Exporter Configuration**.
+
+1. For **Bosh Client Username and Secret**, enter the username and secret for the UAA client
+you just created.
 
 
 ## <a id='errands'></a> (Optional) Configure Errands

@@ -62,8 +62,8 @@ To configure basic authentication and obtain the login password for the Grafana 
 
 1. In the **Admin Login Password** row of the **Grafana** section, click **Link to Credential**.
 
-1. Record the value for `password`. login password. This value is the password that all users
-must use to log in to the Grafana UI.
+1. Record the value of `password`. This value is the password that all users must use to log
+in to the Grafana UI.
 
 
 ## <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
@@ -213,9 +213,9 @@ tile, depending on which runtime is installed on your foundation.
             * **For TKGI:** In the **Pks Uaa Management Admin Client** row, click **Link to
             Credential**.
         1. Record the secret for the UAA admin client:
-            * **For TAS for VMs:** Record the value for `password`. This value is the secret
+            * **For TAS for VMs:** Record the value of `password`. This value is the secret
             for **Admin Client Credentials**.
-            * **For TKGI:** Record the value for `secret`. This value is the secret for **Pks
+            * **For TKGI:** Record the value of `secret`. This value is the secret for **Pks
             Uaa Management Admin Client**.
     * If your Ops Manager deployment uses SAML or LDAP authentication:
         1. View the credentials for the UAA admin client for your runtime:
@@ -224,17 +224,16 @@ tile, depending on which runtime is installed on your foundation.
             * **For TKGI:** In the **Pks Uaa Management Admin Client** row, click **Link to
             Credential**.
         1. Record the secret for the UAA admin client:
-            * **For TAS for VMs:** Record the value for `password`. This value is the secret
-            **Admin Client Credentials**.
-            * **For TKGI:** Record the value for `secret`. This value is the secret for **Pks
+            * **For TAS for VMs:** Record the value of `password`. This value is the secret
+            for **Admin Client Credentials**.
+            * **For TKGI:** Record the value of `secret`. This value is the secret for **Pks
             Uaa Management Admin Client**.
         1. Return to the Ops Manager Installation Dashboard.
         1. Click the **BOSH Director** tile.
         1. Select the **Credentials** tab.
         1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click
         **Link to Credential**.
-        1. Record the value for `password`. This value is the secret for **Uaa Bosh Client
-        Credentials**.
+        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
 
 1. Target the server for your UAA instance for your runtime by running:
 
@@ -247,18 +246,18 @@ tile, depending on which runtime is installed on your foundation.
     * If your Ops Manager deployment uses internal authentication, run:
 
         ```
-        uaac token client get admin -s ADMIN-CLIENT-SECRET
+        uaac token client get admin -s UAA-ADMIN-CLIENT-SECRET
         ```
-        Where `ADMIN-CLIENT-SECRET` is the UAA admin client secret you recorded from the **Credentials**
-        tab in your runtime tile in a previous step.
+        Where `UAA-ADMIN-CLIENT-SECRET` is the UAA admin client secret you recorded from the
+        **Credentials** tab in your runtime tile in a previous step.
     * If your Ops Manager deployment uses SAML or LDAP authentication:
         1. Run:
 
             ```
-            uaac token owner get login -s LOGIN-CLIENT-SECRET
+            uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
             ```
-            Where `LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from the
-            **Credentials** tab in the BOSH Director tile in a previous step.
+            Where `UAA-LOGIN-CLIENT-SECRET` is the UAA login client secret you recorded from
+            the **Credentials** tab in the BOSH Director tile in a previous step.
         1. When prompted, enter the UAA admin client username `admin` and the UAA admin client
         secret you recorded from the **Credentials** tab in your runtime tile in a previous
         step.
@@ -274,7 +273,7 @@ tile, depending on which runtime is installed on your foundation.
        --redirect_uri PROTOCOL://GRAFANA-ROOT-URL/login/generic_oauth
     ```
     Where:
-    * `CLIENT-SECRET` is the client secret you want to set for the `grafana` UAA client.
+    * `CLIENT-SECRET` is the secret you want to set for the UAA client.
     * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured your
     Grafana instance to use in the **Grafana Configuration** pane of the Healthwatch tile.
     * `GRAFANA-ROOT-URL` is the root URL for your Grafana instance. If your Grafana instance
@@ -300,8 +299,8 @@ To configure the UAA client for the Grafana instance in Healthwatch:
 
 1. For **Client ID**, enter `grafana`.
 
-1. For **Client Secret**, enter the client secret you set for the `grafana` UAA client you
-created in [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
+1. For **Client Secret**, enter the secret you set for the `grafana` UAA client you created
+in [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
 
 1. For **URL for UAA**, enter the root URL of your UAA server.
 

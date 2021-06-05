@@ -73,8 +73,8 @@ in _TKGI API Authentication_ in the TKGI documentation.
 
 1. For **TKGI UAA Client**, enter one of the following options for the TKGI UAA client username:
     * Enter the TKGI management admin client username `admin`.
-    * Create a separate UAA client with access to the TKGI API and enter the client username
-    you specify. For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
+    * Create a separate UAA client with access to the TKGI API and enter the username you specify
+    for that UAA client. For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
     and [Managing Tanzu Kubernetes Grid Integrated Edition Users with UAA](https://docs.pivotal.io/tkgi/manage-users.html)
     in the TKGI documentation.
 
@@ -84,15 +84,16 @@ secret:
       1. Return to the Ops Manager Installation Dashboard.
       1. Click the **Tanzu Kubernetes Grid Integrated Edition** tile.
       1. Select the **Credentials** tab.
-      1. Click **Link to Credential** next to **Pks Uaa Management Admin Client**.
+      1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
       1. Record the value of `secret`.
       1. Return to the Ops Manager Installation Dashboard.
       1. Click the **Healthwatch** tile.
-      1. In the **TKGI Cluster Discovery Configuration** pane, enter the client secret you
-      recorded from the **Credentials** tab in the **Tanzu Kubernetes Grid Integrated Edition**
-      tile into **TKGI UAA Client Secret**.
-    * Create a separate UAA client with access to the TKGI API and enter the client secret
-    you specify. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition
+      1. Select **TKGI Cluster Discovery Configuration**.
+      1. For **TKGI UAA Client Secret**, enter the secret you recorded from the **Pks Uaa Management
+      Admin Client** row in the **Credentials** tab in the **Tanzu Kubernetes Grid Integrated
+      Edition** tile.
+    * Create a separate UAA client with access to the TKGI API and enter the secret you specify
+    for that UAA client. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition
     Access to a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Managing
     Tanzu Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 
