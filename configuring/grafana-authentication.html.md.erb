@@ -319,7 +319,7 @@ To configure the UAA client for the Grafana instance in Healthwatch:
 1. For **Client Secret**, enter the secret you set for the `grafana` UAA client you created
 in [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
 
-1. For **URL for UAA**, enter the root URL of your UAA server.
+1. For **URL for UAA**, enter `login.sys.DOMAIN.com` where `DOMAIN` is the domain of your Grafana instance. For more information on configuring the domain for you Grafana instance, see [Configuring DNS for Your Grafana Instance](https://docs.pivotal.io/healthwatch/2-1/configuring/dns-configuration.html).
 
 1. (Optional) To enable TLS communication between the Grafana instance and your UAA server,
 configure one of the following options:
