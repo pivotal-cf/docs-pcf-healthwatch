@@ -288,16 +288,16 @@ tile, depending on which runtime is installed on your foundation.
     uaac user add NEW-GRAFANA-USER -p NEW-GRAFANA-USER-SECRET --emails NEW-EMAIL-ADDRESS
     ```
     Where: 
-    * `NEW-GRAFANA-USER` is the username you want to set for the Grafana user.
-    * `NEW-GRAFANA-USER-SECRET` is the secret you want to set for the Grafana user.
-    * `NEW-EMAIL-ADDRESS` is the email address of the Grafana user.
+    * `NEW-GRAFANA-USER` is the username you want to set for the user.
+    * `NEW-GRAFANA-USER-SECRET` is the secret you want to set for the user.
+    * `NEW-EMAIL-ADDRESS` is the email address of the user.
     
-1. Add the new Grafana user to the `healthwatch.read` group by running: 
+1. Add the new user to the `healthwatch.read` group by running: 
 
     ```
     uaac member add healthwatch.read NEW-GRAFANA-USER
     ```
-    Where `NEW-GRAFANA-USER` is the username you set for the new Grafana user in the previous step.
+    Where `NEW-GRAFANA-USER` is the username you set for the new user in the previous step.
 
 ### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
 
