@@ -61,10 +61,6 @@ The diagram below illustrates how metrics flow from the Healthwatch Exporter til
 You can deploy the Healthwatch tile in high availability (HA) mode with three MySQL nodes and
 two MySQL Proxy nodes, or in non-HA mode with one MySQL node and one MySQL Proxy node.
 
-The diagram below shows Grafana reading metrics from Prometheus while sending settings to three MySQL nodes. 
-
-![An arrow depicts Grafana reading metrics from a Prometheus box. Another arrow shows Grafana sending data settings to three overlapping MySQL instances.](images/Healthwatch.png)
-
 ### <a id='scaling'></a> Component Scaling
 
 Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale
