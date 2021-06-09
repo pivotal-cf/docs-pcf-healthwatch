@@ -42,17 +42,18 @@ see the following sections:
 ## <a id='architecture-hw'></a> Healthwatch Tile Architecture
 
 When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana,
-and MySQL.
+and MySQL. Healthwatch also deploys an Nginx proxy in front of the Prometheus instance for load balancing.
 
-The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and
-enables you to configure alerts with Alertmanager. Healthwatch then exports the collected metrics
-to dashboards in the Grafana UI, enabling you to visualize the data with charts and graphs
-and create customized dashboards for long-term monitoring and troubleshooting. MySQL is used
-only to store your Grafana settings and does not store any time series data.
+The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles, which are scrapable Prometheus endpoints that you install on your Ops Manager foundation. Prometheus also enables you to configure alerts with Alertmanager. 
 
-An Nginx proxy is deployed in front of the Prometheus instance.
+Healthwatch then exports these metrics
+to dashboards in the Grafana UI, where you can visualize the data in charts and graphs. You can also use Grafana to create customized dashboards for long-term monitoring and troubleshooting. 
 
-The diagram below illustrates how metrics flow from the Healthwatch Exporter tile into the Healthwatch tile. The metrics then flow through Prometheus to Grafana and through Alertmanager to alerts.
+<p class="note">
+    <strong>Note:</strong> The MySQL instance that the Healthwatch tile installs is used only to store your Grafana settings and does not store any time series data.
+</p>
+
+The diagram below illustrates how metrics flow from the Healthwatch Exporter tiles through Prometheus and to Grafana. It also shows how metrics flow through Prometheus to Alertmanager.
 
 ![An arrow points from the Healthwatch Exporter into the Healthwatch Tile. Inside the tile, the arrow points from Prometheus to Grafana and from Prometheus through Alertmanager to alerts. The MySQL box sits next to Grafana.](images/healthwatch-tile-architecture.png)
 
