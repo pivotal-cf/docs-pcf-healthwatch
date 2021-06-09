@@ -282,6 +282,23 @@ tile, depending on which runtime is installed on your foundation.
     depending on whether you provide an SSL certificate in the **Enable HTTPS by providing
     certificates** field in the **Grafana Configuration** pane of the Healthwatch tile.
 
+1. Create a user to log in to the Grafana instance by running:
+
+    ```
+    uaac user add NEW-GRAFANA-USER -p NEW-GRAFANA-USER-SECRET --emails NEW-EMAIL-ADDRESS
+    ```
+    Where: 
+    * `NEW-GRAFANA-USER` is the username you want to set for the Grafana user.
+    * `NEW-GRAFANA-USER-SECRET` is the secret you want to set for the Grafana user.
+    * `NEW-EMAIL-ADDRESS` is the email address of the Grafana user.
+    
+1. Add the new Grafana user to the `healthwatch.read` group by running: 
+
+    ```
+    uaac member add healthwatch.read NEW-GRAFANA-USER
+    ```
+    Where `NEW-GRAFANA-USER` is the username you set for the new Grafana user in the previous step.
+
 ### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
 
 After you create a UAA client for the Grafana instance, you must configure it in the Healthwatch
