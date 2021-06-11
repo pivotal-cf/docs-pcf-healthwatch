@@ -178,6 +178,10 @@ in the Prometheus documentation.
       communication between the Prometheus instance and your external service or database.
       This server name appears as the `server_name` property in the `tls_config` section of
       the Prometheus configuration file.
+      1. If the certificate you provided in the **TLS Config Certificate and Private Key**
+      field is signed by a self-signed CA or a certificate that is signed by a self-signed
+      CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation during
+      TLS handshakes.
 
 1. For **Chunk Size (Disk) MB**, enter in MB the size that you want to specify for chunks of
 free disk. The default value is `6144`. Healthwatch uses this free disk chunk size to calculate
@@ -377,9 +381,9 @@ from the Grafana UI.
       uses when sending EHLO commands. This name appears as the `ehlo_identity` property in
       the `[smtp]` section of the Grafana configuration file.
       1. For **TLS Credentials**, enter a certificate and private key to enable the Grafana
-      VM to communicate with your SMTP server over TLS. This certificate and private key appear
-      as the `cert_file` and `key_file` properties in the `[smtp]` section of the Grafana configuration
-      file.
+      instance to communicate with your SMTP server over TLS. This certificate and private
+      key appear as the `cert_file` and `key_file` properties in the `[smtp]` section of the
+      Grafana configuration file.
       <br>
       <br>
     For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
@@ -414,8 +418,9 @@ canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
     enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
     is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
 
-1. (Optional) If your Ops Manager deployment uses self-signed certificates, enable the **Skip Ops Manager SSL Validation**
-checkbox so the Prometheus instance can communicate with your Ops Manager deployment.
+1. (Optional) If your Ops Manager deployment uses self-signed certificates, enable the **Skip
+Ops Manager SSL Validation** checkbox. Enabling this checkbox allows the Prometheus instance
+to communicate with your Ops Manager deployment.
 
 1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus instance
 runs continuous canary tests to these URLs and records the results. To configure canary target
