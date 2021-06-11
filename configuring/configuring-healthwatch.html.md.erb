@@ -201,7 +201,7 @@ Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Met
 
 1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses
 must not be within the reserved IP ranges you configured in the BOSH Director tile. To find the IP addresses of the VMs:
-    1. Select the **Status** tab. 
+    1. Select the **Status** tab.
     1. From the **IPs** column, record the IP addresses of each VM listed in the **TSDB** row.
 
     <p class="note">
@@ -297,11 +297,37 @@ the runtimes in your foundations.
 1. (Optional) If you want the Grafana instance to create a dashboard for RabbitMQ, select the
 **Enable RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
 
-1. (Optional) To enable HTTPS for the Grafana instance, provide one or more SSL certificates
+1. (Optional) To enable HTTPS for the Grafana instance, you must provide one or more SSL certificates
 in **Enable HTTPS by providing certificates**.
+<br>
+<br>
+VMware recommends also providing a certificate signed by a third-party CA in **CA for SSL certificates**.
+You can generate a self-signed certificate using the Ops Manager root CA, but doing so causes
+your browser to warn you that your CA is invalid every time you access the Grafana UI.
+  * To use a certificate signed by a third-party CA:
+      1. For **Enable HTTPS by providing certificates**, provide one or more SSL certificates.
+      1. For **CA for SSL certificates**, provide the third-party CA that signs the SSL certificates
+      you provided in the previous step.
+  * To generate a self-signed certificate from the Ops Manager root CA:
+      1. Under **Enable HTTPS by providing certificates**, click **Change**.
+      1. Click **Generate RSA Certificate**.
+      1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN`
+      is the domain of the DNS entry that you configured for the Grafana instance. For example,
+      if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter
+      `*.example.com`. For more information about configuring a DNS entry for the Grafana instance,
+      see [Configuring DNS for Your Grafana Instance](dns-configuration.html).
+      1. Click **Generate**.
+      1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
+      VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
+      _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+      1. Run:
 
-1. (Optional) If you provided one or more SSL certificates in the previous step, provide a
-CA for those SSL certificates in **CA for SSL certificates**.
+            ```
+            cat /var/tempest/workspaces/default/root_ca_certificate
+            ```
+      1. Record the Ops Manager root CA.
+      1. For **Enable HTTPS by providing certificates**, provide the Ops Manager root CA that
+      you recorded in the previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
 enter a comma-separated list of ciphers in **Additional Cipher Suite Support**. For a list
