@@ -1,0 +1,667 @@
+---
+title: Understanding Alerts
+owner: Healthwatch
+---
+
+This topic describes the types of alerts you can configure Alertmanager to send.
+
+
+## <a id='overview'></a> Overview of Alerts
+
+
+
+
+## <a id='om-foundation-alerts'></a> Ops Manager Foundation Alerts
+
+This section describes the alerts you can configure for metrics related to the health of your
+Ops Manager foundation.
+
+### <a id='bosh-director-health'></a> BOSHDirectorHealth
+
+The following table describes the alerts you can configure to monitor the health of your BOSH
+Director deployment:
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>BOSHDirectorStatus</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td>The BOSH health SLI test suite fails continuously for a specified amount of time, signaling
+      that the BOSH Director is down. As a result, BOSH-managed VMs are less resilient.</td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code>increase(bosh_sli_failures_total{scrape_instance_group="bosh-health-exporter"}[TIME]) > 0</code>,
+      where <code>TIME</code> is an amount of time you specify according to the needs of your
+      foundation.</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li>Log in to the <code>bosh-health-exporter</code> VM that your Healthwatch Exporter
+          tile deploys by following the procedure in <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH
+          SSH</a> in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager
+          documentation.</li>
+        <li>Review the logs for the <code>bosh-health-exporter</code> VM.</li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [BOSH Health Metric Exporter VM](metrics.html#bosh-health-exporter)
+in _Healthwatch Metrics_.
+
+### <a id='certificate-expiration'></a> CertificateExpiration
+
+The following table describes the alerts you can configure to monitor when Ops Manager certificates
+are due to expire:
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>ExpiringCertificate</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td>At least one certificate for your foundation is due to expire within a specified number
+      of days.</td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code>ssl_certificate_expiry_seconds &#60; TIME</code>, where <code>TIME</code> is
+      the time in seconds that you want to monitor for expiring certificates. For example,
+      if you want to receive an alert when a certificate is due to expire within the next 30
+      days, replace <code>TIME</code> with <code>2592000</code>, which is the number of seconds
+      in a 30-day period.</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>If any certificates for your deployment are due to expire soon, rotate them before
+    they expire to avoid downtime for your deployment. To rotate certificates, see <a href="https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/api-cert-rotation.html">Overview
+    of Certificate Rotation</a> in the Ops Manager documentation.
+    </td>
+  </tr>
+</table>
+
+For more information, see [Certificate Expiration Metric Exporter VM](metrics.html#cert-expiration-exporter)
+in _Healthwatch Metrics_ and [Monitoring Certificate Expiration](configuring/optional-config/certificate-monitoring.html).
+
+### <a id='ops-manager-health'></a> OpsManagerHealth
+
+The following table describes the alerts you can configure to monitor the health of your Ops
+Manager foundation [or is it the availability of the Ops Manager Installation Dashboard?]:
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>OpsManagerHealth</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td>The canary test for the Ops Manager Installation Dashboard failed. As a result, operators cannot access the Ops Manager Installation Dashboard.</td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code>probe_success{instance="&#60;OPS-MANAGER-URL>"} <= 0</code>, where <code>OPS-MANAGER-URL</code>
+      is the fully-qualified domain name (FQDN) of your Ops Manager deployment. A value of
+      <code>0</code> indicates that the canary test for the Ops Manager Installation Dashboard
+      failed.</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_.
+
+
+## <a id='tas-alerts'></a> TAS for VMs Alerts
+
+This section describes the alerts you can configure for metrics related to the health of your
+TAS for VMs, Healthwatch Exporter for TAS for VMs, VMware Tanzu SQL with MySQL for VMs, and
+VMware Tanzu RabbitMQ deployments.
+
+### <a id=''></a> TanzuApplicationServiceSLOs
+
+The following tables describe the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TanzuSLOCFPushErrorBudget</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TanzuSLOCFPushAvailability</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TanzuSLOCanaryAppErrorBudget</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TanzuSLOCanaryAppAvailability</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a> TASCLIHealth
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TASCLICommandStatus</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a> TASDiego
+
+The following tables describe the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TASDiegoMemoryUsed</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TASDiegoDiskUsed</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a> TASMySQLHealth
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td>TASMySQLStatus</td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+
+## <a id=''></a> TKGI Alerts
+
+This section describes the alerts you can configure for metrics related to the health of your
+TKGI and Healthwatch Exporter for TKGI deployments.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
+
+### <a id=''></a>
+
+The following table describes the alerts you can configure to monitor :
+
+<table>
+  <tr>
+    <th width="25%">Name</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>YAML Expression</th>
+    <td><code></code>, where <code></code> is</td>
+  </tr>
+  <tr>
+    <th>Recommended Response</th>
+    <td>
+      <ol>
+        <li></li>
+        <li></li>
+      </ol>
+    </td>
+  </tr>
+</table>
+
+For more information, see [ VM](metrics.html#)
+in _Healthwatch Metrics_.
