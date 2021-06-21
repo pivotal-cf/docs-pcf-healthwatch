@@ -300,12 +300,13 @@ the runtimes in your foundations.
 1. (Optional) If you want the Grafana instance to create a dashboard for MySQL, select the
 **Enable MySQL dashboards** checkbox. This checkbox is disabled by default.
 
-1. (Optional) If you want the Grafana instance to create a dashboard for RabbitMQ, select the
-**Enable RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
-
-      <p class="note">
-        <strong>Note:</strong> If you select the **Enable RabbitMQ dashboards** checkbox, stop the RabbitMQ tile from sending duplicate metrics to the firehouse by setting its metrics polling interval to <code>-1</code>. For directions, see <a href="https://docs.pivotal.io/rabbitmq-cf/1-21/monitor.html#metrics-polling-interval">Configure the Metrics Polling Interval</a> in <em>Monitoring and KPIs for On-Demand VMware Tanzu RabbitMQ for VMs</em>.
-      </p>
+1. (Optional) If you want the Grafana instance to create a dashboard for VMware Tanzu RabbitMQ
+for VMs, select the **Enable RabbitMQ dashboards** checkbox. This checkbox is disabled by default.
+      <p class='note'><strong>Note:</strong> If you select the <strong>Enable RabbitMQ dashboards</strong>
+        checkbox, prevent the VMware Tanzu RabbitMQ for VMs tile from sending duplicate metrics
+        to the Loggregator Firehouse by setting the <strong>Metrics polling interval</strong>
+        field to <code>-1</code> in the VMware Tanzu RabbitMQ for VMs tile. To configure this
+        field, see the <a href="https://docs.pivotal.io/rabbitmq-cf/monitor.html#metrics-polling-interval">VMware Tanzu RabbitMQ for VMs</a> documentation.</p>
 
 1. (Optional) To enable HTTPS for the Grafana instance, you must provide one or more SSL certificates
 in **Enable HTTPS by providing certificates**.
