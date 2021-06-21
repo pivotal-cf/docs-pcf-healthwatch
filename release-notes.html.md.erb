@@ -185,7 +185,7 @@ For more information about configuring alerts, see [Configuring Alerting](config
 Healthwatch no longer supports Monitoring Indicator Protocol, and the **Indicator Protocol**
 dashboard is removed from the Grafana UI.
 
-This change does not affect RabbitMQ metrics and dashboards.
+This change does not affect VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) metrics and dashboards.
 
 
 ## <a id='breaking-changes'></a> Breaking Changes
@@ -222,9 +222,9 @@ Healthwatch v2.0.6 and v2.1 include the following known issues:
 
 This known issue is fixed only for new downloads of Healthwatch v2.1.1. If you upgrade to Healthwatch v2.1.1 from an earlier version of Healthwatch v2, this is still an issue.
 
-If you scale up Healthwatch component VMs, they are not automatically distributed across availablity zones. You must first scale down the VMs, then scale them back up to distribute them evenly across availability zones. 
+If you scale up Healthwatch component VMs, they are not automatically distributed across availablity zones. You must first scale down the VMs, then scale them back up to distribute them evenly across availability zones.
 
-For more information about scaling Healthwatch component VMs, see [Healthwatch Components and Resource Requirements](resources.html). 
+For more information about scaling Healthwatch component VMs, see [Healthwatch Components and Resource Requirements](resources.html).
 
 ### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
 
