@@ -297,16 +297,17 @@ the runtimes in your foundations.
     * **Disabled:** The Grafana instance does not discover or create dashboards in the Grafana
     UI for TAS for VMs or TKGI.
 
-1. (Optional) If you want the Grafana instance to create a dashboard for MySQL, select the
-**Enable MySQL dashboards** checkbox. This checkbox is disabled by default.
+1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware
+Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile, select the **Enable MySQL dashboards**
+checkbox. This checkbox is disabled by default.
 
-1. (Optional) If you want the Grafana instance to create a dashboard for VMware Tanzu RabbitMQ
-for VMs (Tanzu RabbitMQ), select the **Enable RabbitMQ dashboards** checkbox. This checkbox
-is disabled by default.
-      <p class='note'><strong>Note:</strong> If you select the <strong>Enable RabbitMQ dashboards</strong>
-        checkbox, prevent the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator
-        Firehouse by setting the <strong>Metrics polling interval</strong> field to <code>-1</code>
-        in the Tanzu RabbitMQ tile. To configure this field, see the <a href="https://docs.pivotal.io/rabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu RabbitMQ documentation</a>.</p>
+1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware
+Tanzu RabbitMQ for VMs (Tanzu RabbitMQ), select the **Enable RabbitMQ dashboards** checkbox.
+This checkbox is disabled by default.
+    <p class='note'><strong>Note:</strong> If you select the <strong>Enable RabbitMQ dashboards</strong>
+      checkbox, prevent the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator
+      Firehouse by setting the <strong>Metrics polling interval</strong> field to <code>-1</code>
+      in the Tanzu RabbitMQ tile. To configure this field, see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu RabbitMQ documentation</a>.</p>
 
 1. (Optional) To enable HTTPS for the Grafana instance, you must provide one or more SSL certificates
 in **Enable HTTPS by providing certificates**.
