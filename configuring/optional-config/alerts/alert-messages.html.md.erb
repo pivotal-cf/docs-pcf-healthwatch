@@ -28,23 +28,22 @@ Director deployment:
   </tr>
   <tr>
     <th>Description</th>
-    <td>The BOSH health SLI test suite fails continuously for a specified amount of time, signaling
-      that the BOSH Director is down. As a result, BOSH-managed VMs are less resilient.</td>
+    <td>The BOSH health SLI test suite fails continuously for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This signals that the BOSH Director
+      is down. As a result, BOSH-managed VMs are less resilient.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
     <td><code>increase(bosh_sli_failures_total{scrape_instance_group="bosh-health-exporter"}[TIME]) > 0</code>,
-      where <code>TIME</code> is an amount of time you specify according to the needs of your
-      foundation.</td>
+      where <code>TIME</code> is the amount of time you specify when you configure the alerting
+      rule.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
     <td>
       <ol>
         <li>Log in to the <code>bosh-health-exporter</code> VM that your Healthwatch Exporter
-          tile deploys by following the procedure in <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">BOSH
-          SSH</a> in <em>Advanced Troubleshooting with the BOSH CLI</em> in the Ops Manager
-          documentation.</li>
+          tile deploys by following the procedure in the <a href="https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh">Ops Manager documentation</a>.</li>
         <li>Review the logs for the <code>bosh-health-exporter</code> VM.</li>
       </ol>
     </td>
@@ -66,22 +65,19 @@ are due to expire:
   </tr>
   <tr>
     <th>Description</th>
-    <td>At least one certificate for your foundation is due to expire within a specified number
-      of days.</td>
+    <td>At least one certificate for your foundation is due to expire within the number of
+      days specified in the <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
     <td><code>ssl_certificate_expiry_seconds &#60; TIME</code>, where <code>TIME</code> is
-      the time in seconds that you want to monitor for expiring certificates. For example,
-      if you want to receive an alert when a certificate is due to expire within the next 30
-      days, replace <code>TIME</code> with <code>2592000</code>, which is the number of seconds
-      in a 30-day period.</td>
+      the number of seconds that equals the time you specify when you configure the alerting
+      rule.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
     <td>If any certificates for your deployment are due to expire soon, rotate them before
-    they expire to avoid downtime for your deployment. To rotate certificates, see <a href="https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/api-cert-rotation.html">Overview
-    of Certificate Rotation</a> in the Ops Manager documentation.
+    they expire to avoid downtime for your deployment. To rotate certificates, see the <a href="https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/api-cert-rotation.html">Ops Manager documentation</a>.
     </td>
   </tr>
 </table>
@@ -91,8 +87,8 @@ in _Healthwatch Metrics_ and [Monitoring Certificate Expiration](configuring/opt
 
 ### <a id='om-health'></a> OpsManagerHealth
 
-The following table describes the alerts you can configure to monitor the health of your Ops
-Manager foundation [or is it the availability of the Ops Manager Installation Dashboard?]:
+The following table describes the alerts you can configure to monitor the health and accessibility
+of your Ops Manager deployment:
 
 <table>
   <tr>
@@ -101,21 +97,25 @@ Manager foundation [or is it the availability of the Ops Manager Installation Da
   </tr>
   <tr>
     <th>Description</th>
-    <td>The canary test for the Ops Manager Installation Dashboard failed. As a result, operators cannot access the Ops Manager Installation Dashboard.</td>
+    <td>The canary test for your Ops Manager deployment continuously fails for the amount of
+      time specified in the <code>for</code> property of the alerting rule. As a result, operators
+      cannot install, upgrade, re-scale, or re-deploy runtimes or service tiles on your Ops
+      Manager foundation.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
     <td><code>probe_success{instance="&#60;OPS-MANAGER-URL>"} <= 0</code>, where <code>OPS-MANAGER-URL</code>
       is the fully-qualified domain name (FQDN) of your Ops Manager deployment. A value of
-      <code>0</code> indicates that the canary test for the Ops Manager Installation Dashboard
-      failed.</td>
+      <code>0</code> indicates that the canary test for your Ops Manager deployment failed.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
     <td>
       <ol>
-        <li></li>
-        <li></li>
+        <li>Log in to your Ops Manager VM by following the procedure in the <a href="https://docs.pivotal.io/ops-manager/install/ssh-login.html">Ops Manager documentation</a>.</li>
+        <li>Diagnose and resolve problems with your Ops Manager deployment by following the
+          procedures in the <a href="https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html">Ops
+          Manager documentation</a>.</li>
       </ol>
     </td>
   </tr>
@@ -127,12 +127,13 @@ For more information, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Met
 ## <a id='tas-alerts'></a> TAS for VMs Alerts
 
 This section describes the alerts you can configure for metrics related to the health of your
-TAS for VMs, Healthwatch Exporter for TAS for VMs, VMware Tanzu SQL with MySQL for VMs, and
-VMware Tanzu RabbitMQ deployments.
+TAS for VMs, Healthwatch Exporter for TAS for VMs, VMware Tanzu SQL with MySQL for VMs (Tanzu
+SQL for VMs), and VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) deployments.
 
 ### <a id='tas-slos'></a> TanzuApplicationServiceSLOs
 
-The following tables describe the alerts you can configure to monitor :
+The following tables describe the alerts you can configure to monitor the functionality of
+the Cloud Foundry Command Line Interface (cf CLI):
 
 <table>
   <tr>
@@ -141,12 +142,12 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The <code>cf_push</code> command is unresponsive. This alert fires when the error budget reaches zero. This commonly occurs when Diego is under-scaled, UAA is unresponsive, or Cloud Controller is unresponsive.</td>
+    <td>The <code>cf push</code> command is unresponsive. This alert fires when the error budget for the <code>cf push</code> command reaches zero. [Does `for` specify how long `cf push` is unresponsive, or how long the error budget is at zero?] This commonly occurs when Diego is under-scaled, UAA is unresponsive, or Cloud Controller is unresponsive.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
     <td><code>( (1 - (rate(tas_sli_task_failures_total{task="push"}[28d]) / rate(tas_sli_task_runs_total{task="push"}[28d])
-       ) ) - 0.99) * (28 * 24 * 60) <= 0</code>, where <code></code> is</td>
+       ) ) - 0.99) * (28 * 24 * 60) <= 0</code>, where <code></code> is [Is `28d` configurable?]</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -161,11 +162,13 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>This alert fires when the <code>cf_push</code> command has been unresponsive for 10 minutes. This commonly occurs when Diego is under-scaled, UAA is unresponsive, or Cloud Controller is unresponsive.</td>
+    <td>The <code>cf push</code> command fails continuously for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This commonly occurs when Diego
+      is under-scaled, UAA is unresponsive, or Cloud Controller is unresponsive.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>rate(tas_sli_task_failures_total{task="push"}[5m:15s]) * 300 > 0</code>, where <code></code> is</td>
+    <td><code>rate(tas_sli_task_failures_total{task="push"}[5m:15s]) * 300 > 0</code>, where <code></code> is [What does `5m:15s` mean? Is it configurable? What about `300`?]</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -180,18 +183,18 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>This alert fires when your error budget for your Canary URLs is below zero. If your Canary URLs are representative of other running apps, this could indicate that your end users are affected.</td>
+    <td>This alert fires when your error budget for your canary URLs is below zero. [For the amount of time specified in `for`?] If your canary URLs are representative of other running apps, this could indicate that your end users are affected.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>( (avg_over_time(probe_success[28d]) - 0.999) * (28 * 24 * 60) ) <= 0</code>, where <code></code> is</td>
+    <td><code>( (avg_over_time(probe_success[28d]) - 0.999) * (28 * 24 * 60) ) <= 0</code>, where <code></code> is [Is `28d` configurable?]</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>Check to see if your canary apps are running. Then check your foundation's networking, capacity, and VM health.
+    <td>
       <ol>
-        <li></li>
-        <li></li>
+        <li>Check to see if your canary apps are running.</li>
+        <li>Then check your foundation's networking, capacity, and VM health.</li>
       </ol>
     </td>
   </tr>
@@ -204,29 +207,32 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>A Canary URL has been unresponsive for at least 5 minutes. If your Canary URL is representative of other running apps, this could indicate that your end users are affected.</td>
+    <td>A canary URL has been unresponsive for the amount of time specified in the <code>for</code>
+      property of the alerting rule. If your canary URL is representative of other running apps, this could indicate that your end users are affected.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>avg_over_time(probe_success[5m]) < 1</code>, where <code></code> is</td>
+    <td><code>avg_over_time(probe_success[TIME]) &#60; 1</code>, where <code>TIME</code> is
+      the amount of time you specify when you configure the alerting rule.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>Check to see if your canary apps are running. Then check your foundation's networking, capacity, and VM health.
+    <td>
       <ol>
-        <li></li>
-        <li></li>
+        <li>Check to see if your canary apps are running.</li>
+        <li>Then check your foundation's networking, capacity, and VM health.</li>
       </ol>
     </td>
   </tr>
 </table>
 
-For more information, see [ VM](metrics.html#)
-in _Healthwatch Metrics_.
+For more information, see [TAS for VMs SLI Exporter VM](metrics.html#pas-sli-exporter) in _Healthwatch
+Metrics_.
 
 ### <a id=''></a> TASCLIHealth
 
-The following table describes the alerts you can configure to monitor :
+The following table describes the alerts you can configure to monitor the functionality of
+the Cloud Foundry Command Line Interface (cf CLI):
 
 <table>
   <tr>
@@ -235,16 +241,17 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>One or more CLI tests have been failing for at least 10 minutes. App Smoke Tests run every 5 minutes. When running HA, multiple smoke tests may run in the given 5 minutes. These tests are intended to give operators confidence that developers can successfully interact with and manage apps on the platform.
+    <td>One or more CLI tests have been failing for the amount of time specified in the <code>for</code> property of the alerting rule. App Smoke Tests run every 5 minutes. [Is this configurable?] When running HA, multiple smoke tests may run in the given 5 minutes. These tests are intended to give operators confidence that developers can successfully interact with and manage apps on the platform.
     Note: smoke tests report a failure if any task (e.g. `push`, `login`) takes more than 5 minutes to complete.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>increase(tas_sli_task_failures_total[10m]) > 0</code>, where <code></code> is</td>
+    <td><code>increase(tas_sli_task_failures_total[TIME]) > 0</code>, where <code>TIME</code>
+      is the amount of time you specify when you configure the alerting rule.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>If a failure occurs, attempt to use the failed CLI command in a terminal to see why it is failing.</td>
+    <td>In a terminal window, run the failed command to see why it is failing.</td>
   </tr>
 </table>
 
@@ -262,16 +269,16 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>Available memory for Diego Cells is running low. You have exceeded 65% of your available Diego Cell memory capacity for ({{ $labels.placement_tag }}) for at least 10 minutes.
+    <td>Available memory for Diego Cells is running low. You have exceeded 65% [is this configurable?] of your available Diego Cell memory capacity for ({{ $labels.placement_tag }}) for at least 10 minutes [is this time configurable in `for`?].
     Low memory can prevent app scaling and new deployments. The overall sum of capacity can indicate that you need to scale the platform. It is recommended that you have enough memory available to suffer a possible failure of an entire availability zone (AZ). If following the best practice guidance of three AZs, your % available memory should always be at least 35%.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>label_replace( (sum by (placement_tag) (CapacityTotalMemory) - sum by (placement_tag) (CapacityRemainingMemory) ) / sum by (placement_tag) (CapacityTotalMemory), "placement_tag", "cf", "placement_tag", "") > .65</code>, where <code></code> is</td>
+    <td><code>label_replace( (sum by (PLACEMENT-TAG) (CapacityTotalMemory) - sum by (PLACEMENT-TAG) (CapacityRemainingMemory) ) / sum by (PLACEMENT-TAG) (CapacityTotalMemory), "PLACEMENT-TAG", "cf", "PLACEMENT-TAG", "") > .65</code>, [is `.65` configurable?] where <code>PLACEMENT-TAG</code> is the placement tag of the Diego Cell [is this correct?].</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>Assign more resources to the Diego Cells or assign more Diego Cells by scaling Diego cells in the Resource Config pane of the TAS for VMs tile.
+    <td>Assign more resources to the Diego Cells or assign more Diego Cells by scaling Diego Cells in the Resource Config pane of the TAS for VMs tile.
       <ol>
         <li></li>
         <li></li>
@@ -287,16 +294,16 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>Available disk for Diego Cells is running low. You have exceeded 65% of your available Diego Cell disk capacity for ({{ $labels.placement_tag }}) for at least 10 minutes.
-    Low disk capacity can prevent app scaling and new deployments. The overall sum of capacity can indicate that you need to scale the platform. It is recommended that you have enough disk available to suffer a possible failure of an entire availability zone (AZ). If following the best practice guidance of three AZs, your % available disk should always be at least 35%.</td>
+    <td>Available disk for Diego Cells is running low. You have exceeded 65% [is this configurable?] of your available Diego Cell disk capacity for ({{ $labels.placement_tag }}) for at least 10 minutes [is this time configurable in `for`?].
+    Low disk capacity can prevent app scaling and new deployments. The overall sum of capacity can indicate that you need to scale the platform. It is recommended that you have enough disk available to suffer a possible failure of an entire AZ. If following the best practice guidance of three AZs, your % available disk should always be at least 35%.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>label_replace( (sum by (placement_tag) (CapacityTotalDisk) - sum by (placement_tag) (CapacityRemainingDisk) ) / sum by (placement_tag) (CapacityTotalDisk), "placement_tag", "cf", "placement_tag", "") > .65</code>, where <code></code> is</td>
+    <td><code>label_replace( (sum by (PLACEMENT-TAG) (CapacityTotalDisk) - sum by (PLACEMENT-TAG) (CapacityRemainingDisk) ) / sum by (PLACEMENT-TAG) (CapacityTotalDisk), "PLACEMENT-TAG", "cf", "PLACEMENT-TAG", "") > .65</code>, [is `.65` configurable?] where <code>PLACEMENT-TAG</code> is the placement tag of the Diego Cell [is this correct?]</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>Assign more resources to the Diego Cells or assign more Diego Cells by scaling Diego cells in the Resource Config pane of the TAS for VMs tile.
+    <td>Assign more resources to the Diego Cells or assign more Diego Cells by scaling Diego Cells in the Resource Config pane of the TAS for VMs tile.
       <ol>
         <li></li>
         <li></li>
@@ -319,8 +326,7 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TAS for VMs MySQL database is not responding. The MySQL database is used for persistent data storage by several TAS for VMs components. Note that this is the SQL database used by system components, not the MySQL service used by apps running on the platform.
-    TAS for VMs components that use system databases include the Cloud Controller, Diego Brain, Gorouter, and the UAA server.</td>
+    <td>The MySQL database in your TAS for VMs deployment is not responding. The MySQL database is used for persistent data storage by several TAS for VMs components. TAS for VMs components that use system databases include the Cloud Controller, Diego Brain, Gorouter, and the UAA server.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
@@ -351,11 +357,11 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TAS for VMs Gorouter is down. This prevents users from interacting with apps and services on the platform.</td>
+    <td>The Gorouter in your TAS for VMs deployment is down. As a result, users cannot interact with apps and services on the platform.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>system_healthy{exported_job="router", origin="bosh-system-metrics-forwarder"} <= 0 OR system_healthy{exported_job="router", origin="system_metrics_agent"} <= 0</code>, where <code></code> is</td>
+    <td><code>system_healthy{exported_job="router", origin="bosh-system-metrics-forwarder"} <= 0 OR system_healthy{exported_job="router", origin="system_metrics_agent"} <= 0</code> [is this one expression or two?].</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -375,11 +381,11 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TAS for VMs Gorouter is experiencing average CPU utilization above 80%. High CPU utilization of the Gorouter VMs can increase latency and cause throughput, or requests per second, to level off. It is recommended to keep the CPU utilization within a maximum range of 60-70% for best Gorouter performance.</td>
+    <td>The TAS for VMs Gorouter is experiencing average CPU utilization above 80% [is this configurable?]. High CPU utilization of the Gorouter VMs can increase latency and cause throughput, or requests per second, to level off. It is recommended to keep the CPU utilization within a maximum range of 60-70% for best Gorouter performance.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>system_cpu_user{exported_job="router", origin="bosh-system-metrics-forwarder"} >= 80 OR system_cpu_user{exported_job="router", origin="system_metrics_agent"} >= 80</code>, where <code></code> is</td>
+    <td><code>system_cpu_user{exported_job="router", origin="bosh-system-metrics-forwarder"} >= 80 OR system_cpu_user{exported_job="router", origin="system_metrics_agent"} >= 80</code> [is this one expression or two?], where <code></code> is</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -399,7 +405,7 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>A TAS for VMs Gorouter job has exceeded 90,000 file descriptors over the past 5 minutes. File descriptors are an indication of an impending issue with the Gorouter. Each incoming request to the Gorouter consumes two file descriptors. Without the proper mitigations, an unresponsive app could eventually exhaust the file descriptors in the Gorouter, starving routes from other apps running on TAS for VMs.</td>
+    <td>A TAS for VMs Gorouter job has exceeded 90,000 [is this configurable?] file descriptors over the past 5 minutes [is this configurable in the `for` property?]. File descriptors are an indication of an impending issue with the Gorouter. Each incoming request to the Gorouter consumes two file descriptors. Without the proper mitigations, an unresponsive app could eventually exhaust the file descriptors in the Gorouter, starving routes from other apps running on TAS for VMs.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
@@ -407,13 +413,11 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>Troubleshooting steps:
-    (1) Identify which apps are requesting excessive connections and resolve the impacting issues with these apps.
-    (2) If above recommended mitigations have not already been taken, do so.
-    (3) Consider adding more Gorouter VM resources to increase total available file descriptors.
+    <td>
       <ol>
-        <li></li>
-        <li></li>
+        <li>Identify which apps are requesting excessive connections and resolve the impacting issues with these apps.</li>
+        <li>If above recommended mitigations have not already been taken, do so.</li>
+        Consider adding more Gorouter VM resources to increase total available file descriptors.
       </ol>
     </td>
   </tr>
@@ -433,12 +437,11 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>A UAA VM has been unhealthy for 10 minutes. The Tanzu Application Service UAA on index ({{ $labels.index }}) has been unhealthy for 10 minutes.
-    If UAA is down, developers and operators cannot authenticate to access the platform.</td>
+    <td>The UAA instance for TAS for VMs on index ({{ $labels.index }}) has been unhealthy for 10 minutes [is this time configurable in the `for` property?]. If UAA is down, developers and operators cannot authenticate to access the platform.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>system_healthy{exported_job="uaa", origin="bosh-system-metrics-forwarder"} <= 0 OR system_healthy{exported_job="uaa", origin="system_metrics_agent"} <= 0</code>, where <code></code> is</td>
+    <td><code>system_healthy{exported_job="uaa", origin="bosh-system-metrics-forwarder"} <= 0 OR system_healthy{exported_job="uaa", origin="system_metrics_agent"} <= 0</code>.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -465,15 +468,15 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>Usage Service has failed to fetch Events from Cloud Controller (CAPI) for the last 48 hours for the deployment ({{ $labels.deployment }}.</td>
+    <td>Usage Service has failed to fetch Events from Cloud Controller (CAPI) for the last 48 hours [is this configurable?] for the deployment ({{ $labels.deployment }}.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>sum(usage_service_app_usage_event_cc_lag_seconds) by (deployment) >= 172800</code>, where <code></code> is</td>
+    <td><code>sum(usage_service_app_usage_event_cc_lag_seconds) by (DEPLOYMENT-NAME) >= 172800</code>, where <code>DEPLOYMENT-NAME</code> is the name of your deployment.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>- Check CAPI - Try `cf curl /v2/app_usage_events`. The response should be 200 with recent events as the payload.
+    <td>- Check CAPI - Try `cf curl /v2/app_usage_events`. The response should be `200` with recent events as the payload.
     - Check UAA - Make sure the Usage Service can authenticate with CAPI.
     - Check the network settings.
 
@@ -498,7 +501,7 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>sum(usage_service_app_usage_event_fetcher_job_exit_code) by (deployment) >= 1</code>, where <code></code> is</td>
+    <td><code>sum(usage_service_app_usage_event_fetcher_job_exit_code) by (DEPLOYMENT-NAME) >= 1</code>, where <code>DEPLOYMENT-NAME</code> is the name of your deployment.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -530,11 +533,12 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TAS for VMs SLI metric exporter VM has been down for 10 minutes.</td>
+    <td>The TAS for VMs SLI metric exporter VM has been down for the amount of time specified
+      in the <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pas-sli-exporter"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pas-sli-exporter"} &#60; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -554,11 +558,12 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The counter metric exporter VM has been down for 10 minutes.</td>
+    <td>The counter metric exporter VM has been down for the amount of time specified in the
+      <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pas-exporter-counter"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pas-exporter-counter"} &#60; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -578,11 +583,12 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The gauge metric exporter VM has been down for 10 minutes.</td>
+    <td>The gauge metric exporter VM has been down for the amount of time specified in the
+      <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pas-exporter-gauge"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pas-exporter-gauge"} &#60; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -602,11 +608,12 @@ The following tables describe the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The timer metric exporter VM has been down for 10 minutes.</td>
+    <td>The timer metric exporter VM has been down for the amount of time specified in the
+      <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pas-exporter-timer"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pas-exporter-timer"} &#60; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -633,11 +640,12 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>One or more MySQL Single node or Multi-site cluster instances have been unhealthy for at least 10 minutes. This may have an impact on apps connected to those databases.</td>
+    <td>One or more MySQL Single node or Multi-site cluster instances have been unhealthy for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This may have an impact on apps connected to those databases.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>avg by (deployment) (_p_mysql_available unless on (index, deployment) _p_mysql_galera_wsrep_ready unless on (index, deployment) _p_mysql_follower_is_follower * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 30) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) < 1</code>, where <code></code> is</td>
+    <td><code>avg by (DEPLOYMENT-NAME) (_p_mysql_available unless on (index, deployment) _p_mysql_galera_wsrep_ready unless on (index, DEPLOYMENT-NAME) _p_mysql_follower_is_follower * on (index, DEPLOYMENT-NAME) (_p_mysql_system_persistent_disk_used_percent &#60; bool 30) * on (index, DEPLOYMENT-NAME) (_p_mysql_system_ephemeral_disk_used_percent &#60; bool 95) * on (index, DEPLOYMENT-NAME) (_p_mysql_performance_cpu_utilization_percent &#60; bool 90) * on (index, DEPLOYMENT-NAME) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) &#60; 1</code> [are `index` and `deployment` placeholders?], where <code>DEPLOYMENT-NAME</code> is the name of your TAS for VMs deployment.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -660,11 +668,12 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>One or more MySQL Leader-Follower cluster instances have been unhealthy for at least 10 minutes. This may have an impact on apps connected to those databases.</td>
+    <td>One or more MySQL Leader-Follower cluster instances have been unhealthy for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This may have an impact on apps connected to those databases.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>avg by (deployment) (_p_mysql_follower_slave_io_running * on (index, deployment) _p_mysql_follower_slave_sql_running * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 30) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .5</code>, where <code></code> is</td>
+    <td><code>avg by (DEPLOYMENT-NAME) (_p_mysql_follower_slave_io_running * on (index, DEPLOYMENT-NAME) _p_mysql_follower_slave_sql_running * on (index, DEPLOYMENT-NAME) _p_mysql_available * on (index, DEPLOYMENT-NAME) (_p_mysql_system_persistent_disk_used_percent &#60; bool 30) * on (index, DEPLOYMENT-NAME) (_p_mysql_system_ephemeral_disk_used_percent &#60; bool 95) * on (index, DEPLOYMENT-NAME) (_p_mysql_performance_cpu_utilization_percent &#60; bool 90) * on (index, DEPLOYMENT-NAME) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .5</code>, where <code>DEPLOYMENT-NAME</code> is the name of your TAS for VMs deployment.</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -688,11 +697,12 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>One or more HA MySQL cluster instances have been unhealthy for at least 10 minutes. This may have an impact on apps connected to those databases.</td>
+    <td>One or more HA MySQL cluster instances have been unhealthy for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This may have an impact on apps connected to those databases.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>avg by (deployment) (_p_mysql_galera_wsrep_ready * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 90) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .67</code>, where <code></code> is</td>
+    <td><code>avg by (deployment) (_p_mysql_galera_wsrep_ready * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent &#60; bool 90) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent &#60; bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent &#60; bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .67</code>, where <code></code> is</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -756,18 +766,19 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>One or more TKGI clusters are running with unhealthy control plane nodes for at least 10 minutes. This might affect the operator's ability to administer changes to the clusters they oversee.</td>
+    <td>One or more TKGI clusters are running with unhealthy control plane nodes for the amount of time specified
+      in the <code>for</code> property of the alerting rule. This might affect the operator's ability to administer changes to the clusters they oversee.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>avg by (cluster) (min by (cluster, instance) ( label_replace(etcd_server_has_leader{}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-scheduler"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-controller-manager"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kubernetes-apiservers"}, "instance", "$1", "instance", "(.*):.*") ) ) < .35</code>, where <code></code> is</td>
+    <td><code>avg by (cluster) (min by (cluster, instance) ( label_replace(etcd_server_has_leader{}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-scheduler"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-controller-manager"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kubernetes-apiservers"}, "instance", "$1", "instance", "(.*):.*") ) ) < .35</code>, [are `cluster` and `instance` placeholders?] where <code></code> is</td>
   </tr>
   <tr>
     <th>Recommended Response</th>
     <td>
       <ol>
         <li>Identify which clusters are impacted using Kubernetes Cluster Overview dashboard</li>
-        <li>view the Cluster Detail dashboard by clicking on the cluster's name in the `Clusters That Might Need Attention` panel to see if API server, scheduler, controller manager, and etcd are up.</li>
+        <li>view the Cluster Detail dashboard by clicking on the cluster's name in the <strong>Clusters That Might Need Attention</strong> panel to see if API server, scheduler, controller manager, and etcd are up.</li>
         <li>Identify the corresponding BOSH deployment and investigate the logs for the failing jobs on the control plane VMs.</li>
       </ol>
     </td>
@@ -788,7 +799,8 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TKGI SLI test ({{ $labels.task }}) has been failing for at least 10 minutes. TKGI SLI tests run every 1 minute by default. This setting is configurable in Ops Manager and may have been changed. These tests are intended to give operators confidence that developers can successfully interact with and manage apps in their clusters.
+    <td>The TKGI SLI test ({{ $labels.task }}) has been failing for the amount of time specified
+      in the <code>for</code> property of the alerting rule. TKGI SLI tests run every 1 minute by default. This setting is configurable in Ops Manager and may have been changed. These tests are intended to give operators confidence that developers can successfully interact with and manage apps in their clusters.
     Note: the SLI tests report a failure if any task (e.g. `login`, `clusters`) takes more than 1 minute to complete.</td>
   </tr>
   <tr>
@@ -797,7 +809,7 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Recommended Response</th>
-    <td>If a failure occurs, attempt to use the failed Kubernetes CLI command in a terminal to see why it is failing.</td>
+    <td>In a terminal window, run the failed Kubernetes CLI command to see why it is failing.</td>
   </tr>
 </table>
 
@@ -815,11 +827,11 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TKGI SLI metric exporter VM has been down for 10 minutes.</td>
+    <td>The TKGI SLI metric exporter VM has been down for the amount of time specified in the <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pks-sli-exporter"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pks-sli-exporter"} &360; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
@@ -839,11 +851,12 @@ The following table describes the alerts you can configure to monitor :
   </tr>
   <tr>
     <th>Description</th>
-    <td>The TKGI system metrics exporter VM has been down for 10 minutes.</td>
+    <td>The TKGI system metrics exporter VM has been down for the amount of time specified
+      in the <code>for</code> property of the alerting rule.</td>
   </tr>
   <tr>
     <th>YAML Expression</th>
-    <td><code>service_up{service="pks-exporter"} < 1</code>, where <code></code> is</td>
+    <td><code>service_up{service="pks-exporter"} &360; 1</code></td>
   </tr>
   <tr>
     <th>Recommended Response</th>
