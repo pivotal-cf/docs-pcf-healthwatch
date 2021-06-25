@@ -235,12 +235,16 @@ tile, depending on which runtime is installed on your foundation.
         **Link to Credential**.
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
 
-1. Target the server for your UAA instance for your runtime by running:
+1. Target the server for the UAA instance for your runtime using the User Account and Authentication
+Command Line Interface (UAAC). Run:
 
     ```
     uaac target uaa.UAA-DOMAIN
     ```
     Where `UAA-DOMAIN` is the domain of your UAA server.
+    <br>
+    <br>
+    For more information about the UAAC, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html).
 
 1. Log in to the UAA instance for your runtime:
     * If your Ops Manager deployment uses internal authentication, run:
@@ -282,7 +286,12 @@ tile, depending on which runtime is installed on your foundation.
     depending on whether you provide an SSL certificate in the **Enable HTTPS by providing
     certificates** field in the **Grafana Configuration** pane of the Healthwatch tile.
 
-1. If you are using TAS for VMS, skip this step. If you are using TKGI, create groups to control user permissions by running:
+1. If you are using TAS for VMS, you added the UAA client to UAA user groups mapped to administrator,
+editor, and viewer permissions for Grafana in the previous step. Continue to the next step.
+<br>
+<br>
+If you are using TKGI, you must manually create UAA user groups to map to administrator, editor,
+and viewer permissions. Run:
 
     ```
     uaac group add healthwatch.admin
@@ -301,16 +310,17 @@ Grafana instance. Run:
     * `SECRET` is the secret you want to set for the user account.
     * `EMAIL` is the email address you want to associate with the user account.
 
-1. Assign user permissions to the user account you created in the previous step by
-running:
+1. Assign user permissions to the user account you created in the previous step by running:
 
     ```
     uaac member add GROUP USERNAME
     ```
-    Where: 
-    * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`, which map to the Grafana roles `Admin`, `Editor`, and `Viewer` respectively. For more information about the level of access each role provides, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).  
-    * `USERNAME` is the username you set for the user account you created in the previous
-    step.
+    Where:
+    * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These
+    groups map to the `Admin`, `Editor`, and `Viewer` Grafana roles, respectively. For more
+    information about the level of access each role provides, see the [Grafana documentation]
+    (https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).
+    * `USERNAME` is the username you set for the user account you created in the previous step.
 
 ### <a id='configure-client'></a> Configure the UAA Client in Healthwatch
 
