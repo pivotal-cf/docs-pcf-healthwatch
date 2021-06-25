@@ -305,9 +305,10 @@ checkbox. This checkbox is disabled by default.
 Tanzu RabbitMQ for VMs (Tanzu RabbitMQ), select the **Enable RabbitMQ dashboards** checkbox.
 This checkbox is disabled by default.
     <p class='note'><strong>Note:</strong> If you select the <strong>Enable RabbitMQ dashboards</strong>
-      checkbox, prevent the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator
-      Firehouse by setting the <strong>Metrics polling interval</strong> field to <code>-1</code>
-      in the Tanzu RabbitMQ tile. To configure this field, see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu RabbitMQ documentation</a>.</p>
+      checkbox, set the <strong>Metrics polling interval</strong> field to <code>-1</code>
+      in the Tanzu RabbitMQ tile. This prevents the Tanzu RabbitMQ tile from sending duplicate
+      metrics to the Loggregator Firehouse. To configure this field, see the
+      <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu RabbitMQ documentation</a>.</p>
 
 1. (Optional) To enable HTTPS for the Grafana instance, you must provide one or more SSL certificates
 in **Enable HTTPS by providing certificates**.
