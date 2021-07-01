@@ -125,7 +125,7 @@ When federating metrics, you can configure the Prometheus instance in the Health
 on your monitoring foundation to scrape both copies of that data from the Prometheus instance
 in the Healthwatch tile on each foundation you monitor. To do this, include both VMs in each
 Prometheus instance from the foundations you want to monitor in the scrape job configuration
-YAML.
+YAML. You will get duplicate metrics, but if one of the two VMs goes down, you will not lose the data.
 
 Alternatively, you can create load balancers or DNS entries in your IaaS console for the Prometheus
 instances on each foundation you monitor, then include the IP addresses for each load balancer
