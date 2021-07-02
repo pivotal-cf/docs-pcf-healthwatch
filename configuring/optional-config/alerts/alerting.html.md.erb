@@ -36,19 +36,14 @@ To configure alerting through the **Alertmanager Configuration** pane:
 1. Select **Alertmanager Configuration**.
 
 1. For **Alerting Rules YAML**, provide in YAML format the rule statements that define which
-alerts Alertmanager sends to your alert receivers:
-  1. The following YAML files contain alerting rules for VMware Tanzu Application Service for
-  VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI). Choose the
-  YAML file below that corresponds to your runtime and replace `OPS_MANAGER_URL` with the fully-qualified
-  domain name (FQDN) of your Ops Manager deployment:
+alerts Alertmanager sends to your alert receivers. The following YAML files contain sample
+alerting rules for VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu
+Kubernetes Grid Integrated Edition (TKGI):
       * [TAS for VMs](tas_alerting_rules.yml)
       * [TKGI](tkg-i_alerting_rules.yml)
-  1. Modify the YAML file according to the observability requirements for your foundation.
-  1. Paste the contents of the YAML file into **Alerting Rules YAML**.
   <br>
   <br>
-  For more information, see [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
-  in the Prometheus documentation.
+  For more information, see [Understanding Alerting Rules](alerting-rules.html).
 
 1. For **Routing Rules YAML**, provide the route block that defines where Alertmanager sends
 alerts, how frequently Alertmanager sends alerts, and how Alertmanager groups alerts together.

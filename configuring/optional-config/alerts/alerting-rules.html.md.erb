@@ -1,5 +1,5 @@
 ---
-title: Understanding Alerts
+title: Understanding Alerting Rules
 owner: Healthwatch
 ---
 
@@ -7,6 +7,78 @@ This topic describes the types of alerts you can configure Alertmanager to send.
 
 
 ## <a id='overview'></a> Overview of Alerts
+
+Talk about YAML and PromQL here.
+
+**Alerting Rules YAML** in the **Alertmanager Configuration** pane of the Healthwatch tile
+
+Types of alerts you can configure include:
+
+[the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
+
+After you configure alerting rules, you must configure routing rules and alert receivers. For more information, see [Configuring Alerting](alerting.html).
+
+
+## How to Format
+
+[Link to documentation for PromQL]()
+
+```
+groups:
+  - name:
+    rules:
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+  - name:
+    rules:
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+  - name:
+    rules:
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+      - alert:
+        expr:
+        for:
+        annotations:
+          summary:
+          description: |
+
+```
+
+Explanations of each property go here.
+
+
+
 
 
 
