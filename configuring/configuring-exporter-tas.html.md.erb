@@ -478,14 +478,13 @@ to modify:
   VMs a public IP address that enables outbound Internet access.
 
 1. (Optional) The instance count for the SVM Forwarder VM is set to `0` by default. This VM
-emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To enable
+emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To deploy
 the SVM Forwarder VM, increase the instance count by selecting from the **Instances** dropdown.
-You do not need to enable this VM unless your foundation uses a Pivotal Healthwatch v1.8 or
-earlier integration and a third-party nozzle to export the SVMs to an external system, such
-as a remote server or a syslog aggregation service. For more information about the SVM Forwarder
-VM, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM
-Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in
-_Healthwatch Metrics_.
+You do not need to deploy this VM unless you use a third-party nozzle that can export the SVMs
+to an external system, such as a remote server or a syslog aggregation service. For more information
+about the SVM Forwarder VM, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform)
+and [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components)
+in _Healthwatch Metrics_.
   <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS
     for VMs tile before installing the Healthwatch tile, you may need to re-deploy Healthwatch
     Exporter for TAS for VMs after enabling the SVM Forwarder VM. For more information, see

@@ -183,34 +183,41 @@ in the Prometheus documentation.
       CA, enable the **TLS Config Skip SSL Validation** checkbox to skip SSL validation during
       TLS handshakes.
 
-1. For **Chunk Size (Disk) MB**, enter in MB the size that you want to specify for chunks of
-free disk. The default value is `6144`. Healthwatch uses this free disk chunk size to calculate
-the available disk chunks super value metric (SVM). If you rely on Pivotal Healthwatch v1.8
-or earlier for any metrics, the Pivotal Healthwatch integration then uses this SVM to calculate
-the `Diego_AvailableFreeChunksDisk` metric. The Pivotal Healthwatch integration sends the `Diego_AvailableFreeChunksDisk`
-metric back into Loggregator so third-party nozzles can send it to external destinations, such
-as a remote server or external aggregation service. For more information, see [SVM Forwarder
-VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch
-Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
+1. For **Chunk Size (Disk) MB**, enter in MB the size that you want to specify for free chunks
+of disk. The default value is `6144`. Healthwatch uses this free chunk size to calculate the
+available free disk chunks super value metric (SVM), which it then uses to calculate the `Diego_AvailableFreeChunksDisk`
+metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM,
+the SVM Forwarder VM sends the `Diego_AvailableFreeChunksDisk` metric back into the Loggregator
+Firehose so third-party nozzles can send it to external destinations, such as a remote server
+or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform
+Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch Component
+Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information
+about deploying the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config)
+in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-1. For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify for chunks
-of free memory. The default value is `4096`. Healthwatch uses this free memory chunk size to
-calculate the available memory chunks SVM. If you rely on Pivotal Healthwatch v1.8 or earlier
-for any metrics, the Pivotal Healthwatch integration then uses this SVM to calculate the `Diego_AvailableFreeChunksMemory`
-metric. The Pivotal Healthwatch integration sends the `Diego_AvailableFreeChunksMemory` metric
-back into Loggregator so third-party nozzles can send it to external destinations, such as
-a remote server or external aggregation service. For more information, see [SVM Forwarder
-VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch
-Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
+1. For **Chunk Size (Memory) MB**, enter in MB the size that you want to specify for free chunks
+of memory. The default value is `4096`. Healthwatch uses this free chunk size to calculate
+the available free memory chunks SVM, which it then uses to calculate the `Diego_AvailableFreeChunksMemory`
+metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM,
+the SVM Forwarder VM sends the `Diego_AvailableFreeChunksMemory` metric back into the Loggregator
+Firehose so third-party nozzles can send it to external destinations, such as a remote server
+or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform
+Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch Component
+Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information
+about deploying the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config)
+in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses
-must not be within the reserved IP ranges you configured in the BOSH Director tile. To find the IP addresses of the VMs:
+1. (Optional) For **Static IPs for the Prometheus VM(s)**, enter a comma-separated list of
+valid static IP addresses that you want to reserve for the Prometheus instance. You must enter
+a separate IP address for each VM in the Prometheus instance. These IP addresses must not be
+within the reserved IP ranges you configured in the BOSH Director tile. To find the IP addresses
+of the Prometheus VMs:
     1. Select the **Status** tab.
-    1. From the **IPs** column, record the IP addresses of each VM listed in the **TSDB** row.
-
-    <p class="note">
-      <strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.
-    </p>
+    1. In the **TSDB** row, record the IP addresses of each Prometheus VM from the **IPs**
+    column.
+    <p class='note'><strong>Note:</strong> The Prometheus instance includes two VMs by default.
+      For more information about viewing or scaling your VMs, see <a href="../resources.html">Healthwatch
+      Components and Resource Requirements</a>.</p>
 
 1. Click **Save**.
 
