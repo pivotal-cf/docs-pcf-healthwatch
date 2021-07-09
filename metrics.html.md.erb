@@ -608,10 +608,10 @@ generates:
 ### <a id="svm-forwarder-platform"></a> SVM Forwarder VM - Platform Metrics
 
 Super value metrics (SVMs) are composite metrics that the Prometheus instance in Healthwatch
-v2 generates in a similar format to the super metrics used in Pivotal Healthwatch v1. The SVM
-Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose
-so third-party nozzles can send them to external destinations, such as a remote server or external
-aggregation service.
+v2.1 generates in a similar format to the super metrics used in Pivotal Healthwatch v1.8 and
+earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator
+Firehose so third-party nozzles can send them to external destinations, such as a remote server
+or external aggregation service.
 
 The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics
 to the Loggregator Firehose. For more information about SVMs related to Healthwatch component
@@ -969,10 +969,11 @@ generates:
 
 ### <a id="svm-forwarder-components"></a> SVM Forwarder VM - Healthwatch Component Metrics
 
-SVMs are composite metrics that the Prometheus instance in Healthwatch v2 generates in a similar
-format to the super metrics used in Pivotal Healthwatch v1. The SVM Forwarder VM, `svm-forwarder`,
-then sends these metrics back into the Loggregator Firehose so third-party nozzles can send
-them to external destinations, such as a remote server or external aggregation service.
+SVMs are composite metrics that the Prometheus instance in Healthwatch v2.1 generates in a
+similar format to the super metrics used in Pivotal Healthwatch v1.8 and earlier. The SVM Forwarder
+VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party
+nozzles can send them to external destinations, such as a remote server or external aggregation
+service.
 
 The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics
 to the Loggregator Firehose. For more information about SVMs related to platform metrics, see
