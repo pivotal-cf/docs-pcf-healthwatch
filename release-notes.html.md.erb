@@ -26,6 +26,39 @@ in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-2'></a> v2.1.2
+
+**Release Date:** 07/14/2021
+
+* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.11.
+
+* **[Feature]**  Add scrape job for the bosh directors prometheus endpoints.
+
+* **[Feature]** Differentiate Isolation Segments in TAS Router Dashboard.
+
+* **[Bug Fix]** Improve logic to dynamically select the dashboard versions.
+
+* **[Bug Fix, Breaking Change]** added additional uniqueness constraints to the BOSH and OM certificates by adding 
+additional tags to the metrics. For more information, see [Metric Constraints](#metric-uniqueness) below.
+
+* **[Bug Fix]** Delete tmp files from cluster discovery once they are no longer needed.
+
+* **[Bug Fix]** Fixed Ops Manager dashboards by removing the `no_follow_redirects: true` flag from the Blackbox exporter.
+    ***Note:*** `no_follow_redirects: true` was added to address a now-fixed bug in Ops Man. 
+    If you are running Ops Man v2.10.8 or less, you may see the `/home/tempest-web/uaa/tomcat` 
+    log file grow very large over time.
+
+* **[Known Issue]** When initially deploying the SVM Forwarder VM, SVM is not being forwarded to the firehose. For more
+information, see [SVM Metrics Not Forwarding Upon Initial Deployment of SVM VM](#svm-metrics) below.
+
+Healthwatch v2.1.2 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.4            |
+| Alertmanager | 0.21.0           |
+
 ### <a id='2-1-1'></a> v2.1.1
 
 **Release Date:** 05/14/2021
@@ -194,7 +227,12 @@ This change does not affect VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) metri
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
-Healthwatch v2.0.6 includes the following breaking changes:
+Healthwatch v2.0.6 and v2.1 includes the following breaking changes:
+
+### <a id='metric-uniqueness'></a> Metric Constraints
+
+Additional tags were added to the `ssl_certificate_expiry_seconds` metric to ensure uniqueness of
+certificates. There are no changes to any metric names. 
 
 ### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
@@ -221,6 +259,11 @@ for TKGI_.
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
+
+### <a id='svm-metrics'></a> SVM Metrics Not Forwarding Upon Initial Deployment of SVM VM
+
+This is a known issue with the SVM VM. On initial deployment of the SVM Forwarder VM
+the metrics are not forwarding, a monit restart of the svm-formwarder will fix the issue.
 
 ### <a id='scaled-vms'></a> Scaled VMs Not Distributed Across AZs by Default
 
