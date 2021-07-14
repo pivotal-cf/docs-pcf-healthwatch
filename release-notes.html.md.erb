@@ -26,6 +26,46 @@ in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-2'></a> v2.1.2
+
+**Release Date:** 07/14/2021
+
+* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.11.
+
+* **[Feature]** Healthwatch automatically creates a scrape job for the Prometheus endpoints on
+the BOSH Director VM.
+
+* **[Feature]** You can filter the **TAS Router** dashboard in the Grafana UI by isolation segment.
+
+* **[Breaking Change]** The `ssl_certificate_expiry_seconds` metric has additional tags to ensure
+that metrics are unique. For more information, see [Certificate Expiration Metrics Have Additional
+Tags](#metric-uniqueness) below.
+
+* **[Bug Fix]** The Grafana instance creates dashboards for the correct runtime version when dynamically
+discovering runtimes on your Ops Manager foundation.
+
+* **[Bug Fix]** Healthwatch deletes the temporary files it creates during TKGI cluster discovery
+after they are no longer needed.
+
+* **[Bug Fix]** The `no_follow_redirects: true` flag is removed from the Blackbox Exporter. This
+fixes Ops Manager dashboards in the Grafana UI.
+  <p class='note'><strong>Note:</strong> The bug that the <code>no_follow_redirects: true</code>
+    flag addresses is fixed in Ops Manager v2.10.9. If you are running Ops Manager v2.10.8 or earlier,
+    you may still see the <code>/home/tempest-web/uaa/tomcat</code> log file grow very large over
+    time.</p>
+
+* **[Known Issue]** The SVM Forwarder VM does not forward SVMs to the Loggregator Firehose after
+the first time it deploys. For more information, see [SVM Forwarder VM Does Not Initially Forward
+SVMs](#svm-metrics) below.
+
+Healthwatch v2.1.2 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.4            |
+| Alertmanager | 0.21.0           |
+
 ### <a id='2-1-1'></a> v2.1.1
 
 **Release Date:** 05/14/2021
@@ -54,8 +94,7 @@ the Grafana UI show six digits of precision.
 * **[Bug Fix]** The BOSH Backup and Restore (BBR) script does not return a `Snapshot failed:
 Client sent an HTTP request to an HTTPS server` error.
 
-* **[Bug Fix]** Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) requires
-the TKGI tile to be installed.
+* **[Bug Fix]** Healthwatch Exporter for TKGI requires the TKGI tile to be installed.
 
 * **[Bug Fix]** Healthwatch Exporter for TAS for VMs requires the TAS for VMs tile to be installed.
 
@@ -194,7 +233,12 @@ This change does not affect VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) metri
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
-Healthwatch v2.0.6 includes the following breaking changes:
+Healthwatch v2.0.6 and v2.1 includes the following breaking changes:
+
+### <a id='metric-uniqueness'></a> Certificate Expiration Metrics Have Additional Tags
+
+The `ssl_certificate_expiry_seconds` metric has additional tags to ensure that each metric is
+unique. The addition of these tags does not change any metric names. 
 
 ### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
@@ -221,6 +265,17 @@ for TKGI_.
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
+
+### <a id='svm-metrics'></a> SVM Forwarder VM Does Not Initially Forward SVMs
+
+The SVM Forwarder VM does not forward SVMs to the Loggregator Firehose after
+the first time it deploys.
+
+To fix this issue, run:
+
+```
+monit restart svm-formwarder
+```
 
 ### <a id='scaled-vms'></a> Scaled VMs Not Distributed Across AZs by Default
 
