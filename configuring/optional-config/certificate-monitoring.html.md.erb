@@ -10,15 +10,13 @@ VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI
 
 ## <a id='overview'></a> Overview of Certificate Expiration Monitoring
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate
-expiration metric exporter VM, `cert-expiration-exporter`, which collects metrics that show
-when Ops Manager certificates are due to expire. These certificates include the Ops Manager
-root certificate authority (CA) and leaf certificates for product tiles and BOSH deployments
-that are stored in BOSH CredHub. For more information about these certificates, see [Certificate
+The Certificate Expiration dashboard in the Grafana user interface (UI) shows when Ops Manager certificates are due to expire. These certificates include the Ops Manager root certificate authority (CA) as well as leaf certificates for product tiles and BOSH deployments that are stored in BOSH CredHub. For more information about these certificates, see [Certificate
 Types](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/certificate-types.html)
 in the Ops Manager documentation.
 
-The certificate expiration metric exporter VM uses the `om` CLI to make a GET request to the
+The certificates in the Certificate Expiration dashboard come from two sources: the certificate expiration metric exporter VM and the BOSH Director tile's list of trusted certificates.
+
+The certificate expiration metric exporter VM, `cert-expiration-exporter`, is deployed by the Healthwatch exporters. It uses the `om` CLI to make a GET request to the
 `/api/v0/deployed/certificates` Ops Manager API endpoint with the query parameter `?expires_within=1y`.
 This request returns all certificate expiration dates that are due to occur within one year.
 You cannot configure the certificate expiration metric exporter VM to make a request to the
@@ -26,6 +24,8 @@ Ops Manager API endpoint that specifies a different time period. For more inform
 the `/api/v0/deployed/certificates` endpoint, see [Getting Information About Certificates from
 Products](https://docs.pivotal.io/platform/2-10/opsman-api/#tag/Certificates/paths/~1api~1v0~1deployed~1certificates/get)
 in the Ops Manager API documentation.
+
+In addition, the BOSH Director tile contains a **Trusted Certificates** field where you can enter your custom CA certificates to allow all BOSH-deployed components in your deployment to trust custom root certificates. For more information about this field, see [Setting Trusted Certificates](https://docs.pivotal.io/ops-manager/2-10/trusted-certificates.html).
 
 If any CAs and leaf certificates for your deployment are due to expire soon, rotate them before
 they expire to avoid downtime for your deployment. To rotate CAs and leaf certificates, see
