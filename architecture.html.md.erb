@@ -405,10 +405,18 @@ tile that you install on a separate Ops Manager foundation or the TKGI Control P
 your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring
 Ops Manager foundation or the TKGI Control Plane:
 
-1. Install the Healthwatch tile on either an Ops Manager foundation or the TKGI Control Plane.
+1. Install and configure the Healthwatch tile on either an Ops Manager foundation or the TKGI
+Control Plane. To install and configure the Healthwatch tile, see the following topics:
+  * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring,
+  and Deploying a Tile Through an Automated Pipeline](#automated-pipeline.html)
+  * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
 
-1. Install Healthwatch Exporter for TAS for VMs on each Ops Manager foundation you want
-to monitor.
+1. Install and configure Healthwatch Exporter for TAS for VMs on each Ops Manager foundation
+you want to monitor. To install and configure Healthwatch Exporter for TAS for VMs, see the
+following topics:
+  * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring,
+  and Deploying a Tile Through an Automated Pipeline](#automated-pipeline.html)
+  * [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
 
 1. For each installation of Healthwatch Exporter for TAS for VMs, open the ports for the metric
 exporter VMs that Healthwatch Exporter for TAS for VMs deploys. For more information about
@@ -478,20 +486,31 @@ must configure federation for your Healthwatch deployment. To configure your Hea
 to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation
 or the TKGI Control Plane through federation:
 
-1. Install the Healthwatch tile and the Healthwatch Exporter for TKGI on each foundation you
-want to monitor.
+1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each foundation
+you want to monitor. To install and configure the Healthwatch and Healthwatch Exporter for
+TKGI tiles, see the following topics:
+  * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring,
+  and Deploying a Tile Through an Automated Pipeline](#automated-pipeline.html)
+  * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
+  * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
-1. Install the Healthwatch tile on your monitoring foundation.
+1. Install and configure the Healthwatch tile on your monitoring foundation. To install and
+configure the Healthwatch tile, see the following topics:
+  * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring,
+  and Deploying a Tile Through an Automated Pipeline](#automated-pipeline.html)
+  * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
+  * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
 1. Configure the Healthwatch tile on each foundation you monitor to scrape the Healthwatch
-Exporter for TKGI tile installed on the same foundation.
+Exporter for TKGI tile installed on the same foundation. To configure scrape jobs in Healthwatch,
+see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring
+Healthwatch_.
 
-1. Configure the Healthwatch tile on your monitoring foundation to scrape metrics from the
-Healthwatch tiles installed on the foundations you want to monitor.
+1. Configure the Healthwatch tile on your monitoring foundation to federate metrics from the
+Healthwatch tiles installed on the foundations you want to monitor. To configure federation
+for your Healthwatch deployment, see [Configuring Federation for Healthwatch](configuring/optional-config/federation.html).
 
 1. Configure TKGI cluster discovery in the Healthwatch tile on each foundation you want to
 monitor. Do not configure TKGI cluster discovery in the Healthwatch tile on your monitoring
-foundation.
-
-For more information about configuring federation, see [Configuring Federation for Healthwatch]
-(configuring/optional-config/federation.html).
+foundation. To configure TKGI cluster discovery on the foundations you want to monitor, see
+[Configuring TKGI Cluster Discovery](configuring/optional-config/configuring-cluster-discovery).

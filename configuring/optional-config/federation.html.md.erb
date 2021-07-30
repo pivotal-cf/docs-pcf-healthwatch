@@ -25,13 +25,13 @@ foundation you monitor.
 
 To configure federation for your Healthwatch installation, you install the Healthwatch tile
 on your monitoring foundation and on each foundation you want to monitor, in addition to the
-Healthwatch Exporter tile you install on each foundation you monitor. You then configure the
-Healthwatch tile on each foundation you monitor to scrape metrics from the Healthwatch Exporter
-tile installed on the same foundation, and the Healthwatch tile on your monitoring foundation
-to scrape metrics from the Healthwatch tiles installed on the foundations you monitor.
+Healthwatch Exporter tile you install on each foundation you want to monitor. You then configure
+the Healthwatch tile on each foundation you want to monitor to scrape metrics from the Healthwatch
+Exporter tile installed on the same foundation, and the Healthwatch tile on your monitoring
+foundation to scrape metrics from the Healthwatch tiles installed on the foundations you want
+to monitor.
 
-For more information about federation, see [Federation](https://prometheus.io/docs/prometheus/latest/federation/)
-in the Prometheus documentation.
+For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
 <p class='note warning'><strong>Warning:</strong> Storing all Loggregator Firehose metrics
   from more than one large TAS for VMs foundation in a single Prometheus instance negatively
@@ -56,8 +56,8 @@ the Healthwatch Exporter for TKGI tile on each foundation you want to monitor. F
 see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing,
 Configuring, and Deploying a Tile Through an Automated Pipeline](../../installing/automated-pipeline.html).
 
-1. For each foundation you monitor, expose the Prometheus instance in the Healthwatch tile
-on port `4450`.
+1. For each foundation you want to monitor, expose the Prometheus instance in the Healthwatch
+tile on port `4450`.
 
 1. For each foundation you want to monitor:
   1. Navigate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
