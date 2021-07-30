@@ -49,17 +49,23 @@ alerts Alertmanager sends to your alert receivers:
 
 1. For **Routing Rules YAML**, provide in YAML format the route block that defines where Alertmanager
 sends alerts, how frequently Alertmanager sends alerts, and how Alertmanager groups alerts
-together, similar to the example below:
+together. The following example shows a possible set of routing rules:
 
     ```
     receiver: 'example-receiver'
     group_wait: 30s
     group_interval: 5m
     repeat_interval: 4h
-    group_by: [example-alert-name]
+    group_by: [cluster, alertname]
     ```
+    <p class='note'><strong>Note:</strong> <code>group_by</code> gathers all alerts with the
+      same label into a single alert. For example, including <code>cluster</code> in the <code>group_by</code>
+      property groups together all alerts from the same cluster. You can see the labels for
+      the metrics that Healthwatch collects, such as <code>cluster</code>, <code>index</code>,
+      <code>deployment</code>, and <code>origin</code>, within the braces at the end of each
+      metrics.</p>
     This route block appears in the `route` section of the Alertmanager configuration file.
-    You must define all `route` configuration parameters. For information about the parameters
+    You must define all `route` configuration parameters. For more information about the parameters
     you must provide, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
 
 1. (Optional) For **Inhibit Rules YAML**, provide in YAML format the rule statements that define
