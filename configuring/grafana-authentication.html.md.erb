@@ -288,18 +288,16 @@ Command Line Interface (UAAC). Run:
     depending on whether you provide an SSL certificate in the **Enable HTTPS by providing
     certificates** field in the **Grafana Configuration** pane of the Healthwatch tile.
 
-1. If you are using TAS for VMS, you added the UAA client to UAA user groups mapped to administrator,
-editor, and viewer permissions for Grafana in the previous step. Continue to the next step.
-<br>
-<br>
-If you are using TKGI, you must manually create UAA user groups to map to administrator, editor,
-and viewer permissions. Run:
+1. If you are using TKGI, you must manually create UAA user groups to map to administrator,
+editor, and viewer permissions. Run:
 
     ```
     uaac group add healthwatch.admin
     uaac group add healthwatch.edit
     uaac group add healthwatch.read
     ```
+    If you are using TAS for VMS, you added the UAA client to UAA user groups mapped to administrator,
+    editor, and viewer permissions for Grafana in the previous step. Continue to the next step.
 
 1. Create a user account for the UAA client you created in a previous step to log in to the
 Grafana instance. Run:
