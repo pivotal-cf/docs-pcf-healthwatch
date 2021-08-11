@@ -125,11 +125,11 @@ this field limits Grafana UI access to users who belong to one or more of the li
 This list appears as the `allowed_domains` property in the `[auth.generic_oauth]` section of
 the Grafana configuration file.
 
-1. (Optional) For **Hosted Domain**, enter the domain of your Grafana instance. This domain
+1. (Optional) For **Hosted Domain**, enter the domain of the Grafana instance. This domain
 appears as the `domain` property in the `[server]` section of the Grafana configuration file.
 You must configure this field if your OAuth provider requires a callback URL that uses the
-root URL of your Grafana instance. If your OAuth provider does not require a callback URL,
-do not configure this field.
+root URL of the Grafana instance. If your OAuth provider does not require a callback URL, do
+not configure this field.
 
 1. (Optional) To allow new users to log in to the Grafana UI with their existing OAuth credentials,
 enable the **Allow Sign Up** checkbox. This checkbox is enabled by default. Disabling this
@@ -280,16 +280,16 @@ Command Line Interface (UAAC). Run:
     ```
     Where:
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
-    * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured your
+    * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured the
     Grafana instance to use in the **Grafana Configuration** pane of the Healthwatch tile.
-    * `GRAFANA-ROOT-URL` is the root URL for your Grafana instance. If your Grafana instance
-    uses HTTPS, include the port for your Grafana instance in `GRAFANA-ROOT-URL`. For example,
-    `https://GRAFANA-ROOT-URL:443`. Your Grafana instance listens on either port `443` or `80`,
+    * `GRAFANA-ROOT-URL` is the root URL for the Grafana instance. If the Grafana instance
+    uses HTTPS, include the port for the Grafana instance in `GRAFANA-ROOT-URL`. For example,
+    `https://GRAFANA-ROOT-URL:443`. The Grafana instance listens on either port `443` or `80`,
     depending on whether you provide an SSL certificate in the **Enable HTTPS by providing
     certificates** field in the **Grafana Configuration** pane of the Healthwatch tile.
 
 1. If you are using TKGI, you must manually create UAA user groups to map to administrator,
-editor, and viewer permissions. Run:
+editor, and viewer permissions for Grafana. Run:
 
     ```
     uaac group add healthwatch.admin
