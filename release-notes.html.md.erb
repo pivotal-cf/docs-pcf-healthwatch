@@ -11,9 +11,10 @@ owner: Pivotal Healthwatch
 
 New features and changes in this release:
 
-* Adds support for TAS for VMs v2.10.
+* **[Feature]** Pivotal Healthwatch supports TAS for VMs v2.10.
 
-* Increases the reliability of the `Metrics Troubleshooting` errand.
+* **[Feature Improvement]** The `health-check-type` used for the **Metrics Troubleshooting** errand
+is changed to `http` to increase reliability.
 
 ### Known Issues
 
@@ -29,7 +30,7 @@ To work around this issue:
 1. In the Healthwatch tile, select **Healthwatch Component Config**.
 
 1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-   changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
+   changes the **Push Monitoring Components** errand's deployment strategy from parallel to sequential.
 
 1. Click **Save**.
 
