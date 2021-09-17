@@ -405,7 +405,7 @@ by default. This checkbox appears as the `ssl_skip_verify` property in the `[aut
 of the Grafana configuration file.
 
 1. (Optional) For **Bind DN**, enter the distinguished name (DN) for binding to the LDAP server.
-For example, `"cn=admin,dc=grafana,dc=org"`. This DN appears as the `bind_dn` property in the
+For example, `cn=admin,dc=grafana,dc=org`. This DN appears as the `bind_dn` property in the
 `[auth.ldap]` section of the Grafana configuration file.
 
 1. (Optional) For **Bind password**, enter the password for binding to the LDAP server. For
@@ -413,21 +413,21 @@ example, `grafana`. This password appears as the `bind_password` property in the
 section of the Grafana configuration file.
 
 1. (Optional) For **User search filter**, enter a regex string that defines LDAP user search
-criteria. For example, `"(cn=%s)"`. This string appears as the `search_filter` property in
+criteria. For example, `(cn=%s)`. This string appears as the `search_filter` property in
 the `[auth.ldap]` section of the Grafana configuration file.
 
 1. (Optional) For **Search base DNS**, enter an array of base DNs in the LDAP directory tree
 from which any LDAP user search begins. The typical LDAP search base matches your domain name.
-For example, `"dc=grafana,dc=org"`. This array appears as the `search_base_dns` property in
+For example, `dc=grafana,dc=org`. This array appears as the `search_base_dns` property in
 the `[auth.ldap]` section of the Grafana configuration file.
 
 1. (Optional) For **Group search filter**, enter a regex string that defines LDAP group search
-criteria. For example, `"(&(objectClass=posixGroup)(memberUid=%s))"`. This string appears as
+criteria. For example, `(&(objectClass=posixGroup)(memberUid=%s))`. This string appears as
 the `group_search_filter` property in the `[auth.ldap]` section of the Grafana configuration
 file.
 
 1. (Optional) For **Group search base DNS**, enter an array of base DNs in the LDAP directory
-tree from which any LDAP group search begins. For example, `"ou=groups,dc=grafana,dc=org"`.
+tree from which any LDAP group search begins. For example, `ou=groups,dc=grafana,dc=org`.
 This array appears as the `group_search_base_dns` property in the `[auth.ldap]` section of
 the Grafana configuration file.
 
