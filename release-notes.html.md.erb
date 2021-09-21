@@ -40,13 +40,16 @@ segment.
   dropdown.</p>
 
 * **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, the **Memory:
-# of 6GB Chunks Used** graph is renamed **Memory: # of 4GiB Chunks Remaining**.
+&#35; of 6GB Chunks Used** graph is renamed **Memory: # of 4GiB Chunks Remaining**.
 
-* **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, the **Disk: #
-of 6GB Chunks Used** graph is renamed **Disk: # of 4GiB Chunks Remaining**.
+* **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, the **Disk:
+&#35; of 6GB Chunks Used** graph is renamed **Disk: # of 4GiB Chunks Remaining**.
 
 * **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, the **Containers**
 graph is renamed **Containers Remaining**.
+
+* **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, memory and
+disk capacity metrics are calculated in GiB.
 
 * **[Known Issue Fix]** The SVM Forwarder VM correctly forwards SVMs to the Loggregator Firehose
 after the first time it deploys. For more information about this known issue, see [SVM Forwarder
@@ -54,8 +57,8 @@ VM Does Not Initially Forward SVMs](#svm-metrics) below.
 
 * **[Known Issue Fix]** When you configure alert receivers in the **Alertmanager** configuration
 pane, the **Basic authentication credentials** fields include a field to configure a username.
-For more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
+For more information about this known issue, see [Missing Username Field in Alert Receiver
+Basic Authentication Configuration](#alert-receiver-basic-auth) below.
 
 * **[Bug Fix]** In email alerts from Alertmanager, links to the Grafana UI correctly generate
 with HTTP or HTTPS.
