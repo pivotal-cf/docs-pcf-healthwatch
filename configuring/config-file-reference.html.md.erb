@@ -43,34 +43,45 @@ tile configure properties in the Prometheus configuration file:
 
 <table>
   <tr>
-    <th>Healthwatch configuration option</th>
-    <th>Configuration file property</th>
-    <th>Configuration file section</th>
+    <th width="28%">Healthwatch configuration option</th>
+    <th width="34%">Configuration file property</th>
+    <th width="37%">Configuration file section</th>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Scrape interval</strong></td>
+    <td><code>scrape_interval</code></td>
+    <td><code>scrape_config</code></td>
+  </tr>
+  <tr>
+    <td><strong>Scrape job configuration parameters</strong></td>
+    <td>See <a href="configuring-healthwatch.html#prometheus">Configure Prometheus</a> in <em>Configuring
+      Healthwatch</em> and <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config">the
+      Prometheus documentation</a>.</td>
+    <td><code>scrape_config</code></td>
+  <tr>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>tls_config</code></td>
+    <td><code>scrape_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>tls_config</code></td>
+    <td><code>scrape_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Target server name</td>
+    <td><strong>Target server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>tls_config</code></td>
+    <td><code>scrape_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>tls_config</code></td>
+    <td><code>scrape_config</code> - <code>tls_config</code></td>
   </tr>
 </table>
 
-For more information, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in
-_Configuring Healthwatch_ and [the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+For more information about configuring these properties, see [Configure Prometheus](configuring-healthwatch.html#prometheus)
+in _Configuring Healthwatch_ and [the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 ### <a id='remote-write-config'></a> Remote Write
 
@@ -79,98 +90,93 @@ tile configure properties in the Prometheus configuration file:
 
 <table>
   <tr>
-    <th>Healthwatch configuration option</th>
-    <th>Configuration file property</th>
-    <th>Configuration file section</th>
+    <th width="28%">Healthwatch configuration option</th>
+    <th width="34%">Configuration file property</th>
+    <th width="37%">Configuration file section</th>
   </tr>
   <tr>
-    <td>Remote write destinations</td>
-    <td></td>
-    <td><code>remote_write</code></td>
-  </tr>
-  <tr>
-    <td>Remote storage URL</td>
+    <td><strong>Remote storage URL</strong></td>
     <td><code>url</code></td>
     <td><code>remote_write</code></td>
   </tr>
   <tr>
-    <td>Remote timeout</td>
+    <td><strong>Remote timeout</strong></td>
     <td><code>remote_timeout</code></td>
     <td><code>remote_write</code></td>
   </tr>
   <tr>
-    <td>Remote storage username</td>
+    <td><strong>Remote storage username</strong></td>
     <td><code>username</code></td>
     <td><code>remote_write</code> - <code>basic_auth</code></td>
   </tr>
   <tr>
-    <td>Remote storage password</td>
+    <td><strong>Remote storage password</strong></td>
     <td><code>password</td>
     <td><code>remote_write</code> - <code>basic_auth</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
     <td><code>remote_write</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
     <td><code>remote_write</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Remote storage server name</td>
+    <td><strong>Remote storage server name</strong></td>
     <td><code>server_name</code></td>
     <td><code>remote_write</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
     <td><code>remote_write</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Proxy URL</td>
+    <td><strong>Proxy URL</strong></td>
     <td><code>proxy_url</code></td>
     <td><code>remote_write</code></td>
   </tr>
   <tr>
-    <td>Queue capacity</td>
+    <td><strong>Queue capacity</strong></td>
     <td><code>capacity</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Minimum shards per queue</td>
+    <td><strong>Minimum shards per queue</strong></td>
     <td><code>min_shards</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Maximum shards per queue</td>
+    <td><strong>Maximum shards per queue</strong></td>
     <td><code>max_shards</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Maximum samples per send</td>
+    <td><strong>Maximum samples per send</strong></td>
     <td><code>max_samples_per_send</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Maximum batch wait time</td>
+    <td><strong>Maximum batch wait time</strong></td>
     <td><code>batch_send_deadline</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Minimum backoff time</td>
+    <td><strong>Minimum backoff time</strong></td>
     <td><code>min_backoff</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
   <tr>
-    <td>Maximum backoff time</td>
+    <td><strong>Maximum backoff time</strong></td>
     <td><code>max_backoff</code></td>
     <td><code>remote_write</code> - <code>queue_config</code></td>
   </tr>
 </table>
 
-For more information, see [Configure Remote Write](configuring-healthwatch.html#remote-write)
+For more information about configuring these properties, see [Configure Remote Write](configuring-healthwatch.html#remote-write)
 in _Configuring Healthwatch_ and [the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
 
 
@@ -181,218 +187,232 @@ tile configure properties in the Alertmanager configuration file:
 
 <table>
   <tr>
-    <th>Healthwatch configuration option</th>
-    <th>Configuration file property</th>
-    <th>Configuration file section</th>
+    <th width="28%">Healthwatch configuration option</th>
+    <th width="34%">Configuration file property</th>
+    <th width="37%">Configuration file section</th>
   </tr>
   <tr>
-    <td>Routing rules</td>
-    <td></td>
+    <td><strong>Routing rules</strong></td>
+    <td>See <a href="optional-config/alerting.html">Configuring Alerting</a> and <a href="https://prometheus.io/docs/alerting/latest/configuration/">the
+      Prometheus documentation</a>.</td>
     <td><code>route</code></td>
   </tr>
   <tr>
-    <td>Inhibit rules</td>
-    <td></td>
+    <td><strong>Inhibit rules</strong></td>
+    <td>See <a href="optional-config/alerting.html">Configuring Alerting</a> and <a href="https://prometheus.io/docs/alerting/latest/configuration/">the
+      Prometheus documentation</a>.</td>
     <td><code>inhibit_rules</code></td>
   </tr>
   <tr>
-    <td>Email alert receivers</td>
-    <td></td>
-    <td><code>email_config</code></td>
+    <td align="center" colspan="3"><strong>Email alert receivers</strong></td>
   </tr>
   <tr>
-    <td>Alert receiver name</td>
-    <td></td>
-    <td><code>email_config</code></td>
+    <td><strong>Alert receiver name</strong></td>
+    <td><code>name</code></td>
+    <td><code>receivers</code></td>
   </tr>
   <tr>
-    <td>Alert receiver configuration parameters</td>
-    <td></td>
-    <td><code>email_config</code></td>
+    <td><strong>Alert receiver configuration parameters</strong></td>
+    <td>See <a href="optional-config/alerting.html#email">Configure an Email Alert Receiver</a>
+      in <em>Configuring Alerting</em> and <a href="https://prometheus.io/docs/alerting/latest/configuration/#email_config">the
+      Prometheus documentation</a>.</td>
+    <td><code>receivers</code> - <code>email_configs</code></td>
   </tr>
   <tr>
-    <td>SMTP server authentication password</td>
+    <td><strong>SMTP server authentication password</strong></td>
     <td><code>auth_password</code></td>
-    <td><code>email_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code></td>
   </tr>
   <tr>
-    <td>SMTP server authentication secret</td>
+    <td><strong>SMTP server authentication secret</strong></td>
     <td><code>auth_secret</code></td>
-    <td><code>email_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>email_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>email_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>SMTP server name</td>
+    <td><strong>SMTP server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>email_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>email_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>email_configs</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>PagerDuty alert receivers</td>
-    <td></td>
-    <td><code>pagerduty_config</code></td>
+    <td align="center" colspan="3"><strong>PagerDuty alert receivers</strong></td>
   </tr>
   <tr>
-    <td>Alert receiver name</td>
-    <td></td>
-    <td><code>pagerduty_config</code></td>
+    <td><strong>Alert receiver name</strong></td>
+    <td><code>name</code></td>
+    <td><code>receivers</code></td>
   </tr>
   <tr>
-    <td>Alert receiver configuration parameters</td>
-    <td></td>
-    <td><code>pagerduty_config</code></td>
+    <td><strong>Alert receiver configuration parameters</strong></td>
+    <td>See <a href="optional-config/alerting.html#pagerduty">Configure a PagerDuty Alert Receiver</a>
+      in <em>Configuring Alerting</em> and <a href="https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config">the
+      Prometheus documentation</a>.</td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code></td>
   </tr>
   <tr>
-    <td>Routing key</td>
+    <td><strong>Routing key</strong></td>
     <td><code>routing_key</code></td>
-    <td><code>pagerduty_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code></td>
   </tr>
   <tr>
-    <td>Service key</td>
+    <td><strong>Service key</strong></td>
     <td><code>service_key</code></td>
-    <td><code>pagerduty_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code></td>
   </tr>
   <tr>
-    <td>Basic authorization credentials</td>
+    <td><strong>Basic authentication credentials</strong></td>
     <td><code>username</code>, <code>password</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>basic_auth</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>basic_auth</code></td>
   </tr>
   <tr>
-    <td>Bearer tokey</td>
+    <td><strong>Bearer token</strong></td>
     <td><code>credentials</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>authorization</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>authorization</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>PagerDuty server name</td>
+    <td><strong>PagerDuty server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>pagerduty_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
+      - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Slack alert receivers</td>
-    <td></td>
-    <td><code>slack_config</code></td>
+    <td align="center" colspan="3"><strong>Slack alert receivers</strong></td>
   </tr>
   <tr>
-    <td>Alert receiver name</td>
-    <td></td>
-    <td><code>slack_config</code></td>
+    <td><strong>Alert receiver name</strong></td>
+    <td><code>name</code></td>
+    <td><code>receivers</code></td>
   </tr>
   <tr>
-    <td>Alert receiver configuration parameters</td>
-    <td></td>
-    <td><code>slack_config</code></td>
+    <td><strong>Alert receiver configuration parameters</strong></td>
+    <td>See <a href="optional-config/alerting.html#slack">Configure a Slack Alert Receiver</a>
+      in <em>Configuring Alerting</em> and <a href="https://prometheus.io/docs/alerting/latest/configuration/#slack_config">the
+      Prometheus documentation</a>.</td>
+    <td><code>receivers</code> - <code>slack_configs</code></td>
   </tr>
   <tr>
-    <td>Slack API URL</td>
+    <td><strong>Slack API URL</strong></td>
     <td><code>api_url</code></td>
-    <td><code>slack_config</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code></td>
   </tr>
   <tr>
-    <td>Basic authorization credentials</td>
+    <td><strong>Basic authentication credentials</strong></td>
     <td><code>username</code>, <code>password</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>basic_auth</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>basic_auth</code></td>
   </tr>
   <tr>
-    <td>Bearer token</td>
+    <td><strong>Bearer token</strong></td>
     <td><code>credentials</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>authorization</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>authorization</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Slack server name</td>
+    <td><strong>Slack server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>slack_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>slack_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Webhook alert receivers</td>
-    <td></td>
-    <td><code>webhook_config</code></td>
+    <td align="center" colspan="3"><strong>Webhook alert receivers</strong></td>
   </tr>
   <tr>
-    <td>Alert receiver name</td>
-    <td></td>
-    <td><code>webhook_config</code></td>
+    <td><strong>Alert receiver name</strong></td>
+    <td><code>name</code></td>
+    <td><code>receivers</code></td>
   </tr>
   <tr>
-    <td>Alert receiver configuration parameters</td>
-    <td></td>
-    <td><code>webhook_config</code></td>
+    <td><strong>Alert receiver configuration parameters</strong></td>
+    <td>See <a href="optional-config/alerting.html#webhook">Configure a Webhook Alert Receiver</a>
+      in <em>Configuring Alerting</em> and <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">the
+      Prometheus documentation</a>.</td>
+    <td><code>receivers</code> - <code>webhook_configs</code></td>
   </tr>
   <tr>
-    <td>Basic authorization credentials</td>
+    <td><strong>Basic authentication credentials</strong></td>
     <td><code>username</code>, <code>password</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>basic_auth</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>basic_auth</code></td>
   </tr>
   <tr>
-    <td>Bearer token</td>
+    <td><strong>Bearer token</strong></td>
     <td><code>credentials</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>authorization</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>authorization</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Webhook server name</td>
+    <td><strong>Webhook server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>tls_config</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>webhook_config</code> - <code>http_config</code> - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
+      <code>tls_config</code></td>
   </tr>
 </table>
 
-For more information, see [Configuring Alerting](configuring-healthwatch.html#alertmanager)
+For more information about configuring these properties, see [Configuring Alerting](optional-config/alerting.html)
 and [the Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/).
 
 
@@ -403,292 +423,279 @@ tile configure properties in the Grafana configuration file:
 
 <table>
   <tr>
-    <th>Healthwatch configuration option</th>
-    <th>Configuration file property</th>
-    <th>Configuration file section</th>
+    <th width="28%">Healthwatch configuration option</th>
+    <th width="34%">Configuration file property</th>
+    <th width="37%">Configuration file section</th>
   </tr>
   <tr>
-    <td>Grafana root URL</td>
+    <td><strong>Grafana root URL</strong></td>
     <td><code>root_url</code></td>
     <td><code>[server]</code></td>
   </tr>
   <tr>
-    <td>Basic authentication</td>
-    <td></td>
+    <td><strong>Basic authentication</strong></td>
+    <td><code>enabled</code></td>
     <td><code>[auth.basic]</code></td>
   </tr>
   <tr>
-    <td>Generic OAuth</td>
-    <td></td>
-    <td><code>[auth.generic_oauth]</code></td>
+    <td align="center" colspan="3"><strong>Generic OAuth</strong></td>
   </tr>
   <tr>
-    <td>Provider name</td>
+    <td><strong>Provider name</strong></td>
     <td><code>name</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Client ID</td>
+    <td><strong>Client ID</strong></td>
     <td><code>client_id</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Client secret</td>
+    <td><strong>Client secret</strong></td>
     <td><code>client_secret</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Scopes</td>
+    <td><strong>Scopes</strong></td>
     <td><code>scopes</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Authorization URL</td>
+    <td><strong>Authorization URL</strong></td>
     <td><code>auth_url</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Token URL</td>
+    <td><strong>Token URL</strong></td>
     <td><code>token_url</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>API URL</td>
+    <td><strong>API URL</strong></td>
     <td><code>api_url</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Email attribute</td>
+    <td><strong>Email attribute</strong></td>
     <td><code>email_attribute_name</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Grafana domain</td>
+    <td><strong>Grafana domain</strong></td>
     <td><code>domain</code></td>
     <td><code>[server]</code></td>
   </tr>
   <tr>
-    <td>Allow new accounts with existing OAuth credentials</td>
+    <td><strong>Allow new accounts with existing OAuth credentials</strong></td>
     <td><code>allow_sign_up</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Allowed domains</td>
+    <td><strong>Allowed domains</strong></td>
     <td><code>allowed_domains</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Allowed teams</td>
+    <td><strong>Allowed teams</strong></td>
     <td><code>teams_ids</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Allowed organizations</td>
+    <td><strong>Allowed organizations</strong></td>
     <td><code>allowed_organization</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Allowed groups</td>
+    <td><strong>Allowed groups</strong></td>
     <td><code>allowed_group</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>tls_client_cert</code>, <code>tls_client_key</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>tls_client_ca</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>tls_skip_verify_insecure</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>UAA</td>
-    <td></td>
-    <td><code>[auth.generic_oauth]</code></td>
+    <td align="center" colspan="3"><strong>UAA</strong></td>
   </tr>
   <tr>
-    <td>Client ID</td>
+    <td><strong>Client ID</strong></td>
     <td><code>client_id</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Client secret</td>
+    <td><strong>Client secret</strong></td>
     <td><code>client_secret</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>UAA server root URL</td>
-    <td></td>
-    <td><code>[auth.generic_oauth]</code></td>
+    <td><strong>UAA server root URL</strong></td>
+    <td><em>[<code>auth_url</code>? <code>token_url</code>? <code>api_url</code>? Something else?]<em></td>
+    <td><code>[auth.generic_oauth]</code> <em>[Is it? Or are we looking at something in <code>[server]</code> instead?]</em></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>tls_client_ca</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>tls_skip_verify_insecure</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td>LDAP</td>
-    <td></td>
-    <td><code>[auth.ldap]</code></td>
+    <td align="center" colspan="3"><strong>LDAP</strong></td>
   </tr>
   <tr>
-    <td>Host address</td>
+    <td><strong>Host address</strong></td>
     <td><code>host</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Port</td>
+    <td><strong>Port</strong></td>
     <td><code>port</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Allow new accounts with existing LDAP credentials</td>
+    <td><strong>Allow new accounts with existing LDAP credentials</strong></td>
     <td><code>allow_sign_up</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Use SSL</td>
+    <td><strong>Use SSL</strong></td>
     <td><code>use_ssl</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Use STARTTLS</td>
+    <td><strong>Use STARTTLS</strong></td>
     <td><code>start_tls</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>tls_skip_verify_insecure</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Bind DN</td>
+    <td><strong>Bind DN</strong></td>
     <td><code>bind_dn</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Bind password</td>
+    <td><strong>Bind password</strong></td>
     <td><code>bind_password</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>User search filter</td>
+    <td><strong>User search filter</strong></td>
     <td><code>search_filter</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Search base DNs</td>
+    <td><strong>Search base DNs</strong></td>
     <td><code>search_base_dns</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Group search filter</td>
+    <td><strong>Group search filter</strong></td>
     <td><code>group_search_filter</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Group search base DNs</td>
+    <td><strong>Group search base DNs</strong></td>
     <td><code>group_search_base_dns</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Group search filter user attribute</td>
+    <td><strong>Group search filter user attribute</strong></td>
     <td><code>group_search_filter_user_attribute</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Server attributes</td>
+    <td><strong>Server attributes</strong></td>
     <td><code>[servers.attributes]</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Server group mappings</td>
+    <td><strong>Server group mappings</strong></td>
     <td><code>[[servers.group_mappings]]</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>client_cert</code>, <code>client_key</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>CA certificate for TLS</td>
+    <td><strong>CA certificate for TLS</strong></td>
     <td><code>root_ca_cert</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
   <tr>
-    <td>Email alerts</td>
-    <td></td>
+    <td align="center" colspan="3"><strong>Email alerts</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Configure</strong> / <strong>Do not configure</strong></td>
+    <td><code>enabled</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>Configure</td>
-    <td></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td>Do not configure</td>
-    <td></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td>SMTP server host name</td>
+    <td><strong>SMTP server host name</strong></td>
     <td><code>host</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>SMTP server port</td>
+    <td><strong>SMTP server port</strong></td>
     <td><code>port</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>SMTP server username</td>
+    <td><strong>SMTP server username</strong></td>
     <td><code>user</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>SMTP server password</td>
+    <td><strong>SMTP server password</strong></td>
     <td><code>password</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>Skip TLS certificate verification</td>
+    <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>skip_verify</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>From address</td>
+    <td><strong>From address</strong></td>
     <td><code>from_address</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>From name</td>
+    <td><strong>From name</strong></td>
     <td><code>from_name</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>EHLO client ID</td>
+    <td><strong>EHLO client ID</strong></td>
     <td><code>ehlo_identity</code></td>
     <td><code>[smtp]</code></td>
   </tr>
   <tr>
-    <td>Certificate and private key for TLS</td>
+    <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
     <td><code>[smtp]</code></td>
   </tr>
 </table>
 
-For more information, see [Configure Grafana](configuring-healthwatch.html#grafana) in _Configuring
-Healthwatch_, [Configuring Grafana Authentication](grafana-authentication.html), and [the Grafana
-documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
+For more information about configuring these properties, see [Configure Grafana](configuring-healthwatch.html#grafana)
+in _Configuring Healthwatch_, [Configuring Grafana Authentication](grafana-authentication.html),
+and [the Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
