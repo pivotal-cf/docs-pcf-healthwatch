@@ -206,20 +206,12 @@ tile, depending on which runtime is installed on your foundation.
 1. Select the **Credentials** tab.
 
 1. View and record the credentials to log in to the UAA instance for your runtime:
-    * If you are using the UAA in Tanzu Application Service (TAS):
-        1. View the credentials for the UAA admin client:
-            * In the **Admin Client Credentials** row of the **UAA** section,
-            click **Link to Credential**.
-        1. Record the secret for the UAA admin client:
-            * Record the value of `password`. This value is the secret
-            for **Admin Client Credentials**.
-    * If you are using the UAA in Tanzu Kubernetes Grid Integrated Edition (TKGI):
-        1. View the credentials for the UAA admin client:
-            * In the **Pks Uaa Management Admin Client** row, click **Link to
-            Credential**.
-        1. Record the secret for the UAA admin client:
-            * Record the value of `secret`. This value is the secret for **Pks
-            Uaa Management Admin Client**.
+    * For TAS for VMs:
+        1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
+    * For TKGI:
+        1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
+        1. Record the value of `secret`. This value is the secret for **Pks Uaa Management Admin Client**.
 
 1. Target the server for the UAA instance for your runtime using the User Account and Authentication
 Command Line Interface (UAAC). Run:
@@ -227,16 +219,18 @@ Command Line Interface (UAAC). Run:
     ```
     uaac target UAA-URL
     ```
-    Where `UAA-URL` is the url of your UAA server. For TAS, it is typically https://login.<system_domain>
-    where `system_domain` is the system domain set in the TAS tile. For TKGI, it is typically `https://TKGI-API:8443`
-    where `TKGI-API` is the API url of the TKGI service.
+    Where `UAA-URL` is the URL of the UAA server for your runtime. For TAS for VMs, this URL
+    is usually `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured
+    in the **System domain** field in the **Domains** pane of the TAS for VMs tile. For TKGI,
+    this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the
+    TKGI API.
     <br>
     <br>
     For more information about the UAAC, see [Creating and Managing Users with the UAA CLI
     (UAAC)](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html) in the
     TAS for VMs documentation.
 
-1. Log in to the UAA instance for your runtime. Run:
+1. Log in to the UAA instance for your runtime by running:
 
         ```
         uaac token client get admin -s UAA-ADMIN-CLIENT-SECRET
@@ -258,7 +252,8 @@ Command Line Interface (UAAC). Run:
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
     * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured the
     Grafana instance to use in the **Grafana Configuration** pane of the Healthwatch tile.
-    * `GRAFANA-ROOT-URL` is the root URL used to access the Grafana UI.
+    * `GRAFANA-ROOT-URL` is the root URL for the Grafana instance that you use to access the
+    Grafana UI.
 
 1. If you are using TKGI, you must manually create UAA user groups to map to administrator,
 editor, and viewer permissions for Grafana. Run:
