@@ -248,6 +248,31 @@ Exporter for Tanzu Application Service** tile.
 1. Click **Apply Changes**.
 
 
+## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
+
+If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system
+metrics** checkbox in the **System Logging** pane of the PAS tile. Otherwise, PAS v2.7 does
+not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for TAS for
+VMs cannot collect metrics for the VMs that PAS v2.7 deploys. As a result, the **Router** dashboard
+in the **Tanzu Application Service** folder in the Grafana UI shows no metrics.
+
+To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Pivotal Application Service** tile.
+
+1. Select **System Logging**.
+
+1. Activate the **Enable system metrics** checkbox.
+
+1. Return to the Ops Manager Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply Changes**.
+
+
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
 The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana

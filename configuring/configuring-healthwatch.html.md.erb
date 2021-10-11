@@ -303,6 +303,11 @@ the runtimes in your foundations.
     to Monitor** fields.
     * **Disabled:** The Grafana instance does not discover or create dashboards in the Grafana
     UI for TAS for VMs or TKGI.
+    <p class='note'><strong>Note:</strong> If you are using Pivotal Application Service (PAS)
+      v2.7, you must allow PAS v2.7 to forward system metrics to the Loggregator Firehose,
+      or no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For
+      more information, see <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting
+      Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
 1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware
 Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile, select the **Enable MySQL dashboards**
