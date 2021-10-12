@@ -63,13 +63,13 @@ Basic Authentication Configuration](#alert-receiver-basic-auth) below.
 * **[Bug Fix]** In email alerts from Alertmanager, links to the Grafana UI correctly generate
 with HTTP or HTTPS.
 
-* **[Known Issue]** No data exists on the TKGI Kubernetes Nodes dashboard when using TKGI v1.12.
-For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
-Dashboard](#tkgi-112) below.
+* **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the
+Grafana UI shows no data. For more information about this known issue, see [No Data on Kubernetes
+Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
 
-* **[Known Issue]** No data exists on the TKGI Kubernetes Nodes dashboard when monitoring clusters.
-For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
-Dashboard](#tkgi-windows-clusters) below.
+* **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
+dashboard in the Grafana UI shows no data. For more information about this known issue, see
+[No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
 Healthwatch v2.1.4 uses the following open-source component versions:
 
@@ -118,9 +118,9 @@ authentication for alert receivers because the field to configure a username is 
 more information about this known issue, see [Missing Username Field in Alert Receiver Basic
 Authentication Configuration](#alert-receiver-basic-auth) below.
 
-* **[Known Issue]** No data exists on the TKGI Kubernetes Nodes dashboard when monitoring clusters.
-For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
-Dashboard](#tkgi-windows-clusters) below.
+* **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
+dashboard in the Grafana UI shows no data. For more information about this known issue, see
+[No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
 Healthwatch v2.1.3 uses the following open-source component versions:
 
@@ -136,15 +136,6 @@ Healthwatch v2.1.3 uses the following open-source component versions:
 
 * **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs)
 v2.11.
-
-* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
-authentication for alert receivers because the field to configure a username is missing. For
-more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
-
-* **[Known Issue]** No data exists on the TKGI Kubernetes Nodes dashboard when monitoring clusters.
-For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
-Dashboard](#tkgi-windows-clusters) below.
 
 * **[Known Issue Fix]** When uninstalling the Healthwatch Exporter for TAS for VMs tile, the
 `bosh-health` deployment is always deleted. For more information about this known issue, see
@@ -178,6 +169,15 @@ Client sent an HTTP request to an HTTPS server` error.
 * **[Bug Fix]** The Ops Manager UAA instance logs canary URL test redirects to the Ops Manager
 Installation Dashboard correctly.
 
+* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
+authentication for alert receivers because the field to configure a username is missing. For
+more information about this known issue, see [Missing Username Field in Alert Receiver Basic
+Authentication Configuration](#alert-receiver-basic-auth) below.
+
+* **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
+dashboard in the Grafana UI shows no data. For more information about this known issue, see
+[No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
 Healthwatch v2.1.1 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -189,6 +189,10 @@ Healthwatch v2.1.1 uses the following open-source component versions:
 ### <a id='2-1-0'></a> v2.1.0
 
 **Release Date:** 03/18/2021
+
+* **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
+For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
+(#mysql-proxy-maxed) below.
 
 * **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
 authentication for alert receivers because the field to configure a username is missing. For
@@ -203,13 +207,9 @@ VM Causes 401 Error](#bosh-health-401) below.
 VMs across AZs and requires a workaround. For more information, see [Healthwatch Does Not Distribute
 Scaled VMs Across AZs by Default](#scaled-vms) below.
 
-* **[Known Issue]** No data exists on the TKGI Kubernetes Nodes dashboard when monitoring clusters.
-For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
-Dashboard](#tkgi-windows-clusters) below.
-
-* **[Known Issue Fix]** Persistent disk space on MySQL Proxy VMs no longer fills up quickly.
-For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
-(#mysql-proxy-maxed) below.
+* **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
+dashboard in the Grafana UI shows no data. For more information about this known issue, see
+[No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
 Healthwatch v2.1.0 uses the following open-source component versions:
 
@@ -258,8 +258,10 @@ VM Causes 401 Error](#bosh-health-401) below.
 For more information about this known issue, see [No Data on TKGI Kubernetes Nodes
 Dashboard](#tkgi-windows-clusters) below.
 
-* **[Known Issue]** The **Kubernetes Nodes** dashboard in the Grafana UI might not show data
-for individual pods. For more information, see [No Data on TKGI Kubernetes Nodes Dashboard](#tkgi-110) below.
+* **[Known Issue]** When using TKGI v1.10.0 and v1.10.1, the **Kubernetes Nodes** dashboard
+in the Grafana UI might not show data for individual pods. For more information about this
+known issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.10](#no-data-nodes-tkgi-110)
+below.
 
 * **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly. For more
 information, see [MySQL Proxy Disk Space Fills Up Quickly](#mysql-proxy-maxed) below.
@@ -357,19 +359,6 @@ for TKGI_.
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
 
-### <a id='windows'></a> SVM Forwarder VM Does Not Initially Forward SVMs
-
-This known issue is fixed in Healthwatch v2.1.4 and later.
-
-The SVM Forwarder VM does not forward SVMs to the Loggregator Firehose after the first time
-it deploys.
-
-To fix this issue, restart the SVM Forwarder VM by running:
-
-```
-monit restart svm-formwarder
-```
-
 ### <a id='svm-metrics'></a> SVM Forwarder VM Does Not Initially Forward SVMs
 
 This known issue is fixed in Healthwatch v2.1.4 and later.
@@ -441,9 +430,18 @@ using the BOSH CLI. For more information about upgrading to Healthwatch v2.1.1, 
 Healthwatch](upgrading-healthwatch.html). For more information about deleting a BOSH deployment
 using the BOSH CLI, see [the BOSH documentation](https://bosh.io/docs/cli-v2/#delete-deployment).
 
-### <a id='kubernetes-node-panels-no-data'></a> No Data on TKGI Kubernetes Nodes Dashboard
+### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
-#### <a id='tkgi-110'></a> TKGI v1.10.0 and v1.10.1
+If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI might not
+show data.
+
+In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`.
+However, in TKGI v1.12, new Kubernetes clusters run on containerd instead of in Docker. As
+a result, in TKGI v1.12 the `name` label in Kubernetes cluster metrics start with a hex value
+instead of `k8s_`, which the Grafana instance does not recognize.
+
+### <a id='no-data-nodes-tkgi-110'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
+
 If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana
 UI might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.6
 and earlier and Kubernetes v1.20.1 and earlier.
@@ -452,15 +450,11 @@ To fix this issue, upgrade to TKGI v1.10.2. For more information about upgrading
 see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html) in the
 TKGI documentation.
 
-#### <a id='tkgi-112'></a> TKGI v1.12
-If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI might not show
-data. New clusters created in TKGI v1.12 run on <code>containerd</code> instead of in
-<code>docker</code>. The <code>name</code> label in metrics emitted from <code>containerd</code>
-start with a hex value instead of <code>k8s_</code> which the Healthwatch dashboards expect.
+### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
 
-#### <a id='tkgi-windows-clusters'></a> TKGI Windows Clusters
-If you are using TKGI to monitor windows clusters, the **Kubernetes Nodes** dashboard in the Grafana
-UI might not show data. Healthwatch does not currently visualize node metrics for Windows clusters.
+If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the
+Grafana UI might not show data. Healthwatch does not currently visualize node metrics for Windows
+clusters.
 
 ### <a id='mysql-proxy-maxed'></a> MySQL Proxy Disk Space Fills Up Quickly
 
