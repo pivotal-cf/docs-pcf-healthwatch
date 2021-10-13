@@ -20,8 +20,8 @@ SLIs on a Prometheus exposition endpoint, `/metrics`.
 The Prometheus instance that exists within your metrics monitoring system then scrapes each
 `/metrics` endpoints on the metric exporter VMs and imports those metrics into your monitoring
 system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics`
-endpoints in the **Prometheus Configuration** pane of the Healthwatch tile. To configure the
-scrape interval for the Prometheus instance, see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus)
+endpoints in the **Prometheus** pane of the Healthwatch tile. To configure the scrape interval
+for the Prometheus instance, see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus)
 in _Configuring Healthwatch_.
 
 The name of each metric is is PromQL format. For more information, see [Querying Prometheus]
@@ -476,10 +476,9 @@ The following table describes the metric the certificate expiration metric expor
 
 ### <a id='tsdb'></a> Prometheus VM
 
-In the **Canary URL Configuration pane** of the Healthwatch tile, you configure target URLs
-to which the Blackbox Exporters in the Prometheus instance sends canary tests. Testing a canary
-target URL allows you to gauge the overall health and accessibility of an app, runtime, or
-deployment.
+In the **Canary URLs** pane of the Healthwatch tile, you configure target URLs to which the
+Blackbox Exporters in the Prometheus instance sends canary tests. Testing a canary target URL
+allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
 
 On the Prometheus VM, `tsdb`, the Blackbox Exporter job, `blackbox-exporter`, generates canary
 test metrics.
@@ -548,9 +547,9 @@ generates:
   </tr>
   <tr>
     <td><code>probe_http_ssl</code></td>
-    <td>Whether the canary test used SSL for the final redirect. A value of <code>0</code>
-      indicates that the canary test did not use SSL for the final redirect. A value of <code>1</code>
-      indicates that the canary test did use SSL for the final redirect.</td>
+    <td>Whether the canary test used TLS for the final redirect. A value of <code>0</code>
+      indicates that the canary test did not use TLS for the final redirect. A value of <code>1</code>
+      indicates that the canary test did use TLS for the final redirect.</td>
   </tr>
   <tr>
     <td><code>probe_http_status_code</code></td>
@@ -584,15 +583,15 @@ generates:
   </tr>
   <tr>
     <td><code>probe_ssl_earliest_cert_expiry</code></td>
-    <td>The earliest SSL certificate expiration for the canary test URL in Unix time.</td>
+    <td>The earliest TLS certificate expiration for the canary test URL in Unix time.</td>
   </tr>
   <tr>
     <td><code>probe_ssl_last_chain_expiry_timestamp_seconds</code></td>
-    <td>The last SSL chain expiration for the canary test URL in Unix time.</td>
+    <td>The last TLS chain expiration for the canary test URL in Unix time.</td>
   </tr>
   <tr>
     <td><code>probe_ssl_last_chain_info</code></td>
-    <td>Information about the SSL leaf certificate for the canary test URL.</td>
+    <td>Information about the TLS leaf certificate for the canary test URL.</td>
   </tr>
   <tr>
     <td><code>probe_success</code></td>

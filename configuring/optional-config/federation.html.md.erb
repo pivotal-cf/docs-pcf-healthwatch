@@ -71,12 +71,13 @@ tile on port `4450`.
   in _Managing Certificates with the Ops Manager API_ in the Ops Manager documentation.
   1. Navigate to the Ops Manager Installation Dashboard for your monitoring foundation.
   1. Click the **Healthwatch** tile.
-  1. Select **Prometheus Configuration**.
-  1. Under **Additional Scrape Config Jobs**, click **Add**.
-  1. For **TSDB Scrape job**, provide the configuration YAML for a scrape job for the Prometheus
-  instance in the Healthwatch tile on the foundation you want to monitor. In the example below,
-  the scrape job federates all metrics with names that match the regular expression `^metric_name_regex.*`
-  from the Prometheus instance at the IP address listed under the `targets` property:
+  1. Select **Prometheus**.
+  1. Under **Additional scrape jobs**, click **Add**.
+  1. For **Scrape job configuration parameters**, provide the configuration YAML for a scrape
+  job for the Prometheus instance in the Healthwatch tile on the foundation you want to monitor.
+  In the example below, the scrape job federates all metrics with names that match the regular
+  expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under
+  the `targets` property:
 
         ```
         job_name: example-job-name
@@ -110,7 +111,7 @@ tile on port `4450`.
     For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om)
     in _Installing, Configuring, and Deploying a Tile Through an Automated Pipeline_.
 
-  For more information about configuring scrape jobs, see [Prometheus Configuration](../configuring-healthwatch.html#prometheus)
+  For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus)
   in _Configuring Healthwatch_ and [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
   in _Configuration_ in the Prometheus documentation.
 
