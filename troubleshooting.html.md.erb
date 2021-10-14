@@ -151,11 +151,11 @@ the Grafana instance. Potential causes of this failure include:
 * There is a network issue between the Prometheus instance and Grafana instance.
 
 * The Grafana instance uses a certificate that does not match the certificate authority (CA)
-you configured in the **Grafana Configuration** pane in the Healthwatch tile. This could occur
-because the CA you configured in the **Grafana Configuration** pane is either a self-signed
-certificate or a different CA from the one that generated the certificate. As a result, the
-Prometheus instance does not trust the certificate that the Grafana instance uses. For more
-information about configuring a CA for the Grafana instance, see [Grafana Configuration](configuring/configuring-healthwatch.html#grafana)
+you configured in the **Grafana** pane in the Healthwatch tile. This could occur because the
+CA you configured in the **Grafana** pane is either a self-signed certificate or a different
+CA from the one that generated the certificate. As a result, the Prometheus instance does not
+trust the certificate that the Grafana instance uses. For more information about configuring
+a CA for the Grafana instance, see [Grafana Configuration](configuring/configuring-healthwatch.html#grafana)
 in _Configuring Healthwatch_.
 
 To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
@@ -184,8 +184,8 @@ INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRunt
 </pre>
 
 This error appears when the TKGI metric exporter VM cannot verify that the certificate chain
-of the UAA server for the BOSH Director is valid. To enable the TKGI metric exporter VM to
-connect to the BOSH Director, you must correct any certificate chain errors.
+of the UAA server for the BOSH Director is valid. To allow the TKGI metric exporter VM to connect
+to the BOSH Director, you must correct any certificate chain errors.
 
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
@@ -254,7 +254,7 @@ If you are using Pivotal Application Service (PAS) v2.7, you must activate the *
 metrics** checkbox in the **System Logging** pane of the PAS tile. Otherwise, PAS v2.7 does
 not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for TAS for
 VMs cannot collect metrics for the VMs that PAS v2.7 deploys. As a result, the **Router** dashboard
-in the **Tanzu Application Service** folder in the Grafana UI shows no metrics.
+in the Grafana UI shows no metrics.
 
 To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
 

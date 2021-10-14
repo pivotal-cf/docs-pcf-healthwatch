@@ -11,21 +11,20 @@ discovery in Healthwatch.
 
 ## <a id='overview'></a> Overview of TKGI Cluster Discovery
 
-In the **TKGI Cluster Discovery Configuration** pane of the Healthwatch tile, you can enable
-the Prometheus instance in the Healthwatch tile to detect on-demand Kubernetes clusters created
-through the TKGI API and create scrape jobs for them. You only need to configure this pane
-if you have Ops Manager foundations with TKGI installed.
+In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure the Prometheus
+instance in the Healthwatch tile to detect on-demand Kubernetes clusters created through the
+TKGI API and create scrape jobs for them. You only need to configure this pane if you have
+Ops Manager foundations with TKGI installed.
 
 The Prometheus instance detects and scrapes TKGI clusters by connecting to the Kubernetes API
-through the TKGI API using a UAA client. To enable this process, you must configure the Healthwatch
+through the TKGI API using a UAA client. To allow this, you must configure the Healthwatch
 tile, the Prometheus instance in the Healthwatch tile, the UAA client that the Prometheus instance
 uses to connect to the TKGI API, and the TKGI tile.
 
 To configure TKGI cluster discovery:
 
-1. Configure the **TKGI Cluster Discovery Configuration** pane in the Healthwatch tile. For
-more information, see [Configure TKGI Cluster Discovery in Healthwatch](#configure-tkgi-cluster-discovery)
-below.
+1. Configure the **TKGI Cluster Discovery** pane in the Healthwatch tile. For more information,
+see [Configure TKGI Cluster Discovery in Healthwatch](#configure-tkgi-cluster-discovery) below.
 
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For
 more information, see [Configure TKGI](#configure-tkgi) below.
@@ -43,43 +42,42 @@ topic, see [Troubleshooting TKGI Cluster Discovery Failure](#troubleshooting) be
 
 ## <a id='configure-tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery in Healthwatch
 
-In the **TKGI Cluster Discovery Configuration** pane of the Healthwatch tile, you enable and
-configure TKGI cluster discovery, including the UAA client that the Prometheus instance uses
-to connect to the Kubernetes API through the TKGI API.
+In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure TKGI cluster
+discovery, including the UAA client that the Prometheus instance uses to connect to the Kubernetes
+API through the TKGI API.
 
-To configure the **TKGI Cluster Discovery Configuration** pane:
+To configure the **TKGI Cluster Discovery** pane:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
-1. Select **TKGI Cluster Discovery Configuration**.
+1. Select **TKGI Cluster Discovery**.
 
-1. Under **Enable TKGI Cluster Discovery**, select one of the following options:
-    * **Disabled:** This option disables TKGI cluster discovery. TKGI cluster discovery is
-    disabled by default.
-    * **Enabled:** This option enables TKGI cluster discovery and reveals the configuration
+1. Under **TKGI cluster discovery**, select one of the following options:
+    * **Configure:** This option allows TKGI cluster discovery and reveals the configuration
     fields described in the steps below.
+    * **Do not configure:** This option disallows TKGI cluster discovery. TKGI cluster discovery
+    is disallowed by default.
 
-1. For **Scrape Port**, enter a port where the Healthwatch tile exposes an endpoint from which
+1. For **Scrape port**, enter a port where the Healthwatch tile exposes an endpoint from which
 the Prometheus instance scrapes metrics detailing the health of the TKGI cluster discovery
 process. These metrics appear in the **Healthwatch - Exporter Troubleshooting** dashboard in
 the Grafana UI.
 
-1. For **TKGI API Address**, enter the TKGI API domain you configured in the **API Hostname
+1. For **TKGI API domain**, enter the TKGI API domain you configured in the **API Hostname
 (FQDN)** field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
 For more information, see [Routing to the TKGI API VM](https://docs.pivotal.io/tkgi/api-auth.html#routing)
 in _TKGI API Authentication_ in the TKGI documentation.
 
-1. For **TKGI UAA Client**, enter one of the following options for the TKGI UAA client username:
+1. For **UAA client username**, enter one of the following usernames for your TKGI UAA client:
     * Enter the TKGI management admin client username `admin`.
     * Create a separate UAA client with access to the TKGI API and enter the username you specify
     for that UAA client. For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
     and [Managing Tanzu Kubernetes Grid Integrated Edition Users with UAA](https://docs.pivotal.io/tkgi/manage-users.html)
     in the TKGI documentation.
 
-1. For **TKGI UAA Client Secret**, enter one of the following options for the TKGI UAA client
-secret:
+1. For **TKGI UAA Client Secret**, enter one of the following secrets for your TKGI UAA client:
     * Enter the TKGI management admin client secret:
       1. Return to the Ops Manager Installation Dashboard.
       1. Click the **Tanzu Kubernetes Grid Integrated Edition** tile.
@@ -88,8 +86,8 @@ secret:
       1. Record the value of `secret`.
       1. Return to the Ops Manager Installation Dashboard.
       1. Click the **Healthwatch** tile.
-      1. Select **TKGI Cluster Discovery Configuration**.
-      1. For **TKGI UAA Client Secret**, enter the secret you recorded from the **Pks Uaa Management
+      1. Select **TKGI Cluster Discovery**.
+      1. For **UAA client secret**, enter the secret you recorded from the **Pks Uaa Management
       Admin Client** row in the **Credentials** tab in the **Tanzu Kubernetes Grid Integrated
       Edition** tile in a previous step.
     * Create a separate UAA client with access to the TKGI API and enter the secret you specify
@@ -98,35 +96,35 @@ secret:
     Tanzu Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 
 1. If you configured UAA as the OIDC provider for TKGI in the **UAA** pane of the TKGI tile,
-enter the TKGI UAA admin password in **TKGI UAA Admin Password**. Otherwise, do not configure
-this field. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition Access
-to a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Managing Tanzu
-Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
+enter the TKGI UAA admin password in **UAA admin password**. Otherwise, do not configure this
+field. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition Access to
+a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Managing Tanzu Kubernetes
+Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 
-1. For **Test Frequency in Seconds**, enter in seconds how frequently you want the TKGI service
-level indicator (SLI) test to run. The TKGI SLI test monitors the health of the TKGI API by
-logging into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API
-server.
+1. For **SLI test frequency**, enter in seconds how frequently you want the TKGI service level
+indicator (SLI) test to run. The TKGI SLI test monitors the health of the TKGI API by logging
+into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API server.
 
-1. (Optional) To enable TLS communication between the Prometheus instance and the TKGI API,
-configure one of the following options:
-    * To configure the Prometheus instance to use a self-signed CA or a certificate that is
-    signed by a self-signed CA when communicating with the TKGI API over TLS, provide the CA
-    in **TKGI API Certificate Authority**. If you provide a self-signed CA, it must be the
-    same CA that signs the certificate in the TKGI API.
-    * If you do not provide a self-signed CA or a certificate that is signed by a self-signed
-    CA in the **TKGI API Certificate Authority** field, you can enable the **TKGI API Skip
-    SSL Validation** checkbox to enable the Prometheus instance to skip SSL validation when
-    connecting to the TKGI API. VMware does not recommend skipping SSL validation in a production
-    environment.
+1. (Optional) To allow the Prometheus instance to communicate with the TKGI API over TLS, configure
+one of the following options:
+    * To configure the Prometheus instance to use a self-signed CA certificate or a certificate
+    that is signed by a self-signed CA certificate when communicating with the TKGI API over
+    TLS, provide the certificate for the CA in **CA certificate for TLS**. If you provide a
+    self-signed CA certificate, it must be for the same CA that signs the certificate in the
+    TKGI API.
+    * If you do not provide a self-signed CA certificate or a certificate that is signed by
+    a self-signed CA certificate, you can activate the **Skip TLS certificate verification**
+    checkbox. When this checkbox is activated, the Prometheus instance does not verify the
+    identity of the TKGI API. This checkbox is deactivated by default. VMware does not recommend
+    skipping TLS certificate verification in a production environment.
 
 1. Click **Save**.
 
 
 ## <a id='configure-tkgi'></a> Configure TKGI
 
-After you enable and configure TKGI cluster discovery in the Healthwatch tile, you must configure
-TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters.
+After you configure TKGI cluster discovery in the Healthwatch tile, you must configure TKGI
+to allow the Prometheus instance to scrape metrics from TKGI clusters.
 
 To configure TKGI:
 
@@ -138,8 +136,8 @@ To configure TKGI:
 
 1. Under **Enable Telegraf Outputs?**, select **Yes**.
 
-1. Enable the **Include etcd metrics** checkbox to send etcd server and debugging metrics to
-Healthwatch.
+1. Activate the **Include etcd metrics** checkbox to allow TKGI to send etcd server and debugging
+metrics to Healthwatch.
 
 1. For **Setup Telegraf Outputs**, provide the following TOML configuration file:
 
@@ -147,17 +145,17 @@ Healthwatch.
     [[outputs.prometheus_client]]
           listen = ":10200"
     ```
-    You must use `10200` as the listening port to enable the Prometheus instance to scrape
-    Telegraf metrics. For more information about creating a configuration file in TKGI, see
-    [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring
-    Telegraf in TKGI_ in the TKGI documentation.
+    You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf
+    metrics from your TKGI clusters. For more information about creating a configuration file
+    in TKGI, see [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml)
+    in _Configuring Telegraf in TKGI_ in the TKGI documentation.
 
 1. Click **Save**.
 
 1. For each plan you want to monitor:
   1. Select the plan you want to monitor. For example, **Plan 2**.
   1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to create
-  the roles required to enable the Prometheus instance to scrape metrics from your TKGI clusters:
+  the roles required to allow the Prometheus instance to scrape metrics from your TKGI clusters:
 
       <%= partial '../../snippets/cluster_scraping_config.md' %>
 
@@ -169,7 +167,7 @@ Healthwatch.
 
 1. Select **Errands**.
 
-1. Ensure that the **Upgrade all clusters** errand is enabled. Running this errand configures
+1. Ensure that the **Upgrade all clusters** errand is running. Running this errand configures
 your TKGI clusters with the roles you created in the **(Optional) Add-ons - Use with caution**
 field of the plans you monitor in a previous step.
 

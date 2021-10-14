@@ -31,8 +31,8 @@ To configure and deploy the Healthwatch Exporter for TKGI tile:
 
 <p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter
   for TKGI tile to ensure that it deploys successfully before you fully configure it, you only
-  need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Exporter
-  Configuration</strong> panes.</p>
+  need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric
+  Exporter VM</strong> panes.</p>
 
 1. Ensure that you meet the prerequisite for configuring and deploying Healthwatch Exporter
 for TKGI. For more information, see [Prerequisite](#prerequisite) below.
@@ -41,20 +41,19 @@ for TKGI. For more information, see [Prerequisite](#prerequisite) below.
 Dashboard. For more information, see [Navigate to the Healthwatch Exporter for TKGI Tile](#open-ui)
 below.
 
-1. Assign jobs to your Availability Zones (AZs) and networks. For more information, see [Assign
+1. Assign jobs to your availability zones (AZs) and networks. For more information, see [Assign
 AZs and Networks](#az) below.
 
-1. (Optional) Configure the **TKGI Exporter Configuration** pane. For more information, see
-[(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs](#exporter-config)
-below.
+1. (Optional) Configure the **TKGI Metric Exporter VMs** pane. For more information, see [(Optional)
+Configure TKGI and Certificate Expiration Metric Exporter VMs](#exporter-config) below.
 
-1. (Optional) Configure the **TKGI SLI Exporter Configuration** pane. For more information,
-see [(Optional) Configure TKGI SLI Exporter VMs](#sli-config) below.
+1. (Optional) Configure the **TKGI SLI Exporter VM** pane. For more information, see [(Optional)
+Configure TKGI SLI Exporter VMs](#sli-config) below.
 
-1. Configure the **BOSH Health Exporter Configuration** pane. For more information, see [Configure
+1. Configure the **BOSH Health Metric Exporter VM** pane. For more information, see [Configure
 the BOSH Health Metric Exporter VM](#bosh-exporter) below.
 
-1. (Optional) Configure the **Bosh Deployments Exporter Configuration** pane. For more information,
+1. (Optional) Configure the **BOSH Deployment Metric Exporter VM** pane. For more information,
 see [(Optional) Configure the BOSH Deployment Metric Exporter VM](#bosh-deployments) below.
 
 1. (Optional) Configure the **Errands** pane. For more information, see [(Optional) Configure
@@ -132,29 +131,29 @@ in _Platform Architecture and Planning Overview_ in the Ops Manager documentatio
 
 ## <a id='exporter-config'></a> (Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs
 
-In the **TKGI Exporter Configuration** pane, you configure static IP addresses for the TKGI
-metric exporter and certificate expiration metric exporter VMs. After generating these metrics,
-the metric exporter VMs expose them in Prometheus exposition format on a secured endpoint.
+In the **TKGI Metric Exporter VMs** pane, you configure static IP addresses for the TKGI metric
+exporter and certificate expiration metric exporter VMs. After generating these metrics, the
+metric exporter VMs expose them in Prometheus exposition format on a secured endpoint.
 
-To configure the **TKGI Exporter Configuration** pane:
+To configure the **TKGI Metric Exporter VMs** pane:
 
 <p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TKGI
-  Exporter Configuration</strong> pane must not be within the reserved IP ranges you configured
+  Metric Exporter VMs</strong> pane must not be within the reserved IP ranges you configured
   in the BOSH Director tile.</p>
 
-1. Select **TKGI Exporter Configuration**.
+1. Select **TKGI Metric Exporter VMs**.
 
-1. (Optional) For **Static IP for TKGI Exporter VM**, enter a valid static IP address that
-you want to reserve for the TKGI metric exporter VM. The TKGI metric exporter VM collects health
-metrics from the BOSH Director. For more information, see [TKGI Metric Exporter VM](../metrics.html#pks-exporter)
-in _Healthwatch Metrics_.
+1. (Optional) For **Static IP address for TKGI metric exporter VM**, enter a valid static IP
+address that you want to reserve for the TKGI metric exporter VM. The TKGI metric exporter
+VM collects health metrics from the BOSH Director. For more information, see [TKGI Metric Exporter
+VM](../metrics.html#pks-exporter) in _Healthwatch Metrics_.
 
-1. (Optional) For **Static IP for Cert Expiration Exporter VM**, enter a valid static IP address
-that you want to reserve for the certificate expiration metric exporter VM. The certificate
-expiration metric exporter VM collects metrics that show when certificates in your Ops Manager
-deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter
-VM](../metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and [Monitoring Certificate
-Expiration](optional-config/certificate-monitoring.html).
+1. (Optional) For **Static IP address for certificate expiration metric exporter VM**, enter
+a valid static IP address that you want to reserve for the certificate expiration metric exporter
+VM. The certificate expiration metric exporter VM collects metrics that show when certificates
+in your Ops Manager deployment are due to expire. For more information, see [Certificate Expiration
+Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch Metrics_ and
+[Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
   <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TKGI and
     Healthwatch Exporter for Tanzu Application Service for VMs (TAS for VMs) installed on the
     same foundation, scale the certificate expiration metric exporter VM to zero instances
@@ -162,68 +161,73 @@ Expiration](optional-config/certificate-monitoring.html).
     Otherwise, the two certificate expiration metric exporter VMs create redundant sets of
     metrics.</p>
 
-1. (Optional) If your Ops Manager deployment uses self-signed certificates, enable the **Skip
-SSL Validation for Cert Expiration** checkbox to enable the certificate expiration metric exporter
-VM to communicate with your Ops Manager deployment. This checkbox is disabled by default.
+1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip
+TLS certificate verification** checkbox. When this checkbox is activated, the certificate expiration
+metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated
+by default.
 
 1. Click **Save**.
 
 
 ## <a id='sli-config'></a> (Optional) Configure the TKGI SLI Exporter VM
 
-In the **TKGI SLI Exporter Configuration** pane, you configure the TKGI SLI exporter VM. The
-TKGI SLI exporter VM generates SLIs that allow you to monitor whether the core functions of
-the TKGI Command-Line Interface (TKGI CLI) are working as expected. The TKGI CLI enables developers
-to create and manage Kubernetes clusters through TKGI. For more information, see [TKGI SLI
-Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
+In the **TKGI SLI Exporter VM** pane, you configure the TKGI SLI exporter VM. The TKGI SLI
+exporter VM generates SLIs that allow you to monitor whether the core functions of the TKGI
+Command-Line Interface (TKGI CLI) are working as expected. The TKGI CLI allows developers to
+create and manage Kubernetes clusters through TKGI. For more information, see [TKGI SLI Exporter
+VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
 
-To configure the **TKGI SLI Exporter Configuration** pane:
+To configure the **TKGI SLI Exporter VM** pane:
 
-1. (Optional) For **Static IP for TKGI SLI Exporter VM**, enter a valid static IP address that
-you want to reserve for the TKGI SLI exporter VM. This IP address must not be within the reserved
-IP ranges you configured in the BOSH Director tile.
+1. Select **TKGI SLI Exporter VM**.
 
-1. For **Test Frequency in Seconds**, enter in seconds how frequently you want the TKGI SLI
-exporter VM to run SLI tests.
+1. (Optional) For **Static IP address for TKGI SLI exporter VM**, enter a valid static IP address
+that you want to reserve for the TKGI SLI exporter VM. This IP address must not be within the =
+reserved IP ranges you configured in the BOSH Director tile.
 
-1. (Optional) To enable TLS communication between the TKGI SLI exporter VM and the TKGI API,
-choose one of the following options:
+1. For **SLI test frequency**, enter in seconds how frequently you want the TKGI SLI exporter
+VM to run SLI tests.
+
+1. (Optional) To allow TKGI SLI exporter VM to communicate with the TKGI API over TLS, choose
+one of the following options:
     * To configure the TKGI SLI exporter VM to use a self-signed certificate authority (CA)
-    or a certificate that is signed by a self-signed CA when communicating with the TKGI API
-    over TLS:
-        1. For **TKGI API Certificate Authority**, provide the CA. If you provide a self-signed
-        CA, it must be the same CA that signs the certificate in the TKGI API.
-        1. When you provide a self-signed CA or certificate that is signed by a self-signed
-        CA in this field, the **TKGI API Skip SSL Validation** checkbox becomes configurable.
-        Disable the **TKGI API Skip SSL Validation** checkbox.
-    * To configure the TKGI SLI exporter VM to skip SSL validation when communicating with
-    the TKGI API over TLS, leave **TKGI API Certificate Authority** blank. The **TKGI API Skip
-    SSL Validation** checkbox is enabled and not configurable by default. VMware does not recommend
-    skipping SSL validation in a production environment.
+    certificate or a certificate that is signed by a self-signed CA certificate when communicating
+    with the TKGI API over TLS:
+        1. For **CA certificate for TLS**, provide the CA certificate. If you provide a self-signed
+        CA certificate, it must be the for same CA that signs the certificate in the TKGI API.
+        1. If you provide a self-signed CA certificate or a certificate that is signed by a
+        self-signed CA certificate, the **Skip TLS certificate verification** checkbox becomes
+        configurable. Deactivate the **Skip TLS certificate verification** checkbox.
+    * To configure the TKGI SLI exporter VM to skip TLS certificate verification when communicating
+    with the TKGI API over TLS, leave the **CA certificate for TLS** field blank. The **Skip
+    TLS certificate verification** checkbox is activated and not configurable by default. When
+    this checkbox is activated, the TKGI SLI exporter VM does not verify the identity of the
+    TKGI API. VMware does not recommend skipping TLS certificate verification in a production
+    environment.
 
 1. Click **Save**.
 
 
 ## <a id='bosh-exporter'></a> Configure the BOSH Health Metric Exporter VM
 
-In the **BOSH Health Exporter Configuration** pane, you configure the AZ and VM type of the
-BOSH health metric exporter VM. Healthwatch Exporter for TKGI deploys the BOSH health metric
-exporter VM, which creates a BOSH deployment called `bosh-health` every ten minutes. The `bosh-health`
+In the **BOSH Health Metric Exporter VM** pane, you configure the AZ and VM type of the BOSH
+health metric exporter VM. Healthwatch Exporter for TKGI deploys the BOSH health metric exporter
+VM, which creates a BOSH deployment called `bosh-health` every ten minutes. The `bosh-health`
 deployment deploys another VM, `bosh-health-check`, that runs a suite of SLI tests to validate
 the functionality of the BOSH Director. After the SLI tests are complete, the BOSH health metric
 exporter VM collects the metrics from the `bosh-health-check` VM, then deletes the `bosh-health`
 deployment and the `bosh-health-check` VM. For more information, see [BOSH Health Metric Exporter
 VM](../metrics.html#bosh-health-exporter) in _Healthwatch Metrics_.
 
-To configure the **BOSH Health Exporter Configuration** pane:
+To configure the **BOSH Health Metric Exporter VM** pane:
 
-1. Select **BOSH Health Exporter Configuration**.
+1. Select **BOSH Health Metric Exporter VM**.
 
-1. Under **BOSH Health Check Availability Zone**, select the AZ on which you want Healthwatch
-Exporter for TKGI to deploy the BOSH health metric exporter VM.
+1. Under **Availability zone**, select the AZ on which you want Healthwatch Exporter for TKGI
+to deploy the BOSH health metric exporter VM.
 
-1. Under **BOSH Health Check VM Type**, select from the dropdown the type of VM you want Healthwatch
-Exporter for TKGI to deploy.
+1. Under **VM type**, select from the dropdown the type of VM you want Healthwatch Exporter
+for TKGI to deploy.
 
 1. Click **Save**.
 
@@ -239,24 +243,23 @@ Exporter for TKGI to deploy.
 
 ## <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
 
-In the **Bosh Deployments Exporter Configuration** pane, you configure the authentication credentials
+In the **BOSH Deployment Metric Exporter VM** pane, you configure the authentication credentials
 and a static IP address for the BOSH deployment metric exporter VM. This VM checks every 30
 seconds whether any BOSH deployments other than the one created by the BOSH health metric exporter
 VM are running. For more information, see [BOSH Deployment Metric Exporter VM](../metrics.html#bosh-deployments-exporter)
 in _Healthwatch Metrics_.
 
-To configure the **Bosh Deployments Exporter Configuration** pane:
+To configure the **BOSH Deployment Metric Exporter VM** pane:
 
-1. Select **Bosh Deployments Exporter Configuration**.
+1. Select **BOSH Deployment Metric Exporter VM**.
 
-1. (Optional) For **Bosh Client Username and Secret**, enter the username and secret for the
-UAA client that the BOSH deployment metric exporter VM uses to access the BOSH Director VM.
-For more information, see [Create a UAA Client for the BOSH Deployment Metric Exporter VM]
-(#create-uaa-client) below.
+1. (Optional) For **UAA client credentials**, enter the username and secret for the UAA client
+that the BOSH deployment metric exporter VM uses to access the BOSH Director VM. For more information,
+see [Create a UAA Client for the BOSH Deployment Metric Exporter VM](#create-uaa-client) below.
 
-1. (Optional) For **Static IP for Bosh Deployments Exporter VM**, enter a valid static IP address
-that you want to reserve for the BOSH deployment metric exporter VM. This IP address must not
-be within the reserved IP ranges you configured in the BOSH Director tile.
+1. (Optional) For **Static IP address for BOSH deployment metric exporter VM**, enter a valid
+static IP address that you want to reserve for the BOSH deployment metric exporter VM. This
+IP address must not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
 
@@ -268,9 +271,10 @@ be within the reserved IP ranges you configured in the BOSH Director tile.
 
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
-To enable the BOSH deployment metric exporter VM to access the BOSH Director VM, you must create
-a new UAA client for the BOSH deployment metric exporter VM. The procedure to create this UAA
-client differs depending on the authentication settings of your Ops Manager deployment.
+To allow the BOSH deployment metric exporter VM to access the BOSH Director VM and view BOSH
+deployments, you must create a new UAA client for the BOSH deployment metric exporter VM. The
+procedure to create this UAA client differs depending on the authentication settings of your
+Ops Manager deployment.
 
 To create a UAA client for the BOSH deployment metric exporter VM:
 
@@ -302,7 +306,7 @@ BOSH Director UAA instance:
         Dashboard.
         1. Click **Settings**.
         1. Select **SAML Settings**.
-        1. Enable the **Provision an Admin Client in the BOSH UAA** checkbox.
+        1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
         1. Click **Enable SAML Authentication**.
         1. Return to the Ops Manager Installation Dashboard.
         1. Click the **BOSH Director** tile.
@@ -322,7 +326,7 @@ BOSH Director UAA instance:
         Dashboard.
         1. Click **Settings**.
         1. Select **LDAP Settings**.
-        1. Enable the **Provision an Admin Client in the BOSH UAA** checkbox.
+        1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
         1. Click **Enable LDAP Authentication**.
         1. Return to the Ops Manager Installation Dashboard.
         1. Click the **BOSH Director** tile.
@@ -390,10 +394,10 @@ in a previous step.
 
 1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile.
 
-1. Select **Bosh Deployments Exporter Configuration**.
+1. Select **BOSH Deployment Metric Exporter VM**.
 
-1. For **Bosh Client Username and Secret**, enter the username and secret for the UAA client
-you just created.
+1. For **UAA client credentials**, enter the username and secret for the UAA client you just
+created.
 
 
 ## <a id='errands'></a> (Optional) Configure Errands
@@ -432,8 +436,8 @@ To configure the **Syslog** pane:
 1. Select **Syslog**.
 
 1. Under **Do you want to configure Syslog forwarding?**, select one of the following options:
-    * **No, do not forward Syslog:** Disables syslog forwarding.
-    * **Yes:** Enables syslog forwarding and allows you to edit the configuration fields described
+    * **No, do not forward Syslog:** Disallows syslog forwarding.
+    * **Yes:** Allows syslog forwarding and allows you to edit the configuration fields described
     below.
 
 1. For **Address**, enter the IP address or DNS domain name of your external destination.
@@ -441,20 +445,20 @@ To configure the **Syslog** pane:
 1. For **Port**, enter a port on which your external destination listens.
 
 1. For **Transport Protocol**, select **TCP** or **UDP** from the dropdown. This determines
-which transport protocol Healthwatch Exporter for TKGI uses to forward system logs to
-your external destination.
+which transport protocol Healthwatch Exporter for TKGI uses to forward system logs to your
+external destination.
 
 1. (Optional) To transmit logs over TLS:
-  1. Select the **Enable TLS** checkbox. This checkbox is disabled by default.
+  1. Activate the **Enable TLS** checkbox. This checkbox is deactivated by default.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
-  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+  1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
 1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for
-TKGI can hold in a buffer at a time before sending them to your external destination.
-The default value is `100000`.
+TKGI can hold in a buffer at a time before sending them to your external destination. The default
+value is `100000`.
 
-1. (Optional) To forward debug logs to your external destination, enable the **Forward Debug
-Logs** checkbox. This checkbox is disabled by default.
+1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug
+Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration**
 in RainerScript syntax. For more information about custom syslog rules, see [Customizing Platform
@@ -470,7 +474,7 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 In the **Resource Config** pane, you can scale VMs in Healthwatch Exporter for TKGI VMs up
 or down according to the needs of your deployment, as well as associate load balancers with
 a group of VMs. For example, you can scale the persistent disk size of a metric exporter VM
-to enable longer data retention.
+to allow longer data retention.
 
 To configure the **Resource Config** pane:
 
@@ -486,8 +490,8 @@ to modify:
 1. (Optional) To add a load balancer to a job:
   1. Click the icon next to the job name.
   1. For **Load Balancers**, enter the name of your load balancer.
-  1. Ensure that the **Internet Connected** checkbox is disabled. Enabling this checkbox gives
-  VMs a public IP address that enables outbound Internet access.
+  1. Ensure that the **Internet Connected** checkbox is deactivated. Activating this checkbox
+  gives VMs a public IP address that allows outbound Internet access.
 
 1. Click **Save**.
 
@@ -530,8 +534,8 @@ below.
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
 
 To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your
-Ops Manager foundation, see [(Optional) Configure Prometheus](configuring-healthwatch.html#prometheus) in
-_Configuring Healthwatch_.
+Ops Manager foundation, see [(Optional) Configure Prometheus](configuring-healthwatch.html#prometheus)
+in _Configuring Healthwatch_.
 
 ### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System
 
