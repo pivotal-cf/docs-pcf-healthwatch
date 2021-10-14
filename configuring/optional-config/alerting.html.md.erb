@@ -437,7 +437,7 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
 1. View all of your currently running alerts by running:
 
     ```
-    amtool -o extended alert
+    amtool -o extended alert --alertmanager.url http://localhost:10401
     ```
     This command returns a list of all currently running alerts that includes detailed information
     about each alert, including the name of the alert and the Prometheus instance on which
@@ -448,26 +448,26 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     * To query alerts by name, run:
 
         ```
-        amtool -o extended alert query alertname="ALERT-NAME"
+        amtool -o extended alert query alertname="ALERT-NAME" --alertmanager.url http://localhost:10401
         ```
         Where `ALERT-NAME` is the name of the alert you want to silence. You can query the
         exact name of the alert, or you can query a partial name and include the regular expression
         `.*` to see all alerts that include the partial name, such as in the following example:
 
         ```
-        amtool -o extended alert query alertname=~"Test.*"
+        amtool -o extended alert query alertname=~"Test.*" --alertmanager.url http://localhost:10401
         ```
     * To query alerts by instance, run:
 
         ```
-        amtool -o extended alert query instance=~".+INSTANCE-NUMBER"
+        amtool -o extended alert query instance=~".+INSTANCE-NUMBER" --alertmanager.url http://localhost:10401
         ```
         Where `INSTANCE-NUMBER` is the number of the Prometheus instance for which you want
         to silence alerts.
     * To query alerts by name and instance, run:
 
         ```
-        amtool -o extended alert query alertname=~"ALERT-NAME" instance=~".+INSTANCE-NUMBER"
+        amtool -o extended alert query alertname=~"ALERT-NAME" instance=~".+INSTANCE-NUMBER" --alertmanager.url http://localhost:10401
         ```
         Where:
         * `ALERT-NAME` is the name of the alert you want to silence.
@@ -479,7 +479,7 @@ specified amount of time:
     * To silence a specific alert for a specified amount of time, run:
 
         ```
-        amtool silence add alertname=ALERT-NAME instance=~".+INSTANCE-NUMBER"
+        amtool silence add alertname=ALERT-NAME instance=~".+INSTANCE-NUMBER" --alertmanager.url http://localhost:10401
         ```
         Where:
         * `ALERT-NAME` is the name of the alert you want to silence.
