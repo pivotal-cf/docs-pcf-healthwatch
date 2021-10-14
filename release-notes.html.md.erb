@@ -26,6 +26,33 @@ in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-5'></a> v2.1.5
+
+**Release Date:** 10/14/2021
+
+* **[Feature]** Ops Manager UI text updates to improve user experience.
+
+* **[Known Issue Fix]** Healthwatch correctly deploys when installed on Ops Manager v2.10.19+.
+For more information about this known issue, see [Error deploying on Ops Manager
+v2.10.19](#opsman-error) below.
+
+* **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the
+Grafana UI shows no data. For more information about this known issue, see [No Data on Kubernetes
+Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
+
+* **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
+dashboard in the Grafana UI shows no data. For more information about this known issue, see
+[No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+Healthwatch v2.1.5 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.11           |
+| Alertmanager | 0.21.0           |
+
+
 ### <a id='2-1-4'></a> v2.1.4
 
 **Release Date:** 09/21/2021
@@ -70,6 +97,9 @@ Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
+For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.4 uses the following open-source component versions:
 
@@ -121,6 +151,9 @@ Authentication Configuration](#alert-receiver-basic-auth) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
+For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.3 uses the following open-source component versions:
 
@@ -178,6 +211,9 @@ Authentication Configuration](#alert-receiver-basic-auth) below.
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
+For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
+
 Healthwatch v2.1.1 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -210,6 +246,9 @@ Scaled VMs Across AZs by Default](#scaled-vms) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
+For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.0 uses the following open-source component versions:
 
@@ -269,6 +308,9 @@ information, see [MySQL Proxy Disk Space Fills Up Quickly](#mysql-proxy-maxed) b
 * **[Known Issue]** When you scale VMs up, Healthwatch does not automatically distribute additional
 VMs across AZs and requires a workaround. For more information, see [Healthwatch Does Not Distribute
 Scaled VMs Across AZs by Default](#scaled-vms) below.
+
+* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
+For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -358,6 +400,27 @@ for TKGI_.
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
+
+### <a id='opsman-error'></a> Error deploying on Ops Manager v2.10.19
+
+This known issue is fixed in Healthwatch v2.1.5 and later.
+
+Healthwatch fails to install on Ops Manager v2.10.19 (BOSH version 271.10.0 and higher). Installing
+will result in the following errors:
+
+```
+ Preparing deployment: Rendering templates
+L Error: Unable to render instance groups for deployment. Errors are:
+- Unable to render jobs for instance group 'tsdb'. Errors are:
+- Unable to render templates for job 'prometheus'. Errors are:
+- Error filling in template 'alerting.rules.yml.erb' (line 33: undefined method \`escape' for URI:Module)
+Error: Unable to render instance groups for deployment. Errors are:
+- Unable to render jobs for instance group 'tsdb'. Errors are:
+- Unable to render templates for job 'prometheus'. Errors are:
+- Error filling in template 'alerting.rules.yml.erb' (line 33: undefined method \`escape' for URI:Module)
+```
+
+To fix this issue, upgrade to Healthwatch v2.1.5 or higher.
 
 ### <a id='svm-metrics'></a> SVM Forwarder VM Does Not Initially Forward SVMs
 
