@@ -113,10 +113,10 @@ This fixes Ops Manager dashboards in the Grafana UI.
 after the first time it deploys. For more information, see [SVM Forwarder VM Does Not Initially
 Forward SVMs](#svm-metrics) below.
 
-* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
-authentication for alert receivers because the field to configure a username is missing. For
-more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
+* **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
+for alert receivers because the field to configure a username is missing. For more information
+about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
@@ -169,10 +169,10 @@ Client sent an HTTP request to an HTTPS server` error.
 * **[Bug Fix]** The Ops Manager UAA instance logs canary URL test redirects to the Ops Manager
 Installation Dashboard correctly.
 
-* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
-authentication for alert receivers because the field to configure a username is missing. For
-more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
+* **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
+for alert receivers because the field to configure a username is missing. For more information
+about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
@@ -194,10 +194,10 @@ Healthwatch v2.1.1 uses the following open-source component versions:
 For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
 (#mysql-proxy-maxed) below.
 
-* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
-authentication for alert receivers because the field to configure a username is missing. For
-more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
+* **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
+for alert receivers because the field to configure a username is missing. For more information
+about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying
 to create the `bosh-health` deployment. For more information, see [BOSH Health Metric Exporter
@@ -236,8 +236,8 @@ see [Healthwatch Replaces Event Alerts With Alertmanager](#event-alerts) below.
 For more information, see [Healthwatch Removes Monitoring Indicator Protocol](#indicator-protocol)
 below.
 
-* **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you select
-the **Skip SSL validation** checkbox in the **Canary URL Configuration** pane of the Healthwatch
+* **[Breaking Change]** Self-signed Ops Manager certificates break dashboards until you activate
+the **Skip TLS certificate verification** checkbox in the **Canary URLs** pane of the Healthwatch
 tile. For more information, see [Self-Signed Certificates Break Dashboards](#self-signed-certs)
 below.
 
@@ -245,10 +245,10 @@ below.
 on Ops Manager v2.3 through v2.7. For more information, see ["Unable to Render Templates" Error
 When Installing or Upgrading](#upgrade-from-om-23) below.
 
-* **[Known Issue]** In the **Alertmanager Configuration** pane, you cannot configure basic
-authentication for alert receivers because the field to configure a username is missing. For
-more information about this known issue, see [Missing Username Field in Alert Receiver Basic
-Authentication Configuration](#alert-receiver-basic-auth) below.
+* **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
+for alert receivers because the field to configure a username is missing. For more information
+about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying
 to create the `bosh-health` deployment. For more information, see [BOSH Health Metric Exporter
@@ -335,19 +335,19 @@ is unique. The addition of these tags does not change any metric names.
 
 ### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
-While Pivotal Healthwatch v1 does not require SSL validation of Ops Manager certificates, Healthwatch
-v2.1 checks for SSL validation by default. If your Ops Manager deployment uses self-signed
-certificates, you must configure the Healthwatch tile to skip SSL validation.
+While Pivotal Healthwatch v1 does not require TLS verification for Ops Manager certificates,
+Healthwatch v2.1 checks for TLS validation by default. If your Ops Manager deployment uses
+self-signed certificates, you must configure the Healthwatch tile to skip TLS certificate verification.
 
-If the **Ops Manager Health** dashboard in the Grafana UI displays a "Not Running" error, select
-the **Skip SSL validation** checkbox in the **Canary URL Configuration** pane of the Healthwatch
+If the **Ops Manager Health** dashboard in the Grafana UI displays a "Not Running" error, activate
+the **Skip TLS certificate verification** checkbox in the **Canary URLs** pane of the Healthwatch
 tile. For more information about configuring this checkbox, see [(Optional) Configure Canary
 URLs](configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
 
 If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate
-expiration metric logs, select the **Skip SSL Validation for Cert Expiration** in the **TAS
-Exporter Configuration** pane of the Healthwatch Exporter for TAS for VMs tile or the **TKGI
-Exporter Configuration** pane of the Healthwatch Exporter for TKGI tile. For more information
+expiration metric logs, activate the **Skip TLS certificate verification** in the **TAS for
+VMs Metric Exporter VMs** pane of the Healthwatch Exporter for TAS for VMs tile or the **TKGI
+Metric Exporter VMs** pane of the Healthwatch Exporter for TKGI tile. For more information
 about configuring this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter VMs]
 (configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter
 for TAS for VMs_ or [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs]

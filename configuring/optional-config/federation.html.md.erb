@@ -95,13 +95,12 @@ tile on port `4450`.
           entry for your Prometheus instance, include the IP address for your load balancer
           or DNS entry in each target listed under the <code>targets</code> property instead
           of the IP address for your Prometheus instance.</p>
-  1. For **TLS Config Certificate Authority**, enter the Ops Manager root CA from the foundation
-  you want to monitor that you recorded in a previous step.
-  1. For **TLS Config Certificate and Private Key**, enter the certificate and private key
-  you recorded from the **Promxy Client mTLS** row in the **Credentials** tab in the Healthwatch
+  1. For **Certificate and private key for TLS**, enter the certificate and private key you
+  recorded from the **Promxy Client mTLS** row in the **Credentials** tab in the Healthwatch
   tile installed on the foundation you want to monitor in a previous step.
-  1. For **TLS Config Server Name**, enter `promxy`. This server name appears as the `server_name`
-  property in the `tls_config` section of the Prometheus configuration file.
+  1. For **CA certificate for TLS**, enter the Ops Manager root CA from the foundation you
+  want to monitor that you recorded in a previous step.
+  1. For **Target server name**, enter `promxy`.
   1. Click **Save**.
   <br>
   <br>

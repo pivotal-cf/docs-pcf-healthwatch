@@ -145,8 +145,8 @@ server:
   you provided in **Certificate and private key for TLS**.
   1. If you do not provide a self-signed CA or a certificate that is signed by a self-signed
   CA, activate the **Skip TLS certificate verification** checkbox to allow the Grafana VM to
-  skip TLS validation when connecting to your OAuth provider server. This checkbox is deactivated
-  by default.
+  skip TLS certificate verification when connecting to your OAuth provider server. This checkbox
+  is deactivated by default.
 
 1. Click **Save**.
 
@@ -296,8 +296,8 @@ configure one of the following options:
   certificate for TLS**.
   * If you do not provide a self-signed CA or a certificate that is signed by a self-signed
   CA **CA certificate for TLS**, activate the **Skip TLS certificate verification** checkbox
-  to allow the Grafana instance to skip TLS validation when connecting to the UAA server. This
-  checkbox is deactivated by default.
+  to allow the Grafana instance to skip TLS certificate verification when connecting to the
+  UAA server. This checkbox is deactivated by default.
 
 1. Click **Save**.
 
@@ -337,9 +337,9 @@ by default.
 the Grafana instance over TLS, activate the **Use STARTTLS** checkbox. This checkbox is deactivated
 by default.
 
-1. (Optional) To enable the Grafana instance to skip SSL validation when communicating with
-the LDAP server over TLS, activate the **Skip TLS certificate verification** checkbox. This
-checkbox is deactivated by default.
+1. (Optional) To enable the Grafana instance to skip TLS certificate verification when communicating
+with the LDAP server over TLS, activate the **Skip TLS certificate verification** checkbox.
+This checkbox is deactivated by default.
 
 1. (Optional) For **Bind DN**, enter the distinguished name (DN) for binding to the LDAP server.
 For example, `cn=admin,dc=grafana,dc=org`.

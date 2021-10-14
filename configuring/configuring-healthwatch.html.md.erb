@@ -32,7 +32,7 @@ To configure and deploy the Healthwatch tile:
       pane.</li>
     <li>If you are using Healthwatch to monitor foundations that are running Tanzu Kubernetes
       Grid Integrated Edition (TKGI), you must configure the <strong>TKGI Cluster
-      Discovery Configuration</strong> pane.</li>
+      Discovery</strong> pane.</li>
   </ul>
 </div>
 
@@ -164,7 +164,7 @@ in the Prometheus documentation.
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
-  1. (Optional) To enable TLS communication between the Prometheus instance and your external
+  1. (Optional) To allow TLS communication between the Prometheus instance and your external
   service or database:
       1. For **Certificate and private key for TLS**, provide a certificate and private key
       to allow TLS communication between the Prometheus instance and your external service
@@ -175,7 +175,8 @@ in the Prometheus documentation.
       between the Prometheus instance and your external service or database.
       1. If the certificate you provided in **Certificate and private key for TLS** is signed
       by a self-signed CA or a certificate that is signed by a self-signed CA, activate the
-      **Skip TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+      **Skip TLS certificate verification** checkbox to skip TLS certificate verification during
+      TLS handshakes.
 
 1. For **Free disk chunk size**, enter in MB the size that you want to specify for free chunks
 of disk. The default value is `6144`. Healthwatch uses this free chunk size to calculate the
@@ -250,8 +251,8 @@ to the Grafana UI in alert messages.
 After you deploy the Healthwatch tile for the first time, you must use this root URL and the
 public IP address of either a single Grafana VM or the load balancer associated with your Grafana
 instance to configure a DNS entry for your Grafana instance in the console for your IaaS. Your
-Grafana instance listens on either port `443` or `80`, depending on whether you provide an
-SSL certificate in the **Certificate and private key for HTTPS** field below. For more information
+Grafana instance listens on either port `443` or `80`, depending on whether you provide a TLS
+certificate in the **Certificate and private key for HTTPS** fields below. For more information
 about configuring DNS for your Grafana instance, see [Configuring DNS for Your Grafana Instance]
 (dns-configuration.html).
 
@@ -283,10 +284,10 @@ must not be within the reserved IP ranges you configured in the BOSH Director ti
 
 1. (Optional) To prevent users from logging in to Grafana UI with basic authentication, including
 admin users, deactivate the **Allow Grafana UI login with basic authentication** checkbox.
-This checkbox is enabled by default.
+This checkbox is activated by default.
 
 1. Under **Runtime discovery**, select how you want the Grafana instance to discover the runtimes
-in your foundations.
+in your foundations:
     * **Dynamic:** The Grafana instance creates a dashboard in the Grafana UI for the versions
     of VMware Tanzu Application Service for VMs (TAS for VMs) and TKGI that are currently installed
     on your foundations. This option is selected by default.
@@ -315,8 +316,8 @@ checkbox. This checkbox is deactivated by default.
       see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
       RabbitMQ documentation</a>.</p>
 
-1. (Optional) To enable HTTPS for the Grafana instance, you must provide one or more TLS certificates
-in **Certificate and private key for HTTPS**.
+1. (Optional) To allow HTTPS for the Grafana instance, you must provide a TLS certificate and
+private key in **Certificate and private key for HTTPS**.
 <br>
 <br>
 VMware recommends also providing a certificate signed by a third-party CA in **CA certificate
@@ -324,8 +325,8 @@ for HTTPS**. You can generate a self-signed certificate using the Ops Manager ro
 doing so causes your browser to warn you that your CA is invalid every time you access the
 Grafana UI.
   * To use a certificate signed by a third-party CA:
-      1. For **Certificate and private key for HTTPS**, provide one or more TLS certificates.
-      1. For **CA certificate for HTTPS**, provide the third-party CA that signs the TLS certificates
+      1. For **Certificate and private key for HTTPS**, provide a certificate and private key.
+      1. For **CA certificate for HTTPS**, provide the third-party CA that signs the certificate
       you provided in the previous step.
   * To generate a self-signed certificate from the Ops Manager root CA:
       1. Under **Certificate and private key for HTTPS**, click **Change**.
@@ -345,7 +346,7 @@ Grafana UI.
             cat /var/tempest/workspaces/default/root_ca_certificate
             ```
       1. Record the Ops Manager root CA.
-      1. For **ECertificate and private key for HTTPS**, provide the Ops Manager root CA that
+      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA that
       you recorded in the previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
@@ -355,17 +356,17 @@ in the Go repository on GitHub.
 
 1. Under **Grafana UI authentication method**, select the user authentication method you want
 the Grafana instance to use:
-    * **Basic authentication:** Enables basic authentication. For more information, see [Configure
-    Basic Authentication](grafana-authentication.html#configure-basic-auth) in _Configuring
+    * **Basic authentication:** Configures basic authentication. For more information, see
+    [Configure Basic Authentication](grafana-authentication.html#configure-basic-auth) in _Configuring
     Grafana Authentication_.
-    * **Generic OAuth:** Enables OAuth authentication for any supported authentication provider,
+    * **Generic OAuth:** Configures OAuth authentication for any supported authentication provider,
     such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
     (grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_
     and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
     in the Grafana documentation.
-    * **UAA:** Enables UAA authentication. For more information, see [Configure UAA Authentication]
+    * **UAA:** Configures UAA authentication. For more information, see [Configure UAA Authentication]
     (grafana-authentication.html#configure-uaa) in _Configuring Grafana Authentication_.
-    * **LDAP:** Enables LDAP authentication. For more information, see [Configure LDAP Authentication]
+    * **LDAP:** Configures LDAP authentication. For more information, see [Configure LDAP Authentication]
     (grafana-authentication.html#configure-ldap) in _Configuring Grafana Authentication_ and
     [LDAP Authentication](https://grafana.com/docs/grafana/latest/auth/ldap/) in the Grafana
     documentation.
@@ -377,8 +378,9 @@ the Grafana instance to use:
       1. For **SMTP server port**, enter the port of your SMTP server.
       1. For **SMTP server username**, enter your SMTP authentication username.
       1. For **SMTP server password**, enter your SMTP authentication password.
-      1. (Optional) To allow the Grafana instance to skip TLS validation when communicating
-      with your SMTP server over TLS, activate the **Skip TLS certificate verification** checkbox.
+      1. (Optional) To allow the Grafana instance to skip TLS certificate verification when
+      communicating with your SMTP server over TLS, activate the **Skip TLS certificate verification**
+      checkbox.
       1. For **From address**, enter the sender email address that appears on outgoing email
       alerts.
       1. For **From name**, enter the sender name that appears on outgoing email alerts.
@@ -444,7 +446,7 @@ URLs:
 
 In the **Remote Write** pane, you can configure the Prometheus instance to write to remote
 storage, in addition to its local time series database (TSDB). Healthwatch stores monitoring
-data for six weeks before deleting it. Configuring remote write enables Healthwatch to store
+data for six weeks before deleting it. Configuring remote write allows Healthwatch to store
 data that is older than six weeks in a remote database or storage endpoint. For a list of compatible
 remote databases and storage endpoints, see [Remote Endpoints and Storage](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage)
 in _Integrations_ in the Prometheus documentation.
@@ -484,17 +486,18 @@ endpoint:
   communication between the Prometheus instance and your remote storage endpoint.
   1. If the certificate you provided in **Certificate and private key for TLS** is signed by
   a self-signed CA or a certificate that is signed by a self-signed CA, activate the **Skip
-  TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+  TLS certificate verification** checkbox to skip TLS certificate verification during TLS handshakes.
 
 1. (Optional) To allow the Prometheus instance to make HTTP or HTTPS proxy requests to the
 remote storage endpoint, enter a proxy URL in **Proxy URL**.
 
 1. You can configure more granular settings for writing to your remote storage endpoint by
 specifying additional parameters for the shards containing in-memory queues that read from
-the write-ahead log (WAL) in the Prometheus instance. To configure additional parameters for
+the write-ahead log in the Prometheus instance. To configure additional parameters for
 these shards:
   1. For **Queue capacity**, enter how many samples the remote storage endpoint can queue in
-  memory per shard before the Prometheus instance blocks the queue from reading from the WAL.
+  memory per shard before the Prometheus instance blocks the queue from reading from the write-ahead
+  log.
   1. For **Minimum shards per queue**, enter the minimum number of shards the Prometheus instance
   can use for each remote write queue. This number is also the number of shards the Prometheus
   VM uses when remote write begins after each deployment of the Healthwatch tile.
@@ -562,8 +565,8 @@ To configure the **Syslog** pane:
 1. Select **Syslog**.
 
 1. Under **Do you want to configure Syslog forwarding?**, select one of the following options:
-    * **No, do not forward Syslog:** Disables syslog forwarding.
-    * **Yes:** Enables syslog forwarding and allows you to edit the configuration fields described
+    * **No, do not forward Syslog:** Disallows syslog forwarding.
+    * **Yes:** Allows syslog forwarding and allows you to edit the configuration fields described
     below.
 
 1. For **Address**, enter the IP address or DNS domain name of your external destination.
@@ -574,15 +577,15 @@ To configure the **Syslog** pane:
 which transport protocol Healthwatch uses to forward system logs to your external destination.
 
 1. (Optional) To transmit logs over TLS:
-  1. Select the **Enable TLS** checkbox. This checkbox is disabled by default.
+  1. Activate the **Enable TLS** checkbox. This checkbox is deactivated by default.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
-  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+  1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
 1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch can hold in
 a buffer at a time before sending them to your external destination. The default value is `100000`.
 
-1. (Optional) To forward debug logs to your external destination, enable the **Forward Debug
-Logs** checkbox. This checkbox is disabled by default.
+1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug
+Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration**
 in RainerScript syntax. For more information about custom syslog rules, see [Customizing Platform
@@ -597,7 +600,7 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 
 In the **Resource Config** pane, you can scale Healthwatch component VMs up or down according
 to the needs of your deployment, as well as associate load balancers with a group of VMs. For
-example, you can scale the persistent disk size of the Prometheus instance to enable longer
+example, you can scale the persistent disk size of the Prometheus instance to allow longer
 data retention.
 
 To configure the **Resource Config** pane:
@@ -614,8 +617,8 @@ to modify:
 1. (Optional) To add a load balancer to a job:
   1. Click the icon next to the job name.
   1. For **Load Balancers**, enter the name of your load balancer.
-  1. Ensure that the **Internet Connected** checkbox is disabled. Enabling this checkbox gives
-  VMs a public IP address that enables outbound Internet access.
+  1. Ensure that the **Internet Connected** checkbox is deactivated. Activating this checkbox
+  gives VMs a public IP address that allows outbound Internet access.
 
 1. Click **Save**.
 
