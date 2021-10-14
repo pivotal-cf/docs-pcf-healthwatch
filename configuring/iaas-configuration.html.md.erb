@@ -8,8 +8,8 @@ This topic describes how to create a firewall policy for your Grafana instance.
 
 ## <a id='overview'></a> Overview of Firewall Policies for the Grafana Instance
 
-In the Healthwatch tile, allowing external access to individual VMs is disabled by default.
-Creating a firewall policy for your Grafana instance enables users to access the Grafana UI
+In the Healthwatch tile, allowing external access to individual VMs is disallowed by default.
+Creating a firewall policy for your Grafana instance allows users to access the Grafana UI
 more easily from outside your BOSH network, including from the links to the Grafana UI that
 Alertmanager provides in alert messages.
 
@@ -67,7 +67,7 @@ To create a firewall policy in AWS:
 
 1. Under **Security**, click **Change security groups**.
 
-1. Enable the checkbox next to the security group you created for your Grafana instance.
+1. Activate the checkbox next to the security group you created for your Grafana instance.
 
 1. Click **Add security group**.
 
@@ -149,7 +149,7 @@ To create a firewall policy in GCP:
   1. For **Target tags**, enter `grafana`.
   1. For **Source IP ranges**, enter `0.0.0.0/0`.
   1. Under **Protocols and ports**, select **Specified protocols and ports**.
-  1. Enable the checkbox for **tcp**.
+  1. Activate the **tcp** checkbox.
   1. For **tcp**, enter `443`.
   1. Click **Create**.
 
@@ -161,7 +161,7 @@ To create a firewall policy in GCP:
   1. For **Target tags**, enter `grafana`.
   1. For **Source IP ranges**, enter `0.0.0.0/0`.
   1. Under **Protocols and ports**, select **Specified protocols and ports**.
-  1. Enable the checkbox for **tcp**.
+  1. Activate the **tcp** checkbox.
   1. For **tcp**, enter `80`.
   1. Click **Create**.
 

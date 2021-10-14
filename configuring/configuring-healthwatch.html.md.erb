@@ -31,8 +31,8 @@ To configure and deploy the Healthwatch tile:
       you fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong>
       pane.</li>
     <li>If you are using Healthwatch to monitor foundations that are running Tanzu Kubernetes
-      Grid Integrated Edition (TKGI), you must configure the <strong>TKGI Cluster
-      Discovery</strong> pane.</li>
+      Grid Integrated Edition (TKGI), you must configure the <strong>TKGI Cluster Discovery</strong>
+      pane.</li>
   </ul>
 </div>
 
@@ -42,8 +42,8 @@ see [Navigate to the Healthwatch Tile](#open-ui) below.
 1. Assign jobs to your Availability Zones (AZs) and networks. For more information, see [Assign
 AZs and Networks](#az) below.
 
-1. (Optional) Configure the **Prometheus** pane. For more information, see [Configure Prometheus]
-(#prometheus) below.
+1. Configure the **Prometheus** pane. For more information, see [Configure Prometheus](#prometheus)
+below.
 
 1. (Optional) Configure the **Alertmanager** pane. For more information, see [(Optional) Configure
 Alertmanager](#alertmanager) below.
@@ -57,8 +57,8 @@ Canary URLs](#canary) below.
 1. (Optional) Configure the **Remote Write** pane. For more information, see [(Optional) Configure
 Remote Write](#remote-write) below.
 
-1. (Optional) Configure the **TKGI Cluster Discovery** pane. For more information, see [(Optional)
-Configure TKGI Cluster Discovery](#tkgi-cluster-discovery) below.
+1. Configure the **TKGI Cluster Discovery** pane. For more information, see [Configure TKGI
+Cluster Discovery](#tkgi-cluster-discovery) below.
 
 1. (Optional) Configure the **Errands** pane. For more information, see [(Optional) Configure
 Errands](#errands) below.
@@ -122,9 +122,10 @@ To configure the **Prometheus** pane:
 1. Select **Prometheus**.
 
 1. For **Scrape interval**, specify the frequency at which you want the Prometheus instance
-to scrape Prometheus exposition endpoints for metrics. You can enter a value string that specifies
-`ns`, `us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too
-much storage, VMware recommends using the default value of `15s`, or 15 seconds.
+to scrape Prometheus exposition endpoints for metrics. The Prometheus instance scrapes all
+Prometheus exposition endpoints at once through a global scrape. You can enter a value string
+that specifies `ns`, `us`, `µs`, `ms`, `s`, `m`, or `h`. To scrape detailed metrics without
+consuming too much storage, VMware recommends using the default value of `15s`, or 15 seconds.
 
 1. (Optional) To configure the Prometheus instance to scrape metrics from the Healthwatch Exporter
 tiles installed on other Ops Manager foundations or from external services or databases, configure
@@ -140,7 +141,8 @@ in the Prometheus documentation.
   1. Click **Add**.
   1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape
   job you want to configure. This job can use any of the properties defined by Prometheus except
-  the `tls_config` property. Do not prefix the configuration YAML with a dash. For example:
+  those in the `tls_config` section. Do not prefix the configuration YAML with a dash. For
+  example:
 
         ```
         job_name: foundation-1
@@ -164,19 +166,20 @@ in the Prometheus documentation.
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
-  1. (Optional) To allow TLS communication between the Prometheus instance and your external
-  service or database:
+  1. (Optional) To allow the Prometheus instance to communicate with the server for your external
+  service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key
-      to allow TLS communication between the Prometheus instance and your external service
-      or database.
-      1. For **CA certificate for TLS**, provide a certificate authority (CA) that signs the
-      certificate you provided in **Certificate and private key for TLS**.
-      1. For **Target server name**, enter the name of the server that facilitates TLS communication
-      between the Prometheus instance and your external service or database.
+      for the Prometheus instance to use for TLS connections to the server for your external
+      service or database.
+      1. For **CA certificate for TLS**, provide a certificate for the certificate authority
+      (CA) that the server for your external service or database uses to verify TLS certificates.
+      1. For **Target server name**, enter the name of the server for your external service
+      or database as it appears on the server's TLS certificate.
       1. If the certificate you provided in **Certificate and private key for TLS** is signed
-      by a self-signed CA or a certificate that is signed by a self-signed CA, activate the
-      **Skip TLS certificate verification** checkbox to skip TLS certificate verification during
-      TLS handshakes.
+      by a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+      activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+      the Prometheus instance does not verify the identity of the server for your external
+      service or database. This checkbox is deactivated by default.
 
 1. For **Free disk chunk size**, enter in MB the size that you want to specify for free chunks
 of disk. The default value is `6144`. Healthwatch uses this free chunk size to calculate the
@@ -242,8 +245,8 @@ To configure the **Grafana** pane:
 
 1. (Optional) If you configured generic OAuth or UAA authentication for users to log in to
 the Grafana UI, or if you configured alerts through Alertmanager, enter a URL for the Grafana
-UI in **Grafana root URL**. You must configure this URL to enable a generic OAuth provider
-or UAA to redirect users to the Grafana UI. Alertmanager also uses this URL to generate links
+UI in **Grafana root URL**. You must configure this URL to allow a generic OAuth provider or
+UAA to redirect users to the Grafana UI. Alertmanager also uses this URL to generate links
 to the Grafana UI in alert messages.
   <p class='note'><strong>Note:</strong> Healthwatch v2.1 does not automatically assign a default
     root URL to the Grafana UI. You must manually configure a root URL for the Grafana UI in
@@ -257,26 +260,26 @@ about configuring DNS for your Grafana instance, see [Configuring DNS for Your G
 (dns-configuration.html).
 
 1. Under **HTTP and HTTPS proxy request settings**, choose whether to allow the Grafana instance
-to make HTTP and HTTPS proxy requests:
-  1. To allow the Grafana instance to make HTTP and HTTPS proxy requests:
+to make HTTP and HTTPS requests through proxy servers:
+  1. To allow the Grafana instance to make HTTP and HTTPS requests through a proxy server:
       1. Select **Configure**.
-      1. For **HTTP proxy URL**, enter your HTTP proxy server URL. The Grafana instance uses
-      this URL as the proxy URL for all HTTP and HTTPS requests except those from hosts you
-      configure in the **HTTPS proxy URL** and **Excluded hosts** fields below.
-      1. For **HTTPS proxy URL**, enter your HTTPS proxy server URL. The Grafana instance uses
-      this URL as the proxy URL for all HTTPS requests except those from hosts you configure
-      in the **Excluded hosts** field below.
+      1. For **HTTP proxy URL**, enter the URL for your HTTP proxy server. The Grafana instance
+      sends all HTTP and HTTPS requests to this URL, except those from hosts you configure
+      in the **HTTPS proxy URL** and **Excluded hosts** fields below.
+      1. For **HTTPS proxy URL**, enter the URL for your HTTPS proxy server. The Grafana instance
+      sends all HTTPS requests to this URL, except those from hosts you configure in the **Excluded
+      hosts** field below.
       1. For **Excluded hosts**, enter a comma-separated list of the hosts you want to exclude
       from proxying. VMware recommends including `*.bosh` and the range of your internal network
       IP addresses so the Grafana instance can still access the Prometheus instance without
-      going though the proxy. For example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana
-      instance to access all BOSH DNS addresses and all internal network IP addresses containing
-      `10.0.0.0/8` or `*.example.com` directly, without going though the proxy.
+      going though the proxy server. For example, `*.bosh,10.0.0.0/8,*.example.com` allows
+      the Grafana instance to access all BOSH DNS addresses and all internal network IP addresses
+      containing `10.0.0.0/8` or `*.example.com` directly, without going though the proxy server.
       <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you
         are deploying Healthwatch in an air-gapped environment and want to configure alert
         channels to external addresses, such as the external Slack webhook.</p>
-  1. To disallow HTTP and HTTPS proxy requests, select **Do not configure**. HTTP and HTTPS
-  proxy settings are disallowed by default.
+  1. To disallow the Grafana instance from making HTTP and HTTPS requests through proxy servers,
+  select **Do not configure**. HTTP and HTTPS proxy requests are disallowed by default.
 
 1. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of
 valid static IP addresses that you want to reserve for the Grafana instance. These IP addresses
@@ -311,13 +314,14 @@ Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) tile, activate the **Create Tanzu Rabbit
 checkbox. This checkbox is deactivated by default.
     <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ
       dashboards</strong> checkbox, set the <strong>Metrics polling interval</strong> field
-      to <code>-1</code> in the Tanzu RabbitMQ tile. This prevents the Tanzu RabbitMQ tile
+      in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile
       from sending duplicate metrics to the Loggregator Firehouse. To configure this field,
       see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
       RabbitMQ documentation</a>.</p>
 
-1. (Optional) To allow HTTPS for the Grafana instance, you must provide a TLS certificate and
-private key in **Certificate and private key for HTTPS**.
+1. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide
+a certificate and private key for the Grafana instance to use for TLS connections in **Certificate
+and private key for HTTPS**.
 <br>
 <br>
 VMware recommends also providing a certificate signed by a third-party CA in **CA certificate
@@ -325,9 +329,10 @@ for HTTPS**. You can generate a self-signed certificate using the Ops Manager ro
 doing so causes your browser to warn you that your CA is invalid every time you access the
 Grafana UI.
   * To use a certificate signed by a third-party CA:
-      1. For **Certificate and private key for HTTPS**, provide a certificate and private key.
-      1. For **CA certificate for HTTPS**, provide the third-party CA that signs the certificate
-      you provided in the previous step.
+      1. For **Certificate and private key for HTTPS**, provide a certificate and private key
+      for the Grafana instance to use for TLS connections.
+      1. For **CA certificate for HTTPS**, provide the certificate of the third-party CA that
+      signs the certificate you provided in the previous step.
   * To generate a self-signed certificate from the Ops Manager root CA:
       1. Under **Certificate and private key for HTTPS**, click **Change**.
       1. Click **Generate RSA Certificate**.
@@ -345,9 +350,9 @@ Grafana UI.
             ```
             cat /var/tempest/workspaces/default/root_ca_certificate
             ```
-      1. Record the Ops Manager root CA.
-      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA that
-      you recorded in the previous step.
+      1. Record the Ops Manager root CA certificate.
+      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate
+      that you recorded in the previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
 enter a comma-separated list of ciphers in **Additional ciphers for TLS**. For a list of supported
@@ -355,11 +360,11 @@ cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589a
 in the Go repository on GitHub.
 
 1. Under **Grafana UI authentication method**, select the user authentication method you want
-the Grafana instance to use:
+to configure for users to log in to the Grafana UI:
     * **Basic authentication:** Configures basic authentication. For more information, see
     [Configure Basic Authentication](grafana-authentication.html#configure-basic-auth) in _Configuring
     Grafana Authentication_.
-    * **Generic OAuth:** Configures OAuth authentication for any supported authentication provider,
+    * **Generic OAuth:** Configures OAuth authentication for any supported OAuth provider,
     such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
     (grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_
     and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
@@ -380,14 +385,15 @@ the Grafana instance to use:
       1. For **SMTP server password**, enter your SMTP authentication password.
       1. (Optional) To allow the Grafana instance to skip TLS certificate verification when
       communicating with your SMTP server over TLS, activate the **Skip TLS certificate verification**
-      checkbox.
+      checkbox. When this checkbox is activated, the Grafana instance does not verify the identity
+      of your SMTP server. This checkbox is deactivated by default.
       1. For **From address**, enter the sender email address that appears on outgoing email
       alerts.
       1. For **From name**, enter the sender name that appears on outgoing email alerts.
-      1. For **EHLO client ID**, enter a name for the client identity that your SMTP server
+      1. For **EHLO client ID**, enter the name for the client identity that your SMTP server
       uses when sending EHLO commands.
-      1. For **Certificate and private key for TLS**, enter a certificate and private key to
-      allow the Grafana instance to communicate with your SMTP server over TLS.
+      1. For **Certificate and private key for TLS**, enter a certificate and private key for
+      the Grafana instance to use for TLS connections to your SMTP server.
   * To disallow email alerts, select **Do not configure**. Email alerts are disallowed by default.
   <br>
   <br>
@@ -419,13 +425,14 @@ is already in use on the Prometheus instance.
 Ops Manager deployment. This creates a canary target URL that allows the Blackbox Exporter
 to test whether the Ops Manager Installation Dashboard is accessible. The results from these
 canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
-  <p class="note"><strong>Note:</strong> If you have SAML authentication enabled for Ops Manager,
+  <p class="note"><strong>Note:</strong> If your Ops Manager deployment uses SAML authentication,
     enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
     is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip
-TLS certificate verification** checkbox. Activating this checkbox allows the Prometheus instance
-to communicate with your Ops Manager deployment.
+TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance
+does not verify the identity of your Ops Manager deployment. This checkbox is deactivated by
+default.
 
 1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus instance
 runs continuous canary tests to these URLs and records the results. To configure canary target
@@ -467,51 +474,53 @@ To configure the **Remote Write** pane:
 endpoint.
 
 1. In **Remote timeout**, enter in seconds the amount of time that the Prometheus VM tries
-to make a request to the remote storage endpoint before the request fails.
+to make a request to your remote storage endpoint before the request fails.
 
-1. (Optional) To allow the Prometheus instance to write to your storage endpoint using basic
-authentication:
+1. If your remote storage endpoint requires a username and password to log in to it, configure
+the following fields:
   1. For **Remote storage username**, enter the username that the Prometheus instance uses
   to log in to your remote storage endpoint.
   1. For **Remote storage password**, enter the password that the Prometheus instance uses
   to log in to your remote storage endpoint.
 
-1. (Optional) To allow TLS communication between the Prometheus instance and your remote storage
-endpoint:
-  1. For **Certificate and private key for TLS**, provide a certificate and private key to
-  allow TLS communication between the Prometheus instance and your remote storage endpoint.
-  1. For **CA certificate for TLS**, provide a CA that signs the certificate you provided in
-  **Certificate and private key for TLS**.
-  1. For **Remote storage server name**, enter the name of the server that facilitates TLS
-  communication between the Prometheus instance and your remote storage endpoint.
+1. (Optional) To allow the Prometheus instance to communicate with the server for your remote
+storage endpoint over TLS:
+  1. For **Certificate and private key for TLS**, provide a certificate and private key for
+  the Prometheus instance to use for TLS connections to your remote storage endpoint.
+  1. For **CA certificate for TLS**, provide the certificate for the CA that the server for
+  your remote storage endpoint uses to verify TLS certificates.
+  1. For **Remote storage server name**, enter the name of the server for your remote storage
+  endpoint as it appears on the server's TLS certificate.
   1. If the certificate you provided in **Certificate and private key for TLS** is signed by
-  a self-signed CA or a certificate that is signed by a self-signed CA, activate the **Skip
-  TLS certificate verification** checkbox to skip TLS certificate verification during TLS handshakes.
+  a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+  activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+  the Prometheus instance does not verify the identity of the server for your remote storage
+  endpoint. This checkbox is deactivated by default.
 
-1. (Optional) To allow the Prometheus instance to make HTTP or HTTPS proxy requests to the
-remote storage endpoint, enter a proxy URL in **Proxy URL**.
+1. (Optional) To allow the Prometheus instance to make HTTP or HTTPS requests to your remote
+storage endpoint through a proxy server, enter the URL for your proxy server in **Proxy URL**.
 
 1. You can configure more granular settings for writing to your remote storage endpoint by
 specifying additional parameters for the shards containing in-memory queues that read from
-the write-ahead log in the Prometheus instance. To configure additional parameters for
-these shards:
-  1. For **Queue capacity**, enter how many samples the remote storage endpoint can queue in
-  memory per shard before the Prometheus instance blocks the queue from reading from the write-ahead
-  log.
+the write-ahead log in the Prometheus instance. To configure additional parameters for these
+shards:
+  1. For **Queue capacity**, enter how many samples your remote storage endpoint can queue
+  in memory per shard before the Prometheus instance blocks the queue from reading from the
+  write-ahead log.
   1. For **Minimum shards per queue**, enter the minimum number of shards the Prometheus instance
   can use for each remote write queue. This number is also the number of shards the Prometheus
-  VM uses when remote write begins after each deployment of the Healthwatch tile.
+  instance uses when remote write begins after each deployment of the Healthwatch tile.
   1. For **Maximum shards per queue**, enter the maximum number of shards the Prometheus instance
   can use for each remote write queue.
-  1. For **Maximum samples per send**, enter the maximum number of samples the Prometheus VM
+  1. For **Maximum samples per send**, enter the maximum number of samples the Prometheus instance
   can send to a shard at a time.
   1. For **Maximum batch wait time**, enter in seconds the maximum amount of time the Prometheus
   instance can wait before sending a batch of samples to a shard, whether that shard has reached
   the limit configured in **Maximum samples per send** or not.
   1. For **Minimum backoff time**, enter in milliseconds the minimum amount of time the Prometheus
-  instance can wait before retrying a failed request to the remote storage endpoint.
+  instance can wait before retrying a failed request to your remote storage endpoint.
   1. For **Maximum backoff time**, enter in milliseconds the maximum amount of time the Prometheus
-  instance can wait before retrying a failed request to the remote storage endpoint.
+  instance can wait before retrying a failed request to your remote storage endpoint.
   <br>
   <br>
   For more information about configuring these queue parameters, see [Remote Write Tuning]
@@ -520,7 +529,7 @@ these shards:
 1. Click **Save**.
 
 
-## <a id='tkgi-cluster-discovery'></a> (Optional) Configure TKGI Cluster Discovery
+## <a id='tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery
 
 In the **TKGI Cluster Discovery** pane, you configure TKGI cluster discovery for Healthwatch.
 You only need to configure this pane if you have foundations with TKGI installed.

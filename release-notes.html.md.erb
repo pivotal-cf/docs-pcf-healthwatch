@@ -336,8 +336,9 @@ is unique. The addition of these tags does not change any metric names.
 ### <a id='self-signed-certs'></a> Self-Signed Certificates Break Dashboards
 
 While Pivotal Healthwatch v1 does not require TLS verification for Ops Manager certificates,
-Healthwatch v2.1 checks for TLS validation by default. If your Ops Manager deployment uses
-self-signed certificates, you must configure the Healthwatch tile to skip TLS certificate verification.
+Healthwatch v2.1 checks for TLS certificate verification by default. If your Ops Manager deployment
+uses self-signed certificates, you must configure the Healthwatch tile to skip TLS certificate
+verification.
 
 If the **Ops Manager Health** dashboard in the Grafana UI displays a "Not Running" error, activate
 the **Skip TLS certificate verification** checkbox in the **Canary URLs** pane of the Healthwatch

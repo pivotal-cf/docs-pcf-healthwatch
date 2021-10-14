@@ -11,13 +11,13 @@ discovery in Healthwatch.
 
 ## <a id='overview'></a> Overview of TKGI Cluster Discovery
 
-In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you can configure the Prometheus
+In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure the Prometheus
 instance in the Healthwatch tile to detect on-demand Kubernetes clusters created through the
 TKGI API and create scrape jobs for them. You only need to configure this pane if you have
 Ops Manager foundations with TKGI installed.
 
 The Prometheus instance detects and scrapes TKGI clusters by connecting to the Kubernetes API
-through the TKGI API using a UAA client. To enable this process, you must configure the Healthwatch
+through the TKGI API using a UAA client. To allow this, you must configure the Healthwatch
 tile, the Prometheus instance in the Healthwatch tile, the UAA client that the Prometheus instance
 uses to connect to the TKGI API, and the TKGI tile.
 
@@ -105,24 +105,26 @@ Grid Integrated Edition Users with UAA_ in the TKGI documentation.
 indicator (SLI) test to run. The TKGI SLI test monitors the health of the TKGI API by logging
 into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API server.
 
-1. (Optional) To allow TLS communication between the Prometheus instance and the TKGI API,
-configure one of the following options:
-    * To configure the Prometheus instance to use a self-signed CA or a certificate that is
-    signed by a self-signed CA when communicating with the TKGI API over TLS, provide the CA
-    in **CA certificate for TLS**. If you provide a self-signed CA, it must be the same CA
-    that signs the certificate in the TKGI API.
-    * If you do not provide a self-signed CA or a certificate that is signed by a self-signed
-    CA in the **CA certificate for TLS** field, you can activate the **Skip TLS certificate
-    verification** checkbox to allow the Prometheus instance to skip TLS validation when connecting
-    to the TKGI API. VMware does not recommend skipping TLS validation in a production environment.
+1. (Optional) To allow the Prometheus instance to communicate with the TKGI API over TLS, configure
+one of the following options:
+    * To configure the Prometheus instance to use a self-signed CA certificate or a certificate
+    that is signed by a self-signed CA certificate when communicating with the TKGI API over
+    TLS, provide the certificate for the CA in **CA certificate for TLS**. If you provide a
+    self-signed CA certificate, it must be for the same CA that signs the certificate in the
+    TKGI API.
+    * If you do not provide a self-signed CA certificate or a certificate that is signed by
+    a self-signed CA certificate, you can activate the **Skip TLS certificate verification**
+    checkbox. When this checkbox is activated, the Prometheus instance does not verify the
+    identity of the TKGI API. This checkbox is deactivated by default. VMware does not recommend
+    skipping TLS certificate verification in a production environment.
 
 1. Click **Save**.
 
 
 ## <a id='configure-tkgi'></a> Configure TKGI
 
-After you enable and configure TKGI cluster discovery in the Healthwatch tile, you must configure
-TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters.
+After you configure TKGI cluster discovery in the Healthwatch tile, you must configure TKGI
+to allow the Prometheus instance to scrape metrics from TKGI clusters.
 
 To configure TKGI:
 
@@ -134,8 +136,8 @@ To configure TKGI:
 
 1. Under **Enable Telegraf Outputs?**, select **Yes**.
 
-1. Enable the **Include etcd metrics** checkbox to send etcd server and debugging metrics to
-Healthwatch.
+1. Activate the **Include etcd metrics** checkbox to allow TKGI to send etcd server and debugging
+metrics to Healthwatch.
 
 1. For **Setup Telegraf Outputs**, provide the following TOML configuration file:
 
@@ -143,17 +145,17 @@ Healthwatch.
     [[outputs.prometheus_client]]
           listen = ":10200"
     ```
-    You must use `10200` as the listening port to enable the Prometheus instance to scrape
-    Telegraf metrics. For more information about creating a configuration file in TKGI, see
-    [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring
-    Telegraf in TKGI_ in the TKGI documentation.
+    You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf
+    metrics from your TKGI clusters. For more information about creating a configuration file
+    in TKGI, see [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml)
+    in _Configuring Telegraf in TKGI_ in the TKGI documentation.
 
 1. Click **Save**.
 
 1. For each plan you want to monitor:
   1. Select the plan you want to monitor. For example, **Plan 2**.
   1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to create
-  the roles required to enable the Prometheus instance to scrape metrics from your TKGI clusters:
+  the roles required to allow the Prometheus instance to scrape metrics from your TKGI clusters:
 
       <%= partial '../../snippets/cluster_scraping_config.md' %>
 
@@ -165,7 +167,7 @@ Healthwatch.
 
 1. Select **Errands**.
 
-1. Ensure that the **Upgrade all clusters** errand is enabled. Running this errand configures
+1. Ensure that the **Upgrade all clusters** errand is running. Running this errand configures
 your TKGI clusters with the roles you created in the **(Optional) Add-ons - Use with caution**
 field of the plans you monitor in a previous step.
 

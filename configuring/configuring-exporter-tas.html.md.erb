@@ -162,7 +162,7 @@ IP address that you want to reserve for the timer metric exporter VM.
 1. (Optional) For **Static IP address for TAS for VMs SLI exporter VM**, enter a valid static
 IP address that you want to reserve for the TAS for VMs SLI exporter VM. The TAS for VMs SLI
 exporter VM generates SLIs that allow you to monitor whether the core functions of the Cloud
-Foundry Command-Line Interface (cf CLI) are working as expected. The cf CLI enables developers
+Foundry Command-Line Interface (cf CLI) are working as expected. The cf CLI allows developers
 to create and manage apps through TAS for VMs. For more information, see [TAS for VMs SLI Exporter
 VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
@@ -179,8 +179,9 @@ Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch Me
     metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip
-TLS certificate verification** checkbox to allow the certificate expiration metric exporter
-VM to communicate with your Ops Manager deployment. This checkbox is deactivated by default.
+TLS certificate verification** checkbox. When this checkbox is activated, the certificate expiration
+metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated
+by default.
 
 1. Click **Save**.
 
@@ -248,9 +249,10 @@ IP address must not be within the reserved IP ranges you configured in the BOSH 
 
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
-To enable the BOSH deployment metric exporter VM to access the BOSH Director VM, you must create
-a new UAA client for the BOSH deployment metric exporter VM. The procedure to create this UAA
-client differs depending on the authentication settings of your Ops Manager deployment.
+To allow the BOSH deployment metric exporter VM to access the BOSH Director VM and view BOSH
+deployments, you must create a new UAA client for the BOSH deployment metric exporter VM. The
+procedure to create this UAA client differs depending on the authentication settings of your
+Ops Manager deployment.
 
 To create a UAA client for the BOSH deployment metric exporter VM:
 
@@ -433,7 +435,7 @@ your external destination.
 1. (Optional) To transmit logs over TLS:
   1. Activate the **Enable TLS** checkbox. This checkbox is deactivated by default.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
-  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+  1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
 1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for
 TAS for VMs can hold in a buffer at a time before sending them to your external destination.
@@ -456,7 +458,7 @@ in the TAS for VMs documentation. For more information about RainerScript syntax
 In the **Resource Config** pane, you can scale VMs in Healthwatch Exporter for TAS for VMs
 up or down according to the needs of your deployment, as well as associate load balancers with
 a group of VMs. For example, you can scale the persistent disk size of a metric exporter VM
-to enable longer data retention.
+to allow longer data retention.
 
 To configure the **Resource Config** pane:
 
@@ -472,8 +474,8 @@ to modify:
 1. (Optional) To add a load balancer to a job:
   1. Click the icon next to the job name.
   1. For **Load Balancers**, enter the name of your load balancer.
-  1. Ensure that the **Internet Connected** checkbox is disabled. Enabling this checkbox gives
-  VMs a public IP address that enables outbound Internet access.
+  1. Ensure that the **Internet Connected** checkbox is deactivated. Activating this checkbox
+  gives VMs a public IP address that allows outbound Internet access.
 
 1. (Optional) The instance count for the SVM Forwarder VM is set to `0` by default. This VM
 emits Healthwatch-generated super value metrics (SVMs) into the Loggregator Firehose. To deploy
@@ -485,7 +487,7 @@ and [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwa
 in _Healthwatch Metrics_.
   <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS
     for VMs tile before installing the Healthwatch tile, you may need to re-deploy Healthwatch
-    Exporter for TAS for VMs after enabling the SVM Forwarder VM. For more information, see
+    Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see
     <a href="#apply-changes">Deploy Healthwatch Exporter for TAS for VMs</a> below.</p>
 
 1. (Optional) Healthwatch Exporter for TAS for VMs deploys the counter, gauge, and timer metric

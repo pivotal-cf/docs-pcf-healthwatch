@@ -162,8 +162,9 @@ Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch Me
     metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip
-TLS certificate verification** checkbox to allow the certificate expiration metric exporter
-VM to communicate with your Ops Manager deployment. This checkbox is deactivated by default.
+TLS certificate verification** checkbox. When this checkbox is activated, the certificate expiration
+metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated
+by default.
 
 1. Click **Save**.
 
@@ -187,21 +188,22 @@ reserved IP ranges you configured in the BOSH Director tile.
 1. For **SLI test frequency**, enter in seconds how frequently you want the TKGI SLI exporter
 VM to run SLI tests.
 
-1. (Optional) To allow TLS communication between the TKGI SLI exporter VM and the TKGI API,
-choose one of the following options:
+1. (Optional) To allow TKGI SLI exporter VM to communicate with the TKGI API over TLS, choose
+one of the following options:
     * To configure the TKGI SLI exporter VM to use a self-signed certificate authority (CA)
-    or a certificate that is signed by a self-signed CA when communicating with the TKGI API
-    over TLS:
-        1. For **CA certificate for TLS**, provide the CA. If you provide a self-signed CA,
-        it must be the same CA that signs the certificate in the TKGI API.
-        1. When you provide a self-signed CA or certificate that is signed by a self-signed
-        CA in the **CA certificate for TLS** field, the **Skip TLS certificate verification**
-        checkbox becomes configurable. Deactivate the **Skip TLS certificate verification**
-        checkbox.
+    certificate or a certificate that is signed by a self-signed CA certificate when communicating
+    with the TKGI API over TLS:
+        1. For **CA certificate for TLS**, provide the CA certificate. If you provide a self-signed
+        CA certificate, it must be the for same CA that signs the certificate in the TKGI API.
+        1. If you provide a self-signed CA certificate or a certificate that is signed by a
+        self-signed CA certificate, the **Skip TLS certificate verification** checkbox becomes
+        configurable. Deactivate the **Skip TLS certificate verification** checkbox.
     * To configure the TKGI SLI exporter VM to skip TLS certificate verification when communicating
-    with the TKGI API over TLS, leave **CA certificate for TLS** blank. The **Skip TLS certificate
-    verification** checkbox is activated and not configurable by default. VMware does not recommend
-    skipping TLS certificate verification in a production environment.
+    with the TKGI API over TLS, leave the **CA certificate for TLS** field blank. The **Skip
+    TLS certificate verification** checkbox is activated and not configurable by default. When
+    this checkbox is activated, the TKGI SLI exporter VM does not verify the identity of the
+    TKGI API. VMware does not recommend skipping TLS certificate verification in a production
+    environment.
 
 1. Click **Save**.
 
@@ -269,9 +271,10 @@ IP address must not be within the reserved IP ranges you configured in the BOSH 
 
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
-To enable the BOSH deployment metric exporter VM to access the BOSH Director VM, you must create
-a new UAA client for the BOSH deployment metric exporter VM. The procedure to create this UAA
-client differs depending on the authentication settings of your Ops Manager deployment.
+To allow the BOSH deployment metric exporter VM to access the BOSH Director VM and view BOSH
+deployments, you must create a new UAA client for the BOSH deployment metric exporter VM. The
+procedure to create this UAA client differs depending on the authentication settings of your
+Ops Manager deployment.
 
 To create a UAA client for the BOSH deployment metric exporter VM:
 
@@ -448,7 +451,7 @@ external destination.
 1. (Optional) To transmit logs over TLS:
   1. Activate the **Enable TLS** checkbox. This checkbox is deactivated by default.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
-  1. For **SSL Certificate**, enter the SSL certificate for your external destination.
+  1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
 1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for
 TKGI can hold in a buffer at a time before sending them to your external destination. The default
@@ -488,7 +491,7 @@ to modify:
   1. Click the icon next to the job name.
   1. For **Load Balancers**, enter the name of your load balancer.
   1. Ensure that the **Internet Connected** checkbox is deactivated. Activating this checkbox
-  gives VMs a public IP address that enables outbound Internet access.
+  gives VMs a public IP address that allows outbound Internet access.
 
 1. Click **Save**.
 

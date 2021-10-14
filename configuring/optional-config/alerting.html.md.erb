@@ -8,11 +8,11 @@ This topic explains how to configure alerting in Healthwatch.
 
 ## <a id='overview'></a> Overview
 
-In Healthwatch, you can configure Prometheus to send alerts to Alertmanager according to alerting
-rules you configure. Alertmanager then manages those alerts by removing duplicate alerts, grouping
-alerts together, and routing those groups to alert receiver integrations such as email, PagerDuty,
-or Slack. Alertmanager also silences and inhibits alerts according to the alerting rules you
-configure.
+In Healthwatch, you can configure the Prometheus instance to send alerts to Alertmanager according
+to alerting rules you configure. Alertmanager then manages those alerts by removing duplicate
+alerts, grouping alerts together, and routing those groups to alert receiver integrations such
+as email, PagerDuty, or Slack. Alertmanager also silences and inhibits alerts according to
+the alerting rules you configure.
 
 For more information, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/alertmanager/).
 
@@ -146,21 +146,23 @@ configure one of the following fields:
     * If your SMTP server uses CRAM_MD5, enter the authentication secret for your SMTP server
     in **SMTP server authentication secret**.
 
-1. (Optional) To configure TLS communication between Alertmanager and your email alert receiver,
+1. (Optional) To allow Alertmanager to communicate with your email alert receiver over TLS,
 configure the following fields:
-    1. For **Certificate and private key for TLS**, provide a certificate and private key to
-    allow TLS communication between Alertmanager and your email alert receiver.
-    1. For **CA certificate for TLS**, provide a certificate authority (CA) that signs the
-    certificate you provided in **Certificate and private key for TLS**.
-    1. For **SMTP server name**, enter the name of the SMTP server that facilitates TLS communication
-    between Alertmanager and your email alert receiver.
+    1. For **Certificate and private key for TLS**, provide a certificate and private key for
+    Alertmanager to use for TLS connections to your SMTP server.
+    1. For **CA certificate for TLS**, provide a certificate for the certificate authority
+    (CA) that your SMTP server uses to verify TLS certificates.
+    1. For **SMTP server name**, enter the name of the SMTP server as it appears on the server's
+    TLS certificate.
     1. If the certificate you provided in **Certificate and private key for TLS** is signed
-    by a self-signed CA or a certificate that is signed by a self-signed CA, activate the **Skip
-    TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+    by a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+    activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+    Alertmanager does not verify the identity of your SMTP server. This checkbox is deactivated
+    by default.
     <br>
     <br>
-    For more information about configuring TLS communication, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
+    For more information about configuring TLS communication for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
 
 ### <a id='pagerduty'></a> Configure a PagerDuty Alert Receiver
 
@@ -198,33 +200,35 @@ example shows a possible set of configuration parameters:
     * If you selected Prometheus as your integration type in PagerDuty, enter your PagerDuty
     integration key in **Service key**.
 
-1. (Optional) To configure the HTTP client that your PagerDuty alert receiver uses to communicate
-with HTTP-based API services, configure one of the following options:
-    * To configure your HTTP client to authenticate API services using basic authentication,
-    enter the username and password associated with your HTTP client in **Basic authentication
+1. (Optional) To configure an HTTP client for Alertmanager to use to communicate with the PagerDuty
+API, configure one of the following options:
+    * To configure the HTTP client to authenticate the PagerDuty API using basic authentication,
+    enter the username and password associated with the HTTP client in **Basic authentication
     credentials**.
-    * To configure your HTTP client to authenticate API services using a bearer token, enter
-    the bearer token associated with your HTTP client in **Bearer token**.
+    * To configure the HTTP client to authenticate the PagerDuty API using a bearer token,
+    enter the bearer token associated with the HTTP client in **Bearer token**.
     <br>
     <br>
-    For more information about configuring an HTTP client, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#http_config).
+    For more information about configuring an HTTP client for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#http_config).
 
-1. (Optional) To configure TLS communication between Alertmanager and your PagerDuty alert
-receiver, configure the following fields:
-    1. For **Certificate and private key for TLS**, provide a certificate and private key to
-    allow TLS communication between Alertmanager and your PagerDuty alert receiver.
-    1. For **CA certificate for TLS**, provide a CA that signs the certificate you provided
-    in **Certificate and private key for TLS**.
-    1. For **PagerDuty server name**, enter the name of the PagerDuty server that facilitates
-    TLS communication between Alertmanager and your PagerDuty alert receiver.
+1. (Optional) To allow Alertmanager to communicate with your PagerDuty alert receiver over
+TLS, configure the following fields:
+    1. For **Certificate and private key for TLS**, provide a certificate and private key for
+    Alertmanager to use for TLS connections to the PagerDuty API server.
+    1. For **CA certificate for TLS**, provide a certificate for the CA that the PagerDuty
+    API server uses to verify TLS certificates.
+    1. For **PagerDuty server name**, enter the name of the PagerDuty API server as it appears
+    on the server's TLS certificate.
     1. If the certificate you provided in **Certificate and private key for TLS** is signed
-    by a self-signed CA or a certificate that is signed by a self-signed CA, activate the **Skip
-    TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+    by a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+    activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+    Alertmanager does not verify the identity of the PagerDuty API server. This checkbox is
+    deactivated by default.
     <br>
     <br>
-    For more information about configuring TLS communication, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
+    For more information about configuring TLS communication for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
 
 ### <a id='slack'></a> Configure a Slack Alert Receiver
 
@@ -255,35 +259,38 @@ example shows a possible set of configuration parameters:
       the <code>&#60;tls_config></code> section in the configuration parameters for your Slack
       alert receiver. You can configure these properties in the next steps of this procedure.</p>
 
-1. For **Slack API URL**, enter the Slack webhook URL for your Slack alert receiver.
+1. For **Slack API URL**, enter the webhook URL for your Slack instance from your Slack app
+directory.
 
-1. (Optional) To configure the HTTP client that your Slack alert receiver uses to communicate
-with HTTP-based API services, configure one of the following options:
-    * To configure your HTTP client to authenticate API services using basic authentication,
-    enter the username and password associated with your HTTP client in **Basic authentication
-    credentials**.
-    * To configure your HTTP client to authenticate API services using a bearer token, enter
-    the bearer token associated with your HTTP client in **Bearer token**.
+1. (Optional) To configure an HTTP client for Alertmanager to use to communicate with the server
+for your Slack instance, configure one of the following options:
+    * To configure the HTTP client to authenticate the server for your Slack instance using
+    basic authentication, enter the username and password associated with the HTTP client in
+    **Basic authentication credentials**.
+    * To configure the HTTP client to authenticate the server for your Slack instance using
+    a bearer token, enter the bearer token associated with the HTTP client in **Bearer token**.
     <br>
     <br>
-    For more information about configuring an HTTP client, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#http_config).
+    For more information about configuring an HTTP client for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#http_config).
 
-1. (Optional) To configure TLS communication between Alertmanager and your Slack alert receiver,
+1. (Optional) To allow Alertmanager to communicate with your Slack alert receiver over TLS,
 configure the following fields:
-    1. For **Certificate and private key for TLS**, provide a certificate and private key to
-    allow TLS communication between Alertmanager and your Slack alert receiver.
-    1. For **CA certificate for TLS**, provide a CA that signs the certificate you provided
-    in **Certificate and private key for TLS**.
-    1. For **Slack server name**, enter the name of the Slack server that facilitates TLS communication
-    between Alertmanager and your Slack alert receiver.
+    1. For **Certificate and private key for TLS**, provide a certificate and private key for
+    Alertmanager to use for TLS connections to the server for your Slack instance.
+    1. For **CA certificate for TLS**, provide a certificate for the CA that the server for
+    your Slack instance uses to verify TLS certificates.
+    1. For **Slack server name**, enter the name of the server for your Slack instance as it
+    appears on the server's TLS certificate.
     1. If the certificate you provided in **Certificate and private key for TLS** is signed
-    by a self-signed CA or a certificate that is signed by a self-signed CA, activate the **Skip
-    TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+    by a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+    activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+    Alertmanager does not verify the identity of the server for your Slack instance. This checkbox
+    is deactivated by default.
     <br>
     <br>
-    For more information about configuring TLS communication, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
+    For more information about configuring TLS communication for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
 
 ### <a id='webhook'></a> Configure a Webhook Alert Receiver
 
@@ -317,33 +324,35 @@ example shows a possible set of configuration parameters:
       </ul>
     </div>
 
-1. (Optional) To configure the HTTP client that your webhook alert receiver uses to communicate
-with HTTP-based API services, configure one of the following options:
-    * To configure your HTTP client to authenticate API services using basic authentication,
-    enter the username and password associated with your HTTP client in **Basic authentication
-    credentials**.
-    * To configure your HTTP client to authenticate API services using a bearer token, enter
-    the bearer token associated with your HTTP client in **Bearer token**.
+1. (Optional) To configure an HTTP client for Alertmanager to use to communicate with the server
+that processes your webhook, configure one of the following options:
+    * To configure the HTTP client to authenticate the server that processes your webhook using
+    basic authentication, enter the username and password associated with the HTTP client in
+    **Basic authentication credentials**.
+    * To configure the HTTP client to authenticate the server that processes your webhook using
+    a bearer token, enter the bearer token associated with the HTTP client in **Bearer token**.
     <br>
     <br>
-    For more information about configuring an HTTP client, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#http_config).
+    For more information about configuring an HTTP client for Alermanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#http_config).
 
-1. (Optional) To configure TLS communication between Alertmanager and your webhook alert receiver,
+1. (Optional) To allow Alertmanager to communicate with your webhook alert receiver over TLS,
 configure the following fields:
-    1. For **Certificate and private key for TLS**, provide a certificate and private key to
-    allow TLS communication between Alertmanager and your webhook alert receiver.
-    1. For **CA certificate for TLS**, provide a CA that signs the certificate you provided
-    in **Certificate and private key for TLS**.
-    1. For **Webhook server name**, enter the name of the webhook server that facilitates TLS
-    communication between Alertmanager and your webhook alert receiver.
+    1. For **Certificate and private key for TLS**, provide a certificate and private key for
+    Alertmanager to use for TLS connections to the server that processes your webhook.
+    1. For **CA certificate for TLS**, provide a certificate for the CA that the server that
+    processes your webhook uses to verify TLS certificates.
+    1. For **Webhook server name**, enter the name of the server that processes your webhook
+    as it appears on the server's TLS certificate.
     1. If the certificate you provided in **Certificate and private key for TLS** is signed
-    by a self-signed CA or a certificate that is signed by a self-signed CA, allow the **Skip
-    TLS certificate verification** checkbox to skip TLS validation during TLS handshakes.
+    by a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate,
+    activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated,
+    Alertmanager does not verify the identity of the server that processes your webhook. This
+    checkbox is deactivated by default.
     <br>
     <br>
-    For more information about configuring TLS communication, see the [Prometheus documentation]
-    (https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
+    For more information about configuring TLS communication for Alertmanager, see the [Prometheus
+    documentation](https://prometheus.io/docs/alerting/latest/configuration/#tls_config).
 
 1. Click **Save**.
 

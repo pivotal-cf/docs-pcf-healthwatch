@@ -16,7 +16,7 @@ all users log in to the Grafana UI using the username `admin` and the admin logi
 found in the **Credentials** tab of the Healthwatch tile.
 
 However, you can configure the Grafana UI to use a different authentication method instead.
-This enables users to use their own credentials to log in to the Grafana UI.
+This allows users to use their own credentials to log in to the Grafana UI.
 
 The sections in this topic describe how to configure different authentication methods for users
 to log in to the Grafana UI:
@@ -83,7 +83,7 @@ To configure generic OAuth authentication for the Grafana UI:
 
 1. Under **Grafana UI authentication method**, select **Generic OAuth**.
 
-1. For **Provider name**, enter the name of the OAuth provider you want to configure.
+1. For **Provider name**, enter the name of your OAuth provider.
 
 1. For **Client ID**, enter the client ID of your OAuth provider. The method to retrieve this
 client ID differs depending on your OAuth provider. To find the client ID of your OAuth provider,
@@ -100,53 +100,54 @@ user's token when they log in to the Grafana UI. These scopes differ depending o
 provider. To find the scopes for your OAuth provider, see [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
 in the Grafana documentation.
 
-1. For **Authorization URL**, enter the authorization URL of your OAuth provider server.
+1. For **Authorization URL**, enter the authorization URL of the server for your OAuth provider.
 
-1. For **Token URL**, enter the token URL of your OAuth provider server.
+1. For **Token URL**, enter the token URL of the server for your OAuth provider.
 
-1. For **API URL**, enter the API URL of your OAuth provider server.
+1. For **API URL**, enter the API URL of the server for your OAuth provider.
 
 1. (Optional) For **Email attribute**, enter the attribute that contains the email address
 of the user. For more information, see [Generic OAuth Authentication](https://grafana.com/docs/grafana/latest/auth/generic-oauth/)
 in the Grafana documentation.
 
-1. (Optional) For **Grafana domain**, enter the domain of the Grafana instance. You must configure
-this field if your OAuth provider requires a callback URL that uses the root URL of the Grafana
+1. For **Grafana domain**, enter the domain of the Grafana instance. You must configure this
+field if your OAuth provider requires a callback URL that uses the root URL of the Grafana
 instance. If your OAuth provider does not require a callback URL, do not configure this field.
 
-1. (Optional) To allow new users to log in to the Grafana UI with their existing OAuth credentials,
-activate the **Allow new accounts with existing OAuth credentials** checkbox. This checkbox
-is activated by default. Deactivating this checkbox prevents users without a pre-existing Grafana
-account from logging in to the Grafana UI with their existing OAuth credentials.
+1. To allow new users to create a new Grafana account when they log in with their existing
+OAuth credentials for the first time, activate the **Allow new accounts with existing OAuth
+credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents
+users without a pre-existing Grafana account from creating a new Grafana account or logging
+in to the Grafana UI with their existing OAuth credentials.
 
 1. (Optional) For **Allowed domains**, enter a comma-separated list of domains. Configuring
 this field limits Grafana UI access to users who belong to one or more of the listed domains.
 
-1. (Optional) For **Allowed teams**, enter a comma-separated list of teams. Configuring this
-field limits Grafana UI access to users who belong to one or more of the listed teams. Configure
-this field if your OAuth provider allows you to separate users into teams. If your OAuth provider
-does not allow you to separate users into teams, do not configure this field.
+1. For **Allowed teams**, enter a comma-separated list of teams. Configuring this field limits
+Grafana UI access to users who belong to one or more of the listed teams. Configure this field
+if your OAuth provider allows you to separate users into teams. If your OAuth provider does
+not allow you to separate users into teams, do not configure this field.
 
-1. (Optional) For **Allowed organizations**, enter a comma-separated list of orgs. Configuring
-this field limits Grafana UI access to users who belong to one or more of the listed orgs.
-Configure this field if your OAuth provider allows you to separate users into orgs. If your
-OAuth provider does not allow you to separate users into orgs, do not configure this field.
+1. For **Allowed organizations**, enter a comma-separated list of orgs. Configuring this field
+limits Grafana UI access to users who belong to one or more of the listed orgs. Configure this
+field if your OAuth provider allows you to separate users into orgs. If your OAuth provider
+does not allow you to separate users into orgs, do not configure this field.
 
-1. (Optional) For **Allowed groups**, enter a comma-separated list of groups. Configuring this
-field limits Grafana UI access to users who belong to one or more of the listed groups. Configure
-this field if your OAuth provider allows you to separate users into groups. If your OAuth provider
-does not allow you to separate users into groups, do not configure this field.
+1. For **Allowed groups**, enter a comma-separated list of groups. Configuring this field limits
+Grafana UI access to users who belong to one or more of the listed groups. Configure this field
+if your OAuth provider allows you to separate users into groups. If your OAuth provider does
+not allow you to separate users into groups, do not configure this field.
 
-1. (Optional) To configure TLS communication between the Grafana instance and your OAuth provider
-server:
-  1. For **Certificate and private key for TLS**, provide a certificate and private key to
-  allow TLS communication between the Grafana instance and your OAuth provider server.
-  1. For **CA certificate for TLS**, provide a certificate authority (CA) that signs the certificate
-  you provided in **Certificate and private key for TLS**.
-  1. If you do not provide a self-signed CA or a certificate that is signed by a self-signed
-  CA, activate the **Skip TLS certificate verification** checkbox to allow the Grafana VM to
-  skip TLS certificate verification when connecting to your OAuth provider server. This checkbox
-  is deactivated by default.
+1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider
+over TLS:
+  1. For **Certificate and private key for TLS**, provide a certificate and private key for
+  the Grafana instance to use for TLS connections to the server for your OAuth provider.
+  1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA)
+  that the server for your OAuth provider uses to verify TLS certificates.
+  1. If you do not provide a self-signed CA certificate or a certificate that is signed by
+  a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox.
+  When this checkbox is activated, the Grafana instance does not verify the identity of the
+  server for your OAuth provider. This checkbox is deactivated by default.
 
 1. Click **Save**.
 
@@ -289,14 +290,14 @@ in [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
 1. For **UAA server root URL**, enter `login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the system
 domain for your runtime.
 
-1. (Optional) To allow TLS communication between the Grafana instance and your UAA server,
-configure one of the following options:
-  * To configure the Grafana instance to use a self-signed CA or a certificate that is signed
-  by a self-signed CA when communicating with your UAA server over TLS, provide the CA in **CA
-  certificate for TLS**.
-  * If you do not provide a self-signed CA or a certificate that is signed by a self-signed
-  CA **CA certificate for TLS**, activate the **Skip TLS certificate verification** checkbox
-  to allow the Grafana instance to skip TLS certificate verification when connecting to the
+1. (Optional) To allow the Grafana instance to communicate with your UAA server over TLS, configure
+one of the following options:
+  * To configure the Grafana instance to use a self-signed CA certificate or a certificate
+  that is signed by a self-signed CA certificate when communicating with your UAA server over
+  TLS, provide the CA certificate in **CA certificate for TLS**.
+  * If you do not provide a self-signed CA certificate or a certificate that is signed by a
+  self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox.
+  When this checkbox is activated, the Grafana instance does not verify the identity of your
   UAA server. This checkbox is deactivated by default.
 
 1. Click **Save**.
@@ -324,10 +325,11 @@ To configure LDAP authentication for the Grafana UI:
 1. (Optional) For **Port**, enter the port for your LDAP server host. The default port is `389`
 when the **Use TLS** checkbox is activated, or `636` when the **Use TLS** checkbox is deactivated.
 
-1. (Optional) To allow new users to log in to the Grafana UI with their existing LDAP credentials,
-activate the **Allow new accounts with existing LDAP credentials** checkbox. This checkbox
-is activated by default. Deactivating this checkbox prevents users without a pre-existing Grafana
-account from logging in to the Grafana UI with their existing LDAP credentials.
+1. (Optional) To allow new users to create a new Grafana account when they log in with their
+existing LDAP credentials for the first time, activate the **Allow new accounts with existing
+LDAP credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox
+prevents users without a pre-existing Grafana account from creating a new Grafana account or
+logging in to the Grafana UI with their existing LDAP credentials.
 
 1. (Optional) To allow the LDAP server to communicate with the Grafana instance over TLS when
 authenticating user credentials, activate the **Use TLS** checkbox. This checkbox is deactivated
@@ -337,7 +339,7 @@ by default.
 the Grafana instance over TLS, activate the **Use STARTTLS** checkbox. This checkbox is deactivated
 by default.
 
-1. (Optional) To enable the Grafana instance to skip TLS certificate verification when communicating
+1. (Optional) To allow the Grafana instance to skip TLS certificate verification when communicating
 with the LDAP server over TLS, activate the **Skip TLS certificate verification** checkbox.
 This checkbox is deactivated by default.
 
@@ -369,14 +371,14 @@ is the value of the `username` property.
 that your LDAP server uses. Each table must use the table name `[servers.attributes]`.
 
 1. (Optional) For **Server group mappings**, enter in TOML format an array of tables of LDAP
-groups mapped to a Grafana org and role. Each table must use the table name `[[servers.group_mappings]]`.
+groups mapped to Grafana orgs and roles. Each table must use the table name `[[servers.group_mappings]]`.
 For more information, see [Group Mappings](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings)
 in _LDAP Authentication_ in the Grafana documentation.
 
-1. (Optional) To configure TLS communication between the Grafana instance and your LDAP server:
-  1. For **Certificate and private key for TLS**, provide a certificate and private key to
-  allow TLS communication between the Grafana instance and your LDAP server.
-  1. For **CA certificate for TLS**, provide a CA that signs the certificate you provided in
-  **Certificate and private key for TLS**.
+1. (Optional) To allow the Grafana instance to communicate with your LDAP server over TLS:
+  1. For **Certificate and private key for TLS**, provide a certificate and private key for
+  the Grafana instance to use for TLS connections to your LDAP server.
+  1. For **CA certificate for TLS**, provide a certificate for the CA that your LDAP server
+  uses to verify TLS certificates.
 
 1. Click **Save**.
