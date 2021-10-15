@@ -111,11 +111,11 @@ In the **Prometheus** pane, you configure the Prometheus instance in the Healthw
 scrape metrics from the Healthwatch Exporter tiles installed on each foundation, as well as
 any external services or databases from which you want to collect metrics.
 
-The values that you enter in the fields in the **Prometheus** pane also define their corresponding
-properties in the `scrape_config` and `tls_config` sections of the Prometheus configuration
-file. For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
-and [&#60;tls_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config)
-in _Configuration_ in the Prometheus documentation.
+The values that you configure in the **Prometheus** pane also configure their corresponding
+properties in the Prometheus configuration file. For more information, see [Overview of Configuration
+Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference
+Guide_, [Prometheus](config-file-reference.html#prometheus-config) in _Configuration File Reference
+Guide_, and the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 To configure the **Prometheus** pane:
 
@@ -234,9 +234,11 @@ In the **Grafana** pane, you configure how users access and authenticate with th
 as well as which dashboards appear in the Grafana UI. For more information about the Grafana
 UI as it relates to Healthwatch, see [Healthwatch](../index.html).
 
-The values that you enter in the fields in the **Grafana** pane also define their corresponding
-properties the Grafana configuration file. For more information, see the [Grafana documentation]
-(https://grafana.com/docs/grafana/latest/administration/configuration/).
+The values that you configure in the **Grafana** pane also configure their corresponding properties
+in the Grafana configuration file. For more information, see [Overview of Configuration Files
+in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_,
+[Configuring the Grafana Configuration File](config-file-reference.html#grafana) in _Configuration
+File Reference Guide_, and the [Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
 
 To configure the **Grafana** pane:
 
@@ -453,9 +455,11 @@ data for six weeks before deleting it. Configuring remote write allows Healthwat
 data that is older than six weeks in a remote database or storage endpoint. For a list of compatible
 remote databases and storage endpoints, see the [Prometheus documentation](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage).
 
-The values that you enter in the fields in the **Remote Write** pane also define their corresponding
-properties in the `remote_write` section of the Prometheus configuration file. For more information,
-see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+The values that you configure in the **Remote Write** pane also configure their corresponding
+properties in the Prometheus configuration file. For more information, see [Overview of Configuration
+Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference
+Guide_, [Remote Write](config-file-reference.html#remote-write-config) in _Configuration File
+Reference Guide_, and the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
 
 To configure the **Remote Write** pane:
 
