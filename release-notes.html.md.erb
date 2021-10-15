@@ -30,11 +30,13 @@ in _Healthwatch_.
 
 **Release Date:** 10/14/2021
 
-* **[Feature]** Ops Manager UI text updates to improve user experience.
+* **[Feature]** The UI text in the Healthwatch, Healthwatch Exporter for VMware Tanzu Application
+Service for VMs (TAS for VMs), and Healthwatch Exporter for VMware Tanzu Kubernetes Grid Integrated
+Edition (TKGI) is updated to improve user experience.
 
-* **[Known Issue Fix]** Healthwatch correctly deploys when installed on Ops Manager v2.10.19+.
-For more information about this known issue, see [Error deploying on Ops Manager
-v2.10.19](#opsman-error) below.
+* **[Known Issue Fix]** Healthwatch successfully installs when installed on Ops Manager v2.10.19
+and later. For more information about this known issue, see [Healthwatch Fails to Install on
+Ops Manager v2.10.19 and Later](#install-failure) below.
 
 * **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the
 Grafana UI shows no data. For more information about this known issue, see [No Data on Kubernetes
@@ -57,8 +59,7 @@ Healthwatch v2.1.5 uses the following open-source component versions:
 
 **Release Date:** 09/21/2021
 
-* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI)
-v1.12.
+* **[Feature]** Healthwatch supports TKGI v1.12.
 
 * **[Feature]** You can filter the **Diego/Capacity** dashboard in the Grafana UI by isolation
 segment.
@@ -90,6 +91,10 @@ Basic Authentication Configuration](#alert-receiver-basic-auth) below.
 * **[Bug Fix]** In email alerts from Alertmanager, links to the Grafana UI correctly generate
 with HTTP or HTTPS.
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19 and later, the **Healthwatch** tile
+fails to install. For more information about this known issue, see [Healthwatch Fails to Install
+on Ops Manager v2.10.19 and Later](#install-failure) below.
+
 * **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the
 Grafana UI shows no data. For more information about this known issue, see [No Data on Kubernetes
 Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
@@ -97,9 +102,6 @@ Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
-
-* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
-For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.4 uses the following open-source component versions:
 
@@ -139,6 +141,10 @@ This fixes Ops Manager dashboards in the Grafana UI.
     or earlier, you may still see the <code>/home/tempest-web/uaa/tomcat</code> log file grow
     very large over time.</p>
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19 and later, the **Healthwatch** tile
+fails to install. For more information about this known issue, see [Healthwatch Fails to Install
+on Ops Manager v2.10.19 and Later](#install-failure) below.
+
 * **[Known Issue]** The SVM Forwarder VM does not forward SVMs to the Loggregator Firehose
 after the first time it deploys. For more information, see [SVM Forwarder VM Does Not Initially
 Forward SVMs](#svm-metrics) below.
@@ -151,9 +157,6 @@ Configuration](#alert-receiver-basic-auth) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
-
-* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
-For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.3 uses the following open-source component versions:
 
@@ -202,6 +205,10 @@ Client sent an HTTP request to an HTTPS server` error.
 * **[Bug Fix]** The Ops Manager UAA instance logs canary URL test redirects to the Ops Manager
 Installation Dashboard correctly.
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19 and later, the **Healthwatch** tile
+fails to install. For more information about this known issue, see [Healthwatch Fails to Install
+on Ops Manager v2.10.19 and Later](#install-failure) below.
+
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
 for alert receivers because the field to configure a username is missing. For more information
 about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
@@ -210,9 +217,6 @@ Configuration](#alert-receiver-basic-auth) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
-
-* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
-For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.1 uses the following open-source component versions:
 
@@ -230,6 +234,10 @@ Healthwatch v2.1.1 uses the following open-source component versions:
 For more information about this known issue, see [MySQL Proxy Disk Space Fills Up Quickly]
 (#mysql-proxy-maxed) below.
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19 and later, the **Healthwatch** tile
+fails to install. For more information about this known issue, see [Healthwatch Fails to Install
+on Ops Manager v2.10.19 and Later](#install-failure) below.
+
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication
 for alert receivers because the field to configure a username is missing. For more information
 about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
@@ -246,9 +254,6 @@ Scaled VMs Across AZs by Default](#scaled-vms) below.
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes**
 dashboard in the Grafana UI shows no data. For more information about this known issue, see
 [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
-
-* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
-For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.1.0 uses the following open-source component versions:
 
@@ -280,6 +285,10 @@ the **Skip TLS certificate verification** checkbox in the **Canary URLs** pane o
 tile. For more information, see [Self-Signed Certificates Break Dashboards](#self-signed-certs)
 below.
 
+* **[Known Issue]** If you are using Ops Manager v2.10.19 and later, the **Healthwatch** tile
+fails to install. For more information about this known issue, see [Healthwatch Fails to Install
+on Ops Manager v2.10.19 and Later](#install-failure) below.
+
 * **[Known Issue]** You may see an "Unable to render templates" error when upgrading Healthwatch
 on Ops Manager v2.3 through v2.7. For more information, see ["Unable to Render Templates" Error
 When Installing or Upgrading](#upgrade-from-om-23) below.
@@ -308,9 +317,6 @@ information, see [MySQL Proxy Disk Space Fills Up Quickly](#mysql-proxy-maxed) b
 * **[Known Issue]** When you scale VMs up, Healthwatch does not automatically distribute additional
 VMs across AZs and requires a workaround. For more information, see [Healthwatch Does Not Distribute
 Scaled VMs Across AZs by Default](#scaled-vms) below.
-
-* **[Known Issue]** If you are using Ops Manager v2.10.19+, the **Healthwatch** tile fails to install.
-For more information about this known issue, see [Error deploying on Ops Manager v2.10.19](#opsman-error) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -402,12 +408,12 @@ for TKGI_.
 
 Healthwatch v2.0.6 and v2.1 include the following known issues:
 
-### <a id='opsman-error'></a> Error deploying on Ops Manager v2.10.19
+### <a id='install-failure'></a> Healthwatch Fails to Install on Ops Manager v2.10.19 and Later
 
-This known issue is fixed in Healthwatch v2.1.5 and later.
+This known issue is fixed in Healthwatch v2.1.5.
 
-Healthwatch fails to install on Ops Manager v2.10.19 (BOSH version 271.10.0 and higher). Installing
-will result in the following errors:
+If you are using Ops Manager v2.10.19 and later, Healthwatch fails to install. Attempting to
+install Healthwatch causes the following errors:
 
 ```
  Preparing deployment: Rendering templates
@@ -421,7 +427,7 @@ Error: Unable to render instance groups for deployment. Errors are:
 - Error filling in template 'alerting.rules.yml.erb' (line 33: undefined method \`escape' for URI:Module)
 ```
 
-To fix this issue, upgrade to Healthwatch v2.1.5 or higher.
+To fix this issue, upgrade to Healthwatch v2.1.5.
 
 ### <a id='svm-metrics'></a> SVM Forwarder VM Does Not Initially Forward SVMs
 
@@ -438,8 +444,8 @@ monit restart svm-formwarder
 
 ### <a id='scaled-vms'></a> Scaled VMs Not Distributed Across AZs by Default
 
-This known issue is fixed only for new installations of Healthwatch v2.1.1. If you upgrade
-to Healthwatch v2.1.1 from an earlier version of Healthwatch v2, this known issue still exists.
+This known issue is fixed only for new installations of Healthwatch v2.1.1 and later. If you
+upgrade to Healthwatch v2.1.1 from Healthwatch v2.1.0 or earlier, this known issue still exists.
 
 If you scale Healthwatch component VMs up, they are not automatically distributed across AZs.
 To distribute them evenly across AZs, you must scale the VMs down, then scale them back up.
@@ -472,7 +478,7 @@ This known issue is fixed in Healthwatch v2.1.4 and later.
 In Healthwatch v2.1.3 and earlier, you cannot configure basic authentication credentials for
 PagerDuty, Slack, or webhook alert receivers because the field to configure a username is missing.
 
-To fix this issue, upgrade to Healthwatch v2.1.4.
+To fix this issue, upgrade to Healthwatch v2.1.4 or later.
 
 ### <a id='bosh-health-401'></a> BOSH Health Metric Exporter VM Causes 401 Error
 
@@ -489,10 +495,10 @@ bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin,
 bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
-To fix this issue, upgrade to Healthwatch v2.1.1 or manually delete the `bosh-health` deployment
-using the BOSH CLI. For more information about upgrading to Healthwatch v2.1.1, see [Upgrading
-Healthwatch](upgrading-healthwatch.html). For more information about deleting a BOSH deployment
-using the BOSH CLI, see [the BOSH documentation](https://bosh.io/docs/cli-v2/#delete-deployment).
+To fix this issue, upgrade to Healthwatch v2.1.1 or later or manually delete the `bosh-health`
+deployment using the BOSH CLI. For more information about upgrading to Healthwatch v2.1.1,
+see [Upgrading Healthwatch](upgrading-healthwatch.html). For more information about deleting
+a BOSH deployment using the BOSH CLI, see [the BOSH documentation](https://bosh.io/docs/cli-v2/#delete-deployment).
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
@@ -510,9 +516,9 @@ If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in 
 UI might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.6
 and earlier and Kubernetes v1.20.1 and earlier.
 
-To fix this issue, upgrade to TKGI v1.10.2. For more information about upgrading to TKGI v1.10.2,
-see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html) in the
-TKGI documentation.
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to
+TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html)
+in the TKGI documentation.
 
 ### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
 
