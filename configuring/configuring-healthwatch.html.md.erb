@@ -131,8 +131,8 @@ consuming too much storage, VMware recommends using the default value of `15s`, 
 tiles installed on other Ops Manager foundations or from external services or databases, configure
 additional scrape jobs under **Additional scrape jobs**. You can configure scrape jobs for
 any app or service that exposes metrics using a Prometheus exposition format, such as Concourse
-CI. For more information about Prometheus exposition formats, see [Exposition Formats](https://prometheus.io/docs/instrumenting/exposition_formats/)
-in the Prometheus documentation.
+CI. For more information about Prometheus exposition formats, see the [Prometheus documentation]
+(https://prometheus.io/docs/instrumenting/exposition_formats/).
   <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and
     scrapes Healthwatch Exporter tiles that are installed on the same foundation as the Healthwatch
     tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You
@@ -153,8 +153,7 @@ in the Prometheus documentation.
            - "1.2.3.4:9090"
            - "5.6.7.8:9090"
         ```
-        For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
-        in _Configuration_ in the Prometheus documentation.
+        For more information, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
         <div class="note warning"> <strong>Warning:</strong> For the <code>job_name</code>
           property, do not use the following job names:
           <ul>
@@ -236,8 +235,8 @@ as well as which dashboards appear in the Grafana UI. For more information about
 UI as it relates to Healthwatch, see [Healthwatch](../index.html).
 
 The values that you enter in the fields in the **Grafana** pane also define their corresponding
-properties the Grafana configuration file. For more information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
-in the Grafana documentation.
+properties the Grafana configuration file. For more information, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/administration/configuration/).
 
 To configure the **Grafana** pane:
 
@@ -367,14 +366,12 @@ to configure for users to log in to the Grafana UI:
     * **Generic OAuth:** Configures OAuth authentication for any supported OAuth provider,
     such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
     (grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_
-    and [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
-    in the Grafana documentation.
+    and the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
     * **UAA:** Configures UAA authentication. For more information, see [Configure UAA Authentication]
     (grafana-authentication.html#configure-uaa) in _Configuring Grafana Authentication_.
     * **LDAP:** Configures LDAP authentication. For more information, see [Configure LDAP Authentication]
     (grafana-authentication.html#configure-ldap) in _Configuring Grafana Authentication_ and
-    [LDAP Authentication](https://grafana.com/docs/grafana/latest/auth/ldap/) in the Grafana
-    documentation.
+    the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/ldap/).
 
 1. Under **Grafana email alerts**, choose whether to allow email alerts from the Grafana UI.
   * To allow email alerts:
@@ -397,8 +394,7 @@ to configure for users to log in to the Grafana UI:
   * To disallow email alerts, select **Do not configure**. Email alerts are disallowed by default.
   <br>
   <br>
-  For more information, see [&#91;smtp&#93;](https://grafana.com/docs/installation/configuration/#smtp)
-  in the Grafana documentation.
+  For more information, see the [Grafana documentation](https://grafana.com/docs/installation/configuration/#smtp).
 
 1. Click **Save**.
 
@@ -455,13 +451,11 @@ In the **Remote Write** pane, you can configure the Prometheus instance to write
 storage, in addition to its local time series database (TSDB). Healthwatch stores monitoring
 data for six weeks before deleting it. Configuring remote write allows Healthwatch to store
 data that is older than six weeks in a remote database or storage endpoint. For a list of compatible
-remote databases and storage endpoints, see [Remote Endpoints and Storage](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage)
-in _Integrations_ in the Prometheus documentation.
+remote databases and storage endpoints, see the [Prometheus documentation](https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage).
 
 The values that you enter in the fields in the **Remote Write** pane also define their corresponding
 properties in the `remote_write` section of the Prometheus configuration file. For more information,
-see [&#60;remote_write>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write)
-in _Configuration_ in the Prometheus documentation.
+see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
 
 To configure the **Remote Write** pane:
 
@@ -523,8 +517,8 @@ shards:
   instance can wait before retrying a failed request to your remote storage endpoint.
   <br>
   <br>
-  For more information about configuring these queue parameters, see [Remote Write Tuning]
-  (https://prometheus.io/docs/practices/remote_write/) in the Prometheus documentation.
+  For more information about configuring these queue parameters, see the [Prometheus documentation]
+  (https://prometheus.io/docs/practices/remote_write/).
 
 1. Click **Save**.
 

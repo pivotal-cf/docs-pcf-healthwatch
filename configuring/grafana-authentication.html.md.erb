@@ -32,12 +32,12 @@ below.
 
 * LDAP. For more information, see [Configure LDAP Authentication](#configure-ldap) below.
 
-For a list of Grafana-supported authentication integrations, see [User Authentication Overview]
-(https://grafana.com/docs/grafana/latest/auth/overview/) in the Grafana documentation.
+For a list of Grafana-supported authentication integrations, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/overview/).
 
 The values that you enter in the fields in the **Grafana** pane define their corresponding
-properties in the Grafana configuration file. For more information, see [Configuration](https://grafana.com/docs/grafana/latest/administration/configuration/)
-in the Grafana documentation.
+properties in the Grafana configuration file. For more information, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/administration/configuration/).
 
 
 ## <a id='configure-basic-auth'></a> Configure Basic Authentication
@@ -70,8 +70,8 @@ in to the Grafana UI.
 
 When you configure generic OAuth authentication for the Grafana UI, users can log in to the
 Grafana UI with their credentials for the Grafana-supported OAuth provider of your choice.
-For more information about configuring generic OAuth authentication, see [Generic OAuth Authentication]
-(https://grafana.com/docs/grafana/latest/auth/generic-oauth/) in the Grafana documentation.
+For more information about configuring generic OAuth authentication, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/generic-oauth/).
 
 To configure generic OAuth authentication for the Grafana UI:
 
@@ -87,18 +87,15 @@ To configure generic OAuth authentication for the Grafana UI:
 
 1. For **Client ID**, enter the client ID of your OAuth provider. The method to retrieve this
 client ID differs depending on your OAuth provider. To find the client ID of your OAuth provider,
-see [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
-in the Grafana documentation.
+see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
 1. For **Client secret**, enter the client secret of your OAuth provider. The method to retrieve
 this client secret differs depending on your OAuth provider. To find the client secret of your
-OAuth provider, see [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
-in the Grafana documentation.
+OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
 1. For **Scopes**, enter a comma-separated list of scopes that the OAuth provider adds to the
 user's token when they log in to the Grafana UI. These scopes differ depending on your OAuth
-provider. To find the scopes for your OAuth provider, see [User Authentication Overview](https://grafana.com/docs/grafana/latest/auth/overview/)
-in the Grafana documentation.
+provider. To find the scopes for your OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
 1. For **Authorization URL**, enter the authorization URL of the server for your OAuth provider.
 
@@ -107,8 +104,7 @@ in the Grafana documentation.
 1. For **API URL**, enter the API URL of the server for your OAuth provider.
 
 1. (Optional) For **Email attribute**, enter the attribute that contains the email address
-of the user. For more information, see [Generic OAuth Authentication](https://grafana.com/docs/grafana/latest/auth/generic-oauth/)
-in the Grafana documentation.
+of the user. For more information, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/generic-oauth/).
 
 1. For **Grafana domain**, enter the domain of the Grafana instance. You must configure this
 field if your OAuth provider requires a callback URL that uses the root URL of the Grafana
@@ -308,7 +304,7 @@ one of the following options:
 When you configure LDAP authentication for the Grafana UI, users can log in to the Grafana
 UI with their LDAP credentials. You can also create mappings between LDAP group memberships
 and Grafana org user roles. For more information about configuring LDAP authentication, see
-[LDAP Authentication](https://grafana.com/docs/auth/ldap/) in the Grafana documentation.
+the [Grafana documentation](https://grafana.com/docs/auth/ldap/).
 
 To configure LDAP authentication for the Grafana UI:
 
@@ -372,8 +368,7 @@ that your LDAP server uses. Each table must use the table name `[servers.attribu
 
 1. (Optional) For **Server group mappings**, enter in TOML format an array of tables of LDAP
 groups mapped to Grafana orgs and roles. Each table must use the table name `[[servers.group_mappings]]`.
-For more information, see [Group Mappings](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings)
-in _LDAP Authentication_ in the Grafana documentation.
+For more information, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings).
 
 1. (Optional) To allow the Grafana instance to communicate with your LDAP server over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for
