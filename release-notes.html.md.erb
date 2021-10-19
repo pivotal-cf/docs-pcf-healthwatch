@@ -30,9 +30,12 @@ in _Healthwatch_.
 
 **Release Date:** 10/14/2021
 
-* **[Feature]** The UI text in the Healthwatch, Healthwatch Exporter for VMware Tanzu Application
-Service for VMs (TAS for VMs), and Healthwatch Exporter for VMware Tanzu Kubernetes Grid Integrated
-Edition (TKGI) is updated to improve user experience.
+* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs)
+v2.12 and earlier.
+
+* **[Feature]** The UI text in the Healthwatch, Healthwatch Exporter for TAS for VMs, and Healthwatch
+Exporter for VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) is updated to improve user
+experience.
 
 * **[Known Issue Fix]** Healthwatch successfully installs when installed on Ops Manager v2.10.19
 and later. For more information about this known issue, see [Healthwatch Fails to Install on
@@ -59,7 +62,7 @@ Healthwatch v2.1.5 uses the following open-source component versions:
 
 **Release Date:** 09/21/2021
 
-* **[Feature]** Healthwatch supports TKGI v1.12.
+* **[Feature]** Healthwatch supports TKGI v1.12 and earlier.
 
 * **[Feature]** You can filter the **Diego/Capacity** dashboard in the Grafana UI by isolation
 segment.
@@ -115,8 +118,7 @@ Healthwatch v2.1.4 uses the following open-source component versions:
 
 **Release Date:** 07/15/2021
 
-* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI)
-v1.11.
+* **[Feature]** Healthwatch supports TKGI v1.11 and earlier.
 
 * **[Feature]** Healthwatch automatically creates a scrape job for the Prometheus endpoints
 on the BOSH Director VM.
@@ -170,8 +172,7 @@ Healthwatch v2.1.3 uses the following open-source component versions:
 
 **Release Date:** 05/14/2021
 
-* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs)
-v2.11.
+* **[Feature]** Healthwatch supports TAS for VMs v2.11 and earlier.
 
 * **[Known Issue Fix]** When uninstalling the Healthwatch Exporter for TAS for VMs tile, the
 `bosh-health` deployment is always deleted. For more information about this known issue, see
@@ -267,8 +268,7 @@ Healthwatch v2.1.0 uses the following open-source component versions:
 
 **Release Date:** 02/11/2021
 
-* **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.10.
-For more information, see [Healthwatch Supports TKGI v1.10](#tkgi-1-10) below.
+* **[Feature]** Healthwatch supports TKGI v1.10 and earlier.
 
 * **[Feature]** You can assign static IP addresses to Prometheus VMs. For more information,
 see [Assign Static IP Addresses to Prometheus VMs](#assign-static-ips) below.
@@ -336,9 +336,18 @@ To upgrade from Pivotal Healthwatch v1 to Healthwatch v2.1, see [Upgrading Healt
 
 Healthwatch v2.0.6 and v2.1 include the following major features:
 
-### <a id='tkgi-1-11'></a> Healthwatch Supports TKGI v1.12
+### <a id='tas-support'></a> Healthwatch Supports TAS for VMs v2.12 and Earlier
 
-You can use Healthwatch to monitor TKGI v1.12.
+You can use Healthwatch to monitor TAS for VMs v2.12 and earlier.
+
+Your TAS for VMs dashboards in the Grafana UI update automatically to display TAS for VMs v2.12
+metrics unless you manually set the dashboard version when you configure the Grafana VM. For
+more information about setting the TAS for VMs version for your dashboards, see [Configure
+Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+
+### <a id='tkgi-support'></a> Healthwatch Supports TKGI v1.12 and Earlier
+
+You can use Healthwatch to monitor TKGI v1.12 and earlier.
 
 Your TKGI dashboard in the Grafana UI updates automatically to display TKGI v1.12 metrics unless
 you manually set the dashboard version when you configure the Grafana VM. For more information
