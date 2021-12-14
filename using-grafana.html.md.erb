@@ -176,10 +176,11 @@ UI:
   in your TAS for VMs deployments.
   * **Usage Service:** Contains metrics related to the health and functionality of the UAA
   instances in your TAS for VMs deployments.
-  <p class='note'><strong>Note:</strong> If you don't see any data in the Usage Service dashboard, ensure
-    the <a href="https://docs.pivotal.io/application-service/2-12/metric-registrar/index.html">Metric Registrar</a>
-    is enabled in the TAS tile. Otherwise the metrics produced by the Usage Service won't be emitted to the firehose
-    and thus there are no Usage Service metrics to be picked up by the Healthwatch Exporter for TAS for VMs.</p>
+  <p class='note'><strong>Note:</strong> If you do not see any data in the Usage Service dashboard,
+    make sure that you have configured the Metric Registrar in the TAS for VMs tile. If the Metric
+    Registrar is not configured, the Usage Service API cannot emit metrics to the Loggregator Firehose,
+    and Healthwatch Exporter for TAS for VMs cannot collect them. For more information, see <a href="https://docs.pivotal.io/application-service/2-12/metric-registrar/index.html">Metric
+    Registrar and Custom App Metrics</a> in the TAS for VMs documentation.</p>
   <p class='note'><strong>Note:</strong> This folder only appears if you install and configure
     Healthwatch Exporter for TAS for VMs on one or more of your Ops Manager foundations. For
     more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
