@@ -3,500 +3,284 @@ title: Pivotal Healthwatch v1.8 Release Notes
 owner: Pivotal Healthwatch
 ---
 
-## <a id='v1.8.7'></a> v1.8.7
+<strong><%= modified_date %></strong>
+
+This topic contains release notes for Pivotal Healthwatch v1.8.
+
+
+## <a id='releases'></a> Releases
+
+### <a id='v1.8.7'></a> v1.8.7
 
 **Release Date: December 16, 2021**
 
-### Features
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical
+CVE. For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
+on the CVE website.
 
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE.
-  For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
-  on the CVE website.
-
-## <a id='v1.8.6'></a> v1.8.6
+### <a id='v1.8.6'></a> v1.8.6
 
 **Release Date: December 10, 2021**
 
-### Features
-
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE.
-For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical
+CVE. For more information, see [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228)
 on the CVE website.
 
-## <a id='v1.8.5'></a> v1.8.5
+### <a id='v1.8.5'></a> v1.8.5
 
 **Release Date: September 2, 2021**
 
-### Features
+* **[Feature]** Pivotal Healthwatch supports VMware Tanzu Application Service for VMs (TAS
+for VMs) v2.11.
 
-New features and changes in this release:
+* **[Feature Improvement]** The `health-check-type` used for the **Metrics Troubleshooting**
+errand is changed to `http` to increase reliability.
 
-* **[Feature]** Pivotal Healthwatch supports TAS for VMs v2.11.
+* **[Known Issue]** The **Push Monitoring Components** errand pushes the Healthwatch components
+in parallel, which can cause the errand to fail on Azure. For more information, see [Push Monitoring
+Components Errand Fails on Azure](#push-monitoring-components) below.
 
-* **[Feature Improvement]** The `health-check-type` used for the **Metrics Troubleshooting** errand
-is changed to `http` to increase reliability.
+* **[Known Issue]** In Pivotal Application Service (PAS) Small Footprint v2.8 and TAS for VMs
+Small Footprint v2.9 and later, Loggregator fails to emit the `loggregator.syslog_agent.ingress.all_drains`
+and `loggregator.syslog_agent.dropped.egress` metrics. This causes the **Smoke Tests** errand
+in Healthwatch to fail. For more information, see [Smoke Tests Errand Fails When Installed
+with PAS Small Footprint v2.8 and Later](#smoke-test-errand) below.
 
-### Known Issues
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
 
-This release has the following known issues:
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
 
-#### Push Monitoring Components Errand Fails on Azure
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
 
-The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
-can cause the errand to fail on Azure.
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
 
-To work around this issue:
+* **[Known Issue]** The **Metrics Troubleshooting** errand fails when TAS for VMs uses external
+databases. For more information, see [Metrics Troubleshooting Errand Fails When External Databases
+Are Configured](#metrics-troubleshooting) below.
 
-1. In the Healthwatch tile, select **Healthwatch Component Config**.
-
-1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-   changes the **Push Monitoring Components** errand's deployment strategy from parallel to sequential.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
-
-In Pivotal Application Service (PAS) Small Footprint v2.8 and VMware Tanzu Application Service for
-VMs (TAS for VMs) Small Footprint v2.9 and later, a bug causes Loggregator to fail to emit the
-`loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics.
-This causes the Smoke Tests errand in Healthwatch to fail.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Smoke Tests** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere v6.5.1 and earlier.
-
-Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
-vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
-The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
-For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
-in GitHub.
-
-To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
-app to slow down the increase in vSAN object count.
-
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
-
-These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
-when it times out while attempting to process the data.
-
-No corrective action is required.
-
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
-
-In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
-tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
-Cell capacity from other apps. For more information about this feature, see [Compute and Networking
-Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
-in _Pivotal Isolation Segment v2.8 Release Notes_.
-
-If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
-measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
-and capacity alerts may incorrectly report a lower capacity than is available for apps.
-
-#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
-
-The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
-TAS for VMs to use external databases, the errand fails.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Metrics Troubleshooting** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-
-## <a id='v1.8.4'></a> v1.8.4
+### <a id='v1.8.4'></a> v1.8.4
 
 **Release Date: February 5, 2021**
 
-### Features
+* **[Feature Improvement]** Upgrades Java version for security fix.
 
-New features and changes in this release:
+* **[Known Issue]** The **Push Monitoring Components** errand pushes the Healthwatch components
+in parallel, which can cause the errand to fail on Azure. For more information, see [Push Monitoring
+Components Errand Fails on Azure](#push-monitoring-components) below.
 
-* Upgrades Java version for security fix.
+* **[Known Issue]** In PAS Small Footprint v2.8 and TAS for VMs Small Footprint v2.9 and later,
+Loggregator fails to emit the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress`
+metrics. This causes the **Smoke Tests** errand in Healthwatch to fail. For more information,
+see [Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later](#smoke-test-errand)
+below.
 
-### Known Issues
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
 
-This release has the following known issues:
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
 
-#### Push Monitoring Components Errand Fails on Azure
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
 
-The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
-can cause the errand to fail on Azure.
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
 
-To work around this issue:
+* **[Known Issue]** The **Metrics Troubleshooting** errand fails when TAS for VMs uses external
+databases. For more information, see [Metrics Troubleshooting Errand Fails When External Databases
+Are Configured](#metrics-troubleshooting) below.
 
-1. In the Healthwatch tile, select **Healthwatch Component Config**.
-
-1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
-
-In Pivotal Application Service (PAS) Small Footprint v2.8 and VMware Tanzu Application Service for
-VMs (TAS for VMs) Small Footprint v2.9 and later, a bug causes Loggregator to fail to emit the
-`loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics.
-This causes the Smoke Tests errand in Healthwatch to fail.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Smoke Tests** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere v6.5.1 and earlier.
-
-Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
-vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
-The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
-For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
-in GitHub.
-
-To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
-app to slow down the increase in vSAN object count.
-
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
-
-These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
-when it times out while attempting to process the data.
-
-No corrective action is required.
-
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
-
-In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
-tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
-Cell capacity from other apps. For more information about this feature, see [Compute and Networking
-Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
-in _Pivotal Isolation Segment v2.8 Release Notes_.
-
-If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
-measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
-and capacity alerts may incorrectly report a lower capacity than is available for apps.
-
-#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
-
-The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
-TAS for VMs to use external databases, the errand fails.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Metrics Troubleshooting** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-
-## <a id='v1.8.3'></a> v1.8.3
+### <a id='v1.8.3'></a> v1.8.3
 
 **Release Date: January 14, 2021**
 
-### Features
+* **[Feature Improvement]** Upgrades PXC to v0.31.0.
 
-New features and changes in this release:
-
-* Upgrades PXC to v0.31.0.
-
-* Removes the port check from the `healthwatch-forwarder` monit file. Due to long JVM startup
-times, this check can cause the monit script to restart, ultimately causing `healthwatch-forwarder`
-to fail to start until the JVM starts quickly enough.
+* **[Feature Improvement]** Removes the port check from the `healthwatch-forwarder` monit file.
+Due to long JVM startup times, this check can cause the monit script to restart, ultimately
+causing `healthwatch-forwarder` to fail to start until the JVM starts quickly enough.
 
 * **[Bug Fix]** `healthwatch-forwarder` quotes foundation names to ensure the foundation name
 does not get truncated.
 
-### Known Issues
+* **[Known Issue]** The **Push Monitoring Components** errand pushes the Healthwatch components
+in parallel, which can cause the errand to fail on Azure. For more information, see [Push Monitoring
+Components Errand Fails on Azure](#push-monitoring-components) below.
 
-This release has the following known issues:
+* **[Known Issue]** In PAS Small Footprint v2.8 and TAS for VMs Small Footprint v2.9 and later,
+Loggregator fails to emit the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress`
+metrics. This causes the **Smoke Tests** errand in Healthwatch to fail. For more information,
+see [Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later](#smoke-test-errand)
+below.
 
-#### Push Monitoring Components Errand Fails on Azure
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
 
-The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
-can cause the errand to fail on Azure.
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
 
-To work around this issue:
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
 
-1. In the Healthwatch tile, select **Healthwatch Component Config**.
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
 
-1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
+* **[Known Issue]** The **Metrics Troubleshooting** errand fails when TAS for VMs uses external
+databases. For more information, see [Metrics Troubleshooting Errand Fails When External Databases
+Are Configured](#metrics-troubleshooting) below.
 
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
-
-In Pivotal Application Service (PAS) Small Footprint v2.8 and VMware Tanzu Application Service for
-VMs (TAS for VMs) Small Footprint v2.9 and later, a bug causes Loggregator to fail to emit the
-`loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics.
-This causes the Smoke Tests errand in Healthwatch to fail.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Smoke Tests** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere v6.5.1 and earlier.
-
-Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
-vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
-The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
-For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
-in GitHub.
-
-To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
-app to slow down the increase in vSAN object count.
-
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
-
-These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
-when it times out while attempting to process the data.
-
-No corrective action is required.
-
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
-
-In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
-tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
-Cell capacity from other apps. For more information about this feature, see [Compute and Networking
-Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
-in _Pivotal Isolation Segment v2.8 Release Notes_.
-
-If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
-measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
-and capacity alerts may incorrectly report a lower capacity than is available for apps.
-
-#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
-
-The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
-TAS for VMs to use external databases, the errand fails.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Metrics Troubleshooting** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-
-## <a id='v1.8.2'></a> v1.8.2
+### <a id='v1.8.2'></a> v1.8.2
 
 **Release Date: September 29, 2020**
 
-### Features
+* **[Feature]** Adds support for TAS for VMs v2.10.
 
-New features and changes in this release:
-
-* Adds support for TAS for VMs v2.10.
-
-* **[Bug Fix]** Adds a workaround for the Azure bug where running the Push Monitoring Components
-errand fails on Azure. For more information, see _Known Issues_.
+* **[Bug Fix]** Adds a workaround for the Azure bug where running the **Push Monitoring Components**
+errand fails on Azure. For more information, see [Push Monitoring Components Errand Fails on
+Azure](#push-monitoring-components) below.
 
 * **[Bug Fix]** Cleans up `cf-health-check` temporary files periodically to limit disk usage.
 
-### Known Issues
+* **[Known Issue]** The **Push Monitoring Components** errand pushes the Healthwatch components
+in parallel, which can cause the errand to fail on Azure. For more information, see [Push Monitoring
+Components Errand Fails on Azure](#push-monitoring-components) below.
 
-This release has the following known issues.
+* **[Known Issue]** In PAS Small Footprint v2.8 and TAS for VMs Small Footprint v2.9 and later,
+Loggregator fails to emit the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress`
+metrics. This causes the **Smoke Tests** errand in Healthwatch to fail. For more information,
+see [Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later](#smoke-test-errand)
+below.
 
-#### Push Monitoring Components Errand Fails on Azure
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
 
-The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
-can cause the errand to fail on Azure.
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
 
-To work around this issue:
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
 
-1. In the Healthwatch tile, select **Healthwatch Component Config**.
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
 
-1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
+* **[Known Issue]** The **Metrics Troubleshooting** errand fails when TAS for VMs uses external
+databases. For more information, see [Metrics Troubleshooting Errand Fails When External Databases
+Are Configured](#metrics-troubleshooting) below.
 
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
-
-In Pivotal Application Service (PAS) Small Footprint v2.8 and VMware Tanzu Application Service for
-VMs (TAS for VMs) Small Footprint v2.9 and later, a bug causes Loggregator to fail to emit the
-`loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics.
-This causes the Smoke Tests errand in Healthwatch to fail.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Smoke Tests** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere v6.5.1 and earlier.
-
-Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
-vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
-The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
-For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
-in GitHub.
-
-To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
-app to slow down the increase in vSAN object count.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
-
-These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
-when it times out while attempting to process the data.
-
-No corrective action is required.
-
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
-
-In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
-tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
-Cell capacity from other apps. For more information about this feature, see [Compute and Networking
-Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
-in _Pivotal Isolation Segment v2.8 Release Notes_.
-
-If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
-measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
-and capacity alerts may incorrectly report a lower capacity than is available for apps.
-
-#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
-
-The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
-TAS for VMs to use external databases, the errand fails.
-
-To work around this issue:
-
-1. In the Healthwatch tile, select **Errands**.
-
-1. Set the **Metrics Troubleshooting** errand to **Off**.
-
-1. Click **Save**.
-
-1. Re-deploy Healthwatch.
-
-
-## <a id='v1.8.1'></a> v1.8.1
+### <a id='v1.8.1'></a> v1.8.1
 
 **Release Date: March 11, 2020**
 
 <p class="note breaking"><strong>Breaking Change:</strong> The <code>delete-space</code> errand
   is renamed to <code>cleanup</code>. If you use automation scripts that reference this errand,
-  such as automated pipelines, update the errand name from <code>delete-space</code> to <code>cleanup</code>.
-</p>
-
-### Features
-
-New features and changes in this release:
+  such as automated pipelines, update the errand name from <code>delete-space</code> to <code>cleanup</code>.</p>
 
 * **[Bug Fix]** Fixes issue where super metrics were lost when ingestor instances were overloaded
 by router latency metrics.
 
-### Known Issues
+* **[Known Issue]** The **Push Monitoring Components** errand pushes the Healthwatch components
+in parallel, which can cause the errand to fail on Azure. For more information, see [Push Monitoring
+Components Errand Fails on Azure](#push-monitoring-components) below.
 
-This release has the following known issues.
+* **[Known Issue]** In PAS Small Footprint v2.8 and TAS for VMs Small Footprint v2.9 and later,
+Loggregator fails to emit the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress`
+metrics. This causes the **Smoke Tests** errand in Healthwatch to fail. For more information,
+see [Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later](#smoke-test-errand)
+below.
 
-#### Push Monitoring Components Errand Fails on Azure
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
 
-The Push Monitoring Components errand pushes the Healthwatch components in parallel, which
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
+
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
+
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
+
+* **[Known Issue]** The **Metrics Troubleshooting** errand fails when TAS for VMs uses external
+databases. For more information, see [Metrics Troubleshooting Errand Fails When External Databases
+Are Configured](#metrics-troubleshooting) below.
+
+### <a id='v1.8.0'></a> v1.8.0
+
+**Release Date: December 18, 2019**
+
+* **[Feature]** Ingresses metrics from the Reverse Log Proxy (RLP) in Loggregator Firehose
+v2 instead of Traffic Controllers in Loggregator Firehose v1. The RLP has a more configurable
+API and a longer support window. For more information, see the [Loggregator RLP documentation]
+(https://github.com/cloudfoundry/loggregator-release#reverse-log-proxy-rlp) on GitHub.
+
+* **[Feature]** Adds Syslog and Forwarder Agents to Pivotal Healthwatch VMs, which emit syslog
+directly from the VM rather than through the Firehose.
+
+* **[Feature Improvement]** Removes `Adapter Loss Rate` and `CF Syslog Drain Binding Count` from Healthwatch.
+
+* **[Feature Improvement]** Renames `log_cache.cache_period` to `log_cache.log_cache_cache_period`
+to align with Open Metrics naming conventions.
+
+* **[Known Issue]** The vSAN object count increases on vSphere v6.5.1 and earlier. For more
+information, see [Disk Slowly Fills When Using vSAN with Healthwatch Leads](#disk-fill-vsan)
+below.
+
+* **[Known Issue]** If Healthwatch is uninstalled and re-installed while the `bosh-health-check`
+app is running, the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch
+UI. For more information, see [BOSH Health Check Fails After Re-Installating Healthwatch](#bosh-health-check)
+below.
+
+* **[Known Issue]** The **Indicator Protocol Beta** dashboard charts fail to load with the
+error `"Error fetching graph data."` For more information, see [Indicator Protocol Beta Dashboard
+Displays Error Due to Log Cache](#indicator-protocol-error) below.
+
+* **[Known Issue]** In Pivotal Isolation Segment v2.8, Healthwatch cannot accurately measure
+Diego Cell capacity in compute isolation segments without placement tags. For more information,
+see [Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags]
+(#isolation-segments-false-metrics) below.
+
+
+## <a id='known-issues'></a> Known Issues
+
+Pivotal Healthwatch v1.8 includes the following known issues:
+
+### <a id='push-monitoring-components'></a> Push Monitoring Components Errand Fails on Azure
+
+The **Push Monitoring Components** errand pushes the Healthwatch components in parallel, which
 can cause the errand to fail on Azure.
 
 To work around this issue:
@@ -504,18 +288,17 @@ To work around this issue:
 1. In the Healthwatch tile, select **Healthwatch Component Config**.
 
 1. Disable the **Push Healthwatch Applications in Parallel** checkbox. Disabling this checkbox
-changes the Push Monitoring Components errand's deployment strategy from parallel to sequential.
+changes the **Push Monitoring Components** errand's deployment strategy from parallel to sequential.
 
 1. Click **Save**.
 
 1. Re-deploy Healthwatch.
 
-#### Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
+### <a id='smoke-test-errand'></a> Smoke Tests Errand Fails When Installed with PAS Small Footprint v2.8 and Later
 
-In Pivotal Application Service (PAS) Small Footprint v2.8 and VMware Tanzu Application Service for
-VMs (TAS for VMs) Small Footprint v2.9 and later, a bug causes Loggregator to fail to emit the
-`loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress` metrics.
-This causes the Smoke Tests errand in Healthwatch to fail.
+In PAS Small Footprint v2.8 and TAS for VMs Small Footprint v2.9 and later, a bug causes Loggregator
+to fail to emit the `loggregator.syslog_agent.ingress.all_drains` and `loggregator.syslog_agent.dropped.egress`
+metrics. This causes the **Smoke Tests** errand in Healthwatch to fail.
 
 To work around this issue:
 
@@ -527,18 +310,7 @@ To work around this issue:
 
 1. Re-deploy Healthwatch.
 
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
+### <a id='disk-fill-vsan'></a> Disk Slowly Fills When Using vSAN with Healthwatch Leads
 
 The vSAN object count increases on vSphere v6.5.1 and earlier.
 
@@ -551,17 +323,28 @@ in GitHub.
 To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
 app to slow down the increase in vSAN object count.
 
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+### <a id='bosh-health-check'></a> BOSH Health Check Fails After Re-Installating Healthwatch
 
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
+If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
+the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
+
+To address this issue:
+
+1. Manually delete the `bosh-health-check` deployment.
+
+1. Restart the `bosh-health-check` app.
+
+### <a id='indicator-protocol-error'></a> Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
+
+Occasionally, the **Indicator Protocol Beta** dashboard charts fail to load with the error
+`"Error fetching graph data."`
 
 These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
 when it times out while attempting to process the data.
 
 No corrective action is required.
 
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
+### <a id='isolation-segments-false-metrics'></a> Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
 
 In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
 tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
@@ -573,10 +356,10 @@ If you deploy compute isolation segments without placement tags, Healthwatch can
 measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
 and capacity alerts may incorrectly report a lower capacity than is available for apps.
 
-#### Metrics Troubleshooting Errand Fails When External Databases Are Configured
+### <a id='metrics-troubleshooting'></a> Metrics Troubleshooting Errand Fails When External Databases Are Configured
 
-The Metrics Troubleshooting errand expects certain MySQL metrics to be present. If you configured
-TAS for VMs to use external databases, the errand fails.
+The **Metrics Troubleshooting** errand expects certain MySQL metrics to be present. If you
+configured TAS for VMs to use external databases, the errand fails.
 
 To work around this issue:
 
@@ -587,74 +370,3 @@ To work around this issue:
 1. Click **Save**.
 
 1. Re-deploy Healthwatch.
-
-
-## <a id='v1.8.0'></a> v1.8.0
-
-**Release Date: December 18, 2019**
-
-### Features
-
-New features and changes in this release:
-
-* Ingresses metrics from Reverse Log Proxy (Firehose v2), rather than Traffic Controllers (Firehose
-v1). The Reverse Log Proxy has a more configurable API and a longer support window. For more
-information, see [Loggregator RLP Documentation](https://github.com/cloudfoundry/loggregator-release#reverse-log-proxy-rlp).
-
-* Adds Syslog and Forwarder Agents to Pivotal Healthwatch VMs, which emit syslog directly from
-the VM rather than through the Firehose.
-
-* Removes `Adapter Loss Rate` and `CF Syslog Drain Binding Count` from Healthwatch.
-
-* Renames `log_cache.cache_period` to `log_cache.log_cache_cache_period` to align with Open
-Metrics naming conventions.
-
-### Known Issues
-
-This release has the following known issues.
-
-#### BOSH Health Check Fails After Re-Installating Healthwatch
-
-If Healthwatch is uninstalled and re-installed while the `bosh-health-check` app is running,
-the `bosh-health-check` app fails to deploy and reports an error in the Healthwatch UI.
-
-To address this issue:
-
-1. Manually delete the `bosh-health-check` deployment.
-
-1. Restart the `bosh-health-check` app.
-
-#### Disk Slowly Fills When Using vSAN with Healthwatch Leads
-
-The vSAN object count increases on vSphere v6.5.1 and earlier.
-
-Healthwatch deploys the `bosh-health-check` app, which deploys and deletes a VM every 10 minutes.
-vSphere v6.5.1 and earlier leave a namespace or folder and subfolders when the VM is deleted.
-The orphaned folders cause the vSAN object count to increase. This is a known issue for vSAN.
-For more information, see [Deleted VMs leave components behind](https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/165)
-in GitHub.
-
-To address the issue, update vSphere to v6.5.2 or later. Otherwise, stop the `bosh-health-check`
-app to slow down the increase in vSAN object count.
-
-#### Indicator Protocol Beta Dashboard Displays Error Due to Log Cache
-
-Occasionally, the Indicator Protocol Beta Dashboard charts fail to load with the error `"Error
-fetching graph data."`
-
-These charts are populated using Log Cache, a component of Loggregator. Log Cache fails periodically
-when it times out while attempting to process the data.
-
-No corrective action is required.
-
-#### Healthwatch Reports False Capacity Metrics for Isolation Segments Without Placement Tags
-
-In Pivotal Isolation Segment v2.8, you can deploy compute isolation segments without placement
-tags. This allows you to deploy a separate group of Diego Cells without isolating the Diego
-Cell capacity from other apps. For more information about this feature, see [Compute and Networking
-Isolation](https://docs.pivotal.io/platform/2-8/release-notes/segment-rn.html#compute-networking-isolation)
-in _Pivotal Isolation Segment v2.8 Release Notes_.
-
-If you deploy compute isolation segments without placement tags, Healthwatch cannot accurately
-measure Diego Cell capacity. Capacity charts, calculated capacity metrics such as free chunks,
-and capacity alerts may incorrectly report a lower capacity than is available for apps.
