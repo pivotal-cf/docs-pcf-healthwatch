@@ -28,9 +28,9 @@ Healthwatch v2.2.0 uses the following open-source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
-| Prometheus   | 2.25.0           |
-| Grafana      | 7.5.11           |
-| Alertmanager | 0.21.0           |
+| Prometheus   | 2.32.1           |
+| Grafana      | 8.3.3            |
+| Alertmanager | 0.23.0           |
 
 
 ## <a id='upgrade'></a> How to Upgrade
@@ -41,6 +41,43 @@ To upgrade from Healthwatch v2.1 to Healthwatch v2.2, see [Upgrading Healthwatch
 ## <a id='new-features'></a> New Features
 
 Healthwatch v2.2 includes the following major features:
+
+* **[Feature Improvement]** Allow scaling of Grafana, Mysql, and Mysql Proxy instances to 0.
+
+* **[Feature]** Healthwatch now directly scrapes Bosh Director metrics for Ops Manager versions 2.10.10+. Exposed on the
+  Director Health dashboard
+
+* **[Feature]** System at a Glance dashboard - a new landing page when logging into Grafana that displays an overview
+  of system health.
+
+* **[Feature]** For new installations, the Alerting routing rules have been prefilled with a sensible default value.
+
+* **[Feature]** When Healthwatch is installed alongside TAS, now supports fully automatic configuration of a Grafana
+  route instead of manual provisioning.
+
+* **[Feature]** When Healthwatch is installed alongside TAS or TKGI, now supports fully automatic configuration of
+Grafana UAA authentication, instead of manual configuration.
+
+* **[Feature]** Metrics probe_success and probe_duration_seconds are now emitted into the firehose from the SVM
+  Forwarder.
+
+* **[Feature Improvement]** TAS SLI Canary App health check timeout has been increased to 5 minutes to reduce
+false negatives.
+
+* **[Feature Improvement]** Healthwatch dashboards showing Canary App data will only show the currently configured
+Canary Apps, no longer displaying outdated data.
+
+* **[Bug Fix]** Diego App Chunks Remaining underlying math calculation fixed.
+
+* **[Bug Fix]** Changed Ops Manager Canary URL to fix source of log bloat in <code>/home/tempest-web/uaa/tomcat</code>
+  on Ops Manager VM
+
+* **[Bug Fix]** Fixed TAS SLI Login test displaying success instead of failure on timeout.
+
+* **[Feature Improvement]** TKGI Cluster Discovery will automatically configure itself by default if TKGI is present.
+
+
+
 
 
 ## <a id='breaking-changes'></a> Breaking Changes
