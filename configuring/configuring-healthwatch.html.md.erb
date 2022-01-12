@@ -290,36 +290,6 @@ must not be within the reserved IP ranges you configured in the BOSH Director ti
 admin users, deactivate the **Allow Grafana UI login with basic authentication** checkbox.
 This checkbox is activated by default.
 
-1. Under **Runtime discovery**, select how you want the Grafana instance to discover the runtimes
-in your foundations:
-    * **Dynamic:** The Grafana instance creates a dashboard in the Grafana UI for the versions
-    of VMware Tanzu Application Service for VMs (TAS for VMs) and TKGI that are currently installed
-    on your foundations. This option is selected by default.
-    * **Manual:** The Grafana instance creates a dashboard in the Grafana UI for the versions
-    of TAS for VMs and TKGI you specify in the **TAS for VMs version** and **TKGI version**
-    fields.
-    * **Do not allow:** The Grafana instance does not discover or create dashboards in the
-    Grafana UI for TAS for VMs or TKGI.
-    <p class='note'><strong>Note:</strong> If you are using Pivotal Application Service (PAS)
-      v2.7, you must allow PAS v2.7 to forward system metrics to the Loggregator Firehose,
-      or no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For
-      more information, see <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting
-      Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
-
-1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware
-Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile, activate the **Create Tanzu SQL for
-VMs dashboard** checkbox. This checkbox is deactivated by default.
-
-1. (Optional) If you want the Grafana instance to create dashboards for metrics from the VMware
-Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) tile, activate the **Create Tanzu RabbitMQ dashboards**
-checkbox. This checkbox is deactivated by default.
-    <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ
-      dashboards</strong> checkbox, set the <strong>Metrics polling interval</strong> field
-      in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile
-      from sending duplicate metrics to the Loggregator Firehouse. To configure this field,
-      see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
-      RabbitMQ documentation</a>.</p>
-
 1. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide
 a certificate and private key for the Grafana instance to use for TLS connections in **Certificate
 and private key for HTTPS**.
@@ -400,6 +370,30 @@ to configure for users to log in to the Grafana UI:
 
 1. Click **Save**.
 
+## <a id='dashboards'></a> (Optional) Configure Dashboards
+
+The **Dashboards** pane allows the Grafana instance to provision curated dashboards for the tiles deployed on the
+foundation. Currently, Healthwatch provides dashboards for TAS, TKGI, MySQL, and RabbitMQ. The **Dashboards** pane
+provides the ability to configure whether these dashboards are provisioned, and for TAS and TKGI, what versions are
+provisioned. For each section, follow these steps:
+
+1. Select **Provision**.
+
+1. For TAS and TKGI, select a version from the **Version** dropdown, or **Auto-detect** to let Grafana automatically
+choose the best version. If possible, the chosen version should match the version of TAS or TKGI on the foundation.
+
+    <p class='note'><strong>Note:</strong> If you are using Tanzu Application Service (TAS),
+      you must allow TAS to forward system metrics to the Loggregator Firehose, or no metrics
+      will appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information,
+      see <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting
+      Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
+
+    <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ
+      dashboards</strong> checkbox, set the <strong>Metrics polling interval</strong> field
+      in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile
+      from sending duplicate metrics to the Loggregator Firehouse. To configure this field,
+      see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
+      RabbitMQ documentation</a>.</p>
 
 ## <a id='canary'></a> (Optional) Configure Canary URLs
 
