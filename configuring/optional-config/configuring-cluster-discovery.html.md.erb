@@ -55,53 +55,12 @@ To configure the **TKGI Cluster Discovery** pane:
 1. Select **TKGI Cluster Discovery**.
 
 1. Under **TKGI cluster discovery**, select one of the following options:
-    * **Configure:** This option allows TKGI cluster discovery and reveals the configuration
+    * **Enable:** This option allows TKGI cluster discovery and reveals the configuration
     fields described in the steps below.
-    * **Do not configure:** This option disallows TKGI cluster discovery. TKGI cluster discovery
-    is disallowed by default.
+    * **Disable:** This option disallows TKGI cluster discovery. TKGI cluster discovery
+    is enabled by default when TKGI is present.
 
-1. For **Scrape port**, enter a port where the Healthwatch tile exposes an endpoint from which
-the Prometheus instance scrapes metrics detailing the health of the TKGI cluster discovery
-process. These metrics appear in the **Healthwatch - Exporter Troubleshooting** dashboard in
-the Grafana UI.
-
-1. For **TKGI API domain**, enter the TKGI API domain you configured in the **API Hostname
-(FQDN)** field in the **TKGI API** pane of the TKGI tile. For example, `api.tkgi.example.com`.
-For more information, see [Routing to the TKGI API VM](https://docs.pivotal.io/tkgi/api-auth.html#routing)
-in _TKGI API Authentication_ in the TKGI documentation.
-
-1. For **UAA client username**, enter one of the following usernames for your TKGI UAA client:
-    * Enter the TKGI management admin client username `admin`.
-    * Create a separate UAA client with access to the TKGI API and enter the username you specify
-    for that UAA client. For more information, see [TKGI API Authentication](https://docs.pivotal.io/tkgi/api-auth.html)
-    and [Managing Tanzu Kubernetes Grid Integrated Edition Users with UAA](https://docs.pivotal.io/tkgi/manage-users.html)
-    in the TKGI documentation.
-
-1. For **TKGI UAA Client Secret**, enter one of the following secrets for your TKGI UAA client:
-    * Enter the TKGI management admin client secret:
-      1. Return to the Ops Manager Installation Dashboard.
-      1. Click the **Tanzu Kubernetes Grid Integrated Edition** tile.
-      1. Select the **Credentials** tab.
-      1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
-      1. Record the value of `secret`.
-      1. Return to the Ops Manager Installation Dashboard.
-      1. Click the **Healthwatch** tile.
-      1. Select **TKGI Cluster Discovery**.
-      1. For **UAA client secret**, enter the secret you recorded from the **Pks Uaa Management
-      Admin Client** row in the **Credentials** tab in the **Tanzu Kubernetes Grid Integrated
-      Edition** tile in a previous step.
-    * Create a separate UAA client with access to the TKGI API and enter the secret you specify
-    for that UAA client. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition
-    Access to a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Managing
-    Tanzu Kubernetes Grid Integrated Edition Users with UAA_ in the TKGI documentation.
-
-1. If you configured UAA as the OIDC provider for TKGI in the **UAA** pane of the TKGI tile,
-enter the TKGI UAA admin password in **UAA admin password**. Otherwise, do not configure this
-field. For more information, see [Grant Tanzu Kubernetes Grid Integrated Edition Access to
-a Client](https://docs.pivotal.io/tkgi/manage-users.html#uaa-client) in _Managing Tanzu Kubernetes
-Grid Integrated Edition Users with UAA_ in the TKGI documentation.
-
-1. For **SLI test frequency**, enter in seconds how frequently you want the TKGI service level
+1. For **Discovery Interval**, enter in seconds how frequently you want the TKGI service level
 indicator (SLI) test to run. The TKGI SLI test monitors the health of the TKGI API by logging
 into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API server.
 
