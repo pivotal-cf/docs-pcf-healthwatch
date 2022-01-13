@@ -367,6 +367,9 @@ The **Canary URLs** pane configures the Blackbox Exporters in the Prometheus ins
 more information, see the [Blackbox exporter](https://github.com/prometheus/blackbox_exporter)
 repository on GitHub.
 
+<p class='note'><strong>Note:</strong> The Ops Manager Canary Test is configured by default and does not need to be added
+as an Additional Canary URL</p>
+
 To configure the **Canary URLs** pane:
 
 1. Select **Canary URLs**.
@@ -374,19 +377,6 @@ To configure the **Canary URLs** pane:
 1. For **Port**, specify the port that the Blackbox Exporter exposes to the Prometheus instance.
 The default port is `9115`. You do not need to specify a different port unless port `9115`
 is already in use on the Prometheus instance.
-
-1. (Optional) For **Ops Manager FQDN**, enter the fully-qualified domain name (FQDN) of your
-Ops Manager deployment. This creates a canary target URL that allows the Blackbox Exporter
-to test whether the Ops Manager Installation Dashboard is accessible. The results from these
-canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
-  <p class="note"><strong>Note:</strong> If your Ops Manager deployment uses SAML authentication,
-    enter <code>https<span>:</span>//OPS-MANAGER-FQDN/api/v0/info</code>, where <code>OPS-MANAGER-FQDN</code>
-    is the FQDN of your your Ops Manager deployment. Otherwise, the canary test fails.</p>
-
-1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip
-TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance
-does not verify the identity of your Ops Manager deployment. This checkbox is deactivated by
-default.
 
 1. (Optional) Under **Target URLs**, you can configure canary target URLs. The Prometheus instance
 runs continuous canary tests to these URLs and records the results. To configure canary target
