@@ -230,9 +230,10 @@ To configure the **Alertmanager** pane, see [Configuring Alerting](optional-conf
 
 ## <a id='grafana'></a> (Optional) Configure Grafana
 
-In the **Grafana** pane, you configure how users access and authenticate with the Grafana UI,
-as well as which dashboards appear in the Grafana UI. For more information about the Grafana
-UI as it relates to Healthwatch, see [Healthwatch](../index.html).
+In the **Grafana** pane, configure how users access the Grafana UI. VMware  recommends using Alertmanager
+for alerts in Healthwatch 2, however Grafana can also provide its own email alerting functionality.
+If that is desired, Grafana's SMTP server can be configured in this pane as well.
+For more information about the Grafana UI as it relates to Healthwatch, see [Healthwatch](../index.html).
 
 The values that you configure in the **Grafana** pane also configure their corresponding properties
 in the Grafana configuration file. For more information, see [Overview of Configuration Files
@@ -244,21 +245,88 @@ To configure the **Grafana** pane:
 
 1. Select **Grafana**.
 
-1. (Optional) If you configured generic OAuth or UAA authentication for users to log in to
-the Grafana UI, or if you configured alerts through Alertmanager, enter a URL for the Grafana
-UI in **Grafana root URL**. You must configure this URL to allow a generic OAuth provider or
-UAA to redirect users to the Grafana UI. Alertmanager also uses this URL to generate links
-to the Grafana UI in alert messages.
-  <p class='note'><strong>Note:</strong> Healthwatch v2.2 does not automatically assign a default
-    root URL to the Grafana UI. You must manually configure a root URL for the Grafana UI in
-    the <strong>Grafana root URL</strong> field.</p>
-After you deploy the Healthwatch tile for the first time, you must use this root URL and the
-public IP address of either a single Grafana VM or the load balancer associated with your Grafana
-instance to configure a DNS entry for your Grafana instance in the console for your IaaS. Your
-Grafana instance listens on either port `443` or `80`, depending on whether you provide a TLS
-certificate in the **Certificate and private key for HTTPS** fields below. For more information
-about configuring DNS for your Grafana instance, see [Configuring DNS for Your Grafana Instance]
-(dns-configuration.html).
+1. Configure the URL and SSL settings for the Grafana UI in the **Grafana Route Configuration** section.
+  1. If installing on a foundation with TAS, Healthwatch can automatically assign a route for Grafana UI in TAS's Gorouter.
+  To automatically configure the route in TAS, select **Use TAS Route** under **Grafana Route Configuration**. VMware recommends
+  using this option when available.
+  1. For all other use cases, select **Manually Configure Route**. This requires that network access to the Grafana VMs,
+  including DNS or loadbalancing, is set up outside of the Healthwatch deployment. Within the Healthwatch tile, you
+  must also configure the following fields:
+    1. **Grafana root URL** should be set to the full URL that is used to access Grafana UI. This must have a
+    corresponding DNS entry outside of Healthwatch and will not be created by Healthwatch.
+    <p class='note'><strong>Note:</strong> When manually configuring Grafana's route, Healthwatch does not automatically assign a route to
+    Grafana or create DNS records for the URL entered. This field is required by Healthwatch for other features such as
+    OAuth and UAA authentication callbacks and dynamically generated links to the UI when alerting.</p>
+    After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for your
+    Grafana instance in the console for your IaaS using this root URL and the  IP address of either
+    the Grafana VMs or the load balancer associated with your Grafana instances. Your Grafana instances
+    listen on either port `443` or `80`, depending on whether you provide a TLS certificate in
+    the **Certificate and private key for HTTPS** fields below. For more information about configuring
+    DNS for your Grafana instances, see [Configuring DNS for Your Grafana Instances](dns-configuration.html).
+
+    1. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide
+    a certificate and private key for the Grafana instance to use for TLS connections in **Certificate
+    and private key for HTTPS**.
+    <br>
+    <br>
+    VMware recommends also providing a certificate signed by a trusted third-party CA in **CA certificate
+    for HTTPS**. You can generate a self-signed certificate using the Ops Manager root CA, but
+    doing so causes your browser to warn you that your CA is invalid every time you access the
+    Grafana UI.
+    * To use a certificate signed by a trusted third-party CA:
+      1. In **Certificate and private key for HTTPS**, provide a certificate and private key
+      for the Grafana instance to use for TLS connections.
+      1. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that
+      signs the certificate you provided in the previous step. This is optional for known third-party CAs
+      because the CA will not be needed by Healthwatch to validate SSL connections to Grafana, such as in the smoke test.
+    * To generate a self-signed certificate from the Ops Manager root CA:
+      1. Under **Certificate and private key for HTTPS**, click **Change**.
+      1. Click **Generate RSA Certificate**.
+      1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN`
+      is the domain of the DNS entry that you configured for the Grafana instance. For example,
+      if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter
+      `*.example.com`. For more information about configuring a DNS entry for the Grafana instance,
+      see [Configuring DNS for Your Grafana Instance](dns-configuration.html).
+      1. Click **Generate**.
+      1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
+      VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
+      _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+      1. Run:
+
+          ```
+          cat /var/tempest/workspaces/default/root_ca_certificate
+          ```
+      1. Record the Ops Manager root CA certificate.
+      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate
+      that you recorded in the previous step.
+
+    1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
+    enter a comma-separated list of ciphers in **Additional ciphers for TLS**. For a list of supported
+    cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522)
+    in the Go repository on GitHub.
+
+1. Under **Grafana email alerts**, choose whether to allow email alerts from the Grafana UI.
+* To allow email alerts:
+  1. Select **Configure**.
+  1. For **SMTP server host name**, enter the host name of your SMTP server.
+  1. For **SMTP server port**, enter the port of your SMTP server.
+  1. For **SMTP server username**, enter your SMTP authentication username.
+  1. For **SMTP server password**, enter your SMTP authentication password.
+  1. (Optional) To allow the Grafana instance to skip TLS certificate verification when
+     communicating with your SMTP server over TLS, activate the **Skip TLS certificate verification**
+     checkbox. When this checkbox is activated, the Grafana instance does not verify the identity
+     of your SMTP server. This checkbox is deactivated by default.
+  1. For **From address**, enter the sender email address that appears on outgoing email
+     alerts.
+  1. For **From name**, enter the sender name that appears on outgoing email alerts.
+  1. For **EHLO client ID**, enter the name for the client identity that your SMTP server
+     uses when sending EHLO commands.
+  1. For **Certificate and private key for TLS**, enter a certificate and private key for
+     the Grafana instance to use for TLS connections to your SMTP server.
+* To disallow email alerts, select **Do not configure**. Email alerts are disallowed by default.
+  <br>
+  <br>
+  For more information, see the [Grafana documentation](https://grafana.com/docs/installation/configuration/#smtp).
 
 1. Under **HTTP and HTTPS proxy request settings**, choose whether to allow the Grafana instance
 to make HTTP and HTTPS requests through proxy servers:
@@ -283,116 +351,8 @@ to make HTTP and HTTPS requests through proxy servers:
   select **Do not configure**. HTTP and HTTPS proxy requests are disallowed by default.
 
 1. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of
-valid static IP addresses that you want to reserve for the Grafana instance. These IP addresses
+valid static IP addresses that you want to reserve for the Grafana instances. These IP addresses
 must not be within the reserved IP ranges you configured in the BOSH Director tile.
-
-1. Under **Runtime discovery**, select how you want the Grafana instance to discover the runtimes
-in your foundations:
-    * **Dynamic:** The Grafana instance creates a dashboard in the Grafana UI for the versions
-    of VMware Tanzu Application Service for VMs (TAS for VMs) and TKGI that are currently installed
-    on your foundations. This option is selected by default.
-    * **Manual:** The Grafana instance creates a dashboard in the Grafana UI for the versions
-    of TAS for VMs and TKGI you specify in the **TAS for VMs version** and **TKGI version**
-    fields.
-    * **Do not allow:** The Grafana instance does not discover or create dashboards in the
-    Grafana UI for TAS for VMs or TKGI.
-    <p class='note'><strong>Note:</strong> If you are using Pivotal Application Service (PAS)
-      v2.7, you must allow PAS v2.7 to forward system metrics to the Loggregator Firehose,
-      or no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For
-      more information, see <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting
-      Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
-
-1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware
-Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile, activate the **Create Tanzu SQL for
-VMs dashboard** checkbox. This checkbox is deactivated by default.
-
-1. (Optional) If you want the Grafana instance to create dashboards for metrics from the VMware
-Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) tile, activate the **Create Tanzu RabbitMQ dashboards**
-checkbox. This checkbox is deactivated by default.
-    <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ
-      dashboards</strong> checkbox, set the <strong>Metrics polling interval</strong> field
-      in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile
-      from sending duplicate metrics to the Loggregator Firehouse. To configure this field,
-      see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
-      RabbitMQ documentation</a>.</p>
-
-1. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide
-a certificate and private key for the Grafana instance to use for TLS connections in **Certificate
-and private key for HTTPS**.
-<br>
-<br>
-VMware recommends also providing a certificate signed by a third-party CA in **CA certificate
-for HTTPS**. You can generate a self-signed certificate using the Ops Manager root CA, but
-doing so causes your browser to warn you that your CA is invalid every time you access the
-Grafana UI.
-  * To use a certificate signed by a third-party CA:
-      1. For **Certificate and private key for HTTPS**, provide a certificate and private key
-      for the Grafana instance to use for TLS connections.
-      1. For **CA certificate for HTTPS**, provide the certificate of the third-party CA that
-      signs the certificate you provided in the previous step.
-  * To generate a self-signed certificate from the Ops Manager root CA:
-      1. Under **Certificate and private key for HTTPS**, click **Change**.
-      1. Click **Generate RSA Certificate**.
-      1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN`
-      is the domain of the DNS entry that you configured for the Grafana instance. For example,
-      if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter
-      `*.example.com`. For more information about configuring a DNS entry for the Grafana instance,
-      see [Configuring DNS for Your Grafana Instance](dns-configuration.html).
-      1. Click **Generate**.
-      1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
-      VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
-      _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
-      1. Run:
-
-            ```
-            cat /var/tempest/workspaces/default/root_ca_certificate
-            ```
-      1. Record the Ops Manager root CA certificate.
-      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate
-      that you recorded in the previous step.
-
-1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
-enter a comma-separated list of ciphers in **Additional ciphers for TLS**. For a list of supported
-cipher suites, see [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522)
-in the Go repository on GitHub.
-
-1. Under **Grafana UI authentication method**, select the user authentication method you want
-to configure for users to log in to the Grafana UI:
-    * **Basic authentication:** Configures basic authentication. For more information, see
-    [Configure Basic Authentication](grafana-authentication.html#configure-basic-auth) in _Configuring
-    Grafana Authentication_.
-    * **Generic OAuth:** Configures OAuth authentication for any supported OAuth provider,
-    such as GitHub or Okta. For more information, see [Configure Generic OAuth Authentication]
-    (grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_
-    and the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
-    * **UAA:** Configures UAA authentication. For more information, see [Configure UAA Authentication]
-    (grafana-authentication.html#configure-uaa) in _Configuring Grafana Authentication_.
-    * **LDAP:** Configures LDAP authentication. For more information, see [Configure LDAP Authentication]
-    (grafana-authentication.html#configure-ldap) in _Configuring Grafana Authentication_ and
-    the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/ldap/).
-
-1. Under **Grafana email alerts**, choose whether to allow email alerts from the Grafana UI.
-  * To allow email alerts:
-      1. Select **Configure**.
-      1. For **SMTP server host name**, enter the host name of your SMTP server.
-      1. For **SMTP server port**, enter the port of your SMTP server.
-      1. For **SMTP server username**, enter your SMTP authentication username.
-      1. For **SMTP server password**, enter your SMTP authentication password.
-      1. (Optional) To allow the Grafana instance to skip TLS certificate verification when
-      communicating with your SMTP server over TLS, activate the **Skip TLS certificate verification**
-      checkbox. When this checkbox is activated, the Grafana instance does not verify the identity
-      of your SMTP server. This checkbox is deactivated by default.
-      1. For **From address**, enter the sender email address that appears on outgoing email
-      alerts.
-      1. For **From name**, enter the sender name that appears on outgoing email alerts.
-      1. For **EHLO client ID**, enter the name for the client identity that your SMTP server
-      uses when sending EHLO commands.
-      1. For **Certificate and private key for TLS**, enter a certificate and private key for
-      the Grafana instance to use for TLS connections to your SMTP server.
-  * To disallow email alerts, select **Do not configure**. Email alerts are disallowed by default.
-  <br>
-  <br>
-  For more information, see the [Grafana documentation](https://grafana.com/docs/installation/configuration/#smtp).
 
 1. Click **Save**.
 
