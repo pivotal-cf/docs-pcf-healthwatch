@@ -356,6 +356,30 @@ must not be within the reserved IP ranges you configured in the BOSH Director ti
 
 1. Click **Save**.
 
+## <a id='dashboards'></a> (Optional) Configure Dashboards
+
+The **Dashboards** pane allows the Grafana instance to provision curated dashboards for the tiles deployed on the
+foundation. Currently, Healthwatch provides dashboards for TAS, TKGI, MySQL, and RabbitMQ. The **Dashboards** pane
+provides the ability to configure whether these dashboards are provisioned, and for TAS and TKGI, what versions are
+provisioned. For each section, follow these steps:
+
+1. Select **Provision**.
+
+1. For TAS and TKGI, select a version from the **Version** dropdown, or **Auto-detect** to let Grafana automatically
+choose the best version. If possible, the chosen version should match the version of TAS or TKGI on the foundation.
+
+    <p class='note'><strong>Note:</strong> If you are using Tanzu Application Service (TAS),
+      you must allow TAS to forward system metrics to the Loggregator Firehose, or no metrics
+      will appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information,
+      see <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting
+      Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
+
+    <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ
+      dashboards</strong> checkbox, set the <strong>Metrics polling interval</strong> field
+      in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile
+      from sending duplicate metrics to the Loggregator Firehouse. To configure this field,
+      see the <a href="https://docs.pivotal.iorabbitmq-cf/monitor.html#metrics-polling-interval">Tanzu
+      RabbitMQ documentation</a>.</p>
 
 ## <a id='canary'></a> (Optional) Configure Canary URLs
 
