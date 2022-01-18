@@ -137,6 +137,14 @@ Grafana UI access to users who belong to one or more of the listed groups. Confi
 if your OAuth provider allows you to separate users into groups. If your OAuth provider does
 not allow you to separate users into groups, do not configure this field.
 
+1. For **Role attribute path**, enter a JMESPath expression formated string. Configuring
+this field maps users to Grafana roles.
+
+1. To prevent users from accessing the Grafana UI when they are not mapped to a Grafana Role,
+activate the **Role attribute strict** checkbox. This checkbox is deactivated by default.
+Deactivating this checkbox assigns the Viewer role to users not mapped to a Grafana role by
+the **Role attribute path** expression.
+
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider
 over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for
