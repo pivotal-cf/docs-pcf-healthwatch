@@ -404,8 +404,6 @@ You configure sections of the Grafana configuration file through the following p
 
 * **Grafana Authentication**. For more information, see [Grafana Authentication](#authentication-config) below.
 
-* **Grafana Dashboards**. For more information, see [Grafana Dashboards](#dashboard-config) below.
-
 ### <a id='grafana-config'></a> Grafana
 
 The following table lists which configuration options in the **Grafana** pane in the Healthwatch tile configure properties in the Grafana configuration file:
@@ -572,6 +570,16 @@ configuration file:
   <tr>
     <td><strong>Allowed groups</strong></td>
     <td><code>allowed_group</code></td>
+    <td><code>[auth.generic_oauth]</code></td>
+  </tr>
+  <tr>
+    <td><strong>Role attribute path</strong></td>
+    <td><code>role_attribute_path</code></td>
+    <td><code>[auth.generic_oauth]</code></td>
+  </tr>
+  <tr>
+    <td><strong>Deny access to users without Grafana roles</strong></td>
+    <td><code>role_attribute_strict</code></td>
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>

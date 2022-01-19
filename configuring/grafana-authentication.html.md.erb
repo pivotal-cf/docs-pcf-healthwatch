@@ -135,8 +135,8 @@ differ depending on your OAuth provider. To find the scopes for your OAuth provi
 1. For **Grafana domain**, enter the domain of the Grafana instance. You must configure this field if your OAuth provider requires a callback URL that uses the
 root URL of the Grafana instance. If your OAuth provider does not require a callback URL, do not configure this field.
 
-1. To allow new users to create a new Grafana account when they log in with their existing OAuth credentials for the first time, activate the **Allow new
-accounts with existing OAuth credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a pre-existing
+1. (Optional) To allow new users to create a new Grafana account when they log in with their existing OAuth credentials for the first time, activate the **Allow
+new accounts with existing OAuth credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a pre-existing
 Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing OAuth credentials.
 
 1. (Optional) For **Allowed domains**, enter a comma-separated list of domains. Configuring this field limits Grafana UI access to users who belong to one or
@@ -154,13 +154,12 @@ into orgs, do not configure this field.
 listed groups. Configure this field if your OAuth provider allows you to separate users into groups. If your OAuth provider does not allow you to separate users
 into groups, do not configure this field.
 
-1. For **Role attribute path**, enter a JMESPath expression formatted string. Configuring
-this field maps users to Grafana roles.
+1. (Optional) For **Role attribute path**, enter a JMESPath string that maps users to Grafana roles. For example,
+`contains(scope[*], 'healthwatch.admin') && 'Admin' || contains(scope[*], 'healthwatch.edit') && 'Editor' || contains(scope[*], 'healthwatch.read') && 'Viewer'`.
 
-1. To prevent users from accessing the Grafana UI when they are not mapped to a Grafana Role,
-activate the **Role attribute strict** checkbox. This checkbox is deactivated by default.
-Deactivating this checkbox assigns the Viewer role to users not mapped to a Grafana role by
-the **Role attribute path** expression.
+1. (Optional) To prevent users who are not mapped to a valid Grafana role from accessing the Grafana UI, activate the **Deny access to users without Grafana
+roles** checkbox. This checkbox is deactivated by default. Deactivating this checkbox assigns the Viewer role to users who cannot be not mapped to a valid
+Grafana role by the string configured in the **Role attribute path** field.
 
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for the Grafana instance to use for TLS connections to the server for
