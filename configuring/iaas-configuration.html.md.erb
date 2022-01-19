@@ -1,26 +1,27 @@
 ---
-title: Creating a Firewall Policy for Your Grafana Instance
+title: Creating a Firewall Policy for the Grafana Instance
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to create a firewall policy for your Grafana instance.
+This topic describes how to create a firewall policy for the Grafana instance.
 
 
 ## <a id='overview'></a> Overview of Firewall Policies for the Grafana Instance
 
-In the Healthwatch tile, allowing external access to individual VMs is disallowed by default.
-Creating a firewall policy for your Grafana instance allows users to access the Grafana UI
-more easily from outside your BOSH network, including from the links to the Grafana UI that
-Alertmanager provides in alert messages.
+In the Healthwatch tile, allowing external access to individual VMs is disallowed by default. Creating a firewall policy for the Grafana instance allows users
+to access the Grafana UI more easily from outside your BOSH network, including from the links to the Grafana UI that Alertmanager provides in alert messages.
 
-You create firewall policies in the console for your Ops Manager deployment's IaaS. To create
-a firewall policy for your Grafana instance, see the section for your IaaS:
+You create firewall policies in the console for your Ops Manager deployment's IaaS. To create a firewall policy for the Grafana instance, see the section for
+your IaaS:
 
 * **AWS:** [Create a Firewall Policy in AWS](#aws)
+
 * **Azure:** [Create a Firewall Policy in Azure](#azure)
+
 * **GCP:** [Create a Firewall Policy in GCP](#gcp)
+
 * **vSphere:** [Create a Firewall Policy in vSphere NSX-V](#vsphere)
 
 
@@ -34,12 +35,11 @@ To create a firewall policy in AWS:
 
 1. Click **Create Security Group**.
 
-1. For **Security group name**, enter the name you want to give the security group. For example,
-`grafana-port-access`.
+1. For **Security group name**, enter the name you want to give the security group. For example, `grafana-port-access`.
 
 1. For **Description**, enter a description for your security group.
 
-1. For **VPC**, select from the dropdown the VPC where your Grafana instance is deployed.
+1. For **VPC**, select from the dropdown the VPC where the Grafana instance is deployed.
 
 1. Select the **Inbound** tab.
 
@@ -63,22 +63,22 @@ To create a firewall policy in AWS:
 
 1. Select **Instances**.
 
-1. Click your Grafana instance.
+1. Click the Grafana instance.
 
 1. Click **Actions**.
 
 1. Under **Security**, click **Change security groups**.
 
-1. Activate the checkbox next to the security group you created for your Grafana instance.
+1. Activate the checkbox next to the security group you created for the Grafana instance.
 
 1. Click **Add security group**.
 
 1. Click **Save**.
 
-For more information about creating a firewall policy in AWS for a Linux instance, see the
-[AWS documentation for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
-For more information about creating a firewall policy in AWS for a Windows instance, see the
-[AWS documentation for Windows instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+For more information about creating a firewall policy in AWS for a Linux instance, see the [AWS documentation for Linux instances of Amazon EC2]
+(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). For more information about creating a firewall
+policy in AWS for a Windows instance, see the [AWS documentation for Windows instances of Amazon EC2]
+(https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
 
 
 ## <a id='azure'></a> Create a Firewall Policy in Azure
@@ -91,8 +91,8 @@ To create a firewall policy in Azure:
 
 1. Click **Add**.
 
-1. Create a resource group for your Grafana instance. For more information, see the [Azure
-documentation](https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall-deploy-portal#create-a-resource-group).
+1. Create a resource group for the Grafana instance. For more information, see the [Azure documentation]
+(https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall-deploy-portal#create-a-resource-group).
 
 1. Select the **Network rule collection** tab.
 
@@ -112,8 +112,8 @@ documentation](https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall
   1. For **Source type**, select **IP address** from the dropdown.
   1. For **Source**, enter `(*)`.
   1. For **Destination type**, select **IP address** from the dropdown.
-  1. For **Destination address**, enter the public IP address of your Grafana instance or the
-  load balancer for your Grafana instance.
+  1. For **Destination address**, enter the public IP address of the Grafana instance or the
+  load balancer for the Grafana instance.
   1. For **Destination Ports**, enter `443`.
 
 1. Under **IP addresses**, configure the following fields for your second rule:
@@ -122,8 +122,8 @@ documentation](https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall
   1. For **Source type**, select **IP address** from the dropdown.
   1. For **Source**, enter `(*)`.
   1. For **Destination type**, select **IP address** from the dropdown.
-  1. For **Destination address**, enter the public IP address of your Grafana instance or the
-  load balancer for your Grafana instance.
+  1. For **Destination address**, enter the public IP address of the Grafana instance or the
+  load balancer for the Grafana instance.
   1. For **Destination Ports**, enter `80`.
 
 1. Click **Add**.
@@ -132,7 +132,8 @@ documentation](https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall
 
 1. Click **Save**.
 
-For more information about creating a firewall policy in Azure, see the [Azure documentation](https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall-deploy-portal).
+For more information about creating a firewall policy in Azure, see the [Azure documentation]
+(https://docs.microsoft.com/en-us/azure/firewall/tutorial-firewall-deploy-portal).
 
 
 ## <a id='gcp'></a> Create a Firewall Policy in GCP
@@ -146,7 +147,7 @@ To create a firewall policy in GCP:
 1. To create the first rule:
   1. Click **Create firewall rule**.
   1. For **Name**, enter a name for the first rule.
-  1. For **Network**, select from the dropdown the network where your Grafana instance is deployed.
+  1. For **Network**, select from the dropdown the network where the Grafana instance is deployed.
   1. For **Priority**, enter `1000`.
   1. For **Target tags**, enter `grafana`.
   1. For **Source IP ranges**, enter `0.0.0.0/0`.
@@ -158,7 +159,7 @@ To create a firewall policy in GCP:
 1. To create the second rule:
   1. Click **Create firewall rule**.
   1. For **Name**, enter a name for the second rule.
-  1. For **Network**, select from the dropdown the network where your Grafana instance is deployed.
+  1. For **Network**, select from the dropdown the network where the Grafana instance is deployed.
   1. For **Priority**, enter `1000`.
   1. For **Target tags**, enter `grafana`.
   1. For **Source IP ranges**, enter `0.0.0.0/0`.
@@ -190,18 +191,17 @@ To create a firewall policy in vSphere NSX-V:
   1. Click the **Add** icon.
   1. For **Name**, enter a name for the first rule.
   1. For **Source**, select **Any**.
-  1. For **Destination**, enter the public IP address for your Grafana instance or the load
-  balancer for your Grafana instance.
+  1. For **Destination**, enter the public IP address for the Grafana instance or the load balancer for the Grafana instance.
   1. For **Service**, select **Any**.
 
 1. To create the second rule:
   1. Click the **Add** icon.
   1. For **Name**, enter a name for the first rule.
   1. For **Source**, select **Any**.
-  1. For **Destination**, enter the public IP address for your Grafana instance or the load
-  balancer for your Grafana instance.
+  1. For **Destination**, enter the public IP address for the Grafana instance or the load balancer for the Grafana instance.
   1. For **Service**, select **Any**.
 
 1. Click **Publish Changes**.
 
-For more information about adding an NSX Edge firewall rule, see the [vSphere documentation](https://docs.vmware.com/en/VMware-NSX-Data-Center-for-vSphere/6.4/com.vmware.nsx.admin.doc/GUID-96BBB6D2-A4AB-4C88-B40B-781CFF00910F.html).
+For more information about adding an NSX Edge firewall rule, see the [vSphere documentation]
+(https://docs.vmware.com/en/VMware-NSX-Data-Center-for-vSphere/6.4/com.vmware.nsx.admin.doc/GUID-96BBB6D2-A4AB-4C88-B40B-781CFF00910F.html).

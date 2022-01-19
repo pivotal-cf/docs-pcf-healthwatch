@@ -5,34 +5,27 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes the Healthwatch component configuration file properties that you configure
-through the Healthwatch tile.
+This topic describes the Healthwatch component configuration file properties that you configure through the Healthwatch tile.
 
 
 ## <a id='overview'></a> Overview of Configuration Files in Healthwatch
 
-The Prometheus, Alertmanager, and Grafana instances rely on configuration files. These configuration
-files contain lists of properties that define their configuration settings. When you configure
-certain options in the Healthwatch tile, those options configure their corresponding properties
-in the configuration files for those Healthwatch components.
+The Prometheus, Alertmanager, and Grafana instances rely on configuration files. These configuration files contain lists of properties that define their
+configuration settings. When you configure certain options in the Healthwatch tile, those options configure their corresponding properties in the configuration
+files for those Healthwatch components.
 
-Through the Healthwatch tile, you configure properties in the configuration files through the
-following panes:
+Through the Healthwatch tile, you configure properties in the configuration files through the following panes:
 
-* **Prometheus**. For more information, see [Configuring the the Prometheus Configuration File]
-(#prometheus) below.
+* **Prometheus**. For more information, see [Configuring the the Prometheus Configuration File](#prometheus) below.
 
-* **Alertmanager**. For more information, see [Configuring the Alertmanager Configuration File]
-(#alertmanager) below.
+* **Alertmanager**. For more information, see [Configuring the Alertmanager Configuration File](#alertmanager) below.
 
-* **Grafana**. For more information, see [Configuring the Grafana Configuration File](#grafana)
-below.
+* **Grafana**. For more information, see [Configuring the Grafana Configuration File](#grafana) below.
 
 
 ## <a id='prometheus'></a> Configuring the Prometheus Configuration File
 
-You configure sections of the Prometheus configuration file through the following panes in
-the Healthwatch tile:
+You configure sections of the Prometheus configuration file through the following panes in the Healthwatch tile:
 
 * **Prometheus**. For more information, see [Prometheus](#prometheus-config) below.
 
@@ -40,8 +33,8 @@ the Healthwatch tile:
 
 ### <a id='prometheus-config'></a> Prometheus
 
-The following table lists which configuration options in the **Prometheus** pane in the Healthwatch
-tile configure properties in the Prometheus configuration file:
+The following table lists which configuration options in the **Prometheus** pane in the Healthwatch tile configure properties in the Prometheus configuration
+file:
 
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
@@ -56,9 +49,8 @@ tile configure properties in the Prometheus configuration file:
   </tr>
   <tr>
     <td><strong>Scrape job configuration parameters</strong></td>
-    <td>See <a href="configuring-healthwatch.html#prometheus">Configure Prometheus</a> in <em>Configuring
-      Healthwatch</em> and the <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="configuring-healthwatch.html#prometheus">Configure Prometheus</a> in <em>Configuring Healthwatch</em> and the
+      <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config">Prometheus documentation</a>.</td>
     <td><code>scrape_config</code></td>
   <tr>
     <td><strong>Certificate and private key for TLS</strong></td>
@@ -82,13 +74,13 @@ tile configure properties in the Prometheus configuration file:
   </tr>
 </table>
 
-For more information about configuring these properties, see [Configure Prometheus](configuring-healthwatch.html#prometheus)
-in _Configuring Healthwatch_ and the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+For more information about configuring these properties, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
+the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 ### <a id='remote-write-config'></a> Remote Write
 
-The following table lists which configuration options in the **Remote Write** pane in the Healthwatch
-tile configure properties in the Prometheus configuration file:
+The following table lists which configuration options in the **Remote Write** pane in the Healthwatch tile configure properties in the Prometheus configuration
+file:
 
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
@@ -178,14 +170,14 @@ tile configure properties in the Prometheus configuration file:
   </tr>
 </table>
 
-For more information about configuring these properties, see [Configure Remote Write](configuring-healthwatch.html#remote-write)
-in _Configuring Healthwatch_ and the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+For more information about configuring these properties, see [Configure Remote Write](configuring-healthwatch.html#remote-write) in _Configuring Healthwatch_
+and the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
 
 
 ## <a id='alertmanager'></a> Configuring the Alertmanager Configuration File
 
-The following table lists which configuration options in the **Alertmanager** pane in the Healthwatch
-tile configure properties in the Alertmanager configuration file:
+The following table lists which configuration options in the **Alertmanager** pane in the Healthwatch tile configure properties in the Alertmanager
+configuration file:
 
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
@@ -195,16 +187,14 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
   <tr>
     <td><strong>Routing rules</strong></td>
-    <td>See <a href="optional-config/alerting.html#configure">Configure Alerting</a> in <em>Configuring
-      Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#configure">Configure Alerting</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/">Prometheus documentation</a>.</td>
     <td><code>route</code></td>
   </tr>
   <tr>
     <td><strong>Inhibit rules</strong></td>
-    <td>See <a href="optional-config/alerting.html#configure">Configure Alerting</a> in <em>Configuring
-      Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#configure">Configure Alerting</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/">Prometheus documentation</a>.</td>
     <td><code>inhibit_rules</code></td>
   </tr>
   <tr>
@@ -217,9 +207,8 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
   <tr>
     <td><strong>Alert receiver configuration parameters</strong></td>
-    <td>See <a href="optional-config/alerting.html#email">Configure an Email Alert Receiver</a>
-      in <em>Configuring Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/#email_config">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#email">Configure an Email Alert Receiver</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/#email_config">Prometheus documentation</a>.</td>
     <td><code>receivers</code> - <code>email_configs</code></td>
   </tr>
   <tr>
@@ -262,9 +251,8 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
   <tr>
     <td><strong>Alert receiver configuration parameters</strong></td>
-    <td>See <a href="optional-config/alerting.html#pagerduty">Configure a PagerDuty Alert Receiver</a>
-      in <em>Configuring Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#pagerduty">Configure a PagerDuty Alert Receiver</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config">Prometheus documentation</a>.</td>
     <td><code>receivers</code> - <code>pagerduty_configs</code></td>
   </tr>
   <tr>
@@ -280,38 +268,32 @@ tile configure properties in the Alertmanager configuration file:
   <tr>
     <td><strong>Basic authentication credentials</strong></td>
     <td><code>username</code>, <code>password</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>basic_auth</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>basic_auth</code></td>
   </tr>
   <tr>
     <td><strong>Bearer token</strong></td>
     <td><code>credentials</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>authorization</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>authorization</code></td>
   </tr>
   <tr>
     <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td><strong>PagerDuty server name</strong></td>
     <td><code>server_name</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td><strong>Skip TLS certificate verification</strong></td>
     <td><code>insecure_skip_verify</code></td>
-    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code>
-      - <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>pagerduty_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td align="center" colspan="3"><strong>Slack alert receivers</strong></td>
@@ -323,9 +305,8 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
   <tr>
     <td><strong>Alert receiver configuration parameters</strong></td>
-    <td>See <a href="optional-config/alerting.html#slack">Configure a Slack Alert Receiver</a>
-      in <em>Configuring Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/#slack_config">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#slack">Configure a Slack Alert Receiver</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/#slack_config">Prometheus documentation</a>.</td>
     <td><code>receivers</code> - <code>slack_configs</code></td>
   </tr>
   <tr>
@@ -373,34 +354,29 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
   <tr>
     <td><strong>Alert receiver configuration parameters</strong></td>
-    <td>See <a href="optional-config/alerting.html#webhook">Configure a Webhook Alert Receiver</a>
-      in <em>Configuring Alerting</em> and the <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">Prometheus
-      documentation</a>.</td>
+    <td>See <a href="optional-config/alerting.html#webhook">Configure a Webhook Alert Receiver</a> in <em>Configuring Alerting</em> and the
+      <a href="https://prometheus.io/docs/alerting/latest/configuration/#webhook_config">Prometheus documentation</a>.</td>
     <td><code>receivers</code> - <code>webhook_configs</code></td>
   </tr>
   <tr>
     <td><strong>Basic authentication credentials</strong></td>
     <td><code>username</code>, <code>password</code></td>
-    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
-      <code>basic_auth</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> - <code>basic_auth</code></td>
   </tr>
   <tr>
     <td><strong>Bearer token</strong></td>
     <td><code>credentials</code></td>
-    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
-      <code>authorization</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> - <code>authorization</code></td>
   </tr>
   <tr>
     <td><strong>Certificate and private key for TLS</strong></td>
     <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
-      <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td><strong>CA certificate for TLS</strong></td>
     <td><code>ca_file</code></td>
-    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> -
-      <code>tls_config</code></td>
+    <td><code>receivers</code> - <code>webhook_configs</code> - <code>http_config</code> - <code>tls_config</code></td>
   </tr>
   <tr>
     <td><strong>Webhook server name</strong></td>
@@ -416,14 +392,23 @@ tile configure properties in the Alertmanager configuration file:
   </tr>
 </table>
 
-For more information about configuring these properties, see [Configuring Alerting](optional-config/alerting.html)
-and the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/).
+For more information about configuring these properties, see [Configuring Alerting](optional-config/alerting.html) and the [Prometheus documentation]
+(https://prometheus.io/docs/alerting/latest/configuration/).
 
 
 ## <a id='grafana'></a> Configuring the Grafana Configuration File
 
-The following table lists which configuration options in the **Grafana** pane in the Healthwatch
-tile configure properties in the Grafana configuration file:
+You configure sections of the Grafana configuration file through the following panes in the Healthwatch tile:
+
+* **Grafana**. For more information, see [Grafana](#grafana-config) below.
+
+* **Grafana Authentication**. For more information, see [Grafana Authentication](#authentication-config) below.
+
+* **Grafana Dashboards**. For more information, see [Grafana Dashboards](#dashboard-config) below.
+
+### <a id='grafana-config'></a> Grafana
+
+The following table lists which configuration options in the **Grafana** pane in the Healthwatch tile configure properties in the Grafana configuration file:
 
 <table border="1" cellpadding="0" cellspacing="0">
   <tr>
@@ -432,9 +417,84 @@ tile configure properties in the Grafana configuration file:
     <th width="37%">Configuration file section</th>
   </tr>
   <tr>
+    <td align="center" colspan="3"><strong>Grafana UI route</strong></td>
+  </tr>
+  <tr>
     <td><strong>Grafana root URL</strong></td>
     <td><code>root_url</code></td>
     <td><code>[server]</code></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3"><strong>Email alerts</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Configure</strong> / <strong>Do not configure</strong></td>
+    <td><code>enabled</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>SMTP server host name</strong></td>
+    <td><code>host</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>SMTP server port</strong></td>
+    <td><code>port</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>SMTP server username</strong></td>
+    <td><code>user</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>SMTP server password</strong></td>
+    <td><code>password</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>Skip TLS certificate verification</strong></td>
+    <td><code>skip_verify</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>From address</strong></td>
+    <td><code>from_address</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>From name</strong></td>
+    <td><code>from_name</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>EHLO client ID</strong></td>
+    <td><code>ehlo_identity</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+  <tr>
+    <td><strong>Certificate and private key for TLS</strong></td>
+    <td><code>cert_file</code>, <code>key_file</code></td>
+    <td><code>[smtp]</code></td>
+  </tr>
+</table>
+
+For more information about configuring these properties, see [Configure Grafana](configuring-healthwatch.html#grafana) in _Configuring Healthwatch_ and the
+[Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
+
+### <a id='authentication-config'></a> Grafana Authentication
+
+The following table lists which configuration options in the **Grafana Authentication** pane in the Healthwatch tile configure properties in the Grafana
+configuration file:
+
+<table border="1" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="28%">Healthwatch configuration option</th>
+    <th width="34%">Configuration file property</th>
+    <th width="37%">Configuration file section</th>
+  </tr>
+  <tr>
+    <td align="center" colspan="3"><strong>Basic authentication</strong></td>
   </tr>
   <tr>
     <td><strong>Basic authentication</strong></td>
@@ -530,7 +590,7 @@ tile configure properties in the Grafana configuration file:
     <td><code>[auth.generic_oauth]</code></td>
   </tr>
   <tr>
-    <td align="center" colspan="3"><strong>UAA</strong></td>
+    <td align="center" colspan="3"><strong>UAA<sup>*</sup></strong></td>
   </tr>
   <tr>
     <td><strong>Client ID</strong></td>
@@ -645,61 +705,9 @@ tile configure properties in the Grafana configuration file:
     <td><code>root_ca_cert</code></td>
     <td><code>[auth.ldap]</code></td>
   </tr>
-  <tr>
-    <td align="center" colspan="3"><strong>Email alerts</strong></td>
-  </tr>
-  <tr>
-    <td><strong>Configure</strong> / <strong>Do not configure</strong></td>
-    <td><code>enabled</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>SMTP server host name</strong></td>
-    <td><code>host</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>SMTP server port</strong></td>
-    <td><code>port</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>SMTP server username</strong></td>
-    <td><code>user</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>SMTP server password</strong></td>
-    <td><code>password</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>Skip TLS certificate verification</strong></td>
-    <td><code>skip_verify</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>From address</strong></td>
-    <td><code>from_address</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>From name</strong></td>
-    <td><code>from_name</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>EHLO client ID</strong></td>
-    <td><code>ehlo_identity</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-  <tr>
-    <td><strong>Certificate and private key for TLS</strong></td>
-    <td><code>cert_file</code>, <code>key_file</code></td>
-    <td><code>[smtp]</code></td>
-  </tr>
-</table>
 
-For more information about configuring these properties, see [Configure Grafana](configuring-healthwatch.html#grafana)
-in _Configuring Healthwatch_, [Configuring Grafana Authentication](grafana-authentication.html),
-and the [Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
+<sup>*</sup> Healthwatch automatically configures the fields in this section when you select **UAA** under **Additional authentication methods** in the
+**Grafana Authentication** pane of the Healthwatch tile.
+
+For more information about configuring these properties, see [Configuring Grafana Authentication](grafana-authentication.html) and the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/administration/configuration/).
