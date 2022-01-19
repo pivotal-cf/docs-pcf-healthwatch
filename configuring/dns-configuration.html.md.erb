@@ -14,8 +14,8 @@ Configuring a DNS entry for the Grafana instance allows users to access the Graf
 the Grafana UI that Alertmanager provides in alert messages.
 
 To avoid creating an unnecessary dependency on VMware Tanzu Application Service for VMs (TAS for VMs), Healthwatch does not use a Gorouter in TAS for VMs to
-route the Grafana instance to a subdomain for your foundation. To facilitate user access to the Grafana UI, you must configure a DNS entry for either the public
-IP address of a single Grafana VM or the load balancer in front of the Grafana instance.
+route the Grafana instance to a subdomain for your Ops Manager foundation. To facilitate user access to the Grafana UI, you must configure a DNS entry for
+either the public IP address of a single Grafana VM or the load balancer in front of the Grafana instance.
 
 
 ## <a id='load-balancer'></a> Configure DNS for a Load Balancer
@@ -63,7 +63,7 @@ Grafana UI login page, you have successfully created a DNS entry.
 
 To configure a DNS entry for a single Grafana VM:
 
-1. Find the public IP address for your Grafana VM in the user console for your IaaS. For more information, see the documentation for your IaaS:
+1. Find the public IP address for the Grafana VM in the user console for your IaaS. For more information, see the documentation for your IaaS:
   * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon EC2]
   (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a Windows
   instance, see the [AWS documentation for Windows instances of Amazon EC2]

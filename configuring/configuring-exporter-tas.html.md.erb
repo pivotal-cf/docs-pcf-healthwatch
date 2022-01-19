@@ -94,7 +94,7 @@ To configure the **Assign AZ and Networks** pane:
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about runtime
-networks, see [Required Subnets] (https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets Requirements]
+networks, see [Required Subnets](https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets Requirements]
 (https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets) in _Platform Architecture and Planning Overview_ in the Ops Manager documentation.
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
@@ -202,7 +202,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
 
 1. Return to the Ops Manager Installation Dashboard.
 
-1. Record the IP address for the BOSH Director VM and the login and admin credentials for the BOSH Director UAA instance:
+1. Record the IP address for the BOSH Director VM and the login and admininistrator credentials for the BOSH Director UAA instance:
     * If your Ops Manager deployment uses internal authentication:
         1. Click the **BOSH Director** tile.
         1. Select the **Status** tab.
@@ -278,8 +278,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         Where `BOSH-UAA-CLIENT-SECRET` is the secret you recorded from the **Uaa Bosh Client Credentials** row in the **Credentials** tab in the BOSH Director
         tile in a previous step.
 
-1. When prompted, enter the UAA admin client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the **Credentials**
-tab in the BOSH Director tile in a previous step.
+1. When prompted, enter the UAA administrator client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the
+**Credentials** tab in the BOSH Director tile in a previous step.
 
 1. Create a UAA client for the BOSH deployment metric exporter VM by running:
 
@@ -360,7 +360,7 @@ your external destination. The default value is `100000`.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
 rules, see [Customizing Platform Log Forwarding](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html) in the TAS for VMs
-documentation. For more information about RainerScript syntax, see the [rsyslog] (https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
+documentation. For more information about RainerScript syntax, see the [rsyslog](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
 
 1. Click **Save Syslog Settings**.
 

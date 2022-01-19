@@ -192,8 +192,8 @@ _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 ### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
-When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same foundation, the **BOSH Director Status** panel in the
-**BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
+When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Ops Manager foundation, the **BOSH Director Status**
+panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
 
 <pre class="terminal">
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
@@ -369,8 +369,8 @@ information, see the [Prometheus documentation](https://prometheus.io/docs/conce
 ### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
 
 The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics that allow you to monitor the performance of each Healthwatch
-Exporter for TAS for VMs tile installed on your foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a particular metric
-type, or if a Healthwatch Exporter for TAS for VMs tile is not behaving as expected.
+Exporter for TAS for VMs tile installed on your Ops Manager foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a
+particular metric type, or if a Healthwatch Exporter for TAS for VMs tile is not behaving as expected.
 
 These dashboards contain the following panels:
 
