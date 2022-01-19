@@ -10,22 +10,18 @@ This topic describes how to upgrade to Healthwatch v2.2.
 
 ## <a id='overview'></a> Overview
 
-Healthwatch v2.2 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape,
-store, and view metrics, as well as configure alerts. This architecture is entirely different
-from the architecture of Pivotal Healthwatch v1. Because of this, you must install Healthwatch
-v2.2 as a new tile.
+Healthwatch v2.2 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. This
+architecture is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install Healthwatch v2.2 as a new tile.
 
-For more information about the differences between Healthwatch v2.2 and Pivotal Healthwatch
-v1, see [Differences Between Healthwatch v2.2 and Pivotal Healthwatch v1](#differences) below.
+For more information about the differences between Healthwatch v2.2 and Pivotal Healthwatch v1, see [Differences Between Healthwatch v2.2 and Pivotal
+Healthwatch v1](#differences) below.
 
-To upgrade to Healthwatch v2.2 from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2]
-(#upgrade) below.
+To upgrade to Healthwatch v2.2 from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2](#upgrade) below.
 
 
 ## <a id='differences'></a> Differences Between Healthwatch v2.2 and Pivotal Healthwatch v1
 
-The following table explains the most significant differences between Healthwatch v2.2 and
-Pivotal Healthwatch v1:
+The following table explains the most significant differences between Healthwatch v2.2 and Pivotal Healthwatch v1:
 
 <table>
   <tr>
@@ -36,191 +32,154 @@ Pivotal Healthwatch v1:
     <td>Architecture</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus,
-          Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure
-          alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high
-          availability (HA), and you can scale other Healthwatch components to make them HA.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Consists of a dashboard and alerting system
-          within the Pivotal Healthwatch v1 tile to monitor metrics and send alerts. If Pivotal
-          Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1
-          relies on various other Ops Manager tiles to buffer or queue metrics.</li>
+        <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well
+          as configure alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
+          Healthwatch components to make them HA.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Consists of a dashboard and alerting system within the Pivotal Healthwatch v1 tile to monitor metrics and
+          send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Ops Manager tiles to
+          buffer or queue metrics.</li>
       </ul>
-      For more information about the architecture of Healthwatch v2.2, see <a href="architecture.html">Reference
-      Architecture</a>.
+      For more information about the architecture of Healthwatch v2.2, see <a href="architecture.html">Reference Architecture</a>.
     </td>
   </tr>
   <tr>
     <td>Metrics</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Stores metrics in the time-series database (TSDB)
-          on each Prometheus VM either for 42 days or until 85% of persistent disk space is
-          full.</li>
+        <li><strong>Healthwatch v2.2:</strong> Stores metrics in the time-series database (TSDB) on each Prometheus VM either for 42 days or until 85% of
+          persistent disk space is full.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Stores metrics in MySQL for only 24 hours.</li>
       </ul>
-      For more information about Healthwatch v2.2 metrics, see <a href="metrics.html">Healthwatch
-      Metrics</a>.
+      For more information about Healthwatch v2.2 metrics, see <a href="metrics.html">Healthwatch Metrics</a>.
     </td>
   </tr>
   <tr>
     <td>Alerting</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Uses Alertmanager, a Prometheus component, to
-          manage and send alerts according to the alerting rules you configure.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service,
-          through which you can subscribe to alerts for specific events using the Cloud Foundry
-          Command-Line Interface (cf CLI).</li>
+        <li><strong>Healthwatch v2.2:</strong> Uses Alertmanager, a Prometheus component, to manage and send alerts according to the alerting rules you
+          configure.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service, through which you can subscribe to alerts for specific events using
+          the Cloud Foundry Command-Line Interface (cf CLI).</li>
       </ul>
-      For more information about configuring alerts, see <a href="configuring/optional-config/alerting.html">Configuring
-      Alerting</a>.
+      For more information about configuring alerts, see <a href="configuring/optional-config/alerting.html">Configuring Alerting</a>.
     </td>
   </tr>
   <tr>
-    <td>Monitoring multiple foundations</td>
+    <td>Monitoring multiple Ops Manager foundations</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Can monitor both VMware Tanzu Application Service
-          for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI),
-          and can monitor multiple Ops Manager foundations with one or both runtimes installed.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single
-          Ops Manager foundation.</li>
+        <li><strong>Healthwatch v2.2:</strong> Can monitor both VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid
+          Integrated Edition (TKGI), and can monitor multiple Ops Manager foundations with one or both runtimes installed.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single Ops Manager foundation.</li>
       </ul>
-      For more information about using Healthwatch v2.2 to monitor multiple foundations, see
-      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference
-      Architecture</em>.
+      For more information about using Healthwatch v2.2 to monitor multiple Ops Manager foundations, see
+      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference Architecture</em>.
     </td>
   </tr>
   <tr>
     <td>Platform scope</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Displays metrics from multiple Ops Manager foundations
-          in the Grafana user interface (UI).</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Displays metrics only from the Ops Manager
-          foundation on which it is installed in the Pivotal Healthwatch v1 tile UI.</li>
+        <li><strong>Healthwatch v2.2:</strong> Displays metrics from multiple Ops Manager foundations in the Grafana user interface (UI).</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Displays metrics only from the Ops Manager foundation on which it is installed in the Pivotal Healthwatch
+          v1 tile UI.</li>
       </ul>
-      For more information about using Healthwatch v2.2 to monitor multiple foundations, see
-      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference
-      Architecture</em>.
+      For more information about using Healthwatch v2.2 to monitor multiple Ops Manager foundations, see
+      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference Architecture</em>.
     </td>
   </tr>
   <tr>
     <td>Certificate expiration monitoring</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Optionally collects metrics that show when certain Ops
-          Manager certificates are due to expire.</li>
+        <li><strong>Healthwatch v2.2:</strong> Optionally collects metrics that show when certain Ops Manager certificates are due to expire.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Does not monitor certificate expiration.</li>
       </ul>
-      For more information about monitoring certificates, see <a href="configuring/optional-config/certificate-monitoring.html">Monitoring
-      Certificate Expiration</a>.
+      For more information about monitoring certificates, see <a href="configuring/optional-config/certificate-monitoring.html">Monitoring Certificate
+      Expiration</a>.
     </td>
   </tr>
   <tr>
     <td>Dashboard customization</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Allows you to customize the default dashboards
-          and create new dashboards in the Grafana UI.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Does not allow you to edit the dashboard
-          in the Pivotal Healthwatch v1 tile UI.</li>
+        <li><strong>Healthwatch v2.2:</strong> Allows you to customize the default dashboards and create new dashboards in the Grafana UI.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Does not allow you to edit the dashboard in the Pivotal Healthwatch v1 tile UI.</li>
       </ul>
       For more information about creating and editing dashboards in the Grafana UI, see the
-      <a href="https://grafana.com/docs/grafana/latest/dashboards/#dashboard-overview">Grafana
-      documentation</a>.
+      <a href="https://grafana.com/docs/grafana/latest/dashboards/#dashboard-overview">Grafana documentation</a>.
     </td>
   </tr>
   <tr>
     <td>User authentication</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Can use basic authentication, User Account and
-          Authentication (UAA), OAuth, or LDAP to authenticate users when they log in to the
-          Grafana UI.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Uses UAA to access the BOSH Director,
-          component metrics, and the Pivotal Healthwatch v1 tile UI.</li>
+        <li><strong>Healthwatch v2.2:</strong> Can use basic authentication, User Account and Authentication (UAA), OAuth, or LDAP to authenticate users when
+          they log in to the Grafana UI.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Uses UAA to access the BOSH Director, component metrics, and the Pivotal Healthwatch v1 tile UI.</li>
       </ul>
-      For more information about configuring user authentication for accessing the Grafana
-      UI, see <a href="configuring/grafana-authentication.html">Configuring Grafana Authentication</a>.
+      For more information about configuring user authentication for accessing the Grafana UI, see <a href="configuring/grafana-authentication.html">Configuring
+      Grafana Authentication</a>.
     </td>
   </tr>
 </table>
 
-In addition to the updated features described in the table above, Healthwatch v2.2 includes
-the following new features:
+In addition to the updated features described in the table above, Healthwatch v2.2 includes the following new features:
 
-* Runs a suite of service level indicator (SLI) tests to test the functionality of the TKGI
-API and collects metrics from those tests in the **TKGI Control Plane** dashboard in the Grafana
-UI. For more information, see [TKGI SLI Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch
-Metrics_.
+* Runs a suite of service level indicator (SLI) tests to test the functionality of the TKGI API and collects metrics from those tests in the **TKGI Control
+Plane** dashboard in the Grafana UI. For more information, see [TKGI SLI Exporter VM](../metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
 
-* Separates Diego capacity metrics by isolation segment in the **Diego/Capacity** dashboard
-in the Grafana UI.
+* Separates Diego capacity metrics by isolation segment in the **Diego/Capacity** dashboard in the Grafana UI.
 
-* The **Jobs** and **Job Details** dashboards in the Grafana UI no longer display metrics from
-BOSH smoke test deployments.
+* The **Jobs** and **Job Details** dashboards in the Grafana UI no longer display metrics from BOSH smoke test deployments.
 
-* Allows you to include optional dashboards for the VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ)
-and VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tiles in the Grafana UI.
+* Allows you to include optional dashboards for the VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) and VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs)
+tiles in the Grafana UI.
 
-* Allows you to monitor super value metrics (SVMs) that are similar to the super metrics generated
-in Pivotal Healthwatch v1.8 and earlier. For more information about SVMs, see [Configure Prometheus]
-(#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch Component Metrics]
-(#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform Metrics]
-(#svm-forwarder-platform) in _Healthwatch Metrics_.
+* Allows you to monitor super value metrics (SVMs) that are similar to the super metrics generated in Pivotal Healthwatch v1.8 and earlier. For more information
+about SVMs, see [Configure Prometheus](#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)
+in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) in _Healthwatch Metrics_.
 
-* Automatically detects which version of TAS for VMs or TKGI is installed on your foundation
-and creates the appropriate dashboard in the Grafana UI.
+* Automatically detects which version of TAS for VMs or TKGI is installed on your Ops Manager foundation and creates the appropriate dashboard in the Grafana
+UI.
 
-* Allows you to use the Ops Manager syslog forwarding feature to forward log messages from
-Healthwatch component VMs to an external destination for troubleshooting, such as a remote
-server or external syslog aggregation service. For more information about how to configure
-syslog forwarding, see [(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog)
-in _Configuring Healthwatch_.
+* Allows you to use the Ops Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
+troubleshooting, such as a remote server or external syslog aggregation service. For more information about how to configure syslog forwarding, see [(Optional)
+Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
 
-For more information about Healthwatch v2.2 features, see [Healthwatch v2.2 Release Notes]
-(release-notes.html).
+For more information about Healthwatch v2.2 features, see [Healthwatch v2.2 Release Notes](release-notes.html).
 
 
 ## <a id='upgrade'></a> Upgrade to Healthwatch v2.2
 
-The architecture of Healthwatch v2.2 is entirely different from the architecture of Pivotal
-Healthwatch v1. Because of this, you must install and configure Healthwatch v2.2 as a new tile
-even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics
-from Pivotal Healthwatch v1, you can keep Pivotal Healthwatch v1 installed and use it concurrently
-with Healthwatch v2.2 while you transition to Healthwatch v2.2.
+The architecture of Healthwatch v2.2 is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install and configure
+Healthwatch v2.2 as a new tile even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics from Pivotal Healthwatch v1, you can
+keep Pivotal Healthwatch v1 installed and use it concurrently with Healthwatch v2.2 while you transition to Healthwatch v2.2.
 
 To upgrade to Healthwatch v2.2:
 
-1. Review the limitations and risks of using of Healthwatch v2.2. For more information about
-the limitations of Healthwatch v2.2, see [Healthwatch v2.2 Limitations](index.html#healthwatch-limitations)
-in _Healthwatch_. For more information about the risks of using Healthwatch v2.2, see [Assumed
-Risks of Using Healthwatch v2.2](index.html#assumed-risks) in _Healthwatch_.
+1. Review the limitations and risks of using of Healthwatch v2.2. For more information about the limitations of Healthwatch v2.2, see [Healthwatch v2.2
+Limitations](index.html#healthwatch-limitations) in _Healthwatch_. For more information about the risks of using Healthwatch v2.2, see [Assumed Risks of Using
+Healthwatch v2.2](index.html#assumed-risks) in _Healthwatch_.
 
-1. Review the configuration options for Healthwatch v2.2 to determine which tiles you must
-install on your Ops Manager foundations. For more information, see [Configuration Options]
-(architecture.html#configuration-options) in _Reference Architecture_.
+1. Review the configuration options for Healthwatch v2.2 to determine which tiles you must install on your Ops Manager foundations. For more information, see
+[Configuration Options](architecture.html#configuration-options) in _Reference Architecture_.
 
-1. Install the Healthwatch v2.2 tile and Healthwatch Exporter tiles on the Ops Manager foundations
-you want to monitor according to the configuration you identified in the previous step, even
-if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing
-the Healthwatch v2.2 tile and Healthwatch Exporter tiles, see [Installing a Tile Manually]
-(installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through
-an Automated Pipeline](installing/automated-pipeline.html).
+1. Install the Healthwatch v2.2 tile and Healthwatch Exporter tiles on the Ops Manager foundations you want to monitor according to the configuration you
+identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing the Healthwatch v2.2
+tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile
+Through an Automated Pipeline](installing/automated-pipeline.html).
 
-1. Configure the Healthwatch component VMs through the Healthwatch v2.2 tile and Healthwatch
-Exporter tile UIs in the Ops Manager Installation Dashboard and deploy the tiles. For more
-information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html),
-[Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html),
-and [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html).
+1. Configure the Healthwatch component VMs through the Healthwatch v2.2 tile and Healthwatch Exporter tile UIs in the Ops Manager Installation Dashboard and
+deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html),
+[Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for TKGI]
+(configuring/configuring-exporter-tkgi.html).
 
-1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile
-from your Ops Manager foundations. Then, delete the Pivotal Healthwatch v1 tile from your Ops
-Manager foundations.
-  <p class='note warning'><strong>Warning:</strong> You must delete the Pivotal Event Alerts
-    tile before you delete the Pivotal Healthwatch v1 tile. If you delete the Pivotal Healthwatch
-    v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you
-    must re-add the Pivotal Healthwatch v1 tile to delete the Pivotal Event Alerts tile.</p>
-  For more information about deleting tiles, see [Delete Products](https://docs.pivotal.io/ops-manager/install/add-delete.html#del-prod)
-  in _Adding and Deleting Products_ in the Ops Manager documentation.
+1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile from your Ops Manager foundations. Then, delete the Pivotal
+Healthwatch v1 tile from your Ops Manager foundations.
+  <p class='note warning'><strong>Warning:</strong> You must delete the Pivotal Event Alerts tile before you delete the Pivotal Healthwatch v1 tile. If you
+    delete the Pivotal Healthwatch v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you must re-add the Pivotal Healthwatch
+    v1 tile to delete the Pivotal Event Alerts tile.</p>
+  For more information about deleting tiles, see [Delete Products](https://docs.pivotal.io/ops-manager/install/add-delete.html#del-prod) in _Adding and Deleting
+  Products_ in the Ops Manager documentation.

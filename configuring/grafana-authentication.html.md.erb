@@ -1,53 +1,47 @@
 ---
-title: Configuring Authentication
+title: Configuring Grafana Authentication
 owner: Healthwatch
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure different authentication methods for users to log in
-to the Grafana UI.
+This topic describes how to configure different authentication methods for users to log in to the Grafana UI.
 
 
 ## <a id='overview'></a> Overview of Grafana Authentication
 
-By default, users log in to the Grafana UI using basic authentication. With basic authentication,
-all users log in to the Grafana UI using the username `admin` and the admin login credentials
-found in the **Credentials** tab of the Healthwatch tile.
+In the **Grafana Authentication** pane, you configure how users log in to the Grafana UI.
 
-However, you can configure the Grafana UI to use a different authentication method instead.
-This allows users to use their own credentials to log in to the Grafana UI.
+By default, users log in to the Grafana UI using basic authentication. With basic authentication, all users log in to the Grafana UI using the username `admin`
+and the administrator login credentials found in the **Credentials** tab of the Healthwatch tile.
 
-The sections in this topic describe how to configure different authentication methods for users
-to log in to the Grafana UI:
+However, you can configure the Grafana UI to use another authentication method alongside or instead of basic authentication. This allows users to use their own
+credentials to log in to the Grafana UI.
 
-* Basic authentication. For more information, see [Configure Basic Authentication](#configure-basic-auth)
-below.
+The sections in this topic describe how to configure different authentication methods for users to log in to the Grafana UI:
 
-* Generic OAuth. For more information, see [Configure Generic OAuth Authentication](#configure-generic-oauth)
-below.
+* Basic authentication. For more information, see [Configuring Basic Authentication](#configure-basic-auth) below.
 
-* User Account and Authentication (UAA). For more information, see [Configure UAA Authentication]
-(#configure-uaa) below.
+* Generic OAuth, UAA, or LDAP. For more information, see [Configuring Other Authentication Methods](#configure-other-auth) below.
 
-* LDAP. For more information, see [Configure LDAP Authentication](#configure-ldap) below.
-
-For a list of Grafana-supported authentication integrations, see the [Grafana documentation]
-(https://grafana.com/docs/grafana/latest/auth/overview/).
-
-The values that you configure in the **Grafana** pane also configure their corresponding properties
-in the Grafana configuration file. For more information, see [Overview of Configuration Files
-in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_,
-[Configuring the Grafana Configuration File](config-file-reference.html#grafana) in _Configuration
-File Reference Guide_, and the [Grafana documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
+The values that you configure in the **Grafana Authentication** pane also configure their corresponding properties in the Grafana configuration file. For more
+information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_, [Grafana
+Authentication](config-file-reference.html#authentication-config) in _Configuration File Reference Guide_, and the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/administration/configuration/).
 
 
-## <a id='configure-basic-auth'></a> Configure Basic Authentication
+## <a id='configure-basic-auth'></a> Configuring Basic Authentication
 
-When you configure basic authentication for the Grafana UI, all users log in to the Grafana
-UI using the username `admin` and the login password found in the **Credentials** tab of the
-Healthwatch tile. If Basic Authentication is disabled, users will not be able to log in with
-the admin credentials.
+When you configure basic authentication for the Grafana UI, all users log in to the Grafana UI using the username `admin` and the login password found in the
+**Credentials** tab of the Healthwatch tile. If you disallow basic authentication, users cannot log in with administrator credentials.
+
+To allow or disallow basic authentication, see one of the sections below:
+
+* [Allow Basic Authentication](#allow-basic-auth)
+
+* [Disallow Basic Authentication](#disallow-basic-auth)
+
+### <a id='allow-basic-auth'></a> Allow Basic Authentication
 
 To configure basic authentication and obtain the login password for the Grafana UI:
 
@@ -55,9 +49,9 @@ To configure basic authentication and obtain the login password for the Grafana 
 
 1. Click the **Healthwatch** tile.
 
-1. Select **Authentication**.
+1. Select **Grafana Authentication**.
 
-1. Under **Basic Authentication (username and password)**, select **Enable**.
+1. Under **Basic authentication**, select **Allow**.
 
 1. Click **Save**.
 
@@ -65,16 +59,47 @@ To configure basic authentication and obtain the login password for the Grafana 
 
 1. In the **Admin Login Password** row of the **Grafana** section, click **Link to Credential**.
 
-1. Record the value of `password`. This value is the password that all users must use to log
-in to the Grafana UI.
+1. Record the value of `password`. This value is the password that all users must use to log in to the Grafana UI.
+
+### <a id='disallow-basic-auth'></a> Disallow Basic Authentication
+
+To disallow basic authentication:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select **Grafana Authentication**.
+
+1. Under **Basic authentication**, select **Do not allow**.
+
+1. Click **Save**.
 
 
-## <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
+## <a id='configure-other-auth'></a> Configuring Other Authentication Methods
 
-When you configure generic OAuth authentication for the Grafana UI, users can log in to the
-Grafana UI with their credentials for the Grafana-supported OAuth provider of your choice.
-For more information about configuring generic OAuth authentication, see the [Grafana documentation]
-(https://grafana.com/docs/grafana/latest/auth/generic-oauth/).
+You can configure the Grafana UI to use another authentication method alongside or instead of basic authentication. This allows users to use their own
+credentials to log in to the Grafana UI.
+
+For example, if you want to limit the number of users who can log in to the Grafana UI with the Grafana administrator credentials found in the **Credentials**
+tab of the Healthwatch tile, but still allow non-administrator users to log in to the Grafana UI, you can configure one of the following authentication methods
+in addition to basic authentication:
+
+* Generic OAuth. For more information, see [Configure Generic OAuth Authentication](#configure-generic-oauth) below.
+
+* User Account and Authentication (UAA). For more information, see [Configure UAA Authentication](#configure-uaa) below.
+
+* LDAP. For more information, see [Configure LDAP Authentication](#configure-ldap) below.
+
+If you want to only allow users with Grafana administrator credentials to log in to the Grafana UI, you can configure the Grafana UI to use only basic
+authentication. For more information, see [Configure Only Basic Authentication](#configure-only-basic-auth) below.
+
+### <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
+
+When you configure generic OAuth authentication for the Grafana UI, users can log in to the Grafana UI with their credentials for the Grafana-supported OAuth
+provider of your choice, including an external UAA server. For more information about configuring generic OAuth authentication, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/generic-oauth/). For a list of Grafana-supported authentication integrations, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/overview/).
 
 To configure generic OAuth authentication for the Grafana UI:
 
@@ -82,23 +107,21 @@ To configure generic OAuth authentication for the Grafana UI:
 
 1. Click the **Healthwatch** tile.
 
-1. Select **Authentication**.
+1. Select **Grafana Authentication**.
 
-1. Under **Additional Authentication Methods**, select **Generic OAuth**.
+1. Under **Additional authentication methods**, select **Generic OAuth**.
 
 1. For **Provider name**, enter the name of your OAuth provider.
 
-1. For **Client ID**, enter the client ID of your OAuth provider. The method to retrieve this
-client ID differs depending on your OAuth provider. To find the client ID of your OAuth provider,
-see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
+1. For **Client ID**, enter the client ID of your OAuth provider. The method to retrieve this client ID differs depending on your OAuth provider. To find the
+client ID of your OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
-1. For **Client secret**, enter the client secret of your OAuth provider. The method to retrieve
-this client secret differs depending on your OAuth provider. To find the client secret of your
-OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
+1. For **Client secret**, enter the client secret of your OAuth provider. The method to retrieve this client secret differs depending on your OAuth provider. To
+find the client secret of your OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
-1. For **Scopes**, enter a comma-separated list of scopes that the OAuth provider adds to the
-user's token when they log in to the Grafana UI. These scopes differ depending on your OAuth
-provider. To find the scopes for your OAuth provider, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
+1. For **Scopes**, enter a comma-separated list of scopes that the OAuth provider adds to the user's token when they log in to the Grafana UI. These scopes
+differ depending on your OAuth provider. To find the scopes for your OAuth provider, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/overview/).
 
 1. For **Authorization URL**, enter the authorization URL of the server for your OAuth provider.
 
@@ -106,38 +129,32 @@ provider. To find the scopes for your OAuth provider, see the [Grafana documenta
 
 1. For **API URL**, enter the API URL of the server for your OAuth provider.
 
-1. (Optional) For **Email attribute**, enter the attribute that contains the email address
-of the user. For more information, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/generic-oauth/).
+1. (Optional) For **Email attribute**, enter the attribute that contains the email address of the user. For more information, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/generic-oauth/).
 
-1. For **Grafana domain**, enter the domain of the Grafana instance. You must configure this
-field if your OAuth provider requires a callback URL that uses the root URL of the Grafana
-instance. If your OAuth provider does not require a callback URL, do not configure this field.
+1. For **Grafana domain**, enter the domain of the Grafana instance. You must configure this field if your OAuth provider requires a callback URL that uses the
+root URL of the Grafana instance. If your OAuth provider does not require a callback URL, do not configure this field.
 
-1. To allow new users to create a new Grafana account when they log in with their existing
-OAuth credentials for the first time, activate the **Allow new accounts with existing OAuth
-credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents
-users without a pre-existing Grafana account from creating a new Grafana account or logging
-in to the Grafana UI with their existing OAuth credentials.
+1. To allow new users to create a new Grafana account when they log in with their existing OAuth credentials for the first time, activate the **Allow new
+accounts with existing OAuth credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a pre-existing
+Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing OAuth credentials.
 
-1. (Optional) For **Allowed domains**, enter a comma-separated list of domains. Configuring
-this field limits Grafana UI access to users who belong to one or more of the listed domains.
+1. (Optional) For **Allowed domains**, enter a comma-separated list of domains. Configuring this field limits Grafana UI access to users who belong to one or
+more of the listed domains.
 
-1. For **Allowed teams**, enter a comma-separated list of teams. Configuring this field limits
-Grafana UI access to users who belong to one or more of the listed teams. Configure this field
-if your OAuth provider allows you to separate users into teams. If your OAuth provider does
-not allow you to separate users into teams, do not configure this field.
+1. For **Allowed teams**, enter a comma-separated list of teams. Configuring this field limits Grafana UI access to users who belong to one or more of the
+listed teams. Configure this field if your OAuth provider allows you to separate users into teams. If your OAuth provider does not allow you to separate users
+into teams, do not configure this field.
 
-1. For **Allowed organizations**, enter a comma-separated list of orgs. Configuring this field
-limits Grafana UI access to users who belong to one or more of the listed orgs. Configure this
-field if your OAuth provider allows you to separate users into orgs. If your OAuth provider
-does not allow you to separate users into orgs, do not configure this field.
+1. For **Allowed organizations**, enter a comma-separated list of orgs. Configuring this field limits Grafana UI access to users who belong to one or more of
+the listed orgs. Configure this field if your OAuth provider allows you to separate users into orgs. If your OAuth provider does not allow you to separate users
+into orgs, do not configure this field.
 
-1. For **Allowed groups**, enter a comma-separated list of groups. Configuring this field limits
-Grafana UI access to users who belong to one or more of the listed groups. Configure this field
-if your OAuth provider allows you to separate users into groups. If your OAuth provider does
-not allow you to separate users into groups, do not configure this field.
+1. For **Allowed groups**, enter a comma-separated list of groups. Configuring this field limits Grafana UI access to users who belong to one or more of the
+listed groups. Configure this field if your OAuth provider allows you to separate users into groups. If your OAuth provider does not allow you to separate users
+into groups, do not configure this field.
 
-1. For **Role attribute path**, enter a JMESPath expression formated string. Configuring
+1. For **Role attribute path**, enter a JMESPath expression formatted string. Configuring
 this field maps users to Grafana roles.
 
 1. To prevent users from accessing the Grafana UI when they are not mapped to a Grafana Role,
@@ -145,40 +162,37 @@ activate the **Role attribute strict** checkbox. This checkbox is deactivated by
 Deactivating this checkbox assigns the Viewer role to users not mapped to a Grafana role by
 the **Role attribute path** expression.
 
-1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider
-over TLS:
-  1. For **Certificate and private key for TLS**, provide a certificate and private key for
-  the Grafana instance to use for TLS connections to the server for your OAuth provider.
-  1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA)
-  that the server for your OAuth provider uses to verify TLS certificates.
-  1. If you do not provide a self-signed CA certificate or a certificate that is signed by
-  a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox.
-  When this checkbox is activated, the Grafana instance does not verify the identity of the
-  server for your OAuth provider. This checkbox is deactivated by default.
+1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
+  1. For **Certificate and private key for TLS**, provide a certificate and private key for the Grafana instance to use for TLS connections to the server for
+  your OAuth provider.
+  1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your OAuth provider uses to verify TLS
+  certificates.
+  1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
+  verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the server for your OAuth provider. This
+  checkbox is deactivated by default.
 
 1. Click **Save**.
 
+### <a id='configure-uaa'></a> Configure UAA Authentication
 
-## <a id='configure-uaa'></a> Configure UAA Authentication
+When you configure UAA authentication for the Grafana UI, users can log in to the Grafana UI with their UAA credentials.
 
-When you configure UAA authentication for the Grafana UI, users can log in to the Grafana UI
-with their credentials for the UAA instance of the runtime that is installed on the same foundation
-as the Healthwatch tile, either VMware Tanzu Application Service for VMs (TAS for VMs) or Tanzu
-Kubernetes Grid Integrated Edition (TKGI). When authenticating to an external UAA server, use the fields
-described in [Configure Generic OAuth Authentication](#configure-generic-oauth).
+Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Ops Manager foundation as the
+Healthwatch tile, either VMware Tanzu Application Service for VMs (TAS for VMs) or Tanzu Kubernetes Grid Integrated Edition (TKGI). If you want to configure
+authentication with the UAA instance of TAS for VMs or TKGI, follow the procedure below. If you want to configure authentication with an external UAA server,
+you must manually configure it using the fields described in [Configure Generic OAuth Authentication](#configure-generic-oauth) above.
 
 To configure UAA authentication for the Grafana UI:
 
-1. Select **UAA** under **Additional Authentication Methods**.
+1. Under **Additional authentication methods**, select **UAA**.
 
 1. Click **Save**.
 
-## <a id='configure-ldap'></a> Configure LDAP Authentication
+### <a id='configure-ldap'></a> Configure LDAP Authentication
 
-When you configure LDAP authentication for the Grafana UI, users can log in to the Grafana
-UI with their LDAP credentials. You can also create mappings between LDAP group memberships
-and Grafana org user roles. For more information about configuring LDAP authentication, see
-the [Grafana documentation](https://grafana.com/docs/auth/ldap/).
+When you configure LDAP authentication for the Grafana UI, users can log in to the Grafana UI with their LDAP credentials. You can also create mappings between
+LDAP group memberships and Grafana org user roles. For more information about configuring LDAP authentication, see the [Grafana documentation]
+(https://grafana.com/docs/auth/ldap/).
 
 To configure LDAP authentication for the Grafana UI:
 
@@ -186,68 +200,75 @@ To configure LDAP authentication for the Grafana UI:
 
 1. Click the **Healthwatch** tile.
 
-1. Select **Authentication**.
+1. Select **Grafana Authentication**.
 
-1. Under **Additional Authentication Methods**, select **LDAP**.
+1. Under **Additional authentication methods**, select **LDAP**.
 
 1. For **Host address**, enter the network address of your LDAP server host.
 
-1. (Optional) For **Port**, enter the port for your LDAP server host. The default port is `389`
-when the **Use TLS** checkbox is activated, or `636` when the **Use TLS** checkbox is deactivated.
+1. (Optional) For **Port**, enter the port for your LDAP server host. The default port is `389` when the **Use TLS** checkbox is activated, or `636` when the
+**Use TLS** checkbox is deactivated.
 
-1. (Optional) To allow new users to create a new Grafana account when they log in with their
-existing LDAP credentials for the first time, activate the **Allow new accounts with existing
-LDAP credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox
-prevents users without a pre-existing Grafana account from creating a new Grafana account or
-logging in to the Grafana UI with their existing LDAP credentials.
+1. (Optional) To allow new users to create a new Grafana account when they log in with their existing LDAP credentials for the first time, activate the **Allow
+new accounts with existing LDAP credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a pre-existing
+Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing LDAP credentials.
 
-1. (Optional) To allow the LDAP server to communicate with the Grafana instance over TLS when
-authenticating user credentials, activate the **Use TLS** checkbox. This checkbox is deactivated
-by default.
+1. (Optional) To allow the LDAP server to communicate with the Grafana instance over TLS when authenticating user credentials, activate the **Use TLS**
+checkbox. This checkbox is deactivated by default.
 
-1. (Optional) To allow the LDAP server to run the `STARTTLS` command when communicating with
-the Grafana instance over TLS, activate the **Use STARTTLS** checkbox. This checkbox is deactivated
-by default.
+1. (Optional) To allow the LDAP server to run the `STARTTLS` command when communicating with the Grafana instance over TLS, activate the **Use STARTTLS**
+checkbox. This checkbox is deactivated by default.
 
-1. (Optional) To allow the Grafana instance to skip TLS certificate verification when communicating
-with the LDAP server over TLS, activate the **Skip TLS certificate verification** checkbox.
-This checkbox is deactivated by default.
+1. (Optional) To allow the Grafana instance to skip TLS certificate verification when communicating with the LDAP server over TLS, activate the **Skip TLS
+certificate verification** checkbox. This checkbox is deactivated by default.
 
-1. (Optional) For **Bind DN**, enter the distinguished name (DN) for binding to the LDAP server.
-For example, `cn=admin,dc=grafana,dc=org`.
+1. (Optional) For **Bind DN**, enter the distinguished name (DN) for binding to the LDAP server. For example, `cn=admin,dc=grafana,dc=org`.
 
-1. (Optional) For **Bind password**, enter the password for binding to the LDAP server. For
-example, `grafana`.
+1. (Optional) For **Bind password**, enter the password for binding to the LDAP server. For example, `grafana`.
 
-1. (Optional) For **User search filter**, enter a regex string that defines LDAP user search
-criteria. For example, `(cn=%s)`.
+1. (Optional) For **User search filter**, enter a regex string that defines LDAP user search criteria. For example, `(cn=%s)`.
 
-1. (Optional) For **Search base DNs**, enter an array of base DNs in the LDAP directory tree
-from which any LDAP user search begins. The typical LDAP search base matches your domain name.
-For example, `dc=grafana,dc=org`.
+1. (Optional) For **Search base DNs**, enter an array of base DNs in the LDAP directory tree from which any LDAP user search begins. The typical LDAP search
+base matches your domain name. For example, `dc=grafana,dc=org`.
 
-1. (Optional) For **Group search filter**, enter a regex string that defines LDAP group search
-criteria. For example, `(&(objectClass=posixGroup)(memberUid=%s))`.
+1. (Optional) For **Group search filter**, enter a regex string that defines LDAP group search criteria. For example,
+`(&(objectClass=posixGroup)(memberUid=%s))`.
 
-1. (Optional) For **Group search base DNs**, enter an array of base DNs in the LDAP directory
-tree from which any LDAP group search begins. For example, `ou=groups,dc=grafana,dc=org`.
+1. (Optional) For **Group search base DNs**, enter an array of base DNs in the LDAP directory tree from which any LDAP group search begins. For example,
+`ou=groups,dc=grafana,dc=org`.
 
-1. (Optional) For **Group search filter user attribute**, enter a value that defines which
-user attribute is substituted for `%s` in the regex string you entered for **Group search filter**.
-You can use the value of any property listed in **Server attributes** below. The default value
-is the value of the `username` property.
+1. (Optional) For **Group search filter user attribute**, enter a value that defines which user attribute is substituted for `%s` in the regex string you
+entered for **Group search filter**. You can use the value of any property listed in **Server attributes** below. The default value is the value of the
+`username` property.
 
-1. (Optional) For **Server attributes**, enter in TOML format tables of the LDAP attributes
-that your LDAP server uses. Each table must use the table name `[servers.attributes]`.
+1. (Optional) For **Server attributes**, enter in TOML format tables of the LDAP attributes that your LDAP server uses. Each table must use the table name
+`[servers.attributes]`.
 
-1. (Optional) For **Server group mappings**, enter in TOML format an array of tables of LDAP
-groups mapped to Grafana orgs and roles. Each table must use the table name `[[servers.group_mappings]]`.
-For more information, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings).
+1. (Optional) For **Server group mappings**, enter in TOML format an array of tables of LDAP groups mapped to Grafana orgs and roles. Each table must use the
+table name `[[servers.group_mappings]]`. For more information, see the [Grafana documentation]
+(https://grafana.com/docs/grafana/latest/auth/ldap/#group-mappings).
 
 1. (Optional) To allow the Grafana instance to communicate with your LDAP server over TLS:
-  1. For **Certificate and private key for TLS**, provide a certificate and private key for
-  the Grafana instance to use for TLS connections to your LDAP server.
-  1. For **CA certificate for TLS**, provide a certificate for the CA that your LDAP server
-  uses to verify TLS certificates.
+  1. For **Certificate and private key for TLS**, provide a certificate and private key for the Grafana instance to use for TLS connections to your LDAP server.
+  1. For **CA certificate for TLS**, provide a certificate for the CA that your LDAP server uses to verify TLS certificates.
+
+1. Click **Save**.
+
+### <a id='configure-only-basic-auth'></a> Configure Only Basic Authentication
+
+If you want to only allow users with Grafana administrator credentials to log in to the Grafana UI, you can configure the Grafana UI to use only basic
+authentication.
+
+To configure only basic authentication for the Grafana UI:
+
+1. Navigate to the Ops Manager Installation Dashboard.
+
+1. Click the **Healthwatch** tile.
+
+1. Select **Grafana Authentication**.
+
+1. Under **Basic authentication**, select **Allow**.
+
+1. Under **Additional authentication methods**, select **Generic OAuth**.
 
 1. Click **Save**.

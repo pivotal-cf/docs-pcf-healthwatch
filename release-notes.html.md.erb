@@ -7,22 +7,44 @@ owner: Healthwatch
 
 This topic contains release notes for Healthwatch v2.2.
 
-The architecture of Healthwatch v2.2 is entirely different from the architecture of Pivotal
-Healthwatch v1. Healthwatch v2.2 uses the open-source components Prometheus, Grafana, and Alertmanager
-to scrape, store, and view metrics, as well as configure alerts. For more information about
-the differences between Pivotal Healthwatch v1 and Healthwatch v2.2 and how to upgrade to Healthwatch
-v2.2, see [Upgrading Healthwatch](upgrading-healthwatch.html).
-
-For information about the risks and limitations of Healthwatch v2.2, see [Assumed Risks of
-Using Healthwatch v2.2](index.html#assumed-risks) and [Healthwatch v2.2 Limitations](index.html#healthwatch-limitations)
-in _Healthwatch_.
+For information about the risks and limitations of Healthwatch v2.2, see [Assumed Risks of Using Healthwatch v2.2](index.html#assumed-risks) and [Healthwatch
+v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 
 ## <a id='releases'></a> Releases
 
 ### <a id='2-2-0'></a> v2.2.0
 
-**Release Date:**
+**Release Date:** 1/??/2022
+
+* **[Feature]** Healthwatch can automatically configure a route for the Grafana user interface (UI) in VMware Tanzu Application Service for VMs (TAS for VMs).
+For more information, see [](#) below.
+
+* **[Feature]** Healthwatch can automatically configure authentication for the Grafana UI with the User Account and Authentication (UAA) instances in TAS for
+VMs and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI). For more information, see [](#) below.
+
+* **[Feature]** The Grafana UI includes the **System at a Glance** dashboard. For more information, see [](#) below.
+
+* **[Feature Improvement]** Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed. For more
+information, see [](#) below.
+
+* **[Feature Improvement]** Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard. For more information, see [](#) below.
+
+* **[Feature Improvement]** You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`. For more information, see [](#) below.
+
+* **[Feature]** For Ops Manager v2.10.10 and later, Healthwatch scrapes BOSH Director metrics directly from [the BOSH Director VM?]. For more information, see [](#) below.
+
+* **[Feature]** In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** configuration pane is prefilled with [what on earth does "a sensible default value" mean?]. For more information, see [](#) below.
+
+* **[Feature]** The SVM Forwarder VM emits the `probe_success` and `probe_duration_seconds` metrics into the Loggregator Firehose. For more information, see [](#) below.
+
+* **[Feature Improvement]** Healthwatch uses Grafana v8. For more information, see [](#) below.
+
+* **[Feature Improvement]** TAS SLI Canary App health check timeout has been increased to 5 minutes to reduce false positives.
+
+* **[Feature Improvement]** Grafana dashboards that include canary app metric only show metrics for canary apps that are currently configured. For more information, see [](#) below.
+
+* **[Bug Fix]** The TAS SLI Login test displaying success instead of failure on timeout.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -42,42 +64,54 @@ To upgrade from Healthwatch v2.1 to Healthwatch v2.2, see [Upgrading Healthwatch
 
 Healthwatch v2.2 includes the following major features:
 
-* **[Feature]** When Healthwatch is installed alongside TAS, now supports fully automatic configuration of a Grafana
-  route.
+### <a id='grafana-route-auto-config'></a>
 
-* **[Feature]** When Healthwatch is installed alongside TAS or TKGI, now supports fully automatic configuration of
-  Grafana UAA authentication by default.
+Healthwatch can automatically configure a route for the Grafana UI in TAS for VMs.
 
-* **[Feature]** System at a Glance dashboard - a new landing page when logging into Grafana that displays an overview
-  of foundation health.
+### <a id='uaa-auth-auto-config'></a>
 
-* **[Feature Improvement]** TKGI Cluster Discovery will automatically configure itself by default if TKGI is present.
+Healthwatch can automatically configure authentication for the Grafana UI with the UAA instances in TAS for VMs and TKGI by default [what does "by default" mean?].
 
-* **[Feature Improvement]** Ops Manager Canary Test is configured automatically and designed to reduce log bloat on
-  the Ops Manager VM.
+### <a id='system-at-a-glance'></a>
 
-* **[Feature Improvement]** Allow scaling of Grafana, Mysql, and Mysql Proxy instances to 0.
+The Grafana UI includes the **System at a Glance** dashboard. A new landing page when logging into Grafana that displays an overview of foundation health.
 
-* **[Feature]** Healthwatch now directly scrapes Bosh Director metrics for Ops Manager versions 2.10.10+. Exposed on the
-  Director Health dashboard
+### <a id='cluster-discovery-auto-config'></a>
 
-* **[Feature]** For new installations, the Alerting routing rules have been prefilled with a sensible default value.
+Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed.
 
-* **[Feature]** Metrics `probe_success` and `probe_duration_seconds` are now emitted into the Firehose from the SVM
-  Forwarder when enabled.
+### <a id='om-canary-test-auto-config'></a>
 
-* **[Feature Improvement]** Healthwatch now uses Grafana 8.
+Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard. designed to reduce log bloat on the Ops Manager VM.
 
-* **[Feature Improvement]** TAS SLI Canary App health check timeout has been increased to 5 minutes to reduce
-false positives.
+### <a id='zero-grafana-mysql-proxy-instances'></a>
 
-* **[Feature Improvement]** Healthwatch dashboards showing Canary App data will only show the currently configured
-Canary Apps, no longer displaying outdated data.
+You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`.
 
-* **[Bug Fix]** Fixed TAS SLI Login test displaying success instead of failure on timeout.
+### <a id='bosh-director-direct-scrape'></a>
 
+For Ops Manager v2.10.10 and later, Healthwatch scrapes BOSH Director metrics directly from [the BOSH Director VM?]. Exposed on the Director Health dashboard
 
+### <a id='routing-rules-auto-config'></a>
 
+In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** configuration pane is prefilled with [what on earth does "a sensible default value" mean?].
+
+### <a id='probe-metrics'></a>
+
+The SVM Forwarder VM emits the `probe_success` and `probe_duration_seconds` metrics into the Loggregator Firehose. when enabled.
+
+### <a id='grafana-8'></a>
+
+Healthwatch uses Grafana v8. [Are there particular differences between v7 and v8 that impact the user?]
+
+### <a id='canary-health-check-timeout'></a>
+
+TAS SLI Canary App health check timeout has been increased to 5 minutes to reduce false positives.
+
+### <a id='current-canary-apps'></a>
+
+Grafana dashboards that include canary app metric only show metrics for canary apps that are currently configured. no longer displaying outdated
+data.
 
 
 ## <a id='breaking-changes'></a> Breaking Changes
