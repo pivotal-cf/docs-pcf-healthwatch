@@ -28,16 +28,16 @@ To configure TKGI cluster discovery:
 If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery Failure]
 (#troubleshooting) below.
 
-<p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and configure
-  the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
+<p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
+  configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
   <a href="../../installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
   <a href="../configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
 
 
 ## <a id='configure-tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery in Healthwatch
 
-In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure TKGI cluster discovery, including the UAA client that the Prometheus instance uses
-to connect to the Kubernetes API through the TKGI API.
+In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure TKGI cluster discovery, including the UAA client that the Prometheus instance
+uses to connect to the Kubernetes API through the TKGI API.
 
 To configure the **TKGI Cluster Discovery** pane:
 
@@ -56,12 +56,12 @@ To configure the **TKGI Cluster Discovery** pane:
 
 1. (Optional) To allow the Prometheus instance to communicate with the TKGI API over TLS, configure one of the following options:
     * To configure the Prometheus instance to use a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate when
-    communicating with the TKGI API over TLS, provide the certificate for the CA in **CA certificate for TLS**. If you provide a self-signed CA certificate, it
-    must be for the same CA that signs the certificate in the TKGI API. If the Prometheus instance uses certificates signed by a trusted third-party CA or the
-    **Skip TLS certificate verification** checkbox is activated, do not configure this field.
+    communicating with the TKGI API over TLS, provide the certificate for the CA in **CA certificate for TLS**. If you provide a self-signed CA certificate,
+    it must be for the same CA that signs the certificate in the TKGI API. If the Prometheus instance uses certificates signed by a trusted third-party CA or
+    the **Skip TLS certificate verification** checkbox is activated, do not configure this field.
     * If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, you can activate the **Skip TLS
-    certificate verification** checkbox. When this checkbox is activated, the Prometheus instance does not verify the identity of the TKGI API. This checkbox is
-    deactivated by default. VMware does not recommend skipping TLS certificate verification in a production environment.
+    certificate verification** checkbox. When this checkbox is activated, the Prometheus instance does not verify the identity of the TKGI API. This checkbox
+    is deactivated by default. VMware does not recommend skipping TLS certificate verification in a production environment.
 
 1. Click **Save**.
 
@@ -110,13 +110,13 @@ To configure TKGI:
 
 1. Select **Errands**.
 
-1. Ensure that the **Upgrade all clusters** errand is running. Running this errand configures your TKGI clusters with the roles you created in the **(Optional)
-Add-ons - Use with caution** field of the plans you monitor in a previous step.
+1. Ensure that the **Upgrade all clusters** errand is running. Running this errand configures your TKGI clusters with the roles you created in the
+**(Optional) Add-ons - Use with caution** field of the plans you monitor in a previous step.
 
 1. Click **Save**.
 
 
 ## <a id='troubleshooting'></a> Troubleshooting TKGI Cluster Discovery Failure
 
-TKGI cluster discovery can fail if the Prometheus instance fails to scrape metrics from your TKGI clusters. To troubleshoot TKGI cluster discovery failure, see
-[Troubleshooting Missing TKGI Cluster Metrics](../../troubleshooting.html#tkgi-clusters) in _Troubleshooting Healthwatch_.
+TKGI cluster discovery can fail if the Prometheus instance fails to scrape metrics from your TKGI clusters. To troubleshoot TKGI cluster discovery failure,
+see [Troubleshooting Missing TKGI Cluster Metrics](../../troubleshooting.html#tkgi-clusters) in _Troubleshooting Healthwatch_.

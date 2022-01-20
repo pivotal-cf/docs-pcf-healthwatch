@@ -32,12 +32,12 @@ The following table explains the most significant differences between Healthwatc
     <td>Architecture</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well
-          as configure alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
+        <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as
+          well as configure alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
           Healthwatch components to make them HA.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Consists of a dashboard and alerting system within the Pivotal Healthwatch v1 tile to monitor metrics and
-          send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Ops Manager tiles to
-          buffer or queue metrics.</li>
+          send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Ops Manager tiles
+          to buffer or queue metrics.</li>
       </ul>
       For more information about the architecture of Healthwatch v2.2, see <a href="architecture.html">Reference Architecture</a>.
     </td>
@@ -59,8 +59,8 @@ The following table explains the most significant differences between Healthwatc
       <ul>
         <li><strong>Healthwatch v2.2:</strong> Uses Alertmanager, a Prometheus component, to manage and send alerts according to the alerting rules you
           configure.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service, through which you can subscribe to alerts for specific events using
-          the Cloud Foundry Command-Line Interface (cf CLI).</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Uses the Pivotal Event Alerts service, through which you can subscribe to alerts for specific events
+          using the Cloud Foundry Command-Line Interface (cf CLI).</li>
       </ul>
       For more information about configuring alerts, see <a href="configuring/optional-config/alerting.html">Configuring Alerting</a>.
     </td>
@@ -119,8 +119,8 @@ The following table explains the most significant differences between Healthwatc
           they log in to the Grafana UI.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Uses UAA to access the BOSH Director, component metrics, and the Pivotal Healthwatch v1 tile UI.</li>
       </ul>
-      For more information about configuring user authentication for accessing the Grafana UI, see <a href="configuring/grafana-authentication.html">Configuring
-      Grafana Authentication</a>.
+      For more information about configuring user authentication for accessing the Grafana UI, see
+      <a href="configuring/grafana-authentication.html">Configuring Grafana Authentication</a>.
     </td>
   </tr>
 </table>
@@ -137,16 +137,16 @@ Plane** dashboard in the Grafana UI. For more information, see [TKGI SLI Exporte
 * Allows you to include optional dashboards for the VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) and VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs)
 tiles in the Grafana UI.
 
-* Allows you to monitor super value metrics (SVMs) that are similar to the super metrics generated in Pivotal Healthwatch v1.8 and earlier. For more information
-about SVMs, see [Configure Prometheus](#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)
-in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) in _Healthwatch Metrics_.
+* Allows you to monitor super value metrics (SVMs) that are similar to the super metrics generated in Pivotal Healthwatch v1.8 and earlier. For more
+information about SVMs, see [Configure Prometheus](#prometheus) in _Configuring Healthwatch_, [SVM Forwarder VM - Healthwatch Component Metrics]
+(#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) in _Healthwatch Metrics_.
 
 * Automatically detects which version of TAS for VMs or TKGI is installed on your Ops Manager foundation and creates the appropriate dashboard in the Grafana
 UI.
 
 * Allows you to use the Ops Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
-troubleshooting, such as a remote server or external syslog aggregation service. For more information about how to configure syslog forwarding, see [(Optional)
-Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
+troubleshooting, such as a remote server or external syslog aggregation service. For more information about how to configure syslog forwarding, see
+[(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
 
 For more information about Healthwatch v2.2 features, see [Healthwatch v2.2 Release Notes](release-notes.html).
 

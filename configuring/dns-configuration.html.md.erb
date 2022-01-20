@@ -20,8 +20,8 @@ either the public IP address of a single Grafana VM or the load balancer in fron
 
 ## <a id='load-balancer'></a> Configure DNS for a Load Balancer
 
-VMware recommends that you create a DNS entry that points to the load balancer associated with the Grafana instance, especially if you want to make the Grafana
-instance highly available (HA).
+VMware recommends that you create a DNS entry that points to the load balancer associated with the Grafana instance, especially if you want to make the
+Grafana instance highly available (HA).
 
 To configure a DNS entry for the load balancer associated with the Grafana instance:
 
@@ -47,7 +47,8 @@ more information, see the documentation for your IaaS:
   (https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
   * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure documentation]
   (https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
   * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal DNS, see the [OpenStack documentation]
   (https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
   * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance, see the [vSphere documentation]
@@ -78,13 +79,14 @@ To configure a DNS entry for a single Grafana VM:
 
 1. Record the public IP address of the Grafana VM.
 
-1. Create an A record in your DNS server named `grafana` that points to the public IP address of the Grafana VM that you recorded in the previous step. For more
-information, see the documentation for your IaaS:
+1. Create an A record in your DNS server named `grafana` that points to the public IP address of the Grafana VM that you recorded in the previous step. For
+more information, see the documentation for your IaaS:
   * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console, see the [AWS documentation]
   (https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
   * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure documentation]
   (https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
+  (https://cloud.google.com/dns/docs/records#adding_a_record).
   * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal DNS, see the [OpenStack documentation]
   (https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
   * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance, see the [vSphere documentation]

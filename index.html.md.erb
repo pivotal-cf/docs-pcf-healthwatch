@@ -17,14 +17,14 @@ Healthwatch allows you to monitor metrics related to the functionality of your O
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
 both the Tanzu Application Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
-You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation or
-on a different foundation, depending on your desired monitoring configuration.
+You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
+or on a different foundation, depending on your desired monitoring configuration.
 
 You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
 external time-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane.
 
-For a detailed explanation of the Healthwatch architecture, a list of open ports required for each component, and possible configurations for monitoring metrics
-with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
+For a detailed explanation of the Healthwatch architecture, a list of open ports required for each component, and possible configurations for monitoring
+metrics with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
 
 For more information about each of these tiles, see the following sections below:
 
@@ -48,14 +48,14 @@ foundation.
 Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and allows you
 to configure alerts with Alertmanager.
 
-Healthwatch then exports the collected metrics to dashboards in the Grafana UI, allowing you to visualize the data with charts and graphs and create customized
-dashboards for long-term monitoring and troubleshooting.
+Healthwatch then exports the collected metrics to dashboards in the Grafana UI, allowing you to visualize the data with charts and graphs and create
+customized dashboards for long-term monitoring and troubleshooting.
 
 Healthwatch includes the following features:
 
 * **Prometheus:**
-  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related to the functionality of platform- and runtime-level components that
-  include the following:
+  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related to the functionality of platform- and runtime-level components
+  that include the following:
       * Service level indicators (SLIs) for the BOSH Director
       * SLIs for TAS for VMs components
       * SLIs for TKGI components
@@ -82,8 +82,8 @@ Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Fireh
 The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system.
 
-Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality of TAS for VMs components, TAS for VMs apps, and the Healthwatch
-Exporter for TAS for VMs tile:
+Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality of TAS for VMs components, TAS for VMs apps, and the
+Healthwatch Exporter for TAS for VMs tile:
 
 * SLIs for TAS for VMs components
 
@@ -133,8 +133,8 @@ Healthwatch v2.2 has the following limitations:
 
 * Healthwatch v2.2 does not provide an SMTP server. You must use an external SMTP server when you configure alerts from Alertmanager or the Grafana UI.
 
-* Healthwatch v2.2 does not expose the UI for the open-source components Alertmanager and Prometheus because the UIs are not secure. However, you can access the
-UIs of the Prometheus and Alertmanager VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting]
+* Healthwatch v2.2 does not expose the UI for the open-source components Alertmanager and Prometheus because the UIs are not secure. However, you can access
+the UIs of the Prometheus and Alertmanager VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting]
 (troubleshooting.html#healthwatch-troubleshooting) in _Troubleshooting Healthwatch_.
 
 * Healthwatch v2.2 only supports configuring alert receivers for email, PagerDuty, Slack, and webhooks for alerts. For more information, see [Configure Alert
@@ -149,8 +149,8 @@ installed. You can create custom dashboards to monitor multiple Ops Manager foun
 stores, see [Healthwatch Metrics](metrics.html).
 
 * Healthwatch v2.2 is designed for platform operators. The best monitoring option for app developers is Tanzu Observability by Wavefront. For more information
-about Tanzu Observability by Wavefront, see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu Observability by Wavefront
-documentation.
+about Tanzu Observability by Wavefront, see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu Observability by
+Wavefront documentation.
 
 * Healthwatch v2.2 does not create graphs and alerts for all metrics emitted from the platform. Instead, the default graphs and alerts curate metrics based on
 the overall health of the platform and its components.

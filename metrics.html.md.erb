@@ -5,8 +5,8 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes the metrics that the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile and the Healthwatch Exporter for
-Tanzu Kubernetes Grid Integrated Edition (TKGI) tile generate.
+This topic describes the metrics that the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile and the Healthwatch Exporter
+for Tanzu Kubernetes Grid Integrated Edition (TKGI) tile generate.
 
 
 ## <a id='overview'></a> Overview of Healthwatch Metrics
@@ -63,7 +63,8 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times the BOSH health SLI test suite fails. A failed test suite is one in which any number of tests within the test suite fail.</td>
+    <td>The total number of times the BOSH health SLI test suite fails. A failed test suite is one in which any number of tests within the test suite
+      fail.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-health-exporter"}</code></td>
@@ -78,8 +79,8 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_bucket{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds it takes a task within the BOSH health SLI test suite to run, grouped by how many ran in less than a certain amount of time. This
-      metric is also called a <em>bucket</em> of task duration metrics.</td>
+    <td>The number of seconds it takes a task within the BOSH health SLI test suite to run, grouped by how many ran in less than a certain amount of time.
+      This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_count{exported_job="bosh-health-exporter"}</code></td>
@@ -103,8 +104,8 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>, divide the
-      value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code> by the value of
+    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>, divide
+      the value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code> by the value of
       <code>bosh_sli_task_runs{exported_job="bosh-health-exporter"}</code>.</td>
   </tr>
   <tr>
@@ -140,8 +141,8 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds the BOSH deployment check takes to run, grouped by how many ran in less than a certain amount of time. This metric is also called
-      a <em>bucket</em> of BOSH deployment check duration metrics.</td>
+    <td>The number of seconds the BOSH deployment check takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
+      called a <em>bucket</em> of BOSH deployment check duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_count{exported_job="bosh-deployments-exporter"}</code></td>
@@ -153,8 +154,8 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_sli_exporter_status{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The health status of the BOSH deployment metric exporter VM. A value of <code>1</code> indicates that the BOSH deployment metric exporter VM is running
-      and healthy.</td>
+    <td>The health status of the BOSH deployment metric exporter VM. A value of <code>1</code> indicates that the BOSH deployment metric exporter VM is
+      running and healthy.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code></td>
@@ -202,8 +203,8 @@ The following table describes each metric the BOSH deployment metric exporter VM
 
 ## <a id='platform-sli'></a> Platform Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Ops Manager and runtime
-components. You can use these metrics to calculate percent availability and error budgets.
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Ops Manager and
+runtime components. You can use these metrics to calculate percent availability and error budgets.
 
 ### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter VM
 
@@ -249,8 +250,8 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run, grouped by how many ran in less than a certain amount of time. This
-      metric is also called a <em>bucket</em> of task duration metrics.</td>
+    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run, grouped by how many ran in less than a certain amount of time.
+      This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_count</code></td>
@@ -337,8 +338,8 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TKGI SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also called a
-      <em>bucket</em> of TKGI SLI test suite duration metrics.</td>
+    <td>The number of seconds the TKGI SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also called
+      a <em>bucket</em> of TKGI SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_count</code></td>
@@ -559,8 +560,8 @@ The following table describes each metric the Blackbox Exporters in the Promethe
 ### <a id="svm-forwarder-platform"></a> SVM Forwarder VM - Platform Metrics
 
 Super value metrics (SVMs) are composite metrics that the Prometheus instance in Healthwatch v2.2 generates in a similar format to the super metrics used in
-Pivotal Healthwatch v1.8 and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party nozzles
-can send them to external destinations, such as a remote server or external aggregation service.
+Pivotal Healthwatch v1.8 and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party
+nozzles can send them to external destinations, such as a remote server or external aggregation service.
 
 The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics to the Loggregator Firehose. For more information about SVMs
 related to Healthwatch component metrics, see [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components) below.
@@ -631,9 +632,9 @@ The following table describes each platform metric the SVM Forwarder VM sends to
   </tr>
   <tr>
     <td><code>bosh_deployment</code></td>
-    <td>Represents <code>bosh_deployments_status</code> from the BOSH deployment metric exporter VM, which indicates whether any BOSH deployments other than the
-      one created by the BOSH health metric exporter VM are running. A value of <code>0</code> indicates that no other BOSH deployments are running on the BOSH
-      Director. A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH Director.</td>
+    <td>Represents <code>bosh_deployments_status</code> from the BOSH deployment metric exporter VM, which indicates whether any BOSH deployments other than
+      the one created by the BOSH health metric exporter VM are running. A value of <code>0</code> indicates that no other BOSH deployments are running on the
+      BOSH Director. A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH Director.</td>
   </tr>
   <tr>
     <td><code>health_check_bosh_director_success</code></td>
@@ -656,13 +657,13 @@ The following table describes each platform metric the SVM Forwarder VM sends to
   </tr>
   <tr>
     <td><code>health_check_cliCommand_login</code></td>
-    <td>Whether the <code>cf login</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf login</code> command failed. A value
-      of <code>1</code> indicates that the <code>cf login</code> command succeeded.</td>
+    <td>Whether the <code>cf login</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf login</code> command failed. A
+      value of <code>1</code> indicates that the <code>cf login</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_logs</code></td>
-    <td>Whether the <code>cf logs</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf logs</code> command failed. A value of
-      <code>1</code> indicates that the <code>cf logs</code> command succeeded.</td>
+    <td>Whether the <code>cf logs</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf logs</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf logs</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_probe_count</code></td>
@@ -674,18 +675,18 @@ The following table describes each platform metric the SVM Forwarder VM sends to
   </tr>
   <tr>
     <td><code>health_check_cliCommand_push</code></td>
-    <td>Whether the <code>cf push</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf push</code> command failed. A value of
-      <code>1</code> indicates that the <code>cf push</code> command succeeded.</td>
+    <td>Whether the <code>cf push</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf push</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf push</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_start</code></td>
-    <td>Whether the <code>cf start</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf start</code> command failed. A value
-      of <code>1</code> indicates that the <code>cf start</code> command succeeded.</td>
+    <td>Whether the <code>cf start</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf start</code> command failed. A
+      value of <code>1</code> indicates that the <code>cf start</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_stop</code></td>
-    <td>Whether the <code>cf stop</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf stop</code> command failed. A value of
-      <code>1</code> indicates that the <code>cf stop</code> command succeeded.</td>
+    <td>Whether the <code>cf stop</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf stop</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf stop</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_success</code></td>
@@ -785,14 +786,15 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
-    <td>The health status of the counter metric exporter VM. A value of <code>0</code> indicates that the counter metric exporter VM is not responding. A value
-      of <code>1</code> indicates that the counter metric exporter VM is running and healthy.</td>
+    <td>The health status of the counter metric exporter VM. A value of <code>0</code> indicates that the counter metric exporter VM is not responding. A
+      value of <code>1</code> indicates that the counter metric exporter VM is running and healthy.</td>
   </tr>
 </table>
 
 #### <a id='pas-exporter-gauge'></a> Gauge Metric Exporter VM
 
-The gauge metric exporter VM, `pas-exporter-gauge`, collects gauge metrics from the Loggregator Firehose and converts them into a Prometheus exposition format.
+The gauge metric exporter VM, `pas-exporter-gauge`, collects gauge metrics from the Loggregator Firehose and converts them into a Prometheus exposition
+format.
 
 The following table describes each metric the gauge metric exporter VM collects and converts:
 
@@ -823,7 +825,8 @@ The following table describes each metric the gauge metric exporter VM collects 
 
 #### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM
 
-The timer metric exporter VM, `pas-exporter-timer`, collects timer metrics from the Loggregator Firehose and converts them into a Prometheus exposition format.
+The timer metric exporter VM, `pas-exporter-timer`, collects timer metrics from the Loggregator Firehose and converts them into a Prometheus exposition
+format.
 
 The following table describes each metric the timer metric exporter VM collects and converts:
 
@@ -878,9 +881,9 @@ The following table describes each metric the `/metrics` endpoint on each metric
 
 ### <a id="svm-forwarder-components"></a> SVM Forwarder VM - Healthwatch Component Metrics
 
-SVMs are composite metrics that the Prometheus instance in Healthwatch v2.2 generates in a similar format to the super metrics used in Pivotal Healthwatch v1.8
-and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party nozzles can send them to external
-destinations, such as a remote server or external aggregation service.
+SVMs are composite metrics that the Prometheus instance in Healthwatch v2.2 generates in a similar format to the super metrics used in Pivotal Healthwatch
+v1.8 and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party nozzles can send them to
+external destinations, such as a remote server or external aggregation service.
 
 The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics to the Loggregator Firehose. For more information about SVMs
 related to platform metrics, see [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) above.

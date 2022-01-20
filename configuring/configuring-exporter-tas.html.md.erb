@@ -7,16 +7,16 @@ owner: Healthwatch
 
 This topic describes how to manually configure and deploy the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile.
 
-To install, configure, and deploy Healthwatch Exporter for TAS for VMs through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through
-an Automated Pipeline](../installing/automated-pipeline.html).
+To install, configure, and deploy Healthwatch Exporter for TAS for VMs through an automated pipeline, see [Installing, Configuring, and Deploying a Tile
+Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch Exporter for TAS for VMs
 
 When installed on an Ops Manager foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys metric exporter VMs to generate each type of
-metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
-exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition
-endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the Healthwatch
+metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a
+Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes
+the exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the Healthwatch
 Exporter for TAS for VMs tile, see [Healthwatch Exporter for TAS for VMs](../architecture.html#healthwatch-tas) in _Reference Architecture_.
 
 After installing Healthwatch Exporter for TAS for VMs, you configure the metric exporter VMs deployed by Healthwatch Exporter for TAS for VMs through the tile
@@ -24,8 +24,9 @@ UI. You can also configure errands and system logging, as well as scale VM insta
 
 To configure and deploy the Healthwatch Exporter for TAS for VMs tile:
 
-<p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter for TAS for VMs tile to ensure that it deploys successfully before
-  you fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong> panes.</p>
+<p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter for TAS for VMs tile to ensure that it deploys successfully
+  before you fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong>
+  panes.</p>
 
 1. Ensure that you meet the prerequisite for configuring and deploying Healthwatch Exporter for TAS for VMs. For more information, see [Prerequisite]
 (#prerequisite) below.
@@ -40,8 +41,8 @@ Exporter for TAS for VMs Tile](#open-ui) below.
 
 1. Configure the **BOSH Health Metric Exporter VM** pane. For more information, see [Configure the BOSH Health Metric Exporter VM](#bosh-exporter) below.
 
-1. (Optional) Configure the **BOSH Deployment Metric Exporter VM** pane. For more information, see [(Optional) Configure the BOSH Deployment Metric Exporter VM]
-(#bosh-deployments) below.
+1. (Optional) Configure the **BOSH Deployment Metric Exporter VM** pane. For more information, see [(Optional) Configure the BOSH Deployment Metric Exporter
+VM](#bosh-deployments) below.
 
 1. (Optional) Configure the **Errands** pane. For more information, see [(Optional) Configure Errands](#errands) below.
 
@@ -67,8 +68,8 @@ monitoring system can be one of the following:
 
 * The Healthwatch tile installed on either the same Ops Manager foundation as Healthwatch Exporter for TAS for VMs or a different Ops Manager foundation.
 
-* A service or database located outside your Ops Manager foundation, such as an external time series database (TSDB) or an installation of the Healthwatch tile
-on the Tanzu Kubernetes Grid Integrated Edition (TKGI) Control Plane.
+* A service or database located outside your Ops Manager foundation, such as an external time series database (TSDB) or an installation of the Healthwatch
+tile on the Tanzu Kubernetes Grid Integrated Edition (TKGI) Control Plane.
 
 
 ## <a id='open-ui'></a> Navigate to the Healthwatch Exporter for TAS for VMs Tile
@@ -107,30 +108,32 @@ information about service networks, see [Required Subnets](https://docs.pivotal.
 ## <a id='exporter-config'></a> (Optional) Configure TAS for VMs Metric Exporter VMs
 
 In the **TAS for VMs Metric Exporter VMs** pane, you configure static IP addresses for the metric exporter VMs that collect metrics from the Loggregator
-Firehose in TAS for VMs. There are three metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter, gauge, or timer. You
-can deploy all three VMs or any subset thereof. After generating these metrics, the metric exporter VMs convert them to a Prometheus exposition format on a
-secured endpoint.
+Firehose in TAS for VMs. There are three metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter, gauge, or timer.
+You can deploy all three VMs or any subset thereof. After generating these metrics, the metric exporter VMs convert them to a Prometheus exposition format on
+a secured endpoint.
 
 You can also deploy two other VMs: the TAS for VMs service level indicator (SLI) exporter VM and the certificate expiration metric exporter VM.
 
 To configure the **TAS for VMs Metric Exporter VMs** pane:
 
-<p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TAS for VMs Metric Exporter VMs</strong> pane must not be within
-  the reserved IP ranges you configured in the BOSH Director tile.</p>
+<p class='note warning'><strong>Warning:</strong> The IP addresses you configure in the <strong>TAS for VMs Metric Exporter VMs</strong> pane must not be
+  within the reserved IP ranges you configured in the BOSH Director tile.</p>
 
 1. Select **TAS for VMs Metric Exporter VMs**.
 
-1. (Optional) For **Static IP address for counter metric exporter VM**, enter a valid static IP address that you want to reserve for the counter metric exporter
+1. (Optional) For **Static IP address for counter metric exporter VM**, enter a valid static IP address that you want to reserve for the counter metric
+exporter VM.
+
+1. (Optional) For **Static IP address for gauge metric exporter VM**, enter a valid static IP address that you want to reserve for the gauge metric exporter
 VM.
 
-1. (Optional) For **Static IP address for gauge metric exporter VM**, enter a valid static IP address that you want to reserve for the gauge metric exporter VM.
-
-1. (Optional) For **Static IP address for timer metric exporter VM**, enter a valid static IP address that you want to reserve for the timer metric exporter VM.
+1. (Optional) For **Static IP address for timer metric exporter VM**, enter a valid static IP address that you want to reserve for the timer metric exporter
+VM.
 
 1. (Optional) For **Static IP address for TAS for VMs SLI exporter VM**, enter a valid static IP address that you want to reserve for the TAS for VMs SLI
-exporter VM. The TAS for VMs SLI exporter VM generates SLIs that allow you to monitor whether the core functions of the Cloud Foundry Command-Line Interface (cf
-CLI) are working as expected. The cf CLI allows developers to create and manage apps through TAS for VMs. For more information, see [TAS for VMs SLI Exporter
-VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
+exporter VM. The TAS for VMs SLI exporter VM generates SLIs that allow you to monitor whether the core functions of the Cloud Foundry Command-Line Interface
+(cf CLI) are working as expected. The cf CLI allows developers to create and manage apps through TAS for VMs. For more information, see [TAS for VMs SLI
+Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP address for certificate expiration metric exporter VM**, enter a valid static IP address that you want to reserve for the
 certificate expiration metric exporter VM. The certificate expiration metric exporter VM collects metrics that show when certificates in your Ops Manager
@@ -149,10 +152,10 @@ activated, the certificate expiration metric exporter VM does not verify the ide
 ## <a id='bosh-exporter'></a> Configure the BOSH Health Metric Exporter VM
 
 In the **BOSH Health Metric Exporter VM** pane, you configure the AZ and VM type of the BOSH health metric exporter VM. Healthwatch Exporter for TAS for VMs
-deploys the BOSH health metric exporter VM, which creates a BOSH deployment called `bosh-health` every ten minutes. The `bosh-health` deployment deploys another
-VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete, the BOSH health
-metric exporter VM collects the metrics from the `bosh-health-check` VM, then deletes the `bosh-health` deployment and the `bosh-health-check` VM. For more
-information, see [BOSH Health Metric Exporter VM](../metrics.html#bosh-health-exporter) in _Healthwatch Metrics_.
+deploys the BOSH health metric exporter VM, which creates a BOSH deployment called `bosh-health` every ten minutes. The `bosh-health` deployment deploys
+another VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete, the BOSH
+health metric exporter VM collects the metrics from the `bosh-health-check` VM, then deletes the `bosh-health` deployment and the `bosh-health-check` VM. For
+more information, see [BOSH Health Metric Exporter VM](../metrics.html#bosh-health-exporter) in _Healthwatch Metrics_.
 
 To configure the **BOSH Health Metric Exporter VM** pane:
 
@@ -164,18 +167,19 @@ To configure the **BOSH Health Metric Exporter VM** pane:
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops Manager
-  foundation, scale the BOSH health metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter tiles.
-  Otherwise, the two sets of BOSH health metric exporter VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one set of metrics
-  reports that the BOSH Director is down in the Grafana UI. For more information, see <a href="../troubleshooting.html#bosh-health-metric-errors">BOSH Health
-  Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed</a> in <em>Troubleshooting Healthwatch</em>.</p>
+<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops
+  Manager foundation, scale the BOSH health metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
+  Exporter tiles. Otherwise, the two sets of BOSH health metric exporter VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one
+  set of metrics reports that the BOSH Director is down in the Grafana UI. For more information, see
+  <a href="../troubleshooting.html#bosh-health-metric-errors">BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed</a> in
+  <em>Troubleshooting Healthwatch</em>.</p>
 
 
 ## <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
 
-In the **BOSH Deployment Metric Exporter VM** pane, you configure the authentication credentials and a static IP address for the BOSH deployment metric exporter
-VM. This VM checks every 30 seconds whether any BOSH deployments other than the one created by the BOSH health metric exporter VM are running. For more
-information, see [BOSH Deployment Metric Exporter VM](../metrics.html#bosh-deployments-exporter) in _Healthwatch Metrics_.
+In the **BOSH Deployment Metric Exporter VM** pane, you configure the authentication credentials and a static IP address for the BOSH deployment metric
+exporter VM. This VM checks every 30 seconds whether any BOSH deployments other than the one created by the BOSH health metric exporter VM are running. For
+more information, see [BOSH Deployment Metric Exporter VM](../metrics.html#bosh-deployments-exporter) in _Healthwatch Metrics_.
 
 To configure the **BOSH Deployment Metric Exporter VM** pane:
 
@@ -184,14 +188,14 @@ To configure the **BOSH Deployment Metric Exporter VM** pane:
 1. (Optional) For **UAA client credentials**, enter the username and secret for the UAA client that the BOSH deployment metric exporter VM uses to access the
 BOSH Director VM. For more information, see [Create a UAA Client for the BOSH Deployment Metric Exporter VM](#create-uaa-client) below.
 
-1. (Optional) For **Static IP address for BOSH deployment metric exporter VM**, enter a valid static IP address that you want to reserve for the BOSH deployment
-metric exporter VM. This IP address must not be within the reserved IP ranges you configured in the BOSH Director tile.
+1. (Optional) For **Static IP address for BOSH deployment metric exporter VM**, enter a valid static IP address that you want to reserve for the BOSH
+deployment metric exporter VM. This IP address must not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops Manager
-  foundation, scale the BOSH deployment metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter
-  tiles. Otherwise, the two BOSH deployment metric exporter VMs create redundant sets of metrics.</p>
+<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops
+  Manager foundation, scale the BOSH deployment metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
+  Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs create redundant sets of metrics.</p>
 
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
@@ -260,7 +264,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
     ```
     uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
     ```
-    Where `BOSH-DIRECTOR-IP` is the IP address for the BOSH Director VM that you recorded from the **Status** tab in the BOSH Director tile in a previous step.
+    Where `BOSH-DIRECTOR-IP` is the IP address for the BOSH Director VM that you recorded from the **Status** tab in the BOSH Director tile in a previous
+    step.
 
 1. Log in to the UAA instance:
     * If your Ops Manager deployment uses internal authentication, log in to the UAA instance by running:
@@ -268,8 +273,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         ```
         uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
         ```
-        Where `UAA-LOGIN-CLIENT-SECRET` is the secret you recorded from the **Uaa Login Client Credentials** row in the **Credentials** tab in the BOSH Director
-        tile in a previous step.
+        Where `UAA-LOGIN-CLIENT-SECRET` is the secret you recorded from the **Uaa Login Client Credentials** row in the **Credentials** tab in the BOSH
+        Director tile in a previous step.
     * If your Ops Manager deployment uses SAML or LDAP, log in to the UAA instance by running:
 
         ```
@@ -305,8 +310,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
 
 ## <a id='errands'></a> (Optional) Configure Errands
 
-Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch Exporter for TAS for VMs.
-There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product is uninstalled.
+Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch Exporter for TAS for
+VMs. There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product is uninstalled.
 
 By default, Ops Manager always runs all errands.
 
@@ -322,16 +327,16 @@ To configure the **Errands** pane:
 1. (Optional) Choose whether to always run or never run the following errands:
     * **Smoke Tests:** Verifies that the metric exporter VMs are running.
     * **Cleanup:** Deletes any existing BOSH deployments created by the BOSH health metric exporter VM for running SLI tests.
-    * **Remove CF SLI User:** Deletes the user account that the TAS for VMs SLI exporter VM creates to run the TAS for VMs SLI test suite. For more information,
-    see [TAS for VMs SLI Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
+    * **Remove CF SLI User:** Deletes the user account that the TAS for VMs SLI exporter VM creates to run the TAS for VMs SLI test suite. For more
+    information, see [TAS for VMs SLI Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 1. Click **Save**.
 
 
 ## <a id='syslog'></a> (Optional) Configure Syslog
 
-In the **Syslog** pane, you can configure system logging in Healthwatch Exporter for TAS for VMs to forward log messages from tile component VMs to an external
-destination for troubleshooting, such as a remote server or external syslog aggregation service.
+In the **Syslog** pane, you can configure system logging in Healthwatch Exporter for TAS for VMs to forward log messages from tile component VMs to an
+external destination for troubleshooting, such as a remote server or external syslog aggregation service.
 
 To configure the **Syslog** pane:
 
@@ -353,8 +358,8 @@ to forward system logs to your external destination.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
   1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
-1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for TAS for VMs can hold in a buffer at a time before sending them to
-your external destination. The default value is `100000`.
+1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for TAS for VMs can hold in a buffer at a time before sending them
+to your external destination. The default value is `100000`.
 
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
@@ -390,9 +395,9 @@ Loggregator Firehose. To deploy the SVM Forwarder VM, increase the instance coun
 VM unless you use a third-party nozzle that can export the SVMs to an external system, such as a remote server or a syslog aggregation service. For more
 information about the SVM Forwarder VM, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch
 Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_.
-  <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS for VMs tile before installing the Healthwatch tile, you may need to
-    re-deploy Healthwatch Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see <a href="#apply-changes">Deploy Healthwatch
-      Exporter for TAS for VMs</a> below.</p>
+  <p class='note'><strong>Note:</strong> If you installed the Healthwatch Exporter for TAS for VMs tile before installing the Healthwatch tile, you may need
+    to re-deploy Healthwatch Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see <a href="#apply-changes">Deploy
+    Healthwatch Exporter for TAS for VMs</a> below.</p>
 
 1. (Optional) Healthwatch Exporter for TAS for VMs deploys the counter, gauge, and timer metric exporter VMs by default. If you do not want to collect all of
 these metric types, set the instance count for the VMs associated with the metrics you do not want to collect to `0`.
@@ -425,8 +430,8 @@ Healthwatch](#scraping-healthwatch) below.
     same Ops Manager foundation as your Healthwatch tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch
     Exporter tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
 
-* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as an external TSDB or an installation of Healthwatch on
-the TKGI Control Plane, see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in an External Monitoring System](#scraping-external) below.
+* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as an external TSDB or an installation of Healthwatch
+on the TKGI Control Plane, see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in an External Monitoring System](#scraping-external) below.
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch
 
@@ -437,12 +442,12 @@ To configure a scrape job for Healthwatch Exporter for TAS for VMs in the Health
 
 To configure a scrape job for Healthwatch Exporter for TAS for VMs in a service or database that is located outside your Ops Manager foundation:
 
-1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for TAS for VMs. The procedure to
-open these network paths differs depending on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required
+1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for TAS for VMs. The procedure
+to open these network paths differs depending on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required
 Networking Rules for Healthwatch Exporter for TAS for VMs](../architecture.html#network-rules-tas) in _Reference Architecture_.
 
-1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Ops Manager foundation. Under `static_config`, specify the
-TCP ports of each metric exporter VM as static targets for the IP address of your external service or database. For example:
+1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Ops Manager foundation. Under `static_config`, specify
+the TCP ports of each metric exporter VM as static targets for the IP address of your external service or database. For example:
 
     ```
     job_name: foundation-1

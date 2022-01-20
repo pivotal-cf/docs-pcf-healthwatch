@@ -6,23 +6,23 @@ owner: Healthwatch
 <strong><%= modified_date %></strong>
 
 This topic describes the architecture of the Healthwatch, Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs), and Healthwatch
-Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles. This topic also describes the possible configurations for monitoring metrics across multiple
-Ops Manager  foundations.
+Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles. This topic also describes the possible configurations for monitoring metrics across
+multiple Ops Manager foundations.
 
 
 ## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
 
 There are three tiles that form the Healthwatch architecture: Healthwatch, Healthwatch Exporter for TAS for VMs, and Healthwatch Exporter for TKGI.
 
-A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. However, you can deploy and use each tile
-separately as part of an alternate monitoring configuration.
+A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. However, you can deploy and use each
+tile separately as part of an alternate monitoring configuration.
 
 You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same Ops Manager
 foundation or on a different Ops Manager foundation, depending on your desired monitoring configuration.
 
 You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
-external time-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane. This does not require you to install the Healthwatch
-tile.
+external time-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane. This does not require you to install the
+Healthwatch tile.
 
 For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring
 metrics across Ops Manager foundations, see the following sections:
@@ -38,8 +38,8 @@ metrics across Ops Manager foundations, see the following sections:
 
 ## <a id='architecture-hw'></a> Healthwatch Tile Architecture
 
-When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana, and MySQL. Healthwatch also deploys an Nginx proxy in front of the
-Prometheus instance for load-balancing.
+When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana, and MySQL. Healthwatch also deploys an Nginx proxy in front of
+the Prometheus instance for load-balancing.
 
 The Prometheus instance scrapes and stores metrics from the Prometheus endpoints on the metric exporter VMs that the Healthwatch Exporter tiles deploy.
 Prometheus also allows you to configure alerts with Alertmanager.
@@ -50,8 +50,8 @@ create customized dashboards for long-term monitoring and troubleshooting.
 <p class='note'><strong>Note:</strong> The MySQL instance that the Healthwatch tile deploys only stores your Grafana settings, and does not store any
   time-series data.</p>
 
-The diagram below illustrates how metrics travel from the Healthwatch Exporter tiles through Prometheus and to Grafana. It also shows how metrics travel through
-Prometheus to Alertmanager.
+The diagram below illustrates how metrics travel from the Healthwatch Exporter tiles through Prometheus and to Grafana. It also shows how metrics travel
+through Prometheus to Alertmanager.
 
 ![An arrow points from the Healthwatch Exporter into the Healthwatch tile. Inside the tile, the arrow points from Prometheus to Grafana and from Prometheus
 through Alertmanager to alerts. MySQL is next to Grafana.](images/healthwatch-tile-architecture.png)
@@ -332,8 +332,8 @@ describe the most common configuration scenarios:
 ### <a id='tas-single-foundation'></a> Monitoring TAS for VMs on a Single Ops Manager Foundation
 
 If you only want to monitor a single Ops Manager foundation that has TAS for VMs installed, install the Healthwatch tile and Healthwatch Exporter for TAS for
-VMs on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs on the same Ops Manager foundation and adds a scrape
-job for Healthwatch Exporter for TAS for VMs to the Prometheus instance.
+VMs on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs on the same Ops Manager foundation and adds a
+scrape job for Healthwatch Exporter for TAS for VMs to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for TAS for VMs, see the following topics:
 
@@ -346,9 +346,9 @@ For more information about installing and configuring the Healthwatch tile and H
 
 ### <a id='tkgi-single-foundation'></a> Monitoring TKGI on a Single Ops Manager Foundation
 
-If you only want to monitor a single Ops Manager foundation that has TKGI installed, install the Healthwatch tile and Healthwatch Exporter for TKGI on the same
-foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TKGI on the same Ops Manager foundation and adds a scrape job for Healthwatch
-Exporter for TKGI to the Prometheus instance.
+If you only want to monitor a single Ops Manager foundation that has TKGI installed, install the Healthwatch tile and Healthwatch Exporter for TKGI on the
+same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TKGI on the same Ops Manager foundation and adds a scrape job for
+Healthwatch Exporter for TKGI to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for TKGI, see the following topics:
 
@@ -361,8 +361,8 @@ For more information about installing and configuring the Healthwatch tile and H
 
 ### <a id='tas-tkgi-single-foundation'></a> Monitoring TAS for VMs and TKGI on a Single Ops Manager Foundation
 
-If you only want to monitor a single Ops Manager foundation that has both TAS for VMs and TKGI installed, install the Healthwatch tile, Healthwatch Exporter for
-TAS for VMs, and Healthwatch Exporter for TKGI on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs and
+If you only want to monitor a single Ops Manager foundation that has both TAS for VMs and TKGI installed, install the Healthwatch tile, Healthwatch Exporter
+for TAS for VMs, and Healthwatch Exporter for TKGI on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs and
 Healthwatch Exporter for TKGI on the same Ops Manager foundation and adds scrape jobs for both Healthwatch Exporter tiles to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile, Healthwatch Exporter for TAS for VMs, and Healthwatch Exporter for TKGI, see the
@@ -379,8 +379,8 @@ following topics:
 
 ### <a id='tas-different-foundation'></a> Monitoring TAS for VMs on a Different Ops Manager Foundation
 
-You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation or
-the TKGI Control Plane.
+You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation
+or the TKGI Control Plane.
 
 To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation or the TKGI Control Plane,
 see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
@@ -392,5 +392,5 @@ You can monitor several Ops Manager foundations that have TKGI installed from a 
 TKGI Control Plane. In order to do this, you must configure federation for your Healthwatch deployment.
 
 To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation or the TKGI Control Plane
-through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in _Configuring
-Multi-Foundation Monitoring_.
+through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in
+_Configuring Multi-Foundation Monitoring_.

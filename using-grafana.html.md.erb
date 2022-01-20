@@ -10,8 +10,8 @@ This topic describes how to access and use your Healthwatch dashboards in the Gr
 
 ## <a id='overview'></a> Overview of Healthwatch Dashboards in the Grafana UI
 
-Healthwatch uses Grafana to visualize metrics data in charts and graphs. Once you have installed and configured the Healthwatch and Healthwatch Exporter tiles,
-you can log in to the Grafana UI to view dashboards that show how your Ops Manager foundations are performing.
+Healthwatch uses Grafana to visualize metrics data in charts and graphs. Once you have installed and configured the Healthwatch and Healthwatch Exporter
+tiles, you can log in to the Grafana UI to view dashboards that show how your Ops Manager foundations are performing.
 
 Each dashboard contains charts and graphs called panels. Each dashboard and panel contains detailed descriptions of the metrics they display and how to
 troubleshoot your Ops Manager foundations based on those metrics.
@@ -21,15 +21,15 @@ troubleshoot your Ops Manager foundations based on those metrics.
 
 The diagram below shows a dashboard in the Grafana UI:
 
-![Screenshot of a dashboard in the Grafana UI with three white boxes labeled "A", "B", and "C" in red text. "A" is next to a filter dropdown. "B" is next to an
-expandable "About" header. "C" is next to an icon containing a lowercase "i" in the upper left corner of a panel.](images/grafana-dashboard-diagram.png)
+![Screenshot of a dashboard in the Grafana UI with three white boxes labeled "A", "B", and "C" in red text. "A" is next to a filter dropdown. "B" is next to
+an expandable "About" header. "C" is next to an icon containing a lowercase "i" in the upper left corner of a panel.](images/grafana-dashboard-diagram.png)
 
 The following list describes each labeled section of the dashboard:
 
 * **A - Filters:** Use these dropdowns to filter the metrics that the dashboard displays. Not all dashboards have filters.
 
-* **B - Dashboard Header:** Click this header to see a description of the metrics that the dashboard displays, how to use those metrics for troubleshooting, and
-links to further documentation.
+* **B - Dashboard Header:** Click this header to see a description of the metrics that the dashboard displays, how to use those metrics for troubleshooting,
+and links to further documentation.
 
 * **C - Information Icon:** Hover over this icon to see a description of the metrics that the panel displays and how to use those metrics for troubleshooting.
 
@@ -104,33 +104,33 @@ The following list describes the default Healthwatch dashboards you may see in t
   metrics by uptime service level objective (SLO) target.
 
 * **MySQL:** Includes the following dashboard:
-  <p class='note'><strong>Note:</strong> This folder only appears if you configure Healthwatch to monitor your Tanzu SQL for VMs tile. For more information, see
-    <a href="configuring/configuring-healthwatch.html#dashboards">(Optional) Configure Grafana Dashboards</a> in <em>Configuring Healthwatch</em>.</p>
-  * **MySQL Overview:** Contains metrics related to the percentage of healthy VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) clusters and nodes in your
-  deployment.
+  <p class='note'><strong>Note:</strong> This folder only appears if you configure Healthwatch to monitor your Tanzu SQL for VMs tile. For more information,
+    see <a href="configuring/configuring-healthwatch.html#dashboards">(Optional) Configure Grafana Dashboards</a> in <em>Configuring Healthwatch</em>.</p>
+  * **MySQL Overview:** Contains metrics related to the percentage of healthy VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) clusters and nodes in
+  your deployment.
 
 * **RabbitMQ:** Includes the following dashboards:
   <p class='note'><strong>Note:</strong> This folder only appears if you configure Healthwatch to monitor your Tanzu RabbitMQ tile. For more information, see
     <a href="configuring/configuring-healthwatch.html#dashboards">(Optional) Configure Grafana Dashboards</a> in <em>Configuring Healthwatch</em>.</p>
   * **Erlang-Distribution:** Contains metrics related to the functionality of distribution links between VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) nodes
   and peers. You can filter these metrics by namespace, Tanzu RabbitMQ cluster, and process type.
-  * **Erlang-Distributions-Compare:** Contains metrics related to comparing the functionality of distribution links between Tanzu RabbitMQ nodes and peers. You
-  can filter these metrics by namespace, Tanzu RabbitMQ cluster, PerfTest instance, percentile, host, and container.
+  * **Erlang-Distributions-Compare:** Contains metrics related to comparing the functionality of distribution links between Tanzu RabbitMQ nodes and peers.
+  You can filter these metrics by namespace, Tanzu RabbitMQ cluster, PerfTest instance, percentile, host, and container.
   * **Erlang-Memory-Allocators:** Contains metrics related to the functionality of your Tanzu RabbitMQ memory allocators. You can filter these metrics by
   namespace, Tanzu RabbitMQ cluster, Tanzu RabbitMQ node, and Erlang memory allocator.
   * **RabbitMQ Clusters Overview:** Contains metrics related to the percentage of healthy nodes across all Tanzu RabbitMQ clusters.
   * **RabbitMQ-Overview:** Contains metrics related to the functionality of your Tanzu RabbitMQ cluster nodes. You can filter these metrics by namespace and
   Tanzu RabbitMQ cluster.
-  * **RabbitMQ-PerfTest:** Contains metrics related to the functionality of the PerfTest instances in your Tanzu RabbitMQ clusters. You can filter these metrics
-  by PerfTest instance and percentile.
+  * **RabbitMQ-PerfTest:** Contains metrics related to the functionality of the PerfTest instances in your Tanzu RabbitMQ clusters. You can filter these
+  metrics by PerfTest instance and percentile.
   * **RabbitMQ-Quorum-Queues-Raft:** Contains metrics related to the functionality of the quorum queues in your Tanzu RabbitMQ clusters. You can filter these
   metrics by namespace and Tanzu RabbitMQ cluster.
 
 * **Tanzu Application Service:** Includes the following dashboards:
   <p class='note'><strong>Note:</strong> This folder only appears if you install and configure Healthwatch Exporter for TAS for VMs on one or more of your Ops
-    Manager foundations. For more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch Exporter
-    for TAS for VMs Architecture</a> in <em>Reference Architecture</em> and <a href="configuring/configuring-exporter-tas.html">Configuring Healthwatch Exporter
-    for TAS for VMs</a>.</p>
+    Manager foundations. For more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
+    Exporter for TAS for VMs Architecture</a> in <em>Reference Architecture</em> and <a href="configuring/configuring-exporter-tas.html">Configuring
+    Healthwatch Exporter for TAS for VMs</a>.</p>
   * **App Instances:** Contains metrics related to the number and functionality of apps and tasks running on your TAS for VMs deployments.
   * **CLI Health:** Contains metrics related to the functionality of the Cloud Foundry Command-Line Interface (cf CLI).
   * **Diego/Capacity:** Contains metrics related to the capacity of all Diego Cells in your TAS for VMs deployments. You can filter these metrics by memory
@@ -159,8 +159,8 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **Kubernetes Clusters Overview:** Contains metrics related to the percentage of healthy control plane nodes across all TKGI clusters.
   * **Kubernetes Controller Manager:** Contains metrics related to the functionality of the Kubernetes Controller Manager instances in your TKGI clusters. You
   can filter these metrics by cluster and instance.
-  * **Kubernetes Etcd:** Contains metrics related to the functionality of the etcd instances in your TKGI clusters. You can filter these metrics by cluster and
-  instance.
+  * **Kubernetes Etcd:** Contains metrics related to the functionality of the etcd instances in your TKGI clusters. You can filter these metrics by cluster
+  and instance.
   * **Kubernetes Nodes:** Contains metrics related to the functionality of your TKGI cluster nodes. You can filter these metrics by cluster and instance.
   * **Kubernetes Scheduler:** Contains metrics related to the functionality of the Kubernetes Scheduler instances in your TKGI clusters. You can filter these
   metrics by cluster and instance.
