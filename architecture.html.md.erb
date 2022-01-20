@@ -65,7 +65,9 @@ one MySQL Proxy node.
 
 Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally.
 
-Healthwatch deploys two Prometheus VMs by default. You can scale the Prometheus instance vertically, but you should not scale it horizontally.
+Healthwatch deploys two Prometheus VMs by default for HA, but supports a single Prometheus VM configuration as well. Further scaling
+of Prometheus is accomplished by increasing disk size and can be configured in the Resource Config pane of the Healthwatch
+tile. For more information, see [Configuring Healthwatch](configuring/configuring-healthwatch.html).
 
 ### <a id='network-rules-hw'></a> Networking Rules for the Healthwatch Tile
 
