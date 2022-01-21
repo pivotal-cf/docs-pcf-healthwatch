@@ -108,8 +108,8 @@ information about service networks, see [Required Subnets](https://docs.pivotal.
 ## <a id='exporter-config'></a> (Optional) Configure TAS for VMs Metric Exporter VMs
 
 In the **TAS for VMs Metric Exporter VMs** pane, you configure static IP addresses for the metric exporter VMs that collect metrics from the Loggregator
-Firehose in TAS for VMs. There are three metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter, gauge, or timer.
-You can deploy all three VMs or any subset thereof. After generating these metrics, the metric exporter VMs convert them to a Prometheus exposition format on
+Firehose in TAS for VMs. There are two metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter or gauge.
+You can deploy both VMs or one individually. After generating these metrics, the metric exporter VMs convert them to a Prometheus exposition format on
 a secured endpoint.
 
 You can also deploy two other VMs: the TAS for VMs service level indicator (SLI) exporter VM and the certificate expiration metric exporter VM.
@@ -125,9 +125,6 @@ To configure the **TAS for VMs Metric Exporter VMs** pane:
 exporter VM.
 
 1. (Optional) For **Static IP address for gauge metric exporter VM**, enter a valid static IP address that you want to reserve for the gauge metric exporter
-VM.
-
-1. (Optional) For **Static IP address for timer metric exporter VM**, enter a valid static IP address that you want to reserve for the timer metric exporter
 VM.
 
 1. (Optional) For **Static IP address for TAS for VMs SLI exporter VM**, enter a valid static IP address that you want to reserve for the TAS for VMs SLI
@@ -399,7 +396,7 @@ Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Met
     to re-deploy Healthwatch Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see <a href="#apply-changes">Deploy
     Healthwatch Exporter for TAS for VMs</a> below.</p>
 
-1. (Optional) Healthwatch Exporter for TAS for VMs deploys the counter, gauge, and timer metric exporter VMs by default. If you do not want to collect all of
+1. (Optional) Healthwatch Exporter for TAS for VMs deploys the counter, and gauge metric exporter VMs by default. If you do not want to collect all of
 these metric types, set the instance count for the VMs associated with the metrics you do not want to collect to `0`.
 
 1. Click **Save**.
