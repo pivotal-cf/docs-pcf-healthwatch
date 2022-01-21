@@ -46,6 +46,9 @@ more information, see [](#) below.
 
 * **[Bug Fix]** The TAS SLI Login test displaying success instead of failure on timeout.
 
+* **[Breaking Change]** The pas-exporter-timer VM has been removed from Healthwatch. This exporter was providing metrics that were not used. In order to reduce metric cardinality and IaaS resource usage, this exporter has been decommissioned.
+Removing this VM has no effect on Healthwatch's ability to monitor TAS.
+
 Healthwatch v2.2.0 uses the following open-source component versions:
 
 | Component    | Packaged Version |
