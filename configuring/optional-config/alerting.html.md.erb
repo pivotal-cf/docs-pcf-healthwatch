@@ -56,10 +56,16 @@ how Alertmanager groups alerts together. The following example shows a possible 
     repeat_interval: 4h
     group_by: [cluster, alertname]
     ```
-    <p class='note'><strong>Note:</strong> <code>group_by</code> gathers all alerts with the same label into a single alert. For example, including
-      <code>cluster</code> in the <code>group_by</code> property groups together all alerts from the same cluster. You can see the labels for the metrics that
-      Healthwatch collects, such as <code>cluster</code>, <code>index</code>, <code>deployment</code>, and <code>origin</code>, within the braces at the end
-      of each metric.</p>
+    <div class='note'><strong>Notes:</strong>
+      <ul>
+        <li>In new installations of Healthwatch v2.2, the <strong>Routing rules</strong> field is pre-configured with a default set of routing rules. You can
+          edit these routing rules according to the needs of your deployment.</li>
+        <li><code>group_by</code> gathers all alerts with the same label into a single alert. For example, including <code>cluster</code> in the
+          <code>group_by</code> property groups together all alerts from the same cluster. You can see the labels for the metrics that Healthwatch collects,
+          such as <code>cluster</code>, <code>index</code>, <code>deployment</code>, and <code>origin</code>, within the braces at the end of each
+          metric.</li>
+      </ul>
+    </div>
     You must define all `route` configuration parameters. For more information about the parameters you must provide, see the [Prometheus documentation]
     (https://prometheus.io/docs/alerting/latest/configuration/#route).
 
