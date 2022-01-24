@@ -168,6 +168,13 @@ For more information about canary test metrics, see [TAS for VMs SLI Exporter VM
 
 Healthwatch v2.2 includes the following breaking changes:
 
+### <a id='breaking-uaa'></a> Authenticating with an external UAA server
+Starting with Healthwatch v2.2, authenticating with a UAA that is external to the foundation is configured through the Generic OAuth section rather than
+the UAA section of the Grafana Authentication pane.  The UAA option will automatically configure authentication to either the UAA running on TAS or TKGI.
+For customers migrating from any version of Healthwatch 2.1, if UAA had previously been selected, it will remain selected, and the configuration will now
+be automatic. For customers wishing to preserve their external UAA settings, they will need to configure the values in the Generic OAuth section in the
+Grafana Authentication pane. For more information, see [Configure External UAA Authentication](configuring/optional-config/configuring-external-uaa.html).
+
 ### <a id='scripts'></a> Update Automation Scripts
 
 Many configuration options have been added, changed, or removed for Healthwatch v2.2. If you use automated scripts to install and configure Healthwatch, you
