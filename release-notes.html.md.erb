@@ -54,10 +54,12 @@ UI Dashboards Only Include Metrics for Current Canary Apps](#current-canary-apps
 * **[Feature Improvement]** The timeouts for the TAS for VMs SLI test suite are increased to five minutes. For more information, see [TAS for VMs SLI Test
 Timeouts Are Increased](#tas-sli-test-timeout) below.
 
-* **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
-
 * **[Breaking Change]** The pas-exporter-timer VM has been removed from Healthwatch. This exporter was providing metrics that were not used. In order to reduce metric cardinality and IaaS resource usage, this exporter has been decommissioned.
 Removing this VM has no effect on Healthwatch's ability to monitor TAS.
+
+* **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
+
+* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric has been corrected to follow the recommended calculation listed in the [Key Capacity Scaling Indicators](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog) documentation.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
