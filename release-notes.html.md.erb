@@ -40,17 +40,19 @@ information, see [Prometheus Scrapes Metrics Directly from the BOSH Director VM]
 Source License for Grafana v8](#) below.
 
 * **[Feature Improvement]** Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard. For more information, see [Healthwatch
-Automatically Runs Canary Tests for the Ops Manager Installation Dashboard](#) below.
+Automatically Runs Canary Tests for the Ops Manager Installation Dashboard](#om-canary-test-auto-config) below.
 
 * **[Feature Improvement]** Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed. For
-more information, see [Automatic TKGI Cluster Discovery Configuration](#) below.
+more information, see [Automatic TKGI Cluster Discovery Configuration](#cluster-discovery-auto-config) below.
 
-* **[Feature Improvement]** You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`. For more information, see [Remove Grafana](#) below.
+* **[Feature Improvement]** You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`. For more information, see [Remove Grafana](#remove-grafana)
+below.
 
-* **[Feature Improvement]** Dashboards in the Grafana UI that include canary app metrics only show metrics for canary apps that are currently configured. For
-more information, see [Grafana UI Dashboards Only Include Metrics for Current Canary Apps](#) below.
+* **[Feature Improvement]** Dashboards in the Grafana UI only show metrics for canary apps that are currently configured. For more information, see [Grafana
+UI Dashboards Only Include Metrics for Current Canary Apps](#current-canary-apps) below.
 
-* **[Feature Improvement]** The timeouts for the TAS for VMs SLI test suite are increased to five minutes. For more information, see [TAS for VMs SLI Test Timeouts Are Increased](#) below.
+* **[Feature Improvement]** The timeouts for the TAS for VMs SLI test suite are increased to five minutes. For more information, see [TAS for VMs SLI Test
+Timeouts Are Increased](#tas-sli-test-timeout) below.
 
 * **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
 
@@ -77,14 +79,14 @@ Healthwatch v2.2 includes the following major features:
 In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** pane of the Healthwatch tile is pre-configured with a default set of
 routing rules. You can edit these routing rules according to the needs of your deployment.
 
-For more information, see [Configure Alerting](alerting.html#configure) in _Configuring Alerting_.
+For more information, see [Configure Alerting](configuring/optional-config/alerting.html#configure) in _Configuring Alerting_.
 
 ### <a id='grafana-route-auto-config'></a> Automatic Grafana UI Route Configuration
 
 If your Ops Manager foundation has TAS for VMs installed, you can configure Healthwatch to automatically create a route for the Grafana UI in the **Grafana**
 pane of the Healthwatch tile.
 
-For more information, see [(Optional) Configure Grafana](configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+For more information, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
 ### <a id='uaa-auth-auto-config'></a> Automatic UAA Authentication Configuration
 
@@ -92,7 +94,7 @@ When you select **UAA** as your Grafana UI authentication method in the **Grafan
 configures authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI. If you want to configure authentication with an external UAA
 server, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
 
-For more information, see [(Optional) Configure Grafana Authentication](#configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
+For more information, see [(Optional) Configure Grafana Authentication](configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
 
 ### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
 
@@ -108,7 +110,7 @@ If you deploy the SVM Forwarder VM in the Healthwatch Exporter for TAS for VMs t
 `probe_duration_seconds` canary test metrics into the Loggregator Firehose.
 
 For more information about canary test metrics, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_. For more information about the SVM Forwarder
-VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+VM, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
 ### <a id='bosh-director-direct-scrape'></a> Prometheus Scrapes Metrics Directly from the BOSH Director VM
 
@@ -125,33 +127,74 @@ Healthwatch uses Grafana v8, which requires the Affero General Public License (A
 For more information about the AGPL, see [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) on the GNU site. For more
 information about Grafana v8, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v8-0/).
 
-### <a id='cluster-discovery-auto-config'></a>
-
-Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed.
-
-### <a id='om-canary-test-auto-config'></a>
+### <a id='om-canary-test-auto-config'></a> Healthwatch Automatically Runs Canary Tests for the Ops Manager Installation Dashboard
 
 Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard. designed to reduce log bloat on the Ops Manager VM.
 
-### <a id='zero-grafana-mysql-proxy-instances'></a>
+### <a id='cluster-discovery-auto-config'></a> Automatic TKGI Cluster Discovery Configuration
 
-You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`.
+Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed. If you do not want Healthwatch to
+configure TKGI cluster discovery, you can disallow it through the **TKGI Cluster Discovery** pane in the Healthwatch tile.
 
-### <a id='canary-health-check-timeout'></a>
+For more information about TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](configuring/optional-config/configuring-cluster-discovery.html).
+For more information about allowing or disallowing TKGI cluster discovery, see [Configure TKGI Cluster Discovery in Healthwatch]
+(configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
 
-The timeouts for the TAS for VMs SLI test suite are increased to five minutes to reduce false positives.
+### <a id='remove-grafana'></a> Remove Grafana
 
-### <a id='current-canary-apps'></a>
+If you do not want to use any Grafana instances in your Healthwatch deployment, you can scale your Grafana, MySQL, and MySQL Proxy instances to `0` in the
+**Resource Config** pane of the Healthwatch tile.
 
-Grafana dashboards that include canary app metric only show metrics for canary apps that are currently configured. no longer displaying outdated
-data.
+For more information, see [Healthwatch Components and Resource Requirements](resources.html).
+
+### <a id='current-canary-apps'></a> Grafana UI Dashboards Only Include Metrics for Current Canary Apps
+
+Dashboards in the Grafana UI only show metrics for canary apps that are currently configured. Metrics for canary apps that are no longer used in your
+Healthwatch deployment are removed from your dashboards, in order to avoid mixing outdated data with current data.
+
+For more information about canary test metrics, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_.
+
+### <a id='tas-sli-test-timeout'></a> TAS for VMs SLI Test Timeouts Are Increased
+
+The timeouts for the TAS for VMs SLI test suite are increased to five minutes. This reduces the number of false positives you may see in your metrics data.
+
+For more information about canary test metrics, see [TAS for VMs SLI Exporter VM](metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
 Healthwatch v2.2 includes the following breaking changes:
 
+### <a id='scripts'></a> Update Automation Scripts
+
+Many configuration options have been added, changed, or removed for Healthwatch v2.2. If you use automated scripts to install and configure Healthwatch, you
+must update your scripts to reflect the new configuration requirements.
+
+For more information about installing and configuring Healthwatch through platform automation, see [Installing, Configuring, and Deploying a Tile Through an
+Automated Pipeline](installing/automated-pipeline.html).
+
 
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.2 includes the following known issues:
+
+### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
+
+If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data.
+
+In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`. However, in TKGI v1.12, new Kubernetes clusters run on containerd
+instead of in Docker. As a result, in TKGI v1.12 the `name` label in Kubernetes cluster metrics start with a hex value instead of `k8s_`, which the Grafana
+instance does not recognize.
+
+### <a id='no-data-nodes-tkgi-110'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
+
+If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
+issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
+
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid
+Integrated Edition](../tkgi/1-10/upgrading.html) in the TKGI documentation.
+
+### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
+
+If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data. Healthwatch does not currently
+visualize node metrics for Windows clusters.
