@@ -244,13 +244,6 @@ groups:
           summary: "The Healthwatch Tanzu Application Service Gauge Exporter is down"
           description: |
             The Healthwatch Tanzu Application Service Gauge Exporter has been down for 10 minutes.
-      - alert: HealthwatchTASTimerExporter
-        expr: 'service_up{service="pas-exporter-timer"} < 1'
-        for: 10m
-        annotations:
-          summary: "The Healthwatch Tanzu Application Service Timer Exporter is down"
-          description: |
-            The Healthwatch Tanzu Application Service Timer Exporter has been down for 10 minutes.
   ##### END HEALTHWATCH ALERTING RULES #####
 
   ##### BEGIN MYSQL TILE ALERTING RULES #####

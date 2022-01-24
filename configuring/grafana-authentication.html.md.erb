@@ -185,6 +185,9 @@ To configure UAA authentication for the Grafana UI:
 
 1. Under **Additional authentication methods**, select **UAA**.
 
+1. (TKGI only) When integrating with the UAA server contained in TKGI, the admin user is not added to the `healthwatch.admin` group by default.
+If you would like to log in using the UAA admin user, run `uaac member add healthwatch.admin admin` against the UAA server contained in TKGI.
+
 1. Click **Save**.
 
 ### <a id='configure-ldap'></a> Configure LDAP Authentication
