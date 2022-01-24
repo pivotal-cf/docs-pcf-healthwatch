@@ -823,33 +823,6 @@ The following table describes each metric the gauge metric exporter VM collects 
   </tr>
 </table>
 
-#### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM
-
-The timer metric exporter VM, `pas-exporter-timer`, collects timer metrics from the Loggregator Firehose and converts them into a Prometheus exposition
-format.
-
-The following table describes each metric the timer metric exporter VM collects and converts:
-
-<table>
-  <tr>
-    <th style="width: 55%">Metric</th>
-    <th style="width: 45%">Description</th>
-  </tr>
-  <tr>
-    <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds the timer metric exporter VM takes to process a batch of Loggregator timer envelopes.</td>
-  </tr>
-  <tr>
-    <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of Loggregator timer envelopes that the observability metrics agent on the timer metric exporter VM receives.</td>
-  </tr>
-  <tr>
-    <td><code>healthwatch_tasExporter_status</code></td>
-    <td>The health status of the timer metric exporter VM. A value of <code>0</code> indicates that the timer metric exporter VM is not responding. A value of
-      <code>1</code> indicates that the timer metric exporter VM is running and healthy.</td>
-  </tr>
-</table>
-
 ### <a id="prometheus-exposition"></a> Prometheus Exposition Endpoint
 
 Most of the metric exporter VMs generate metrics concerning how the Prometheus instance interacts with the `/metrics` endpoint on each metric exporter VM.

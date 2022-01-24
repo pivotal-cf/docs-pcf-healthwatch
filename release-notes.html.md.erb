@@ -56,6 +56,9 @@ Timeouts Are Increased](#tas-sli-test-timeout) below.
 
 * **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
 
+* **[Breaking Change]** The pas-exporter-timer VM has been removed from Healthwatch. This exporter was providing metrics that were not used. In order to reduce metric cardinality and IaaS resource usage, this exporter has been decommissioned.
+Removing this VM has no effect on Healthwatch's ability to monitor TAS.
+
 Healthwatch v2.2.0 uses the following open-source component versions:
 
 | Component    | Packaged Version |
