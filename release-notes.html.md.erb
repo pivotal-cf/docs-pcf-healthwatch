@@ -54,12 +54,20 @@ UI Dashboards Only Include Metrics for Current Canary Apps](#current-canary-apps
 * **[Feature Improvement]** The timeouts for the TAS for VMs SLI test suite are increased to five minutes. For more information, see [TAS for VMs SLI Test
 Timeouts Are Increased](#tas-sli-test-timeout) below.
 
-* **[Breaking Change]** The pas-exporter-timer VM has been removed from Healthwatch. This exporter was providing metrics that were not used. In order to reduce metric cardinality and IaaS resource usage, this exporter has been decommissioned.
-Removing this VM has no effect on Healthwatch's ability to monitor TAS.
+* **[Breaking Change]** If you use automated scripts to install and configure Healthwatch, you must update your scripts to reflect the new configuration
+requirements. For more information, see [Update Automation Scripts](#scripts) below.
+
+* **[Breaking Change]** If you configured an external UAA server as the authentication method for logging in to the Grafana UI in Healthwatch v2.1, you must
+select **Generic OAuth** and configure the settings for the external UAA server in the **Grafana Authentication** pane. For more information, see
+[Authenticating with an External UAA Server](#breaking-uaa) below.
+
+* **[Breaking Change]** The timer metric exporter VM is removed from Healthwatch Exporter for TAS for VMs. For more information, see [Timer Metric Exporter
+VM is Removed](#pas-exporter-timer) below.
 
 * **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
 
-* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric has been corrected to follow the recommended calculation listed in the [Key Capacity Scaling Indicators](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog) documentation.
+* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric (SVM) is corrected to follow the recommended calculation listed in the [TAS for VMs
+documentation](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog).
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -170,13 +178,6 @@ For more information about canary test metrics, see [TAS for VMs SLI Exporter VM
 
 Healthwatch v2.2 includes the following breaking changes:
 
-### <a id='breaking-uaa'></a> Authenticating with an external UAA server
-Starting with Healthwatch v2.2, authenticating with a UAA that is external to the foundation is configured through the Generic OAuth section rather than
-the UAA section of the Grafana Authentication pane.  The UAA option will automatically configure authentication to either the UAA running on TAS or TKGI.
-For customers migrating from any version of Healthwatch 2.1, if UAA had previously been selected, it will remain selected, and the configuration will now
-be automatic. For customers wishing to preserve their external UAA settings, they will need to configure the values in the Generic OAuth section in the
-Grafana Authentication pane. For more information, see [Configure External UAA Authentication](configuring/optional-config/configuring-external-uaa.html).
-
 ### <a id='scripts'></a> Update Automation Scripts
 
 Many configuration options have been added, changed, or removed for Healthwatch v2.2. If you use automated scripts to install and configure Healthwatch, you
@@ -184,6 +185,23 @@ must update your scripts to reflect the new configuration requirements.
 
 For more information about installing and configuring Healthwatch through platform automation, see [Installing, Configuring, and Deploying a Tile Through an
 Automated Pipeline](installing/automated-pipeline.html).
+
+### <a id='breaking-uaa'></a> Authenticating with an External UAA Server
+
+If you are upgrading from Healthwatch v2.1 and configured **UAA** as your authentication method for logging in to the Grafana UI, Healthwatch v2.2 keeps
+**UAA** as your configured authentication method by default. If you configured an external UAA server as the authentication method for logging in to the
+Grafana UI in Healthwatch v2.1, you must select **Generic OAuth** and configure the settings for the external UAA server in the **Grafana Authentication**
+pane.
+
+For more information, see [Configuring Authentication with an External UAA Server](configuring/optional-config/configuring-external-uaa.html).
+
+### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM is Removed
+
+The timer metric exporter VM, `pas-exporter-timer`, is removed from Healthwatch Exporter for TAS for VMs. This removes unnecessary data and uses fewer IaaS
+resources.
+
+For more information about the metrics for TAS for VMs that Healthwatch Exporter for TAS for VMs collects, see [Healthwatch Exporter for TAS for VMs Metric
+Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 
 ## <a id='known-issues'></a> Known Issues
