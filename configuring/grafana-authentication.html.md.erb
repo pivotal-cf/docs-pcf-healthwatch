@@ -185,8 +185,23 @@ To configure UAA authentication for the Grafana UI:
 
 1. Under **Additional authentication methods**, select **UAA**.
 
-1. (TKGI only) When integrating with the UAA server contained in TKGI, the admin user is not added to the `healthwatch.admin` group by default.
-If you would like to log in using the UAA admin user, run `uaac member add healthwatch.admin admin` against the UAA server contained in TKGI.
+1. If you are configuring authentication with the UAA instance in TKGI, Healthwatch does not add the UAA administrator user account to the `healthwatch.admin`
+group by default. If you want to log in to the Grafana UI using the UAA administrator credentials, you must manually add the UAA administrator user account
+to the `healthwatch.admin` group.
+<br>
+To manually add the UAA administrator user account to the `healthwatch.admin` group:
+  1. Target the UAA server for TKGI by running:
+
+    ```
+    uaac target uaa.UAA-DOMAIN
+    ```
+    Where `UAA-DOMAIN` is the domain of the UAA server for TKGI.
+
+  1. Run:
+
+      ```
+      uaac member add healthwatch.admin admin
+      ```
 
 1. Click **Save**.
 

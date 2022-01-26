@@ -5,64 +5,59 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to configure Healthwatch to authenticate with a UAA that is external to the foundation on which Healthwatch is installed.
+This topic describes how to configure authentication with an external UAA server for users to log in to the Grafana UI.
 
 
-## <a id='overview'></a> Overview of Grafana Authentication
+## <a id='overview'></a> Overview of UAA Authentication with the Grafana UI
 
-For an overview of the **Grafana Authentication** pane, see [TODO]. This page focuses solely on configuring a UAA external to the foundation.
+Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Ops Manager foundation as the
+Healthwatch tile, either VMware Tanzu Application Service for VMs (TAS for VMs) or Tanzu Kubernetes Grid Integrated Edition (TKGI). When you select **UAA** as
+your Grafana UI authentication method in the **Grafana Authentication** pane of the Healthwatch tile, Healthwatch automatically configures authentication with
+the UAA instances in TAS for VMs and TKGI for the Grafana UI.
 
-The UAA option in the **Grafana Authentication** pane automatically configures Grafana to authenticate with the UAA server located in TAS or TKGI.
-If you would like to use a different UAA server, follow the steps below to configure it through the Generic OAuth section on the **Grafana Authentication** pane.
+If you want to configure authentication with an external UAA server instead, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
 
-### <a id='create-uaa-client'></a> Create a UAA Client for the Grafana Instance
 
-To facilitate UAA authentication, the Grafana instance must access the UAA instance for your
-runtime through a UAA client using the client credentials grant.
+## <a id='create-uaa-client'></a> Create a UAA Client for the Grafana Instance
+
+To facilitate UAA authentication, the Grafana instance must access your external UAA server through a UAA client.
 
 To create a UAA client for the Grafana instance:
 
 1. Navigate to the Ops Manager Installation Dashboard for the external UAA server.
 
-1. Click the **VMware Tanzu Application Service** or **Tanzu Kubernetes Grid Integrated Edition**
-   tile, depending on which runtime is installed on your foundation.
+1. Click the **VMware Tanzu Application Service** or **Tanzu Kubernetes Grid Integrated Edition** tile, depending on which runtime is installed on your Ops
+Manager foundation.
 
 1. Select the **Credentials** tab.
 
 1. View and record the credentials to log in to the UAA instance for your runtime:
-  * For TAS for VMs:
-    1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to
-       Credential**.
-    1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
-  * For TKGI:
-    1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
-    1. Record the value of `secret`. This value is the secret for **Pks Uaa Management
-       Admin Client**.
+    * For TAS for VMs:
+      1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
+      1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
+    * For TKGI:
+      1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
+      1. Record the value of `secret`. This value is the secret for **Pks Uaa Management Admin Client**.
 
-1. Target the server for the external UAA instance for your runtime using the User Account and Authentication
-   Command Line Interface (UAAC). Run:
+1. Target the server for the external UAA instance for your runtime using the User Account and Authentication Command Line Interface (UAAC). Run:
 
     ```
     uaac target UAA-URL
     ```
-   Where `UAA-URL` is the URL of the external UAA server you wish to use. For UAA servers bundled with TAS for VMs, this URL
-   is usually `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured
-   in the **System domain** field in the **Domains** pane of the TAS for VMs tile. For TKGI,
-   this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the
-   TKGI API.
-   <br>
-   <br>
-   For more information about the UAAC, see [Creating and Managing Users with the UAA CLI
-   (UAAC)](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html) in the
-   TAS for VMs documentation.
+    Where `UAA-URL` is the URL of the external UAA server you wish to use. For UAA servers bundled with TAS for VMs, this URL is usually
+    `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS for
+    VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
+    <br>
+    <br>
+    For more information about the UAAC, see [Creating and Managing Users with the UAA CLI (UAAC)]
+    (https://docs.pivotal.io/application-service/uaa/uaa-user-management.html) in the TAS for VMs documentation.
 
 1. Log in to the UAA instance for your runtime by running:
 
-        ```
-        uaac token client get admin -s UAA-ADMIN-CLIENT-SECRET
-        ```
-        Where `UAA-ADMIN-CLIENT-SECRET` is the UAA admin client secret you recorded from the
-        **Credentials** tab in your runtime tile in a previous step.
+    ```
+    uaac token client get admin -s UAA-ADMIN-CLIENT-SECRET
+    ```
+    Where `UAA-ADMIN-CLIENT-SECRET` is the UAA admin client secret you recorded from the **Credentials** tab in your runtime tile in a previous step.
 
 1. Create a UAA client for the Grafana instance by running:
 
@@ -74,49 +69,45 @@ To create a UAA client for the Grafana instance:
        --authorized_grant_types authorization_code \
        --redirect_uri PROTOCOL://GRAFANA-ROOT-URL/login/generic_oauth
     ```
-   Where:
-  * `CLIENT-SECRET` is the secret you want to set for the UAA client.
-  * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured the
-    Grafana instance to use in the **Grafana** pane of the Healthwatch tile.
-  * `GRAFANA-ROOT-URL` is the root URL for the Grafana instance that you use to access the
-    Grafana UI.
+    Where:
+    * `CLIENT-SECRET` is the secret you want to set for the UAA client.
+    * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured the Grafana instance to use in the **Grafana** pane of the Healthwatch
+    tile.
+    * `GRAFANA-ROOT-URL` is the root URL for the Grafana instance that you use to access the Grafana UI.
 
-1. If you are using TKGI, you must manually create UAA user groups to map to administrator,
-   editor, and viewer permissions for Grafana. Run:
+1. If you are using TKGI, you must manually create UAA user groups to map to administrator, editor, and viewer permissions for Grafana. Run:
 
     ```
     uaac group add healthwatch.admin
     uaac group add healthwatch.edit
     uaac group add healthwatch.read
     ```
-   If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator,
-   editor, and viewer permissions for Grafana in the previous step. Continue to the next step.
+   If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
+   previous step. Continue to the next step.
 
-1. Create a user account for the UAA client you created in a previous step to log in to the
-   Grafana instance. Run:
+1. Create a user account for the UAA client you created in a previous step to log in to the Grafana instance. Run:
 
     ```
     uaac user add USERNAME -p SECRET --emails EMAIL
     ```
-   Where:
-  * `USERNAME` is the username you want to set for the user account.
-  * `SECRET` is the secret you want to set for the user account.
-  * `EMAIL` is the email address you want to associate with the user account.
+    Where:
+    * `USERNAME` is the username you want to set for the user account.
+    * `SECRET` is the secret you want to set for the user account.
+    * `EMAIL` is the email address you want to associate with the user account.
 
 1. Assign user permissions to the user account you created in the previous step by running:
 
     ```
     uaac member add GROUP USERNAME
     ```
-   Where:
-  * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These
-    groups map to the `Admin`, `Editor`, and `Viewer` Grafana roles, respectively. For more
-    information about the level of access each role provides, see the [Grafana documentation]
+    Where:
+    * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These groups map to the `Admin`, `Editor`, and `Viewer` Grafana roles,
+    respectively. For more information about the level of access each role provides, see the [Grafana documentation]
     (https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).
-  * `USERNAME` is the username you set for the user account you created in the previous step.
+    * `USERNAME` is the username you set for the user account you created in the previous step.
 
 
-## <a id='configure-external-uaa'></a> Authenticating with an external UAA through Generic OAuth
+## <a id='configure-external-uaa'></a> Authenticate with an external UAA through Generic OAuth
 
 To configure Grafana to authenticate with an external UAA Server:
 
@@ -128,27 +119,32 @@ To configure Grafana to authenticate with an external UAA Server:
 
 1. Under **Additional authentication methods**, select **Generic OAuth**.
 
-1. For **Provider name**, enter a name that will identify the external UAA server to users. Typically, we suggest using "UAA".
+1. For **Provider name**, enter a name that identifies the external UAA server to users. For example, `UAA`.
 
-1. For **Client ID**, enter the client ID that was created in the external UAA server in the section [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
+1. For **Client ID**, enter the client ID that was created in the external UAA server in [Create a UAA Client for the Grafana Instance](#create-uaa-client)
+above.
 
-1. For **Client secret**, enter the client secret of the client that was created in the external UAA server in the section [Create a UAA Client for the Grafana Instance](#create-uaa-client) above.
+1. For **Client secret**, enter the client secret of the client that was created in the external UAA server in [Create a UAA Client for the Grafana Instance]
+(#create-uaa-client) above.
 
-1. For **Scopes**, enter the following comma-separated list of scopes:  `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`
+1. For **Scopes**, enter `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`.
 
-1. For **Authorization URL**, enter the following URL when using TAS: `https://login.sys.[YOUR FOUNDATION]/oauth/authorize`.
-For TKGI, use `https://api.pks.[YOUR FOUNDATION]:8443/oauth/authorize`.
+1. For **Authorization URL**, enter the authorization URL for your runtime:
+    * **If you are using TAS for VMs:** `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * **If you are using TKGI:** `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
 
-1. For **Token URL**, enter the following URL when using TAS: `https://login.sys.[YOUR FOUNDATION]/oauth/token`.
-   For TKGI, use `https://api.pks.[YOUR FOUNDATION]:8443/oauth/token`.
+1. For **Token URL**, enter the token URL for your runtime:
+    * **If you are using TAS for VMs:** `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * **If you are using TKGI:** `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
 
-1. For **API URL**, enter `http://localhost:3002/userinfo`. This is using a local proxy to translate the UAA token into a format Grafana can use.
+1. For **API URL**, enter `http://localhost:3002/userinfo`. This is the URL of a local proxy server that Healthwatch can use to translate the UAA token into a
+format that is compatible with Grafana.
 
-1. To allow new users to create a new Grafana account when they log in with their existing UAA credentials for the first time, activate the
-   **Allow new accounts with existing OAuth credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a
-   pre-existing Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing UAA credentials.
+1. To allow new users to create a new Grafana account when they log in with their existing UAA credentials for the first time, activate the **Allow new
+accounts with existing OAuth credentials** checkbox. This checkbox is activated by default. Deactivating this checkbox prevents users without a pre-existing
+Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing UAA credentials.
 
-1. For **Role attribute path**, enter the following JMESPath string which maps users to Grafana roles:
+1. For **Role attribute path**, enter the following JMESPath string to map users to Grafana roles:
    `contains(scope[*], 'healthwatch.admin') && 'Admin' || contains(scope[*], 'healthwatch.edit') && 'Editor' || contains(scope[*], 'healthwatch.read') && 'Viewer'`.
 
 1. (Optional) To prevent users who are not mapped to a valid Grafana role from accessing the Grafana UI, activate the **Deny access to users without Grafana
@@ -156,12 +152,10 @@ For TKGI, use `https://api.pks.[YOUR FOUNDATION]:8443/oauth/authorize`.
    Grafana role by the string configured in the **Role attribute path** field.
 
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
-
-1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the external UAA server uses to verify TLS
-   certificates. This is necessary if your external UAA presents an SSL certificate that is signed by an unknown authority.
-
-1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
-   verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the server for your OAuth provider. This
-   checkbox is deactivated by default. Skipping TLS certificate verification to an authentication server is highly discouraged.
+  1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the external UAA server uses to verify TLS certificates.
+  You must configure this field if your external UAA server uses a TLS certificate that is signed by an untrusted authority.
+  1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
+  verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the server for your OAuth provider. This
+  checkbox is deactivated by default. VMware does not recommend skipping TLS certificate verification to an external UAA server.
 
 1. Click **Save**.

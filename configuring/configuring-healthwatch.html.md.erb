@@ -223,9 +223,13 @@ To configure the **Grafana** pane:
             Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For more
             information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
             1. Click **Generate**.
-            1. To obtain the Ops Manager root CA certificate, navigate to the Settings in the Ops Manager UI. The settings are located under the dropdown menu
-            that appears when clicking on the Ops Man username.
-            1. Select the *Advanced Options* tab on the left and click on *DOWNLOAD ROOT CA CERT*.
+            1. Navigate to the Ops Manager Installation Dashboard.
+            1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+            1. Select **Advanced Options**.
+            1. Click **DOWNLOAD ROOT CA CERT**.
+            1. Return to the Ops Manager Installation Dashboard.
+            1. Click the **Healthwatch** tile.
+            1. Select **Grafana**.
             1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in the previous step.
       1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in
       **Additional ciphers for TLS**. For a list of supported cipher suites, see [cipher_suites.go]
