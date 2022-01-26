@@ -107,7 +107,7 @@ Manager foundation.
     * `USERNAME` is the username you set for the user account you created in the previous step.
 
 
-## <a id='configure-external-uaa'></a> Authenticate with an external UAA through Generic OAuth
+## <a id='configure-external-uaa'></a> Authenticate with an External UAA Server through Generic OAuth
 
 To configure Grafana to authenticate with an external UAA Server:
 
@@ -130,12 +130,12 @@ above.
 1. For **Scopes**, enter `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`.
 
 1. For **Authorization URL**, enter the authorization URL for your runtime:
-    * **If you are using TAS for VMs:** `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
-    * **If you are using TKGI:** `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
 
 1. For **Token URL**, enter the token URL for your runtime:
-    * **If you are using TAS for VMs:** `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
-    * **If you are using TKGI:** `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
 
 1. For **API URL**, enter `http://localhost:3002/userinfo`. This is the URL of a local proxy server that Healthwatch can use to translate the UAA token into a
 format that is compatible with Grafana.
@@ -145,11 +145,11 @@ accounts with existing OAuth credentials** checkbox. This checkbox is activated 
 Grafana account from creating a new Grafana account or logging in to the Grafana UI with their existing UAA credentials.
 
 1. For **Role attribute path**, enter the following JMESPath string to map users to Grafana roles:
-   `contains(scope[*], 'healthwatch.admin') && 'Admin' || contains(scope[*], 'healthwatch.edit') && 'Editor' || contains(scope[*], 'healthwatch.read') && 'Viewer'`.
+`contains(scope[*], 'healthwatch.admin') && 'Admin' || contains(scope[*], 'healthwatch.edit') && 'Editor' || contains(scope[*], 'healthwatch.read') && 'Viewer'`.
 
 1. (Optional) To prevent users who are not mapped to a valid Grafana role from accessing the Grafana UI, activate the **Deny access to users without Grafana
-   roles** checkbox. This checkbox is deactivated by default. Deactivating this checkbox assigns the Viewer role to users who cannot be not mapped to a valid
-   Grafana role by the string configured in the **Role attribute path** field.
+roles** checkbox. This checkbox is deactivated by default. Deactivating this checkbox assigns the Viewer role to users who cannot be not mapped to a valid
+Grafana role by the string configured in the **Role attribute path** field.
 
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
   1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the external UAA server uses to verify TLS certificates.
