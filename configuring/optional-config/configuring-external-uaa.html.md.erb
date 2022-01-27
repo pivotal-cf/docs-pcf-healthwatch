@@ -65,7 +65,7 @@ Manager foundation.
     uaac client add grafana \
        --scope openid,healthwatch.admin,healthwatch.edit,healthwatch.read \
        --secret CLIENT-SECRET \
-       --authorities uaa.resource \
+       --authorities uaa.resource,refresh_token \
        --authorized_grant_types authorization_code \
        --redirect_uri PROTOCOL://GRAFANA-ROOT-URL/login/generic_oauth
     ```
