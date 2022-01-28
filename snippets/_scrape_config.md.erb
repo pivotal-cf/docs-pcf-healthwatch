@@ -46,15 +46,16 @@ product-properties:
             -----BEGIN RSA PRIVATE KEY-----
             SECRET
             -----END RSA PRIVATE KEY-----
+  .properties.enable_basic_auth:
+    selected_option: enabled
+    value: enabled
   .properties.grafana_authentication:
-    selected_option: basic
-    value: basic
+    selected_option: uaa
+    value: uaa
   .tsdb.canary_exporter_port:
     value: 9115
   .tsdb.scrape_interval:
     value: 15s
-  .grafana.enable_login_form:
-    value: true
 network-properties:
   network:
     name: subnet1
