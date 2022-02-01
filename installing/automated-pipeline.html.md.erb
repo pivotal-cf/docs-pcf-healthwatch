@@ -8,53 +8,50 @@ owner: Healthwatch
 This topic describes how to install, configure, and deploy the Healthwatch for VMware Tanzu, Healthwatch Exporter for VMware Tanzu Application Service for VMs
 (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles through an automated pipeline.
 
-To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles manually,
-see the following topics:
+To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles manually, see the following topics:
 
 * [Installing a Tile Manually](installing-manually.html)
+
 * [Configuring Healthwatch](../configuring/configuring-healthwatch.html)
+
 * [Configuring Healthwatch Exporter for TAS for VMs](../configuring/configuring-exporter-tas.html)
+
 * [Configuring Healthwatch Exporter for TKGI](../configuring/configuring-exporter-tkgi.html)
 
 
 ## <a id='overview'></a> Overview of Automated Pipelines
 
-Automated pipelines allow you to install, configure, and deploy Ops Manager tiles through automation
-scripts.
+Automated pipelines allow you to install, configure, and deploy Ops Manager tiles through automation scripts.
 
 For more information, see the [Platform Automation documentation](https://docs.pivotal.io/platform-automation/v5.0/index.html).
 
-<p class='note'><strong>Note:</strong> There are risks to using Healthwatch v2.1, including
-  missed email notifications, overwritten dashboards, and minor data loss during upgrades.
-  For more information about how to prepare for or prevent these problems, see <a href="../index.html#assumed-risks">Assumed
-  Risks of Using Healthwatch v2.1</a> in <em>Healthwatch</em>.</p>
+<p class='note'><strong>Note:</strong> There are risks to using Healthwatch v2.1, including missed email notifications, overwritten dashboards, and minor data
+  loss during upgrades. For more information about how to prepare for or prevent these problems, see <a href="../index.html#assumed-risks">Assumed Risks of
+  Using Healthwatch v2.1</a> in <em>Healthwatch</em>.</p>
 
 
 ## <a id='prerequisites'></a> Prerequisites
 
-Before you use an automated pipeline to install, configure, and deploy a tile, you must have
-the following:
+Before you use an automated pipeline to install, configure, and deploy a tile, you must have the following:
 
-* An existing Concourse pipeline. For an example pipeline configuration, see [Ops Manager +
-Multiple Products](https://docs.pivotal.io/platform-automation/v5.0/pipelines/multiple-products.html)
-in the Platform Automation documentation.
+* An existing Concourse pipeline. For an example pipeline configuration, see [Ops Manager + Multiple Products]
+(https://docs.pivotal.io/platform-automation/v5.0/pipelines/multiple-products.html) in the Platform Automation documentation.
 
 * A fully-configured Ops Manager foundation.
 
 * A fully-configured BOSH Director instance.
 
-* The Platform Automation Toolkit Docker image imported into Docker. For more information,
-see [Executing Commands](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/running-commands-locally.html#executing-commands)
-in _Running Commands Locally_ in the Platform Automation documentation.
+* The Platform Automation Toolkit Docker image imported into Docker. For more information, see [Executing Commands]
+(https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/running-commands-locally.html#executing-commands) in _Running Commands Locally_ in the
+Platform Automation documentation.
 
 
 ## <a id='install'></a> Download and Install a Tile Using Platform Automation
 
 To download and install a tile using Platform Automation:
 
-1. Create a configuration file for the `download-product` task of your automated pipeline.
-This configuration file fetches the tile you want to install from VMware Tanzu Network. Copy
-and paste one of the following sets of properties into your configuration file:
+1. Create a configuration file for the `download-product` task of your automated pipeline. This configuration file fetches the tile you want to install from
+VMware Tanzu Network. Copy and paste one of the following sets of properties into your configuration file:
   * For Healthwatch:
 
     ```
@@ -84,32 +81,28 @@ and paste one of the following sets of properties into your configuration file:
     ```
   <br>
   For more information, see [Download](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download)
-  in _Extending a Pipeline to Install a Product_ and [download-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#download-product)
-  in _Task Reference_ in the Platform Automation documentation.
+  in _Extending a Pipeline to Install a Product_ and [download-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#download-product) in _Task
+  Reference_ in the Platform Automation documentation.
 
-1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell`
-and `upload-and-stage-product` jobs to your configuration file. For more information, see [Upload
-and Stage](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage)
-in _Extending a Pipeline to Install a Product_ and [upload-stemcell](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-stemcell)
-and [upload-and-stage-product](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-and-stage-product)
-in _Task Reference_ in the Platform Automation documentation.
+1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell` and `upload-and-stage-product` jobs to your
+configuration file. For more information, see [Upload and Stage]
+(https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#upload-and-stage) in _Extending a Pipeline to Install a Product_ and
+[upload-stemcell](https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-stemcell) and [upload-and-stage-product]
+(https://docs.pivotal.io/platform-automation/v5.0/tasks.html#upload-and-stage-product) in _Task Reference_ in the Platform Automation documentation.
 
-For more information about adding a product to the Ops Manager Installation Dashboard with
-Platform Automation, see [Extending a Pipeline to Install a Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html)
-in the Platform Automation documentation.
+For more information about adding a product to the Ops Manager Installation Dashboard with Platform Automation, see [Extending a Pipeline to Install a
+Product](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html) in the Platform Automation documentation.
 
 
 ## <a id='om'></a> Configure and Deploy Your Tile Using the om CLI
 
 After you download and install your tile, you can configure and deploy it using the `om` CLI.
 
-Unless you are an advanced user, VMware recommends configuring and deploying your tile manually
-the first time, so you can see which properties in the automation script correlate to the configuration
-settings present in the tile UI before you modify and re-deploy the tile with the `om` CLI.
+Unless you are an advanced user, VMware recommends configuring and deploying your tile manually the first time, so you can see which properties in the
+automation script correlate to the configuration settings present in the tile UI before you modify and re-deploy the tile with the `om` CLI.
 
 Below is an example of an automation script that configures and deploys the Healthwatch tile:
 
 <%= partial '../snippets/scrape_config.md' %>
 
-For more information about configuring and deploying tiles with the `om` CLI, see the [om]
-(https://github.com/pivotal-cf/om) repository on GitHub.
+For more information about configuring and deploying tiles with the `om` CLI, see the [om](https://github.com/pivotal-cf/om) repository on GitHub.

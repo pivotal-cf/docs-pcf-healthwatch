@@ -12,55 +12,50 @@ For information about new features and breaking changes, see [Healthwatch Releas
 
 ## <a id='overview'></a> Overview of Healthwatch
 
-Healthwatch allows you to monitor metrics related to the functionality of your Ops Manager
-platform.
+Healthwatch allows you to monitor metrics related to the functionality of your Ops Manager platform.
 
-A complete Healthwatch installation includes the Healthwatch tile, as well as at least one
-Healthwatch Exporter tile. There are Healthwatch Exporter tiles for both the Tanzu Application
-Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
+A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
+both the Tanzu Application Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
-You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor.
-You can install the Healthwatch tile on the same foundation or on a different foundation, depending
-on your desired monitoring configuration.
+You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
+or on a different foundation, depending on your desired monitoring configuration.
 
-You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database
-located outside your Ops Manager foundation, such as an external time-series database (TSDB)
-or an installation of the Healthwatch tile on the TKGI Control Plane.
+You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
+external time-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane.
 
-For a detailed explanation of the Healthwatch architecture, a list of open ports required for
-each component, and possible configurations for monitoring metrics with Ops Manager or an external
-service or database, see [Reference Architecture](architecture.html).
+For a detailed explanation of the Healthwatch architecture, a list of open ports required for each component, and possible configurations for monitoring
+metrics with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
 
 For more information about each of these tiles, see the following sections below:
 
 * [Overview of the Healthwatch Tile](#healthwatch)
+
 * [Overview of the Healthwatch Exporter for TAS for VMs Tile](#exporter-tas)
+
 * [Overview of the Healthwatch Exporter for TKGI Tile](#exporter-tkgi)
 
-For more information on the limitations and risks of using Healthwatch, see the following sections
-below:
+For more information on the limitations and risks of using Healthwatch, see the following sections below:
 
 * [Healthwatch Limitations](#healthwatch-limitations)
+
 * [Assumed Risks of Using Healthwatch v2.1](#assumed-risks)
 
 ### <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
-The **Healthwatch** tile monitors metrics from one or more Ops Manager foundations by scraping
-them from Healthwatch Exporter tiles installed on each foundation.
+The **Healthwatch** tile monitors metrics from one or more Ops Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
+foundation.
 
-Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and
-stores metrics from the Healthwatch Exporter tiles and allows you to configure alerts with
-Alertmanager.
+Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and allows you
+to configure alerts with Alertmanager.
 
-Healthwatch then exports the collected metrics to dashboards in the Grafana UI, allowing you
-to visualize the data with charts and graphs and create customized dashboards for long-term
-monitoring and troubleshooting.
+Healthwatch then exports the collected metrics to dashboards in the Grafana UI, allowing you to visualize the data with charts and graphs and create
+customized dashboards for long-term monitoring and troubleshooting.
 
 Healthwatch includes the following features:
 
 * **Prometheus:**
-  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related
-  to the functionality of platform- and runtime-level components that include the following:
+  * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related to the functionality of platform- and runtime-level components
+  that include the following:
       * Service level indicators (SLIs) for the BOSH Director
       * SLIs for TAS for VMs components
       * SLIs for TKGI components
@@ -73,44 +68,46 @@ Healthwatch includes the following features:
   * Stores metrics for up to six weeks
   * Can write to remote storage in addition to its local TSDB
 
-* **Grafana:** Allows you to visualize the collected metrics data in charts and graphs, as
-well as create customized dashboards for easier monitoring and troubleshooting
+* **Grafana:** Allows you to visualize the collected metrics data in charts and graphs, as well as create customized dashboards for easier monitoring and
+troubleshooting
 
 * **Alertmanager:** Manages and sends alerts according to the alerting rules you configure
 
 ### <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
 
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each
-type of metric related to the health of your TAS for VMs deployment.
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
+deployment.
 
-Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus
-exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists
-within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter
-VMs and imports those metrics into your monitoring system.
+Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
+The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter VMs and imports those
+metrics into your monitoring system.
 
-Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality
-of TAS for VMs components, TAS for VMs apps, and the Healthwatch Exporter for TAS for VMs tile:
+Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality of TAS for VMs components, TAS for VMs apps, and the
+Healthwatch Exporter for TAS for VMs tile:
 
 * SLIs for TAS for VMs components
+
 * Canary URL tests for TAS for VMs apps
+
 * Counter, gauge, and timer app logs for TAS for VMs from the Loggregator Firehose
+
 * SVMs
+
 * VMs deployed by Healthwatch Exporter for TAS for VM
 
 ### <a id='exporter-tkgi'></a> Overview of the Healthwatch Exporter for TKGI Tile
 
-The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related
-to the health of your TKGI deployment.
+The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related to the health of your TKGI deployment.
 
-The Prometheus instance that exists within your metrics monitoring system then scrapes the
-Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into your
-monitoring system.
+The Prometheus instance that exists within your metrics monitoring system then scrapes the Prometheus exposition endpoints on the metric exporter VMs and
+imports those metrics into your monitoring system.
 
-Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of
-TKGI components and the Healthwatch Exporter for TKGI tile:
+Healthwatch Exporter for TKGI exposes the following metrics related to the functionality of TKGI components and the Healthwatch Exporter for TKGI tile:
 
 * SLIs for TKGI components
+
 * BOSH system metrics for TKGI
+
 * VMs deployed by Healthwatch Exporter for TKGI
 
 
@@ -134,35 +131,29 @@ Healthwatch v2.1 has the following limitations:
 
 * Healthwatch v2.1 does not configure external data stores.
 
-* Healthwatch v2.1 does not provide an SMTP server. You must use an external SMTP server when
-you configure alerts from Alertmanager or the Grafana UI.
+* Healthwatch v2.1 does not provide an SMTP server. You must use an external SMTP server when you configure alerts from Alertmanager or the Grafana UI.
 
-* Healthwatch v2.1 does not expose the UI for the open-source components Alertmanager and Prometheus
-because the UIs are not secure. However, you can access the UIs of the Prometheus and Alertmanager
-VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting](troubleshooting.html#healthwatch-troubleshooting)
-in _Troubleshooting Healthwatch_.
+* Healthwatch v2.1 does not expose the UI for the open-source components Alertmanager and Prometheus because the UIs are not secure. However, you can access
+the UIs of the Prometheus and Alertmanager VMs for troubleshooting. For more information, see [Accessing VM UIs for Troubleshooting]
+(troubleshooting.html#healthwatch-troubleshooting) in _Troubleshooting Healthwatch_.
 
-* Healthwatch v2.1 only supports configuring alert receivers for email, PagerDuty, Slack, and
-webhooks for alerts. For more information, see [Configure Alert Receivers](configuring/optional-config/alerting.html#configure-receivers)
-in _Configuring Alerting_.
+* Healthwatch v2.1 only supports configuring alert receivers for email, PagerDuty, Slack, and webhooks for alerts. For more information, see [Configure Alert
+Receivers](configuring/optional-config/alerting.html#configure-receivers) in _Configuring Alerting_.
 
-* Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring
-multiple TAS for VMs or TKGI foundations. You can create custom dashboards to monitor multiple
-foundations.
+* Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring multiple TAS for VMs or TKGI foundations. You can create
+custom dashboards to monitor multiple foundations.
 
 * Healthwatch v2.1 is not meant to be a long-term data store. It only stores data for six weeks.
 
-* Healthwatch v2.1 is not designed to capture all metrics from multiple foundations. For more
-information about the metrics that Healthwatch v2.1 stores, see [Healthwatch Metrics](metrics.html).
+* Healthwatch v2.1 is not designed to capture all metrics from multiple foundations. For more information about the metrics that Healthwatch v2.1 stores, see
+[Healthwatch Metrics](metrics.html).
 
-* Healthwatch v2.1 is designed for platform operators. The best monitoring option for app developers
-is Tanzu Observability by Wavefront. For more information about Tanzu Observability by Wavefront,
-see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu
-Observability by Wavefront documentation.
+* Healthwatch v2.1 is designed for platform operators. The best monitoring option for app developers is Tanzu Observability by Wavefront. For more information
+about Tanzu Observability by Wavefront, see [What is Wavefront?](https://docs.wavefront.com/wavefront_introduction.html) in the Tanzu Observability by
+Wavefront documentation.
 
-* Healthwatch v2.1 does not create graphs and alerts for all metrics emitted from the platform.
-Instead, the default graphs and alerts curate metrics based on the overall health of the platform
-and its components.
+* Healthwatch v2.1 does not create graphs and alerts for all metrics emitted from the platform. Instead, the default graphs and alerts curate metrics based on
+the overall health of the platform and its components.
 
 * Healthwatch v2.1 does not support Tanzu Kubernetes Grid (TKG) outside of TKGI.
 
@@ -171,22 +162,17 @@ and its components.
 
 The following list describes the problems that could arise when using Healthwatch v2.1:
 
-* Healthwatch v2.1 uses open-source components, including Grafana, Prometheus, and Alertmanager.
-VMware does not have direct control over how quickly feature changes and bug fixes appear in
-these components.
+* Healthwatch v2.1 uses open-source components, including Grafana, Prometheus, and Alertmanager. VMware does not have direct control over how quickly feature
+changes and bug fixes appear in these components.
 
-* If your Ops Manager foundation is customized for your organization, the default Healthwatch
-v2.1 dashboards in the Grafana UI may not be relevant to your deployment. However, you can
-create custom dashboards in the Grafana UI and adjust the default thresholds.
+* If your Ops Manager foundation is customized for your organization, the default Healthwatch v2.1 dashboards in the Grafana UI may not be relevant to your
+deployment. However, you can create custom dashboards in the Grafana UI and adjust the default thresholds.
 
-* If you create a custom dashboard in the Grafana UI, it does not update when you upgrade to
-the next Healthwatch release. Similarly, if you edit the default dashboards that Healthwatch
-v2.1 generates, the dashboards revert to their default settings when you upgrade to the next
-Healthwatch release.
+* If you create a custom dashboard in the Grafana UI, it does not update when you upgrade to the next Healthwatch release. Similarly, if you edit the default
+dashboards that Healthwatch v2.1 generates, the dashboards revert to their default settings when you upgrade to the next Healthwatch release.
 
-* If an email address to which you have configured Alertmanager to send email alerts is deactivated,
-the email alerts may bounce. This could cause your email server to block the SMTP server and
-prevent any other configured email addresses from receiving email alerts.
+* If an email address to which you have configured Alertmanager to send email alerts is deactivated, the email alerts may bounce. This could cause your email
+server to block the SMTP server and prevent any other configured email addresses from receiving email alerts.
 
-* If any Healthwatch components go down during installation or an upgrade, you may see no metrics
-for the period of time in which you installed or upgraded Healthwatch.
+* If any Healthwatch components go down during installation or an upgrade, you may see no metrics for the period of time in which you installed or upgraded
+Healthwatch.

@@ -7,8 +7,8 @@ owner: Healthwatch
 
 This topic describes how to manually configure and deploy the Healthwatch for VMware Tanzu tile.
 
-To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing,
-Configuring, and Deploying a Tile Through an Automated Pipeline](../installing/automated-pipeline.html).
+To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
+(../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch
@@ -254,10 +254,10 @@ to the Grafana UI in alert messages.
     the <strong>Grafana root URL</strong> field.</p>
 After you deploy the Healthwatch tile for the first time, you must use this root URL and the
 public IP address of either a single Grafana VM or the load balancer associated with your Grafana
-instance to configure a DNS entry for your Grafana instance in the console for your IaaS. Your
+instance to configure a DNS entry for the Grafana instance in the console for your IaaS. Your
 Grafana instance listens on either port `443` or `80`, depending on whether you provide a TLS
 certificate in the **Certificate and private key for HTTPS** fields below. For more information
-about configuring DNS for your Grafana instance, see [Configuring DNS for Your Grafana Instance]
+about configuring DNS for the Grafana instance, see [Configuring DNS for the Grafana Instance]
 (dns-configuration.html).
 
 1. Under **HTTP and HTTPS proxy request settings**, choose whether to allow the Grafana instance
@@ -341,7 +341,7 @@ Grafana UI.
       is the domain of the DNS entry that you configured for the Grafana instance. For example,
       if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter
       `*.example.com`. For more information about configuring a DNS entry for the Grafana instance,
-      see [Configuring DNS for Your Grafana Instance](dns-configuration.html).
+      see [Configuring DNS for the Grafana Instance](dns-configuration.html).
       1. Click **Generate**.
       1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
       VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in

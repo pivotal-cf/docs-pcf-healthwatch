@@ -5,12 +5,10 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes Healthwatch for VMware Tanzu tile components and the resource requirements for the Healthwatch
-tile.
+This topic describes Healthwatch for VMware Tanzu tile components and the resource requirements for the Healthwatch tile.
 
-For information about the metric exporter VMs that the Healthwatch Exporter for VMware Tanzu
-Application Service for VMs (TAS for VMs) and Healthwatch Exporter for Tanzu Kubernetes Grid
-Integrated Edition (TKGI) tiles deploy, see [Healthwatch Metrics](metrics.html).
+For information about the metric exporter VMs that the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) and Healthwatch
+Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles deploy, see [Healthwatch Metrics](metrics.html).
 
 
 ## <a id='overview'></a> Overview of Healthwatch Components
@@ -144,10 +142,10 @@ or horizontally. For more information about vertical and horizontal scaling, see
 and Horizontal Scaling](https://docs.pivotal.io/application-service/concepts/high-availability.html#vert-and-horiz)
 in _High Availability in TAS for VMs_ in the TAS for VMs documentation.
 
-Healthwatch deploys two Prometheus VMs by default. With two VMs in your Prometheus instance,
-Prometheus and Alertmanager are made HA by default. You can scale your Prometheus instance vertically,
+Healthwatch deploys two Prometheus VMs by default. With two VMs in the Prometheus instance,
+Prometheus and Alertmanager are made HA by default. You can scale the Prometheus instance vertically,
 but you should not scale it horizontally.
 
 Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale
-your Grafana instance horizontally. When making Grafana HA, VMware recommends scaling your
-MySQL instance to three VMs and your MySQL Proxy instance to two VMs.
+the Grafana instance horizontally. When making Grafana HA, VMware recommends scaling the
+MySQL instance to three VMs and the MySQL Proxy instance to two VMs.

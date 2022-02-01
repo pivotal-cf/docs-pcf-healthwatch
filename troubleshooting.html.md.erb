@@ -311,7 +311,7 @@ To find out why the Prometheus instance fails to scrape metrics from your TKGI c
 SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced
 Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
-1. View information about your Prometheus instance scrape targets by running:
+1. View information about the Prometheus instance scrape targets by running:
 
     ```
     curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq .
