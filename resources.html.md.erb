@@ -15,18 +15,15 @@ Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles deploy, see [
 
 The main three components of the Healthwatch tile are Prometheus, Grafana, and MySQL.
 
-The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles, allows
-you to configure alerts with Alertmanager, and sends canary tests to target URLs with Blackbox
-Exporter. The Healthwatch tile then exports the collected metrics to dashboards in the Grafana
-UI, allowing you to visualize the data with charts and graphs and create customized dashboards
-for long-term monitoring and troubleshooting. MySQL is used only to store your Grafana settings
-and does not store any time series data. The Healthwatch tile also deploys a fourth component,
-MySQL Proxy, to route client connections to healthy MySQL nodes.
+The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles, allows you to configure alerts with Alertmanager, and sends canary
+tests to target URLs with Blackbox Exporter. The Healthwatch tile then exports the collected metrics to dashboards in the Grafana UI, allowing you to
+visualize the data with charts and graphs and create customized dashboards for long-term monitoring and troubleshooting. MySQL is used only to store your
+Grafana settings and does not store any time series data. The Healthwatch tile also deploys a fourth component, MySQL Proxy, to route client connections to
+healthy MySQL nodes.
 
-By default, the Healthwatch tile deploys two Prometheus VMs, one Grafana VM, one MySQL VM,
-and one MySQL Proxy VM. In the **Resource Config** pane of the Healthwatch tile, you can scale
-and assign load balancers to these resources. For information about making your Healthwatch
-deployment highly available (HA), see [High Availability](#ha) below.
+By default, the Healthwatch tile deploys two Prometheus VMs, one Grafana VM, one MySQL VM, and one MySQL Proxy VM. In the **Resource Config** pane of the
+Healthwatch tile, you can scale and assign load balancers to these resources. For information about making your Healthwatch deployment highly available (HA),
+see [High Availability](#ha) below.
 
 
 ## <a id='component-vms'></a> Healthwatch Component VMs
@@ -78,8 +75,7 @@ The table below explains each Healthwatch tile component and which VM deploys it
 
 ## <a id='resource-requirements'></a> Resource Requirements for the Healthwatch Tile
 
-The following table provides the default resource and IP requirements for installing the Healthwatch
-tile:
+The following table provides the default resource and IP requirements for installing the Healthwatch tile:
 
 <table>
   <tr>
@@ -124,28 +120,23 @@ tile:
   </tr>
 </table>
 
-You can scale these resources in the **Resource Config** pane of the Healthwatch tile. For
-more information, see [High Availability](#ha) below.
+You can scale these resources in the **Resource Config** pane of the Healthwatch tile. For more information, see [High Availability](#ha) below.
 
-The Healthwatch tile automatically selects the instance type that is best suited for each job.
-The instance types that Healthwatch selects depend on the available resources for your deployment.
+The Healthwatch tile automatically selects the instance type that is best suited for each job. The instance types that Healthwatch selects depend on the
+available resources for your deployment.
 
 ### <a id='ha'></a> High Availability
 
-To make your Healthwatch deployment HA, you deploy a redundant number of Healthwatch tile component
-instances. This increases the capacity and availability of those components, which decreases
-the chances of downtime.
+To make your Healthwatch deployment HA, you deploy a redundant number of Healthwatch tile component instances. This increases the capacity and availability of
+those components, which decreases the chances of downtime.
 
-To make your Healthwatch deployment HA, you scale Healthwatch tile resources in the **Resource
-Config** pane of the Healthwatch tile. You can scale Healthwatch tile resources either vertically
-or horizontally. For more information about vertical and horizontal scaling, see [Vertical
-and Horizontal Scaling](https://docs.pivotal.io/application-service/concepts/high-availability.html#vert-and-horiz)
-in _High Availability in TAS for VMs_ in the TAS for VMs documentation.
+To make your Healthwatch deployment HA, you scale Healthwatch tile resources in the **Resource Config** pane of the Healthwatch tile. You can scale
+Healthwatch tile resources either vertically or horizontally. For more information about vertical and horizontal scaling, see [Vertical and Horizontal
+Scaling](https://docs.pivotal.io/application-service/concepts/high-availability.html#vert-and-horiz) in _High Availability in TAS for VMs_ in the TAS for VMs
+documentation.
 
-Healthwatch deploys two Prometheus VMs by default. With two VMs in the Prometheus instance,
-Prometheus and Alertmanager are made HA by default. You can scale the Prometheus instance vertically,
-but you should not scale it horizontally.
+Healthwatch deploys two Prometheus VMs by default. With two VMs in the Prometheus instance, Prometheus and Alertmanager are made HA by default. You can scale
+the Prometheus instance vertically, but you should not scale it horizontally.
 
-Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale
-the Grafana instance horizontally. When making Grafana HA, VMware recommends scaling the
-MySQL instance to three VMs and the MySQL Proxy instance to two VMs.
+Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally. When making Grafana HA,
+VMware recommends scaling the MySQL instance to three VMs and the MySQL Proxy instance to two VMs.

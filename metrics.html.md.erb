@@ -11,17 +11,14 @@ for Tanzu Kubernetes Grid Integrated Edition (TKGI) tile generate.
 
 ## <a id='overview'></a> Overview of Healthwatch Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy metric exporter
-VMs to generate component metrics and service level indicators (SLIs) related to the health
-of your TAS for VMs and TKGI deployments. Each metric exporter VM exposes these metrics and
-SLIs on a Prometheus exposition endpoint, `/metrics`.
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy metric exporter VMs to generate component metrics and service level indicators
+(SLIs) related to the health of your TAS for VMs and TKGI deployments. Each metric exporter VM exposes these metrics and SLIs on a Prometheus exposition
+endpoint, `/metrics`.
 
-The Prometheus instance that exists within your metrics monitoring system then scrapes each
-`/metrics` endpoints on the metric exporter VMs and imports those metrics into your monitoring
-system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics`
-endpoints in the **Prometheus** pane of the Healthwatch for VMware Tanzu tile. To configure the scrape interval
-for the Prometheus instance, see [Configure Prometheus](configuring/configuring-healthwatch.html#prometheus)
-in _Configuring Healthwatch_.
+The Prometheus instance that exists within your metrics monitoring system then scrapes each `/metrics` endpoints on the metric exporter VMs and imports those
+metrics into your monitoring system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics` endpoints in the **Prometheus**
+pane of the Healthwatch for VMware Tanzu tile. To configure the scrape interval for the Prometheus instance, see [Configure Prometheus]
+(configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
 The name of each metric is is PromQL format. For more information, see the [Prometheus documentation]
 (https://prometheus.io/docs/prometheus/latest/querying/basics/).
@@ -29,19 +26,15 @@ The name of each metric is is PromQL format. For more information, see the [Prom
 
 ## <a id='bosh-sli'></a> BOSH SLIs
 
-In an Ops Manager foundation, the BOSH Director manages the VMs that each tile deploys. If
-the BOSH Director fails or is not responsive, the VMs that the BOSH Director manages also fail.
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that
-continuously test the functionality of the BOSH Director: the BOSH health metric exporter VM
-and the BOSH deployment metric exporter.
+In an Ops Manager foundation, the BOSH Director manages the VMs that each tile deploys. If the BOSH Director fails or is not responsive, the VMs that the BOSH
+Director manages also fail. Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
+the BOSH Director: the BOSH health metric exporter VM and the BOSH deployment metric exporter.
 
 ### <a id='bosh-health-exporter'></a> BOSH Health Metric Exporter VM
 
-The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment called
-`bosh-health` every ten minutes. This BOSH deployment deploys another VM, `bosh-health-check`,
-that runs a suite of SLI tests to validate the functionality of the BOSH Director. After the
-SLI tests are complete, the BOSH health metric exporter VM collects the metrics from the `bosh-health-check`
-VM, then deletes the `bosh-health` deployment and the `bosh-health-check` VM.
+The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment called `bosh-health` every ten minutes. This BOSH deployment deploys
+another VM, `bosh-health-check`, that runs a suite of SLI tests to validate the functionality of the BOSH Director. After the SLI tests are complete, the BOSH
+health metric exporter VM collects the metrics from the `bosh-health-check` VM, then deletes the `bosh-health` deployment and the `bosh-health-check` VM.
 
 The following table describes each metric the BOSH health metric exporter VM generates:
 
@@ -52,29 +45,26 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds the BOSH health SLI test suite takes to run, grouped by how many
-      ran in less than a certain amount of time. This metric is also called a <em>bucket</em>
-      of BOSH health SLI test suite duration metrics.</td>
+    <td>The number of seconds the BOSH health SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
+      called a <em>bucket</em> of BOSH health SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_count{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of duration metrics across all BOSH health SLI test suite duration
-      metric buckets.</td>
+    <td>The total number of duration metrics across all BOSH health SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_sum{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total value of the duration metrics across all BOSH health SLI test suite duration
-      metric buckets.</td>
+    <td>The total value of the duration metrics across all BOSH health SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_exporter_status{exported_job="bosh-health-exporter"}</code></td>
-    <td>The health status of the BOSH health metric exporter VM. A value of <code>1</code>
-      indicates that the BOSH health metric exporter VM is running and healthy.</td>
+    <td>The health status of the BOSH health metric exporter VM. A value of <code>1</code> indicates that the BOSH health metric exporter VM is running and
+      healthy.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times the BOSH health SLI test suite fails. A failed test suite
-      is one in which any number of tests within the test suite fail.</td>
+    <td>The total number of times the BOSH health SLI test suite fails. A failed test suite is one in which any number of tests within the test suite
+      fail.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_run_duration_seconds{exported_job="bosh-health-exporter"}</code></td>
@@ -82,16 +72,15 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times the BOSH health SLI test suite runs. To see the failure rate
-      of <code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code>, divide the
-      value of <code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code> by
-      the value of <code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code>.</td>
+    <td>The total number of times the BOSH health SLI test suite runs. To see the failure rate of
+      <code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code>, divide the value of
+      <code>bosh_sli_failures_total{exported_job="bosh-health-exporter"}</code> by the value of
+      <code>bosh_sli_runs_total{exported_job="bosh-health-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_bucket{exported_job="bosh-health-exporter"}</code></td>
-    <td>The number of seconds it takes a task within the BOSH health SLI test suite to run,
-      grouped by how many ran in less than a certain amount of time. This metric is also called
-      a <em>bucket</em> of task duration metrics.</td>
+    <td>The number of seconds it takes a task within the BOSH health SLI test suite to run, grouped by how many ran in less than a certain amount of time.
+      This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_count{exported_job="bosh-health-exporter"}</code></td>
@@ -103,8 +92,7 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_task_run_duration_seconds{exported_job="bosh-health-exporter",task="delete"}</code></td>
-    <td>The number of seconds it takes the <code>bosh delete-deployment</code> command test
-      to run.</td>
+    <td>The number of seconds it takes the <code>bosh delete-deployment</code> command test to run.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_run_duration_seconds{exported_job="bosh-health-exporter",task="deploy"}</code></td>
@@ -116,9 +104,9 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
   <tr>
     <td><code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code></td>
-    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>,
-      divide the value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code>
-      by the value of <code>bosh_sli_task_runs{exported_job="bosh-health-exporter"}</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-health-exporter"}</code>, divide
+      the value of <code>bosh_sli_task_failures{exported_job="bosh-health-exporter"}</code> by the value of
+      <code>bosh_sli_task_runs{exported_job="bosh-health-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_failures_total{exported_job="bosh-health-exporter",task="delete"}</code></td>
@@ -136,9 +124,8 @@ The following table describes each metric the BOSH health metric exporter VM gen
 
 ### <a id='bosh-deployments-exporter'></a> BOSH Deployment Metric Exporter VM
 
-The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, checks every 30 seconds
-whether any BOSH deployments other than the `bosh-health` deployment created by the BOSH health
-metric exporter VM are running.
+The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, checks every 30 seconds whether any BOSH deployments other than the `bosh-health`
+deployment created by the BOSH health metric exporter VM are running.
 
 The following table describes each metric the BOSH deployment metric exporter VM generates:
 
@@ -149,31 +136,26 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
   <tr>
     <td><code>bosh_deployments_status</code></td>
-    <td>Whether any BOSH deployments other than <code>bosh-health</code> are running. A value
-      of <code>0</code> indicates that no other BOSH deployments are running on the BOSH Director.
-      A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH
-      Director.</td>
+    <td>Whether any BOSH deployments other than <code>bosh-health</code> are running. A value of <code>0</code> indicates that no other BOSH deployments are
+      running on the BOSH Director. A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH Director.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds the BOSH deployment check takes to run, grouped by how many ran
-      in less than a certain amount of time. This metric is also called a <em>bucket</em> of
-      BOSH deployment check duration metrics.</td>
+    <td>The number of seconds the BOSH deployment check takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
+      called a <em>bucket</em> of BOSH deployment check duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_count{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total number of duration metrics across all BOSH deployment check duration metric
-      buckets.</td>
+    <td>The total number of duration metrics across all BOSH deployment check duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_duration_seconds_sum{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The total value of the duration metrics across all BOSH deployment check duration metric
-      buckets.</td>
+    <td>The total value of the duration metrics across all BOSH deployment check duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_exporter_status{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The health status of the BOSH deployment metric exporter VM. A value of <code>1</code>
-      indicates that the BOSH deployment metric exporter VM is running and healthy.</td>
+    <td>The health status of the BOSH deployment metric exporter VM. A value of <code>1</code> indicates that the BOSH deployment metric exporter VM is
+      running and healthy.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code></td>
@@ -186,15 +168,14 @@ The following table describes each metric the BOSH deployment metric exporter VM
   <tr>
     <td><code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code></td>
     <td>The total number of times the BOSH deployment check runs. To see the failure rate of
-      <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>, divide the
-      value of <code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code>
-      by the value of <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
+      <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>, divide the value of
+      <code>bosh_sli_failures_total{exported_job="bosh-deployments-exporter"}</code> by the value of
+      <code>bosh_sli_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_bucket{exported_job="bosh-deployments-exporter"}</code></td>
-    <td>The number of seconds it takes a task within the BOSH deployment check to run, grouped
-      how many ran in less than a certain amount of time. This metric is also called a <em>bucket</em>
-      of task duration metrics.</td>
+    <td>The number of seconds it takes a task within the BOSH deployment check to run, grouped how many ran in less than a certain amount of time. This metric
+      is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_duration_seconds_count{exported_job="bosh-deployments-exporter"}</code></td>
@@ -211,8 +192,8 @@ The following table describes each metric the BOSH deployment metric exporter VM
   <tr>
     <td><code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code></td>
     <td>The total number of times a task runs. To see the failure rate of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>,
-      divide the value of <code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter"}</code>
-      by the value of <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
+      divide the value of <code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter"}</code> by the value of
+      <code>bosh_sli_task_runs_total{exported_job="bosh-deployments-exporter"}</code>.</td>
   </tr>
   <tr>
     <td><code>bosh_sli_task_failures_total{exported_job="bosh-deployments-exporter",task="tasks"}</code></td>
@@ -222,15 +203,13 @@ The following table describes each metric the BOSH deployment metric exporter VM
 
 ## <a id='platform-sli'></a> Platform Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate
-metrics regarding the health of several Ops Manager and runtime components. You can use these
-metrics to calculate percent availability and error budgets.
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Ops Manager and
+runtime components. You can use these metrics to calculate percent availability and error budgets.
 
 ### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter VM
 
-Developers create and manage apps on TAS for VMs using the Cloud Foundry Command Line Interface
-(cf CLI). Healthwatch Exporter for TAS for VMs deploys the TAS for VMs SLI exporter VM, `pas-sli-exporter`,
-which continuously tests the functionality of the cf CLI.
+Developers create and manage apps on TAS for VMs using the Cloud Foundry Command Line Interface (cf CLI). Healthwatch Exporter for TAS for VMs deploys the TAS
+for VMs SLI exporter VM, `pas-sli-exporter`, which continuously tests the functionality of the cf CLI.
 
 The following table describes each metric the TAS for VMs SLI exporter VM generates:
 
@@ -241,24 +220,21 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TAS for VMs SLI test suite takes to run, grouped by how many
-      ran in less than a certain amount of time. This metric is also called a <em>bucket</em>
-      of TAS for VMs SLI test suite duration metrics.</td>
+    <td>The number of seconds the TAS for VMs SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
+      called a <em>bucket</em> of TAS for VMs SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_count</code></td>
-    <td>The total number of duration metrics across all TAS for VMs SLI test suite duration
-      metric buckets.</td>
+    <td>The total number of duration metrics across all TAS for VMs SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_sum</code></td>
-    <td>The total value of the duration metrics across all TAS for VMs SLI test suite duration
-      metric buckets.</td>
+    <td>The total value of the duration metrics across all TAS for VMs SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_exporter_status</code></td>
-    <td>The health status of the TAS for VMs SLI exporter VM. A value of <code>1</code> indicates
-      that the TAS for VMs SLI exporter VM is running and healthy.</td>
+    <td>The health status of the TAS for VMs SLI exporter VM. A value of <code>1</code> indicates that the TAS for VMs SLI exporter VM is running and
+      healthy.</td>
   </tr>
   <tr>
     <td><code>tas_sli_failures_total</code></td>
@@ -270,15 +246,13 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_runs_total</code></td>
-    <td>The total number of times the TAS for VMs SLI test suite runs. To see the failure rate
-      of <code>tas_sli_runs_total</code>, divide the value of <code>tas_sli_failures_total</code>
-      by the value of <code>tas_sli_runs_total</code>.</td>
+    <td>The total number of times the TAS for VMs SLI test suite runs. To see the failure rate of <code>tas_sli_runs_total</code>, divide the value of
+      <code>tas_sli_failures_total</code> by the value of <code>tas_sli_runs_total</code>.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run,
-      grouped by how many ran in less than a certain amount of time. This metric is also called
-      a <em>bucket</em> of task duration metrics.</td>
+    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run, grouped by how many ran in less than a certain amount of time.
+      This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_count</code></td>
@@ -318,8 +292,8 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_task_runs_total</code></td>
-    <td>The total number of times a task runs. To see the failure rate of <code>tas_sli_task_runs_total</code>,
-      divide the value of <code>tas_sli_task_failures</code> by the value of <code>tas_sli_task_runs</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>tas_sli_task_runs_total</code>, divide the value of
+      <code>tas_sli_task_failures</code> by the value of <code>tas_sli_task_runs</code>.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_failures_total{task="delete"}</code></td>
@@ -353,9 +327,8 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
 
 ### <a id='pks-sli-exporter'></a> TKGI SLI Exporter VM
 
-Operators create and manage Kubernetes clusters using the TKGI Command Line Interface (TKGI
-CLI). Healthwatch Exporter for TKGI deploys the TKGI SLI exporter VM, `pks-sli-exporter`, which
-continuously tests the functionality of the TKGI CLI.
+Operators create and manage Kubernetes clusters using the TKGI Command Line Interface (TKGI CLI). Healthwatch Exporter for TKGI deploys the TKGI SLI exporter
+VM, `pks-sli-exporter`, which continuously tests the functionality of the TKGI CLI.
 
 The following table describes each metric the TKGI SLI exporter VM generates:
 
@@ -366,24 +339,20 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TKGI SLI test suite takes to run, grouped by how many ran
-      in less than a certain amount of time. This metric is also called a <em>bucket</em> of
-      TKGI SLI test suite duration metrics.</td>
+    <td>The number of seconds the TKGI SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also called
+      a <em>bucket</em> of TKGI SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_count</code></td>
-    <td>The total number of duration metrics across all TKGI SLI test suite duration metric
-      buckets.</td>
+    <td>The total number of duration metrics across all TKGI SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_duration_seconds_sum</code></td>
-    <td>The total value of the duration metrics across all TKGI SLI test suite duration metric
-      buckets.</td>
+    <td>The total value of the duration metrics across all TKGI SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_exporter_status</code></td>
-    <td>The health status of the TKGI SLI exporter VM. A value of <code>1</code> indicates
-      that the TKGI SLI exporter VM is running and healthy.</td>
+    <td>The health status of the TKGI SLI exporter VM. A value of <code>1</code> indicates that the TKGI SLI exporter VM is running and healthy.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_failures_total</code></td>
@@ -395,14 +364,13 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_runs_total</code></td>
-    <td>The total number of times the TKGI SLI test suite runs. To see the failure rate of
-      <code>tkgi_sli_runs_total</code>, divide the value of <code>tkgi_sli_failures_total</code>
-      by the value of <code>tkgi_sli_runs_total</code>.</td>
+    <td>The total number of times the TKGI SLI test suite runs. To see the failure rate of <code>tkgi_sli_runs_total</code>, divide the value of
+      <code>tkgi_sli_failures_total</code> by the value of <code>tkgi_sli_runs_total</code>.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes a task with the TKGI SLI test suite to run, grouped
-      by duration. This metric is also called a <em>bucket</em> of task duration metrics.</td>
+    <td>The number of seconds it takes a task with the TKGI SLI test suite to run, grouped by duration. This metric is also called a <em>bucket</em> of task
+      duration metrics.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_duration_seconds_count</code></td>
@@ -418,8 +386,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_task_run_duration_seconds{task="get-credentials"}</code></td>
-    <td>The number of seconds it takes the <code>tkgi get-credentials</code> command test to
-      run.</td>
+    <td>The number of seconds it takes the <code>tkgi get-credentials</code> command test to run.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_run_duration_seconds{task="login"}</code></td>
@@ -431,8 +398,8 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
   <tr>
     <td><code>tkgi_sli_task_runs_total</code></td>
-    <td>The total number of times a task runs. To see the failure rate of <code>tkgi_sli_task_runs_total</code>,
-      divide the value of <code>tkgi_sli_task_failures</code> by the value of <code>tkgi_sli_task_runs</code>.</td>
+    <td>The total number of times a task runs. To see the failure rate of <code>tkgi_sli_task_runs_total</code>, divide the value of
+      <code>tkgi_sli_task_failures</code> by the value of <code>tkgi_sli_task_runs</code>.</td>
   </tr>
   <tr>
     <td><code>tkgi_sli_task_failures_total{task="clusters"}</code></td>
@@ -454,10 +421,9 @@ The following table describes each metric the TKGI SLI exporter VM generates:
 
 ### <a id='cert-expiration-exporter'></a> Certificate Expiration Metric Exporter VM
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate
-expiration metric exporter VM, `cert-expiration-exporter`, which collects metrics that show
-when Ops Manager certificates are due to expire. For more information, see [Monitoring Certificate
-Expiration](configuring/optional-config/certificate-monitoring.html).
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
+collects metrics that show when Ops Manager certificates are due to expire. For more information, see [Monitoring Certificate Expiration]
+(configuring/optional-config/certificate-monitoring.html).
 
 The following table describes the metric the certificate expiration metric exporter VM generates:
 
@@ -468,22 +434,18 @@ The following table describes the metric the certificate expiration metric expor
   </tr>
   <tr>
     <td><code>ssl_certificate_expiry_seconds{exported_instance=~"CERTIFICATE"}</code></td>
-    <td>The time in seconds until a certificate expires, where <code>CERTIFICATE</code> is
-      the name of the certificate.</td>
+    <td>The time in seconds until a certificate expires, where <code>CERTIFICATE</code> is the name of the certificate.</td>
   </tr>
 </table>
 
 ### <a id='tsdb'></a> Prometheus VM
 
-In the **Canary URLs** pane of the Healthwatch tile, you configure target URLs to which the
-Blackbox Exporters in the Prometheus instance sends canary tests. Testing a canary target URL
-allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
+In the **Canary URLs** pane of the Healthwatch tile, you configure target URLs to which the Blackbox Exporters in the Prometheus instance sends canary tests.
+Testing a canary target URL allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
 
-On the Prometheus VM, `tsdb`, the Blackbox Exporter job, `blackbox-exporter`, generates canary
-test metrics.
+On the Prometheus VM, `tsdb`, the Blackbox Exporter job, `blackbox-exporter`, generates canary test metrics.
 
-The following table describes each metric the Blackbox Exporters in the Prometheus instance
-generates:
+The following table describes each metric the Blackbox Exporters in the Prometheus instance generates:
 
 <table>
   <tr>
@@ -492,18 +454,15 @@ generates:
   </tr>
   <tr>
     <td><code>probe_dns_additional_rrs</code></td>
-    <td>The number of entries in the additional resource record list of the DNS server for
-      the canary target URL.</td>
+    <td>The number of entries in the additional resource record list of the DNS server for the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_answer_rrs</code></td>
-    <td>The number of entries in the answer resource record list of the DNS server for the
-      canary target URL.</td>
+    <td>The number of entries in the answer resource record list of the DNS server for the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_authority_rrs</code></td>
-    <td>The number of entries in the authority resource record list of the DNS server for the
-      canary target URL.</td>
+    <td>The number of entries in the authority resource record list of the DNS server for the canary target URL.</td>
   </tr>
   <tr>
     <td><code>probe_dns_duration_seconds</code></td>
@@ -523,10 +482,8 @@ generates:
   </tr>
   <tr>
     <td><code>probe_failed_due_to_regex</code></td>
-    <td>Whether the canary test failed due to a regex error in the canary test configuration.
-      A value of <code>0</code> indicates that the canary test did not fail due to a regex
-      error. A value of <code>1</code> indicates that the canary test did fail due to a regex
-      error.</td>
+    <td>Whether the canary test failed due to a regex error in the canary test configuration. A value of <code>0</code> indicates that the canary test did not
+      fail due to a regex error. A value of <code>1</code> indicates that the canary test did fail due to a regex error.</td>
   </tr>
   <tr>
     <td><code>probe_http_content_length</code></td>
@@ -546,9 +503,8 @@ generates:
   </tr>
   <tr>
     <td><code>probe_http_ssl</code></td>
-    <td>Whether the canary test used TLS for the final redirect. A value of <code>0</code>
-      indicates that the canary test did not use TLS for the final redirect. A value of <code>1</code>
-      indicates that the canary test did use TLS for the final redirect.</td>
+    <td>Whether the canary test used TLS for the final redirect. A value of <code>0</code> indicates that the canary test did not use TLS for the final
+      redirect. A value of <code>1</code> indicates that the canary test did use TLS for the final redirect.</td>
   </tr>
   <tr>
     <td><code>probe_http_status_code</code></td>
@@ -594,8 +550,8 @@ generates:
   </tr>
   <tr>
     <td><code>probe_success</code></td>
-    <td>Whether the canary test succeeded or failed. A value of <code>0</code> indicates that
-      the canary test failed. A value of <code>1</code> indicates that the canary test succeeded.</td>
+    <td>Whether the canary test succeeded or failed. A value of <code>0</code> indicates that the canary test failed. A value of <code>1</code> indicates that
+      the canary test succeeded.</td>
   </tr>
   <tr>
     <td><code>probe_tls_version_info</code></td>
@@ -605,19 +561,14 @@ generates:
 
 ### <a id="svm-forwarder-platform"></a> SVM Forwarder VM - Platform Metrics
 
-Super value metrics (SVMs) are composite metrics that the Prometheus instance in Healthwatch
-v2.1 generates in a similar format to the super metrics used in Pivotal Healthwatch v1.8 and
-earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator
-Firehose so third-party nozzles can send them to external destinations, such as a remote server
-or external aggregation service.
+Super value metrics (SVMs) are composite metrics that the Prometheus instance in Healthwatch v2.1 generates in a similar format to the super metrics used in
+Pivotal Healthwatch v1.8 and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party
+nozzles can send them to external destinations, such as a remote server or external aggregation service.
 
-The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics
-to the Loggregator Firehose. For more information about SVMs related to Healthwatch component
-metrics, see [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)
-below.
+The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics to the Loggregator Firehose. For more information about SVMs
+related to Healthwatch component metrics, see [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components) below.
 
-The following table describes each platform metric the SVM Forwarder VM sends to the Loggregator
-Firehose:
+The following table describes each platform metric the SVM Forwarder VM sends to the Loggregator Firehose:
 
 <table>
   <tr>
@@ -626,9 +577,8 @@ Firehose:
   </tr>
   <tr>
     <td><code>Diego_AppsDomainSynced</code></td>
-    <td>Whether Cloud Controller and Diego are in sync. A value of <code>0</code> indicates
-      that Cloud Controller and Diego are not in sync. A value of <code>1</code> indicates
-      that Cloud Controller and Diego are in sync.</td>
+    <td>Whether Cloud Controller and Diego are in sync. A value of <code>0</code> indicates that Cloud Controller and Diego are not in sync. A value of
+      <code>1</code> indicates that Cloud Controller and Diego are in sync.</td>
   </tr>
   <tr>
     <td><code>Diego_AvailableFreeChunksDisk</code></td>
@@ -648,13 +598,11 @@ Firehose:
   </tr>
   <tr>
     <td><code>Diego_TotalAvailableMemoryCapacity_5M</code></td>
-    <td>The remaining Diego Cell memory available across all Diego Cells over a five-minute
-      period.</td>
+    <td>The remaining Diego Cell memory available across all Diego Cells over a five-minute period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableContainerCapacity_5M</code></td>
-    <td>The percentage of total available container capacity across all Diego Cells over a
-      five-minute period.</td>
+    <td>The percentage of total available container capacity across all Diego Cells over a five-minute period.</td>
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableDiskCapacity_5M</code></td>
@@ -662,8 +610,7 @@ Firehose:
   </tr>
   <tr>
     <td><code>Diego_TotalPercentageAvailableMemoryCapacity_5M</code></td>
-    <td>The percentage of total available memory across all Diego Cells over a five-minute
-      period.</td>
+    <td>The percentage of total available memory across all Diego Cells over a five-minute period.</td>
   </tr>
   <tr>
     <td><code>Doppler_MessagesAverage_1M</code></td>
@@ -687,22 +634,19 @@ Firehose:
   </tr>
   <tr>
     <td><code>bosh_deployment</code></td>
-    <td>Represents <code>bosh_deployments_status</code> from the BOSH deployment metric exporter
-      VM, which indicates whether any BOSH deployments other than the one created by the BOSH
-      health metric exporter VM are running. A value of <code>0</code> indicates that no other
-      BOSH deployments are running on the BOSH Director. A value of <code>1</code> indicates
-      that other BOSH deployments are running on the BOSH Director.</td>
+    <td>Represents <code>bosh_deployments_status</code> from the BOSH deployment metric exporter VM, which indicates whether any BOSH deployments other than
+      the one created by the BOSH health metric exporter VM are running. A value of <code>0</code> indicates that no other BOSH deployments are running on the
+      BOSH Director. A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH Director.</td>
   </tr>
   <tr>
     <td><code>health_check_bosh_director_success</code></td>
-    <td>Whether the BOSH SLI test suite that the BOSH health metric exporter VM ran succeeded
-      or failed. A value of <code>0</code> indicates that the BOSH SLI test suite failed. A
-      value of <code>1</code> indicates that the BOSH SLI test suite succeeded.</td>
+    <td>Whether the BOSH SLI test suite that the BOSH health metric exporter VM ran succeeded or failed. A value of <code>0</code> indicates that the BOSH SLI
+      test suite failed. A value of <code>1</code> indicates that the BOSH SLI test suite succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_CanaryApp_available</code></td>
-    <td>Whether the canary app is available. A value of <code>0</code> indicates that the canary
-      app is unavailable. A value of <code>1</code> indicates that the canary app is available.</td>
+    <td>Whether the canary app is available. A value of <code>0</code> indicates that the canary app is unavailable. A value of <code>1</code> indicates that
+      the canary app is available.</td>
   </tr>
   <tr>
     <td><code>health_check_CanaryApp_responseTime</code></td>
@@ -710,26 +654,22 @@ Firehose:
   </tr>
   <tr>
     <td><code>health_check_cliCommand_delete</code></td>
-    <td>Whether the <code>cf delete</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf delete</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf delete</code> command succeeded.</td>
+    <td>Whether the <code>cf delete</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf delete</code> command failed. A
+      value of <code>1</code> indicates that the <code>cf delete</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_login</code></td>
-    <td>Whether the <code>cf login</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf login</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf login</code> command succeeded.</td>
+    <td>Whether the <code>cf login</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf login</code> command failed. A
+      value of <code>1</code> indicates that the <code>cf login</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_logs</code></td>
-    <td>Whether the <code>cf logs</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf logs</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf logs</code> command succeeded.</td>
+    <td>Whether the <code>cf logs</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf logs</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf logs</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_probe_count</code></td>
-    <td>The number of cf CLI health checks that Healthwatch completes in the measured time
-      period.</td>
+    <td>The number of cf CLI health checks that Healthwatch completes in the measured time period.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_pushTime</code></td>
@@ -737,21 +677,18 @@ Firehose:
   </tr>
   <tr>
     <td><code>health_check_cliCommand_push</code></td>
-    <td>Whether the <code>cf push</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf push</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf push</code> command succeeded.</td>
+    <td>Whether the <code>cf push</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf push</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf push</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_start</code></td>
-    <td>Whether the <code>cf start</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf start</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf start</code> command succeeded.</td>
+    <td>Whether the <code>cf start</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf start</code> command failed. A
+      value of <code>1</code> indicates that the <code>cf start</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_stop</code></td>
-    <td>Whether the <code>cf stop</code> command succeeds or fails. A value of <code>0</code>
-      indicates that the <code>cf stop</code> command failed. A value of <code>1</code> indicates
-      that the <code>cf stop</code> command succeeded.</td>
+    <td>Whether the <code>cf stop</code> command succeeds or fails. A value of <code>0</code> indicates that the <code>cf stop</code> command failed. A value
+      of <code>1</code> indicates that the <code>cf stop</code> command succeeded.</td>
   </tr>
   <tr>
     <td><code>health_check_cliCommand_success</code></td>
@@ -759,8 +696,7 @@ Firehose:
   </tr>
   <tr>
     <td><code>uaa_throughput_rate</code></td>
-    <td>The lifetime number of requests completed by the UAA VM, emitted per UAA instance in
-      TAS for VMs. This number includes health checks.</td>
+    <td>The lifetime number of requests completed by the UAA VM, emitted per UAA instance in TAS for VMs. This number includes health checks.</td>
   </tr>
 </table>
 
@@ -771,8 +707,8 @@ The following metrics exist for the purpose of monitoring the Healthwatch compon
 
 ### <a id='pks-exporter'></a> TKGI Metric Exporter VM
 
-Healthwatch Exporter for TKGI deploys a TKGI metric exporter VM, `pks-exporter`, that collects
-BOSH system metrics for TKGI and converts them to a Prometheus exposition format.
+Healthwatch Exporter for TKGI deploys a TKGI metric exporter VM, `pks-exporter`, that collects BOSH system metrics for TKGI and converts them to a Prometheus
+exposition format.
 
 The following table describes each metric the TKGI metric exporter VM collects and converts:
 
@@ -783,9 +719,8 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_bucket</code></td>
-    <td>The number of seconds the TKGI metric exporter VM takes to process a batch of Loggregator
-      envelopes, grouped by latency. This metric is also called a <em>bucket</em> of ingress
-      latency metrics.</td>
+    <td>The number of seconds the TKGI metric exporter VM takes to process a batch of Loggregator envelopes, grouped by latency. This metric is also called a
+      <em>bucket</em> of ingress latency metrics.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingressLatency_seconds_count</code></td>
@@ -797,14 +732,12 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_ingress_envelopes</code></td>
-    <td>The number of Loggregator envelopes the observability metrics agent on the TKGI metric
-      exporter VM receives.</td>
+    <td>The number of Loggregator envelopes the observability metrics agent on the TKGI metric exporter VM receives.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_bucket</code></td>
-    <td>The number of seconds the TKGI metric exporter VM takes to convert a BOSH metric to
-      a Prometheus gauge, grouped by how many ran in less than a certain amount of time. This
-      metric is also called a <em>bucket</em> of gauge conversion duration metrics.</td>
+    <td>The number of seconds the TKGI metric exporter VM takes to convert a BOSH metric to a Prometheus gauge, grouped by how many ran in less than a certain
+      amount of time. This metric is also called a <em>bucket</em> of gauge conversion duration metrics.</td>
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_metricConversion_seconds_count</code></td>
@@ -816,25 +749,23 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
   <tr>
     <td><code>healthwatch_boshExporter_status</code></td>
-    <td>The health status of the TKGI metric exporter VM. A value of <code>0</code> indicates
-      that the TKGI metric exporter VM is not responding. A value of <code>1</code> indicates
-      that the TKGI metric exporter VM is running and healthy.</td>
+    <td>The health status of the TKGI metric exporter VM. A value of <code>0</code> indicates that the TKGI metric exporter VM is not responding. A value of
+      <code>1</code> indicates that the TKGI metric exporter VM is running and healthy.</td>
   </tr>
 </table>
 
 ### <a id='pas-exporters'></a> Healthwatch Exporter for TAS for VMs Metric Exporter VMs
 
-Healthwatch Exporter for TAS for VMs deploys metric exporter VMs that collect metrics from
-the Loggregator Firehose and convert them into a Prometheus exposition format.
+Healthwatch Exporter for TAS for VMs deploys metric exporter VMs that collect metrics from the Loggregator Firehose and convert them into a Prometheus
+exposition format.
 
-Each of the following metric exporter VMs collects and converts a single metric type from the
-Loggregator Firehose. The names of the metric exporter VMs correspond to the types of metrics
-they collect and convert.
+Each of the following metric exporter VMs collects and converts a single metric type from the Loggregator Firehose. The names of the metric exporter VMs
+correspond to the types of metrics they collect and convert.
 
 #### <a id='pas-exporter-counter'></a> Counter Metric Exporter VM
 
-The counter metric exporter VM, `pas-exporter-counter`, collects counter metrics from the Loggregator
-Firehose and converts them into a Prometheus exposition format.
+The counter metric exporter VM, `pas-exporter-counter`, collects counter metrics from the Loggregator Firehose and converts them into a Prometheus exposition
+format.
 
 The following table describes each metric the counter metric exporter VM collects and converts:
 
@@ -845,31 +776,27 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_counterConversion_seconds</code></td>
-    <td>The number of seconds the counter metric exporter VM takes to convert a Loggregator
-      counter envelope to a Prometheus counter.</td>
+    <td>The number of seconds the counter metric exporter VM takes to convert a Loggregator counter envelope to a Prometheus counter.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds the counter metric exporter VM takes to process a batch of Loggregator
-      counter envelopes.</td>
+    <td>The number of seconds the counter metric exporter VM takes to process a batch of Loggregator counter envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of Loggregator counter envelopes the observability metrics agent on the
-      counter metric exporter VM receives.</td>
+    <td>The number of Loggregator counter envelopes the observability metrics agent on the counter metric exporter VM receives.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
-    <td>The health status of the counter metric exporter VM. A value of <code>0</code> indicates
-      that the counter metric exporter VM is not responding. A value of <code>1</code> indicates
-      that the counter metric exporter VM is running and healthy.</td>
+    <td>The health status of the counter metric exporter VM. A value of <code>0</code> indicates that the counter metric exporter VM is not responding. A
+      value of <code>1</code> indicates that the counter metric exporter VM is running and healthy.</td>
   </tr>
 </table>
 
 #### <a id='pas-exporter-gauge'></a> Gauge Metric Exporter VM
 
-The gauge metric exporter VM, `pas-exporter-gauge`, collects gauge metrics from the Loggregator
-Firehose and converts them into a Prometheus exposition format.
+The gauge metric exporter VM, `pas-exporter-gauge`, collects gauge metrics from the Loggregator Firehose and converts them into a Prometheus exposition
+format.
 
 The following table describes each metric the gauge metric exporter VM collects and converts:
 
@@ -880,31 +807,27 @@ The following table describes each metric the gauge metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_gaugeConversion_seconds</code></td>
-    <td>The number of seconds the gauge metric exporter VM takes to convert a Loggregator gauge
-      envelope to a Prometheus gauge.</td>
+    <td>The number of seconds the gauge metric exporter VM takes to convert a Loggregator gauge envelope to a Prometheus gauge.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds the gauge metric exporter VM takes to process a batch of Loggregator
-      gauge envelopes.</td>
+    <td>The number of seconds the gauge metric exporter VM takes to process a batch of Loggregator gauge envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of Loggregator gauge envelopes the observability metrics agent on the gauge
-      metric exporter VM receives.</td>
+    <td>The number of Loggregator gauge envelopes the observability metrics agent on the gauge metric exporter VM receives.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
-    <td>The health status of the gauge metric exporter VM. A value of <code>0</code> indicates
-      that the gauge metric exporter VM is not responding. A value of <code>1</code> indicates
-      that the gauge metric exporter VM is running and healthy.</td>
+    <td>The health status of the gauge metric exporter VM. A value of <code>0</code> indicates that the gauge metric exporter VM is not responding. A value of
+      <code>1</code> indicates that the gauge metric exporter VM is running and healthy.</td>
   </tr>
 </table>
 
 #### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM
 
-The timer metric exporter VM, `pas-exporter-timer`, collects timer metrics from the Loggregator
-Firehose and converts them into a Prometheus exposition format.
+The timer metric exporter VM, `pas-exporter-timer`, collects timer metrics from the Loggregator Firehose and converts them into a Prometheus exposition
+format.
 
 The following table describes each metric the timer metric exporter VM collects and converts:
 
@@ -915,29 +838,24 @@ The following table describes each metric the timer metric exporter VM collects 
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingressLatency_seconds</code></td>
-    <td>The number of seconds the timer metric exporter VM takes to process a batch of Loggregator
-      timer envelopes.</td>
+    <td>The number of seconds the timer metric exporter VM takes to process a batch of Loggregator timer envelopes.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_ingress_envelopes</code></td>
-    <td>The number of Loggregator timer envelopes that the observability metrics agent on the
-      timer metric exporter VM receives.</td>
+    <td>The number of Loggregator timer envelopes that the observability metrics agent on the timer metric exporter VM receives.</td>
   </tr>
   <tr>
     <td><code>healthwatch_tasExporter_status</code></td>
-    <td>The health status of the timer metric exporter VM. A value of <code>0</code> indicates
-      that the timer metric exporter VM is not responding. A value of <code>1</code> indicates
-      that the timer metric exporter VM is running and healthy.</td>
+    <td>The health status of the timer metric exporter VM. A value of <code>0</code> indicates that the timer metric exporter VM is not responding. A value of
+      <code>1</code> indicates that the timer metric exporter VM is running and healthy.</td>
   </tr>
 </table>
 
 ### <a id="prometheus-exposition"></a> Prometheus Exposition Endpoint
 
-Most of the metric exporter VMs generate metrics concerning how the Prometheus instance interacts
-with the `/metrics` endpoint on each metric exporter VM.
+Most of the metric exporter VMs generate metrics concerning how the Prometheus instance interacts with the `/metrics` endpoint on each metric exporter VM.
 
-The following table describes each metric the `/metrics` endpoint on each metric exporter VM
-generates:
+The following table describes each metric the `/metrics` endpoint on each metric exporter VM generates:
 
 <table>
   <tr>
@@ -950,35 +868,28 @@ generates:
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_histogramMapConversion</code></td>
-    <td>The number of seconds the metric exporter VM takes to convert histogram collection
-      to a map.</td>
+    <td>The number of seconds the metric exporter VM takes to convert histogram collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricMapConversion</code></td>
-    <td>The number of seconds the metric exporter VM takes to convert metrics collection to
-      a map.</td>
+    <td>The number of seconds the metric exporter VM takes to convert metrics collection to a map.</td>
   </tr>
   <tr>
     <td><code>healthwatch_prometheusExposition_metricSorting</code></td>
-    <td>The number of seconds the metric exporter VM takes to sort metrics when rendering a
-      Prometheus scrape page.</td>
+    <td>The number of seconds the metric exporter VM takes to sort metrics when rendering a Prometheus scrape page.</td>
   </tr>
 </table>
 
 ### <a id="svm-forwarder-components"></a> SVM Forwarder VM - Healthwatch Component Metrics
 
-SVMs are composite metrics that the Prometheus instance in Healthwatch v2.1 generates in a
-similar format to the super metrics used in Pivotal Healthwatch v1.8 and earlier. The SVM Forwarder
-VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party
-nozzles can send them to external destinations, such as a remote server or external aggregation
-service.
+SVMs are composite metrics that the Prometheus instance in Healthwatch v2.1 generates in a similar format to the super metrics used in Pivotal Healthwatch
+v1.8 and earlier. The SVM Forwarder VM, `svm-forwarder`, then sends these metrics back into the Loggregator Firehose so third-party nozzles can send them to
+external destinations, such as a remote server or external aggregation service.
 
-The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics
-to the Loggregator Firehose. For more information about SVMs related to platform metrics, see
-[SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) above.
+The SVM Forwarder VM sends SVMs related to platform metrics and Healthwatch component metrics to the Loggregator Firehose. For more information about SVMs
+related to platform metrics, see [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform) above.
 
-The following table describes each Healthwatch component metric the SVM Forwarder VM sends
-to the Loggregator Firehose:
+The following table describes each Healthwatch component metric the SVM Forwarder VM sends to the Loggregator Firehose:
 
 <table>
   <tr>
@@ -1003,7 +914,6 @@ to the Loggregator Firehose:
   </tr>
   <tr>
     <td><code>scrape_targets_total</code></td>
-    <td>The total number of scrape targets identified from the configuration file for the Prometheus
-      VM.</td>
+    <td>The total number of scrape targets identified from the configuration file for the Prometheus VM.</td>
   </tr>
 </table>
