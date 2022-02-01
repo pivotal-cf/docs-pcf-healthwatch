@@ -343,17 +343,14 @@ Grafana UI.
       `*.example.com`. For more information about configuring a DNS entry for the Grafana instance,
       see [Configuring DNS for the Grafana Instance](dns-configuration.html).
       1. Click **Generate**.
-      1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager
-      VM with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in
-      _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
-      1. Run:
-
-            ```
-            cat /var/tempest/workspaces/default/root_ca_certificate
-            ```
-      1. Record the Ops Manager root CA certificate.
-      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate
-      that you recorded in the previous step.
+      1. Navigate to the Ops Manager Installation Dashboard.
+      1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+      1. Select **Advanced Options**.
+      1. Click **DOWNLOAD ROOT CA CERT**.
+      1. Return to the Ops Manager Installation Dashboard.
+      1. Click the **Healthwatch** tile.
+      1. Select **Grafana**.
+      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in the previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance,
 enter a comma-separated list of ciphers in **Additional ciphers for TLS**. For a list of supported
