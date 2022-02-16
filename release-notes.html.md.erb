@@ -211,12 +211,16 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 Healthwatch v2.2 includes the following known issues:
 
-### <a id='metric-name-recursion'></a> SVM Forwarder Causing Metric Label Recursion with labels like "exported_exported_job"
-In Healthwatch v2.2.0, a change in the Prometheus server was made to how label collisions are handled.  When the `svm-forwarder` VM
-in the Healthwatch Exporter for Tanzu Application Service tile is enabled, label name recursion occurs on the `job` and `exported_job`
-labels. The recursion creates labels that look like `exported_exported_exported_exported_job`.  The workaround is to disable
-the `svm-forwarder` VM via the Resource Config tab of the Healthwatch Exporter for Tanzu Application Service Tile in Healthwatch v2.2.0.
-This functionality will be fixed in Healthwatch v2.2.1
+### <a id='metric-name-recursion'></a> SVM Forwarder Causing Metric Label Recursion with labels such as "exported_exported_job"
+
+In Healthwatch v2.2.0, a change in the Prometheus server was made to how label collisions are handled.
+When the `svm-forwarder` VM in the Healthwatch Exporter for Tanzu Application Service tile is enabled,
+label name recursion occurs on the `job` and `exported_job` labels.
+The recursion creates labels such as `exported_exported_exported_exported_job`.
+
+The workaround is to deactivate the `svm-forwarder` VM using the **Resource Config** tab of the Healthwatch
+Exporter for Tanzu Application Service Tile in Healthwatch v2.2.0.
+This capability will be fixed in Healthwatch v2.2.1
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
