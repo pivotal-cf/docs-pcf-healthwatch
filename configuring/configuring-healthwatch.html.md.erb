@@ -213,24 +213,25 @@ To configure the **Grafana** pane:
         <br>
         VMware recommends also providing a certificate signed by a trusted third-party CA in **CA certificate for HTTPS**. You can generate a self-signed
         certificate using the Ops Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
+
           * To use a certificate signed by a trusted third-party CA:
               1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
               1. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
           * To generate a self-signed certificate from the Ops Manager root CA:
-              1. Under **Certificate and private key for HTTPS**, click **Change**.
-              1. Click **Generate RSA Certificate**.
-              1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for
-              the Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For
-              more information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
-              1. Click **Generate**.
-              1. Navigate to the Ops Manager Installation Dashboard.
-              1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
-              1. Select **Advanced Options**.
-              1. Click **DOWNLOAD ROOT CA CERT**.
-              1. Return to the Ops Manager Installation Dashboard.
-              1. Click the **Healthwatch** tile.
-              1. Select **Grafana**.
-              1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in the previous step.
+            1. Under **Certificate and private key for HTTPS**, click **Change**.
+            1. Click **Generate RSA Certificate**.
+            1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for the
+            Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For more
+            information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
+            1. Click **Generate**.
+            1. Navigate to the Ops Manager Installation Dashboard.
+            1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+            1. Select **Advanced Options**.
+            1. Click **DOWNLOAD ROOT CA CERT**.
+            1. Return to the Ops Manager Installation Dashboard.
+            1. Click the **Healthwatch** tile.
+            1. Select **Grafana**.
+            1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in the previous step.
       1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in
       **Additional ciphers for TLS**. For a list of supported cipher suites, see [cipher_suites.go]
       (https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository on GitHub.
