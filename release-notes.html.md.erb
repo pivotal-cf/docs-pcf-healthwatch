@@ -23,6 +23,30 @@ v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-1-9'></a> v2.1.9
+
+**Release Date:** 2/18/2022
+
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE 2021-44832]
+  (https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
+
+* **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.14.9 to address a critical CVE. For more information, see [CVE-2022-21366]
+(https://nvd.nist.gov/vuln/detail/CVE-2022-21366) on the CVE website.
+
+* **[Known Issue Fix]** When TKGI OIDC is disabled, Service accounts created by the PKS SLI Exporter are now cleaned up during the TKGI SLI Logout test.
+ For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue Fix]** BBR backup snapshots are now cleaned up on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
+Healthwatch v2.1.9 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.33.1           |
+| Grafana      | 7.5.11           |
+| Alertmanager | 0.23.0           |
+
 ### <a id='2-1-8'></a> v2.1.8
 
 **Release Date:** 12/16/2021
@@ -33,12 +57,40 @@ v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 * **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.13.8 to address a critical CVE. For more information, see [CVE 2021-2341]
 (https://nvd.nist.gov/vuln/detail/CVE-2021-2341) on the CVE website.
 
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
+Healthwatch v2.1.8 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.11           |
+| Alertmanager | 0.21.0           |
+
 ### <a id='2-1-7'></a> v2.1.7
 
 **Release Date:** 12/10/2021
 
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE. For more information, see [CVE 2021-44228]
 (https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
+Healthwatch v2.1.7 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.11           |
+| Alertmanager | 0.21.0           |
 
 ### <a id='2-1-6'></a> v2.1.6
 
@@ -48,6 +100,20 @@ v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 * **[Bug Fix]** The Cloud Foundry Command-Line Interface (cf CLI) version that Healthwatch uses is compatible with VMware Tanzu Application Service for VMs
 (TAS for VMs) v2.7.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
+Healthwatch v2.1.6 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.25.0           |
+| Grafana      | 7.5.11           |
+| Alertmanager | 0.21.0           |
 
 ### <a id='2-1-5'></a> v2.1.5
 
@@ -66,6 +132,12 @@ issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](#no-data-nodes
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.1.5 uses the following open-source component versions:
 
@@ -115,6 +187,12 @@ issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](#no-data-nodes
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
 Healthwatch v2.1.4 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -156,6 +234,12 @@ missing. For more information about this known issue, see [Missing Username Fiel
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.1.3 uses the following open-source component versions:
 
@@ -206,6 +290,12 @@ missing. For more information about this known issue, see [Missing Username Fiel
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
 
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+
 Healthwatch v2.1.1 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -236,6 +326,12 @@ information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Defau
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.1.0 uses the following open-source component versions:
 
@@ -287,6 +383,12 @@ more information about this known issue, see [No Data on Kubernetes Nodes Dashbo
 
 * **[Known Issue]** When you scale VMs up, Healthwatch does not automatically distribute additional VMs across AZs and requires a workaround. For more
 information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Default](#scaled-vms) below.
+
+* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
+  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+
+* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
+[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
@@ -489,3 +591,31 @@ In Healthwatch v2.0.6, the MySQL PXC instance stores too many binlogs, which fil
 
 To fix this issue, upgrade to Healthwatch v2.1. For more information about upgrading to Healthwatch v2.1, see [Upgrading Healthwatch]
 (upgrading-healthwatch.html).
+
+### <a id='tkgi-service-accounts'></a> Healthwatch Exporter Not Cleaning up TKGI Service Accounts
+
+This known issue is fixed in Healthwatch v2.1.9 and later.
+
+If you are using Healthwatch to run SLI tests against TKGI and `OIDC` is disabled in the TKGI tile configuration,
+the Service Accounts created by Healthwatch will not be automatically cleaned up.
+
+To fix this issue for future SLI test runs, you can enable `OIDC` in the TKGI tile or upgrade to Healthwatch v2.1.9.
+Note that this will not clean up existing Service Accounts.
+
+Consider manually deleting some of the older Service Accounts along with the associated Secrets and Clusterrolebindings
+if `pks get-credentials` returns an error similar to:
+`Error: Status: 500; ErrorMessage: nil; Description: Create Binding: Timed out waiting for secrets; ResponseError: nil`
+
+### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Filling Disk on TSDB VMs
+
+This known issue is fixed in Healthwatch v2.1.9 and later.
+
+The TSDB Backup scripts were not cleaning up the intermediary snapshots when BBR backups were run which resulted in
+the disks filling up.
+
+To fix this issue, upgrade to Healthwatch v2.1.9 or manually clean up the snapshots:
+
+1. SSH onto the `tsdb` VMs
+1. Run `sudo -i`
+1. Run `rm -rf /var/vcap/store/prometheus/snapshots/*`
+1. Verify that the `/var/vcap/store/prometheus/snapshots` directory is empty
