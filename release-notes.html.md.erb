@@ -5,7 +5,7 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic contains release notes for Healthwatch v2.2.
+This topic contains release notes for Healthwatch for VMware Tanzu v2.2.
 
 For information about the risks and limitations of Healthwatch v2.2, see [Assumed Risks of Using Healthwatch v2.2](index.html#assumed-risks) and [Healthwatch
 v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
@@ -59,9 +59,9 @@ Timeouts Are Increased](#tas-sli-test-timeout) below.
 * **[Breaking Change]** If you use automated scripts to install and configure Healthwatch, you must update your scripts to reflect the new configuration
 requirements. For more information, see [Update Automation Scripts](#scripts) below.
 
-* **[Breaking Change]** If you configured an external UAA server as the authentication method for logging in to the Grafana UI in Healthwatch v2.1, you must
-select **Generic OAuth** and configure the settings for the external UAA server in the **Grafana Authentication** pane. For more information, see
-[Authenticating with an External UAA Server](#breaking-uaa) below.
+* **[Breaking Change]** If you configured a UAA instance on a different Ops Manager foundation as the authentication method for logging in to the Grafana UI
+in Healthwatch v2.1, you must select **Generic OAuth** and configure the settings for the external UAA instance in the **Grafana Authentication** pane. For
+more information, see [Authenticating with a UAA Instance on a Different Ops Manager Foundation](#breaking-uaa) below.
 
 * **[Breaking Change]** The timer metric exporter VM is removed from Healthwatch Exporter for TAS for VMs. For more information, see [Timer Metric Exporter
 VM is Removed](#pas-exporter-timer) below.
@@ -106,8 +106,8 @@ For more information, see [(Optional) Configure Grafana](configuring/configuring
 ### <a id='uaa-auth-auto-config'></a> Automatic UAA Authentication Configuration
 
 When you select **UAA** as your Grafana UI authentication method in the **Grafana Authentication** pane of the Healthwatch tile, Healthwatch automatically
-configures authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI. If you want to configure authentication with an external UAA
-server, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
+configures authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI. If you want to configure authentication with a UAA instance on a
+different Ops Manager foundation, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
 
 For more information, see [(Optional) Configure Grafana Authentication](configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
 
@@ -187,14 +187,15 @@ must update your scripts to reflect the new configuration requirements.
 For more information about installing and configuring Healthwatch through platform automation, see [Installing, Configuring, and Deploying a Tile Through an
 Automated Pipeline](installing/automated-pipeline.html).
 
-### <a id='breaking-uaa'></a> Authenticating with an External UAA Server
+### <a id='breaking-uaa'></a> Authenticating with a UAA Instance on a Different Ops Manager Foundation
 
 If you are upgrading from Healthwatch v2.1 and configured **UAA** as your authentication method for logging in to the Grafana UI, Healthwatch v2.2 keeps
-**UAA** as your configured authentication method by default. If you configured an external UAA server as the authentication method for logging in to the
-Grafana UI in Healthwatch v2.1, you must select **Generic OAuth** and configure the settings for the external UAA server in the **Grafana Authentication**
-pane.
+**UAA** as your configured authentication method by default. If you configured a UAA instance on a different Ops Manager foundation as the authentication
+method for logging in to the Grafana UI in Healthwatch v2.1, you must select **Generic OAuth** and configure the settings for the external UAA instance in the
+**Grafana Authentication** pane.
 
-For more information, see [Configuring Authentication with an External UAA Server](configuring/optional-config/configuring-external-uaa.html).
+For more information, see [Configuring Authentication with a UAA Instance on a Different Ops Manager Foundation]
+(configuring/optional-config/configuring-external-uaa.html).
 
 ### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM is Removed
 
@@ -208,6 +209,17 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.2 includes the following known issues:
+
+### <a id='metric-name-recursion'></a> SVM Forwarder Causing Metric Label Recursion with labels such as "exported_exported_job"
+
+In Healthwatch v2.2.0, a change in the Prometheus server was made to how label collisions are handled.
+When the `svm-forwarder` VM in the Healthwatch Exporter for Tanzu Application Service tile is enabled,
+label name recursion occurs on the `job` and `exported_job` labels.
+The recursion creates labels such as `exported_exported_exported_exported_job`.
+
+The workaround is to deactivate the `svm-forwarder` VM using the **Resource Config** tab of the Healthwatch
+Exporter for Tanzu Application Service Tile in Healthwatch v2.2.0.
+This capability will be fixed in Healthwatch v2.2.1
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 

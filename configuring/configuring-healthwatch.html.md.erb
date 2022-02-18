@@ -5,7 +5,7 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to manually configure and deploy the Healthwatch tile.
+This topic describes how to manually configure and deploy the Healthwatch for VMware Tanzu tile.
 
 To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
 (../installing/automated-pipeline.html).
@@ -215,8 +215,8 @@ To configure the **Grafana** pane:
         certificate using the Ops Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
 
           * To use a certificate signed by a trusted third-party CA:
-            1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
-            1. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
+              1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
+              1. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
           * To generate a self-signed certificate from the Ops Manager root CA:
             1. Under **Certificate and private key for HTTPS**, click **Change**.
             1. Click **Generate RSA Certificate**.
@@ -232,7 +232,6 @@ To configure the **Grafana** pane:
             1. Click the **Healthwatch** tile.
             1. Select **Grafana**.
             1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in the previous step.
-
       1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in
       **Additional ciphers for TLS**. For a list of supported cipher suites, see [cipher_suites.go]
       (https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository on GitHub.
