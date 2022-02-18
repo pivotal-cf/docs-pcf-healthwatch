@@ -5,22 +5,19 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to troubleshoot problems and known issues that may arise when deploying
-or operating Healthwatch for VMware Tanzu, Healthwatch Exporter for VMware Tanzu Application Service for VMs
-(TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI).
+This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch for VMware Tanzu, Healthwatch
+Exporter for VMware Tanzu Application Service for VMs (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI).
 
 
 ## <a id='healthwatch-troubleshooting'></a> Accessing VM UIs for Troubleshooting
 
-The sections below describe how to access the user interfaces (UIs) of the Prometheus and Alertmanager
-VMs for troubleshooting.
+The sections below describe how to access the user interfaces (UIs) of the Prometheus and Alertmanager VMs for troubleshooting.
 
 ### <a id='viewing-the-prometheus-ui'></a> Access the Prometheus UI
 
-The Prometheus UI allows you to view various processes on the VMs in the Prometheus instance
-that the Healthwatch tile deploys, including alerts that are currently running and the health
-status of scrape targets. Because the Prometheus UI is not secure, the Healthwatch tile does
-not include it. However, you can access the Prometheus UI to troubleshoot the Prometheus instance.
+The Prometheus UI allows you to view various processes on the VMs in the Prometheus instance that the Healthwatch tile deploys, including alerts that are
+currently running and the health status of scrape targets. Because the Prometheus UI is not secure, the Healthwatch tile does not include it. However, you can
+access the Prometheus UI to troubleshoot the Prometheus instance.
 
 To access the Prometheus UI:
 
@@ -38,8 +35,7 @@ To access the Prometheus UI:
     ```
     bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 9090:localhost:9090'
     ```
-    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
-    the previous step.
+    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in the previous step.
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
@@ -51,18 +47,15 @@ To access the Prometheus UI:
 
 1. Record the certificate and private key for **Tsdb Client Mtls**.
 
-1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous
-step to the keystore for your operating system.
+1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system.
 
-1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which
-certificate to use for mTLS, select the certificate you added to the keystore for your operating
-system in the previous step. The Prometheus UI appears.
+1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which certificate to use for mTLS, select the certificate you added
+to the keystore for your operating system in the previous step. The Prometheus UI appears.
 
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
-The Alertmanager UI allows you to view which alerts are currently running. Because the Alertmanager
-UI is not secure, the Healthwatch tile does not include it. However, you can access the Alertmanager
-UI to troubleshoot or silence alerts.
+The Alertmanager UI allows you to view which alerts are currently running. Because the Alertmanager UI is not secure, the Healthwatch tile does not include
+it. However, you can access the Alertmanager UI to troubleshoot or silence alerts.
 
 To access the Alertmanager UI:
 
@@ -80,16 +73,14 @@ To access the Alertmanager UI:
     ```
     bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L 8080:localhost:10401'
     ```
-    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in
-    the previous step.
+    Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in the previous step.
 
 1. In a web browser, navigate to `localhost:8080`. The Alertmanager UI appears.
 
 
 ## <a id='known-issues'></a> Troubleshooting Known Issues
 
-The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch
-Exporter for TKGI.
+The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch Exporter for TKGI.
 
 ### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
 
@@ -100,12 +91,10 @@ When installing or upgrading to Healthwatch v2.1, you see the following error:
   - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
 </pre>
 
-This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through
-v2.7. To resolve this issue:
+This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7. To resolve this issue:
 
-1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM
-with SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced
-Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM with SSH]
+(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 1. Change the user to `root`.
 
@@ -114,8 +103,7 @@ Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
     ```
     > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
     ```
-    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`,
-    depending on the IaaS of your Ops Manager deployment.
+    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Ops Manager deployment.
 
 1. Set the decryption passphrase by running:
 
@@ -147,37 +135,30 @@ When you deploy Healthwatch, the **Smoke Tests** errand fails with the following
 querying for grafana up should be greater than 0
 </pre>
 
-The **Smoke Tests** errand fails because the Prometheus instance fails to scrape metrics from
-the Grafana instance. Potential causes of this failure include:
+The **Smoke Tests** errand fails because the Prometheus instance fails to scrape metrics from the Grafana instance. Potential causes of this failure include:
 
 * There is a network issue between the Prometheus instance and Grafana instance.
 
-* The Grafana instance uses a certificate that does not match the certificate authority (CA)
-you configured in the **Grafana** pane in the Healthwatch tile. This could occur because the
-CA you configured in the **Grafana** pane is either a self-signed certificate or a different
-CA from the one that generated the certificate. As a result, the Prometheus instance does not
-trust the certificate that the Grafana instance uses. For more information about configuring
-a CA for the Grafana instance, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana)
-in _Configuring Healthwatch_.
+* The Grafana instance uses a certificate that does not match the certificate authority (CA) you configured in the **Grafana** pane in the Healthwatch tile.
+This could occur because the CA you configured in the **Grafana** pane is either a self-signed certificate or a different CA from the one that generated the
+certificate. As a result, the Prometheus instance does not trust the certificate that the Grafana instance uses. For more information about configuring a CA
+for the Grafana instance, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
 To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH
-SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced
-Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH SSH]
+(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 1. View information about the Grafana instance scrape target by running:
 
     ```
     curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq '.data.activeTargets[] | select(.scrapePool == "grafana")'
     ```
-    The `lastError` field in the command output describes the reason for the Prometheus instance
-    failing to scrape the Grafana instance.
+    The `lastError` field in the command output describes the reason for the Prometheus instance failing to scrape the Grafana instance.
 
 ### <a id='bosh-metrics-exporter'></a> TKGI Metric Exporter VM Fails to Connect to the BOSH Director
 
-When the TKGI metric exporter VM attempts to connect to the BOSH Director, you see the following
-error:
+When the TKGI metric exporter VM attempts to connect to the BOSH Director, you see the following error:
 
 <pre class="terminal">
 ERROR [context.UaaContext [ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
@@ -185,9 +166,8 @@ ERROR [ingress.TokenCallCredentials [ForkJoinPool-1-worker-3]] Caught error retr
 INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
 </pre>
 
-This error appears when the TKGI metric exporter VM cannot verify that the certificate chain
-of the UAA server for the BOSH Director is valid. To allow the TKGI metric exporter VM to connect
-to the BOSH Director, you must correct any certificate chain errors.
+This error appears when the TKGI metric exporter VM cannot verify that the certificate chain of the UAA server for the BOSH Director is valid. To allow the
+TKGI metric exporter VM to connect to the BOSH Director, you must correct any certificate chain errors.
 
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
@@ -207,35 +187,28 @@ in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation
     ```
     openssl verify cert.pem
     ```
-    If the command returns an `OK` message, the certificate is trusted and has a valid certificate
-    chain. If the command returns any other message, see the [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS)
-    to troubleshoot.
+    If the command returns an `OK` message, the certificate is trusted and has a valid certificate chain. If the command returns any other message, see the
+    [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS) to troubleshoot.
 
 ### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
-When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI
-on the same foundation, the **BOSH Director Status** panel in the **BOSH Director Health**
-dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns
-the following error:
+When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same foundation, the **BOSH Director Status** panel in the
+**BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
 
 <pre class="terminal">
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
-This occurs because both Healthwatch Exporter tiles deploy a BOSH health metric exporter VM,
-and both BOSH health metric exporter VMs are named `bosh-health-exporter`. This causes the
-two sets of metrics to conflict with each other.
+This occurs because both Healthwatch Exporter tiles deploy a BOSH health metric exporter VM, and both BOSH health metric exporter VMs are named
+`bosh-health-exporter`. This causes the two sets of metrics to conflict with each other.
 
-To address this, you must scale the BOSH health metric exporter VM down to zero instances in
-one of the Healthwatch Exporter tiles.
+To address this, you must scale the BOSH health metric exporter VM down to zero instances in one of the Healthwatch Exporter tiles.
 
-To scale the BOSH health metric exporter VM down to zero instances in one of the Healthwatch
-Exporter tiles:
+To scale the BOSH health metric exporter VM down to zero instances in one of the Healthwatch Exporter tiles:
 
 1. Navigate to the Ops Manager Installation Dashboard.
 
-1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile or **Healthwatch
-Exporter for Tanzu Application Service** tile.
+1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile or **Healthwatch Exporter for Tanzu Application Service** tile.
 
 1. Select **Resource Config**.
 
@@ -252,11 +225,9 @@ Exporter for Tanzu Application Service** tile.
 
 ## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
 
-If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system
-metrics** checkbox in the **System Logging** pane of the PAS tile. Otherwise, PAS v2.7 does
-not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for TAS for
-VMs cannot collect metrics for the VMs that PAS v2.7 deploys. As a result, the **Router** dashboard
-in the Grafana UI shows no metrics.
+If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system metrics** checkbox in the **System Logging** pane of the PAS
+tile. Otherwise, PAS v2.7 does not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for TAS for VMs cannot collect metrics for the
+VMs that PAS v2.7 deploys. As a result, the **Router** dashboard in the Grafana UI shows no metrics.
 
 To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
 
@@ -277,39 +248,32 @@ To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
 
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
-The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana
-UI.
+The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana UI.
 
-To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see
-[Diagnose Prometheus Scrape Job Failure](#diagnose) below.
+To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters, see [Diagnose Prometheus Scrape Job Failure](#diagnose) below.
 
 Potential causes of this failure include:
 
-* You are using TKGI v1.10.0 or v1.10.1. For more information, see [No Data on Kubernetes Nodes
-Dashboard for TKGI v1.10](#node-panels-no-data) below.
+* You are using TKGI v1.10.0 or v1.10.1. For more information, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.10](#node-panels-no-data) below.
 
-* You are using TKGI v1.12. For more information, see [No Data on Kubernetes Nodes Dashboard
-for TKGI v1.12](release-notes.html#no-data-nodes-tkgi-112) in _Healthwatch v2.1 Release Notes_.
+* You are using TKGI v1.12. For more information, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](release-notes.html#no-data-nodes-tkgi-112) in
+_Healthwatch v2.1 Release Notes_.
 
-* You are using TKGI to monitor Windows clusters. For more information, see [No Data on Kubernetes
-Nodes Dashboard for Windows Clusters](release-notes.html#tkgi-windows-clusters) in _Healthwatch
-v2.1 Release Notes_.
+* You are using TKGI to monitor Windows clusters. For more information, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters]
+(release-notes.html#tkgi-windows-clusters) in _Healthwatch v2.1 Release Notes_.
 
-* The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for
-the clusters, causing TKGI cluster discovery to fail. For more information, see [Configure
-DNS for Your TKGI Cluster](#tkgi-dns) below.
+* The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for the clusters, causing TKGI cluster discovery to fail. For more
+information, see [Configure DNS for Your TKGI Cluster](#tkgi-dns) below.
 
 ### <a id='diagnose'></a> Diagnose Prometheus Scrape Job Failure
 
-When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus
-instance in the Healthwatch tile has failed to scrape metrics from on-demand Kubernetes clusters
-created through the TKGI API.
+When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus instance in the Healthwatch tile has failed to scrape
+metrics from on-demand Kubernetes clusters created through the TKGI API.
 
 To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH
-SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced
-Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH SSH]
+(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
 
 1. View information about the Prometheus instance scrape targets by running:
 
@@ -317,18 +281,15 @@ Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
     curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq .
     ```
 
-1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason
-for the Prometheus instance failing to scrape your TKGI clusters.
+1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason for the Prometheus instance failing to scrape your TKGI clusters.
 
 ### <a id='node-panels-no-data'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
-If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana
-UI might not show data for individual pods. This is due to a known issue in Kubernetes v1.19.6
-and earlier and Kubernetes v1.20.1 and earlier.
+If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
+issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
-To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to
-TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid Integrated Edition](../tkgi/1-10/upgrading.html)
-in the TKGI documentation.
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid
+Integrated Edition](../tkgi/1-10/upgrading.html) in the TKGI documentation.
 
 ### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
 
@@ -344,114 +305,92 @@ Where:
 * `CLUSTER-NAME` is the name of your TKGI cluster.
 * `ENVIRONMENT-DOMAIN` is the domain of your TKGI foundation.
 
-This occurs because the TKGI API cannot access your TKGI clusters from the Internet. To resolve
-this issue, you must configure a DNS entry for the control plane of each of your TKGI clusters
-in the console for your IaaS.
+This occurs because the TKGI API cannot access your TKGI clusters from the Internet. To resolve this issue, you must configure a DNS entry for the control
+plane of each of your TKGI clusters in the console for your IaaS.
 
 To configure DNS entries for the control planes of your TKGI clusters:
 
-1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters.
-For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
-in the TKGI documentation.
+1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see [Viewing Cluster Details]
+(https://docs.pivotal.io/tkgi/view-cluster-details.html) in the TKGI documentation.
 
-1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you
-viewed in the previous step. For more information, see [Viewing Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html)
-in the TKGI documentation.
+1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see [Viewing
+Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the TKGI documentation.
 
 1. In a web browser, log in to the user console for your IaaS.
 
-1. For each TKGI cluster, find the public IP address of the VM that has an internal IP address
-matching the **Kubernetes Master IP(s)** you recorded in a previous step. For more information,
-see the documentation for your IaaS:
-  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation
-  for Linux instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses).
-  To find the public IP address for a Windows instance, see the [AWS documentation for Windows
-  instances of Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+1. For each TKGI cluster, find the public IP address of the VM that has an internal IP address matching the **Kubernetes Master IP(s)** you recorded in a
+previous step. For more information, see the documentation for your IaaS:
+  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon EC2]
+  (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a Windows
+  instance, see the [AWS documentation for Windows instances of Amazon EC2]
+  (https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
   * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
   (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
-  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
-  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
-  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+  * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-i address).
+  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack documentation]
+  (https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
   * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
   (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
 
-1. For each TKGI cluster, create an A record in your DNS server that points to the public IP
-address of the control plane of the TKGI cluster that you recorded in the previous step. For
-more information, see the documentation for your IaaS:
-  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console,
-  see the [AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
-  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
-  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
-  (https://cloud.google.com/dns/docs/records#adding_a_record).
-  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal
-  DNS, see the [OpenStack documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
-  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance,
-  see the [vSphere documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
+1. For each TKGI cluster, create an A record in your DNS server that points to the public IP address of the control plane of the TKGI cluster that you
+recorded in the previous step. For more information, see the documentation for your IaaS:
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console, see the [AWS documentation]
+  (https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure documentation]
+  (https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal DNS, see the [OpenStack documentation]
+  (https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance, see the [vSphere documentation]
+  (https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
 
 1. Wait for your DNS server to update.
 
 
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
 
-By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch**
-folder.
+By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch** folder.
 
 ### <a id='healthwatch-slos'></a> Viewing Healthwatch Exporter Tile Metrics
 
-The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter
-VM you select from the corresponding metric exporter instance dropdown at the top of the page.
-Each row contains four panels:
+The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter VM you select from the corresponding metric exporter instance
+dropdown at the top of the page. Each row contains four panels:
 
-* **Up:** The current health of the Prometheus endpoint on the metric exporter VM. A value
-of `1` indicates that the Prometheus endpoint is healthy. A value of `0` or missing data indicates
-that either the Prometheus endpoint is unresponsive or the Prometheus instance failed to scrape
-the Prometheus endpoint. For more information, see the [Prometheus documentation](https://prometheus.io/docs/concepts/jobs_instances/).
+* **Up:** The current health of the Prometheus endpoint on the metric exporter VM. A value of `1` indicates that the Prometheus endpoint is healthy. A value
+of `0` or missing data indicates that either the Prometheus endpoint is unresponsive or the Prometheus instance failed to scrape the Prometheus endpoint. For
+more information, see the [Prometheus documentation](https://prometheus.io/docs/concepts/jobs_instances/).
 
-* **Exporter SLO:** The percentage of time that the Healthwatch Exporter tile was up and running
-over the selected time period.
+* **Exporter SLO:** The percentage of time that the Healthwatch Exporter tile was up and running over the selected time period.
 
-* **Error Budget Remaining:** How many minutes are left in the error budget before exceeding
-the selected **Uptime SLO Target** over the selected time period.
+* **Error Budget Remaining:** How many minutes are left in the error budget before exceeding the selected **Uptime SLO Target** over the selected time period.
 
-* **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during
-the selected time period.
+* **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during the selected time period.
 
 ### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
 
-The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics
-that allow you to monitor the performance of each Healthwatch Exporter for TAS for VMs tile
-installed on your foundations. You can use these metrics to troubleshoot when you see inconsistent
-graphs for a particular metric type, or if a Healthwatch Exporter for TAS for VMs tile is not
-behaving as expected.
+The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics that allow you to monitor the performance of each Healthwatch
+Exporter for TAS for VMs tile installed on your foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a particular
+metric type, or if a Healthwatch Exporter for TAS for VMs tile is not behaving as expected.
 
 These dashboards contain the following panels:
 
-* **Exporter Info:** A listing of the `healthwatch_pasExporter_status` metric, showing runtime
-information for Healthwatch Exporter for TAS for VMs.
+* **Exporter Info:** A listing of the `healthwatch_pasExporter_status` metric, showing runtime information for Healthwatch Exporter for TAS for VMs.
 
-* **Exporter JVM Memory:** A graph of the `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`,
-and `jvm_memory_bytes_init` metrics, showing the number of used, committed, and initial bytes
-in a given Java virtual machine (JVM) memory area over the selected time period. You can use
-this graph to check for memory leaks.
+* **Exporter JVM Memory:** A graph of the `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and `jvm_memory_bytes_init` metrics, showing the number of
+used, committed, and initial bytes in a given Java virtual machine (JVM) memory area over the selected time period. You can use this graph to check for memory
+leaks.
 
-* **Ephemeral Disk Usage:** A gauge of the `system_disk_ephemeral_percent` metric, showing
-the percentage of the ephemeral disk used. You can use this gauge to determine whether the
-disk is reaching capacity.
+* **Ephemeral Disk Usage:** A gauge of the `system_disk_ephemeral_percent` metric, showing the percentage of the ephemeral disk used. You can use this gauge
+to determine whether the disk is reaching capacity.
 
-* **Rate of Garbage Collection:** A graph of the `jvm_gc_collection_seconds_sum` metric, showing
-the rate of JVM garbage collection over the selected time period. You can use this graph to
-determine whether the JVM garbage collection is functional.
+* **Rate of Garbage Collection:** A graph of the `jvm_gc_collection_seconds_sum` metric, showing the rate of JVM garbage collection over the selected time
+period. You can use this graph to determine whether the JVM garbage collection is functional.
 
-* **Rate of Envelope Ingress:** A graph of the `healthwatch_pasExporter_ingress_envelopes`
-metric, showing the rate of Loggregator envelope ingress over the selected time period. You
-can use this graph to check for spikes in the number of Loggregator envelopes that the metric
-exporter VMs receive.
+* **Rate of Envelope Ingress:** A graph of the `healthwatch_pasExporter_ingress_envelopes` metric, showing the rate of Loggregator envelope ingress over the
+selected time period. You can use this graph to check for spikes in the number of Loggregator envelopes that the metric exporter VMs receive.
 
-* **CPU Usage:** A graph of the `cpu_usage_user` metric, showing the percentage of CPU used
-over the selected time period. You can use this graph to determine whether the amount of CPU
-used by Healthwatch Exporter for TAS for VMs is reaching capacity.
+* **CPU Usage:** A graph of the `cpu_usage_user` metric, showing the percentage of CPU used over the selected time period. You can use this graph to determine
+whether the amount of CPU used by Healthwatch Exporter for TAS for VMs is reaching capacity.
 
-* **Exporter VM Threads:** A graph of the `jvm_threads_current` and `jvm_threads_peak` metrics,
-showing the current and peak thread counts of a given JVM over the selected time period. You
-can use this graph to check whether Healthwatch Exporter for TAS for VMs is leaking threads.
+* **Exporter VM Threads:** A graph of the `jvm_threads_current` and `jvm_threads_peak` metrics, showing the current and peak thread counts of a given JVM over
+the selected time period. You can use this graph to check whether Healthwatch Exporter for TAS for VMs is leaking threads.
