@@ -196,7 +196,8 @@ To configure the **Grafana** pane:
 
 1. Under **Grafana UI route**, configure the route used to access the Grafana UI by selecting one of the following options:
     * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Ops Manager foundation with TAS for VMs installed, Healthwatch
-    automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available.
+    automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available. The Grafana UI
+    will be reachable at `https://grafana.sys.[YOUR FOUNDATION DOMAIN]`.
     * **Manually configure:** Reveals the configuration fields described in the steps below, where you manually configure the URL and TLS settings for the
     Grafana UI. To manually configure the URL and TLS settings for the Grafana UI:
       1. For **Grafana root URL**, enter the URL used to access the Grafana UI. Configuring this field allows a generic OAuth provider or UAA to redirect
