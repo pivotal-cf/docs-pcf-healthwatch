@@ -210,7 +210,7 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 Healthwatch v2.2 includes the following known issues:
 
-### <a id='metric-name-recursion'></a> SVM Forwarder Causes Recursive Metric Label
+### <a id='metric-name-recursion'></a> SVM Forwarder Causes Recursive Metric Labels
 
 When the SVM Forwarder VM is deployed in Healthwatch Exporter for TAS for VMs, a change in the Prometheus server causes metrics with the `job` and
 `exported_job` labels to become recursive. For example, `exported_job` becomes `exported_exported_exported_exported_job`.
