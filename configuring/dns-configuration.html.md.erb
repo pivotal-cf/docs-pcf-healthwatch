@@ -10,15 +10,15 @@ This topic describes how to configure a DNS entry for the Grafana instance in yo
 
 ## <a id='overview'></a> Overview of DNS for the Grafana instance
 
-Configuring a DNS entry for the Grafana instance allows users to access the Grafana UI more easily from outside
-your BOSH network, including from the links to the Grafana UI that Alertmanager provides in alert messages.
+Configuring a DNS entry for the Grafana instance allows users to access the Grafana UI more easily from outside your BOSH network, including from links to the
+Grafana UI in alerts from Alertmanager.
 
-If Healthwatch is running on a foundation with TAS for VMs installed, it is capable of communicating with the
-TAS Gorouter to automatically configure a DNS record for the Grafana VM.
-For more information, see [(Optional) Configure Grafana](configuring-healthwatch.html#grafana).
+On an Ops Manager foundation that has VMware Tanzu Application Service for VMs (TAS for VMs) installed, Healthwatch can automatically configure a DNS record
+for the Grafana VM with the Gorouter in TAS for VMs. For more information, see [(Optional) Configure Grafana](configuring-healthwatch.html#grafana) in
+_Configuring Healthwatch_.
 
-If Healthwatch is not installed on TAS for VMs, you have to manually configure a DNS entry for either the
-public IP address of a single Grafana VM or the load balancer in front of the Grafana instance.
+On an Ops Manager foundation that does not have TAS for VMs installed, you must manually configure a DNS entry for either the public IP address of a single
+Grafana VM or the load balancer in front of the Grafana instance.
 
 ## <a id='load-balancer'></a> Configure DNS for a Load Balancer
 
