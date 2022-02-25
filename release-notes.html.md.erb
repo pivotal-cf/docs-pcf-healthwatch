@@ -12,11 +12,14 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 ### <a id='2-2-1'></a> v2.2.1
 
-**Release Date:** 2/x/2022
+**Release Date:** 2/25/2022
 
 ## <a id='releases'></a> Releases
 
-* **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated v1.13 and earlier.
+* **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated v1.13 and earlier. Support for TKGI v1.13 requires
+  additional configuration. Kube Controller Manager metrics need to be added to the Telegraf Output in the TKGI Tile
+  configuration. See [Configure TKGI](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi)
+  for more information.
 
 * **[Feature Improvement]** The Healthwatch Grafana Oauth configuration now supports a logout url.
 

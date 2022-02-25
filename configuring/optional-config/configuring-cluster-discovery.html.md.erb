@@ -83,6 +83,8 @@ To configure TKGI:
 
 1. Activate the **Include etcd metrics** checkbox to allow TKGI to send etcd server and debugging metrics to Healthwatch.
 
+1. Activate the **Include Kubernetes Controller Manager metrics** checkbox to allow TKGI to send Kubernetes Controller Manager metrics to Healthwatch.
+
 1. For **Setup Telegraf Outputs**, provide the following TOML configuration file:
 
     ```toml
@@ -93,6 +95,8 @@ To configure TKGI:
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
     creating a configuration file in TKGI, see [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring Telegraf in
     TKGI_ in the TKGI documentation.
+
+    <p class='note'><strong>Note:</strong> For Tanzu Kubernetes Grid Integrated versions prior to v1.13, remove the `metric_version = 2` line from the Telegraf config.</p>
 
 1. Click **Save**.
 
