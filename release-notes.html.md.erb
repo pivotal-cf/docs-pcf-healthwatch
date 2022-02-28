@@ -153,9 +153,8 @@ For more information, see [(Optional) Configure Grafana Authentication](configur
 
 ### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
 
-If your Ops Manager foundation has TAS for VMs installed, the Grafana UI includes the **System at a Glance** dashboard. This dashboard displays an overview of
-metrics related to the health of your Ops Manager foundation and the runtimes you have installed on that foundation. If your Ops Manager foundation has only
-TKGI installed, the Grafana UI does not include this dashboard.
+The Grafana UI includes the **System at a Glance** dashboard. This dashboard displays an overview of metrics related to the health of your Ops Manager
+foundation and the runtimes you have installed on that foundation.
 
 For more information, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using Healthwatch Dashboards in the Grafana UI_.
 
@@ -184,7 +183,7 @@ information about Grafana v8, see the [Grafana documentation](https://grafana.co
 
 ### <a id='om-canary-test-auto-config'></a> Healthwatch Automatically Runs Canary Tests for the Ops Manager Installation Dashboard
 
-Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard. designed to reduce log bloat on the Ops Manager VM.
+Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard.
 
 ### <a id='cluster-discovery-auto-config'></a> Automatic TKGI Cluster Discovery Configuration
 
@@ -251,17 +250,16 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 Healthwatch v2.2 includes the following known issues:
 
-### <a id='metric-name-recursion'></a> SVM Forwarder Causing Metric Label Recursion with labels such as "exported_exported_job"
+### <a id='metric-name-recursion'></a> SVM Forwarder Causes Recursive Metric Labels
 
 This known issue is fixed in Healtwatch v2.2.1 and later.
 
-In Healthwatch v2.2.0, a change in the Prometheus server was made to how label collisions are handled.
-When the `svm-forwarder` VM in the Healthwatch Exporter for Tanzu Application Service tile is enabled,
-label name recursion occurs on the `job` and `exported_job` labels.
-The recursion creates labels such as `exported_exported_exported_exported_job`.
+When the SVM Forwarder VM is deployed in Healthwatch Exporter for TAS for VMs, a change in the Prometheus server causes metrics with the `job` and
+`exported_job` labels to become recursive. For example, `exported_job` becomes `exported_exported_exported_exported_job`.
 
-To fix this issue, upgrade to Healthwatch v2.2.1 or deactivate the `svm-forwarder` VM using the **Resource Config**
-tab of the Healthwatch Exporter for Tanzu Application Service Tile in Healthwatch v2.2.0.
+To work around this issue, set the number of instances for the SVM Forwarder VM to `0` in the **Resource Config** pane of the Healthwatch Exporter for TAS for
+VMs tile. For more information, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch
+Exporter for TAS for VMs_.
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
