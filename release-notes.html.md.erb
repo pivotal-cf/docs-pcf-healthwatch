@@ -10,28 +10,29 @@ This topic contains release notes for Healthwatch for VMware Tanzu v2.2.
 For information about the risks and limitations of Healthwatch v2.2, see [Assumed Risks of Using Healthwatch v2.2](index.html#assumed-risks) and [Healthwatch
 v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
+
+## <a id='releases'></a> Releases
+
 ### <a id='2-2-1'></a> v2.2.1
 
 **Release Date:** 2/28/2022
 
-## <a id='releases'></a> Releases
+* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.13 and earlier.
 
-* **[Feature]** Healthwatch supports Tanzu Kubernetes Grid Integrated v1.13 and earlier. Support for TKGI v1.13 requires
-  additional configuration. Kube Controller Manager metrics need to be added to the Telegraf Output in the TKGI Tile
-  configuration. See [Configure TKGI](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi)
-  for more information.
+* **[Feature Improvement]** If you configured a generic OAuth provider to authenticate users who log in to the Grafana UI, you can configure a logout URL. For
+more information, see [Grafana UI Logout URL](#grafana-logout-url) below.
 
-* **[Feature Improvement]** The Healthwatch Grafana Oauth configuration now supports a logout url.
+* **[Breaking Change]** Healthwatch requires additional configuration in TKGI v1.13. For more information, see [Healthwatch v2.2.1 Requires Additional
+Configuration in TKGI v1.13](#tkgi-1-13) below.
 
-* **[Known Issue Fix]** The Healthwatch SVM Forwarder no longer recursively creates new `exported_` prefixed labels.
-For more information about this known issue, see
-[SVM Forwarder Causing Metric Label Recursion with labels such as "exported_exported_job"](#metric-name-recursion) below.
+* **[Known Issue Fix]** The SVM Forwarder VM does not create recursive labels. For more information about this known issue, see [SVM Forwarder Creates
+Recursive Metric Labels](#metric-name-recursion) below.
 
-* **[Known Issue Fix]** When TKGI OIDC is disabled, Service accounts created by the PKS SLI Exporter are now cleaned up during the TKGI SLI Logout test.
-For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+* **[Known Issue Fix]** The TKGI SLI exporter VM cleans up the service accounts it creates while running the TKGI SLI test suite. For more information about
+this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
 
-* **[Known Issue Fix]** BBR backup snapshots are now cleaned up on the TSDB VMs. For more information about this known issue, see
-[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+* **[Known Issue Fix]** The backup scripts for Prometheus VMs clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
+information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -45,7 +46,8 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 
 **Release Date:** 1/25/2022
 
-<p class='note'><strong>Note:</strong> Healthwatch v2.2.0 does not support TKGI v1.13. Upgrade to Healthwatch v2.2.1 for TKGI v1.13 support</p>
+<p class='note'><strong>Note:</strong> Healthwatch v2.2.0 does not support TKGI v1.13. If you have TKGI v1.13 installed on your Ops Manager foundation,
+  upgrade to Healthwatch v2.2.1.</p>
 
 * **[Feature]** In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** configuration pane is pre-configured with a default
 set of routing rules. For more information, see [Default Routing Rules Are Pre-Configured for Alertmanager](#routing-rules-auto-config) below.
@@ -53,9 +55,8 @@ set of routing rules. For more information, see [Default Routing Rules Are Pre-C
 * **[Feature]** Healthwatch can automatically configure a route for the Grafana user interface (UI) on Ops Manager foundations with VMware Tanzu Application
 Service for VMs (TAS for VMs) installed. For more information, see [Automatic Grafana UI Route Configuration](#grafana-route-auto-config) below.
 
-* **[Feature]** Healthwatch can automatically configure authentication with the User Account and Authentication (UAA) instances in TAS for VMs and VMware
-Tanzu Kubernetes Grid Integrated Edition (TKGI) for the Grafana UI. For more information, see [Automatic UAA Authentication Configuration]
-(#uaa-auth-auto-config) below.
+* **[Feature]** Healthwatch can automatically configure authentication with the User Account and Authentication (UAA) instances in TAS for VMs and TKGI for
+the Grafana UI. For more information, see [Automatic UAA Authentication Configuration](#uaa-auth-auto-config) below.
 
 * **[Feature]** The Grafana UI includes the **System at a Glance** dashboard. For more information, see [System at a Glance Dashboard in the Grafana UI]
 (#system-at-a-glance) below.
@@ -96,17 +97,17 @@ VM is Removed](#pas-exporter-timer) below.
 
 * **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
 
-* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric (SVM) is corrected to follow the recommended calculation listed in the [TAS for VMs
-documentation](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog).
+* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric (SVM) is corrected to follow the recommended calculation for TAS for VMs. For more
+information, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog).
 
-* **[Known Issue]** The Healthwatch SVM Forwarder recursively creates new `exported_` prefixed labels. For more information about this known issue, see
-[SVM Forwarder Causing Metric Label Recursion with labels such as "exported_exported_job"](#metric-name-recursion) below.
+* **[Known Issue]** The SVM Forwarder VM creates recursive labels for certain metrics. For more information about this known issue, see [SVM Forwarder Creates
+Recursive Metric Labels](#metric-name-recursion) below.
 
-* **[Known Issue]** If you are using TKGI with OIDC disabled, the Healthwatch Exporter created Service Accounts would not be cleaned up.
-For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts) below.
+* **[Known Issue]** The TKGI SLI exporter VM does not clean up the service accounts it creates while running the TKGI SLI test suite. For more information
+about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
 
-* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
-[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+* **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
+issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE 2021-44832]
 (https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
@@ -157,6 +158,12 @@ The Grafana UI includes the **System at a Glance** dashboard. This dashboard dis
 foundation and the runtimes you have installed on that foundation.
 
 For more information, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using Healthwatch Dashboards in the Grafana UI_.
+
+### <a id='grafana-logout-url'></a> Grafana UI Logout URL
+
+If you configured a generic OAuth provider to authenticate users who log in to the Grafana UI, you can configure a logout URL in the **Grafana
+Authentication** pane of the Healthwatch tile. To configure a logout URL, see [Configure Generic OAuth Authentication]
+(configuring/grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_.
 
 ### <a id='probe-metrics'></a> Two Canary Test Metrics Emitted in the Loggregator Firehose
 
@@ -245,12 +252,17 @@ resources.
 For more information about the metrics for TAS for VMs that Healthwatch Exporter for TAS for VMs collects, see [Healthwatch Exporter for TAS for VMs Metric
 Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
+### <a id='tkgi-1-13'></a> Healthwatch v2.2.1 Requires Additional Configuration in TKGI v1.13
+
+After you install Healthwatch v2.2.1, you must configure TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch. For more information,
+see [Configure TKGI](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi) in _Configuring TKGI Cluster Discovery_.
+
 
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.2 includes the following known issues:
 
-### <a id='metric-name-recursion'></a> SVM Forwarder Causes Recursive Metric Labels
+### <a id='metric-name-recursion'></a> SVM Forwarder Creates Recursive Metric Labels
 
 This known issue is fixed in Healtwatch v2.2.1 and later.
 
@@ -282,30 +294,27 @@ Integrated Edition](../tkgi/1-10/upgrading.html) in the TKGI documentation.
 If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data. Healthwatch does not currently
 visualize node metrics for Windows clusters.
 
-### <a id='tkgi-service-accounts'></a> Healthwatch Exporter Not Cleaning up TKGI Service Accounts
+### <a id='tkgi-service-accounts'></a> Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts
 
 This known issue is fixed in Healthwatch v2.2.1 and later.
 
-If you are using Healthwatch to run SLI tests against TKGI and `OIDC` is disabled in the TKGI tile configuration,
-the Service Accounts created by Healthwatch will not be automatically cleaned up.
+If you run SLI tests for TKGI through Healthwatch Exporter for TKGI, and you do not have an OpenID Connect (OIDC) provider for your Kubernetes clusters
+configured for TKGI, the TKGI SLI exporter VM does not automatically clean up the service accounts that it creates while running the TKGI SLI test suite.
 
-To fix this issue for future SLI test runs, you can enable `OIDC` in the TKGI tile or upgrade to Healthwatch v2.2.1.
-Note that this will not clean up existing Service Accounts.
+To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
+This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
+(https://docs.pivotal.io/tkgi/oidc-provider.html).
 
-Consider manually deleting some of the older Service Accounts along with the associated Secrets and Clusterrolebindings
-if `pks get-credentials` returns an error similar to:
-`Error: Status: 500; ErrorMessage: nil; Description: Create Binding: Timed out waiting for secrets; ResponseError: nil`
+You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information, see [Healthwatch Exporter for TKGI Does Not
+Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting Heathwatch_.
 
-### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Filling Disk on TSDB VMs
+### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Fill Disk Space on Prometheus VMs
 
 This known issue is fixed in Healthwatch v2.2.1 and later.
 
-The TSDB Backup scripts were not cleaning up the intermediary snapshots when BBR backups were run which resulted in
-the disks filling up.
+In Healthwatch v2.2.0, the backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. This results in the disk space on
+Prometheus VMs filling up.
 
-To fix this issue, upgrade to Healthwatch v2.2.1 or manually clean up the snapshots:
-
-1. SSH onto the `tsdb` VMs
-1. Run `sudo -i`
-1. Run `rm -rf /var/vcap/store/prometheus/snapshots/*`
-1. Verify that the `/var/vcap/store/prometheus/snapshots` directory is empty
+To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. To manually clean up the snapshots, see [BBR Backup Snapshots Fill
+Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.

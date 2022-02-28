@@ -222,6 +222,70 @@ To scale the BOSH health metric exporter VM down to zero instances in one of the
 
 1. Click **Apply Changes**.
 
+### <a id='tkgi-service-accounts'></a> Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts
+
+If you run SLI tests for TKGI through Healthwatch Exporter for TKGI, and you do not have an OpenID Connect (OIDC) provider for your Kubernetes clusters
+configured for TKGI, the TKGI SLI exporter VM does not automatically clean up the service accounts that it creates while running the TKGI SLI test suite.
+
+To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
+This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
+(https://docs.pivotal.io/tkgi/oidc-provider.html).
+
+VMware recommends that you manually delete existing service accounts from previous TKGI SLI tests if running the `tkgi get-credentials` command returns an
+error similar to the following example:
+
+```
+Error: Status: 500; ErrorMessage: nil; Description: Create Binding: Timed out waiting for secrets; ResponseError: nil
+```
+
+Manually deleting service accounts also deletes the secrets and `Clusterrolebinding`s associated with those service accounts.
+
+To manually delete a service account:
+
+1. In a terminal window, run:
+
+    ```
+    kubectl delete serviceaccount -n NAMESPACE SERVICE-ACCOUNT
+    ```
+    Where:
+    * `NAMESPACE` is the namespace that contains the service account you want to delete.
+    * `SERVICE-ACCOUNT` is the service account you want to delete.
+
+### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Fill Disk Space on Prometheus VMs
+
+In Healthwatch v2.2.0, the backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). This results
+in the disk space on Prometheus VMs filling up.
+
+To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. To manually clean up the snapshots:
+
+1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Ops Manager documentation]
+(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+
+1. Run:
+
+    ```
+    sudo -i
+    ```
+
+1. Empty the snapshots folder for the Prometheus VM by running:
+
+    ```
+    rm -rf /var/vcap/store/prometheus/snapshots/*
+    ```
+
+1. Change into the snapshots folder by running:
+
+    ```
+    cd /var/vcap/store/prometheus/snapshots
+    ```
+
+1. Verify that the `/var/vcap/store/prometheus/snapshots` directory is empty by running:
+
+    ```
+    ls
+    ```
+
 
 ## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
 
