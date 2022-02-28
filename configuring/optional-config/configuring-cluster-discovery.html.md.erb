@@ -95,8 +95,8 @@ To configure TKGI:
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
     creating a configuration file in TKGI, see [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring Telegraf in
     TKGI_ in the TKGI documentation.
-
-    <p class='note'><strong>Note:</strong> For Tanzu Kubernetes Grid Integrated versions prior to v1.13, remove the `metric_version = 2` line from the Telegraf config.</p>
+    <p class='note'><strong>Note:</strong> If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
+      file.</p>
 
 1. Click **Save**.
 
