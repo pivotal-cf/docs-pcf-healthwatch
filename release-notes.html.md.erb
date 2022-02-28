@@ -135,14 +135,16 @@ Healthwatch v2.2 includes the following major features:
 In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** pane of the Healthwatch tile is pre-configured with a default set of
 routing rules. You can edit these routing rules according to the needs of your deployment.
 
-For more information, see [Configure Alerting](configuring/optional-config/alerting.html#configure) in _Configuring Alerting_.
+For more information about configuring routing rules for Alertmanager, see [Configure Alerting](configuring/optional-config/alerting.html#configure) in
+_Configuring Alerting_.
 
 ### <a id='grafana-route-auto-config'></a> Automatic Grafana UI Route Configuration
 
 If your Ops Manager foundation has TAS for VMs installed, you can configure Healthwatch to automatically create a route for the Grafana UI in the **Grafana**
 pane of the Healthwatch tile.
 
-For more information, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+For more information about configuring a route for the Grafana UI, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in
+_Configuring Healthwatch_.
 
 ### <a id='uaa-auth-auto-config'></a> Automatic UAA Authentication Configuration
 
@@ -150,19 +152,23 @@ When you select **UAA** as your Grafana UI authentication method in the **Grafan
 configures authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI. If you want to configure authentication with a UAA instance on a
 different Ops Manager foundation, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
 
-For more information, see [(Optional) Configure Grafana Authentication](configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
+For more information about configuring UAA as your Grafana UI authentication method, see [(Optional) Configure Grafana Authentication]
+(configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
 
 ### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
 
 The Grafana UI includes the **System at a Glance** dashboard. This dashboard displays an overview of metrics related to the health of your Ops Manager
 foundation and the runtimes you have installed on that foundation.
 
-For more information, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using Healthwatch Dashboards in the Grafana UI_.
+For more information about the **System at a Glance** dashboard, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using
+Healthwatch Dashboards in the Grafana UI_.
 
 ### <a id='grafana-logout-url'></a> Grafana UI Logout URL
 
 If you configured a generic OAuth provider to authenticate users who log in to the Grafana UI, you can configure a logout URL in the **Grafana
-Authentication** pane of the Healthwatch tile. To configure a logout URL, see [Configure Generic OAuth Authentication]
+Authentication** pane of the Healthwatch tile.
+
+For more information about configuring a logout URL for the Grafana UI, see [Configure Generic OAuth Authentication]
 (configuring/grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_.
 
 ### <a id='probe-metrics'></a> Two Canary Test Metrics Emitted in the Loggregator Firehose
@@ -203,10 +209,10 @@ For more information about allowing or disallowing TKGI cluster discovery, see [
 
 ### <a id='remove-grafana'></a> Remove Grafana
 
-If you do not want to use any Grafana instances in your Healthwatch deployment, you can scale your Grafana, MySQL, and MySQL Proxy instances to `0` in the
-**Resource Config** pane of the Healthwatch tile.
+If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
+Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
 
-For more information, see [Healthwatch Components and Resource Requirements](resources.html).
+For more information about scaling Healthwatch resources, see [Healthwatch Components and Resource Requirements](resources.html).
 
 ### <a id='current-canary-apps'></a> Grafana UI Dashboards Only Include Metrics for Current Canary Apps
 
@@ -241,8 +247,8 @@ If you are upgrading from Healthwatch v2.1 and configured **UAA** as your authen
 method for logging in to the Grafana UI in Healthwatch v2.1, you must select **Generic OAuth** and configure the settings for the external UAA instance in the
 **Grafana Authentication** pane.
 
-For more information, see [Configuring Authentication with a UAA Instance on a Different Ops Manager Foundation]
-(configuring/optional-config/configuring-external-uaa.html).
+For more information about configuring a UAA instance on a different Ops Manager foundation as the authentication method for logging in to the Grafana UI, see
+[Configuring Authentication with a UAA Instance on a Different Ops Manager Foundation](configuring/optional-config/configuring-external-uaa.html).
 
 ### <a id='pas-exporter-timer'></a> Timer Metric Exporter VM is Removed
 
@@ -254,8 +260,10 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 ### <a id='tkgi-1-13'></a> Healthwatch v2.2.1 Requires Additional Configuration in TKGI v1.13
 
-After you install Healthwatch v2.2.1, you must configure TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch. For more information,
-see [Configure TKGI](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi) in _Configuring TKGI Cluster Discovery_.
+After you install Healthwatch v2.2.1, you must configure TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch.
+
+For more information about configuring TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch, see [Configure TKGI]
+(configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi) in _Configuring TKGI Cluster Discovery_.
 
 
 ## <a id='known-issues'></a> Known Issues
@@ -269,9 +277,9 @@ This known issue is fixed in Healtwatch v2.2.1 and later.
 When the SVM Forwarder VM is deployed in Healthwatch Exporter for TAS for VMs, a change in the Prometheus server causes metrics with the `job` and
 `exported_job` labels to become recursive. For example, `exported_job` becomes `exported_exported_exported_exported_job`.
 
-To work around this issue, set the number of instances for the SVM Forwarder VM to `0` in the **Resource Config** pane of the Healthwatch Exporter for TAS for
-VMs tile. For more information, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch
-Exporter for TAS for VMs_.
+To work around this issue, set the number of SVM Forwarder VM instances for your Healthwatch deployment to `0` in the **Resource Config** pane of the
+Healthwatch Exporter for TAS for VMs tile. For more information about scaling Healthwatch resources, see [(Optional) Configure Resources]
+(configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
@@ -306,8 +314,9 @@ This cleans up the service accounts that the TKGI SLI exporter VM creates in fut
 previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
 (https://docs.pivotal.io/tkgi/oidc-provider.html).
 
-You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information, see [Healthwatch Exporter for TKGI Does Not
-Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting Heathwatch_.
+You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
+accounts, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting
+Heathwatch_.
 
 ### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Fill Disk Space on Prometheus VMs
 
@@ -316,5 +325,5 @@ This known issue is fixed in Healthwatch v2.2.1 and later.
 In Healthwatch v2.2.0, the backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. This results in the disk space on
 Prometheus VMs filling up.
 
-To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. To manually clean up the snapshots, see [BBR Backup Snapshots Fill
-Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.
+To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. For more information about manually cleaning up the snapshots, see
+[BBR Backup Snapshots Fill Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.
