@@ -382,11 +382,11 @@ more information about this known issue, see [No Data on Kubernetes Nodes Dashbo
 * **[Known Issue]** When you scale VMs up, Healthwatch does not automatically distribute additional VMs across AZs and requires a workaround. For more
 information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Default](#scaled-vms) below.
 
-* **[Known Issue]** If you are using TKGI with OIDC deactivated, the Healthwatch Exporter created Service Accounts would not be cleaned up.
-  For more information about this known issue, see [Healthwatch Exporter Not Cleaning up TKGI Service Accounts](#tkgi-service-accounts).
+* **[Known Issue]** The TKGI SLI exporter VM does not clean up the service accounts it creates while running the TKGI SLI test suite. For more information
+about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
 
-* **[Known Issue]** BBR backup snapshots are not cleaned up and fill up the disks on the TSDB VMs. For more information about this known issue, see
-[BBR Backup Snapshots Filling Disk on TSDB VMs](#bbr-backups-tsdb) below.
+* **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
+issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
 Healthwatch v2.0.6 uses the following open-source component versions:
 
