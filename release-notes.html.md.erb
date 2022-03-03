@@ -13,6 +13,21 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-2'></a> v2.2.2
+
+**Release Date:** TBD
+
+* **[Known Issue Fix]** BOSH health SLI test cleanup is more robust. For more information about this known issue,
+  see [BOSH Health SLI Test Fails Due to Unresponsive Agent](#bosh-health-unresponsive) below.
+
+Healthwatch v2.2.2 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.33.1           |
+| Grafana      | 8.3.3            |
+| Alertmanager | 0.23.0           |
+
 ### <a id='2-2-1'></a> v2.2.1
 
 **Release Date:** 2/28/2022
@@ -33,6 +48,10 @@ this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Serv
 
 * **[Known Issue Fix]** The backup scripts for Prometheus VMs clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
+
+* **[Known Issue]** BOSH health SLI test repeatedly fails when the test BOSH deployment has an unresponsive agent.
+  For more information about this known issue,
+  see [BOSH Health SLI Test Fails Due to Unresponsive Agent](#bosh-health-unresponsive) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -108,6 +127,10 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
 issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
+
+* **[Known Issue]** BOSH health SLI test repeatedly fails when the test BOSH deployment has an unresponsive agent.
+  For more information about this known issue,
+  see [BOSH Health SLI Test Fails Due to Unresponsive Agent](#bosh-health-unresponsive) below.
 
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE 2021-44832]
 (https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
@@ -327,3 +350,17 @@ Prometheus VMs filling up.
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. For more information about manually cleaning up the snapshots, see
 [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.
+
+### <a id='bosh-health-unresponsive'></a> BOSH Health SLI Test Fails Due to Unresponsive Agent
+
+This known issue is fixed in Healthwatch v2.2.2 and later.
+
+In Healthwatch v2.2.1 and earlier, the BOSH Health SLI test can repeatedly fail with an error similar to:
+
+```
+Timed out sending ''get_state'' to instance: ''bosh-health-check/<GUID>'', agent-id: ''<GUID>'' after 45 seconds'
+```
+
+To fix this issue, either upgrade to healthwatch v2.2.2 or manually force delete the `bosh-health` BOSH deployment. For
+more information about deleting BOSH deployments,
+see [Delete-Deployment](https://bosh.io/docs/cli-v2/#delete-deployment) in the BOSH docs
