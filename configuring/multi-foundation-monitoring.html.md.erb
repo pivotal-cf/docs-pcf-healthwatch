@@ -63,13 +63,13 @@ foundation or the TKGI Control Plane. To add a scrape job for a Healthwatch Expo
   following example:
 
         ```
-        - job_name: FOUNDATION-NAME
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
-              - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
+        job_name: FOUNDATION-NAME
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+          - targets:
+            - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
+            - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
         ```
         Where:
         * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
