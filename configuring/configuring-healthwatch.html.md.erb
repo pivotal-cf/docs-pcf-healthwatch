@@ -7,8 +7,8 @@ owner: Healthwatch
 
 This topic describes how to manually configure and deploy the Healthwatch for VMware Tanzu tile.
 
-To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
-(../installing/automated-pipeline.html).
+To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated
+Pipeline](../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch
@@ -92,9 +92,9 @@ In the **Prometheus** pane, you configure the Prometheus instance in the Healthw
 each foundation, as well as any external services or databases from which you want to collect metrics.
 
 The values that you configure in the **Prometheus** pane also configure their corresponding properties in the Prometheus configuration file. For more
-information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_, [Prometheus]
-(config-file-reference.html#prometheus-config) in _Configuration File Reference Guide_, and the [Prometheus documentation]
-(https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_,
+[Prometheus](config-file-reference.html#prometheus-config) in _Configuration File Reference Guide_, and the [Prometheus
+documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 To configure the **Prometheus** pane:
 
@@ -187,8 +187,8 @@ information about the Grafana UI as it relates to Healthwatch, see [Healthwatch]
 
 The values that you configure in the **Grafana** pane also configure their corresponding properties in the Grafana configuration file. For more information,
 see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_, [Configuring the Grafana
-Configuration File](config-file-reference.html#grafana) in _Configuration File Reference Guide_, and the [Grafana documentation]
-(https://grafana.com/docs/grafana/latest/administration/configuration/).
+Configuration File](config-file-reference.html#grafana) in _Configuration File Reference Guide_, and the [Grafana
+documentation](https://grafana.com/docs/grafana/latest/administration/configuration/).
 
 To configure the **Grafana** pane:
 
@@ -272,12 +272,13 @@ the Ops Manager root CA, but doing so causes your browser to warn you that your 
       1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in **Additional
-ciphers for TLS**. For a list of supported cipher suites, see [cipher_suites.go]
-(https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository on GitHub.
+ciphers for TLS**. For a list of supported cipher suites, see
+[cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go repository
+on GitHub.
 
 1. Under **Grafana UI authentication method**, select the user authentication method you want to configure for users to log in to the Grafana UI:
-    * **Basic authentication:** Configures basic authentication. For more information, see [Configure Basic Authentication]
-    (grafana-authentication.html#configure-basic-auth) in _Configuring Grafana Authentication_.
+    * **Basic authentication:** Configures basic authentication. For more information, see [Configure Basic
+    Authentication](grafana-authentication.html#configure-basic-auth) in _Configuring Grafana Authentication_.
     * **Generic OAuth:** Configures OAuth authentication for any supported OAuth provider, such as GitHub or Okta. For more information, see [Configure
     Generic OAuth Authentication](grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_ and the [Grafana
     documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
@@ -314,8 +315,8 @@ ciphers for TLS**. For a list of supported cipher suites, see [cipher_suites.go]
 In the **Canary URLs** pane, you configure target URLs to which the Blackbox Exporters in the Prometheus instance sends canary tests. Testing a canary target
 URL allows you to gauge the overall health and accessibility of an app, runtime, or deployment.
 
-The **Canary URLs** pane configures the Blackbox Exporters in the Prometheus instance. For more information, see the [Blackbox exporter]
-(https://github.com/prometheus/blackbox_exporter) repository on GitHub.
+The **Canary URLs** pane configures the Blackbox Exporters in the Prometheus instance. For more information, see the [Blackbox
+exporter](https://github.com/prometheus/blackbox_exporter) repository on GitHub.
 
 To configure the **Canary URLs** pane:
 
@@ -350,9 +351,9 @@ a remote database or storage endpoint. For a list of compatible remote databases
 (https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage).
 
 The values that you configure in the **Remote Write** pane also configure their corresponding properties in the Prometheus configuration file. For more
-information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_, [Remote Write]
-(config-file-reference.html#remote-write-config) in _Configuration File Reference Guide_, and the [Prometheus documentation]
-(https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
+information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_, [Remote
+Write](config-file-reference.html#remote-write-config) in _Configuration File Reference Guide_, and the [Prometheus
+documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write).
 
 To configure the **Remote Write** pane:
 
@@ -421,8 +422,8 @@ By default, Ops Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager]
-(https://docs.pivotal.io/ops-manager/install/managing_errands.html) in the Ops Manager documentation.
+For more information about how Ops Manager manages errands, see the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -466,8 +467,8 @@ destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see [Customizing Platform Log Forwarding](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html) in the TAS for VMs
-documentation. For more information about RainerScript syntax, see the [rsyslog](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
+rules, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html). For more information about
+RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
 
@@ -505,8 +506,7 @@ To complete your installation of the Healthwatch tile:
 
 1. Click **Apply Changes**.
 
-For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html) in the Ops Manager
-documentation.
+For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
 
 
 ## <a id='next-steps'></a> Next Steps

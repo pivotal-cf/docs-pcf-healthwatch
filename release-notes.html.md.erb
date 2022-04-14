@@ -27,13 +27,14 @@ v2.1 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 **Release Date:** 2/18/2022
 
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE 2021-44832]
-(https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
+2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
 
-* **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.14.9 to address a critical CVE. For more information, see [CVE-2022-21366]
-(https://nvd.nist.gov/vuln/detail/CVE-2022-21366) on the CVE website.
+* **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.14.9 to address a critical CVE. For more information, see [CVE
+2022-21366](https://nvd.nist.gov/vuln/detail/CVE-2022-21366) on the CVE website.
 
-* **[Known Issue Fix]** The TKGI SLI exporter VM cleans up the service accounts it creates while running the TKGI SLI test suite. For more information about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
+* **[Known Issue Fix]** The TKGI SLI exporter VM cleans up the service accounts it creates while running the TKGI SLI test suite. For more information about
+this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
 
 * **[Known Issue Fix]** The backup scripts for Prometheus VMs clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
@@ -50,11 +51,11 @@ Healthwatch v2.1.9 uses the following open-source component versions:
 
 **Release Date:** 12/16/2021
 
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE. For more information, see [CVE 2021-44228]
-(https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.16.0 to address a critical CVE. For more information, see [CVE
+2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
 
-* **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.13.8 to address a critical CVE. For more information, see [CVE 2021-2341]
-(https://nvd.nist.gov/vuln/detail/CVE-2021-2341) on the CVE website.
+* **[Security Fix]** OpenJDK JRE dependencies are updated to v11.0.13.8 to address a critical CVE. For more information, see [CVE
+2021-2341](https://nvd.nist.gov/vuln/detail/CVE-2021-2341) on the CVE website.
 
 * **[Known Issue]** The TKGI SLI exporter VM does not clean up the service accounts it creates while running the TKGI SLI test suite. For more information
 about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
@@ -74,8 +75,8 @@ Healthwatch v2.1.8 uses the following open-source component versions:
 
 **Release Date:** 12/10/2021
 
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE. For more information, see [CVE 2021-44228]
-(https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.15.0 to address a critical CVE. For more information, see [CVE
+2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) on the CVE website.
 
 * **[Known Issue]** The TKGI SLI exporter VM does not clean up the service accounts it creates while running the TKGI SLI test suite. For more information
 about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
@@ -227,8 +228,8 @@ Healthwatch v2.1.4 uses the following open-source component versions:
 Forwarder VM Does Not Initially Forward SVMs](#svm-metrics) below.
 
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication for alert receivers because the field to configure a username is
-missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication Configuration]
-(#alert-receiver-basic-auth) below.
+missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
@@ -282,8 +283,8 @@ Installation Dashboard correctly.
 [Healthwatch Fails to Install on Ops Manager v2.10.19 and Later](#install-failure) below.
 
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication for alert receivers because the field to configure a username is
-missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication Configuration]
-(#alert-receiver-basic-auth) below.
+missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
@@ -313,8 +314,8 @@ Disk Space Fills Up Quickly](#mysql-proxy-maxed) below.
 [Healthwatch Fails to Install on Ops Manager v2.10.19 and Later](#install-failure) below.
 
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication for alert receivers because the field to configure a username is
-missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication Configuration]
-(#alert-receiver-basic-auth) below.
+missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying to create the `bosh-health` deployment. For more information, see
 [BOSH Health Metric Exporter VM Causes 401 Error](#bosh-health-401) below.
@@ -345,11 +346,11 @@ Healthwatch v2.1.0 uses the following open-source component versions:
 
 * **[Feature]** Healthwatch supports TKGI v1.10 and earlier.
 
-* **[Feature]** You can assign static IP addresses to Prometheus VMs. For more information, see [Assign Static IP Addresses to Prometheus VMs]
-(#assign-static-ips) below.
+* **[Feature]** You can assign static IP addresses to Prometheus VMs. For more information, see [Assign Static IP Addresses to Prometheus
+VMs](#assign-static-ips) below.
 
-* **[Feature]** Healthwatch replaces Pivotal Event Alerts with Alertmanager. For more information, see [Healthwatch Replaces Event Alerts With Alertmanager]
-(#event-alerts) below.
+* **[Feature]** Healthwatch replaces Pivotal Event Alerts with Alertmanager. For more information, see [Healthwatch Replaces Event Alerts With
+Alertmanager](#event-alerts) below.
 
 * **[Feature Deprecation]** Healthwatch removes support for Monitoring Indicator Protocol. For more information, see [Healthwatch Removes Monitoring Indicator
 Protocol](#indicator-protocol) below.
@@ -364,8 +365,8 @@ Protocol](#indicator-protocol) below.
 ["Unable to Render Templates" Error When Installing or Upgrading](#upgrade-from-om-23) below.
 
 * **[Known Issue]** In the **Alertmanager** pane, you cannot configure basic authentication for alert receivers because the field to configure a username is
-missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication Configuration]
-(#alert-receiver-basic-auth) below.
+missing. For more information about this known issue, see [Missing Username Field in Alert Receiver Basic Authentication
+Configuration](#alert-receiver-basic-auth) below.
 
 * **[Known Issue]** The BOSH health metric exporter VM logs causes a `401` error when trying to create the `bosh-health` deployment. For more information, see
 [BOSH Health Metric Exporter VM Causes 401 Error](#bosh-health-401) below.
@@ -376,8 +377,8 @@ on TKGI Kubernetes Nodes Dashboard](#tkgi-windows-clusters) below.
 * **[Known Issue]** When using TKGI v1.10.0 and v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. For
 more information about this known issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.10](#no-data-nodes-tkgi-110) below.
 
-* **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly. For more information, see [MySQL Proxy Disk Space Fills Up Quickly]
-(#mysql-proxy-maxed) below.
+* **[Known Issue]** The persistent disk space for MySQL Proxy VMs fills up quickly. For more information, see [MySQL Proxy Disk Space Fills Up
+Quickly](#mysql-proxy-maxed) below.
 
 * **[Known Issue]** When you scale VMs up, Healthwatch does not automatically distribute additional VMs across AZs and requires a workaround. For more
 information, see [Healthwatch Does Not Distribute Scaled VMs Across AZs by Default](#scaled-vms) below.
@@ -411,8 +412,8 @@ Healthwatch v2.0.6 and v2.1 include the following major features:
 You can use Healthwatch to monitor TAS for VMs v2.12 and earlier.
 
 Your TAS for VMs dashboards in the Grafana UI update automatically to display TAS for VMs v2.12 metrics unless you manually set the dashboard version when you
-configure the Grafana VM. For more information about setting the TAS for VMs version for your dashboards, see [Configure Grafana]
-(configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+configure the Grafana VM. For more information about setting the TAS for VMs version for your dashboards, see [Configure
+Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
 ### <a id='tkgi-support'></a> Healthwatch Supports TKGI v1.12 and Earlier
 
@@ -429,8 +430,8 @@ You can assign static IP addresses to your Prometheus VMs.
 If you configure email alerts through Alertmanager, you may need to add the IP addresses of your Prometheus VMs to your Ops Manager allowlist so your SMTP
 server does not block them. You can then view the IP addresses of your Prometheus VMs using the BOSH CLI.
 
-For more information about assigning IP addresses to your Prometheus VMs, see [(Optional) Configure Prometheus]
-(configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
+For more information about assigning IP addresses to your Prometheus VMs, see [(Optional) Configure
+Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
 ### <a id='event-alerts'></a> Healthwatch Replaces Event Alerts With Alertmanager
 
@@ -461,13 +462,13 @@ While Pivotal Healthwatch v1 does not require TLS verification for Ops Manager c
 default. If your Ops Manager deployment uses self-signed certificates, you must configure the Healthwatch tile to skip TLS certificate verification.
 
 If the **Ops Manager Health** dashboard in the Grafana UI displays a "Not Running" error, activate the **Skip TLS certificate verification** checkbox in the
-**Canary URLs** pane of the Healthwatch tile. For more information about configuring this checkbox, see [(Optional) Configure Canary URLs]
-(configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
+**Canary URLs** pane of the Healthwatch tile. For more information about configuring this checkbox, see [(Optional) Configure Canary
+URLs](configuring/configuring-healthwatch.html#canary) in _Configuring Healthwatch_.
 
 If your **Certificate Expiration** dashboard displays "N/A" or you see errors in your certificate expiration metric logs, activate the **Skip TLS certificate
 verification** in the **TAS for VMs Metric Exporter VMs** pane of the Healthwatch Exporter for TAS for VMs tile or the **TKGI Metric Exporter VMs** pane of
-the Healthwatch Exporter for TKGI tile. For more information about configuring this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter VMs]
-(configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_ or [(Optional) Configure TKGI and
+the Healthwatch Exporter for TKGI tile. For more information about configuring this checkbox, see [(Optional) Configure TAS for VMs Metric Exporter
+VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_ or [(Optional) Configure TKGI and
 Certificate Expiration Metric Exporter VMs](configuring/configuring-exporter-tkgi.html#exporter-config) in _Configuring Healthwatch Exporter for TKGI_.
 
 
@@ -530,8 +531,8 @@ When installing or upgrading to Healthwatch v2.1, you could see the following er
 
 This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7.
 
-For more information about how to fix this issue without upgrading to Ops Manager v2.8, see ["Unable to Render Templates" Error When Installing or Upgrading]
-(troubleshooting.html#upgrade-from-om-23) in _Troubleshooting Healthwatch_.
+For more information about how to fix this issue without upgrading to Ops Manager v2.8, see ["Unable to Render Templates" Error When Installing or
+Upgrading](troubleshooting.html#upgrade-from-om-23) in _Troubleshooting Healthwatch_.
 
 ### <a id='alert-receiver-basic-auth'></a> Missing Username Field in Alert Receiver Basic Authentication Configuration
 
@@ -587,8 +588,8 @@ This known issue is fixed in Healthwatch v2.1 and later.
 
 In Healthwatch v2.0.6, the MySQL PXC instance stores too many binlogs, which fills up the persistent disk space for MySQL Proxy VMs at a faster rate.
 
-To fix this issue, upgrade to Healthwatch v2.1. For more information about upgrading to Healthwatch v2.1, see [Upgrading Healthwatch]
-(upgrading-healthwatch.html).
+To fix this issue, upgrade to Healthwatch v2.1. For more information about upgrading to Healthwatch v2.1, see [Upgrading
+Healthwatch](upgrading-healthwatch.html).
 
 ### <a id='tkgi-service-accounts'></a> Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts
 
@@ -599,8 +600,8 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 
 To fix this issue, either upgrade to Healthwatch v2.1.9 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
-(https://docs.pivotal.io/tkgi/oidc-provider.html).
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information, see [Healthwatch Exporter for TKGI Does Not
 Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting Heathwatch_.

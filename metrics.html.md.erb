@@ -17,11 +17,11 @@ endpoint, `/metrics`.
 
 The Prometheus instance that exists within your metrics monitoring system then scrapes each `/metrics` endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics` endpoints in the **Prometheus**
-pane of the Healthwatch for VMware Tanzu tile. To configure the scrape interval for the Prometheus instance, see [Configure Prometheus]
-(configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
+pane of the Healthwatch for VMware Tanzu tile. To configure the scrape interval for the Prometheus instance, see [Configure
+Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
-The name of each metric is is PromQL format. For more information, see the [Prometheus documentation]
-(https://prometheus.io/docs/prometheus/latest/querying/basics/).
+The name of each metric is is PromQL format. For more information, see the [Prometheus
+documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/).
 
 
 ## <a id='bosh-sli'></a> BOSH SLIs
@@ -422,8 +422,8 @@ The following table describes each metric the TKGI SLI exporter VM generates:
 ### <a id='cert-expiration-exporter'></a> Certificate Expiration Metric Exporter VM
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
-collects metrics that show when Ops Manager certificates are due to expire. For more information, see [Monitoring Certificate Expiration]
-(configuring/optional-config/certificate-monitoring.html).
+collects metrics that show when Ops Manager certificates are due to expire. For more information, see [Monitoring Certificate
+Expiration](configuring/optional-config/certificate-monitoring.html).
 
 The following table describes the metric the certificate expiration metric exporter VM generates:
 

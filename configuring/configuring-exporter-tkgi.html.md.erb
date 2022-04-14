@@ -54,7 +54,8 @@ VM](#bosh-deployments) below.
 TKGI](#apply-changes) below.
 
 1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for TKGI, configure a scrape job for Healthwatch Exporter for TKGI in
-the Prometheus instance that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for TKGI](#scrape-job-config) below.
+the Prometheus instance that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for
+TKGI](#scrape-job-config) below.
   <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations of Healthwatch Exporter for TKGI that are not on the same
     foundation as your Healthwatch for VMware Tanzu tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch
     Exporter tiles that are installed on the same foundation as the Healthwatch tile.</p>
@@ -233,8 +234,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Login Client Credentials**.
         <br>
         <br>
-      For more information about internal authentication settings for your Ops Manager deployment, see [Internal Authentication Settings]
-      (https://docs.pivotal.io/ops-manager/pcf-interface.html#internal_auth) in _Using the Ops Manager Interface_ in the Ops Manager documentation.
+      For more information about internal authentication settings for your Ops Manager deployment, see the [Ops Manager
+      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#internal_auth).
     * If your Ops Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -250,8 +251,8 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about SAML authentication settings for your Ops Manager deployment, see [SAML Settings]
-      (https://docs.pivotal.io/ops-manager/pcf-interface.html#saml) in _Using the Ops Manager Interface_ in the Ops Manager documentation.
+      For more information about SAML authentication settings for your Ops Manager deployment, see the [Ops Manager
+      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#saml).
     * If your Ops Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -267,11 +268,11 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about LDAP authentication settings for your Ops Manager deployment, see [LDAP Settings]
-      (https://docs.pivotal.io/ops-manager/pcf-interface.html#ldap) in _Using the Ops Manager Interface_ in the Ops Manager documentation.
+      For more information about LDAP authentication settings for your Ops Manager deployment, see the [Ops Manager
+      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#ldap).
 
-1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM with SSH]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh).
 
 1. Target the UAA instance for the BOSH Director by running:
 
@@ -332,8 +333,8 @@ By default, Ops Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see [Managing Errands in Ops Manager]
-(https://docs.pivotal.io/ops-manager/install/managing_errands.html) in the Ops Manager documentation.
+For more information about how Ops Manager manages errands, see the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -375,8 +376,8 @@ external destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see [Customizing Platform Log Forwarding](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html) in the TAS for VMs
-documentation. For more information about RainerScript syntax, see the [rsyslog](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html) documentation.
+rules, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/operating/custom-syslog-rules.html). For more information about
+RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
 
@@ -414,8 +415,7 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html) in the Ops Manager
-documentation.
+For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
@@ -435,8 +435,8 @@ on the TKGI Control Plane, see [Configure a Scrape Job for Healthwatch Exporter 
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
 
-To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your Ops Manager foundation, see [Configure Prometheus]
-(configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
+To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your Ops Manager foundation, see [Configure
+Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
 ### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System
 
