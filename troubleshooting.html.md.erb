@@ -93,8 +93,8 @@ When installing or upgrading to Healthwatch v2.2, you see the following error:
 
 This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7. To resolve this issue:
 
-1. SSH into the Ops Manager VM by following the procedure in [Log In to the Ops Manager VM with SSH]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh).
 
 1. Change the user to `root`.
 
@@ -146,8 +146,8 @@ for the Grafana instance, see [(Optional) Configure Grafana](configuring/configu
 
 To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH SSH]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
 
 1. View information about the Grafana instance scrape target by running:
 
@@ -171,8 +171,8 @@ TKGI metric exporter VM to connect to the BOSH Director, you must correct any ce
 
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
-1. Log in to the TKGI metric exporter VM by following the procedure in [BOSH SSH](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh)
-in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to the TKGI metric exporter VM by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
 
 1. View the certificate that the UAA server uses by running:
 
@@ -229,8 +229,8 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
-(https://docs.pivotal.io/tkgi/oidc-provider.html).
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
 
 VMware recommends that you manually delete existing service accounts from previous TKGI SLI tests if running the `tkgi get-credentials` command returns an
 error similar to the following example:
@@ -259,8 +259,8 @@ in the disk space on Prometheus VMs filling up.
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. To manually clean up the snapshots:
 
-1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Ops Manager documentation]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
 
 1. Run:
 
@@ -336,8 +336,8 @@ metrics from on-demand Kubernetes clusters created through the TKGI API.
 
 To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in [BOSH SSH]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh) in _Advanced Troubleshooting with the BOSH CLI_ in the Ops Manager documentation.
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
 
 1. View information about the Prometheus instance scrape targets by running:
 
@@ -352,8 +352,8 @@ To find out why the Prometheus instance fails to scrape metrics from your TKGI c
 If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
-To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid
-Integrated Edition](../tkgi/1-10/upgrading.html) in the TKGI documentation.
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/1-10/upgrading.html) in the TKGI documentation.
 
 ### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
 
@@ -374,40 +374,40 @@ plane of each of your TKGI clusters in the console for your IaaS.
 
 To configure DNS entries for the control planes of your TKGI clusters:
 
-1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see [Viewing Cluster Details]
-(https://docs.pivotal.io/tkgi/view-cluster-details.html) in the TKGI documentation.
+1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/view-cluster-details.html).
 
-1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see [Viewing
-Cluster Details](https://docs.pivotal.io/tkgi/view-cluster-details.html) in the TKGI documentation.
+1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/view-cluster-details.html).
 
 1. In a web browser, log in to the user console for your IaaS.
 
 1. For each TKGI cluster, find the public IP address of the VM that has an internal IP address matching the **Kubernetes Master IP(s)** you recorded in a
 previous step. For more information, see the documentation for your IaaS:
-  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon EC2]
-  (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a Windows
-  instance, see the [AWS documentation for Windows instances of Amazon EC2]
-  (https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
-  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure documentation]
-  (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
+  * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
+  EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a
+  Windows instance, see the [AWS documentation for Windows instances of Amazon
+  EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+  * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
   * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
-  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack documentation]
-  (https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
-  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere documentation]
-  (https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
+  * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
+  documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+  * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere
+  documentation](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
 
 1. For each TKGI cluster, create an A record in your DNS server that points to the public IP address of the control plane of the TKGI cluster that you
 recorded in the previous step. For more information, see the documentation for your IaaS:
-  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console, see the [AWS documentation]
-  (https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
-  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure documentation]
-  (https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
-  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP documentation]
-  (https://cloud.google.com/dns/docs/records#adding_a_record).
-  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal DNS, see the [OpenStack documentation]
-  (https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
-  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance, see the [vSphere documentation]
-  (https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
+  * **AWS:** For more information about configuring a DNS entry in the Amazon VPC console, see the [AWS
+  documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-updating).
+  * **Azure:** For more information about configuring an A record in Azure DNS, see the [Azure
+  documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).
+  * **GCP:** For more information about adding an A record to Cloud DNS, see the [GCP
+  documentation](https://cloud.google.com/dns/docs/records#adding_a_record).
+  * **OpenStack:** For more information about configuring a DNS entry in the OpenStack internal DNS, see the [OpenStack
+  documentation](https://docs.openstack.org/mitaka/networking-guide/config-dns-int.html).
+  * **vSphere:** For more information about configuring a DNS entry in the vCenter Server Appliance, see the [vSphere
+  documentation](https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.vcsa.doc/GUID-7576FBBE-8B67-4D3F-B859-C9688E9442D7.html).
 
 1. Wait for your DNS server to update.
 

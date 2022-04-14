@@ -58,8 +58,8 @@ Service for VMs (TAS for VMs) installed. For more information, see [Automatic Gr
 * **[Feature]** Healthwatch can automatically configure authentication with the User Account and Authentication (UAA) instances in TAS for VMs and TKGI for
 the Grafana UI. For more information, see [Automatic UAA Authentication Configuration](#uaa-auth-auto-config) below.
 
-* **[Feature]** The Grafana UI includes the **System at a Glance** dashboard. For more information, see [System at a Glance Dashboard in the Grafana UI]
-(#system-at-a-glance) below.
+* **[Feature]** The Grafana UI includes the **System at a Glance** dashboard. For more information, see [System at a Glance Dashboard in the Grafana
+UI](#system-at-a-glance) below.
 
 * **[Feature]** The SVM Forwarder VM emits the `probe_success` and `probe_duration_seconds` metrics into the Loggregator Firehose. For more information, see
 [Two Canary Test Metrics Emitted in the Loggregator Firehose](#probe-metrics) below.
@@ -109,8 +109,8 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
 issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE 2021-44832]
-(https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
+* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
+2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -152,8 +152,8 @@ When you select **UAA** as your Grafana UI authentication method in the **Grafan
 configures authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI. If you want to configure authentication with a UAA instance on a
 different Ops Manager foundation, you must select **Generic OAuth** and configure it manually through the **Grafana Authentication** pane.
 
-For more information about configuring UAA as your Grafana UI authentication method, see [(Optional) Configure Grafana Authentication]
-(configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
+For more information about configuring UAA as your Grafana UI authentication method, see [(Optional) Configure Grafana
+Authentication](configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
 
 ### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
 
@@ -168,8 +168,8 @@ Healthwatch Dashboards in the Grafana UI_.
 If you configured a generic OAuth provider to authenticate users who log in to the Grafana UI, you can configure a logout URL in the **Grafana
 Authentication** pane of the Healthwatch tile.
 
-For more information about configuring a logout URL for the Grafana UI, see [Configure Generic OAuth Authentication]
-(configuring/grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_.
+For more information about configuring a logout URL for the Grafana UI, see [Configure Generic OAuth
+Authentication](configuring/grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_.
 
 ### <a id='probe-metrics'></a> Two Canary Test Metrics Emitted in the Loggregator Firehose
 
@@ -204,8 +204,8 @@ Healthwatch automatically configures TKGI cluster discovery by default on Ops Ma
 configure TKGI cluster discovery, you can disallow it through the **TKGI Cluster Discovery** pane in the Healthwatch tile.
 
 For more information about TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](configuring/optional-config/configuring-cluster-discovery.html).
-For more information about allowing or disallowing TKGI cluster discovery, see [Configure TKGI Cluster Discovery in Healthwatch]
-(configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
+For more information about allowing or disallowing TKGI cluster discovery, see [Configure TKGI Cluster Discovery in
+Healthwatch](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
 
 ### <a id='remove-grafana'></a> Remove Grafana
 
@@ -262,8 +262,8 @@ Exporter VMs](metrics.html#pas-exporters) in _Healthwatch Metrics_.
 
 After you install Healthwatch v2.2.1, you must configure TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch.
 
-For more information about configuring TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch, see [Configure TKGI]
-(configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi) in _Configuring TKGI Cluster Discovery_.
+For more information about configuring TKGI v1.13 to send metrics for Kubernetes Controller Manager to Healthwatch, see [Configure
+TKGI](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi) in _Configuring TKGI Cluster Discovery_.
 
 
 ## <a id='known-issues'></a> Known Issues
@@ -278,8 +278,8 @@ When the SVM Forwarder VM is deployed in Healthwatch Exporter for TAS for VMs, a
 `exported_job` labels to become recursive. For example, `exported_job` becomes `exported_exported_exported_exported_job`.
 
 To work around this issue, set the number of SVM Forwarder VM instances for your Healthwatch deployment to `0` in the **Resource Config** pane of the
-Healthwatch Exporter for TAS for VMs tile. For more information about scaling Healthwatch resources, see [(Optional) Configure Resources]
-(configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+Healthwatch Exporter for TAS for VMs tile. For more information about scaling Healthwatch resources, see [(Optional) Configure
+Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
 ### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
 
@@ -295,7 +295,7 @@ If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in 
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
 To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see [Upgrading Tanzu Kubernetes Grid
-Integrated Edition](../tkgi/1-10/upgrading.html) in the TKGI documentation.
+Integrated Edition](https://docs.pivotal.io/tkgi/1-10/upgrading.html) in the TKGI documentation.
 
 ### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
 
@@ -311,8 +311,8 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation]
-(https://docs.pivotal.io/tkgi/oidc-provider.html).
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
+documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
 accounts, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting
