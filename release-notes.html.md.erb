@@ -20,15 +20,15 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 * **[Bug Fix]** Added an additional check to make sure TSDB is running before upgrading other TSDBs when running multiple TSDB instances.
 
-* **[Known Issue Fix]** No data for RabbitMQ dashboards in Grafana when TLS is enabled for RabbitMQ on-demand instances.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue Fix]** RabbitMQ dashboards now show data in Grafana for RabbitMQ on-demand instances when TLS is enabled.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
 
 Healthwatch v2.2.2 uses the following open-source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
-| Prometheus   | 2.34.0           |
-| Grafana      | 8.4.5            |
+| Prometheus   | 2.35.0           |
+| Grafana      | 8.5.2            |
 | Alertmanager | 0.24.0           |
 
 ### <a id='2-2-1'></a> v2.2.1
@@ -53,7 +53,7 @@ this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Serv
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
 * **[Known Issue]** No data for RabbitMQ dashboards in Grafana when TLS is enabled for RabbitMQ on-demand instances.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances](#rabbitmq-tls-scrape-job) below.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -134,7 +134,7 @@ issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups
 (https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
 
 * **[Known Issue]** No data for RabbitMQ dashboards in Grafana when TLS is enabled for RabbitMQ on-demand instances.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances](#rabbitmq-tls-scrape-job) below.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -352,12 +352,11 @@ Prometheus VMs filling up.
 To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. For more information about manually cleaning up the snapshots, see
 [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.
 
-### <a id='rabbitmq-tls-scrape-job'></a> No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances
+### <a id='rabbitmq-tls-scrape-job'></a> No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled
 
 This known issue is fixed in Healtwatch v2.2.2 and later.
 
-In Healthwatch v2.2.1 and earlier, the Prometheus VM does not scrape metrics from RabbitMQ v2.0.13 on-demand instances when TLS is enabled. This results in no data for
+In Healthwatch v2.2.1 and earlier, the Prometheus VM does not scrape metrics from RabbitMQ on-demand instances when TLS is enabled. This results in no data for
 RabbitMQ dashboards when RabbitMQ on-demand instances have TLS enabled.
 
-To work around this issue, upgrade to Healthwatch v2.2.2 or later and set the RabbitMQ TLS Settings for your Healthwatch deployment to `TLS Enforced` in the
-Grafana Dashboards pane of the Healthwatch tile.
+To work around this issue, upgrade to Healthwatch v2.2.2 or later and RabbitMQ v2.0.13 or later.
