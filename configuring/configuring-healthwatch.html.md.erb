@@ -136,14 +136,14 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
         </div>
   1. (Optional) To allow the Prometheus instance to communicate with the server for your external
   service or database over TLS:
-    1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the server
-    for your external service or database.
-    1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your external service or database uses to
-    verify TLS certificates.
-    1. For **Target server name**, enter the name of the server for your external service or database as it appears on the server's TLS certificate.
-    1. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed by
-    a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance does
-    not verify the identity of the server for your external service or database. This checkbox is deactivated by default.
+      1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
+      server for your external service or database.
+      1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your external service or database uses
+      to verify TLS certificates.
+      1. For **Target server name**, enter the name of the server for your external service or database as it appears on the server's TLS certificate.
+      1. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed
+      by a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance
+      does not verify the identity of the server for your external service or database. This checkbox is deactivated by default.
 
 1. For **Free disk chunk size**, enter in MB the size that you want to specify for free chunks of disk. The default value is `6144`. Healthwatch uses this
 free chunk size to calculate the available free disk chunks super value metric (SVM), which it then uses to calculate the `Diego_AvailableFreeChunksDisk`
