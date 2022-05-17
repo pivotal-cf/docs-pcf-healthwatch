@@ -27,32 +27,31 @@ foundation or the TKGI Control Plane:
 
 1. Install and configure the Healthwatch tile on either an Ops Manager foundation or the TKGI Control Plane. To install and configure the Healthwatch tile,
 see the following topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
-    (../installing/automated-pipeline.html)
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
     * [Configuring Healthwatch](configuring-healthwatch.html)
 
 1. Install and configure Healthwatch Exporter for TAS for VMs on each Ops Manager foundation you want to monitor. To install and configure Healthwatch
 Exporter for TAS for VMs, see the following topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
-    (../installing/automated-pipeline.html)
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
     * [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html)
 
 1. For each installation of Healthwatch Exporter for TAS for VMs, open the ports for the metric exporter VMs that Healthwatch Exporter for TAS for VMs
-deploys. For more information about the ports you must open for each metric exporter VM, see [Networking Rules for Healthwatch Exporter for TAS for VMs]
-(#network-rules-tas) above.
+deploys. For more information about the ports you must open for each metric exporter VM, see [Networking Rules for Healthwatch Exporter for TAS for
+VMs](#network-rules-tas) above.
 
 1. Once you have installed Healthwatch Exporter for TAS for VMs and opened the required ports on each Ops Manager foundation you want to monitor, add a scrape
 job for each Healthwatch Exporter for TAS for VMs tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Ops Manager
 foundation or the TKGI Control Plane. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
-  1. Retrieve the Ops Manager root certificate authority (CA) for the Ops Manager foundation you want to monitor. For more information, see [Retrieve the Ops
-  Manager Root CA](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs) in _Managing Certificates with the
-  Ops Manager API_ in the Ops Manager documentation.
+  1. Retrieve the Ops Manager root certificate authority (CA) for the Ops Manager foundation you want to monitor. For more information, see the [Ops Manager
+  documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs).
   1. Nagivate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
   1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
   1. Select the **Status** tab.
   1. Record the following IP addresses:
-    1. In the **TAS Counter Exporter** row, record the IP address of the counter metric exporter VM from the **IPs** column.
-    1. In the **TAS Gauge Exporter** row, record the IP address of the gauge metric exporter VM from the **IPs** column.
+      * In the **TAS Counter Exporter** row, record the IP address of the counter metric exporter VM from the **IPs** column.
+      * In the **TAS Gauge Exporter** row, record the IP address of the gauge metric exporter VM from the **IPs** column.
   1. Select the **Credentials** tab.
   1. In the row for **Healthwatch Exporter Client Mtls**, click **Link to Credential**.
   1. Record the credentials for **Healthwatch Exporter Client Mtls**.
@@ -63,19 +62,18 @@ foundation or the TKGI Control Plane. To add a scrape job for a Healthwatch Expo
   following example:
 
         ```
-        - job_name: FOUNDATION-NAME
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
-              - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
+        job_name: FOUNDATION-NAME
+        metrics_path: /metrics
+        scheme: https
+        static_configs:
+          - targets:
+            - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
+            - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
         ```
         Where:
         * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
         * `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
-        * `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter
-        VM that you recorded in a previous step.
+        * `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
   **Credentials** tab in the Healthwatch Exporter for TAS for VMs tile in a previous step.
   1. For **CA certificate for TLS**, enter the Ops Manager root CA that you retrieved in a previous step.
@@ -93,14 +91,14 @@ the TKGI Control Plane:
 
 1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each Ops Manager foundation you want to monitor. To install and configure
 the Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
-    (../installing/automated-pipeline.html)
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
     * [Configuring Healthwatch](configuring-healthwatch.html)
     * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 
 1. Install and configure the Healthwatch tile on your monitoring foundation. To install and configure the Healthwatch tile, see the following topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline]
-    (../installing/automated-pipeline.html)
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
     * [Configuring Healthwatch](configuring-healthwatch.html)
     * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 

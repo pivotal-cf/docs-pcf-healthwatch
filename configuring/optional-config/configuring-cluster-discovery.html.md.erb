@@ -20,8 +20,8 @@ and the TKGI tile.
 
 To configure TKGI cluster discovery:
 
-1. Configure the **TKGI Cluster Discovery** pane in the Healthwatch tile. For more information, see [Configure TKGI Cluster Discovery in Healthwatch]
-(#configure-tkgi-cluster-discovery) below.
+1. Configure the **TKGI Cluster Discovery** pane in the Healthwatch tile. For more information, see [Configure TKGI Cluster Discovery in
+Healthwatch](#configure-tkgi-cluster-discovery) below.
 
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For more information, see [Configure TKGI](#configure-tkgi) below.
 
@@ -93,8 +93,7 @@ To configure TKGI:
       metric_version = 2
     ```
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
-    creating a configuration file in TKGI, see [Create a Configuration File](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml) in _Configuring Telegraf in
-    TKGI_ in the TKGI documentation.
+    creating a configuration file in TKGI, see the [TKGI documentation](https://docs.pivotal.io/tkgi/monitor-etcd.html#toml).
     <p class='note'><strong>Note:</strong> If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
       file.</p>
 
