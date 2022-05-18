@@ -17,21 +17,22 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch_.
 
 **Release Date:** 5/18/2022
 
-* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS) v2.13 and earlier.
+* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs) v2.13 and earlier.
 
-* **[Feature Improvement]** Default alert templates have been updated to better display grouped alerts.
+* **[Feature Improvement]** The default alert templates are updated to better display grouped alerts.
 
-* **[Feature Improvement]** The Logging and Metrics dashboard now includes Syslog Agent metrics.
+* **[Feature Improvement]** The **Logging and Metrics Pipeline** dashboard in the Grafana UI includes Syslog Agent metrics.
 
-* **[Feature Improvement]** Compiler VMs no longer appear in the System At a Glance dashboard.
+* **[Feature Improvement]** The **System At a Glance** dashboard in the Grafana UI does not show metrics for compiler VMs.
 
-* **[Bug Fix]** Fix duplicate Canary URL panels on System at a Glance page.
+* **[Bug Fix]** The **System at a Glance** dashboard in the Grafana UI does not show duplicate **Canary URL** panels.
 
-* **[Known Issue Fix]** RabbitMQ dashboards now show data in Grafana for RabbitMQ on-demand instances when TLS is enabled.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue Fix]** The **RabbitMQ** dashboards in the Grafana UI show data for RabbitMQ on-demand instances that are configured to communicate over TLS.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
 
-* **[Known Issue Fix]** Grafana now shows data when multiple Prometheus VMs are updating.
-  For more information about this known issue, see [Grafana is unable to load data when the Prometheus VMs are updating](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue Fix]** The Grafana instance can load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy a
+highly-available (HA) Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
+Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.2 uses the following open-source component versions:
 
@@ -62,11 +63,12 @@ this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Serv
 * **[Known Issue Fix]** The backup scripts for Prometheus VMs clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
-* **[Known Issue]** No data for RabbitMQ dashboards in Grafana when TLS is enabled for RabbitMQ on-demand instances.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue]** The **RabbitMQ** dashboards in the Grafana UI show no data for RabbitMQ on-demand instances that are configured to communicate over TLS.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
 
-* **[Known Issue]** No data in Grafana when multiple Prometheus VMs are updating.
-  For more information about this known issue, see [Grafana is unable to load data when the Prometheus VMs are updating](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue]** The Grafana instance cannot load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy an HA
+Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
+Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -146,11 +148,12 @@ issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
 2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
 
-* **[Known Issue]** No data for RabbitMQ dashboards in Grafana when TLS is enabled for RabbitMQ on-demand instances.
-For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue]** The **RabbitMQ** dashboards in the Grafana UI show no data for RabbitMQ on-demand instances that are configured to communicate over TLS.
+For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
 
-* **[Known Issue]** No data in Grafana when multiple Prometheus VMs are updating.
-  For more information about this known issue, see [Grafana is unable to load data when the Prometheus VMs are updating](#rabbitmq-tls-scrape-job) below.
+* **[Known Issue]** The Grafana instance cannot load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy an HA
+Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
+Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -368,21 +371,22 @@ Prometheus VMs filling up.
 To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. For more information about manually cleaning up the snapshots, see
 [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](troubleshooting.html#bbr-backups-tsdb) in _Troubleshooting Healthwatch_.
 
-### <a id='rabbitmq-tls-scrape-job'></a> No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances when TLS is enabled
+### <a id='rabbitmq-tls'></a> No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS
 
 This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In Healthwatch v2.2.1 and earlier, the Prometheus VM does not scrape metrics from RabbitMQ on-demand instances when TLS is enabled. This results in no data for
-RabbitMQ dashboards when RabbitMQ on-demand instances have TLS enabled.
+In Healthwatch v2.2.1 and earlier, the Prometheus instance does not scrape metrics from RabbitMQ on-demand instances that are configured to communicate over
+TLS. As a result, the **RabbitMQ** dashboards in the Grafana UI show no data for RabbitMQ on-demand instances that are configured to use TLS.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later and RabbitMQ v2.0.13 or later.
 
-### <a id='grafana-data-missing-during-tsdb-update'></a> Grafana is unable to load data when the Prometheus VMs are updating
+### <a id='no-data-tsdb-update'></a> No Data While Re-Deploying Highly-Available Healthwatch Installations
 
 This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In Healthwatch v2.2.1 and earlier, when updating Healthwatch with multiple Prometheus instances, Grafana is unable to
-load data because the second instance of Prometheus starts updating before the first instance is available.
+In Healthwatch v2.2.1 and earlier, the Grafana instance cannot load metrics data in the Grafana UI after you re-deploy an HA Healthwatch installation with
+multiple Prometheus instances. An HA Healthwatch installation is meant to allow the Grafana instance to continue loading data during re-deployment by ensuring
+that the second Prometheus instance does not start updating until after the first Prometheus instance has updated and re-starts. In Healthwatch v2.2.1 and
+earlier, a bug causes the second Prometheus instance to start updating before the first Prometheus instance re-starts.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
-
