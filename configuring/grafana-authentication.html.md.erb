@@ -180,31 +180,40 @@ When you configure UAA authentication for the Grafana UI, users can log in to th
 
 Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Ops Manager foundation as the
 Healthwatch tile, either VMware Tanzu Application Service for VMs (TAS for VMs) or Tanzu Kubernetes Grid Integrated Edition (TKGI). If you want to configure
-authentication with the UAA instance of TAS for VMs or TKGI, follow the procedure below. If you want to configure authentication with the UAA instance of a
-runtime that is installed on a different Ops Manager foundation, you must manually configure it using the fields described in [Configure Generic OAuth
-Authentication](#configure-generic-oauth) above.
+authentication with the UAA instance of TAS for VMs or TKGI installed on the same foundation, follow the procedure below. If you want to configure authentication
+with the UAA instance of a runtime that is installed on a different Ops Manager foundation, you must manually configure it using the fields described in
+[Configure Generic OAuth Authentication](#configure-generic-oauth) above.
 
 To configure UAA authentication for the Grafana UI:
 
 1. Under **Additional authentication methods**, select **UAA**.
 
-1. If you are configuring authentication with the UAA instance for TKGI, Healthwatch does not add the UAA administrator user account to the
-`healthwatch.admin` group by default. If you want to log in to the Grafana UI using the UAA administrator credentials, you must manually add the UAA
-administrator user account to the `healthwatch.admin` group.
-<br>
-To manually add the UAA administrator user account to the `healthwatch.admin` group:
-  1. Target the UAA server for TKGI by running:
+<p class='note'><strong>Note:</strong> If you are configuring authentication with the UAA instance for TKGI, Healthwatch does not add the UAA administrator user account to the
+  `healthwatch.admin` group by default. If you want to log in to the Grafana UI using the UAA administrator credentials, you must manually add the UAA
+  administrator user account to the `healthwatch.admin` group.
+
+1. The following steps can be used to give any UAA user Admin, Editor, or Viewer Grafana
+roles.
+
+  1. Target the UAA server by running:
 
     ```
-    uaac target uaa.UAA-DOMAIN
+    uaac target UAA-URL
     ```
-    Where `UAA-DOMAIN` is the domain of the UAA server for TKGI.
+    Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
+    `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the System domain field in the Domains pane of the TAS for VMs tile. For TKGI, this URL is usually
+    `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
 
-  1. Run:
+  1. Assign user permissions by running:
 
-      ```
-      uaac member add healthwatch.admin admin
-      ```
+    ```
+    uaac member add GROUP USERNAME
+    ```
+    Where:
+    * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These groups map to the `Admin`, `Editor`, and `Viewer` Grafana roles,
+      respectively. For more information about the level of access each role provides, see the [Grafana
+      documentation](https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).
+    * `USERNAME` is the username you set for the user account you created in the previous step.
 
 1. Click **Save**.
 
