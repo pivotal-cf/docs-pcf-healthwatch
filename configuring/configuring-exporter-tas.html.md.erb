@@ -61,17 +61,6 @@ VMs](#scrape-job-config) below.
     scrapes Healthwatch Exporter tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
 
 
-## <a id='prerequisite'></a> Prerequisite
-
-Before you deploy Healthwatch Exporter for TAS for VMs, you must have a metrics monitoring system that collects metrics using a Prometheus instance. This
-monitoring system can be one of the following:
-
-* The Healthwatch tile installed on either the same Ops Manager foundation as Healthwatch Exporter for TAS for VMs or a different Ops Manager foundation.
-
-* A service or database located outside your Ops Manager foundation, such as an external time series database (TSDB) or an installation of the Healthwatch
-tile on the Tanzu Kubernetes Grid Integrated Edition (TKGI) Control Plane.
-
-
 ## <a id='open-ui'></a> Navigate to the Healthwatch Exporter for TAS for VMs Tile
 
 To navigate to the Healthwatch Exporter for TAS for VMs tile:
@@ -433,8 +422,8 @@ Healthwatch](#scraping-healthwatch) below.
     same Ops Manager foundation as your Healthwatch tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch
     Exporter tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
 
-* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as an external TSDB or an installation of Healthwatch
-on the TKGI Control Plane, see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in an External Monitoring System](#scraping-external) below.
+* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as from an external TSDB,
+  see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in an External Monitoring System](#scraping-external) below.
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch
 
