@@ -29,7 +29,7 @@ groups:
         annotations:
           summary: "The Ops Manager health check failed"
           description: |
-            Issues with Ops Manager health should have no direct end user impacts, however it can can impact an operator’s ability to perform an upgrade or to rescale the Tanzu Application Service platform when necessary.
+            Issues with Ops Manager health should have no direct end user impacts, however it can can impact an operator's ability to perform an upgrade or to rescale the Tanzu Application Service platform when necessary.
   ##### END FOUNDATION ALERTING RULES #####
 
   ##### BEGIN TAS ALERTING RULES #####
