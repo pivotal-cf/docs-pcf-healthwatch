@@ -21,7 +21,7 @@ You must install a Healthwatch Exporter tile on each Ops Manager foundation you 
 foundation or on a different Ops Manager foundation, depending on your desired monitoring configuration.
 
 You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
-external time-series database (TSDB) or an installation of the Healthwatch tile on the TKGI Control Plane. This does not require you to install the
+external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Ops Manager foundation. This does not require you to install the
 Healthwatch tile.
 
 For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring
@@ -377,18 +377,19 @@ Pipeline](installing/automated-pipeline.html)
 
 ### <a id='tas-different-foundation'></a> Monitoring TAS for VMs on a Different Ops Manager Foundation
 
-You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation
-or the TKGI Control Plane.
+You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation or the TKGI Control Plane,
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation,
 see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
 Multi-Foundation Monitoring_.
 
 ### <a id='tkgi-different-foundation'></a> Monitoring TKGI on a Different Ops Manager Foundation
+You can monitor several Ops Manager foundations that have TKGI installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-You can monitor several Ops Manager foundations that have TKGI installed from a Healthwatch tile that you install on a separate Ops Manager foundation or the
-TKGI Control Plane. In order to do this, you must configure federation for your Healthwatch deployment.
+The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
+As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
+supporting metrics for that foundation.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation or the TKGI Control Plane
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation
 through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in
 _Configuring Multi-Foundation Monitoring_.
