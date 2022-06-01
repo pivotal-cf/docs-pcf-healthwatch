@@ -34,6 +34,10 @@ For more information about this known issue, see [No Data on RabbitMQ Dashboards
 highly-available (HA) Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
 
+* **[Known Issue Fix]** The Prometheus used in this version of Healthwatch no longer fails to clean up the chunks_head directory
+under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
+Due to Full Disk](#tsdb-wal-error)
+
 Healthwatch v2.2.2 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -69,6 +73,10 @@ For more information about this known issue, see [No Data on RabbitMQ Dashboards
 * **[Known Issue]** The Grafana instance cannot load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy an HA
 Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
+
+* **[Known Issue]** The Prometheus used in this version of Healthwatch can fail to clean up the chunks_head directory
+under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
+Due to Full Disk](#tsdb-wal-error)
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -390,3 +398,10 @@ that the second Prometheus instance does not start updating until after the firs
 earlier, a bug causes the second Prometheus instance to start updating before the first Prometheus instance re-starts.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
+
+### <a id='tsdb-wal-error'></a> TSDB WAL Read Error Due to Full Disk
+
+This known issue is fixed in Healthwatch v2.2.2 and later.
+
+In Healthwatch v2.2.1 and earlier, Prometheus had an issue where under rare circumstances, it would fail to clean up the chunks_head directory.
+This lead to a full disk, and subsequently failures when processing new metrics. It was fixed in [version 2.33.4 of Prometheus](https://github.com/prometheus/prometheus/releases/tag/v2.33.4).
