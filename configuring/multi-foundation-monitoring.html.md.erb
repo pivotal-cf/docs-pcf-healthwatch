@@ -11,7 +11,7 @@ This topic describes how to configure Healthwatch for VMware Tanzu to monitor mu
 ## <a id='overview'></a> Overview of Multi-Foundation Monitoring
 
 You can monitor several Ops Manager foundations that have VMware Tanzu Application Service for VMs (TAS for VMs) or VMware Tanzu Kubernetes Grid Integrated
-Edition (TKGI) installed from a Healthwatch tile that you install on a separate Ops Manager foundation or the TKGI Control Plane.
+Edition (TKGI) installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
 To configure multi-foundation monitoring, see the section for your runtime below:
 
@@ -23,9 +23,9 @@ To configure multi-foundation monitoring, see the section for your runtime below
 ## <a id='multiple-tas-foundations'></a> Configure Multi-Foundation Monitoring for TAS for VMs
 
 To configure your Healthwatch deployment to monitor TAS for VMs deployments on multiple Ops Manager foundations from a single monitoring Ops Manager
-foundation or the TKGI Control Plane:
+foundation:
 
-1. Install and configure the Healthwatch tile on either an Ops Manager foundation or the TKGI Control Plane. To install and configure the Healthwatch tile,
+1. Install and configure the Healthwatch tile on either an Ops Manager foundation. To install and configure the Healthwatch tile,
 see the following topics:
   * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
   Pipeline](../installing/automated-pipeline.html)
@@ -43,20 +43,21 @@ VMs](#network-rules-tas) above.
 
 1. Once you have installed Healthwatch Exporter for TAS for VMs and opened the required ports on each Ops Manager foundation you want to monitor, add a scrape
 job for each Healthwatch Exporter for TAS for VMs tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Ops Manager
-foundation or the TKGI Control Plane. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
+foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
   1. Retrieve the Ops Manager root certificate authority (CA) for the foundation you want to monitor. For more information, see the [Ops Manager
   documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs).
   1. Nagivate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
   1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
-  1. Select the **Status** tab.
-  1. Record the following IP addresses:
-      * In the **TAS Counter Exporter** row, record the IP address of the counter metric exporter VM from the **IPs** column.
-      * In the **TAS Gauge Exporter** row, record the IP address of the gauge metric exporter VM from the **IPs** column.
-      * In the **TAS Timer Exporter** row, record the IP address of the timer metric exporter VM from the **IPs** column.
   1. Select the **Credentials** tab.
   1. In the row for **Healthwatch Exporter Client Mtls**, click **Link to Credential**.
   1. Record the credentials for **Healthwatch Exporter Client Mtls**.
-  1. Navigate to the Healthwatch tile installed on your monitoring Ops Manager foundation or the TKGI Control Plane.
+  1. Record the following IP addresses (this differs based on IAAS):
+    * Record the IP address of the Counter Metric Exporter VM that is reachable from the monitoring Ops Manager foundation.
+    * Record the IP address of the Gauge Metric Exporter VM that is reachable from the monitoring Ops Manager foundation.
+    * Record the IP address of the Timer Metric Exporter VM that is reachable from the monitoring Ops Manager foundation.
+    * **NOTE** Typically, internal BOSH IP addresses are not addressable across foundations. This network configuration will need to
+      be done manually in order to ensure an open network path between the monitoring Ops Manager foundation and the downstream exporter VMs.
+  1. Navigate to the Healthwatch tile installed on your monitoring Ops Manager foundation.
   1. Select **Prometheus**.
   1. Under **Additional scrape jobs**, click **Add**.
   1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job for Healthwatch Exporter for TAS for VMs, similar to the
@@ -86,11 +87,11 @@ foundation or the TKGI Control Plane. To add a scrape job for a Healthwatch Expo
 
 ## <a id='multiple-tkgi-foundations'></a> Configure Multi-Foundation Monitoring for TKGI
 
-In order to monitor TKGI deployments on multiple Ops Manager foundations from a single monitoring Ops Manager foundation or the TKGI Control Plane, you must
-configure federation for your Healthwatch deployment.
+The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
+As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
+supporting metrics for that foundation.
 
-To configure your Healthwatch deployment to monitor TKGI deployments on multiple Ops Manager foundations from a single monitoring Ops Manager foundation or
-the TKGI Control Plane:
+To configure your monitoring Ops Manager foundation to monitor downstream TKGI foundations:
 
 1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each foundation you want to monitor. To install and configure the
 Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
@@ -99,18 +100,15 @@ Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
   * [Configuring Healthwatch](configuring-healthwatch.html)
   * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 
-1. Install and configure the Healthwatch tile on your monitoring foundation. To install and configure the Healthwatch tile, see the following topics:
+1. Install and configure the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following topics:
   * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
   Pipeline](../installing/automated-pipeline.html)
   * [Configuring Healthwatch](configuring-healthwatch.html)
   * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 
-1. Configure the Healthwatch tile on each foundation you monitor to scrape the Healthwatch Exporter for TKGI tile installed on the same foundation. To
-configure scrape jobs in Healthwatch, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
-
-1. Configure the Healthwatch tile on your monitoring foundation to federate metrics from the Healthwatch tiles installed on the foundations you want to
-monitor. To configure federation for your Healthwatch deployment, see [Configuring Federation for Healthwatch](optional-config/federation.html).
-
 1. Configure TKGI cluster discovery in the Healthwatch tile on each foundation you want to monitor. Do not configure TKGI cluster discovery in the Healthwatch
 tile on your monitoring foundation. To configure TKGI cluster discovery on the foundations you want to monitor, see [Configuring TKGI Cluster
 Discovery](optional-config/configuring-cluster-discovery.html).
+
+1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager foundations you
+want to monitor. To configure federation, see [Configuring Federation for Healthwatch](optional-config/federation.html).

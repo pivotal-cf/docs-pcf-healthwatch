@@ -11,9 +11,9 @@ This topic describes how to configure federation for your Healthwatch for VMware
 ## <a id='overview'></a> Overview of Federation
 
 Healthwatch supports federation. When you configure your Healthwatch installation to federate metrics, the Prometheus instance in the Healthwatch tile on a
-monitoring foundation, such as the Ops Manager foundation that monitors other Ops Manager foundations or the Tanzu Kubernetes Grid Integrated Edition (TKGI)
-Control Plane, scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the foundations you monitor. This is useful if
-you want to monitor a subset of metrics from multiple foundations without storing all metrics from multiple foundations in a single Prometheus instance.
+monitoring Ops Manager foundation, scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Ops Manager foundations
+you monitor. This is useful if you want to monitor a subset of metrics from multiple Ops Manager foundations without storing all metrics from those Ops Manager
+foundations in a single Prometheus instance.
 
 In a typical Healthwatch installation, you install the Healthwatch tile on the monitoring foundation that you use to monitor other foundations, and you
 install either the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile or the Healthwatch Exporter for TKGI tile on each
@@ -38,7 +38,7 @@ For more information about federation, see the [Prometheus documentation](https:
 
 To configure federation your Healthwatch installation:
 
-1. Install the Healthwatch tile on the foundation you use to monitor other foundations, such as an Ops Manager foundation or the TKGI Control Plane. For more
+1. Install the Healthwatch tile on the foundation you use to monitor other foundations, such as an Ops Manager foundation. For more
 information, see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an
 Automated Pipeline](../../installing/automated-pipeline.html).
 
