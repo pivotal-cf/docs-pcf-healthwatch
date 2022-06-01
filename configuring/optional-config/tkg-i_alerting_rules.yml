@@ -29,14 +29,14 @@ groups:
         annotations:
           summary: "The Ops Manager health check failed"
           description: |
-            Issues with Ops Manager health should have no direct end user impacts, however it can can impact an operator’s ability to perform an upgrade or to rescale the Tanzu Application Service platform when necessary.
+            Issues with Ops Manager health should have no direct end user impacts, however it can can impact an operator's ability to perform an upgrade or to rescale the Tanzu Application Service platform when necessary.
   ##### END FOUNDATION ALERTING RULES #####
 
   ##### BEGIN TKG-i ALERTING RULES #####
   - name: KubernetesClusterMasterNodes
     rules:
       - alert: KubernetesClusterMasterNodeHealth
-        expr: 'avg by (cluster) (min by (cluster, instance) ( label_replace(etcd_server_has_leader{}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-scheduler"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kube-controller-manager"}, "instance", "$1", "instance", "(.*):.*") or label_replace(up{job=~".*-kubernetes-apiservers"}, "instance", "$1", "instance", "(.*):.*") ) ) < .35'
+        expr: 'avg by (cluster) (min by (cluster, instance) ( label_replace(etcd_server_has_leader{}, "instance", "$1", "instance", "(.*):.*") or label_replace(system_healthy{origin="system_metrics_agent", exported_job="master"}, "instance", "$1", "instance", "(.*):.*") ) ) < .35'
         for: 10m
         annotations:
           summary: "One or more Tanzu Kubernetes Grid Integrated Edition clusters are running with unhealthy master nodes for at least 10 minutes."
@@ -52,7 +52,7 @@ groups:
         expr: 'increase(tkgi_sli_task_failures_total[2m]) <= 0'
         for: 10m
         annotations:
-          summary: "The Tanzu Kubernetes Grid Integrated Edition SLI test ({{ $labels.task }}) has been failing for at least 10 minutes."
+          summary: "The Tanzu Kubernetes Grid Integrated Edition SLI test ({{ $labels.display_name }}) has been failing for at least 10 minutes."
           description: |
             Tanzu Kubernetes Grid Integrated Edition SLI Tests run every 1 minute by default. This setting is configurable in Ops Manager and may have been changed. These tests are intended to give Platform Operators confidence that Application Developers can successfully interact with and manage applications in their clusters.
             Note: the sli tests will report a failure if any task (e.g. `login`, `clusters`) takes more than 1 minute to complete.
