@@ -34,6 +34,9 @@ For more information about this known issue, see [No Data on RabbitMQ Dashboards
 highly-available (HA) Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
 
+* **[Known Issue Fix]** The **Kubernetes Nodes** will now show data for clusters created with the containerd runtime. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
+
 Healthwatch v2.2.2 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -69,6 +72,9 @@ For more information about this known issue, see [No Data on RabbitMQ Dashboards
 * **[Known Issue]** The Grafana instance cannot load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy an HA
 Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
+
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -154,6 +160,9 @@ For more information about this known issue, see [No Data on RabbitMQ Dashboards
 * **[Known Issue]** The Grafana instance cannot load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy an HA
 Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
+
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
@@ -324,13 +333,17 @@ To work around this issue, set the number of SVM Forwarder VM instances for your
 Healthwatch Exporter for TAS for VMs tile. For more information about scaling Healthwatch resources, see [(Optional) Configure
 Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
+### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12+
 
-If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data.
+This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`. However, in TKGI v1.12, new Kubernetes clusters run on containerd
-instead of in Docker. As a result, in TKGI v1.12 the `name` label in Kubernetes cluster metrics start with a hex value instead of `k8s_`, which the Grafana
+If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for clusters with the containerd runtime.
+
+In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`. However, in TKGI v1.12 and above, new Kubernetes clusters run on containerd
+instead of in Docker. As a result, in TKGI v1.12 and above the `name` label in Kubernetes cluster metrics start with a hex value instead of `k8s_`, which the Grafana
 instance does not recognize.
+
+To fix this issue, upgrade to Healthwatch v2.2.2 or later.
 
 ### <a id='no-data-nodes-tkgi-110'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
