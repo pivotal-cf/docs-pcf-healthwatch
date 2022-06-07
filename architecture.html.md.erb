@@ -325,9 +325,9 @@ describe the most common configuration scenarios:
 
 * [Monitoring TAS for VMs and TKGI on a Single Ops Manager Foundation](#tas-tkgi-single-foundation)
 
-* [Monitoring TAS for VMs on a Different Ops Manager Foundation](#tas-different-foundation)
+* [Configure Multi-Foundation Monitoring Using Direct Scraping](#multiple-foundations-direct-scrape)
 
-* [Monitoring TKGI on a Different Ops Manager Foundation](#tkgi-different-foundation)
+* [Configure Multi-Foundation Monitoring Using Federation](#multiple-foundations-federation)
 
 ### <a id='tas-single-foundation'></a> Monitoring TAS for VMs on a Single Ops Manager Foundation
 
@@ -377,22 +377,22 @@ Pipeline](installing/automated-pipeline.html)
 
 * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
-### <a id='tas-different-foundation'></a> Monitoring TAS for VMs on a Different Ops Manager Foundation
+### <a id='multiple-foundations-direct-scrape'></a> Configure Multi-Foundation Monitoring Using Direct Scraping
 
-You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
+You can monitor several Ops Manager foundations from a Healthwatch tile that you install on a separate Ops Manager foundation using direct scrapes.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation,
-see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scrapes,
+see [Configure Multi-Foundation Monitoring Using Direct Scraping](configuring/multi-foundation-monitoring.html#multiple-foundations-direct-scrape) in _Configuring
 Multi-Foundation Monitoring_.
 
-### <a id='tkgi-different-foundation'></a> Monitoring TKGI on a Different Ops Manager Foundation
+### <a id='multiple-foundations-federation'></a> Configure Multi-Foundation Monitoring Using Federation
 
-You can monitor several Ops Manager foundations that have TKGI installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
+You can monitor several Ops Manager foundations from a Healthwatch tile that you install on a separate Ops Manager foundation using federation.
 
-The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
-As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
-supporting metrics for that foundation.
+Federation is necessary to get the TKGI cluster metrics as the Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find
+clusters and generate scrape configs for the cluster metrics. Directly scraping the Healthwatch TKGI exporters will only provide supporting metrics
+for that foundation.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation
-through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using federation,
+see [Configure Multi-Foundation Monitoring Using Federation](configuring/multi-foundation-monitoring.html#multiple-foundations-federation) in
 _Configuring Multi-Foundation Monitoring_.

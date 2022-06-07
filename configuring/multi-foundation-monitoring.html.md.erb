@@ -13,19 +13,36 @@ This topic describes how to configure Healthwatch for VMware Tanzu to monitor mu
 You can monitor several Ops Manager foundations that have VMware Tanzu Application Service for VMs (TAS for VMs) or VMware Tanzu Kubernetes Grid Integrated
 Edition (TKGI) installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
+There are two ways to monitor several Ops Manager foundations from a separate Ops Manager foundation:
+
+1. Directly scraping the metric endpoints on the Healthwatch exporter VMs.
+  * Only requires the `Healthwatch Exporter for TAS` or the `Healthwatch Exporter for TKGI` to be installed on the sub-foundation.
+    * TKGI cluster metrics requires federation
+  * Easy to scrape all metrics from a specific exporter.
+  * All scraped metrics can have a label added to them to specify which foundation they came from.
+  * Prometheus performance will degrade as additional foundations are monitored due to the overwhelming number of scraped metrics.
+
+1. Federating metrics from the Prometheus instances running on the Ops Manager foundations that will be monitored.
+  * Required for monitoring `TKGI` clusters as the `Healthwatch` tile dynamically generates scrape configs for Kubernetes clusters.
+  * Allows for specific metrics to be filtered for efficient scrapes.
+  * Scrapes a single endpoint which reduces firewall and network complexity.
+  * All federated metrics can have a label added to them to specify which foundation they came from.
+  * Recommended to not federate all metrics from a foundation as Prometheus performance will degrade due to the overwhelming number of scraped metrics.
+
 To configure multi-foundation monitoring, see the section for your runtime below:
 
-* [Configure Multi-Foundation Monitoring for TAS for VMs](#multiple-tas-foundations)
+* [Configure Multi-Foundation Monitoring Using Direct Scraping](#multiple-foundations-direct-scrape)
 
-* [Configure Multi-Foundation Monitoring for TKGI](#multiple-tkgi-foundations)
+* [Configure Multi-Foundation Monitoring Using Federation](#multiple-foundations-federation)
 
 
-## <a id='multiple-tas-foundations'></a> Configure Multi-Foundation Monitoring for TAS for VMs
+## <a id='multiple-foundations-direct-scrape'></a> Configure Multi-Foundation Monitoring Using Direct Scraping
 
-To configure your Healthwatch deployment to monitor TAS for VMs deployments on multiple Ops Manager foundations from a single monitoring Ops Manager
-foundation:
+The following is an example of how to configure your Healthwatch deployment to monitor multiple Ops Manager foundations
+from a single monitoring Ops Manager foundation using direct scrapes. This example references monitoring TAS for VMs
+foundations, but the steps can be applied to monitoring downstream TKGI foundations.
 
-1. Install and configure the Healthwatch tile on either an Ops Manager foundation. To install and configure the Healthwatch tile,
+1. Install and configure the Healthwatch tile on the monitoring Ops Manager foundation. To install and configure the Healthwatch tile,
 see the following topics:
   * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
   Pipeline](../installing/automated-pipeline.html)
@@ -37,16 +54,15 @@ Exporter for TAS for VMs, see the following topics:
   Pipeline](../installing/automated-pipeline.html)
   * [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html)
 
-1. For each installation of Healthwatch Exporter for TAS for VMs, open the ports for the metric exporter VMs that Healthwatch Exporter for TAS for VMs
+1. For each installation of Healthwatch Exporter for TAS for VMs, open the ports in your IAAS for the metric exporter VMs that Healthwatch Exporter for TAS for VMs
 deploys. For more information about the ports you must open for each metric exporter VM, see [Networking Rules for Healthwatch Exporter for TAS for
 VMs](#network-rules-tas) above.
 
-1. Once you have installed Healthwatch Exporter for TAS for VMs and opened the required ports on each Ops Manager foundation you want to monitor, add a scrape
-job for each Healthwatch Exporter for TAS for VMs tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Ops Manager
-foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
+1. Add a scrape job for each Healthwatch Exporter for TAS for VMs tile in the **Prometheus** pane of the Healthwatch tile that you installed on your
+monitoring Ops Manager foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
   1. Retrieve the Ops Manager root certificate authority (CA) for the foundation you want to monitor. For more information, see the [Ops Manager
   documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs).
-  1. Nagivate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
+  1. Navigate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
   1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
   1. Select the **Credentials** tab.
   1. In the row for **Healthwatch Exporter Client Mtls**, click **Link to Credential**.
@@ -85,7 +101,11 @@ foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
   the metric exporter VMs that Healthwatch Exporter for TAS for VMs deploys.
 
 
-## <a id='multiple-tkgi-foundations'></a> Configure Multi-Foundation Monitoring for TKGI
+## <a id='multiple-foundations-federation'></a> Configure Multi-Foundation Monitoring Using Federation
+
+The following is an example of how to configure your Healthwatch deployment to monitor multiple Ops Manager foundations
+from a single monitoring Ops Manager foundation using federation. This example references monitoring TKGI foundations,
+but the steps can be applied to monitoring downstream TAS for VMs foundations.
 
 The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
 As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
