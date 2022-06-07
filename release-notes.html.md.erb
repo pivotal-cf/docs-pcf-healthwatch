@@ -39,6 +39,9 @@ this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Serv
 * **[Known Issue Fix]** The backup scripts for Prometheus VMs clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
+
 Healthwatch v2.1.9 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -63,6 +66,9 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
 issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
+
 Healthwatch v2.1.8 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -83,6 +89,9 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
 issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
+
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
 
 Healthwatch v2.1.7 uses the following open-source component versions:
 
@@ -107,6 +116,9 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
 issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
+
 Healthwatch v2.1.6 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -127,8 +139,8 @@ Edition (TKGI) is updated to improve user experience.
 * **[Known Issue Fix]** Healthwatch successfully installs when installed on Ops Manager v2.10.19 and later. For more information about this known issue, see
 [Healthwatch Fails to Install on Ops Manager v2.10.19 and Later](#install-failure) below.
 
-* **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
-issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
@@ -180,8 +192,8 @@ Configuration](#alert-receiver-basic-auth) below.
 * **[Known Issue]** If you are using Ops Manager v2.10.19 or later, the Healthwatch tile fails to install. For more information about this known issue, see
 [Healthwatch Fails to Install on Ops Manager v2.10.19 and Later](#install-failure) below.
 
-* **[Known Issue]** If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
-issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](#no-data-nodes-tkgi-112) below.
+* **[Known Issue]** If you are using TKGI v1.12 and above, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more information about this known
+issue, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12+](#no-data-nodes-tkgi-112) below.
 
 * **[Known Issue]** If you are using TKGI to monitor Windows clusters, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data. For more
 information about this known issue, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](#tkgi-windows-clusters) below.
@@ -561,13 +573,17 @@ To fix this issue, upgrade to Healthwatch v2.1.1 or later or manually delete the
 upgrading to Healthwatch v2.1.1, see [Upgrading Healthwatch](upgrading-healthwatch.html). For more information about deleting a BOSH deployment using the BOSH
 CLI, see [the BOSH documentation](https://bosh.io/docs/cli-v2/#delete-deployment).
 
-### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12
+### <a id='no-data-nodes-tkgi-112'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.12+
 
-If you are using TKGI v1.12, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data.
+This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`. However, in TKGI v1.12, new Kubernetes clusters run on containerd
-instead of in Docker. As a result, in TKGI v1.12 the `name` label in Kubernetes cluster metrics start with a hex value instead of `k8s_`, which the Grafana
+If you are using TKGI v1.12+, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for clusters with the containerd runtime.
+
+In TKGI v1.11 and earlier, the `name` label in Kubernetes cluster metrics start with `k8s_`. However, in TKGI v1.12 and above, new Kubernetes clusters run on containerd
+instead of in Docker. As a result, in TKGI v1.12 and above the `name` label in Kubernetes cluster metrics start with a hex value instead of `k8s_`, which the Grafana
 instance does not recognize.
+
+To fix this issue, upgrade to Healthwatch v2.2.2 or later.
 
 ### <a id='no-data-nodes-tkgi-110'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
