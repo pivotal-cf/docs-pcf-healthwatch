@@ -379,16 +379,18 @@ Pipeline](installing/automated-pipeline.html)
 
 You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation,
-see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
-Multi-Foundation Monitoring_.
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation, see [Configure
+Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring Multi-Foundation
+Monitoring_.
 
 ### <a id='tkgi-different-foundation'></a> Monitoring TKGI on a Different Ops Manager Foundation
+
 You can monitor several Ops Manager foundations that have TKGI installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
-As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
-supporting metrics for that foundation.
+When you install the Healthwatch tile on an Ops Manager foundation that has TKGI installed, you can configure the Prometheus instance to detect on-demand
+Kubernetes clusters created through the TKGI API and create scrape jobs for them.
+
+The Prometheus instance in a Healthwatch deployment can only detect Kubernetes clusters for TKGI deployments on the same Ops Manager foundation. For a Healthwatch installation on one Ops Manager foundation to receive metrics for Kubernetes clusters created through TKGI deployments on other Ops Manager foundations, you must configure the Healthwatch Exporter for TKGI deployment on those Ops Manager foundations to federate metrics to the Prometheus instance in the Healthwatch deployment on the Ops Manager foundation you use to monitor the other Ops Manager foundations.
 
 To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation
 through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in

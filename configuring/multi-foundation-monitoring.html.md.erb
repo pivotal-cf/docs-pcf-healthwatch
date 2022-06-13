@@ -83,6 +83,7 @@ foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
 
 
 ## <a id='multiple-tkgi-foundations'></a> Configure Multi-Foundation Monitoring for TKGI
+
 The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
 As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
 supporting metrics for that foundation.
@@ -106,5 +107,5 @@ the Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topic
 Healthwatch tile on your monitoring foundation. To configure TKGI cluster discovery on the Ops Manager foundations you want to monitor, see [Configuring TKGI
 Cluster Discovery](optional-config/configuring-cluster-discovery.html).
 
-1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager foundations you
-want to monitor. To configure federation, see [Configuring Federation for Healthwatch](optional-config/federation.html).
+1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager
+foundations you want to monitor. To configure federation, see [Configuring Federation for Healthwatch](optional-config/federation.html).
