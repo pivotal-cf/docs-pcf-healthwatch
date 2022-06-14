@@ -63,10 +63,16 @@ one MySQL Proxy node.
 
 ### <a id='scaling'></a> Component Scaling
 
-Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally.
+Healthwatch deploys a single Grafana VM by default.
 
-To achieve HA, Healthwatch deploys two Prometheus VMs by default. If you do not need Prometheus to be HA, you can scale the Prometheus instance vertically to
-one Prometheus VM. To further scale the Prometheus instance, you can scale it horizontally by increasing the disk size of each VM in the Prometheus instance.
+  <p class='note'><strong>Note:</strong> If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of
+    Grafana, MySQL, and MySQL Proxy instances for your Healthwatch deployment to <code>0</code> in the <strong>Resource Config</strong> pane of the
+    Healthwatch tile. For more information about scaling Healthwatch resources, see <a href="resources.html#resource-requirements">Healthwatch
+    Components and Resource Requirements</a> in <em>Healthwatch Components and Resource Requirements</em>.</p>
+
+If you need Grafana to be HA, you can scale the Grafana instance horizontally. To achieve HA, Healthwatch deploys two Prometheus VMs by default. If you do not
+need Prometheus to be HA, you can scale the Prometheus instance vertically to one Prometheus VM. To further scale the Prometheus instance, you can scale it
+horizontally by increasing the disk size of each VM in the Prometheus instance.
 
 For more information, see [Configuring Healthwatch](configuring/configuring-healthwatch.html).
 

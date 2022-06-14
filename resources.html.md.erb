@@ -96,7 +96,7 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>Grafana</td>
-    <td>1</td>
+    <td>1*</td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
@@ -104,7 +104,7 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>MySQL</td>
-    <td>1</td>
+    <td>1*</td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
@@ -112,7 +112,7 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>MySQL Proxy</td>
-    <td>1</td>
+    <td>1*</td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
@@ -120,7 +120,8 @@ The following table provides the default resource and IP requirements for instal
   </tr>
 </table>
 
-You can scale these resources in the **Resource Config** pane of the Healthwatch tile. For more information, see [High Availability](#ha) below.
+You can scale these resources in the **Resource Config** pane of the Healthwatch tile. `*` Grafana, MySQL, and MySQL Proxy resources can be scaled to zero.
+For more information, see [Remove Grafana](#remove-grafana) below.
 
 The Healthwatch tile automatically selects the instance type that is best suited for each job. The instance types that Healthwatch selects depend on the
 available resources for your deployment.
@@ -140,3 +141,10 @@ the Prometheus instance vertically, but you should not scale it horizontally.
 
 Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally. When making Grafana HA,
 VMware recommends scaling your MySQL instance to three VMs and your MySQL Proxy instance to two VMs.
+
+### <a id='remove-grafana'></a> Remove Grafana
+
+If you do not want to use any Grafana instances in your Healthwatch deployment, such as for using Healthwatch with an external Grafana, you can set the number
+of Grafana, MySQL, and MySQL Proxy instances for your Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile. Grafana, MySQL,
+and MySQL Proxy should all be scaled to 0 together if Grafana is not desired as MySQL is only used for storing configuration from Grafana and MySQL Proxy is
+only used for HA MySQL.
