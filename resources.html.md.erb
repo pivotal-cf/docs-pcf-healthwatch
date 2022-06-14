@@ -96,7 +96,7 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>Grafana</td>
-    <td>1*</td>
+    <td>1<sup>*</sup></td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
@@ -104,7 +104,7 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>MySQL</td>
-    <td>1*</td>
+    <td>1<sup>*</sup></td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
@@ -112,18 +112,17 @@ The following table provides the default resource and IP requirements for instal
   </tr>
   <tr>
     <td>MySQL Proxy</td>
-    <td>1*</td>
+    <td>1<sup>*</sup></td>
     <td>1</td>
     <td>4&nbsp;GB</td>
     <td>5&nbsp;GB</td>
     <td>5&nbsp;GB</td>
   </tr>
 </table>
+<sup>* Setting the number of Grafana, MySQL, and MySQL Proxy instances to `0` removes Grafana from your Healthwatch deployment. For more information,
+see [Removing Grafana](#remove-grafana) below.</sup>
 
 You can scale these resources in the **Resource Config** pane of the Healthwatch tile.
-
-<sup>*</sup> Setting the number of Grafana, MySQL, and MySQL Proxy instances to `0` removes Grafana from your Healthwatch deployment. For more information,
-see [Removing Grafana](#remove-grafana) below.
 
 The Healthwatch tile automatically selects the instance type that is best suited for each job. The instance types that Healthwatch selects depend on the
 available resources for your deployment.
