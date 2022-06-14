@@ -122,7 +122,8 @@ Automatically Runs Canary Tests for the Ops Manager Installation Dashboard](#om-
 * **[Feature Improvement]** Healthwatch automatically configures TKGI cluster discovery by default on Ops Manager foundations that have TKGI installed. For
 more information, see [Automatic TKGI Cluster Discovery Configuration](#cluster-discovery-auto-config) below.
 
-* **[Feature Improvement]** You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`. For more information, see [Remove Grafana](resources.html#remove-grafana).
+* **[Feature Improvement]** You can scale your Grafana, MySQL, and MySQL Proxy instances to `0`. For more information, see [Remove Grafana](#remove-grafana)
+below.
 
 * **[Feature Improvement]** Dashboards in the Grafana UI only show metrics for canary apps that are currently configured. For more information, see [Grafana
 UI Dashboards Only Include Metrics for Current Canary Apps](#current-canary-apps) below.
@@ -263,6 +264,14 @@ configure TKGI cluster discovery, you can disallow it through the **TKGI Cluster
 For more information about TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](configuring/optional-config/configuring-cluster-discovery.html).
 For more information about allowing or disallowing TKGI cluster discovery, see [Configure TKGI Cluster Discovery in
 Healthwatch](configuring/optional-config/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
+
+### <a id='remove-grafana'></a> Remove Grafana
+
+If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
+Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
+
+For more information about removing Grafana from your Healthwatch deployment, see [Removing Grafana](resources.html#remove-grafana) in _Healthwatch Components
+and Resource Requirements_.
 
 ### <a id='current-canary-apps'></a> Grafana UI Dashboards Only Include Metrics for Current Canary Apps
 
