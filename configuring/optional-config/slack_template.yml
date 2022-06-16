@@ -1,0 +1,25 @@
+---
+title: "[{{ len .Alerts.Firing  }}{{ if gt (len .Alerts.Firing) 1 }} ALERTS {{ else }} ALERT {{ end }}{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}"
+title_link: '{{ with index .Alerts 0 }}{{ .Annotations.grafanaUrlPrefix }}"{{(.StartsAt.Add -1800000000000).Unix}}000","{{(.StartsAt.Add 1800000000000).Unix}}000"{{ .Annotations.grafanaUrlSuffix }}{{end}}'
+text: |-
+  {{ define "_grafanaURL" }}{{ with index .Alerts 0 }}{{ .Annotations.grafanaUrlPrefix }}"{{(.StartsAt.Add -1800000000000).Unix}}000","{{(.StartsAt.Add 1800000000000).Unix}}000"{{ .Annotations.grafanaUrlSuffix }}{{ end }}{{ end }}
+  {{ if gt (len .Alerts.Firing) 1 -}}
+  <{{ template "_grafanaURL" . }}|View these alerts in Grafana>
+  <{{ template "slack.default.titlelink" . }}|View these alerts in Alertmanager> - Requires a (<https://docs.pivotal.io/healthwatch/troubleshooting.html#viewing-the-alertmanager-ui|BOSH SSH Tunnel>)
+  {{- else -}}
+  <{{ template "_grafanaURL" . }}|View this alert in Grafana>
+  <{{ template "slack.default.titlelink" . }}|View this alert in Alertmanager> - Requires a (<https://docs.pivotal.io/healthwatch/troubleshooting.html#viewing-the-alertmanager-ui|BOSH SSH Tunnel>)
+  {{- end }}
+  {{ with index .Alerts 0 }}
+  *Summary:* {{ .Annotations.summary }}
+
+  *Description:*
+  {{ .Annotations.description }}
+  {{ end }}
+  {{ if gt (len .Alerts.Firing) 1 -}}
+  *Common labels across firing alerts:*
+  {{- else -}}
+  *Labels:*
+  {{- end }}
+  {{ range .CommonLabels.SortedPairs }}  - *{{ .Name }}:* `{{ .Value }}`
+  {{ end }}

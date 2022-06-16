@@ -1,0 +1,35 @@
+---
+html: |-
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <meta name="viewport" content="width=device-width"/>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <title>
+      [{{ len .Alerts.Firing  }}{{ if gt (len .Alerts.Firing) 1 }} ALERTS {{ else }} ALERT {{ end }}{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}
+      </title>
+  </head>
+
+  <body>
+  <div>
+      <div style="margin: auto; width: 50%; padding: 10px;">
+          <p><a href='{{ with index .Alerts 0 }}{{ .Annotations.grafanaUrlPrefix }}"{{(.StartsAt.Add -1800000000000).Unix}}000","{{(.StartsAt.Add 1800000000000).Unix}}000"{{ .Annotations.grafanaUrlSuffix }}{{end}}'>View a Grafana graph of the expression that triggered {{ if gt (len .Alerts.Firing) 1 }}these alerts{{ else }}this alert{{ end }}</a></p>
+          <p><a href='{{ template "slack.default.titlelink" . }}'>View {{ if gt (len .Alerts.Firing) 1 }}these alerts{{ else }}this alert{{ end }} in Alertmanager</a> (Requires a <a href="https://docs.pivotal.io/healthwatch/2-2/troubleshooting.html#viewing-the-alertmanager-ui">BOSH SSH Tunnel</a>)</p>
+          {{ with index .Alerts 0 }}
+          <p><strong>Summary:</strong> {{ .Annotations.summary }}</p>
+          <div style="white-space: pre-wrap; padding-left: 22px; text-indent: -22px;"><p><strong>Description:</strong>
+              {{ .Annotations.description }}
+          </p></div>
+          {{ end }}
+          <div>
+              <strong>{{ if gt (len .Alerts.Firing) 1 }}Common labels across firing alerts:{{ else }}Labels:{{ end }}</strong>
+              <ul>
+                  {{ range .CommonLabels.SortedPairs }}<li><strong>{{ .Name }}:</strong> {{ .Value }}</li>{{ end }}
+              </ul>
+          </div>
+      </div>
+  </div>
+  </body>
+  </html>
+headers:
+  subject: "[{{ len .Alerts.Firing  }}{{ if gt (len .Alerts.Firing) 1 }} ALERTS {{ else }} ALERT {{ end }}{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}"
