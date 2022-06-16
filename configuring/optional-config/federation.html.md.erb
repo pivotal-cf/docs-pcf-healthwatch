@@ -15,32 +15,33 @@ monitoring Ops Manager foundation, scrapes a subset of metrics from the Promethe
 you monitor. This is useful if you want to monitor a subset of metrics from multiple Ops Manager foundations without storing all metrics from those Ops
 Manager foundations in a single Prometheus instance.
 
-In a typical Healthwatch installation, you install the Healthwatch tile on the monitoring foundation that you use to monitor other foundations, and you
-install either the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile or the Healthwatch Exporter for TKGI tile on each Ops
-Manager foundation you want to monitor. The Prometheus instance in the Healthwatch tile on your monitoring foundation scrapes metrics from the Healthwatch
-Exporter tiles on each Ops Manager foundation you monitor.
+In a typical Healthwatch installation, you install the Healthwatch tile on the monitoring Ops Manager foundation that you use to monitor other Ops Manager
+foundations, and you install either the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile or the Healthwatch Exporter for
+TKGI tile on each Ops Manager foundation you want to monitor. The Prometheus instance in the Healthwatch tile on your monitoring Ops Manager foundation
+scrapes metrics from the Healthwatch Exporter tiles on each Ops Manager foundation you monitor.
 
-To configure federation for your Healthwatch installation, you install the Healthwatch tile on your monitoring foundation and on each Ops Manager foundation
-you want to monitor, in addition to the Healthwatch Exporter tile you install on each Ops Manager foundation you want to monitor. You then configure the
-Healthwatch tile on each Ops Manager foundation you want to monitor to scrape metrics from the Healthwatch Exporter tile installed on the same foundation, and
-the Healthwatch tile on your monitoring foundation to scrape metrics from the Healthwatch tiles installed on the Ops Manager foundations you want to monitor.
+To configure federation for your Healthwatch installation, you install the Healthwatch tile on your monitoring Ops Manager foundation and on each Ops Manager
+foundation you want to monitor, in addition to the Healthwatch Exporter tile you install on each Ops Manager foundation you want to monitor. You then
+configure the Healthwatch tile on each Ops Manager foundation you want to monitor to scrape metrics from the Healthwatch Exporter tile installed on the same
+foundation, and the Healthwatch tile on your monitoring Ops Manager foundation to scrape metrics from the Healthwatch tiles installed on the Ops Manager
+foundations you want to monitor.
 
 For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
-<p class='note warning'><strong>Warning:</strong> Storing all Loggregator Firehose metrics from more than one large TAS for VMs foundation in a single
+<p class='note warning'><strong>Warning:</strong> Storing all Loggregator Firehose metrics from more than one large TAS for VMs deployment in a single
   Prometheus instance negatively affects the performance of that Prometheus instance, sometimes even causing it to crash. To avoid this, VMware recommends
-  federating only service level indicator (SLI) metrics from each Ops Manager foundation you monitor to the Prometheus instance in your monitoring foundation.
-  For more information about SLI metrics for TAS for VMs, see <a href="../../metrics.html#pas-sli-exporter">TAS for VMs SLI Exporter VM</a> in <em>Healthwatch
-  Metrics</em>.</p>
+  federating only service level indicator (SLI) metrics from each Ops Manager foundation you monitor to the Prometheus instance in your monitoring Ops Manager
+  foundation. For more information about SLI metrics for TAS for VMs, see <a href="../../metrics.html#pas-sli-exporter">TAS for VMs SLI Exporter VM</a> in
+  <em>Healthwatch Metrics</em>.</p>
 
 
 ## <a id='federation-config'></a> Configure Federation
 
 To configure federation your Healthwatch installation:
 
-1. Install the Healthwatch tile on the foundation you use to monitor other Ops Manager foundations, such as an Ops Manager foundation or the TKGI Control
-Plane. For more information, see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile
-Through an Automated Pipeline](../../installing/automated-pipeline.html).
+1. Install the Healthwatch tile on your monitoring Ops Manager foundation. For more information, see [Installing a Tile
+Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+Pipeline](../../installing/automated-pipeline.html).
 
 1. Install the Healthwatch tile and either the Healthwatch Exporter for TAS for VMs tile or the Healthwatch Exporter for TKGI tile on each Ops Manager
 foundation you want to monitor. For more information, see [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring,
@@ -102,10 +103,10 @@ and Deploying a Tile Through an Automated Pipeline](../../installing/automated-p
 In a highly available (HA) Healthwatch deployment, each VM in the Prometheus instance in the Healthwatch tile scrapes the same data from the metric exporter
 VMs that the Healthwatch Exporter tiles deploy.
 
-When federating metrics, you can configure the Prometheus instance in the Healthwatch tile on your monitoring foundation to scrape both copies of that data
-from the Prometheus instance in the Healthwatch tile on each Ops Manager foundation you monitor. To do this, include both VMs in each Prometheus instance from
-the Ops Manager foundations you want to monitor in the scrape job configuration parameters. While including both VMs creates duplicate sets of metrics, it
-also ensures that you do not lose metric data if one of the two VMs goes down.
+When federating metrics, you can configure the Prometheus instance in the Healthwatch tile on your monitoring Ops Manager foundation to scrape both copies of
+that data from the Prometheus instance in the Healthwatch tile on each Ops Manager foundation you monitor. To do this, include both VMs in each Prometheus
+instance from the Ops Manager foundations you want to monitor in the scrape job configuration parameters. While including both VMs creates duplicate sets of
+metrics, it also ensures that you do not lose metric data if one of the two VMs goes down.
 
 Alternatively, you can create load balancers or DNS entries in your IaaS console for the Prometheus instances on each Ops Manager foundation you monitor, then
 include the IP addresses for each load balancer or DNS entry in the targets listed under the `targets` property in your scrape job configuration parameters.
