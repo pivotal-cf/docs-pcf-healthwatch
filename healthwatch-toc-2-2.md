@@ -1,6 +1,6 @@
 * [Healthwatch for VMware Tanzu](index.html)
-* [Release Notes](release-notes.html)
-* [Reference Architecture](architecture.html)
+* [Healthwatch v2.2 Release Notes](release-notes.html)
+* [Healthwatch Architecture](architecture.html)
 * [Upgrading Healthwatch](upgrading-healthwatch.html)
 * [Installing](installing/index.html)
     * [Installing a Tile Manually](installing/installing-manually.html)
