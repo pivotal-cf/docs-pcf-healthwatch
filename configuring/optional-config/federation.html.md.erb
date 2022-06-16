@@ -28,7 +28,7 @@ foundations you want to monitor.
 
 For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
-<p class='note warning'><strong>Warning:</strong> Storing all Loggregator Firehose metrics from more than one large TAS for VMs foundation in a single
+<p class='note warning'><strong>Warning:</strong> Storing all Loggregator Firehose metrics from more than one large TAS for VMs deployment in a single
   Prometheus instance negatively affects the performance of that Prometheus instance, sometimes even causing it to crash. To avoid this, VMware recommends
   federating only service level indicator (SLI) metrics from each Ops Manager foundation you monitor to the Prometheus instance in your monitoring Ops Manager
   foundation. For more information about SLI metrics for TAS for VMs, see <a href="../../metrics.html#pas-sli-exporter">TAS for VMs SLI Exporter VM</a> in
@@ -39,7 +39,7 @@ For more information about federation, see the [Prometheus documentation](https:
 
 To configure federation your Healthwatch installation:
 
-1. Install the Healthwatch tile on the Ops Manager foundation you use to monitor other Ops Manager foundations. For more information, see [Installing a Tile
+1. Install the Healthwatch tile on your monitoring Ops Manager foundation. For more information, see [Installing a Tile
 Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
 Pipeline](../../installing/automated-pipeline.html).
 
