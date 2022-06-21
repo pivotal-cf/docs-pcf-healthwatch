@@ -16,7 +16,7 @@ Automated Pipeline](../installing/automated-pipeline.html).
 When installed on an Ops Manager foundation you want to monitor, Healthwatch Exporter for TKGI deploys metric exporter VMs to generate service level
 indicators (SLIs) related to the health of your TKGI deployment. The Prometheus instance that exists within your metrics monitoring system then scrapes the
 Prometheus exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture
-of the Healthwatch Exporter for TKGI tile, see [Healthwatch Exporter for TKGI](../architecture.html#healthwatch-pks) in _Reference Architecture_.
+of the Healthwatch Exporter for TKGI tile, see [Healthwatch Exporter for TKGI](../architecture.html#healthwatch-pks) in _Healthwatch Architecture_.
 
 After installing Healthwatch Exporter for TKGI, you configure the metric exporter VMs deployed by Healthwatch Exporter for TKGI through the tile UI. You can
 also configure errands and system logging, as well as scale VM instances up or down and configure load balancers for multiple VM instances.
@@ -25,9 +25,6 @@ To configure and deploy the Healthwatch Exporter for TKGI tile:
 
 <p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter for TKGI tile to ensure that it deploys successfully before you
   fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong> panes.</p>
-
-1. Ensure that you meet the prerequisite for configuring and deploying Healthwatch Exporter for TKGI. For more information, see [Prerequisite](#prerequisite)
-below.
 
 1. Navigate to the Healthwatch Exporter for TKGI tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch
 Exporter for TKGI Tile](#open-ui) below.
@@ -118,9 +115,9 @@ certificate expiration metric exporter VM. The certificate expiration metric exp
 deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
   <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TKGI and Healthwatch Exporter for Tanzu Application Service for VMs (TAS
-    for VMs installed on the same Ops Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the
-    <strong>Resource Config</strong> pane in one of th Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create
-    redundant sets of metrics.</p>
+    for VMs installed on the same Ops Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource
+    Config</strong> pane in one of th Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of
+    metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification** checkbox. When this checkbox is
 activated, the certificate expiration metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated by default.
@@ -425,8 +422,8 @@ Healthwatch](#scraping-healthwatch) below.
     Ops Manager foundation as your Healthwatch tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch Exporter
     tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
 
-* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as from an external TSDB,
-  see [Configure a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System](#scraping-external) below.
+* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as from an external TSDB, see [Configure a Scrape Job
+for Healthwatch Exporter for TKGI in an External Monitoring System](#scraping-external) below.
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
 
@@ -439,7 +436,7 @@ To configure a scrape job for Healthwatch Exporter for TKGI in a service or data
 
 1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for TKGI. The procedure to open
 these network paths differs depending on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required Networking
-Rules for Healthwatch Exporter for TKGI](../architecture.html#network-rules-pks) in _Reference Architecture_.
+Rules for Healthwatch Exporter for TKGI](../architecture.html#network-rules-pks) in _Healthwatch Architecture_.
 
 1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Ops Manager foundation. Under `static_config`, specify
 the TCP ports of each metric exporter VM as static targets for the IP address of your external service or database. For example:

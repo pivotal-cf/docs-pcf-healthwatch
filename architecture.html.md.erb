@@ -63,12 +63,16 @@ one MySQL Proxy node.
 
 ### <a id='scaling'></a> Component Scaling
 
-Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally.
+Healthwatch deploys two Prometheus VMs by default to create an HA Prometheus instance. If you do not need Prometheus to be HA, you can scale the Prometheus
+instance vertically to one Prometheus VM. To further scale the Prometheus instance, you can scale it horizontally by increasing the disk size of each VM in
+the Prometheus instance.
 
-To achieve HA, Healthwatch deploys two Prometheus VMs by default. If you do not need Prometheus to be HA, you can scale the Prometheus instance vertically to
-one Prometheus VM. To further scale the Prometheus instance, you can scale it horizontally by increasing the disk size of each VM in the Prometheus instance.
+Healthwatch deploys a single Grafana VM by default. If you want to make the Grafana instance HA, you can scale the Grafana instance horizontally.
 
-For more information, see [Configuring Healthwatch](configuring/configuring-healthwatch.html).
+If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
+Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
+
+For more information about scaling Healthwatch resources, see [Healthwatch Components and Resource Requirements](resources.html).
 
 ### <a id='network-rules-hw'></a> Networking Rules for the Healthwatch Tile
 
@@ -379,17 +383,14 @@ Pipeline](installing/automated-pipeline.html)
 
 You can monitor several Ops Manager foundations that have TAS for VMs installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation,
-see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
+To configure your Healthwatch deployment to monitor TAS for VMs deployments on several Ops Manager foundations from a single monitoring Ops Manager
+foundation, see [Configure Multi-Foundation Monitoring for TAS for VMs](configuring/multi-foundation-monitoring.html#multiple-tas-foundations) in _Configuring
 Multi-Foundation Monitoring_.
 
 ### <a id='tkgi-different-foundation'></a> Monitoring TKGI on a Different Ops Manager Foundation
+
 You can monitor several Ops Manager foundations that have TKGI installed from a Healthwatch tile that you install on a separate Ops Manager foundation.
 
-The Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find clusters and generate scrape configs for the cluster metrics.
-As a result, internal Kubernetes metrics can only be retrieved from a downstream TSDB VM through federation. The Healthwatch TKGI exporters simply provide
-supporting metrics for that foundation.
-
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation
-through federation, see [Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in
-_Configuring Multi-Foundation Monitoring_.
+To configure your Healthwatch deployment to monitor TKGI deployments on several Ops Manager foundations from a single monitoring Ops Manager foundation, see
+[Configure Multi-Foundation Monitoring for TKGI](configuring/multi-foundation-monitoring.html#multiple-tkgi-foundations) in _Configuring Multi-Foundation
+Monitoring_.
