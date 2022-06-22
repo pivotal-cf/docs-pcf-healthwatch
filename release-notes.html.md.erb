@@ -38,6 +38,9 @@ Installations](#no-data-tsdb-update) below.
 information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and Later](#no-data-nodes-tkgi-112)
 below.
 
+* **[Known Issue Fix]** The Prometheus Smoke Test no longer has a possible race condition failure due to running before the Prometheus VM is ready.
+  For more information about this known issue, see [Prometheus Smoke Test Failure on Apply Changes](#prom-smoke-test) below.
+
 Healthwatch v2.2.2 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -409,5 +412,14 @@ In Healthwatch v2.2.1 and earlier, the Grafana instance cannot load metrics data
 multiple Prometheus instances. An HA Healthwatch installation is meant to allow the Grafana instance to continue loading data during re-deployment by ensuring
 that the second Prometheus instance does not start updating until after the first Prometheus instance has updated and re-starts. In Healthwatch v2.2.1 and
 earlier, a bug causes the second Prometheus instance to start updating before the first Prometheus instance re-starts.
+
+To fix this issue, upgrade to Healthwatch v2.2.2 or later.
+
+### <a id='prom-smoke-test'></a> Prometheus Smoke Test Failure on Apply Changes
+
+This known issue is fixed in Healthwatch v2.2.2 and later.
+
+In Healthwatch v2.2.1 and earlier, there was a potential race condition that could cause the Prometheus Smoke Test to run before the
+Prometheus VM was ready for it. This leads to the smoke test failing during Apply Changes, even though it succeeds when run manually.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
