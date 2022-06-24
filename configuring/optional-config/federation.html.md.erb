@@ -55,6 +55,9 @@ and Deploying a Tile Through an Automated Pipeline](../../installing/automated-p
   1. Select the **Credentials** tab.
   1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
   1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
+    <p class='note'><strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code> are in JSON format and contain several
+      <code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming step.</p>
+  and contains `\n` which should be converted into newlines manually in text editor.)
   1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
   the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managin certificates.html#root-certs).
   1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
@@ -96,6 +99,24 @@ and Deploying a Tile Through an Automated Pipeline](../../installing/automated-p
 
   For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
   the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+
+
+## <a id='federation-test'></a> Test Your Federation Configuration
+
+To confirm that your federation configuration is working as expected:
+
+1. In your web browser, navigate to the Grafana UI.
+
+1. Log in to the Grafana UI.
+
+1. On the left side of the Grafana UI homepage, click the **Explore** icon. An empty **Explore** tab appears.
+
+1. In the query field to the right of the **Metrics browser** menu tab, enter `up`.
+
+1. Click **Run query**.
+
+1. Under **Table**, review the query results. If your federation configuration is working, the **job** column includes the `job_name` from the scrape jobs you
+configured for each Ops Manager foundation you monitor in [Configure Federation](#federation-config) above.
 
 
 ## <a id='ha'></a> Federation for a Highly Available Healthwatch Deployment
