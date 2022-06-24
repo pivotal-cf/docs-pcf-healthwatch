@@ -7,7 +7,7 @@ owner: Healthwatch
 
 This topic describes the architecture of the Healthwatch for VMware Tanzu, Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs),
 and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI) tiles. This topic also describes the possible configurations for monitoring
-metrics across multiple foundations.
+metrics across multiple Ops Manager foundations.
 
 
 ## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
@@ -25,7 +25,7 @@ external time-series database (TSDB) or an installation of the Healthwatch tile 
 Healthwatch tile.
 
 For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring
-metrics across foundations, see the following sections:
+metrics across Ops Manager foundations, see the following sections:
 
 * [Healthwatch Tile Architecture](#architecture-hw)
 
@@ -316,8 +316,8 @@ The table below describes the ports you must open for each Healthwatch Exporter 
 
 ## <a id='configuration-options'></a> Configuration Options
 
-Healthwatch can be configured in multiple ways, allowing you to monitor metrics across a variety of platform and foundation configurations. The sections below
-describe the most common configuration scenarios:
+Healthwatch can be configured in multiple ways, allowing you to monitor metrics across a variety of runtime and Ops Manager foundation configurations. The
+sections below describe the most common configuration scenarios:
 
 * [Monitoring TAS for VMs on a Single Ops Manager Foundation](#tas-single-foundation)
 

@@ -66,15 +66,15 @@ The following table explains the most significant differences between Healthwatc
     </td>
   </tr>
   <tr>
-    <td>Monitoring multiple foundations</td>
+    <td>Monitoring multiple Ops Manager foundations</td>
     <td>
       <ul>
         <li><strong>Healthwatch v2.1:</strong> Can monitor both VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid
           Integrated Edition (TKGI), and can monitor multiple Ops Manager foundations with one or both runtimes installed.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single Ops Manager foundation.</li>
       </ul>
-      For more information about using Healthwatch v2.1 to monitor multiple foundations, see <a href="architecture.html#configuration-options">Configuration
-      Options</a> in <em>Reference Architecture</em>.
+      For more information about using Healthwatch v2.1 to monitor multiple Ops Manager foundations, see
+      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference Architecture</em>.
     </td>
   </tr>
   <tr>
@@ -85,8 +85,8 @@ The following table explains the most significant differences between Healthwatc
         <li><strong>Pivotal Healthwatch v1:</strong> Displays metrics only from the Ops Manager foundation on which it is installed in the Pivotal Healthwatch
           v1 tile UI.</li>
       </ul>
-      For more information about using Healthwatch v2.1 to monitor multiple foundations, see <a href="architecture.html#configuration-options">Configuration
-      Options</a> in <em>Reference Architecture</em>.
+      For more information about using Healthwatch v2.1 to monitor multiple Ops Manager foundations, see
+      <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Reference Architecture</em>.
     </td>
   </tr>
   <tr>
@@ -142,7 +142,8 @@ information about SVMs, see [Configure Prometheus](configuring/configuring-healt
 Healthwatch Component Metrics](metrics.html#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform
 Metrics](metrics.html#svm-forwarder-platform) in _Healthwatch Metrics_.
 
-* Automatically detects which version of TAS for VMs or TKGI is installed on your foundation and creates the appropriate dashboard in the Grafana UI.
+* Automatically detects which version of TAS for VMs or TKGI is installed on your Ops Manager foundation and creates the appropriate dashboard in the Grafana
+UI.
 
 * Allows you to use the Ops Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
 troubleshooting, such as a remote server or external syslog aggregation service. For more information about how to configure syslog forwarding, see

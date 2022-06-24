@@ -26,8 +26,8 @@ To configure and deploy the Healthwatch tile:
   <ul>
     <li>To quickly deploy the Healthwatch tile to ensure that it deploys successfully before you fully configure it, you only need to configure the
       <strong>Assign AZ and Networks</strong> pane.</li>
-    <li>If you are using Healthwatch to monitor foundations that are running Tanzu Kubernetes Grid Integrated Edition (TKGI), you must configure the
-      <strong>TKGI Cluster Discovery</strong> pane.</li>
+    <li>If you are using Healthwatch to monitor Ops Manager foundations that are running Tanzu Kubernetes Grid Integrated Edition (TKGI), you must configure
+      the <strong>TKGI Cluster Discovery</strong> pane.</li>
   </ul>
 </div>
 
@@ -55,8 +55,8 @@ To configure and deploy the Healthwatch tile:
 
 1. Deploy Healthwatch. For more information, see [Deploy Healthwatch](#apply-changes) below.
 
-After you have configured and deployed the Healthwatch tile, you can configure and deploy the Healthwatch Exporter tiles for the foundations you want to
-monitor. For more information, see [Next Steps](#next-steps) below.
+After you have configured and deployed the Healthwatch tile, you can configure and deploy the Healthwatch Exporter tiles for the Ops Manager foundations you
+want to monitor. For more information, see [Next Steps](#next-steps) below.
 
 
 ## <a id='open-ui'></a> Navigate to the Healthwatch Tile
@@ -89,7 +89,7 @@ specify.
 ## <a id='prometheus'></a> Configure Prometheus
 
 In the **Prometheus** pane, you configure the Prometheus instance in the Healthwatch tile to scrape metrics from the Healthwatch Exporter tiles installed on
-each foundation, as well as any external services or databases from which you want to collect metrics.
+each Ops Manager foundation, as well as any external services or databases from which you want to collect metrics.
 
 The values that you configure in the **Prometheus** pane also configure their corresponding properties in the Prometheus configuration file. For more
 information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_,
@@ -109,8 +109,8 @@ external services or databases, configure additional scrape jobs under **Additio
 exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus
 documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
   <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
-    foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure scrape jobs
-    for Healthwatch Exporter tiles that are installed on other foundations.</p>
+    Ops Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
+    scrape jobsbfor Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
   1. Click **Add**.
   1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job you want to configure. This job can use any of the
   properties defined by Prometheus except those in the `tls_config` section. Do not prefix the configuration YAML with a dash. For example:
@@ -226,9 +226,9 @@ instance. These IP addresses must not be within the reserved IP ranges you confi
 1. (Optional) To prevent users from logging in to Grafana UI with basic authentication, including admin users, deactivate the **Allow Grafana UI login with
 basic authentication** checkbox. This checkbox is activated by default.
 
-1. Under **Runtime discovery**, select how you want the Grafana instance to discover the runtimes in your foundations:
+1. Under **Runtime discovery**, select how you want the Grafana instance to discover the runtimes installed on your Ops Manager foundations:
     * **Dynamic:** The Grafana instance creates a dashboard in the Grafana UI for the versions of VMware Tanzu Application Service for VMs (TAS for VMs) and
-    TKGI that are currently installed on your foundations. This option is selected by default.
+    TKGI that are currently installed on your Ops Manager foundations. This option is selected by default.
     * **Manual:** The Grafana instance creates a dashboard in the Grafana UI for the versions of TAS for VMs and TKGI you specify in the **TAS for VMs
     version** and **TKGI version** fields.
     * **Do not allow:** The Grafana instance does not discover or create dashboards in the Grafana UI for TAS for VMs or TKGI.
@@ -336,7 +336,8 @@ activated, the Prometheus instance does not verify the identity of your Ops Mana
 results. To configure canary target URLs:
   1. Click **Add**.
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests. VMware recommends including `apps.sys.FOUNDATION-URL` if you
-  have TAS for VMs installed, or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is the root URL of your foundation.
+  have TAS for VMs installed, or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is the root URL of your Ops Manager
+  foundation.
   <p class='note'><strong>Note:</strong> The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional scrape
     jobs for them in the <strong>Prometheus</strong> pane.</p>
 
@@ -406,8 +407,8 @@ in-memory queues that read from the write-ahead log in the Prometheus instance. 
 
 ## <a id='tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery
 
-In the **TKGI Cluster Discovery** pane, you configure TKGI cluster discovery for Healthwatch. You only need to configure this pane if you have foundations
-with TKGI installed.
+In the **TKGI Cluster Discovery** pane, you configure TKGI cluster discovery for Healthwatch. You only need to configure this pane if you have Ops Manager
+foundations with TKGI installed.
 
 To configure TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](optional-config/configuring-cluster-discovery.html).
 
@@ -512,9 +513,10 @@ For more information, see the [Ops Manager documentation](https://docs.pivotal.i
 ## <a id='next-steps'></a> Next Steps
 
 After you have successfully installed the Healthwatch tile, continue to one of the following topics to configure and deploy the Healthwatch Exporter tiles for
-the foundations you want to monitor:
+the Ops Manager foundations you want to monitor:
 
-* If you have TAS for VMs installed on a foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs]
-(configuring-exporter-tas.html).
+* If you have TAS for VMs installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for
+VMs](configuring-exporter-tas.html).
 
-* If you have TKGI installed on a foundation you want to monitor, see [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html).
+* If you have TKGI installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for
+TKGI](configuring-exporter-tkgi.html).

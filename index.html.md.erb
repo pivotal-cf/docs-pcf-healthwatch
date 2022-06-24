@@ -17,8 +17,8 @@ Healthwatch allows you to monitor metrics related to the functionality of your O
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
 both the Tanzu Application Service for VMs (TAS for VMs) and Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
-You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
-or on a different foundation, depending on your desired monitoring configuration.
+You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same Ops Manager
+foundation or on a different Ops Manager foundation, depending on your desired monitoring configuration.
 
 You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
 external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Ops Manager foundation. This does not require you to install the
@@ -141,13 +141,13 @@ Troubleshooting](troubleshooting.html#healthwatch-troubleshooting) in _Troublesh
 * Healthwatch v2.1 only supports configuring alert receivers for email, PagerDuty, Slack, and webhooks for alerts. For more information, see [Configure Alert
 Receivers](configuring/optional-config/alerting.html#configure-receivers) in _Configuring Alerting_.
 
-* Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring multiple TAS for VMs or TKGI foundations. You can create
-custom dashboards to monitor multiple foundations.
+* Healthwatch v2.1 does not include a federated dashboard or an overview dashboard for monitoring multiple TAS for VMs or TKGI deployments. You can create
+custom dashboards to monitor multiple Ops Manager foundations.
 
 * Healthwatch v2.1 is not meant to be a long-term data store. It only stores data for six weeks.
 
-* Healthwatch v2.1 is not designed to capture all metrics from multiple foundations. For more information about the metrics that Healthwatch v2.1 stores, see
-[Healthwatch Metrics](metrics.html).
+* Healthwatch v2.1 is not designed to capture all metrics from multiple Ops Manager foundations. For more information about the metrics that Healthwatch v2.1
+stores, seeb [Healthwatch Metrics](metrics.html).
 
 * Healthwatch v2.1 is designed for platform operators. The best monitoring option for app developers is Tanzu Observability by Wavefront. For more information
 about Tanzu Observability by Wavefront, see the [Tanzu Observability by Wavefront documentation](https://docs.wavefront.com/wavefront_introduction.html).

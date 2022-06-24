@@ -40,7 +40,7 @@ To configure alerting through the **Alertmanager** pane:
   your Ops Manager deployment:
       * [TAS for VMs](tas_alerting_rules.yml)
       * [TKGI](tkg-i_alerting_rules.yml)
-  1. Modify the YAML file according to the observability requirements for your foundation.
+  1. Modify the YAML file according to the observability requirements for your Ops Manager foundation.
   1. Paste the contents of the YAML file into **Alerting rules**.
   <br>
   <br>
@@ -118,8 +118,8 @@ with a dash. The following example shows a possible set of configuration paramet
     text: "This is an alert."
     ```
     At minimum, your configuration parameters must include the `to`, `from`, and `smarthost` properties. The other properties you must include depend on both
-    the SMTP server for which you are configuring an alert receiver and the needs of your foundation. For more information about the properties you can
-    include in this configuration, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#email_config).
+    the SMTP server for which you are configuring an alert receiver and the needs of your Ops Manager foundation. For more information about the properties
+    you can include in this configuration, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#email_config).
     <div class='note'><strong>Notes:</strong>
       <ul>
         <li>If you include the <code>html</code> property and leave it blank, Healthwatch automatically populates it with a default template.</li>
@@ -162,8 +162,8 @@ YAML with a dash. The following example shows a possible set of configuration pa
     description: '{{ template "pagerduty.example.description" .}}'
     severity: 'error'
     ```
-    The properties you must include depend on both the PagerDuty instance for which you are configuring an alert receiver and the needs of your foundation.
-    For more information about the properties you can include in this configuration, see the [Prometheus
+    The properties you must include depend on both the PagerDuty instance for which you are configuring an alert receiver and the needs of your Ops Manager
+    foundation. For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config).
     <p class='note'><strong>Note:</strong> Do not include the <code>routing_key</code> property, the <code>service_key</code> property, the
       <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your PagerDuty alert receiver.
@@ -213,8 +213,8 @@ with a dash. The following example shows a possible set of configuration paramet
     channel: '#operators'
     username: 'Example Alerting Integration'
     ```
-    The properties you must include depend on both the Slack instance for which you are configuring an alert receiver and the needs of your foundation. For
-    more information about the properties you can include in this configuration, see the see the [Prometheus
+    The properties you must include depend on both the Slack instance for which you are configuring an alert receiver and the needs of your Ops Manager
+    foundation. For more information about the properties you can include in this configuration, see the see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#slack_config).
     <p class='note'><strong>Note:</strong> Do not include the <code>api_url</code> property, the <code>api_url_file</code> property, the
       <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your Slack alert receiver. You
@@ -262,8 +262,8 @@ YAML with a dash. The following example shows a possible set of configuration pa
     url: https://example.com/data/12345
     max_alerts: 0
     ```
-    The properties you must include depend on both the webhook for which you are configuring an alert receiver and the needs of your foundation. For more
-    information about the properties you can include in this configuration, see the [Prometheus
+    The properties you must include depend on both the webhook for which you are configuring an alert receiver and the needs of your Ops Manager foundation.
+    For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config).
     <div class='note'><strong>Notes:</strong>
       <ul>

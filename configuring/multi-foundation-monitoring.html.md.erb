@@ -44,9 +44,9 @@ VMs](../architecture.html#network-rules-tas) in _Healthwatch Architecture_.
 1. Once you have installed Healthwatch Exporter for TAS for VMs and opened the required ports on each Ops Manager foundation you want to monitor, add a scrape
 job for each Healthwatch Exporter for TAS for VMs tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Ops Manager
 foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
-  1. Retrieve the Ops Manager root certificate authority (CA) for the foundation you want to monitor. For more information, see the [Ops Manager
+  1. Retrieve the Ops Manager root certificate authority (CA) for the Ops Manager foundation you want to monitor. For more information, see the [Ops Manager
   documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs).
-  1. Nagivate to the Ops Manager Installation Dashboard for the foundation you want to monitor.
+  1. Nagivate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
   1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
   1. Select the **Credentials** tab.
   1. In the row for **Healthwatch Exporter Client Mtls**, click **Link to Credential**.
@@ -87,7 +87,7 @@ foundation. To add a scrape job for a Healthwatch Exporter TAS for VMs tile:
             - "TIMER-EXPORTER-VM-IP-ADDRESS:9090"
         ```
         Where:
-        * `FOUNDATION-NAME` is the name of the foundation you want to monitor.
+        * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
         * `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
         * `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
         * `TIMER-EXPORTER-VM-IP-ADDRESS` is the IP address of the timer metric exporter VM that you recorded in a previous step.
@@ -112,8 +112,8 @@ component metrics and SLIs related to the health of those TKGI deployments.
 
 To configure your Healthwatch deployment to monitor TKGI deployments on multiple Ops Manager foundations from a single monitoring Ops Manager foundation:
 
-1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each foundation you want to monitor. To install and configure the
-Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
+1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each Ops Manager foundation you want to monitor. To install and configure
+the Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
   * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
   Pipeline](../installing/automated-pipeline.html)
   * [Configuring Healthwatch](configuring-healthwatch.html)
@@ -126,9 +126,9 @@ topics:
   * [Configuring Healthwatch](configuring-healthwatch.html)
   * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 
-1. Configure TKGI cluster discovery in the Healthwatch tile on each foundation you want to monitor. Do not configure TKGI cluster discovery in the Healthwatch
-tile on your monitoring foundation. To configure TKGI cluster discovery on the foundations you want to monitor, see [Configuring TKGI Cluster
-Discovery](optional-config/configuring-cluster-discovery.html).
+1. Configure TKGI cluster discovery in the Healthwatch tile on each Ops Manager foundation you want to monitor. Do not configure TKGI cluster discovery in the
+Healthwatch tile on your monitoring Ops Manager foundation. To configure TKGI cluster discovery on the Ops Manager foundations you want to monitor, see
+[Configuring TKGI Cluster Discovery](optional-config/configuring-cluster-discovery.html).
 
 1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager
 foundations you want to monitor. To configure federation, see [Configuring Federation for Healthwatch](optional-config/federation.html).

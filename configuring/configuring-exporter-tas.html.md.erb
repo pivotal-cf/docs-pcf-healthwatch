@@ -13,11 +13,11 @@ Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch Exporter for TAS for VMs
 
-When installed on a foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys metric exporter VMs to generate each type of metric related
-to the health of your TAS for VMs deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus exposition
-endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition
-endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the Healthwatch
-Exporter for TAS for VMs tile, see [Healthwatch Exporter for TAS for VMs](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
+When installed on an Ops Manager foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys metric exporter VMs to generate each type of
+metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a
+Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes
+the exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the
+Healthwatch Exporter for TAS for VMs tile, see [Healthwatch Exporter for TAS for VMs](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
 
 After installing Healthwatch Exporter for TAS for VMs, you configure the metric exporter VMs deployed by Healthwatch Exporter for TAS for VMs through the tile
 UI. You can also configure errands and system logging, as well as scale VM instances up or down and configure load balancers for multiple VM instances.
@@ -54,8 +54,8 @@ for TAS for VMs](#apply-changes) below.
 for VMs in the Prometheus VM that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for TAS for
 VMs](#scrape-job-config) below.
   <p class='note'><strong>Note:</strong> You only need to configure a scrape job for installations of Healthwatch Exporter for TAS for VMs that are not on the
-    same foundation as your Healthwatch for VMware Tanzu tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch
-    Exporter tiles that are installed on the same foundation as the Healthwatch tile.</p>
+    same Ops Manager foundation as your Healthwatch for VMware Tanzu tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes
+    Healthwatch Exporter tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
 
 
 ## <a id='open-ui'></a> Navigate to the Healthwatch Exporter for TAS for VMs Tile
@@ -125,9 +125,9 @@ Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 certificate expiration metric exporter VM. The certificate expiration metric exporter VM collects metrics that show when certificates in your Ops Manager
 deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
-  <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same
-    foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
-    Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
+  <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops
+    Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the
+    Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification** checkbox. When this checkbox is
 activated, the certificate expiration metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated by default.
@@ -153,11 +153,12 @@ To configure the **BOSH Health Metric Exporter VM** pane:
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same
-  foundation, scale the BOSH health metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter
-  tiles. Otherwise, the two sets of BOSH health metric exporter VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one set of
-  metrics reports that the BOSH Director is down in the Grafana UI. For more information, see <a href="../troubleshooting.html#bosh-health-metric-errors">BOSH
-  Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed</a> in <em>Troubleshooting Healthwatch</em>.</p>
+<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops
+  Manager foundation, scale the BOSH health metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
+  Exporter tiles. Otherwise, the two sets of BOSH health metric exporter VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one
+  set of metrics reports that the BOSH Director is down in the Grafana UI. For more information, see
+  <a href="../troubleshooting.html#bosh-health-metric-errors">BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed</a> in
+  <em>Troubleshooting Healthwatch</em>.</p>
 
 
 ## <a id='bosh-deployments'></a> (Optional) Configure the BOSH Deployment Metric Exporter VM
@@ -178,9 +179,9 @@ deployment metric exporter VM. This IP address must not be within the reserved I
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same
-  foundation, scale the BOSH deployment metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter
-  tiles. Otherwise, the two BOSH deployment metric exporter VMs create redundant sets of metrics.</p>
+<p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops
+  Manager foundation, scale the BOSH deployment metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
+  Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs create redundant sets of metrics.</p>
 
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
