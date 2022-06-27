@@ -45,6 +45,7 @@ Healthwatch v2.2.2 uses the following open-source component versions:
 | Prometheus   | 2.35.0           |
 | Grafana      | 8.5.2            |
 | Alertmanager | 0.24.0           |
+| PXC          | 0.42.0           |
 
 ### <a id='2-2-1'></a> v2.2.1
 
@@ -85,6 +86,7 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 | Prometheus   | 2.33.1           |
 | Grafana      | 8.3.3            |
 | Alertmanager | 0.23.0           |
+| PXC          | 0.40.0           |
 
 ### <a id='2-2-0'></a> v2.2.0
 
@@ -174,6 +176,7 @@ Healthwatch v2.2.0 uses the following open-source component versions:
 | Prometheus   | 2.32.1           |
 | Grafana      | 8.3.3            |
 | Alertmanager | 0.23.0           |
+| PXC          | 0.40.0           |
 
 
 ## <a id='upgrade'></a> How to Upgrade
@@ -267,7 +270,8 @@ Healthwatch](configuring/optional-config/configuring-cluster-discovery.html#conf
 If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
 Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
 
-For more information about scaling Healthwatch resources, see [Healthwatch Components and Resource Requirements](resources.html).
+For more information about removing Grafana from your Healthwatch deployment, see [Removing Grafana](resources.html#remove-grafana) in _Healthwatch Components
+and Resource Requirements_.
 
 ### <a id='current-canary-apps'></a> Grafana UI Dashboards Only Include Metrics for Current Canary Apps
 
