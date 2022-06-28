@@ -53,7 +53,7 @@ To configure direct scraping for your multi-foundation Healthwatch deployment, y
 and only the Healthwatch Exporter for TAS for VMs tile or Healthwatch Exporter for TKGI tile on the Ops Manager foundations you want to monitor.
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, see [Configuring Direct Scraping for Multi-Foundation
-Monitoring](optional-config/federation.html).
+Monitoring](direct-scraping.html).
 
 
 ## <a id='federation'></a> Configuring Multi-Foundation Monitoring Through Federation
@@ -71,7 +71,7 @@ for your multi-foundation Healthwatch deployment.
 <p class='note warning'><strong>Warning:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
   Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
   recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
-  information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+  information about the metrics you can collect, see <a href="../metrics.html">Healthwatch Metrics</a>.</p>
 
 Federation also reduces firewall and network complexity for your multi-foundation Healthwatch deployment, since the Prometheus instance in the Healthwatch
 tile on your monitoring Ops Manager foundation only scrapes metrics from the Prometheus instance on each of the Ops Manager foundations you monitor, rather
@@ -108,7 +108,7 @@ topics:
 
 1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager
 foundations you want to monitor. To configure federation for your multi-foundation Healthwatch deployment, see [Configuring Federation for Multi-Foundation
-Monitoring](optional-config/federation.html).
+Monitoring](federation.html).
 
 
 ### <a id='federation-tkgi'></a> Configure Federation for TKGI
@@ -144,4 +144,4 @@ Cluster Discovery](optional-config/configuring-cluster-discovery.html).
 
 1. Configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Healthwatch tiles installed on the Ops Manager
 foundations you want to monitor. To configure federation for your multi-foundation Healthwatch deployment, see [Configuring Federation for Multi-Foundation
-Monitoring](optional-config/federation.html).
+Monitoring](federation.html).

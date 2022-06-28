@@ -26,7 +26,7 @@ For more information about federation, see the [Prometheus documentation](https:
 <p class='note warning'><strong>Warning:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
   Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
   recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
-  information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+  information about the metrics you can collect, see <a href="../metrics.html">Healthwatch Metrics</a>.</p>
 
 
 ## <a id='federation-config'></a> Configure Federation
@@ -34,17 +34,17 @@ For more information about federation, see the [Prometheus documentation](https:
 To configure federation for your multi-foundation Healthwatch deployment:
 
 1. Install the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following topics:
-    * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../installing/automated-pipeline.html)
     * [Configuring Healthwatch](configuring-healthwatch.html)
 
 1. Install the Healthwatch tile and either Healthwatch Exporter for TAS for VMs or Healthwatch Exporter for TKGI on each Ops Manager foundation you want to
 monitor. To install and configure these tiles, see the following topics:
-    * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
-    Pipeline](../../installing/automated-pipeline.html)
-    * [Configuring Healthwatch](../configuring-healthwatch.html)
-    * [Configuring Healthwatch Exporter for TAS for VMs](../configuring-exporter-tas.html)
-    * [Configuring Healthwatch Exporter for TKGI](../configuring-exporter-tkgi.html)
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
+    * [Configuring Healthwatch](configuring-healthwatch.html)
+    * [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
 
 1. For each Ops Manager foundation you want to monitor, open port `4450` for the Prometheus instance in the Healthwatch tile in the user console for your
 IaaS. For more information, see the documentation for your IaaS.
@@ -93,11 +93,11 @@ IaaS. For more information, see the documentation for your IaaS.
   <br>
     If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
     an automation script:
-    <%= partial '../../snippets/federation.md' %>
-    For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
+    <%= partial '../snippets/federation.md' %>
+    For more information, see [Configure and Deploy Your Tile Using the om CLI](../installing/automated-pipeline.html#om) in _Installing, Configuring, and
     Deploying a Tile Through an Automated Pipeline_.
 
-  For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
+  For more information about configuring scrape jobs, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
   the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 After you have finished configuring federation for your Healthwatch deployment, you can confirm that your federation configuration is working correctly using
@@ -138,4 +138,4 @@ then include the IP addresses for each load balancer or DNS entry in the targets
 parameters. For more information, see [Configure Federation](#federation-config) above.
 
 In both cases, VMware recommends configuring static IP addresses for both VMs in each of the Prometheus instances. For more information about configuring
-static IP addresses for Prometheus instances, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
+static IP addresses for Prometheus instances, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
