@@ -14,19 +14,14 @@ When you configure direct scraping for your multi-foundation Healthwatch deploym
 Manager foundation scrapes metrics directly from the metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Ops Manager foundation
 you monitor.
 
-Direct scraping allows you to easily scrape all metrics from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor. If you want to monitor
-component metrics and SLIs related to the health of your TAS for VMs or TKGI deployments, and you do not want to monitor a large number of Ops Manager
-foundations, VMware recommends configuring direct scraping for your multi-foundation Healthwatch deployment.
+Direct scraping allows you to easily scrape the metrics you want to monitor from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor. If
+you want to monitor component metrics and SLIs related to the health of your TAS for VMs or TKGI deployments, and you do not want to monitor metrics for
+Kubernetes clusters for any TKGI deployments, VMware recommends configuring direct scraping for your multi-foundation Healthwatch deployment.
 
 However, the Prometheus instance in the Healthwatch deployment on your monitoring Ops Manager foundation cannot directly scrape metrics for Kubernetes
 clusters created through TKGI deployments on other Ops Manager foundations. If you want to also scrape metrics Kubernetes clusters for TKGI deployments on the
 Ops Manager foundations you monitor, you must monitor your multi-foundation Healthwatch deployment through federation instead. For more information, see
 [Configure Federation for TKGI](multi-foundation-monitoring.html#federation-tkgi) in _Configuring Multi-Foundation Monitoring_.
-
-<p class='note warning'><strong>Warning:</strong> Storing all metrics from multiple Ops Manager foundations in a single Prometheus instance on your monitoring
-  Ops Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations, or
-  if some of the foundations you want to monitor have large TAS for VMs or TKGI deployments, VMware recommends using federation to monitor them instead of
-  direct scraping. For more information, see <a href="federation.html">Configuring Federation for Multi-Foundation Monitoring</a>.</p>
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, you must install the Healthwatch tile on your monitoring Ops Manager foundation
 and only the Healthwatch Exporter for TAS for VMs tile or Healthwatch Exporter for TKGI tile on the Ops Manager foundations you want to monitor.
@@ -60,28 +55,43 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managing-certificates.html#root-certs).
   1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
   1. Click the **Healthwatch Exporter for Tanzu Application Service** or **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile, depending on
-  which Healthwatch Exporter tile you installed.
+  which Healthwatch Exporter tile you installed on the Ops Manager foundation you want to monitor.
   1. Select the **Credentials** tab.
   1. In the row for **Healthwatch Exporter Client Mtls**, click **Link to Credential**.
   1. Record the credentials for **Healthwatch Exporter Client Mtls**.
   1. In a browser window, navigate to the user console for your Ops Manager deployment's IaaS.
-  1. In the console for your Ops Manager deployment's IaaS, record the following public IP addresses, depending on which Healthwatch Exporter tile you
-  installed on your monitoring Ops Manager foundation:
-      * For Healthwatch Exporter for TAS for VMs, record the public IP addresses of the counter metric exporter VM and the gauge metric exporter VM.
-      * For Healthwatch Exporter for TKGI, record the public IP address of the TKGI metric exporter VM.
-      <br>
-      For more information, see the documentation for your IaaS:
-      * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
-      EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a
-      Windows instance, see the [AWS documentation for Windows instances of Amazon
-      EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
-      * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure
-      documentation](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
-      * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
-      * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
-      documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
-      * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere
-      documentation](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
+  1. In the user console for your IaaS, record the public IP addresses of the metric exporter VMs deployed by the Healthwatch Exporter tile you installed on
+  the Ops Manager foundation you want to monitor, depending on which metrics you want to monitor for that foundation:
+      * For Healthwatch Exporter for TAS for VMs, record the public IP addresses of any or all of the following metric exporter VMs:
+          * `pas-exporter-counter`, the counter metric exporter VM
+          * `pas-exporter-gauge`, the timer metric exporter VM
+          * `pas-sli-exporter`, the TAS for VMs SLI exporter VM
+          * `cert-expiration-exporter`, the certificate expiration metric exporter VM
+          * `bosh-health-exporter`, the BOSH health metric exporter VM
+          * `bosh-deployments-exporter`, the BOSH deployment metric exporter VM
+      * For Healthwatch Exporter for TKGI, record the public IP addresses of any or all of the following metric exporter VMs:
+          * `pks-exporter`, the TKGI metric exporter VM
+          * `cert-expiration-exporter`, the certificate expiration metric exporter VM
+          * `pks-sli-exporter`, the TKGI SLI exporter VM
+          * `bosh-health-exporter`, the BOSH health metric exporter VM
+          * `bosh-deployments-exporter`, the BOSH deployment metric exporter VM
+      <p class='note'><strong>Note:</strong> Storing all metrics from multiple Ops Manager foundations in a single Prometheus instance on your monitoring Ops
+        Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations,
+        or if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends configuring the
+        Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor
+        the most. For more information about the metrics that each metric exporter VM collects, see <a href="../metrics.html">Healthwatch Metrics</a>.</p>
+      To find the public IP addresses of deployed VMs in the user console for your IaaS, see the documentation for your IaaS:
+        * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
+        EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for
+        a Windows instance, see the [AWS documentation for Windows instances of Amazon
+        EC2](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/using-instance-addressing.html#working-with-ip-addresses).
+        * **Azure:** To create or view the public IP address for an Azure VM, see the [Azure
+        documentation](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address).
+        * **GCP:** To find the public IP address for a GCP VM, see the [GCP documentation](https://cloud.google.com/compute/docs/instances/view-ip-address).
+        * **OpenStack:** To associate a floating IP address to an OpenStack VM, see the [OpenStack
+        documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
+        * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere
+        documentation](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
     <p class='note'><strong>Note:</strong> VMs deployed on one Ops Manager foundation typically cannot send or receive traffic from other Ops Manager
       foundations using their public IP addresses by default. You must configure the firewall for your IaaS to allow ingress traffic to port <code>9090</code>
       on your monitoring Ops Manager foundation.</p>
@@ -93,32 +103,52 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   installed on the Ops Manager foundation you want to monitor:
       * For Healthwatch Exporter for TAS for VMs, provide configuration parameters similar to the following example:
 
-          ```
-          job_name: FOUNDATION-NAME
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
-              - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
-          ```
-          Where:
-          * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
-          * `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
-          * `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
+            ```
+            job_name: FOUNDATION-NAME
+            metrics_path: /metrics
+            scheme: https
+            static_configs:
+              - targets:
+                - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
+                - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
+                - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
+                - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
+                - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
+                - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
+            ```
+            Where:
+            * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
+            * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
+            * (Optional) `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
+            * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TAS for VMs SLI exporter VM that you recorded in a previous step.
+            * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
+            step.
+            * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
+            * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
+            step.
       * For Healthwatch Exporter for TKGI, provide configuration parameters similar to the following example:
 
-          ```
-          job_name: FOUNDATION-NAME
-          metrics_path: /metrics
-          scheme: https
-          static_configs:
-            - targets:
-              - "TKGI-EXPORTER-VM-IP-ADDRESS:9090"
-          ```
-          Where:
-          * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
-          * `TKGI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI metric exporter VM that you recorded in a previous step.
+            ```
+            job_name: FOUNDATION-NAME
+            metrics_path: /metrics
+            scheme: https
+            static_configs:
+              - targets:
+                - "TKGI-EXPORTER-VM-IP-ADDRESS:9090"
+                - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
+                - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
+                - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
+                - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
+            ```
+            Where:
+            * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
+            * (Optional) `TKGI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI metric exporter VM that you recorded in a previous step.
+            * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
+            step.
+            * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI SLI exporter VM that you recorded in a previous step.
+            * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
+            * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
+            step.
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
   **Credentials** tab in the Healthwatch Exporter for TAS for VMs tile in a previous step.
   1. For **CA certificate for TLS**, enter the Ops Manager root CA that you retrieved in a previous step.

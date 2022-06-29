@@ -17,8 +17,8 @@ There are two ways to monitor several Ops Manager foundations from a single moni
 
 * **Direct scraping:** The Prometheus instance in the Healthwatch deployment on your monitoring Ops Manager foundation scrapes metrics directly from the
 metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Ops Manager foundation you monitor. Direct scraping allows you to easily
-scrape all metrics from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor. For more information, see [Configuring Multi-Foundation
-Monitoring Through Direct Scraping](#direct-scraping) below.
+scrape metrics from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor and store them in a single Prometheus instance. For more
+information, see [Configuring Multi-Foundation Monitoring Through Direct Scraping](#direct-scraping) below.
 
 * **Federation:** The Prometheus instance in the Healthwatch deployment on your monitoring Ops Manager foundation federates metrics from the Prometheus
 instances in the Healthwatch deployments on the Ops Manager foundations you monitor. Federation allows you to to monitor a subset of metrics from multiple
@@ -35,19 +35,14 @@ When you configure direct scraping for your multi-foundation Healthwatch deploym
 Manager foundation scrapes metrics directly from the metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Ops Manager foundation
 you monitor.
 
-Direct scraping allows you to easily scrape all metrics from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor. If you want to monitor
-component metrics and SLIs related to the health of your TAS for VMs or TKGI deployments, and you do not want to monitor a large number of Ops Manager
-foundations, VMware recommends configuring direct scraping for your multi-foundation Healthwatch deployment.
+Direct scraping allows you to easily scrape the metrics you want to monitor from the Healthwatch Exporter tiles on the Ops Manager foundations you monitor. If
+you want to monitor component metrics and SLIs related to the health of your TAS for VMs or TKGI deployments, and you do not want to monitor metrics for
+Kubernetes clusters for any TKGI deployments, VMware recommends configuring direct scraping for your multi-foundation Healthwatch deployment.
 
 However, the Prometheus instance in the Healthwatch deployment on your monitoring Ops Manager foundation cannot directly scrape metrics for Kubernetes
 clusters created through TKGI deployments on other Ops Manager foundations. If you want to also scrape metrics for Kubernetes clusters for TKGI deployments on
 the Ops Manager foundations you monitor, you must monitor your multi-foundation Healthwatch deployment through federation instead. For more information, see
 [Configure Federation for TKGI](#federation-tkgi) below.
-
-<p class='note warning'><strong>Warning:</strong> Storing all metrics from multiple Ops Manager foundations in a single Prometheus instance on your monitoring
-  Ops Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations, or
-  if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends using federation to monitor them
-  instead of direct scraping. For more information, see <a href="#federation">Configuring Multi-Foundation Monitoring Through Federation</a> below.</p>
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, you must install the Healthwatch tile on your monitoring Ops Manager foundation
 and only the Healthwatch Exporter for TAS for VMs tile or Healthwatch Exporter for TKGI tile on the Ops Manager foundations you want to monitor.
