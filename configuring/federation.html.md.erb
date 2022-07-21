@@ -1,0 +1,141 @@
+---
+title: Configuring Federation for Multi-Foundation Monitoring
+owner: Healthwatch
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to configure federation for your multi-foundation Healthwatch for VMware Tanzu deployment.
+
+
+## <a id='overview'></a> Overview of Federation
+
+When you configure your Healthwatch deployment to federate metrics, the Prometheus instance in the Healthwatch tile on a monitoring Ops Manager foundation
+scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Ops Manager foundations you monitor. This is useful if you
+want to monitor a subset of metrics from multiple Ops Manager foundations without storing all metrics from those Ops Manager foundations in a single
+Prometheus instance. Because federation allows you to choose which metrics the Healthwatch deployment on your monitoring Ops Manager foundation receives, you
+can monitor a large number of Ops Manager foundations without overwhelming the Prometheus instance in the Healthwatch deployment on your monitoring Ops
+Manager foundation.
+
+To configure federation for your Healthwatch deployment, you must install the Healthwatch tile on your monitoring foundation and on each foundation you want
+to monitor, in addition to installing the Healthwatch Exporter tile on each foundation you want to monitor. Then, you must configure the Healthwatch tile on
+your monitoring foundation to federate metrics from the Prometheus installed on the foundations you want to monitor. For more information, see [Configure Federation](#federation-config) below.
+
+For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
+
+<p class='note warning'><strong>Warning:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
+  Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
+  recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
+  information about the metrics you can collect, see <a href="../metrics.html">Healthwatch Metrics</a>.</p>
+
+
+## <a id='federation-config'></a> Configure Federation
+
+To configure federation for your multi-foundation Healthwatch deployment:
+
+1. Install the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following topics:
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
+    * [Configuring Healthwatch](configuring-healthwatch.html)
+
+1. Install the Healthwatch tile and either Healthwatch Exporter for TAS for VMs or Healthwatch Exporter for TKGI on each Ops Manager foundation you want to
+monitor. To install and configure these tiles, see the following topics:
+    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../installing/automated-pipeline.html)
+    * [Configuring Healthwatch](configuring-healthwatch.html)
+    * [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
+
+1. For each Ops Manager foundation you want to monitor, open port `4450` for the Prometheus instance in the Healthwatch tile in the user console for your
+IaaS. For more information, see the documentation for your IaaS.
+
+1. For each Ops Manager foundation you want to monitor:
+  1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
+  1. Click the **Healthwatch** tile.
+  1. Select the **Credentials** tab.
+  1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
+  1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
+    <p class='note'><strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code> are in JSON format and contain several
+      <code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming step.</p>
+  and contains `\n` which should be converted into newlines manually in text editor.)
+  1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
+  the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managin certificates.html#root-certs).
+  1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
+  1. Click the **Healthwatch** tile.
+  1. Select **Prometheus**.
+  1. Under **Additional scrape jobs**, click **Add**.
+  1. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
+  Healthwatch tile on the Ops Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
+  regular expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under the `targets` property:
+
+        ```
+        job_name: example-job-name
+        scheme: https
+        metrics_path: '/federate'
+        params:
+          'match[]':
+            - '{__name__=~"^metric_name_regex.*"}'
+        static_configs:
+          - targets:
+            - 'source-tsdb-1:4450'
+            - 'source-tsdb-2:4450'
+        ```
+        <p class='note'><strong>Note:</strong> If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
+          your load balancer or DNS entry in each target listed under the <code>targets</code> property instead of the IP address for the Prometheus
+          instance.</p>
+  1. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
+  **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.
+  1. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
+  previous step.
+  1. For **Target server name**, enter `promxy`.
+  1. Click **Save**.
+  <br>
+  <br>
+    If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
+    an automation script:
+    <%= partial '../snippets/federation.md' %>
+    For more information, see [Configure and Deploy Your Tile Using the om CLI](../installing/automated-pipeline.html#om) in _Installing, Configuring, and
+    Deploying a Tile Through an Automated Pipeline_.
+
+  For more information about configuring scrape jobs, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
+  the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+
+After you have finished configuring federation for your Healthwatch deployment, you can confirm that your federation configuration is working correctly using
+the Grafana UI. For more information, see [Test Your Federation Configuration](#federation-test) below.
+
+
+## <a id='federation-test'></a> Test Your Federation Configuration
+
+To confirm that your federation configuration is working correctly:
+
+1. In your web browser, navigate to the Grafana UI.
+
+1. Log in to the Grafana UI.
+
+1. On the left side of the Grafana UI homepage, click the **Explore** icon. An empty **Explore** tab appears.
+
+1. In the query field to the right of the **Metrics browser** menu tab, enter `up`.
+
+1. Click **Run query**.
+
+1. Under **Table**, review the query results. If your federation configuration is working, the **job** column includes the `job_name` from the scrape jobs you
+configured for each Ops Manager foundation you monitor in [Configure Federation](#federation-config) above.
+
+
+## <a id='ha'></a> Federation for a Highly Available Healthwatch Deployment
+
+In a highly available (HA) Healthwatch deployment, each VM in the Prometheus instance in the Healthwatch tile scrapes the same data from the metric exporter
+VMs that the Healthwatch Exporter tiles deploy.
+
+When federating metrics, you can configure the Prometheus instance in the Healthwatch tile on your monitoring Ops Manager foundation to scrape both copies of
+that data from the Prometheus instance in the Healthwatch tile on each Ops Manager foundation you monitor. To do this, include both VMs in each Prometheus
+instance from the Ops Manager foundations you want to monitor in the scrape job configuration parameters. While including both VMs creates duplicate sets of
+metrics, it also ensures that you do not lose metric data if one of the two VMs goes down. However, doubling the number of metrics that the Prometheus
+instance collects also negatively affects the performance of the Prometheus instance.
+
+Alternatively, you can create load balancers or DNS entries in your IaaS user console for the Prometheus instances on each Ops Manager foundation you monitor,
+then include the IP addresses for each load balancer or DNS entry in the targets listed under the `targets` property in your scrape job configuration
+parameters. For more information, see [Configure Federation](#federation-config) above.
+
+In both cases, VMware recommends configuring static IP addresses for both VMs in each of the Prometheus instances. For more information about configuring
+static IP addresses for Prometheus instances, see [Configure Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
