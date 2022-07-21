@@ -64,7 +64,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   the Ops Manager foundation you want to monitor, depending on which metrics you want to monitor for that foundation:
       * For Healthwatch Exporter for TAS for VMs, record the public IP addresses of any or all of the following metric exporter VMs:
           * `pas-exporter-counter`, the counter metric exporter VM
-          * `pas-exporter-gauge`, the timer metric exporter VM
+          * `pas-exporter-gauge`, the gauge metric exporter VM
           * `pas-sli-exporter`, the TAS for VMs SLI exporter VM
           * `cert-expiration-exporter`, the certificate expiration metric exporter VM
           * `bosh-health-exporter`, the BOSH health metric exporter VM
@@ -109,8 +109,8 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
             scheme: https
             static_configs:
               - targets:
-                - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
                 - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
+                - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
                 - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
                 - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
                 - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
@@ -118,8 +118,8 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
             ```
             Where:
             * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
-            * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
             * (Optional) `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
+            * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
             * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TAS for VMs SLI exporter VM that you recorded in a previous step.
             * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
             step.
