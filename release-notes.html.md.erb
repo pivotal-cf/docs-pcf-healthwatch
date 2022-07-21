@@ -38,12 +38,11 @@ Installations](#no-data-tsdb-update) below.
 information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and Later](#no-data-nodes-tkgi-112)
 below.
 
-* **[Known Issue Fix]** The Prometheus Smoke Test no longer has a possible race condition failure due to running before the Prometheus VM is ready.
-  For more information about this known issue, see [Prometheus Smoke Test Failure on Apply Changes](#prom-smoke-test) below.
+* **[Known Issue Fix]** The smoke test for Prometheus VMs no longer runs before the Prometheus VM is ready. For more information about this known issue, see
+[Prometheus Smoke Test Fails as Healthwatch Re-Deploys](#prom-smoke-test) below.
 
-* **[Known Issue Fix]** The Prometheus used in this version of Healthwatch no longer fails to clean up the chunks_head directory
-under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
-Due to Full Disk](#tsdb-wal-error)
+* **[Known Issue Fix]** The Prometheus instance no longer fails to clean up the `chunks_head` directory. For more information about this known issue, see
+[Prometheus Clean-Up Failure Leads to Full Disk](#tsdb-wal-error) below.
 
 Healthwatch v2.2.2 uses the following open-source component versions:
 
@@ -86,9 +85,8 @@ Installations](#no-data-tsdb-update) below.
 use the containerd runtime. For more information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and
 Later](#no-data-nodes-tkgi-112) below.
 
-* **[Known Issue]** The Prometheus used in this version of Healthwatch can fail to clean up the chunks_head directory
-under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
-Due to Full Disk](#tsdb-wal-error)
+* **[Known Issue]** Under rare circumstances, the Prometheus instance fails to clean up the `chunks_head` directory, leading to a full disk. For more
+information about this known issue, see [Prometheus Clean-Up Failure Leads to Full Disk](#tsdb-wal-error) below.
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -423,18 +421,18 @@ earlier, a bug causes the second Prometheus instance to start updating before th
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
 
-### <a id='prom-smoke-test'></a> Prometheus Smoke Test Failure on Apply Changes
+### <a id='prom-smoke-test'></a> Prometheus Smoke Test Fails as Healthwatch Re-Deploys
 
 This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In Healthwatch v2.2.1 and earlier, there was a potential race condition that could cause the Prometheus Smoke Test to run before the
-Prometheus VM was ready for it. This leads to the smoke test failing during Apply Changes, even though it succeeds when run manually.
+In Healthwatch v2.2.1 and earlier, a potential race condition sometimes causes the smoke test for Prometheus VMs to run before the Prometheus VM is ready.
+This leads to the smoke test failing when you re-deploy Healthwatch, even though it succeeds when you run the smoke test manually.
 
-### <a id='tsdb-wal-error'></a> TSDB WAL Read Error Due to Full Disk
+### <a id='prom-wal-error'></a> Prometheus Clean-Up Failure Leads to Full Disk
 
 This known issue is fixed in Healthwatch v2.2.2 and later.
 
-In Healthwatch v2.2.1, Prometheus has an issue where, under rare circumstances, it fails to clean up the chunks_head directory.
-This leads to a full disk and subsequent failures when processing new metrics. It was fixed in [version 2.33.4 of Prometheus](https://github.com/prometheus/prometheus/releases/tag/v2.33.4).
+In Healthwatch v2.2.1, under rare circumstances, the Prometheus instance fails to clean up the `chunks_head` directory. This leads to a full disk and
+subsequent failures when the Prometheus instance attempts to process new metrics.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
