@@ -381,20 +381,23 @@ Pipeline](installing/automated-pipeline.html)
 
 ### <a id='multiple-foundations-direct-scrape'></a> Configure Multi-Foundation Monitoring Using Direct Scraping
 
-You can monitor several Ops Manager foundations from a Healthwatch tile that you install on a separate Ops Manager foundation using direct scrapes.
+You can monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scraping.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scrapes,
-see [Configure Multi-Foundation Monitoring Using Direct Scraping](configuring/multi-foundation-monitoring.html#multiple-foundations-direct-scrape) in _Configuring
-Multi-Foundation Monitoring_.
+When you configure direct scraping for your multi-foundation Healthwatch deployment, the Prometheus instance in the Healthwatch tile on a monitoring Ops
+Manager foundation scrapes metrics directly from the metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Ops Manager foundation
+you monitor.
+
+To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scraping,
+see [Configure Multi-Foundation Monitoring Using Direct Scraping](configuring/multi-foundation-monitoring.html#multiple-foundations-direct-scrape) in
+_Configuring Multi-Foundation Monitoring_.
 
 ### <a id='multiple-foundations-federation'></a> Configure Multi-Foundation Monitoring Using Federation
 
-You can monitor several Ops Manager foundations from a Healthwatch tile that you install on a separate Ops Manager foundation using federation.
+You can monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using federation.
 
-Federation is necessary to get the TKGI cluster metrics as the Healthwatch tile running on a TKGI Ops Manager foundation is able to dynamically find
-clusters and generate scrape configs for the cluster metrics. Directly scraping the Healthwatch TKGI exporters will only provide supporting metrics
-for that foundation.
+When you configure federation for your multi-foundation Healthwatch deployment, the Prometheus instance in the Healthwatch tile on a monitoring Ops Manager
+foundation scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Ops Manager foundations you monitor.
 
 To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using federation,
-see [Configure Multi-Foundation Monitoring Using Federation](configuring/multi-foundation-monitoring.html#multiple-foundations-federation) in
-_Configuring Multi-Foundation Monitoring_.
+see [Configure Multi-Foundation Monitoring Using Federation](configuring/multi-foundation-monitoring.html#multiple-foundations-federation) in _Configuring
+Multi-Foundation Monitoring_.
