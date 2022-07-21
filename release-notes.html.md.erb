@@ -38,6 +38,10 @@ Installations](#no-data-tsdb-update) below.
 information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and Later](#no-data-nodes-tkgi-112)
 below.
 
+* **[Known Issue Fix]** The Prometheus used in this version of Healthwatch no longer fails to clean up the chunks_head directory
+under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
+Due to Full Disk](#tsdb-wal-error)
+
 Healthwatch v2.2.2 uses the following open-source component versions:
 
 | Component    | Packaged Version |
@@ -78,6 +82,10 @@ Installations](#no-data-tsdb-update) below.
 * **[Known Issue]** If you have TKGI v1.12 or later installed, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data for Kubernetes clusters that
 use the containerd runtime. For more information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and
 Later](#no-data-nodes-tkgi-112) below.
+
+* **[Known Issue]** The Prometheus used in this version of Healthwatch can fail to clean up the chunks_head directory
+under rare circumstances, leading to full disk usage. For more information about this known issue, see [TSDB WAL Read Error
+Due to Full Disk](#tsdb-wal-error)
 
 Healthwatch v2.2.1 uses the following open-source component versions:
 
@@ -409,5 +417,14 @@ In Healthwatch v2.2.1 and earlier, the Grafana instance cannot load metrics data
 multiple Prometheus instances. An HA Healthwatch installation is meant to allow the Grafana instance to continue loading data during re-deployment by ensuring
 that the second Prometheus instance does not start updating until after the first Prometheus instance has updated and re-starts. In Healthwatch v2.2.1 and
 earlier, a bug causes the second Prometheus instance to start updating before the first Prometheus instance re-starts.
+
+To fix this issue, upgrade to Healthwatch v2.2.2 or later.
+
+### <a id='tsdb-wal-error'></a> TSDB WAL Read Error Due to Full Disk
+
+This known issue is fixed in Healthwatch v2.2.2 and later.
+
+In Healthwatch v2.2.1, Prometheus has an issue where, under rare circumstances, it fails to clean up the chunks_head directory.
+This leads to a full disk and subsequent failures when processing new metrics. It was fixed in [version 2.33.4 of Prometheus](https://github.com/prometheus/prometheus/releases/tag/v2.33.4).
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
