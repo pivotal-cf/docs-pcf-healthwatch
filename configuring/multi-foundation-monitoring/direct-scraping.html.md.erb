@@ -33,21 +33,21 @@ To configure direct scraping for your multi-foundation Healthwatch deployment:
 
 1. Install and configure the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following
 topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
-    Pipeline](../installing/automated-pipeline.html)
-    * [Configuring Healthwatch](configuring-healthwatch.html)
+    * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../../installing/automated-pipeline.html)
+    * [Configuring Healthwatch](../configuring-healthwatch.html)
 
 1. Install and configure either Healthwatch Exporter for TAS for VMs or Healthwatch Exporter for TKGI on each Ops Manager foundation you want to monitor. To
 install and configure a Healthwatch Exporter tile, see the following topics:
-    * [Installing a Tile Manually](../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
-    Pipeline](../installing/automated-pipeline.html)
-    * [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html)
-    * [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html)
+    * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
+    Pipeline](../../installing/automated-pipeline.html)
+    * [Configuring Healthwatch Exporter for TAS for VMs](../configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for TKGI](../configuring-exporter-tkgi.html)
 
 1. For each Healthwatch Exporter tile you installed and configured, open the ports for the metric exporter VMs that the Healthwatch Exporter tile deploys in
 the user console for your IaaS. For more information about the ports you must open for each metric exporter VM, see either [Networking Rules for Healthwatch
-Exporter for TAS for VMs](../architecture.html#network-rules-tas) or [Networking Rules for Healthwatch Exporter for
-TKGI](../architecture.html#network-rules-tkgi) in _Healthwatch Architecture_.
+Exporter for TAS for VMs](../../architecture.html#network-rules-tas) or [Networking Rules for Healthwatch Exporter for
+TKGI](../../architecture.html#network-rules-tkgi) in _Healthwatch Architecture_.
 
 1. Add a scrape job for each Healthwatch Exporter tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Ops Manager
 foundation. To add a scrape job for a Healthwatch Exporter tile:
@@ -79,7 +79,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
         Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations,
         or if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends configuring the
         Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor
-        the most. For more information about the metrics that each metric exporter VM collects, see <a href="../metrics.html">Healthwatch Metrics</a>.</p>
+        the most. For more information about the metrics that each metric exporter VM collects, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
       To find the public IP addresses of deployed VMs in the user console for your IaaS, see the documentation for your IaaS:
         * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
         EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for
