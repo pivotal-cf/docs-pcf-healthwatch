@@ -44,7 +44,8 @@ To configure alerting through the **Alertmanager** pane:
   1. Paste the contents of the YAML file into **Alerting rules**.
   <br>
   <br>
-  For more information, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
+  For more information about rule statements for Alertmanager, see the [Prometheus
+  documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
 
 1. For **Routing rules**, provide in YAML format the route block that defines where Alertmanager sends alerts, how frequently Alertmanager sends alerts, and
 how Alertmanager groups alerts together. The following example shows a possible set of routing rules:
@@ -375,8 +376,7 @@ receivers:
 ## <a id='silence'></a> Silence Alerts
 
 Alertmanager includes a command-line tool called `amtool`. You can use `amtool` to temporarily silence Alertmanager alerts without modifying your alerting
-rules. For more information about how to use `amtool`, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) in the
-Prometheus repository on GitHub.
+rules. For more information about how to use `amtool`, see the [Alertmanager documentation](https://github.com/prometheus/alertmanager#amtool) on GitHub.
 
 You can also use the Alertmanager UI to view and silence alerts. To access the Alertmanager UI, see [Viewing the Alertmanager
 UI](../../troubleshooting.html#viewing-the-alertmanager-ui) in _Troubleshooting Healthwatch_.
@@ -385,7 +385,7 @@ To silence alerts using `amtool`:
 
 1. SSH into one of the Prometheus VMs deployed by the Healthwatch tile. Alertmanager replicates any changes you make in one Prometheus VM to all other
 Prometheus VMs. To SSH into one of the Prometheus VMs, see the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced.html#bosh-ssh).
+documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
 
 1. Navigate to the `amtool` directory by running:
 
@@ -449,4 +449,4 @@ documentation](https://docs.pivotal.io/ops-manager/2-10/install/trouble-advanced
         <p class='note'><strong>Note:</strong><code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
 
 1. Record the ID string from the output. You can use this ID to end the silence early. For more information, run `amtool --help` or see the [Alertmanager
-documentation](https://github.com/prometheus/alertmanager#amtool) in the Prometheus repository on GitHub.
+documentation](https://github.com/prometheus/alertmanager#amtool) on GitHub.

@@ -81,15 +81,11 @@ To configure the **Assign AZ and Networks** pane:
 1. Under **Balance other jobs in**, select one or more other AZs. Ops Manager balances instances of jobs with more than one instance across the AZs that you
 specify.
 
-1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about runtime
-networks, see [Required Subnets](https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets
-Requirements](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets) in _Platform Architecture and Planning Overview_ in the Ops Manager
-documentation.
+1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TKGI
+networks, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about service networks, see [Required Subnets](https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets
-Requirements](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets) in _Platform Architecture and Planning Overview_ in the Ops Manager
-documentation.
+information about TKGI service networks, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets).
 
 1. Click **Save**.
 
@@ -406,8 +402,7 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see [Reviewing Pending Product Changes](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html) in the Ops Manager
-documentation.
+For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
@@ -453,6 +448,7 @@ the TCP ports of each metric exporter VM as static targets for the IP address of
       - "1.2.3.4:25595"
       - "1.2.3.4:9021"
     ```
-    For more information, see [&#60;scrape_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) and
-    [&#60;static_config>](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config) in _Configuration_ in the Prometheus
-    documentation.
+    For more information about the `scrape_config` section of the Prometheus configuration file, see the [Prometheus
+    documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config). For more information about the `static_config`
+    section of the Prometheus configuration file, see the [Prometheus
+    documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config).
