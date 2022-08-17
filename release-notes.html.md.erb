@@ -13,6 +13,41 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-3'></a> v2.2.3
+
+**Release Date:** 8/18/2022
+
+* **[Feature Improvement]** During Slack alert configuration the field **Alert Receiver Configuration Parameters** is
+no longer required. The only fields required to configure Slack alerts are Slack API URL and Alert receiver name.
+
+* **[Feature Improvement]** The **Grafana URL** is present in fired alerts.
+
+* **[Feature Improvement]** In the **Diego/Capacity** dashboard, it is possible to view Windows and Linux cells separately.
+
+* **[Feature Improvement]** **bosh-health-check** VMs are now removed from **VM Health** on **System at a Glance** dashboard.
+
+* **[Feature Improvement]** New **Bosh Health Check** and **Bosh Health Check Status History** panels have been added to
+the **Bosh Director Health** dashboard.
+
+* **[Bug Fix]** On **Bosh Director Health** dashboard, **BOSH Director Status** and **BOSH Director Status History**
+panels now use the **system_healthy** metric.
+
+* **[Bug Fix]** The panel legend readability of **Kubernetes Nodes** dashboard was improved.
+
+* **[Known Issue Fix]** The Grafana instance can load metrics data in the Grafana UI while multiple Prometheus
+instances update after you re-deploy a highly-available (HA) Healthwatch installation. This improves upon the fix in
+Healthwatch 2.2.2. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
+Installations](#no-data-tsdb-update) below.
+
+Healthwatch v2.2.3 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.36.2           |
+| Grafana      | 9.0.6            |
+| Alertmanager | 0.24.0           |
+| PXC          | 0.43.0           |
+
 ### <a id='2-2-2'></a> v2.2.2
 
 **Release Date:** 5/18/2022
@@ -412,14 +447,14 @@ To fix this issue, upgrade to Healthwatch v2.2.2 or later and RabbitMQ v2.0.13 o
 
 ### <a id='no-data-tsdb-update'></a> No Data While Re-Deploying Highly-Available Healthwatch Installations
 
-This known issue is fixed in Healthwatch v2.2.2 and later.
+This known issue is fixed in Healthwatch v2.2.3 and later.
 
-In Healthwatch v2.2.1 and earlier, the Grafana instance cannot load metrics data in the Grafana UI after you re-deploy an HA Healthwatch installation with
+In Healthwatch v2.2.2 and earlier, the Grafana instance cannot load metrics data in the Grafana UI after you re-deploy an HA Healthwatch installation with
 multiple Prometheus instances. An HA Healthwatch installation is meant to allow the Grafana instance to continue loading data during re-deployment by ensuring
-that the second Prometheus instance does not start updating until after the first Prometheus instance has updated and re-starts. In Healthwatch v2.2.1 and
+that the second Prometheus instance does not start updating until after the first Prometheus instance has updated and re-starts. In Healthwatch v2.2.2 and
 earlier, a bug causes the second Prometheus instance to start updating before the first Prometheus instance re-starts.
 
-To fix this issue, upgrade to Healthwatch v2.2.2 or later.
+To fix this issue, upgrade to Healthwatch v2.2.3 or later.
 
 ### <a id='prom-smoke-test'></a> Prometheus Smoke Test Fails as Healthwatch Re-Deploys
 
