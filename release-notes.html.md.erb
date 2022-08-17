@@ -17,27 +17,29 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** 8/18/2022
 
-* **[Feature Improvement]** During Slack alert configuration the field **Alert Receiver Configuration Parameters** is
-no longer required. The only fields required to configure Slack alerts are Slack API URL and Alert receiver name.
+* **[Feature Improvement]** When you configure an alert receiver for Slack, you are not required to configure the **Alert receiver configuration parameters**
+field. The only fields you must configure are **Alert receiver name** and **Slack API URL**. For more information, see [Configure a Slack Alert
+Receiver](configuring/optional-config/alerting.html#slack) in _Configuring Alerting_.
 
-* **[Feature Improvement]** The **Grafana URL** is present in fired alerts.
+* **[Feature Improvement]** Email alerts that the Grafana instance sends include a link to the Grafana UI.
 
-* **[Feature Improvement]** In the **Diego/Capacity** dashboard, it is possible to view Windows and Linux cells separately.
+* **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, you can view metrics for Windows and Linux cells separately.
 
-* **[Feature Improvement]** **bosh-health-check** VMs are now removed from **VM Health** on **System at a Glance** dashboard.
+* **[Feature Improvement]** In the **System at a Glance** dashboard in the Grafana UI, the **VM Health** panel no longer includes metrics for the
+`bosh-health-check` VM. For more information about the `bosh-health-check` VM, see [BOSH Health Metric Exporter VM](metrics.html#bosh-health-exporter) in
+_Healthwatch Metrics_.
 
-* **[Feature Improvement]** New **Bosh Health Check** and **Bosh Health Check Status History** panels have been added to
-the **Bosh Director Health** dashboard.
+* **[Feature Improvement]** The **BOSH Director Health** dashboard in the Grafana UI includes the **BOSH Health Check** and **BOSH Health Check Status
+History** panels.
 
-* **[Bug Fix]** On **Bosh Director Health** dashboard, **BOSH Director Status** and **BOSH Director Status History**
-panels now use the **system_healthy** metric.
+* **[Bug Fix]** In te **BOSH Director Health** dashboard in the Grafana UI, the **BOSH Director Status** and **BOSH Director Status History** panels include
+the `system_healthy` metric.
 
-* **[Bug Fix]** The panel legend readability of **Kubernetes Nodes** dashboard was improved.
+* **[Bug Fix]** In the **Kubernetes Nodes** dashboard in the Grafana UI, the panel legend is more readable.
 
-* **[Known Issue Fix]** The Grafana instance can load metrics data in the Grafana UI while multiple Prometheus
-instances update after you re-deploy a highly-available (HA) Healthwatch installation. This improves upon the fix in
-Healthwatch 2.2.2. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
-Installations](#no-data-tsdb-update) below.
+* **[Known Issue Fix]** After you re-deploy a highly-available (HA) Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI
+while multiple Prometheus instances update. This known issue fix improves upon the known issue fix in Healthwatch v2.2.2. For more information about this
+known issue, see [No Data While Re-Deploying Highly-Available Healthwatch Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.3 uses the following open-source component versions:
 
@@ -65,8 +67,8 @@ Healthwatch v2.2.3 uses the following open-source component versions:
 * **[Known Issue Fix]** The **RabbitMQ** dashboards in the Grafana UI show data for RabbitMQ on-demand instances that are configured to communicate over TLS.
 For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
 
-* **[Known Issue Fix]** The Grafana instance can load metrics data in the Grafana UI while multiple Prometheus instances update after you re-deploy a
-highly-available (HA) Healthwatch installation. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
+* **[Known Issue Fix]** After you re-deploy an HA Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI while multiple
+Prometheus instances update. For more information about this known issue, see [No Data While Re-Deploying Highly-Available Healthwatch
 Installations](#no-data-tsdb-update) below.
 
 * **[Known Issue Fix]** The **Kubernetes Nodes** dashboard in the Grafana UI shows data for Kubernetes clusters that use the containerd runtime. For more
