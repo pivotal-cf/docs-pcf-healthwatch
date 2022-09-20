@@ -13,6 +13,40 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-4'></a> v2.2.4
+
+**Release Date:** 9/21/2022
+
+* **[Feature Improvement]** In **Tanzu Kubernetes Grid Integrated/Kubernetes Controller Manager** dashboard in Grafana UI
+ the **Memory** and **CPU usage** panels were removed.
+
+* **[Feature Improvement]** **CF CLI 8** was added to the list of options for the TAS SLI Health Check.
+
+* **[Feature Improvement]** The log levels for **Alertmanager** and **Prometheus** were set to **info**.
+
+* **[Feature Improvement]** **MySQL Jumpbox** VM persistent disk usage chart was added in **MySQL Overview Dashboard**.
+
+* **[Feature Improvement]** In case of manual configuration of **Grafana UI route**, the **Grafana root URL** option
+became mandatory.
+
+* **[Feature Improvement]** The possibility to unselect **Skip TLS Validation** was implemented, when **CA certificate**
+ for **TLS** of **TKGI Cluster Discovery** is empty.
+
+* **[Feature Improvement]** The upgrading of Grafana VMs was limited by one at a time.
+
+* **[Bug Fix]** The **Alertmanager** clustering ports were turned off when only one instance of TSDB VM exists.
+
+* **[Bug Fix]** The issue related with empty Diego Capacity Dashboard for Small Runtime environments was fixed.
+
+Healthwatch v2.2.4 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.36.2           |
+| Grafana      | 9.0.6            |
+| Alertmanager | 0.24.0           |
+| PXC          | 0.43.0           |
+
 ### <a id='2-2-3'></a> v2.2.3
 
 **Release Date:** 8/18/2022
