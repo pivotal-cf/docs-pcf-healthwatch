@@ -127,10 +127,11 @@ Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-mon
 VM** checkbox. When this checkbox is activated, the certificate expiration metric exporter VM does not verify the identity of the Ops Manager VM. This
 checkbox is deactivated by default.
 
-1. Under **cf CLI version**, select from the dropdown the version of the cf CLI that your TAS for VMs or Pivotal Application Service (PAS) deployment uses. If
-you have TAS for VMs v2.11 or later installed, select **7 (Use with TAS 2.11+)** to allow the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v7. If
-you have PAS v2.7 installed, select **6 (Use with TAS 2.7 only)** to allow the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v6. **7** is selected
-by default.
+1. Under **cf CLI version**, select from the dropdown the version of the cf CLI that your TAS for VMs or Pivotal Application Service (PAS) deployment uses:
+    * If you have TAS for VMs v2.11 or later installed, select one of the following options:
+      * **7 (Use with TAS 2.11+):** Allows the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v7. This option is selected by default.
+      * **CF CLI 8:** Allows the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v8.
+    * If you have PAS v2.7 installed, select **6 (Use with TAS 2.7 only)** to allow the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v6.
 
 1. Click **Save**.
 

@@ -17,26 +17,32 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** 9/21/2022
 
-* **[Feature Improvement]** In **Tanzu Kubernetes Grid Integrated/Kubernetes Controller Manager** dashboard in Grafana UI
- the **Memory** and **CPU usage** panels were removed.
+* **[Feature Improvement]** In the **Kubernetes Controller Manager** dashboard in the Grafana user interface (UI), the **Memory** and **CPU Usage** panels are
+removed.
 
-* **[Feature Improvement]** **CF CLI 8** was added to the list of options for the TAS SLI Health Check.
+* **[Feature Improvement]** In the **TAS for VMs Metric Exporter VMs** pane of the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for
+VMs) tile, you can configure the TAS for VMs service level indicator (SLI) exporter VM to run SLI tests for the Cloud Foundry Command-Line Interface (cf CLI)
+v8. To configure the cf CLI version for which the TAS for VMs SLI exporter VM runs SLI tests, see [(Optional) Configure TAS for VMs Metric Exporter
+VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-* **[Feature Improvement]** The log levels for **Alertmanager** and **Prometheus** were set to **info**.
+* **[Feature Improvement]** The log levels for the Prometheus and Alertmanager instances are set to `info`.
 
-* **[Feature Improvement]** **MySQL Jumpbox** VM persistent disk usage chart was added in **MySQL Overview Dashboard**.
+* **[Feature Improvement]** The **MySQL Overview** dashboard in the Grafana UI includes the **MySQL Jumpbox** VM persistent disk usage chart.
 
-* **[Feature Improvement]** In case of manual configuration of **Grafana UI route**, the **Grafana root URL** option
-became mandatory.
+* **[Feature Improvement]** When you manually configure the route used to access the Grafana UI, you must configure the **Grafana root URL** field. For more information, see
+[(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
-* **[Feature Improvement]** The possibility to unselect **Skip TLS Validation** was implemented, when **CA certificate**
- for **TLS** of **TKGI Cluster Discovery** is empty.
+* **[Feature Improvement]** If you do not provide any CA certificate in the *CA certificate for TLS** field in the **TKGI Cluster Discovery** pane of the
+Healthwatch Exporter for TKGI tile, you can deactivate the **Skip TLS certificate verification** checkbox. For more information, see [Configure TKGI Cluster
+Discovery in Healthwatch](configuring/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
 
-* **[Feature Improvement]** The upgrading of Grafana VMs was limited by one at a time.
+* **[Feature Improvement]** When you re-deploy a highly-available (HA) Healthwatch installation with multiple Grafana instances, the second Grafana instance
+does not start updating until after the first Grafana instance has updated and re-starts.
 
-* **[Bug Fix]** The **Alertmanager** clustering ports were turned off when only one instance of TSDB VM exists.
+* **[Bug Fix]** In Healthwatch installations with a single Prometheus instance, the **Alertmanager** clustering ports are turned off.
 
-* **[Bug Fix]** The issue related with empty Diego Capacity Dashboard for Small Runtime environments was fixed.
+* **[Bug Fix]** In the Grafana UI, the issue related to the **Diego Capacity** dashboard showing no data for TAS for VMs [Small Footprint] deployments is
+fixed.
 
 Healthwatch v2.2.4 uses the following open-source component versions:
 
@@ -71,9 +77,9 @@ the `system_healthy` metric.
 
 * **[Bug Fix]** In the **Kubernetes Nodes** dashboard in the Grafana UI, the panel legend is more readable.
 
-* **[Known Issue Fix]** After you re-deploy a highly-available (HA) Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI
-while multiple Prometheus instances update. This known issue fix improves upon the known issue fix in Healthwatch v2.2.2. For more information about this
-known issue, see [No Data While Re-Deploying Highly-Available Healthwatch Installations](#no-data-tsdb-update) below.
+* **[Known Issue Fix]** After you re-deploy an HA Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI while multiple
+Prometheus instances update. This known issue fix improves upon the known issue fix in Healthwatch v2.2.2. For more information about this known issue, see
+[No Data While Re-Deploying Highly-Available Healthwatch Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.3 uses the following open-source component versions:
 
@@ -178,8 +184,8 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 * **[Feature]** In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** configuration pane is pre-configured with a default
 set of routing rules. For more information, see [Default Routing Rules Are Pre-Configured for Alertmanager](#routing-rules-auto-config) below.
 
-* **[Feature]** Healthwatch can automatically configure a route for the Grafana user interface (UI) on Ops Manager foundations with TAS for VMs installed.
-For more information, see [Automatic Grafana UI Route Configuration](#grafana-route-auto-config) below.
+* **[Feature]** Healthwatch can automatically configure a route for the Grafana UI on Ops Manager foundations with TAS for VMs installed. For more
+information, see [Automatic Grafana UI Route Configuration](#grafana-route-auto-config) below.
 
 * **[Feature]** Healthwatch can automatically configure authentication with the User Account and Authentication (UAA) instances in TAS for VMs and TKGI for
 the Grafana UI. For more information, see [Automatic UAA Authentication Configuration](#uaa-auth-auto-config) below.
