@@ -555,6 +555,11 @@ The following table describes each metric the Blackbox Exporters in the Promethe
     <td><code>probe_tls_version_info</code></td>
     <td>The TLS version the canary test uses, or <code>NaN</code> when unknown.</td>
   </tr>
+  <tr>
+    <td><code>bosh_deployments_status</code></td>
+    <td>Whether any BOSH deployments other than bosh-health are running. A value of <code>0</code> indicates that no other BOSH deployments are running on the BOSH Director.
+      A value of <code>1</code> indicates that other BOSH deployments are running on the BOSH Director.</td>
+  </tr>
 </table>
 
 ### <a id="svm-forwarder-platform"></a> SVM Forwarder VM - Platform Metrics
