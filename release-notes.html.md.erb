@@ -13,6 +13,30 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-5'></a> v2.2.5
+
+**Release Date:** 11/22/2022
+
+* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.13, v1.14.2, v1.15 and later.
+
+* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS) v2.11, v2.12, v2.13, v3.0 and later.
+
+* **[Feature]** Healthwatch supports bearer token for Prometheus Remote Write configuration.
+
+* **[Feature]** When the SVM Forwarder is enabled and the `BOSH Deployments Exporter` is configured, then the SVM Forwarder
+VM emits the `bosh_deployments_status` metric into the `Loggregator Firehose`.
+
+* **[Breaking Change]** Healthwatch requires Ubuntu Jammy Stemcell v1.49 and later.
+
+Healthwatch v2.2.5 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.39.1           |
+| Grafana      | 9.0.6            |
+| Alertmanager | 0.24.0           |
+| PXC          | 1.0.3            |
+
 ### <a id='2-2-4'></a> v2.2.4
 
 **Release Date:** 9/21/2022
