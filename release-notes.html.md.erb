@@ -28,6 +28,13 @@ VM emits the `bosh_deployments_status` metric into the `Loggregator Firehose`.
 
 * **[Breaking Change]** Healthwatch requires Ubuntu Jammy Stemcell v1.49 and later.
 
+<p class='note'><strong>Note:</strong> We are aware that the version of the BBR-SDK that ships with this product
+sometimes triggers a false-positive in some McAfee malware scans, when compiled on Ubuntu Jammy stemcells.
+This false positive identifies a file called
+`releases/backup-and-restore-sdk-1.18.56-ubuntu-jammy-1.18-20221101-135320-248952853/compiled_packages/
+database-backup-restorer-postgres-13/lib/earthdistance.so` as infected. It does not trigger any alerts when the same
+source code is compiled on Ubuntu Xenial.</p>
+
 Healthwatch v2.2.5 uses the following open-source component versions:
 
 | Component    | Packaged Version |
