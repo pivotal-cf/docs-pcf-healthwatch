@@ -36,11 +36,14 @@ Manager foundation.
 
 1. View and record the credentials to log in to the UAA instance for the runtime installed on this Ops Manager foundation:
     * For TAS for VMs:
-      1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
-      1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
+
+        1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
+        1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
+
     * For TKGI:
-      1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
-      1. Record the value of `secret`. This value is the secret for **Pks Uaa Management Admin Client**.
+
+        1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
+        1. Record the value of `secret`. This value is the secret for **Pks Uaa Management Admin Client**.
 
 1. Target the server for the UAA instance for the runtime installed on this Ops Manager foundation using the User Account and Authentication Command Line
 Interface (UAAC). Run:
@@ -48,11 +51,11 @@ Interface (UAAC). Run:
     ```
     uaac target UAA-URL
     ```
+
     Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
     `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS for
     VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
-    <br>
-    <br>
+    <br><br>
     For more information about the UAAC, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html).
 
 1. Log in to the UAA instance by running:
@@ -60,6 +63,7 @@ Interface (UAAC). Run:
     ```
     uaac token client get admin -s UAA-ADMIN-CLIENT-SECRET
     ```
+
     Where `UAA-ADMIN-CLIENT-SECRET` is the UAA administrator client secret you recorded from the **Credentials** tab in the runtime tile in a previous step.
 
 1. Create a UAA client for the Grafana instance by running:
@@ -72,7 +76,9 @@ Interface (UAAC). Run:
        --authorized_grant_types authorization_code \
        --redirect_uri PROTOCOL://GRAFANA-ROOT-URL/login/generic_oauth
     ```
+
     Where:
+
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
     * `PROTOCOL` is either `http` or `https`, depending on the protocol you configured the Grafana instance to use in the **Grafana** pane of the Healthwatch
     tile.
@@ -85,15 +91,18 @@ Interface (UAAC). Run:
     uaac group add healthwatch.edit
     uaac group add healthwatch.read
     ```
-   If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
-   previous step. Continue to the next step.
+
+    If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
+    previous step. Continue to the next step.
 
 1. Create a user account for the UAA client you created in a previous step to log in to the Grafana instance. Run:
 
     ```
     uaac user add USERNAME -p SECRET --emails EMAIL
     ```
+
     Where:
+
     * `USERNAME` is the username you want to set for the user account.
     * `SECRET` is the secret you want to set for the user account.
     * `EMAIL` is the email address you want to associate with the user account.
@@ -103,7 +112,9 @@ Interface (UAAC). Run:
     ```
     uaac member add GROUP USERNAME
     ```
+
     Where:
+
     * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These groups map to the `Admin`, `Editor`, and `Viewer` Grafana roles,
     respectively. For more information about the level of access each role provides, see the [Grafana
     documentation](https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).
@@ -156,12 +167,12 @@ roles** checkbox. This checkbox is deactivated by default. Deactivating this che
 Grafana role by the string configured in the **Role attribute path** field.
 
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
-  1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the UAA instance with which you want to configure
-  authentication uses to verify TLS certificates. You must configure this field if the UAA instance with which you want to configure authentication uses a TLS
-  certificate that is signed by an untrusted authority.
-  1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
-  verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the UAA instance with which you want to
-  configure authentication. This checkbox is deactivated by default. VMware does not recommend skipping TLS certificate verification to a UAA instance for a
-  runtime on a different Ops Manager foundation.
+    1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the UAA instance with which you want to configure
+    authentication uses to verify TLS certificates. You must configure this field if the UAA instance with which you want to configure authentication uses a TLS
+    certificate that is signed by an untrusted authority.
+    1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
+    verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the UAA instance with which you want to
+    configure authentication. This checkbox is deactivated by default. VMware does not recommend skipping TLS certificate verification to a UAA instance for a
+    runtime on a different Ops Manager foundation.
 
 1. Click **Save**.

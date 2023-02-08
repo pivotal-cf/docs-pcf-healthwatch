@@ -197,15 +197,19 @@ To configure UAA authentication for the Grafana UI:
         ```
         uaac target UAA-URL
         ```
+
         Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
         `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS
         for VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
+
     1. Assign `Admin`, `Editor`, or `Viewer` Grafana roles to a user by running:
 
         ```
         uaac member add GROUP USERNAME
         ```
+
         Where:
+
         * `GROUP` is either `healthwatch.admin`, `healthwatch.edit`, or `healthwatch.read`. These groups map to the `Admin`, `Editor`, and `Viewer` Grafana
         roles, respectively. For more information about the level of access each role provides, see the [Grafana
         documentation](https://grafana.com/docs/grafana/latest/permissions/organization_roles/#compare-roles).

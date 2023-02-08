@@ -25,8 +25,7 @@ Healthwatch](#configure-tkgi-cluster-discovery) below.
 
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For more information, see [Configure TKGI](#configure-tkgi) below.
 
-If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery Failure]
-(#troubleshooting) below.
+If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery Failure](#troubleshooting) below.
 
 <p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
   configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
@@ -55,6 +54,7 @@ To configure the **TKGI Cluster Discovery** pane:
 1. For **Discovery interval**, enter in seconds how frequently you want the Prometheus instance detects and scrapes TKGI clusters. The minimum value is `60`.
 
 1. (Optional) To allow the Prometheus instance to communicate with the TKGI API over TLS, configure one of the following options:
+
     * To configure the Prometheus instance to use a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate when
     communicating with the TKGI API over TLS, provide the certificate for the CA in **CA certificate for TLS**. If you provide a self-signed CA certificate,
     it must be for the same CA that signs the certificate in the TKGI API. If the Prometheus instance uses certificates signed by a trusted third-party CA or
@@ -103,14 +103,15 @@ to Healthwatch.
 1. Click **Save**.
 
 1. For each plan you want to monitor:
-  1. Select the plan you want to monitor. For example, **Plan 2**.
-  1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to create the roles required to allow the Prometheus instance to scrape
-  metrics from your TKGI clusters:
 
-      <%= partial '../snippets/cluster_scraping_config.md' %>
+    1. Select the plan you want to monitor. For example, **Plan 2**.
+    1. For **(Optional) Add-ons - Use with caution**, enter the following YAML snippet to create the roles required to allow the Prometheus instance to scrape
+    metrics from your TKGI clusters:
 
-      If **(Optional) Add-ons - Use with caution** already contains other API resource definitions, append the above YAML snippet to the end of the existing
-      resource definitions, followed by a newline character.
+        <%= partial '../snippets/cluster_scraping_config.md' %>
+
+        If **(Optional) Add-ons - Use with caution** already contains other API resource definitions, append the above YAML snippet to the end of the existing
+        resource definitions, followed by a newline character.
 
 1. Click **Save**.
 

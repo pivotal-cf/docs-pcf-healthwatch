@@ -40,7 +40,7 @@ Healthwatch Deployment](#ha) below.
 
 For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
-<p class='note warning'><strong>Warning:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
+<p class='note caution'><strong>Caution:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
   Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
   recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
   information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
@@ -149,16 +149,17 @@ IaaS. For more information, see the documentation for your IaaS.
   previous step.
   1. For **Target server name**, enter `promxy`.
   1. Click **Save**.
-  <br>
-  <br>
+  <br><br>
     If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
     an automation script:
-    <%= partial '../../snippets/federation.md' %>
-    For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
-    Deploying a Tile Through an Automated Pipeline_.
 
-  For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
-  the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
+        <%= partial '../../snippets/federation.md' %>
+
+        For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
+        Deploying a Tile Through an Automated Pipeline_.
+
+For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
+the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 After you have finished configuring federation for your Healthwatch deployment, you can confirm that your federation configuration is working correctly using
 the Grafana UI. For more information, see [Test Your Federation Configuration](#federation-test) below.
