@@ -103,52 +103,58 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   installed on the Ops Manager foundation you want to monitor:
       * For Healthwatch Exporter for TAS for VMs, provide configuration parameters similar to the following example:
 
-            ```
-            job_name: FOUNDATION-NAME
-            metrics_path: /metrics
-            scheme: https
-            static_configs:
-              - targets:
-                - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
-                - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
-                - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
-                - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
-                - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
-                - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
-            ```
-            Where:
-            * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
-            * (Optional) `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
-            * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
-            * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TAS for VMs SLI exporter VM that you recorded in a previous step.
-            * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
-            step.
-            * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
-            * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
-            step.
+          ```
+          job_name: FOUNDATION-NAME
+          metrics_path: /metrics
+          scheme: https
+          static_configs:
+            - targets:
+              - "COUNTER-EXPORTER-VM-IP-ADDRESS:9090"
+              - "GAUGE-EXPORTER-VM-IP-ADDRESS:9090"
+              - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
+              - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
+              - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
+              - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
+          ```
+
+          Where:
+
+          * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
+          * (Optional) `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
+          * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
+          * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TAS for VMs SLI exporter VM that you recorded in a previous step.
+          * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
+          step.
+          * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
+          * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
+          step.
+
       * For Healthwatch Exporter for TKGI, provide configuration parameters similar to the following example:
 
-            ```
-            job_name: FOUNDATION-NAME
-            metrics_path: /metrics
-            scheme: https
-            static_configs:
-              - targets:
-                - "TKGI-EXPORTER-VM-IP-ADDRESS:9090"
-                - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
-                - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
-                - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
-                - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
-            ```
-            Where:
-            * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
-            * (Optional) `TKGI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI metric exporter VM that you recorded in a previous step.
-            * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
-            step.
-            * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI SLI exporter VM that you recorded in a previous step.
-            * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
-            * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
-            step.
+          ```
+          job_name: FOUNDATION-NAME
+          metrics_path: /metrics
+          scheme: https
+          static_configs:
+            - targets:
+              - "TKGI-EXPORTER-VM-IP-ADDRESS:9090"
+              - "CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS:9090"
+              - "SLI-EXPORTER-VM-IP-ADDRESS:9090"
+              - "BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS:9090"
+              - "BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS:9090"
+          ```
+
+          Where:
+
+          * `FOUNDATION-NAME` is the name of the Ops Manager foundation you want to monitor.
+          * (Optional) `TKGI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI metric exporter VM that you recorded in a previous step.
+          * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
+          step.
+          * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TKGI SLI exporter VM that you recorded in a previous step.
+          * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
+          * (Optional) `BOSH-DEPLOYMENTS-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH deployment metric exporter VM that you recorded in a previous
+          step.
+
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
   **Credentials** tab in the Healthwatch Exporter for TAS for VMs tile in a previous step.
   1. For **CA certificate for TLS**, enter the Ops Manager root CA that you retrieved in a previous step.
