@@ -111,22 +111,28 @@ Healthwatch tiles on the Ops Manager foundations you want to monitor:
 IaaS. For more information, see the documentation for your IaaS.
 
 1. For each Ops Manager foundation you want to monitor:
-  1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
-  1. Click the **Healthwatch** tile.
-  1. Select the **Credentials** tab.
-  1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
-  1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
-    <p class='note'><strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code> are in JSON format and contain several
-      <code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming step.</p>
-  1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
-  the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managin certificates.html#root-certs).
-  1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
-  1. Click the **Healthwatch** tile.
-  1. Select **Prometheus**.
-  1. Under **Additional scrape jobs**, click **Add**.
-  1. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
-  Healthwatch tile on the Ops Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
-  regular expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under the `targets` property:
+    1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
+    1. Click the **Healthwatch** tile.
+    1. Select the **Credentials** tab.
+    1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
+    1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
+
+        <p class='note'>
+          <strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code>
+          are in JSON format and contain several<code>\n</code> markers.
+          Ensure that you convert all <code>\n</code> markers into newlines
+          before you use these values in an upcoming step.
+        </p>
+
+    1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
+    the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/security/pcf-infrastructure/managin certificates.html#root-certs).
+    1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
+    1. Click the **Healthwatch** tile.
+    1. Select **Prometheus**.
+    1. Under **Additional scrape jobs**, click **Add**.
+    1. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
+    Healthwatch tile on the Ops Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
+    regular expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under the `targets` property:
 
         ```
         job_name: example-job-name
@@ -140,23 +146,27 @@ IaaS. For more information, see the documentation for your IaaS.
             - 'source-tsdb-1:4450'
             - 'source-tsdb-2:4450'
         ```
-        <p class='note'><strong>Note:</strong> If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
+
+        <p class='note'>
+          <strong>Note:</strong> If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
           your load balancer or DNS entry in each target listed under the <code>targets</code> property instead of the IP address for the Prometheus
-          instance.</p>
-  1. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
-  **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.
-  1. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
-  previous step.
-  1. For **Target server name**, enter `promxy`.
-  1. Click **Save**.
-  <br><br>
-    If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
-    an automation script:
+          instance.
+        </p>
 
-        <%= partial '../../snippets/federation.md' %>
+    1. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
+    **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.
+    1. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
+    previous step.
+    1. For **Target server name**, enter `promxy`.
+    1. Click **Save**.
 
-        For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
-        Deploying a Tile Through an Automated Pipeline_.
+        If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
+        an automation script:
+
+            <%= partial '../../snippets/federation.md' %>
+
+            For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
+            Deploying a Tile Through an Automated Pipeline_.
 
 For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
 the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
