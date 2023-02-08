@@ -51,36 +51,39 @@ To download and install a tile using Platform Automation:
 
 1. Create a configuration file for the `download-product` task of your automated pipeline. This configuration file fetches the tile you want to install from
 VMware Tanzu Network. Copy and paste one of the following sets of properties into your configuration file:
-  * For Healthwatch:
 
-    ```
-    ---
-    pivnet-api-token: token
-    pivnet-file-glob: "healthwatch-[^pas|pks].*pivotal"
-    pivnet-product-slug: p-healthwatch
-    product-version-regex: 2\.2.*
-    ```
-  * For Healthwatch Exporter for TAS for VMs:
+    * For Healthwatch:
 
-    ```
-    ---
-    pivnet-api-token: token
-    pivnet-file-glob: "healthwatch-pas-*.pivotal"
-    pivnet-product-slug: p-healthwatch
-    product-version-regex: 2\.2.*
-    ```
-  * For Healthwatch Exporter for TKGI:
+        ```
+        ---
+        pivnet-api-token: token
+        pivnet-file-glob: "healthwatch-[^pas|pks].*pivotal"
+        pivnet-product-slug: p-healthwatch
+        product-version-regex: 2\.2.*
+        ```
 
-    ```
-    ---
-    pivnet-api-token: token
-    pivnet-file-glob: "healthwatch-pks-*.pivotal"
-    pivnet-product-slug: p-healthwatch
-    product-version-regex: 2\.2.*
-    ```
-  <br>
-  For more information, see the [Platform Automation
-  documentation](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download).
+    * For Healthwatch Exporter for TAS for VMs:
+
+        ```
+        ---
+        pivnet-api-token: token
+        pivnet-file-glob: "healthwatch-pas-*.pivotal"
+        pivnet-product-slug: p-healthwatch
+        product-version-regex: 2\.2.*
+        ```
+
+    * For Healthwatch Exporter for TKGI:
+
+        ```
+        ---
+        pivnet-api-token: token
+        pivnet-file-glob: "healthwatch-pks-*.pivotal"
+        pivnet-product-slug: p-healthwatch
+        product-version-regex: 2\.2.*
+        ```
+
+    For more information, see the [Platform Automation
+    documentation](https://docs.pivotal.io/platform-automation/v5.0/how-to-guides/adding-a-product.html#download).
 
 1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell` and `upload-and-stage-product` jobs to your
 configuration file. For more information, see the [Platform Automation
