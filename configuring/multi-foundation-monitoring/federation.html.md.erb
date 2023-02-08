@@ -158,15 +158,12 @@ IaaS. For more information, see the documentation for your IaaS.
     1. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
     previous step.
     1. For **Target server name**, enter `promxy`.
-    1. Click **Save**.
+    1. Click **Save**. <br><br>If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in an automation script:
 
-        If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in
-        an automation script:
+        <%= partial '../../snippets/federation.md' %>
 
-            <%= partial '../../snippets/federation.md' %>
-
-            For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
-            Deploying a Tile Through an Automated Pipeline_.
+        For more information, see [Configure and Deploy Your Tile Using the om CLI](../../installing/automated-pipeline.html#om) in _Installing, Configuring, and
+        Deploying a Tile Through an Automated Pipeline_.
 
 For more information about configuring scrape jobs, see [Configure Prometheus](../configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_ and
 the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
