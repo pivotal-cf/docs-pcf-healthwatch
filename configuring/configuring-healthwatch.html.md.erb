@@ -390,10 +390,13 @@ request fails.
 1. If your remote storage endpoint requires a username and password to log in to it, configure the following fields:
   1. For **Remote storage username**, enter the username that the Prometheus instance uses to log in to your remote storage endpoint.
   1. For **Remote storage password**, enter the password that the Prometheus instance uses to log in to your remote storage endpoint.
+  <p class='note'><strong>Note:</strong> If you configure a username and password for the Prometheus instance to use when logging in to your remote storage
+    endpoint, you cannot also configure a bearer token.</p>
 
 1. If your remote storage endpoint requires a bearer token to log in to it, enter the bearer token that the Prometheus instance uses to log in to your remote
 storage endpoint in **Bearer token**.
-    <p class='note'><strong>Note:</strong> Either username and password or bearer token should be configured.</p>
+    <p class='note'><strong>Note:</strong> If you configure a bearer token for the Prometheus instance to use when logging in to your remote storage
+      endpoint, you cannot also configure a username and password.</p>
 
 1. (Optional) To allow the Prometheus instance to communicate with the server for your remote storage endpoint over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to your remote
