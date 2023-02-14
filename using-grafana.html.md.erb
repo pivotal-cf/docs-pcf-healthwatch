@@ -94,8 +94,9 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **Certificate Expiration:** Contains metrics related to when certificates for your Ops Manager deployment are due to expire. For more information, see
   [Monitoring Certificate Expiration](configuring/optional-config/certificate-monitoring.html).
   * **Job Details:** Contains metrics related to the functionality of each component and VM in your runtime, Healthwatch, and Healthwatch Exporter tile
-  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Ops Manager foundation has neither TAS for VMs or TKGI
-  installed, you see this dashboard upon logging in to the Grafana UI.
+  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Ops Manager foundation has neither VMware Tanzu
+  Application Service for VMs (TAS for VMs) or VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) installed, you see this dashboard upon logging in to
+  the Grafana UI.
   * **Ops Manager Health:** Contains metrics related to the availability of your Ops Manager deployment.
   * **System at a Glance:** Contains an overview of metrics related to the health of your Ops Manager deployment. You see this dashboard upon logging in to
   the Grafana UI.
@@ -151,12 +152,12 @@ The following list describes the default Healthwatch dashboards you may see in t
     <a href="https://docs.pivotal.io/application-service/2-12/metric-registrar/index.html">TAS for VMs documentation</a>.</p>
 
 * **Tanzu Kubernetes Grid Integrated:** Includes the following dashboards:
-  <p class='note'><strong>Note:</strong> This folder only appears if you installed and configured Healthwatch Exporter for TKGI on one or more of your Ops
-    Manager foundations. For more information about Healthwatch Exporter for TKGI, see <a href="architecture.html#architecture-tkgi">Healthwatch Exporter for
-      TKGI Architecture</a> in <em>Healthwatch Architecture</em> and <a href="configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for
-      TKGI</a>.</p>
-  * **Kubernetes API Server:** Contains metrics related to the functionality of the Kubernetes API Server instances in your Tanzu Kubernetes Grid Integrated
-  Edition (TKGI) clusters. You can filter these metrics by cluster and instance.
+  <p class='note'><strong>Note:</strong> This folder only appears if you installed and configured Healthwatch Exporter for Tanzu Kubernetes Grid Integrated
+    Edition (TKGI) on one or more of your Ops Manager foundations. For more information about Healthwatch Exporter for TKGI, see
+    <a href="architecture.html#architecture-tkgi">Healthwatch Exporter for TKGI Architecture</a> in <em>Healthwatch Architecture</em> and
+    <a href="configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
+  * **Kubernetes API Server:** Contains metrics related to the functionality of the Kubernetes API Server instances in your TKGI clusters. You can filter
+  these metrics by cluster and instance.
   * **Kubernetes Cluster Detail:** Contains metrics related to the functionality of the nodes in your TKGI clusters. You can filter these metrics by cluster.
   If your Ops Manager foundation has only TKGI installed, you see this dashboard upon logging in to the Grafana UI.
   * **Kubernetes Clusters Overview:** Contains metrics related to the percentage of healthy control plane nodes across all TKGI clusters.

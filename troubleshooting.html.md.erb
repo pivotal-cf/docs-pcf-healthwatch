@@ -86,7 +86,7 @@ The sections below describe how to troubleshoot known issues in Healthwatch and 
 
 When installing or upgrading to Healthwatch v2.2, you see the following error:
 
-<pre class="terminal">
+<pre class='terminal'>
 - Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
   - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
 </pre>
@@ -131,7 +131,7 @@ This issue is fixed in Ops Manager v2.8 and later.
 
 When you deploy Healthwatch, the **Smoke Tests** errand fails with the following error message:
 
-<pre class="terminal">
+<pre class='terminal'>
 querying for grafana up should be greater than 0
 </pre>
 
@@ -160,7 +160,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 
 When the TKGI metric exporter VM attempts to connect to the BOSH Director, you see the following error:
 
-<pre class="terminal">
+<pre class='terminal'>
 ERROR [context.UaaContext [ForkJoinPool-1-worker-3]] javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
 ERROR [ingress.TokenCallCredentials [ForkJoinPool-1-worker-3]] Caught error retrieving UAA token: PKIX path validation failed: java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors
 INFO  [ingress.EventStreamObserver [ForkJoinPool-1-worker-3]] io.grpc.StatusRuntimeException: UNAUTHENTICATED
@@ -195,7 +195,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Ops Manager foundation, the **BOSH Director Status**
 panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
 
-<pre class="terminal">
+<pre class='terminal'>
 Director responded with non-successful status code '401' response '{"code":600000,"description":"Require one of the scopes: bosh.admin, bosh.750587e9-eae5-494f-99c4-5ca429b13959.admin, bosh.teams.p-healthwatch2-pas-exporter-b3a337d7ec4cca94f166.admin"}'
 </pre>
 
