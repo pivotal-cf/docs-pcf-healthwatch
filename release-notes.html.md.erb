@@ -208,6 +208,9 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 <p class='note'><strong>Note:</strong> Healthwatch v2.2.0 does not support TKGI v1.13. If you have TKGI v1.13 installed on your Ops Manager foundation,
   upgrade to Healthwatch v2.2.1.</p>
 
+  * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
+  2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
+
 * **[Feature]** In new installations of Healthwatch, the **Routing rules** field in the **Alertmanager** configuration pane is pre-configured with a default
 set of routing rules. For more information, see [Default Routing Rules Are Pre-Configured for Alertmanager](#routing-rules-auto-config) below.
 
@@ -262,9 +265,6 @@ about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKG
 
 * **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
 information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
-
-* **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
-2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
 
 * **[Known Issue]** The **RabbitMQ** dashboards in the Grafana UI show no data for RabbitMQ on-demand instances that are configured to communicate over TLS.
 For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
