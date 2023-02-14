@@ -2,6 +2,15 @@
 
 This is the source repository for the Healthwatch for VMware Tanzu documentation.
 
+In this README: 
+
+- [Branches in this Repo](#branches-in-this-repo)
+- [Publishing 2.1 and later](#publishing-21-and-later)
+- [For 1.8 and earlier](#for-18-and-earlier)
+
+
+## Branches in this Repo
+
 **Note**: Use the version-specific branches to create PRs or make changes to the project. The **MASTER** branch is not updated.
 
 | Branch Name| Use for… | URL |
