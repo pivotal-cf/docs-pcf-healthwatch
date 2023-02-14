@@ -1,6 +1,6 @@
-## Pivotal Cloud Foundry Healthwatch Documentation
+## Healthwatch for VMware Tanzu Documentation
 
-This is the source repository for the Pivotal Cloud Foundry (PCF) Healthwatch documentation.
+This is the source repository for the Healthwatch for VMware Tanzu documentation.
 
 **Note**: Use the version-specific branches to create PRs or make changes to the project. The **MASTER** branch is not updated.
 
