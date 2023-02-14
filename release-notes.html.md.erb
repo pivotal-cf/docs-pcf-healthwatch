@@ -99,14 +99,14 @@ _Healthwatch Metrics_.
 * **[Feature Improvement]** The **BOSH Director Health** dashboard in the Grafana UI includes the **BOSH Health Check** and **BOSH Health Check Status
 History** panels.
 
+* **[Known Issue Fix]** After you re-deploy an HA Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI while multiple
+Prometheus instances update. This known issue fix improves upon the known issue fix in Healthwatch v2.2.2. For more information about this known issue, see
+[No Data While Re-Deploying Highly-Available Healthwatch Installations](#no-data-tsdb-update) below.
+
 * **[Bug Fix]** In the **BOSH Director Health** dashboard in the Grafana UI, the **BOSH Director Status** and **BOSH Director Status History** panels include
 the `system_healthy` metric.
 
 * **[Bug Fix]** In the **Kubernetes Nodes** dashboard in the Grafana UI, the panel legend is more readable.
-
-* **[Known Issue Fix]** After you re-deploy an HA Healthwatch installation, the Grafana instance can load metrics data in the Grafana UI while multiple
-Prometheus instances update. This known issue fix improves upon the known issue fix in Healthwatch v2.2.2. For more information about this known issue, see
-[No Data While Re-Deploying Highly-Available Healthwatch Installations](#no-data-tsdb-update) below.
 
 Healthwatch v2.2.3 uses the following open-source component versions:
 
@@ -129,8 +129,6 @@ Healthwatch v2.2.3 uses the following open-source component versions:
 
 * **[Feature Improvement]** The **System At a Glance** dashboard in the Grafana UI does not show metrics for compiler VMs.
 
-* **[Bug Fix]** The **System at a Glance** dashboard in the Grafana UI does not show duplicate **Canary URL** panels.
-
 * **[Known Issue Fix]** The **RabbitMQ** dashboards in the Grafana UI show data for RabbitMQ on-demand instances that are configured to communicate over TLS.
 For more information about this known issue, see [No Data on RabbitMQ Dashboards for RabbitMQ On-Demand Instances Using TLS](#rabbitmq-tls) below.
 
@@ -147,6 +145,8 @@ below.
 
 * **[Known Issue Fix]** The Prometheus instance no longer fails to clean up the `chunks_head` directory. For more information about this known issue, see
 [Prometheus Clean-Up Failure Leads to Full Disk](#tsdb-wal-error) below.
+
+* **[Bug Fix]** The **System at a Glance** dashboard in the Grafana UI does not show duplicate **Canary URL** panels.
 
 Healthwatch v2.2.2 uses the following open-source component versions:
 
@@ -254,11 +254,6 @@ more information, see [Authenticating with a UAA Instance on a Different Ops Man
 * **[Breaking Change]** The timer metric exporter VM is removed from Healthwatch Exporter for TAS for VMs. For more information, see [Timer Metric Exporter
 VM is Removed](#pas-exporter-timer) below.
 
-* **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
-
-* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric (SVM) is corrected to follow the recommended calculation for TAS for VMs. For more
-information, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog).
-
 * **[Known Issue]** The SVM Forwarder VM creates recursive labels for certain metrics. For more information about this known issue, see [SVM Forwarder Creates
 Recursive Metric Labels](#metric-name-recursion) below.
 
@@ -281,6 +276,11 @@ Installations](#no-data-tsdb-update) below.
 * **[Known Issue]** If you have TKGI v1.12 or later installed, the **Kubernetes Nodes** dashboard in the Grafana UI shows no data for Kubernetes clusters that
 use the containerd runtime. For more information about this known issue, see [No Data for containerd Clusters on Kubernetes Nodes Dashboard for TKGI v1.12 and
 Later](#no-data-nodes-tkgi-112) below.
+
+* **[Bug Fix]** The TAS for VMs SLI test for the `cf login` command displays success instead of failure upon timeout.
+
+* **[Bug Fix]** The `SyslogAgent_LossRate_1M` super value metric (SVM) is corrected to follow the recommended calculation for TAS for VMs. For more
+information, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/2-12/operating/monitoring/key-cap-scaling.html#scalable-syslog).
 
 Healthwatch v2.2.0 uses the following open-source component versions:
 
