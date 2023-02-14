@@ -15,25 +15,24 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ### <a id='2-2-5'></a> v2.2.5
 
-**Release Date:** 12/1/2022
+**Release Date:** December 1, 2022
 
-* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.13, v1.14.2, v1.15 and later.
+* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.13, v1.14.2, and v1.15 and later.
 
-* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS) v2.11, v2.12, v2.13, v3.0 and later.
+* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs) v2.11, v2.12, v2.13, and v3.0 and later.
 
-* **[Feature]** Healthwatch supports the Prometheus Remote Write bearer token configuration.
+* **[Feature]** You can configure the Prometheus instance to use a bearer token to log in to a remote storage endpoint. For more information, see [Prometheus
+Can Log In to Remote Storage with a Bearer Token](#bearer-token-remote) below.
 
-* **[Feature]** When the SVM Forwarder is enabled and the `BOSH Deployments Exporter` is configured, then the SVM Forwarder
-VM emits the `bosh_deployments_status` metric into the `Loggregator Firehose`.
+* **[Feature]** When the SVM Forwarder VM and the BOSH deployment metric exporter VM are both deployedin the Healthwatch Exporter for VMware Tanzu
+Application Service for VMs (TAS for VMs) tile, the SVM Forwarder VM emits the `bosh_deployments_status` metric into the Loggregator Firehose. For more
+information, see [BOSH Deployments Status Emitted Into the Loggregator Firehose](#bosh-deployment-metric) below.
 
-* **[Breaking Change]** Healthwatch requires Ubuntu Jammy Stemcell v1.49 and later.
+* **[Breaking Change]** Healthwatch requires Ubuntu Jammy Stemcell 1.49 or later. For more information, see [Healthwatch Uses Ubuntu Jammy Stemcell 1.49 or
+Later](#jammy-stemcell) below.
 
-<p class='note'><strong>Note:</strong> We are aware that the version of the BBR-SDK that ships with this product
-sometimes triggers a false-positive in some McAfee malware scans, when compiled on Ubuntu Jammy stemcells.
-This false positive identifies a file called
-`releases/backup-and-restore-sdk-1.18.56-ubuntu-jammy-1.18-20221101-135320-248952853/compiled_packages/
-database-backup-restorer-postgres-13/lib/earthdistance.so` as infected. It does not trigger any alerts when the same
-source code is compiled on Ubuntu Xenial.</p>
+* **[Known Issue]** Compiling BOSH Backup and Restore SDK (BBR-SDK) on Ubuntu Jammy stemcells can cause it to trigger a false positive in some McAfee malware
+scans. For more information, see [BBR-SDK Can Trigger False Positives in Malware Scans](#bbr-sdk-false-scan) below.
 
 Healthwatch v2.2.5 uses the following open-source component versions:
 
@@ -46,19 +45,16 @@ Healthwatch v2.2.5 uses the following open-source component versions:
 
 ### <a id='2-2-4'></a> v2.2.4
 
-**Release Date:** 9/21/2022
+**Release Date:** September 21, 2022
 
-* **[Feature]** Healthwatch supports VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) v1.12, v1.13, and v1.14.2 and later.
-
-* **[Breaking Change]** When you manually configure the route used to access the Grafana UI, you must configure the **Grafana root URL** field. For more
-information, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
+* **[Feature]** Healthwatch supports TKGI v1.12, v1.13, and v1.14.2 and later.
 
 * **[Feature Improvement]** In the **Kubernetes Controller Manager** dashboard in the Grafana user interface (UI), the **Memory** and **CPU Usage** panels are
 removed.
 
-* **[Feature Improvement]** In the **TAS for VMs Metric Exporter VMs** pane of the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for
-VMs) tile, you can configure the TAS for VMs service level indicator (SLI) exporter VM to run SLI tests for the Cloud Foundry Command-Line Interface (cf CLI)
-v8. To configure the cf CLI version for which the TAS for VMs SLI exporter VM runs SLI tests, see [(Optional) Configure TAS for VMs Metric Exporter
+* **[Feature Improvement]** In the **TAS for VMs Metric Exporter VMs** pane of the Healthwatch Exporter for TAS for VMs tile, you can configure the TAS for
+VMs service level indicator (SLI) exporter VM to run SLI tests for the Cloud Foundry Command-Line Interface (cf CLI) v8. To configure the cf CLI version for
+which the TAS for VMs SLI exporter VM runs SLI tests, see [(Optional) Configure TAS for VMs Metric Exporter
 VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
 * **[Feature Improvement]** The log levels for the Prometheus and Alertmanager instances are set to `info`.
@@ -67,6 +63,9 @@ VMs](configuring/configuring-exporter-tas.html#exporter-config) in _Configuring 
 
 * **[Feature Improvement]** When you re-deploy a highly-available (HA) Healthwatch installation with multiple Grafana instances, the second Grafana instance
 does not start updating until after the first Grafana instance has updated and re-starts.
+
+* **[Breaking Change]** When you manually configure the route used to access the Grafana UI, you must configure the **Grafana root URL** field. For more
+information, see [(Optional) Configure Grafana](configuring/configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
 * **[Bug Fix]** You can deploy Healthwatch with a single Prometheus instance.
 
@@ -83,7 +82,7 @@ Healthwatch v2.2.4 uses the following open-source component versions:
 
 ### <a id='2-2-3'></a> v2.2.3
 
-**Release Date:** 8/18/2022
+**Release Date:** August 18, 2022
 
 * **[Feature Improvement]** When you configure an alert receiver for Slack, you are not required to configure the **Alert receiver configuration parameters**
 field. The only fields you must configure are **Alert receiver name** and **Slack API URL**. For more information, see [Configure a Slack Alert
@@ -120,9 +119,9 @@ Healthwatch v2.2.3 uses the following open-source component versions:
 
 ### <a id='2-2-2'></a> v2.2.2
 
-**Release Date:** 5/18/2022
+**Release Date:** May 18, 2022
 
-* **[Feature]** Healthwatch supports VMware Tanzu Application Service for VMs (TAS for VMs) v2.13 and earlier.
+* **[Feature]** Healthwatch supports TAS for VMs v2.13 and earlier.
 
 * **[Feature Improvement]** The default alert templates are updated to better display grouped alerts.
 
@@ -160,7 +159,7 @@ Healthwatch v2.2.2 uses the following open-source component versions:
 
 ### <a id='2-2-1'></a> v2.2.1
 
-**Release Date:** 2/28/2022
+**Release Date:** February 28, 2022
 
 * **[Feature]** Healthwatch supports TKGI v1.13 and earlier.
 
@@ -204,7 +203,7 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 
 ### <a id='2-2-0'></a> v2.2.0
 
-**Release Date:** 1/25/2022
+**Release Date:** January 25, 2022
 
 <p class='note'><strong>Note:</strong> Healthwatch v2.2.0 does not support TKGI v1.13. If you have TKGI v1.13 installed on your Ops Manager foundation,
   upgrade to Healthwatch v2.2.1.</p>
@@ -222,7 +221,7 @@ the Grafana UI. For more information, see [Automatic UAA Authentication Configur
 UI](#system-at-a-glance) below.
 
 * **[Feature]** The SVM Forwarder VM emits the `probe_success` and `probe_duration_seconds` metrics into the Loggregator Firehose. For more information, see
-[Two Canary Test Metrics Emitted in the Loggregator Firehose](#probe-metrics) below.
+[Two Canary Test Metrics Emitted Into the Loggregator Firehose](#probe-metrics) below.
 
 * **[Feature]** For Ops Manager v2.10.10 and later, the Prometheus instance scrapes BOSH Director metrics directly from the BOSH Director VM. For more
 information, see [Prometheus Scrapes Metrics Directly from the BOSH Director VM](#bosh-director-direct-scrape) below.
@@ -266,8 +265,8 @@ Recursive Metric Labels](#metric-name-recursion) below.
 * **[Known Issue]** The TKGI SLI exporter VM does not clean up the service accounts it creates while running the TKGI SLI test suite. For more information
 about this known issue, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](#tkgi-service-accounts) below.
 
-* **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BBR. For more information about this known
-issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
+* **[Known Issue]** The backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). For more
+information about this known issue, see [BBR Backup Snapshots Fill Disk Space on Prometheus VMs](#bbr-backups-tsdb) below.
 
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
 2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
@@ -310,6 +309,13 @@ routing rules. You can edit these routing rules according to the needs of your d
 For more information about configuring routing rules for Alertmanager, see [Configure Alerting](configuring/optional-config/alerting.html#configure) in
 _Configuring Alerting_.
 
+### <a id='grafana-8'></a> Healthwatch Requires New Open Source License for Grafana v8
+
+Healthwatch uses Grafana v8, which requires the Affero General Public License (AGPL).
+
+For more information about the AGPL, see [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) on the GNU site. For more
+information about Grafana v8, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v8-0/).
+
 ### <a id='grafana-route-auto-config'></a> Automatic Grafana UI Route Configuration
 
 If your Ops Manager foundation has TAS for VMs installed, you can configure Healthwatch to automatically create a route for the Grafana UI in the **Grafana**
@@ -327,14 +333,6 @@ different Ops Manager foundation, you must select **Generic OAuth** and configur
 For more information about configuring UAA as your Grafana UI authentication method, see [(Optional) Configure Grafana
 Authentication](configuring/configuring-healthwatch.html#authentication) in _Configuring Healthwatch_.
 
-### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
-
-The Grafana UI includes the **System at a Glance** dashboard. This dashboard displays an overview of metrics related to the health of your Ops Manager
-foundation and the runtimes you have installed on that foundation.
-
-For more information about the **System at a Glance** dashboard, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using
-Healthwatch Dashboards in the Grafana UI_.
-
 ### <a id='grafana-logout-url'></a> Grafana UI Logout URL
 
 If you configured a generic OAuth provider to authenticate users who log in to the Grafana UI, you can configure a logout URL in the **Grafana
@@ -343,32 +341,19 @@ Authentication** pane of the Healthwatch tile.
 For more information about configuring a logout URL for the Grafana UI, see [Configure Generic OAuth
 Authentication](configuring/grafana-authentication.html#configure-generic-oauth) in _Configuring Grafana Authentication_.
 
-### <a id='probe-metrics'></a> Two Canary Test Metrics Emitted in the Loggregator Firehose
+### <a id='remove-grafana'></a> Remove Grafana
 
-If you deploy the SVM Forwarder VM in the Healthwatch Exporter for TAS for VMs tile, the SVM Forwarder VM emits the `probe_success` and
-`probe_duration_seconds` canary test metrics into the Loggregator Firehose.
+If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
+Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
 
-For more information about canary test metrics, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_. For more information about the SVM Forwarder
-VM, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+For more information about removing Grafana from your Healthwatch deployment, see [Removing Grafana](resources.html#remove-grafana) in _Healthwatch Components
+and Resource Requirements_.
 
-### <a id='bosh-director-direct-scrape'></a> Prometheus Scrapes Metrics Directly from the BOSH Director VM
+### <a id='bearer-token-remote'></a> Prometheus Can Log In to Remote Storage with a Bearer Token
 
-For Ops Manager v2.10.10 and later, the Prometheus instance scrapes BOSH Director metrics directly from the BOSH Director VM instead of the Loggregator
-Firehose. This allows the Prometheus VM to gather more types of metrics related to the health of the BOSH Director. These metrics appear in the **Director
-Health** dashboard in the Grafana UI.
+In the **Remote Write** pane of the Healthwatch tile, you can configure the Prometheus instance to use a bearer token to log in to a remote storage endpoint.
 
-For more information about the BOSH Director metrics that the Prometheus instance scrapes, see [BOSH SLIs](metrics.html#bosh-sli) in _Healthwatch Metrics_.
-
-### <a id='grafana-8'></a> Healthwatch Requires New Open Source License for Grafana v8
-
-Healthwatch uses Grafana v8, which requires the Affero General Public License (AGPL).
-
-For more information about the AGPL, see [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) on the GNU site. For more
-information about Grafana v8, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v8-0/).
-
-### <a id='om-canary-test-auto-config'></a> Healthwatch Automatically Runs Canary Tests for the Ops Manager Installation Dashboard
-
-Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard.
+For more information about configuring the Prometheus instance to use a bearer token to log in to a remote storage endpoint, see [(Optional) Configure Remote Write](configuring/configuring-healthwatch.html#remote-write) in _Configuring Healthwatch_.
 
 ### <a id='cluster-discovery-auto-config'></a> Automatic TKGI Cluster Discovery Configuration
 
@@ -379,13 +364,38 @@ For more information about TKGI cluster discovery, see [Configuring TKGI Cluster
 information about allowing or disallowing TKGI cluster discovery, see [Configure TKGI Cluster Discovery in
 Healthwatch](configuring/configuring-cluster-discovery.html#configure-tkgi-cluster-discovery) in _Configuring TKGI Cluster Discovery_.
 
-### <a id='remove-grafana'></a> Remove Grafana
+### <a id='system-at-a-glance'></a> System at a Glance Dashboard in the Grafana UI
 
-If you do not want to use any Grafana instances in your Healthwatch deployment, you can set the number of Grafana, MySQL, and MySQL Proxy instances for your
-Healthwatch deployment to `0` in the **Resource Config** pane of the Healthwatch tile.
+The Grafana UI includes the **System at a Glance** dashboard. This dashboard displays an overview of metrics related to the health of your Ops Manager
+foundation and the runtimes you have installed on that foundation.
 
-For more information about removing Grafana from your Healthwatch deployment, see [Removing Grafana](resources.html#remove-grafana) in _Healthwatch Components
-and Resource Requirements_.
+For more information about the **System at a Glance** dashboard, see [Default Dashboards in the Grafana UI](using-grafana.html#dashboards) in _Using
+Healthwatch Dashboards in the Grafana UI_.
+
+### <a id='bosh-director-direct-scrape'></a> Prometheus Scrapes Metrics Directly from the BOSH Director VM
+
+For Ops Manager v2.10.10 and later, the Prometheus instance scrapes BOSH Director metrics directly from the BOSH Director VM instead of the Loggregator
+Firehose. This allows the Prometheus VM to gather more types of metrics related to the health of the BOSH Director. These metrics appear in the **Director
+Health** dashboard in the Grafana UI.
+
+For more information about the BOSH Director metrics that the Prometheus instance scrapes, see [BOSH SLIs](metrics.html#bosh-sli) in _Healthwatch Metrics_.
+
+### <a id='bosh-deployment-metric'></a> BOSH Deployments Status Emitted Into the Loggregator Firehose
+
+When the SVM Forwarder VM and the BOSH deployment metric exporter VM are both deployed in the Healthwatch Exporter for TAS for VMs tile, the SVM Forwarder VM
+emits the `bosh_deployments_status` metric into the Loggregator Firehose.
+
+For more information about the `bosh_deployments_status` metric, see [BOSH Deployment Metric Exporter VM](metrics.html#bosh-deployments-exporter) in
+_Healthwatch Metrics_. For more information about the BOSH deployment metric exporter VM, see [(Optional) Configure the BOSH Deployment Metric Exporter
+VM](configuring/configuring-exporter-tas.html#bosh-deployments) in _Configuring Healthwatch Exporter for TAS for VMs_. For more information about the SVM
+Forwarder VM, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS
+for VMs_.
+
+### <a id='om-canary-test-auto-config'></a> Healthwatch Automatically Runs Canary Tests for the Ops Manager Installation Dashboard
+
+Healthwatch automatically runs canary tests for the Ops Manager Installation Dashboard.
+
+For more information about canary test metrics, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_.
 
 ### <a id='current-canary-apps'></a> Grafana UI Dashboards Only Include Metrics for Current Canary Apps
 
@@ -400,10 +410,26 @@ The timeouts for the TAS for VMs SLI test suite are increased to five minutes. T
 
 For more information about canary test metrics, see [TAS for VMs SLI Exporter VM](metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
+### <a id='probe-metrics'></a> Two Canary Test Metrics Emitted Into the Loggregator Firehose
+
+If you deploy the SVM Forwarder VM in the Healthwatch Exporter for TAS for VMs tile, the SVM Forwarder VM emits the `probe_success` and
+`probe_duration_seconds` canary test metrics into the Loggregator Firehose.
+
+For more information about canary test metrics, see [Prometheus VM](metrics.html#tsdb) in _Healthwatch Metrics_. For more information about the SVM Forwarder
+VM, see [(Optional) Configure Resources](configuring/configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+
 
 ## <a id='breaking-changes'></a> Breaking Changes
 
 Healthwatch v2.2 includes the following breaking changes:
+
+### <a id='jammy-stemcell'></a> Healthwatch Uses Ubuntu Jammy Stemcell 1.49 or Later
+
+To use Healthwatch v2.2.5 or later, you must upgrade its stemcell to Ubuntu Jammy Stemcell 1.49 or later. You can download Ubuntu Jammy Stemcell 1.49 and
+later from [VMware Tanzu Network](https://network.pivotal.io/products/stemcells-ubuntu-jammy#/releases/1206026).
+
+For more information about supported stemcells, see the [Stemcells for VMware Tanzu
+documentation](https://docs.vmware.com/en/Stemcells-for-VMware-Tanzu/services/release-notes/index.html).
 
 ### <a id='scripts'></a> Update Automation Scripts
 
@@ -442,6 +468,18 @@ TKGI](configuring/configuring-cluster-discovery.html#configure-tkgi) in _Configu
 ## <a id='known-issues'></a> Known Issues
 
 Healthwatch v2.2 includes the following known issues:
+
+### <a id='bbr-sdk-false-scan'></a> BBR-SDK Can Trigger False Positives in Malware Scans
+
+In Healthwatch v2.2.5, compiling BBR-SDK on Ubuntu Jammy stemcells can cause it to trigger a false positive in some McAfee malware scans. This false positive
+incorrectly identifies the
+`releases/backup-and-restore-sdk-1.18.56-ubuntu-jammy-1.18-20221101-135320-248952853/compiled_packages/ database-backup-restorer-postgres-13/lib/earthdistance.so`
+file as infected.
+
+However, when you compile BBR-SDK on Ubuntu Xenial stemcells, it does not trigger any alerts in McAfee malware scans.
+
+For more information about BBR-SDK, see the [BOSH
+documentation](https://bosh.io/releases/github.com/cloudfoundry-incubator/backup-and-restore-sdk-release?all=1).
 
 ### <a id='metric-name-recursion'></a> SVM Forwarder Creates Recursive Metric Labels
 
@@ -490,7 +528,7 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
 previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-oidc-provider.html).
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
 accounts, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting

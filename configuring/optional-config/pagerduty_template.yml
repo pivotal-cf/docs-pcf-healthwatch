@@ -16,6 +16,6 @@ details:
     {{ end }}
 links:
   - text: "How to create a BOSH tunnel to connect to Alertmanager"
-    href: "https://docs.pivotal.io/healthwatch/2-2/troubleshooting.html#viewing-the-alertmanager-ui"
+    href: "https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/troubleshooting.html#viewing-the-alertmanager-ui"
   - text: "View a Grafana graph of the expression that triggered this alert"
     href: '{{ with index .Alerts 0 }}{{ .Annotations.grafanaUrlPrefix }}"{{(.StartsAt.Add -1800000000000).Unix}}000","{{(.StartsAt.Add 1800000000000).Unix}}000"{{ .Annotations.grafanaUrlSuffix }}{{end}}'

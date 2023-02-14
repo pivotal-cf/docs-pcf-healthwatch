@@ -14,7 +14,7 @@ html: |-
   <div>
       <div style="margin: auto; width: 50%; padding: 10px;">
           <p><a href='{{ with index .Alerts 0 }}{{ .Annotations.grafanaUrlPrefix }}"{{(.StartsAt.Add -1800000000000).Unix}}000","{{(.StartsAt.Add 1800000000000).Unix}}000"{{ .Annotations.grafanaUrlSuffix }}{{end}}'>View a Grafana graph of the expression that triggered {{ if gt (len .Alerts.Firing) 1 }}these alerts{{ else }}this alert{{ end }}</a></p>
-          <p><a href='{{ template "slack.default.titlelink" . }}'>View {{ if gt (len .Alerts.Firing) 1 }}these alerts{{ else }}this alert{{ end }} in Alertmanager</a> (Requires a <a href="https://docs.pivotal.io/healthwatch/2-2/troubleshooting.html#viewing-the-alertmanager-ui">BOSH SSH Tunnel</a>)</p>
+          <p><a href='{{ template "slack.default.titlelink" . }}'>View {{ if gt (len .Alerts.Firing) 1 }}these alerts{{ else }}this alert{{ end }} in Alertmanager</a> (Requires a <a href="https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/troubleshooting.html#viewing-the-alertmanager-ui">BOSH SSH Tunnel</a>)</p>
           {{ with index .Alerts 0 }}
           <p><strong>Summary:</strong> {{ .Annotations.summary }}</p>
           <div style="white-space: pre-wrap; padding-left: 22px; text-indent: -22px;"><p><strong>Description:</strong>

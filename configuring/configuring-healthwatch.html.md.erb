@@ -134,8 +134,7 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
-  1. (Optional) To allow the Prometheus instance to communicate with the server for your external
-  service or database over TLS:
+  1. (Optional) To allow the Prometheus instance to communicate with the server for your external service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
       server for your external service or database.
       1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your external service or database uses
@@ -390,8 +389,10 @@ request fails.
   1. For **Remote storage username**, enter the username that the Prometheus instance uses to log in to your remote storage endpoint.
   1. For **Remote storage password**, enter the password that the Prometheus instance uses to log in to your remote storage endpoint.
 
-1. If your remote storage endpoint requires a bearer token enter the bearer token associated with the remote storage endpoint.
+1. If your remote storage endpoint requires a bearer token to log in to it, enter the bearer token that the Prometheus instance uses to log in to your remote
+storage endpoint in **Bearer token**.
     <p class='note'><strong>Note:</strong> Either username and password or bearer token should be configured.</p>
+
 1. (Optional) To allow the Prometheus instance to communicate with the server for your remote storage endpoint over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to your remote
   storage endpoint.
@@ -444,7 +445,7 @@ By default, Ops Manager always runs all errands.
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/managing_errands.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -527,7 +528,8 @@ To complete your installation of the Healthwatch tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
+For more information, see the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='next-steps'></a> Next Steps

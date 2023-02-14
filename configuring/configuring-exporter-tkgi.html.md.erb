@@ -82,10 +82,12 @@ To configure the **Assign AZ and Networks** pane:
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TKGI
-networks, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets).
+networks, see the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about TKGI service networks, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets).
+information about TKGI service networks, see the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. Click **Save**.
 
@@ -97,8 +99,8 @@ generating these metrics, the metric exporter VMs expose them in Prometheus expo
 
 To configure the **TKGI Metric Exporter VMs** pane:
 
-<p class='note important'><strong>Important:</strong> The IP addresses you configure in the <strong>TKGI Metric Exporter VMs</strong> pane must not be within the
-  reserved IP ranges you configured in the BOSH Director tile.</p>
+<p class='note important'><strong>Important:</strong> The IP addresses you configure in the <strong>TKGI Metric Exporter VMs</strong> pane must not be
+  within the reserved IP ranges you configured in the BOSH Director tile.</p>
 
 1. Select **TKGI Metric Exporter VMs**.
 
@@ -222,7 +224,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about internal authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#internal_auth).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#internal_auth).
     * If your Ops Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -239,7 +241,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about SAML authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#saml).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#saml).
     * If your Ops Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -256,10 +258,10 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about LDAP authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#ldap).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#ldap).
 
-1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager documentation]
-(https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh).
+1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#ssh).
 
 1. Target the UAA instance for the BOSH Director by running:
 
@@ -321,7 +323,7 @@ By default, Ops Manager always runs all errands.
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/managing_errands.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -402,7 +404,8 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
+For more information, see the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
