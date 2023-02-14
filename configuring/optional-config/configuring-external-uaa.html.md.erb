@@ -55,7 +55,8 @@ Interface (UAAC). Run:
     Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
     `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS for
     VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
-    <br><br>
+    <br>
+    <br>
     For more information about the UAAC, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html).
 
 1. Log in to the UAA instance by running:
@@ -168,8 +169,8 @@ Grafana role by the string configured in the **Role attribute path** field.
 
 1. (Optional) To allow the Grafana instance to communicate with the server for your OAuth provider over TLS:
     1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the UAA instance with which you want to configure
-    authentication uses to verify TLS certificates. You must configure this field if the UAA instance with which you want to configure authentication uses a TLS
-    certificate that is signed by an untrusted authority.
+    authentication uses to verify TLS certificates. You must configure this field if the UAA instance with which you want to configure authentication uses a
+    TLS certificate that is signed by an untrusted authority.
     1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
     verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the UAA instance with which you want to
     configure authentication. This checkbox is deactivated by default. VMware does not recommend skipping TLS certificate verification to a UAA instance for a
