@@ -527,9 +527,10 @@ If you run SLI tests for TKGI through Healthwatch Exporter for TKGI, and you do 
 configured for TKGI, the TKGI SLI exporter VM does not automatically clean up the service accounts that it creates while running the TKGI SLI test suite.
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
-This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-oidc-provider.html).
+This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from 
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, 
+see [OIDC Provider for Kubernetes Clusters](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.16/tkgi/GUID-oidc-provider.html) 
+in the TKGI documentation.  
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
 accounts, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting
