@@ -8,11 +8,13 @@ owner: Healthwatch
 This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch for VMware Tanzu, Healthwatch
 Exporter for VMware Tanzu Application Service for VMs (TAS for VMs), and Healthwatch Exporter for Tanzu Kubernetes Grid Integrated Edition (TKGI).
 
-
+<br>
+<br>
 ## <a id='healthwatch-troubleshooting'></a> Accessing VM UIs for Troubleshooting
 
 The sections below describe how to access the user interfaces (UIs) of the Prometheus and Alertmanager VMs for troubleshooting.
 
+<br>
 ### <a id='viewing-the-prometheus-ui'></a> Access the Prometheus UI
 
 The Prometheus UI allows you to view various processes on the VMs in the Prometheus instance that the Healthwatch tile deploys, including alerts that are
@@ -71,8 +73,8 @@ To access the Prometheus UI:
         1. To import the Tsdb Client Mtls certificate into the macOS keychain:  
         
             1. To open the macOS Keychain Access app:  
-                1. Type CMD-SPACE followed by typing `keychain`.  
-                1. Select the keychain access app on the displayed list.  
+                1. Type CMD-SPACE followed by typing the word `keychain`.  
+                1. Select the Keychain Access app on the displayed list.  
             1. Select **File** -> **Import Items**.  
             1. Select the Tsdb Client Mtls certificate `cert.pem` file.  
 
@@ -88,7 +90,7 @@ to your operating system keystore.
 
     The Prometheus UI should display in your browser.  
 
-
+<br>
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
 
 The Alertmanager UI allows you to view which alerts are currently running. Because the Alertmanager UI is not secure, the Healthwatch tile does not include
@@ -114,7 +116,8 @@ To access the Alertmanager UI:
 
 1. In a web browser, navigate to `localhost:8080`. The Alertmanager UI appears.
 
-
+<br>
+<br>
 ## <a id='known-issues'></a> Troubleshooting Known Issues
 
 The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch Exporter for TKGI.
@@ -164,6 +167,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 
 This issue is fixed in Ops Manager v2.8 and later.
 
+<br>
 ### <a id='grafana-smoke-test'></a> Smoke Tests Errand Fails When Deploying Healthwatch
 
 When you deploy Healthwatch, the **Smoke Tests** errand fails with the following error message:
@@ -193,6 +197,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
     ```
     The `lastError` field in the command output describes the reason for the Prometheus instance failing to scrape the Grafana instance.
 
+<br>
 ### <a id='bosh-metrics-exporter'></a> TKGI Metric Exporter VM Fails to Connect to the BOSH Director
 
 When the TKGI metric exporter VM attempts to connect to the BOSH Director, you see the following error:
@@ -227,6 +232,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
     If the command returns an `OK` message, the certificate is trusted and has a valid certificate chain. If the command returns any other message, see the
     [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man1/openssl-verify.html#DIAGNOSTICS) to troubleshoot.
 
+<br>
 ### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
 When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Ops Manager foundation, the **BOSH Director Status**
@@ -259,6 +265,7 @@ To scale the BOSH health metric exporter VM down to zero instances in one of the
 
 1. Click **Apply Changes**.
 
+<br>
 ### <a id='tkgi-service-accounts'></a> Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts
 
 If you run SLI tests for TKGI through Healthwatch Exporter for TKGI, and you do not have an OpenID Connect (OIDC) provider for your Kubernetes clusters
@@ -291,6 +298,7 @@ To manually delete a service account:
     * `NAMESPACE` is the namespace that contains the service account you want to delete.
     * `SERVICE-ACCOUNT` is the service account you want to delete.
 
+<br>
 ### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Fill Disk Space on Prometheus VMs
 
 In Healthwatch v2.2.0, the backup scripts for Prometheus VMs do not clean up the intermediary snapshots created by BOSH Backup and Restore (BBR). This results
@@ -325,7 +333,8 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
     ls
     ```
 
-
+<br>
+<br>
 ## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
 
 If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system metrics** checkbox in the **System Logging** pane of the PAS
@@ -349,6 +358,8 @@ To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
 1. Click **Apply Changes**.
 
 
+<br>
+<br>
 ## <a id='tkgi-clusters'></a> Troubleshooting Missing TKGI Cluster Metrics
 
 The sections below describe how to troubleshoot missing TKGI cluster metrics in the Grafana UI.
@@ -367,6 +378,7 @@ _Healthwatch v2.2 Release Notes_.
 * The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for the clusters, causing TKGI cluster discovery to fail. For more
 information, see [Configure DNS for Your TKGI Cluster](#tkgi-dns) below.
 
+<br>
 ### <a id='diagnose'></a> Diagnose Prometheus Scrape Job Failure
 
 When the **Kubernetes Nodes** dashboard in the Grafana UI does not show metrics data, the Prometheus instance in the Healthwatch tile has failed to scrape
@@ -385,6 +397,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 
 1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason for the Prometheus instance failing to scrape your TKGI clusters.
 
+<br>
 ### <a id='node-panels-no-data'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
 If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
@@ -393,6 +406,7 @@ issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
 documentation](https://docs.pivotal.io/tkgi/1-10/upgrading.html).
 
+<br>
 ### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
 
 When TKGI cluster discovery fails, you see the following error:
@@ -449,11 +463,13 @@ recorded in the previous step. For more information, see the documentation for y
 
 1. Wait for your DNS server to update.
 
-
+<br>
+<br>
 ## <a id='grafana-healthwatch-dashboards'></a> Troubleshooting Healthwatch Exporter Tiles Using Grafana UI Dashboards
 
 By default, the Grafana UI includes dashboards for Healthwatch Exporter tiles under the **Healthwatch** folder.
 
+<br>
 ### <a id='healthwatch-slos'></a> Viewing Healthwatch Exporter Tile Metrics
 
 The **Healthwatch - SLOs** dashboard in the Grafana UI displays a row for each metric exporter VM you select from the corresponding metric exporter instance
@@ -469,6 +485,7 @@ more information, see the [Prometheus documentation](https://prometheus.io/docs/
 
 * **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during the selected time period.
 
+<br>
 ### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
 
 The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics that allow you to monitor the performance of each Healthwatch
