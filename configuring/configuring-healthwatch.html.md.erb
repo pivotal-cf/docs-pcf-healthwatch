@@ -144,21 +144,21 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
       by a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance
       does not verify the identity of the server for your external service or database. This checkbox is deactivated by default.
 
-1. For **Free disk chunk size**, enter in MB the size that you want to specify for free chunks of disk. The default value is `6144`. Healthwatch uses this
-free chunk size to calculate the available free disk chunks super value metric (SVM), which it then uses to calculate the `Diego_AvailableFreeChunksDisk`
-metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends the `Diego_AvailableFreeChunksDisk`
-metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server or external aggregation
-service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM -
-Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the SVM Forwarder VM,
-see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+  1. For **Chunk size to calculate Diego_AvailableFreeChunksDisk SVM**, enter in MB the size that you want to specify for free chunks of disk. The default value
+is `6144`. Healthwatch uses this  free chunk size to calculate the available free disk chunks super value metric (SVM), which it then uses to calculate the
+`Diego_AvailableFreeChunksDisk` metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends
+the`Diego_AvailableFreeChunksDisk` metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server
+or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
+[SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
+the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-1. For **Free memory chunk size**, enter in MB the size that you want to specify for free chunks of memory. The default value is `4096`. Healthwatch uses this
-free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the `Diego_AvailableFreeChunksMemory` metric. If you
-configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends the `Diego_AvailableFreeChunksMemory` metric back
-into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server or external aggregation service. For more
-information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and [SVM Forwarder VM - Healthwatch Component
-Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the SVM Forwarder VM, see [(Optional)
-Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+  1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
+value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
+`Diego_AvailableFreeChunksMemory` metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends the
+`Diego_AvailableFreeChunksMemory` metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server
+or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
+[SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
+SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
 1. (Optional) For **Static IP addresses for Prometheus VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
@@ -278,6 +278,13 @@ alerts.
 
 1. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Grafana
 instance. These IP addresses must not be within the reserved IP ranges you configured in the BOSH Director tile.
+
+1. (Optional) If you want to use Grafana legacy alerting instead of new alerting, activate **Opt out of Grafana Alerting** chackbox. Please note that
+all new alerts and changes made exclusively in Grafana Alerting will be deleted.
+
+1. (Optional) If you want to disable `gravatar`, activate **Disable gravatar** chackbox.
+
+1. (Optional) To log all access to Grafana, activate **Enable router logging** checkbox. It will allow to audit all traffic into the system (e.g. for legal reasons).
 
 1. Click **Save**.
 

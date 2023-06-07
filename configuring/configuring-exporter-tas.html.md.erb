@@ -135,6 +135,10 @@ checkbox is deactivated by default.
       * **CF CLI 8:** Allows the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v8.
     * If you have PAS v2.7 installed, select **6 (Use with TAS 2.7 only)** to allow the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v6.
 
+1. (Optional) If `Metric Registrar` is configured in your TAS for VMs tile and you want Healthwatch to skip scraping of custom application metrics,
+activate **Filter out custom application metrics** checkbox. This will filter out custom application `gauge` and `counter` metrics collected by
+the `Metric Registrar` framework.
+
 1. Click **Save**.
 
 
