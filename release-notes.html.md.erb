@@ -14,7 +14,7 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ### <a id='2-2-7'></a> v2.2.7
 
-**Release Date:** April 13, 2023
+**Release Date:** July 12, 2023
 
 * **[Security Fix]** The following CVEs were fixed by upgrading `Grafana` release version:
 [CVE-2023-28119](https://nvd.nist.gov/vuln/detail/CVE-2023-28119),
@@ -33,12 +33,17 @@ load on the GoRouter VMs.
 * **[Feature]** The `bosh` (`Bosh director` VM) is listed among the VMs in the `VM Health` panel of the
 `System at a Glance` dashboard.
 
+* **[Feature]** In `Logging and Metrics Pipeline` dashboard new chart is added to use `messages_dropped_per_drain` metric
+* to get the drops per drain and the `drain_url` and `drain_scope` tags gives the possibility to filter by the drain to see if there are drops.
+
 * **[Feature]** Added option to log all access to `Grafana`.
 
 * **[Feature]** Added option to enable/disable `gravatar`.
 
 * **[Feature]** Added option to decrease the traffic by filtering out custom application metrics collected by the
 `Metric Registrar` framework.
+
+* **[Feature]** Added option to manage maximum JVM heap size which uses `80%` of available memory by default.
 
 * **[Feature]** When hovering over a series in the `VM Health` panel of the `System at a Glance Page`, then clicking a
 `Show job details` it will navigate to the `Job details` page for whatever series being hovered over.
