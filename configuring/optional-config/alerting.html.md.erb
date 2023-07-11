@@ -461,21 +461,26 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 
         <p class='note'><strong>Note:</strong><code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
 
-    * To silence all alerts without specifying amount of time, run:
+    * To silence an alert indefinitely, run:
       ```
-      amtool silence add BOSHDirectorStatus -c 'COMMENT' --alertmanager.url http://localhost:10401
-      ```
-      Where:
-
-      * `COMMENT` is any notes about this silence you want to add.
-
-1. Record the ID string from the output. You can use this ID to end the silence early.
-    * To end the silence, run:
-      ```
-      amtool silence --alertmanager.url http://localhost:10401 expire SILENCE-ID
+      amtool silence add ALERT-NAME -c 'COMMENT' --alertmanager.url http://localhost:10401
       ```
       Where:
+      * `ALERT-NAME` is the name of the alert you want to silence.
+      * `COMMENT` is a note about why the alert is being silenced.
 
-      * `SILENCE-ID` is the recorded ID string.
+1. Record the ID string from the output. You can use this ID to unmute the alert
+    * To unmute the alert, run:
+      ```
+      amtool silence --alertmanager.url http://localhost:10401 expire SILENCED-ID
+      ```
+      Where:
+      * `SILENCED-ID` is the recorded ID string.
+
+1. If you would like to see what alerts are currently silenced
+  * Run:
+    ```
+    amtool silence query
+    ```
 
 1. For more information, run `amtool --help` or see the [Alertmanager   documentation](https://github.com/prometheus/alertmanager#amtool) on GitHub.
