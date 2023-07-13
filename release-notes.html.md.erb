@@ -12,6 +12,52 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-7'></a> v2.2.7
+
+**Release Date:** July 12, 2023
+
+* **[Security Fix]** The following CVEs were fixed by upgrading `Grafana` release version:
+[CVE-2023-28119](https://nvd.nist.gov/vuln/detail/CVE-2023-28119),
+[CVE-2023-1387](https://nvd.nist.gov/vuln/detail/CVE-2023-1387).
+
+* **[Security Fix]** Upgraded `golang` version to address multiple CVEs.
+  For more information, see:
+  [CVE-2023-24537](https://nvd.nist.gov/vuln/detail/CVE-2023-24537),
+  [CVE-2023-24534](https://nvd.nist.gov/vuln/detail/CVE-2023-24534),
+  [CVE-2023-24538](https://nvd.nist.gov/vuln/detail/CVE-2023-24538),
+  [CVE-2023-24536](https://nvd.nist.gov/vuln/detail/CVE-2023-24536) in the National Vulnerability Database.
+
+* **[Feature]** In the **Router** dashboard in the Grafana UI, a new chart has been added using the `system.cpu.sys`
+metric to better capture the full CPU load of the GoRouter VMs.
+
+* **[Feature]** In the **Logging and Metrics Pipeline** dashboard in the Grafana UI, a new chart has been added using
+the `messages_dropped_per_drain`. This metric provides `drain_url` and `drain_scope` tags which allows for the possibility of further filtering.
+
+* **[Feature]** In the **System at a Glance** dashboard in the Grafana UI, now contains the `bosh` (`Bosh director`) VM in the **VM Health** panel.
+
+* **[Feature]** In the **System at a Glance** dashboard in the Grafana UI, when hovering over a series in the **VM Health** panel and then clicking
+`Show job details` a user will be taken to the **Job details** page for that series.
+
+* **[Feature]** Added the option to log all access to the `Grafana` VM.
+
+* **[Feature]** Added the option to enable/disable `gravatar`.
+
+* **[Feature]** Added the option to decrease traffic by filtering out custom application metrics collected by the
+`Metric Registrar` framework.
+
+* **[Feature]** Added the option to configure maximum JVM heap size which uses `80%` of available memory by default.
+
+* **[Feature Improvement]** All dashboards in `Grafana` now have a `1m` refresh interval by default.
+
+Healthwatch v2.2.7 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.39.1           |
+| Grafana      | 9.5.2            |
+| Alertmanager | 0.24.0           |
+| PXC          | 1.0.3            |
+
 ### <a id='2-2-6'></a> v2.2.6
 
 **Release Date:** April 13, 2023
@@ -50,7 +96,7 @@ Healthwatch v2.2.6 uses the following open-source component versions:
 * **[Feature]** You can configure the Prometheus instance to use a bearer token to log in to a remote storage endpoint. For more information, see [Prometheus
 Can Log In to Remote Storage with a Bearer Token](#bearer-token-remote) below.
 
-* **[Feature]** When the SVM Forwarder VM and the BOSH deployment metric exporter VM are both deployedin the Healthwatch Exporter for VMware Tanzu
+* **[Feature]** When the SVM Forwarder VM and the BOSH deployment metric exporter VM are both deployed in the Healthwatch Exporter for VMware Tanzu
 Application Service for VMs (TAS for VMs) tile, the SVM Forwarder VM emits the `bosh_deployments_status` metric into the Loggregator Firehose. For more
 information, see [BOSH Deployments Status Emitted Into the Loggregator Firehose](#bosh-deployment-metric) below.
 
