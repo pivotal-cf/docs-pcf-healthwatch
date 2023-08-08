@@ -12,6 +12,26 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ## <a id='releases'></a> Releases
 
+### <a id='2-2-8'></a> v2.2.8
+
+**Release Date:** Aug 10, 2023
+
+* **[Feature]** Added a `Time Intervals` config in the Healthwatch tile in `Alertmanager` pane that specifies
+a named interval of time that may be referenced in the routing tree to mute/activate particular routes for particular times of the day.
+For more information, see [Prometheus Documentation](https://prometheus.io/docs/alerting/latest/configuration/#time_interval:~:text=active_time_intervals%3A%0A%20%20%20%20%20%20%2D%20offhours%0A%20%20%20%20%20%20%2D%20holidays-,%3Ctime_interval%3E,-A%20time_interval%20specifies).
+
+* **[Bug Fix]** Fixed `user already exists` error occurred during UAA authentication after upgrading the Healthwatch to newer version.
+For more information, see [User already exists error during UAA authentication after upgrading the Healthwatch tile](#user-already-exists-error) below.
+
+Healthwatch v2.2.8 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.46.0           |
+| Grafana      | 9.5.7            |
+| Alertmanager | 0.25.0           |
+| PXC          | 1.0.14           |
+
 ### <a id='2-2-7'></a> v2.2.7
 
 **Release Date:** July 17, 2023
@@ -48,6 +68,9 @@ the `messages_dropped_per_drain`. This metric provides `drain_url` and `drain_sc
 * **[Feature]** Added the option to configure maximum JVM heap size which uses `80%` of available memory by default.
 
 * **[Feature Improvement]** All dashboards in `Grafana` now have a `1m` refresh interval by default.
+
+* **[Known Issue]** After upgrading to the Healthwatch 2.2.7 the UAA authentication fails while trying to login to Grafana.
+For more information, see [User already exists error during UAA authentication after upgrading the Healthwatch](#user-already-exists-error) below.
 
 Healthwatch v2.2.7 uses the following open-source component versions:
 
@@ -653,3 +676,12 @@ In Healthwatch v2.2.1, under rare circumstances, the Prometheus instance fails t
 subsequent failures when the Prometheus instance attempts to process new metrics.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later.
+
+### <a id='user-already-exists-error'></a> User already exists error during UAA authentication after upgrading the Healthwatch
+
+This known issue is fixed in Healthwatch v2.2.8 and later.
+
+Upgrade of Healthwatch to v2.2.7 causes an `user already exists` error when trying to login to the Grafana using
+UAA authentication. There is a new option added in the Grafana configuration file.
+
+To fix this issue, upgrade the Healthwatch to v2.2.8 or later.
