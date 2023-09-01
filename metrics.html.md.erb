@@ -5,31 +5,44 @@ owner: Healthwatch
 
 <strong><%= modified_date %></strong>
 
-This topic describes the metrics that the Healthwatch Exporter for VMware Tanzu Application Service for VMs (TAS for VMs) tile and the Healthwatch Exporter
-for Tanzu Kubernetes Grid Integrated Edition (TKGI) tile generate.
+This topic describes the metrics that the Healthwatch Exporter for VMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs) tile and the Healthwatch Exporter
+for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) generate.
 
-
+<br>
 ## <a id='overview'></a> Overview of Healthwatch Metrics
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy metric exporter VMs to generate component metrics and service level indicators
-(SLIs) related to the health of your TAS for VMs and TKGI deployments. Each metric exporter VM exposes these metrics and SLIs on a Prometheus exposition
-endpoint, `/metrics`.
+(SLIs) related to the health of your TAS for VMs and TKGI deployments:  
+
+* [BOSH SLIs](#bosh-sli)  
+* [Platform Metrics](#platform-sli)  
+* [Healthwatch Component Metrics](#component-monitoring-metric)  
+
+Each metric exporter VM exposes these metrics and SLIs on a Prometheus exposition endpoint, `/metrics`.  
 
 The Prometheus instance that exists within your metrics monitoring system then scrapes each `/metrics` endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system. You can configure the frequency at which the Prometheus instance scrapes the `/metrics` endpoints in the **Prometheus**
 pane of the Healthwatch for VMware Tanzu tile. To configure the scrape interval for the Prometheus instance, see [Configure
 Prometheus](configuring/configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
-The name of each metric is is PromQL format. For more information, see the [Prometheus
-documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/).
+The name of each metric is in PromQL format. For more information, see the [Prometheus
+documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/).  
 
 
+<br>
 ## <a id='bosh-sli'></a> BOSH SLIs
 
 In an Ops Manager foundation, the BOSH Director manages the VMs that each tile deploys. If the BOSH Director fails or is not responsive, the VMs that the BOSH
-Director manages also fail. Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
-the BOSH Director: the BOSH health metric exporter VM and the BOSH deployment metric exporter.
+Director manages also fail.  
 
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
+the BOSH Director: the BOSH health metric exporter VM and the BOSH deployment metric exporter:  
+
+* [BOSH Health Metric Exporter VM](#bosh-health-exporter)  
+* [BOSH Deployment Metric Exporter VM](#bosh-deployments-exporter) 
+
+
+<br>
 ### <a id='bosh-health-exporter'></a> BOSH Health Metric Exporter VM
 
 The BOSH health metric exporter VM, `bosh-health-exporter`, creates a BOSH deployment called `bosh-health` every ten minutes. This BOSH deployment deploys
@@ -122,6 +135,7 @@ The following table describes each metric the BOSH health metric exporter VM gen
   </tr>
 </table>
 
+<br>
 ### <a id='bosh-deployments-exporter'></a> BOSH Deployment Metric Exporter VM
 
 The BOSH deployment metric exporter VM, `bosh-deployments-exporter`, checks every 30 seconds whether any BOSH deployments other than the `bosh-health`
@@ -201,12 +215,23 @@ The following table describes each metric the BOSH deployment metric exporter VM
   </tr>
 </table>
 
-
+<br>
 ## <a id='platform-sli'></a> Platform Metrics
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Ops Manager and
-runtime components. You can use these metrics to calculate percent availability and error budgets.
+runtime components.  
 
+You can use the following Platform Metrics metrics to calculate percent availability and error budgets:  
+
+* [TAS for VMs SLI Exporter VM](#pas-sli-exporter)  
+* [TKGI SLI Exporter VM](#pks-sli-exporter)  
+* [Certificate Expiration Metric Exporter VM](#cert-expiration-exporter)  
+* [Prometheus VM](#tsdb)  
+* [SVM Forwarder VM - Platform Metrics](#svm-forwarder-platform)  
+
+
+
+<br>
 ### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter VM
 
 Developers create and manage apps on TAS for VMs using the Cloud Foundry Command Line Interface (cf CLI). Healthwatch Exporter for TAS for VMs deploys the TAS
@@ -326,6 +351,7 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
 </table>
 
+<br>
 ### <a id='pks-sli-exporter'></a> TKGI SLI Exporter VM
 
 Operators create and manage Kubernetes clusters using the TKGI Command Line Interface (TKGI CLI). Healthwatch Exporter for TKGI deploys the TKGI SLI exporter
@@ -420,6 +446,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
   </tr>
 </table>
 
+<br>
 ### <a id='cert-expiration-exporter'></a> Certificate Expiration Metric Exporter VM
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
@@ -439,6 +466,7 @@ The following table describes the metric the certificate expiration metric expor
   </tr>
 </table>
 
+<br>
 ### <a id='tsdb'></a> Prometheus VM
 
 In the **Canary URLs** pane of the Healthwatch tile, you configure target URLs to which the Blackbox Exporters in the Prometheus instance sends canary tests.
@@ -565,6 +593,7 @@ The following table describes each metric the Blackbox Exporters in the Promethe
   </tr>
 </table>
 
+<br>
 ### <a id="svm-forwarder-platform"></a> SVM Forwarder VM - Platform Metrics
 
 Super value metrics (SVMs) are composite metrics that the Prometheus instance in Healthwatch v2.2 generates in a similar format to the super metrics used in
@@ -706,11 +735,17 @@ The following table describes each platform metric the SVM Forwarder VM sends to
   </tr>
 </table>
 
-
+<br>
 ## <a id="component-monitoring-metrics"></a> Healthwatch Component Metrics
 
-The following metrics exist for the purpose of monitoring the Healthwatch components.
+The following metrics exist for the purpose of monitoring the Healthwatch components:  
 
+* [TKGI Metric Exporter VM](#pks-exporter)  
+* [Healthwatch Exporter for TAS for VMs Metric Exporter VMs](#pas-exporters)  
+* [Prometheus Exposition Endpoint](#prometheus-exposition)  
+* [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)  
+
+<br>
 ### <a id='pks-exporter'></a> TKGI Metric Exporter VM
 
 Healthwatch Exporter for TKGI deploys a TKGI metric exporter VM, `pks-exporter`, that collects BOSH system metrics for TKGI and converts them to a Prometheus
@@ -760,14 +795,20 @@ The following table describes each metric the TKGI metric exporter VM collects a
   </tr>
 </table>
 
+<br>
 ### <a id='pas-exporters'></a> Healthwatch Exporter for TAS for VMs Metric Exporter VMs
 
 Healthwatch Exporter for TAS for VMs deploys metric exporter VMs that collect metrics from the Loggregator Firehose and convert them into a Prometheus
 exposition format.
 
 Each of the following metric exporter VMs collects and converts a single metric type from the Loggregator Firehose. The names of the metric exporter VMs
-correspond to the types of metrics they collect and convert.
+correspond to the types of metrics they collect and convert:  
 
+* [Counter Metric Exporter VM](#pas-exporter-counter)  
+* [Gauge Metric Exporter VM](#pas-exporter-gaug)  
+
+
+<br>
 #### <a id='pas-exporter-counter'></a> Counter Metric Exporter VM
 
 The counter metric exporter VM, `pas-exporter-counter`, collects counter metrics from the Loggregator Firehose and converts them into a Prometheus exposition
@@ -799,6 +840,7 @@ The following table describes each metric the counter metric exporter VM collect
   </tr>
 </table>
 
+<br>
 #### <a id='pas-exporter-gauge'></a> Gauge Metric Exporter VM
 
 The gauge metric exporter VM, `pas-exporter-gauge`, collects gauge metrics from the Loggregator Firehose and converts them into a Prometheus exposition
@@ -831,6 +873,7 @@ The following table describes each metric the gauge metric exporter VM collects 
   </tr>
 </table>
 
+<br>
 ### <a id="prometheus-exposition"></a> Prometheus Exposition Endpoint
 
 Most of the metric exporter VMs generate metrics concerning how the Prometheus instance interacts with the `/metrics` endpoint on each metric exporter VM.
@@ -860,6 +903,7 @@ The following table describes each metric the `/metrics` endpoint on each metric
   </tr>
 </table>
 
+<br>
 ### <a id="svm-forwarder-components"></a> SVM Forwarder VM - Healthwatch Component Metrics
 
 SVMs are composite metrics that the Prometheus instance in Healthwatch v2.2 generates in a similar format to the super metrics used in Pivotal Healthwatch
