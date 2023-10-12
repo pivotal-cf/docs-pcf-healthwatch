@@ -156,7 +156,7 @@ You can scale Healthwatch tile resources either vertically or horizontally:
 
     * **Prometheus**: You can scale the Prometheus instance vertically only. Do not scale Prometheus horizontally.  
     
-    * **Grafana**: Healthwatch deploys a single Grafana VM by default. If you need Grafana to be HA, you can scale the Grafana instance horizontally. 
+    * **Grafana**: Healthwatch deploys a single Grafana VM by default. If you need Grafana to have high availability (HA), you can scale the Grafana instance horizontally. 
     If you make Grafana HA, VMware recommends you also scale your MySQL instances.  
 
     * **MySQL**: If you make Grafana HA, VMware recommends scaling your MySQL instance to three VMs.  
@@ -179,9 +179,7 @@ those components, which decreases the chances of downtime.
 
 To configure Healthwatch for HA:  
 
-1. Complete the steps in [Scale Healthwatch Component VMs](#component-vms-scaling).  
-
-    Configure all Healthwatch components for HA:  
+1. Complete the steps in [Scale Healthwatch Component VMs](#component-vms-scaling) with the following HA configurations:    
 
     * **Prometheus**: Healthwatch deploys two Prometheus VMs by default. With two VMs in the Prometheus instance, Prometheus and Alertmanager are HA by default.    
     * **Grafana**: Scale the Grafana instance horizontally.  
@@ -201,7 +199,7 @@ For example, you might want to remove Grafana from your Healthwatch deployment a
 If you remove Grafana from your Healthwatch deployment, scale Grafana, MySQL, and MySQL Proxy to <code>0</code> at the same time. 
 MySQL is used only to store Grafana settings and 
 MySQL Proxy is used only to route client connections to healthy MySQL nodes in an HA Grafana deployment. 
-Neither component is necessary if Grafana has not been deployed.
+Neither component is necessary if you have not deployed Grafana.
 </p>
 
 To remove Grafana from your Healthwatch deployment:  
