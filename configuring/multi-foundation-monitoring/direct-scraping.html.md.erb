@@ -155,5 +155,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
   **Credentials** tab in the Healthwatch Exporter for TAS for VMs tile in a previous step.
   1. For **CA certificate for TLS**, enter the Ops Manager root CA that you retrieved in a previous step.
-  1. For **Target server name**, enter the name of the server that facilitates TLS communication between the Prometheus instance in the Healthwatch tile and
-  the metric exporter VMs that the Healthwatch Exporter tile deploys.
+  1. For **Target server name**, enter the custom hostname resolver to use when verifying the TLS certificates. 
+  Enter the name of the server that facilitates TLS communication between the Prometheus instance 
+  in the Healthwatch tile and the metric exporter VMs that the Healthwatch Exporter tile deploys. 
+  If the CN or SAN on the TLS certificate does not match the URL or IP of the target server, enter what is on the TLS certificate.
