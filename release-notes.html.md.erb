@@ -14,6 +14,14 @@ v2.2 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** October 12, 2023
 
+* **[Breaking Change]** Healthwatch now requires the use of [system-metrics-agent](https://github.com/cloudfoundry/system-metrics-release/blob/main/docs/system-metrics-agent.md)
+processes to gather "system" metrics from BOSH deployed VMs.  Please make sure to enable `Enable System Metrics`
+in the `Director Config` tab of the BOSH Director tile. Ensure that `Apply Changes` is run on all tiles and that
+all VMs deployed via service brokers are upgraded prior to upgrading Healthwatch. The impact of not performing this
+action is that Healthwatch dashboards will fail to populate with metrics about VM health, cpu, memory, disk and other
+statistics. Alerts may also be affected. Any custom dashboards that query "system" metrics with an `origin` label value
+of `bosh-system-metrics-forwarder` will need to be updated to use `system-metrics-agent` as the `origin` label value.
+
 * **[Feature]** Added support of VMware Tanzu Kubernetes Grid Integrated Edition v1.16.
 
 Healthwatch v2.2.9 uses the following open-source component versions:
