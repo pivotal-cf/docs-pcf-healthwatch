@@ -94,31 +94,31 @@ When installing or upgrading to Healthwatch v2.1, you see the following error:
 This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7. To resolve this issue:
 
 1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. Change the user to `root`.
 
-1. Open the Rails console by running:
+2. Open the Rails console by running:
 
     ```
     > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
     ```
     Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Ops Manager deployment.
 
-1. Set the decryption passphrase by running:
+3. Set the decryption passphrase by running:
 
     ```
     irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
     ```
     Where `DECRYPTION-PASSPHRASE` is the decryption passphrase you want to set.
 
-1. Update the UAA restricted view access client secret by running:
+4. Update the UAA restricted view access client secret by running:
 
     ```
     irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
     ```
 
-1. Exit the Rails console and restart the `tempest-web` service by running:
+5. Exit the Rails console and restart the `tempest-web` service by running:
 
     ```
     irb(main):001:0> exit
@@ -147,7 +147,7 @@ for the Grafana instance, see [(Optional) Configure Grafana](configuring/configu
 To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
 
 1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. View information about the Grafana instance scrape target by running:
 
@@ -172,7 +172,7 @@ TKGI metric exporter VM to connect to the BOSH Director, you must correct any ce
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
 1. Log in to the TKGI metric exporter VM by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. View the certificate that the UAA server uses by running:
 
@@ -180,9 +180,9 @@ documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html
     openssl s_client -connect 10.0.0.5:8443
     ```
 
-1. Save the certificate as a `cert.pem` file.
+2. Save the certificate as a `cert.pem` file.
 
-1. Run:
+3. Run:
 
     ```
     openssl verify cert.pem
@@ -230,7 +230,7 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 To fix this issue, either upgrade to Healthwatch v2.1.9 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
 previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-iam-index.html).
 
 VMware recommends that you manually delete existing service accounts from previous TKGI SLI tests if running the `tkgi get-credentials` command returns an
 error similar to the following example:
@@ -262,7 +262,7 @@ This results in the disk space on Prometheus VMs filling up.
 To fix this issue, either upgrade to Healthwatch v2.1.9 or manually clean up the snapshots. To manually clean up the snapshots:
 
 1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. Run:
 
@@ -270,19 +270,19 @@ documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html
     sudo -i
     ```
 
-1. Empty the snapshots folder for the Prometheus VM by running:
+2. Empty the snapshots folder for the Prometheus VM by running:
 
     ```
     rm -rf /var/vcap/store/prometheus/snapshots/*
     ```
 
-1. Change into the snapshots folder by running:
+3. Change into the snapshots folder by running:
 
     ```
     cd /var/vcap/store/prometheus/snapshots
     ```
 
-1. Verify that the `/var/vcap/store/prometheus/snapshots` directory is empty by running:
+4. Verify that the `/var/vcap/store/prometheus/snapshots` directory is empty by running:
 
     ```
     ls
@@ -339,7 +339,7 @@ metrics from on-demand Kubernetes clusters created through the TKGI API.
 To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters:
 
 1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#bosh-ssh).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html).
 
 1. View information about the Prometheus instance scrape targets by running:
 
@@ -347,7 +347,7 @@ documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html
     curl -vk https://localhost:9090/api/v1/targets --cacert /var/vcap/jobs/prometheus/config/certs/prometheus_ca.pem --cert /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.pem --key /var/vcap/jobs/prometheus/config/certs/prometheus_certificate.key | /var/vcap/packages/prometheus_backup_jq/bin/jq .
     ```
 
-1. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason for the Prometheus instance failing to scrape your TKGI clusters.
+2. Find the scrape jobs for your TKGI clusters. The `lastError` field describes the reason for the Prometheus instance failing to scrape your TKGI clusters.
 
 ### <a id='node-panels-no-data'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
@@ -355,7 +355,7 @@ If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in 
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
 To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/1-10/upgrading.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-upgrade-index.html).
 
 ### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
 
@@ -377,14 +377,14 @@ plane of each of your TKGI clusters in the console for your IaaS.
 To configure DNS entries for the control planes of your TKGI clusters:
 
 1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/view-cluster-details.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-manage-index.html).
 
 1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/view-cluster-details.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-manage-index.html).
 
 1. In a web browser, log in to the user console for your IaaS.
 
-1. For each TKGI cluster, find the public IP address of the VM that has an internal IP address matching the **Kubernetes Master IP(s)** you recorded in a
+2. For each TKGI cluster, find the public IP address of the VM that has an internal IP address matching the **Kubernetes Master IP(s)** you recorded in a
 previous step. For more information, see the documentation for your IaaS:
   * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
   EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for a

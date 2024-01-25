@@ -13,6 +13,8 @@ In this README:
 
 **Note**: Use the version-specific branches to create PRs or make changes to the project. The **MASTER** branch is not updated.
 
+**Note**: The un-migrated versions shown in the table below are no longer accessible because the docs.pivotal.io site has been decommissioned. Ideally, these docs will be archived as PDFs.
+
 | Branch Name| Use for… | URL |
 |------------| ---------|-----|
 | master     | DO NOT USE | _n/a_ |

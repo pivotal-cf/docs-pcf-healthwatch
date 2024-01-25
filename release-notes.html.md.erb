@@ -590,7 +590,7 @@ containerd instead of in Docker. As a result, in TKGI v1.12 and above the `name`
 which the Grafana instance does not recognize.
 
 To fix this issue, upgrade to Healthwatch v2.2.2 or later. For more information about upgrading to Healthwatch v2.2, see [Upgrading
-Healthwatch](https://docs.pivotal.io/healthwatch/2-2/upgrading-healthwatch.html).
+Healthwatch](https://docs.vmware.com/en/Healthwatch-for-VMware-Tanzu/2.2/healthwatch/upgrading-healthwatch.html).
 
 ### <a id='no-data-nodes-tkgi-110'></a> No Data on Kubernetes Nodes Dashboard for TKGI v1.10
 
@@ -598,7 +598,7 @@ If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in 
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
 To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/1-10/upgrading.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-upgrade-index.html).
 
 ### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
 
@@ -624,9 +624,10 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 To fix this issue, either upgrade to Healthwatch v2.1.9 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
 previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
-documentation](https://docs.pivotal.io/tkgi/oidc-provider.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/2.4/tkg-deploy-mc/mgmt-iam-index.html).
 
-You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information, see [Healthwatch Exporter for TKGI Does Not
+You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information, see
+[Healthwatch Exporter for TKGI Does Not
 Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting Heathwatch_.
 
 ### <a id='bbr-backups-tsdb'></a> BBR Backup Snapshots Fill Disk Space on Prometheus VMs
