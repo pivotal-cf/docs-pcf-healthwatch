@@ -55,7 +55,7 @@ Interface (UAAC). Run:
     VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
     <br>
     <br>
-    For more information about the UAAC, see the [TAS for VMs documentation](https://docs.pivotal.io/application-service/uaa/uaa-user-management.html).
+    For more information about the UAAC, see the [TAS for VMs documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/uaa-user-management.html).
 
 1. Log in to the UAA instance by running:
 
@@ -65,7 +65,7 @@ Interface (UAAC). Run:
 
     Where `UAA-ADMIN-CLIENT-SECRET` is the UAA administrator client secret you recorded from the **Credentials** tab in the runtime tile in a previous step.
 
-1. Create a UAA client for the Grafana instance by running:
+2. Create a UAA client for the Grafana instance by running:
 
     ```
     uaac client add grafana \
@@ -83,7 +83,7 @@ Interface (UAAC). Run:
     tile.
     * `GRAFANA-ROOT-URL` is the root URL for the Grafana instance that you use to access the Grafana UI.
 
-1. If you are using TKGI, you must manually create UAA user groups to map to administrator, editor, and viewer permissions for Grafana. Run:
+3. If you are using TKGI, you must manually create UAA user groups to map to administrator, editor, and viewer permissions for Grafana. Run:
 
     ```
     uaac group add healthwatch.admin
@@ -94,7 +94,7 @@ Interface (UAAC). Run:
     If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
     previous step. Continue to the next step.
 
-1. Create a user account for the UAA client you created in a previous step to log in to the Grafana instance. Run:
+4. Create a user account for the UAA client you created in a previous step to log in to the Grafana instance. Run:
 
     ```
     uaac user add USERNAME -p SECRET --emails EMAIL
@@ -106,7 +106,7 @@ Interface (UAAC). Run:
     * `SECRET` is the secret you want to set for the user account.
     * `EMAIL` is the email address you want to associate with the user account.
 
-1. Assign user permissions to the user account you created in the previous step by running:
+5. Assign user permissions to the user account you created in the previous step by running:
 
     ```
     uaac member add GROUP USERNAME
