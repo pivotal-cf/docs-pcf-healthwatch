@@ -81,10 +81,10 @@ To configure the **Assign AZ and Networks** pane:
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about runtime
-networks, see [Required Subnets](https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets Requirements](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets) in _Platform Architecture and Planning Overview_ in the Ops Manager documentation.
+networks, see [Reference architectures](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html) in the Ops Manager documentation.
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about service networks, see [Required Subnets](https://docs.pivotal.io/ops-manager/refarch/index.html#pas-subnets) and [Subnets Requirements](https://docs.pivotal.io/ops-manager/refarch/index.html#pks-subnets) in _Platform Architecture and Planning Overview_ in the Ops Manager documentation.
+information about service networks, see [Reference architectures](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html) in the Ops Manager documentation.
 
 1. Click **Save**.
 
@@ -221,44 +221,44 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about internal authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#internal_auth).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html).
     * If your Ops Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
-        1. Click **Settings**.
-        1. Select **SAML Settings**.
-        1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
-        1. Click **Enable SAML Authentication**.
-        1. Return to the Ops Manager Installation Dashboard.
-        1. Click the **BOSH Director** tile.
-        1. Select the **Status** tab.
-        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
-        1. Select the **Credentials** tab.
-        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
-        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
+        2. Click **Settings**.
+        3. Select **SAML Settings**.
+        4. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
+        5. Click **Enable SAML Authentication**.
+        6. Return to the Ops Manager Installation Dashboard.
+        7. Click the **BOSH Director** tile.
+        8. Select the **Status** tab.
+        9. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        10. Select the **Credentials** tab.
+        11. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
+        12. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
       For more information about SAML authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#saml).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html).
     * If your Ops Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
-        1. Click **Settings**.
-        1. Select **LDAP Settings**.
-        1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
-        1. Click **Enable LDAP Authentication**.
-        1. Return to the Ops Manager Installation Dashboard.
-        1. Click the **BOSH Director** tile.
-        1. Select the **Status** tab.
-        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
-        1. Select the **Credentials** tab.
-        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
-        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
+        2. Click **Settings**.
+        3. Select **LDAP Settings**.
+        4. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
+        5. Click **Enable LDAP Authentication**.
+        6. Return to the Ops Manager Installation Dashboard.
+        7. Click the **BOSH Director** tile.
+        8. Select the **Status** tab.
+        9. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        10. Select the **Credentials** tab.
+        11. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
+        12. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
       For more information about LDAP authentication settings for your Ops Manager deployment, see the [Ops Manager
-      documentation](https://docs.pivotal.io/ops-manager/pcf-interface.html#ldap).
+      documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html).
 
-1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html#ssh).
+2. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html).
 
 1. Target the UAA instance for the BOSH Director by running:
 
@@ -268,7 +268,7 @@ documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html
     Where `BOSH-DIRECTOR-IP` is the IP address for the BOSH Director VM that you recorded from the **Status** tab in the BOSH Director tile in a previous
     step.
 
-1. Log in to the UAA instance:
+2. Log in to the UAA instance:
     * If your Ops Manager deployment uses internal authentication, log in to the UAA instance by running:
 
         ```
@@ -284,7 +284,7 @@ documentation](https://docs.pivotal.io/ops-manager/install/trouble-advanced.html
         Where `BOSH-UAA-CLIENT-SECRET` is the secret you recorded from the **Uaa Bosh Client Credentials** row in the **Credentials** tab in the BOSH Director
         tile in a previous step.
 
-1. When prompted, enter the UAA admin client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the **Credentials**
+3. When prompted, enter the UAA admin client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the **Credentials**
 tab in the BOSH Director tile in a previous step.
 
 1. Create a UAA client for the BOSH deployment metric exporter VM by running:
@@ -300,13 +300,13 @@ tab in the BOSH Director tile in a previous step.
     * `CLIENT-USERNAME` is the username you want to set for the UAA client.
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
 
-1. Return to the Ops Manager Installation Dashboard.
+2. Return to the Ops Manager Installation Dashboard.
 
-1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile.
+3. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile.
 
-1. Select **BOSH Deployment Metric Exporter VM**.
+4. Select **BOSH Deployment Metric Exporter VM**.
 
-1. For **UAA client credentials**, enter the username and secret for the UAA client you just created.
+5. For **UAA client credentials**, enter the username and secret for the UAA client you just created.
 
 
 ## <a id='errands'></a> (Optional) Configure Errands
@@ -320,15 +320,15 @@ By default, Ops Manager always runs all errands.
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see the [Ops Manager
-documentation](https://docs.pivotal.io/ops-manager/install/managing_errands.html).
+documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
 1. Select **Errands**.
 
-1. (Optional) Choose whether to always run or never run the **Smoke Tests** errand. This errand verifies that the metric exporter VMs are running.
+2. (Optional) Choose whether to always run or never run the **Smoke Tests** errand. This errand verifies that the metric exporter VMs are running.
 
-1. Click **Save**.
+3. Click **Save**.
 
 
 ## <a id='syslog'></a> (Optional) Configure Syslog
@@ -401,7 +401,7 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager documentation](https://docs.pivotal.io/ops-manager/install/review-pending-changes.html).
+For more information, see the [Ops Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
