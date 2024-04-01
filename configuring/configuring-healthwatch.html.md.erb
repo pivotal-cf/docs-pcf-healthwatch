@@ -531,6 +531,28 @@ To configure the **Resource Config** pane:
 
 1. Click **Save**.
 
+## <a id='resource-config'></a> (Optional) Configure for OpenTelemetry
+
+Follow these steps to configure HealthWatch to receive data through the OpenTelemetry collector for Tanzu Application Service 6.0 and above:
+
+1. Click the Settings tab, select **Resource Config**.
+    1. Set the folowing configurations to O because they are only used by FireHose.
+      1. **TAS Configure Exporter**
+      1. **TAS Gauge Exporter**
+    1. If you made any cahnnges, click **Save**.
+1. Click the **Certificates** tab:
+    1. Click **Link to Credential** next to **Healthwatch Exporter Client Mtls**.
+    1. Copy the certificate content and use it for step 3.2 below.
+    1. If you made any cahnnges, click **Save**.
+1. Open the Tanzu Application Service tile.
+      1. Click Settings and select **System Logging**.
+        1. Make sure that the following configirations are deselected:
+        * **Enable V1 Firehose**
+        * **Enable V1 Firehose**
+        1. If you made any cahnnges, click **Save**.
+      1. Scroll down to the *OpenTelemetry Collector Metric Exporters (beta)* configuration:
+        1. Scolld down to the end of the configurations and  paste the certificate details you got in step 2.2.
+        1. Click **Save**.
 
 ## <a id='apply-changes'></a> Deploy Healthwatch
 
