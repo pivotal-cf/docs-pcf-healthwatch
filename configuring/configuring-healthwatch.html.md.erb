@@ -149,6 +149,7 @@ the`Diego_AvailableFreeChunksDisk` metric back into the Loggregator Firehose so 
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
 the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+<p class='note'><strong>Note:</strong> If you are using the OpenTelemetry Collector this step does not apply.</p>
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
 value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
@@ -157,6 +158,7 @@ value is `4096`. Healthwatch uses this free chunk size to calculate the availabl
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
 SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+<p class='note'><strong>Note:</strong> If you are using the OpenTelemetry Collector this step does not apply.</p>
 
 1. (Optional) For **Static IP addresses for Prometheus VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
