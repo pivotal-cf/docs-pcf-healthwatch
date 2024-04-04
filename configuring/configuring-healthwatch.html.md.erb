@@ -149,6 +149,7 @@ the`Diego_AvailableFreeChunksDisk` metric back into the Loggregator Firehose so 
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
 the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+<p class='note'><strong>Note:</strong> If you are using the OpenTelemetry Collector this step does not apply.</p>
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
 value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
@@ -157,6 +158,7 @@ value is `4096`. Healthwatch uses this free chunk size to calculate the availabl
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
 SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+<p class='note'><strong>Note:</strong> If you are using the OpenTelemetry Collector this step does not apply.</p>
 
 1. (Optional) For **Static IP addresses for Prometheus VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
@@ -529,6 +531,23 @@ To configure the **Resource Config** pane:
 
 1. Click **Save**.
 
+## <a id='resource-config'></a> (Optional) Configure for OpenTelemetry
+
+Follow these steps to configure HealthWatch and receive data through the OpenTelemetry collector for Tanzu Application Service 6.0 and above:
+
+1. Click on Healthwatch exporter tile and select **Resource Config** under the **Settings** tab.
+    1. Set the **TAS Configure Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
+    1. Click **Save**.
+1. Click the **Credentials** tab:
+    1. Click **Link to Credential** next to **Healthwatch Exporter Client Mtls**.
+    1. Copy the certificate content and use it for step 3.2.1 below.
+1. Open the Tanzu Application Service tile.
+      1. Click Settings and select **System Logging**.
+        1. Deselect the **Enable V1 Firehose** and **Enable V1 Firehose** configurations.
+        1. If you made any changes, click **Save**.
+      1. Scroll down to the *OpenTelemetry Collector Metric Exporters (beta)* configuration:
+        1. Scroll down to the end of the configurations and  paste the certificate details you got in step 2.2.
+        1. Click **Save**.
 
 ## <a id='apply-changes'></a> Deploy Healthwatch
 
