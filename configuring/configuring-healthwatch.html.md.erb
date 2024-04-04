@@ -531,7 +531,7 @@ To configure the **Resource Config** pane:
 
 1. Click **Save**.
 
-## <a id='resource-config'></a> (Optional) Configure for OpenTelemetry
+## <a id='opentelemetry'></a> (Optional) Configure for OpenTelemetry
 
 Follow these steps to configure HealthWatch and receive data through the OpenTelemetry collector for Tanzu Application Service 6.0 and above:
 
@@ -548,6 +548,7 @@ Follow these steps to configure HealthWatch and receive data through the OpenTel
       1. Scroll down to the *OpenTelemetry Collector Metric Exporters (beta)* configuration:
         1. Scroll down to the end of the configurations and  paste the certificate details you got in step 2.2.
         1. Click **Save**.
+        1. [Test](configuring-healthwatch.html#opentelemetry)
 
 ## <a id='apply-changes'></a> Deploy Healthwatch
 
@@ -574,4 +575,3 @@ VMs](configuring-exporter-tas.html).
 * If you have TKGI installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for
 TKGI](configuring-exporter-tkgi.html).
 
-* [Test](configuring-configuring-healthwatch.html#optional-configure-for-opentelemetry-14)
