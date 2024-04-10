@@ -20,9 +20,9 @@ collector is collocated on TAS VMs and will only collect metrics from these VMs.
 prometheus exporter in OTel collector does not allow leading underscore, except in private metrics. So the OTel collector is removing any leading underscores in metric
 names. Also SVM forwarder VM will not work with otel and will have to be switched off if it is switched on.
 
-* **[Feature]** Healthwatch 2.3.0 has support for using OTel collectors (instead of Firehose) for collecting metrics. For the steps for configuring OTel collector in
-Healthwatch, see [Configure for OpenTelemetry](configuring-healthwatch.html#opentelemetry). Once OTel collector is configured, Healthwatch automatically switches
-to collecting metrics from OTel collector.
+* **[Feature]** Healthwatch 2.3.0 has support for using OTel collectors (instead of Firehose) for collecting metrics. 
+## For the steps for configuring OTel collector in Healthwatch, see [Configure for OpenTelemetry](configuring-healthwatch.html#opentelemetry). 
+Once OTel collector is configured, Healthwatch automatically switches to collecting metrics from OTel collector.
 
 * **[Feature]** Healthwatch 2.3.0 has been upgraded to Grafana 10, hence providing the new features offered by Grafana 10.
 
