@@ -1,7 +1,7 @@
 # Healthwatch for VMware Tanzu
 
 * [Healthwatch for VMware Tanzu](index.html)
-* [Healthwatch v2.3 Release Notes](release-notes.html)
+* [Healthwatch Release Notes](release-notes.html)
 * [Healthwatch Architecture](architecture.html)
 * [Upgrading Healthwatch](upgrading-healthwatch.html)
 * [Installing](installing/index.html)
