@@ -14,11 +14,12 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** April 10, 2024
 
-* **[Breaking Change]** Changes might be observed in Healthwatch metrics on switching to OTel collector for metric collection. All such changes have been described in
-this section. Metrics that were coming from Firehose-specific components like reverse log proxy will not be available after enabling OTel collector. Currently the OTel
-collector is collocated on TAS VMs and will only collect metrics from these VMs. As a result of this, metrics from other tiles will not be collected by the OTel collector. The
-prometheus exporter in OTel collector does not allow leading underscore, except in private metrics. So the OTel collector is removing any leading underscores in metric
-names. Also SVM forwarder VM will not work with otel and will have to be switched off if it is switched on.
+* **[Breaking Changes]** You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry collector. The changes you come across are listed below: 
+    
+  * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry collector. 
+  * Currently, the OpenTelemetry collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry collector. 
+  * The Prometheus exporter in the OpenTelemetry collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry collector removes any leading underscores in metric names.
+  * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
 
 * **[Feature]** Healthwatch 2.3.0 has support for using OTel collectors (instead of Firehose) for collecting metrics. For the steps for configuring OTel collector in
 Healthwatch, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once OTel collector is configured, Healthwatch automatically switches
