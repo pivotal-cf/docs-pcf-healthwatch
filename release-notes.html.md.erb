@@ -21,13 +21,12 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
   * The Prometheus exporter in the OpenTelemetry collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry collector removes any leading underscores in metric names.
   * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
 
-* **[Feature]** Healthwatch 2.3.0 has support for using OTel collectors (instead of Firehose) for collecting metrics. For the steps for configuring OTel collector in
-Healthwatch, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once OTel collector is configured, Healthwatch automatically switches
-to collecting metrics from OTel collector.
+* **[Feature]** Healthwatch 2.3.0 supports using the OpenTelemetry collector (instead of Firehose) to collect metrics For more information, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once the OpenTelemetry collector is configured, Healthwatch automatically switches
+to collecting metrics from the OpenTelemetery collector.
 
-* **[Feature]** Healthwatch 2.3.0 has been upgraded to Grafana 10, hence providing the new features offered by Grafana 10.
+* **[Feature]** Healthwatch 2.3.0 is upgraded to Grafana 10 and provides the new features offered by Grafana 10.
 
-* **[Security Fix]** The following CVEs were fixed by upgrading `Grafana` release version:
+* **[Security Fix]** The following CVE was fixed by upgrading the `Grafana` release version:
 [CVE-2023-49569](https://nvd.nist.gov/vuln/detail/CVE-2023-49569)
 
 Healthwatch v2.3.0 uses the following open-source component versions:
