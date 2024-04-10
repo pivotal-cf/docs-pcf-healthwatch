@@ -539,13 +539,13 @@ Follow these steps to configure HealthWatch and receive data through the OpenTel
     1. Set the **TAS Configure Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
     1. Click **Save**.
 1. Click the **Credentials** tab:
-    1. Click **Link to Credential** next to **Healthwatch Exporter Client Mtls**.
+    1. Click **Link to Credential** next to **Healthwatch Otel Mtls**.
     1. Copy the certificate content and use it for step 3.2.1 below.
-1. Open the Tanzu Application Service tile.
+1. Open the Small Footprint VMware Tanzu Application Service tile.
       1. Click Settings and select **System Logging**.
         1. Deselect the **Enable V1 Firehose** and **Enable V1 Firehose** configurations.
         1. If you made any changes, click **Save**.
-      1. Scroll down to the *OpenTelemetry Collector Metric Exporters (beta)* configuration:
+      1. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration:
         1. Scroll down to the end of the configurations and  paste the certificate details you got in step 2.2.
         1. Click **Save**.
 
