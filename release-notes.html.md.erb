@@ -14,19 +14,19 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** April 10, 2024
 
-* **[Breaking Changes]** You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry collector. The changes you come across are listed below: 
+* **[Breaking Changes]** You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below: 
     
-  * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry collector. 
-  * Currently, the OpenTelemetry collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry collector. 
-  * The Prometheus exporter in the OpenTelemetry collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry collector removes any leading underscores in metric names.
+  * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector. 
+  * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
+  * The Prometheus exporter in the OpenTelemetry Collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry Collector removes any leading underscores in metric names.
   * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
 
-* **[Feature]** Healthwatch 2.3.0 supports using the OpenTelemetry collector (instead of Firehose) to collect metrics For more information, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once the OpenTelemetry collector is configured, Healthwatch automatically switches
-to collecting metrics from the OpenTelemetery collector.
+* **[Feature]** Healthwatch 2.3.0 supports using the OpenTelemetry Collector (instead of Firehose) to collect metrics For more information, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once the OpenTelemetry Collector is configured, Healthwatch automatically switches
+to collecting metrics from the OpenTelemetery Collector.
 
 * **[Feature]** Healthwatch 2.3.0 is upgraded to Grafana 10 and provides the new features offered by Grafana 10.
 
-* **[Security Fix]** The following CVE was fixed by upgrading the `Grafana` release version:
+* **[Security Fix]** The following CVE was fixed by upgrading `Grafana` release version:
 [CVE-2023-49569](https://nvd.nist.gov/vuln/detail/CVE-2023-49569)
 
 Healthwatch v2.3.0 uses the following open-source component versions:
