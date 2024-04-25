@@ -23,7 +23,7 @@ UI. You can also configure errands and system logging, as well as scale VM insta
 To configure and deploy the Healthwatch Exporter for TAS for VMs tile:
 
 <p class='note'><strong>Note:</strong> If you want to quickly deploy the Healthwatch Exporter for TAS for VMs tile to ensure that it deploys successfully
-  before you fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong>
+  before you fully configure it, you Filter out custom application metricsonly need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong>
   panes.</p>
 
 1. Navigate to the Healthwatch Exporter for TAS for VMs tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch
@@ -119,9 +119,7 @@ Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 certificate expiration metric exporter VM. The certificate expiration metric exporter VM collects metrics that show when certificates in your Ops Manager
 deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
-  <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same
-    Ops Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the
-    Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
+  <p class='note'><strong>Note:</strong> If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Ops Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification for certificate metric exporter
 VM** checkbox. When this checkbox is activated, the certificate expiration metric exporter VM does not verify the identity of the Ops Manager VM. This
@@ -135,6 +133,7 @@ checkbox is deactivated by default.
 
 1. (Optional) If `Metric Registrar` is configured in your TAS for VMs tile, and you do **not** want Healthwatch to scrape custom application metrics,
 select the **Filter out custom application metrics** checkbox.
+  <p class='note'><strong>Note:</strong> If you configured HealthWatch to receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above and made changes to the **Filter out custom application metrics** checkbox, you need to apply the changes to the HealthWatch tile. For detailed instructions, see [Deploy Healthwatch](configuring-healthwatch.html.md.erb#deploy-healthwatch).</p>
 
 1. Click **Save**.
 
