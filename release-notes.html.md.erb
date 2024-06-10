@@ -20,7 +20,7 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
   * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
   * The Prometheus exporter in the OpenTelemetry Collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry Collector removes any leading underscores in metric names.
   * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
-  * The metrics listed in the table below have the  prefix `grafana` at the begining of the metric name when you use the OpenTelemetery Collector.
+  * The metrics listed in the table below have the  prefix `grafana` at the beginning of the metric name when you use the OpenTelemetery Collector.
     
       | Metrics name with Firehose        | Metric name with the OpenTelemetery Collector |
       |-----------------------------------|-----------------------------------------------|
