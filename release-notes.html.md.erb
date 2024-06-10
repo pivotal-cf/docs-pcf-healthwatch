@@ -12,7 +12,7 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 ### <a id='2-3-0'></a> v2.3.0
 
-**Release Date:** April 10, 2024
+**Release Date:** June 15th, 2024
 
 * **[Breaking Changes]** You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below: 
     
@@ -20,6 +20,16 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
   * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
   * The Prometheus exporter in the OpenTelemetry Collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry Collector removes any leading underscores in metric names.
   * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
+  * The metrics listed in the table below have the  prefix `grafana` at the begining of the metric name when you use the OpenTelemetery Collector.
+    | Metrics name with Firehose        | Metric name with the OpenTelemetery Collector |
+    |-----------------------------------|-----------------------------------------------|
+    | access_evaluation_duration_bucket | grafana_access_evaluation_duration_bucket     |
+    | access_evaluation_duration_count  | grafana_access_evaluation_duration_count      |
+    | access_evaluation_duration_sum    | grafana_access_evaluation_duration_sum        |
+    | access_permissions_duration_bucket| grafana_access_permissions_duration_bucket    |
+    | access_permissions_duration_count | grafana_access_permissions_duration_count     |
+    | access_permissions_duration_sum   | grafana_access_permissions_duration_sum       |
+
 
 * **[Feature]** Healthwatch 2.3.0 supports using the OpenTelemetry Collector (instead of Firehose) to collect metrics For more information, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once the OpenTelemetry Collector is configured, Healthwatch automatically switches
 to collecting metrics from the OpenTelemetery Collector.
