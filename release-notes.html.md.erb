@@ -14,9 +14,7 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** June 15th, 2024
 
-* **[Breaking Changes]** Applicable only when using the OpenTelemetry Collector.
-
-You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below:
+* **[Breaking Changes]** Applicable only when using the OpenTelemetry Collector. You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below:
     
   * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector. 
   * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
