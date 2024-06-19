@@ -14,7 +14,9 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** June 15th, 2024
 
-* **[Breaking Changes]** You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below: 
+* **[Breaking Changes]** Applicable only when using the OpenTelemetry Collector.
+
+You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below:
     
   * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector. 
   * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
@@ -32,7 +34,7 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
       | access_permissions_duration_sum   | grafana_access_permissions_duration_sum       |
 
 * **[Feature]** Healthwatch 2.3.0 supports using the OpenTelemetry Collector (instead of Firehose) to collect metrics For more information, see [Configure for OpenTelemetry](configuring/configuring-healthwatch.html#opentelemetry). Once the OpenTelemetry Collector is configured, Healthwatch automatically switches
-to collecting metrics from the OpenTelemetery Collector.
+to collecting metrics from the OpenTelemetery Collector. Healthwatch expects OpenTelemetry Collector data on port 65331.
 
 * **[Feature]** Healthwatch 2.3.0 is upgraded to Grafana 10 and provides the new features offered by Grafana 10.
 
@@ -43,7 +45,7 @@ Healthwatch v2.3.0 uses the following open-source component versions:
 
 | Component    | Packaged Version |
 |--------------|------------------|
-| Prometheus   |    2.51.1        |
-| Grafana      |    10.4.1        |
-| Alertmanager |    0.27.0        |
-| PXC          |    1.0.25        |
+| Prometheus   | 2.52.0           |
+| Grafana      | 10.1.10          |
+| Alertmanager | 0.27.0           |
+| PXC          | 1.0.29           |

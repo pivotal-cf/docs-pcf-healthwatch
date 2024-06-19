@@ -537,19 +537,39 @@ To configure the **Resource Config** pane:
 
 Follow these steps to configure HealthWatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above:
 
-1. Click on Healthwatch exporter tile:
+1. Navigate to the Healthwatch Exporter for TAS for VMs tile in the Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
       1. Set the **TAS Configure Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
       1. Click **Save**.
     1. Click the **Credentials** tab:
       1. Click **Link to Credential** next to **Healthwatch Otel Mtls**.
-      1. Copy the certificate content and use it for step 2.2.1 below.
+      1. Save the certificate content. The cert and key will be used when configuring the Open Telemetry collector.
+1. Navigate to the Ops Manager Installation Dashboard.
+   1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+   1. Select **Advanced Options**.
+   1. Click **DOWNLOAD ROOT CA CERT**. The Ops Manager root CA will be used when configuring the Open Telemetry collector
 1. Open the Small Footprint VMware Tanzu Application Service tile.
       1. Click Settings and select **System Logging**.
         1. Deselect the **Enable V1 Firehose** and **Enable V1 Firehose** configurations.
-        1. If you made any changes, click **Save**.
-      1. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration:
-        1. Scroll down to the end of the configurations and  paste the certificate details you got in step 1.2.2
+        1. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.
+        1. Scroll to the bottom of the Open Telemetry configuration and add a collector for Healthwatch.
+        1. Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:
+
+         ```
+         prometheus/healthwatch:
+           endpoint: ":65331"
+           add_metric_suffixes: false
+           tls:
+             ca_pem: "CA-CERT"
+             cert_pem: "CERT_PEM"
+             key_pem: "PRIVATE_KEY_PEM"
+         ```
+         Where:
+
+          * `CA-CERT` is the Ops Manager root CA.
+          * `CERT_PEM` is the cert_pem of the Healthwatch Otel Mtls credential.
+          * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch Otel Mtls credential.
+
         1. Click **Save**.
 1. If you made changes to the **Healthwatch Exporter for Tanzu Application Service** tile's, **Settings** > **TAS for VMs Metric Exporter VMs** > **Filter out custom application metrics** configuration, you need to [deploy your changes to Healthwatc](#apply-changes) as explained in the section below.
 
