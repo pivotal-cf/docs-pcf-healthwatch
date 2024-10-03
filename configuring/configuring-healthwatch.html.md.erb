@@ -573,13 +573,13 @@ Follow these steps to configure HealthWatch and receive data through the OpenTel
 
           ```
             exporters:
-            prometheus/healthwatch:
-              endpoint: ":65331"
-              add_metric_suffixes: false
-              tls:
-                ca_pem: '{{ .healthwatch.ca }}'
-                cert_pem: '{{ .healthwatch.cert }}'
-                key_pem: '{{ .healthwatch.key }}'
+              prometheus/healthwatch:
+                endpoint: ":65331"
+                add_metric_suffixes: false
+                tls:
+                  ca_pem: '{{ .healthwatch.ca }}'
+                  cert_pem: '{{ .healthwatch.cert }}'
+                  key_pem: '{{ .healthwatch.key }}'
             service:
               pipelines:
                 metrics:
