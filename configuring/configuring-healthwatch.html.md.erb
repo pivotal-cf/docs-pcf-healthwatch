@@ -551,9 +551,9 @@ Follow these steps to configure HealthWatch and receive data through the OpenTel
 1. Open the VMware Tanzu Application Service for VMs tile.
       1. Click Settings and select **System Logging**.
         1. Deselect the **Enable V1 Firehose** and **Enable V2 Firehose** configurations.
-        1. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.
-        1. Scroll to the bottom of the Open Telemetry configuration and add a collector for Healthwatch.
-        1. Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:
+        2. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.
+        3. Scroll to the bottom of the Open Telemetry configuration and add a collector for Healthwatch.
+        4. For TAS 6.0, Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:
 
          ```
            prometheus/healthwatch:
@@ -569,8 +569,31 @@ Follow these steps to configure HealthWatch and receive data through the OpenTel
           * `CA-CERT` is the Ops Manager root CA.
           * `CERT_PEM` is the cert_pem of the Healthwatch Otel Mtls credential.
           * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch Otel Mtls credential.
+        5. For TAS 10.0, You can configure certificates under OpenTelemetry Collector Secrets and refer them in Otel configuration . For example:
 
-        1. Click **Save**.
+          ```
+            exporters:
+            prometheus/healthwatch:
+              endpoint: ":65331"
+              add_metric_suffixes: false
+              tls:
+                ca_pem: '{{ .healthwatch.ca }}'
+                cert_pem: '{{ .healthwatch.cert }}'
+                key_pem: '{{ .healthwatch.key }}'
+            service:
+              pipelines:
+                metrics:
+                  exporters:
+                    - prometheus/healthwatch
+          ```
+          Add Secrets:
+           * Click Add next to OpenTelemetry Collector Secrets
+           * Use name as `healthwatch`
+           * Certificate Authority will be `CA-CERT` from Ops Manager root CA.
+           * Client certificate Certificate PEM is the cert_pem of the Healthwatch Otel Mtls credential.
+           * Client Ceritificate Private Key PEM is the private_key_pem of the Healthwatch Otel Mtls credential.
+           * Make sure newline (\n) is removed from the certs copied. `awk '{gsub(/\\n/,"\n")}1' <file_name>` or `printf -- "<CERT_DATA>"`
+        6. Click **Save**.
 1. If you made changes to the **Healthwatch Exporter for Tanzu Application Service** tile's, **Settings** > **TAS for VMs Metric Exporter VMs** > **Filter out custom application metrics** configuration, you need to [deploy your changes to Healthwatch](#apply-changes) as explained in the section below.
 
 ## <a id='apply-changes'></a> Deploy Healthwatch

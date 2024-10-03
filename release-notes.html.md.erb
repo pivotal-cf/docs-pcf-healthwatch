@@ -9,11 +9,14 @@ For information about the risks and limitations of Healthwatch v2.3, see [Assume
 v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware Tanzu_.
 
 ## <a id='releases'></a> Releases
+### <a id='2-3-1'></a> v2.3.1
+
+**Release Date:** October 3rd, 2024
+* **[Feature]** Healthwatch 2.3.1 can now receive metrics via OpenTelemetery even if Firehose is enabled.
 
 ### <a id='2-3-0'></a> v2.3.0
 
 **Release Date:** June 15th, 2024
-
 * **[Breaking Changes]** Applicable only when using the OpenTelemetry Collector. You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below:
     
   * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector. 
