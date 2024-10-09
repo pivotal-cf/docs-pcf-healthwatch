@@ -55,7 +55,8 @@ how Alertmanager groups alerts together. The following example shows a possible 
     repeat_interval: 4h
     group_by: [cluster, alertname]
     ```
-    <div class="note"><strong>Notes:</strong>
+
+    <div class="note">
       <ul>
         <li>In new installations of Healthwatch v2.2, the <strong>Routing rules</strong> field is pre-configured with a default set of routing rules. You can
           edit these routing rules according to the needs of your deployment.</li>
@@ -65,6 +66,7 @@ how Alertmanager groups alerts together. The following example shows a possible 
           metric.</li>
       </ul>
     </div>
+
     You must define all `route` configuration parameters. For more information about the parameters you must provide, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
 
@@ -97,10 +99,11 @@ The following sections describe how to configure each type of alert receiver:
 
 * [Configure a Webhook Alert Receiver](#webhook)
 
-<p class="note"><strong>Note:</strong> If you want to provide authentication and TLS communication settings for your alert receivers, you must provide them in
-  the associated alert receiver configuration fields described in the sections below. If the base configuration YAML for your alert receivers include fields
-  for authentication and TLS communication settings, do not include them when you provide the configuration YAML for your alert receivers in the <strong>Alert
-  receiver configuration parameters</strong> fields.</p>
+<p class="note">
+If you want to provide authentication and TLS communication settings for your alert receivers, you must provide them in
+the associated alert receiver configuration fields described in the sections below. If the base configuration YAML for your alert receivers include fields
+for authentication and TLS communication settings, do not include them when you provide the configuration YAML for your alert receivers in the <strong>Alert
+receiver configuration parameters</strong> fields.</p>
 
 ### <a id='email'></a> Configure an Email Alert Receiver
 
@@ -122,7 +125,8 @@ with a dash. The following example shows a set of required configuration paramet
     At minimum, your configuration parameters must include the `to`, `from`, and `smarthost` properties. The other properties you must include depend on both
     the SMTP server for which you are configuring an alert receiver and the needs of your Ops Manager foundation. For more information about the properties
     you can include in this configuration, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#email_config).
-    <div class="note"><strong>Notes:</strong>
+
+    <div class="note">
       <ul>
         <li>If you exclude the <code>html</code> and <code>headers</code> properties or leave them blank, Healthwatch automatically populates them with a
           default template. To view the default email template for Healthwatch, see <a href="email_template.yml">email_template.yml</a> on GitHub.</li>
@@ -135,11 +139,11 @@ with a dash. The following example shows a set of required configuration paramet
     * If your SMTP server uses basic authentication, enter the authentication password for your SMTP server in **SMTP server authentication password**.
     * If your SMTP server uses CRAM_MD5 authentication, enter the authentication secret for your SMTP server in **SMTP server authentication secret**.
 
-1. (Optional) To allow Alertmanager to communicate with your email alert receiver over TLS, configure the following fields:
+2. (Optional) To allow Alertmanager to communicate with your email alert receiver over TLS, configure the following fields:
     1. For **Certificate and private key for TLS**, provide a certificate and private key for Alertmanager to use for TLS connections to your SMTP server.
-    1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that your SMTP server uses to verify TLS certificates.
-    1. For **SMTP server name**, enter the name of the SMTP server as it appears on the server's TLS certificate.
-    1. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed by
+    2. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that your SMTP server uses to verify TLS certificates.
+    3. For **SMTP server name**, enter the name of the SMTP server as it appears on the server's TLS certificate.
+    4. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed by
     a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, Alertmanager does not verify
     the identity of your SMTP server. This checkbox is deactivated by default.
     <br>
@@ -169,7 +173,8 @@ YAML with a dash. The following example shows a possible set of configuration pa
     The properties you must include depend on both the PagerDuty instance for which you are configuring an alert receiver and the needs of your Ops Manager
     foundation. For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config).
-    <div class="note"><strong>Notes:</strong>
+
+    <div class="note">
       <ul>
         <li>If you exclude the <code>description</code>, <code>details</code>, or <code>links</code> properties or leave them blank, Healthwatch automatically
           populates them with a default template. To view the default PagerDuty template for Healthwatch, see
@@ -226,7 +231,8 @@ prefix the YAML with a dash. The following example shows a possible set of confi
     The properties you must include depend on both the Slack instance for which you are configuring an alert receiver and the needs of your Ops Manager
     foundation. For more information about the properties you can include in this configuration, see the see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#slack_config).
-    <div class="note"><strong>Notes:</strong>
+
+    <div class="note">
       <ul>
         <li>If you exclude the <code>title</code>, <code>title_link</code>, or <code>text</code> properties or leave them blank, Healthwatch automatically
           populates them with a default template. To view the default PagerDuty template for Healthwatch, see
@@ -239,7 +245,7 @@ prefix the YAML with a dash. The following example shows a possible set of confi
 
 1. For **Slack API URL**, enter the webhook URL for your Slack instance from your Slack app directory.
 
-1. (Optional) To configure an HTTP client for Alertmanager to use to communicate with the server for your Slack instance, configure one of the following
+2. (Optional) To configure an HTTP client for Alertmanager to use to communicate with the server for your Slack instance, configure one of the following
 options:
     * To configure the HTTP client to authenticate the server for your Slack instance using basic authentication, enter the username and password associated
     with the HTTP client in **Basic authentication credentials**.
@@ -253,9 +259,9 @@ options:
 1. (Optional) To allow Alertmanager to communicate with your Slack alert receiver over TLS, configure the following fields:
     1. For **Certificate and private key for TLS**, provide a certificate and private key for Alertmanager to use for TLS connections to the server for your
     Slack instance.
-    1. For **CA certificate for TLS**, provide a certificate for the CA that the server for your Slack instance uses to verify TLS certificates.
-    1. For **Slack server name**, enter the name of the server for your Slack instance as it appears on the server's TLS certificate.
-    1. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed by
+    2. For **CA certificate for TLS**, provide a certificate for the CA that the server for your Slack instance uses to verify TLS certificates.
+    3. For **Slack server name**, enter the name of the server for your Slack instance as it appears on the server's TLS certificate.
+    4. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed by
     a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, Alertmanager does not verify
     the identity of the server for your Slack instance. This checkbox is deactivated by default.
     <br>
@@ -282,7 +288,8 @@ YAML with a dash. The following example shows a possible set of configuration pa
     The properties you must include depend on both the webhook for which you are configuring an alert receiver and the needs of your Ops Manager foundation.
     For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config).
-    <div class="note"><strong>Notes:</strong>
+
+    <div class="note">
       <ul>
         <li>Do not include the <code>&#60;http_config></code> section or the <code>&#60;tls_config></code> section in the configuration parameters for your
           webhook alert receiver. You can configure these properties in the next steps of this procedure.</li>
@@ -457,7 +464,8 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
         * `TIME-TO-SILENCE` is the amount of time in minutes or hours you want to silence alerts. For example, `30m` or `4h`.
         * `COMMENT` is any notes about this silence you want to add.
 
-        <p class="note"><strong>Note:</strong><code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
+        <p class="note">
+        <code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
 
     * To silence an alert indefinitely, run:
       ```
@@ -467,7 +475,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
       * `ALERT-NAME` is the name of the alert you want to silence.
       * `COMMENT` is a note about why the alert is being silenced.
 
-1. Record the ID string from the output. You can use this ID to unmute the alert
+2. Record the ID string from the output. You can use this ID to unmute the alert
     * To unmute the alert, run:
       ```
       amtool silence --alertmanager.url http://localhost:10401 expire SILENCED-ID
@@ -475,10 +483,10 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
       Where:
       * `SILENCED-ID` is the recorded ID string.
 
-1. If you would like to see what alerts are currently silenced
+3. If you would like to see what alerts are currently silenced
   * Run:
     ```
     amtool silence query
     ```
 
-1. For more information, run `amtool --help` or see the [Alertmanager   documentation](https://github.com/prometheus/alertmanager#amtool) on GitHub.
+4. For more information, run `amtool --help` or see the [Alertmanager   documentation](https://github.com/prometheus/alertmanager#amtool) on GitHub.
