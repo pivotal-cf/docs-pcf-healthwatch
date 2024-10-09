@@ -124,7 +124,9 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
            - "5.6.7.8:9090"
         ```
         For more information, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
-        <div class='note important'> <strong>Important:</strong> For the <code>job_name</code> property, do not use the following job names:
+
+        <div class="note important">
+        For the <code>job_name</code> property, do not use the following job names:
           <ul>
             <li><code>Healthwatch-view-pas-exporter</code></li>
             <li><code>Healthwatch-view-pks-exporter</code></li>
@@ -134,6 +136,7 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
+
   1. (Optional) To allow the Prometheus instance to communicate with the server for your external service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
       server for your external service or database.
@@ -314,16 +317,20 @@ To configure the **Grafana Dashboards** pane:
     want the Grafana instance to create dashboards:
       1. From the **Version** dropdown, select one of the following options:
           * The version of TAS for VMs that is installed on your Ops Manager foundation.
-          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Ops
-          Manager foundation.
-        <p class='note'><strong>Note:</strong> If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
+          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Ops Manager foundation.
+
+          <p class='note'>
+          If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
           the Loggregator Firehose. Otherwise, no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
           <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
-        <div class='note important'> <strong>Important:</strong> If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
-          list of dashboards on the <em>Grafana Dashboards</em> tab of the Healthwatch tile.</div>
+
+          <p class="note important">
+          If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
+          list of dashboards on the <em>Grafana Dashboards</em> tab of the Healthwatch tile.</p>
+
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TAS for VMs.
 
-1. Under **TKGI**, select one of the following options:
+2. Under **TKGI**, select one of the following options:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from TKGI. To specify the version of TKGI for which you want the
     Grafana instance to create dashboards:
       1. From the **Version** dropdown, select one of the following options:
@@ -332,11 +339,11 @@ To configure the **Grafana Dashboards** pane:
           foundation.
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TKGI.
 
-1. Under **Tanzu SQL for VMs**, select one of the following options:
+3. Under **Tanzu SQL for VMs**, select one of the following options:
     * **Include:** The Grafana instance creates a dashboard in the Grafana UI for metrics from Tanzu SQL for VMs.
     * **Exclude:** The Grafana instance does not create a dashboard in the Grafana UI for metrics from Tanzu SQL for VMs.
 
-1. Under **Tanzu RabbitMQ**, select one of the following options:
+4. Under **Tanzu RabbitMQ**, select one of the following options:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from Tanzu RabbitMQ.
       <p class='note'><strong>Note:</strong> If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
         the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator Firehose. To

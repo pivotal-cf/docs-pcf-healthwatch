@@ -33,15 +33,16 @@ jobs, see [Configure Scrape Jobs](#scrape-jobs) below.
 1. Test your federation configuration to see whether it is working correctly. To test your federation configuration, see [Test Your Federation
 Configuration](#test) below.
 
-If your multi-foundation Healthwatch deployment contains one or more highly available (HA) Healthwatch deployments, see [Federation for a Highly Available
-Healthwatch Deployment](#ha) below.
+    If your multi-foundation Healthwatch deployment contains one or more highly available (HA) Healthwatch deployments, see [Federation for a Highly Available
+    Healthwatch Deployment](#ha) below.
 
-For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
+    For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
-<p class='note caution'><strong>Caution:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
-  Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
-  recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
-  information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+    <p class="note caution">
+    Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
+    Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
+    recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
+    information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
 
 ## <a id='tas'></a> Set Up Your Multi-Foundation TAS for VMs Deployment
