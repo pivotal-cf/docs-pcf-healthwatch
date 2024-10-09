@@ -105,11 +105,14 @@ Prometheus instance scrapes all Prometheus exposition endpoints at once through 
 external services or databases, configure additional scrape jobs under **Additional scrape jobs**. You can configure scrape jobs for any app or service that
 exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus
 documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
-  <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
+
+    <p class="note">
+    The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
     Ops Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
     scrape jobs for Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
+
   1. Click **Add**.
-  1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job you want to configure. This job can use any of the
+  2. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job you want to configure. This job can use any of the
   properties defined by Prometheus except those in the `tls_config` section. Do not prefix the configuration YAML with a dash. For example:
 
         ```
@@ -138,14 +141,14 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
   1. (Optional) To allow the Prometheus instance to communicate with the server for your external service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
       server for your external service or database.
-      1. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your external service or database uses
+      2. For **CA certificate for TLS**, provide a certificate for the certificate authority (CA) that the server for your external service or database uses
       to verify TLS certificates.
-      1. For **Target server name**, enter the name of the server for your external service or database as it appears on the server's TLS certificate.
-      1. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed
+      3. For **Target server name**, enter the name of the server for your external service or database as it appears on the server's TLS certificate.
+      4. If the certificate you provided in **Certificate and private key for TLS** is signed by a self-signed CA certificate or a certificate that is signed
       by a self-signed CA certificate, activate the **Skip TLS certificate verification** checkbox. When this checkbox is activated, the Prometheus instance
       does not verify the identity of the server for your external service or database. This checkbox is deactivated by default.
 
-  1. For **Chunk size to calculate Diego_AvailableFreeChunksDisk SVM**, enter in MB the size that you want to specify for free chunks of disk. The default value
+  2. For **Chunk size to calculate Diego_AvailableFreeChunksDisk SVM**, enter in MB the size that you want to specify for free chunks of disk. The default value
 is `6144`. Healthwatch uses this  free chunk size to calculate the available free disk chunks super value metric (SVM), which it then uses to calculate the
 `Diego_AvailableFreeChunksDisk` metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends
 the`Diego_AvailableFreeChunksDisk` metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server
@@ -165,9 +168,11 @@ SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.h
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
 you configured in the BOSH Director tile. To find the IP addresses of the Prometheus VMs:
   1. Select the **Status** tab.
-  1. In the **TSDB** row, record the IP addresses of each Prometheus VM from the **IPs** column.
-  <p class="note"><strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
-    <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.</p>
+  2. In the **TSDB** row, record the IP addresses of each Prometheus VM from the **IPs** column.
+
+      <p class="note">
+      The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
+      <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.</p>
 
 1. Click **Save**.
 
@@ -204,12 +209,15 @@ To configure the **Grafana** pane:
     To manually configure the URL and TLS settings for the Grafana UI:
       1. For **Grafana root URL**, enter the URL used to access the Grafana UI. Configuring this field allows a generic OAuth provider or UAA to redirect
       users to the Grafana UI. Alertmanager also uses this URL to generate links to the Grafana UI in alert messages.
-        <p class="note"><strong>Note:</strong> Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
+
+          <p class="note">
+          Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
           root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
-        After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for the Grafana instance in the console for your IaaS using
-        this root URL and the IP address of either the Grafana VMs or the load balancer associated with the Grafana instance. The Grafana instance listens on
-        either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
-        information about configuring DNS entries for the Grafana instance, see [Configuring DNS for the Grafana Instances](dns-configuration.html).
+
+          After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for the Grafana instance in the console for your IaaS using
+          this root URL and the IP address of either the Grafana VMs or the load balancer associated with the Grafana instance. The Grafana instance listens on
+          either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
+          information about configuring DNS entries for the Grafana instance, see [Configuring DNS for the Grafana Instances](dns-configuration.html).
       2. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide a certificate and private key for the Grafana instance to
       use for TLS connections in **Certificate and private key for HTTPS**.
         <br>
@@ -262,8 +270,11 @@ alerts.
       For more information, see the [Grafana documentation](https://grafana.com/docs/installation/configuration/#smtp).
 
 1. Under **HTTP and HTTPS proxy request settings**, choose whether to allow the Grafana instance to make HTTP and HTTPS requests through proxy servers:
-  <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you are deploying Healthwatch in an air-gapped environment and want to
+
+    <p class="note">
+    You only need to configure proxy settings if you are deploying Healthwatch in an air-gapped environment and want to
     configure alert channels to external addresses, such as the external Slack webhook.</p>
+
     * To allow the Grafana instance to make HTTP and HTTPS requests through a proxy server:
       1. Select **Configure**.
       2. For **HTTP proxy URL**, enter the URL for your HTTP proxy server. The Grafana instance sends all HTTP and HTTPS requests to this URL, except those
@@ -277,7 +288,7 @@ alerts.
     * To disallow the Grafana instance from making HTTP and HTTPS requests through proxy servers, select **Do not configure**. HTTP and HTTPS proxy requests
     are disallowed by default.
 
-1. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Grafana
+2. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Grafana
 instance. These IP addresses must not be within the reserved IP ranges you configured in the BOSH Director tile.
 
 1. (Optional) If you want to use Grafana legacy alerting instead of new Grafana Alerting, select the **Opt out of Grafana Alerting** checkbox. Please note that this will delete any
@@ -342,11 +353,13 @@ To configure the **Grafana Dashboards** pane:
 
 1. Under **Tanzu RabbitMQ**, select one of the following options:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from Tanzu RabbitMQ.
-      <p class="note"><strong>Note:</strong> If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
+
+        <p class="note">
+        If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
         the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator Firehose. To
         configure this field, see the
-        <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-monitor.html#metrics-polling-interval">Tanzu
-        RabbitMQ documentation</a>.</p>
+        <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-monitor.html#metrics-polling-interval">Tanzu RabbitMQ documentation</a>.</p>
+
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from Tanzu RabbitMQ.
 
 
@@ -372,7 +385,9 @@ different port unless port `9115` is already in use on the Prometheus instance.
 URLs and records the results. To configure additional canary target URLs:
   1. Click **Add**.
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests.
-    <p class="note"><strong>Note:</strong> The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
+
+      <p class="note">
+      The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
       scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
 
 1. Click **Save**.
@@ -405,13 +420,17 @@ request fails.
 1. If your remote storage endpoint requires a username and password to log in to it, configure the following fields:
   1. For **Remote storage username**, enter the username that the Prometheus instance uses to log in to your remote storage endpoint.
   1. For **Remote storage password**, enter the password that the Prometheus instance uses to log in to your remote storage endpoint.
-  <p class="note"><strong>Note:</strong> If you configure a username and password for the Prometheus instance to use when logging in to your remote storage
-    endpoint, you cannot also configure a bearer token.</p>
+
+      <p class="note">
+      If you configure a username and password for the Prometheus instance to use when logging in to your remote storage
+      endpoint, you cannot also configure a bearer token.</p>
 
 1. If your remote storage endpoint requires a bearer token to log in to it, enter the bearer token that the Prometheus instance uses to log in to your remote
 storage endpoint in **Bearer token**.
-    <p class="note"><strong>Note:</strong> If you configure a bearer token for the Prometheus instance to use when logging in to your remote storage
-      endpoint, you cannot also configure a username and password.</p>
+
+    <p class="note">
+    If you configure a bearer token for the Prometheus instance to use when logging in to your remote storage
+    endpoint, you cannot also configure a username and password.</p>
 
 1. (Optional) To allow the Prometheus instance to communicate with the server for your remote storage endpoint over TLS:
   1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to your remote

@@ -21,10 +21,11 @@ Healthwatch](#configure-tkgi-cluster-discovery) below.
 If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery
 Failure](#troubleshooting) below.
 
-<p class="note"><strong>Note:</strong> To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
-  configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
-  <a href="<%= current_page.data.rootpart %>installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
-  <a href="<%= current_page.data.rootpart %>configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
+<p class="note">
+To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
+configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
+<a href="<%= current_page.data.rootpart %>installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
+<a href="<%= current_page.data.rootpart %>configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
 
 
 ## <a id='configure-tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery in Healthwatch
@@ -89,11 +90,14 @@ to Healthwatch.
       listen = ":10200"
       metric_version = 2
     ```
+
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
     creating a configuration file in TKGI, see the [TKGI
     documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-monitor-etcd.html#toml).
-    <p class="note"><strong>Note:</strong> If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
-      file.</p>
+
+    <p class="note">
+    If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
+    file.</p>
 
 1. Click **Save**.
 
