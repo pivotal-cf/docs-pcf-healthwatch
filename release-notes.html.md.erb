@@ -86,8 +86,8 @@ the `messages_dropped_per_drain`. This metric provides `drain_url` and `drain_sc
 * **[Feature]** Added the option to decrease traffic by filtering out custom application metrics collected by the
 `Metric Registrar` framework.
 
-* **[Feature]** The JVM maximum heap size is set to `80%` of available memory for the VMs of Healthwatch Exporter for TAS for VMs. 
-This setting is not configurable on the Healthwatch tile.  
+* **[Feature]** The JVM maximum heap size is set to `80%` of available memory for the VMs of Healthwatch Exporter for TAS for VMs.
+This setting is not configurable on the Healthwatch tile.
 
 * **[Feature Improvement]** All dashboards in `Grafana` now have a `1m` refresh interval by default.
 
@@ -108,13 +108,13 @@ Healthwatch v2.2.7 uses the following open-source component versions:
 **Release Date:** April 13, 2023
 
 * **[Security Fix]** Updates SnakeYaml to v2.0 to address a critical CVE. For more information, see [CVE
-2022-1471](https://nvd.nist.gov/vuln/detail/CVE-2022-1471) in the National Vulnerability Database.  
+2022-1471](https://nvd.nist.gov/vuln/detail/CVE-2022-1471) in the National Vulnerability Database.
 
 * **[Security Fix]** Updates Open JDK to v17.0.6_10 to address multiple CVEs.
-For more information, see: 
-[CVE-2022-21540](https://nvd.nist.gov/vuln/detail/CVE-2022-21540), 
-[CVE-2022-21541](https://nvd.nist.gov/vuln/detail/CVE-2022-21541), 
-[CVE-2022-21549](https://nvd.nist.gov/vuln/detail/CVE-2022-21549), 
+For more information, see:
+[CVE-2022-21540](https://nvd.nist.gov/vuln/detail/CVE-2022-21540),
+[CVE-2022-21541](https://nvd.nist.gov/vuln/detail/CVE-2022-21541),
+[CVE-2022-21549](https://nvd.nist.gov/vuln/detail/CVE-2022-21549),
 [CVE-2022-34169](https://nvd.nist.gov/vuln/detail/CVE-2022-34169) in the National Vulnerability Database.
 
 * **[Security Fix]** CF CLI v7 and v8 were updated to use the latest versions built with supported GOLANG v1.19.
@@ -322,8 +322,9 @@ Healthwatch v2.2.1 uses the following open-source component versions:
 
 **Release Date:** January 25, 2022
 
-<p class='note'><strong>Note:</strong> Healthwatch v2.2.0 does not support TKGI v1.13. If you have TKGI v1.13 installed on your Ops Manager foundation,
-  upgrade to Healthwatch v2.2.1.</p>
+<p class="note">
+Healthwatch v2.2.0 does not support TKGI v1.13. If you have TKGI v1.13 installed on your Ops Manager foundation,
+upgrade to Healthwatch v2.2.1.</p>
 
 * **[Security Fix]** Apache Log4J dependencies are updated to v2.17.1 to address a critical CVE. For more information, see [CVE
 2021-44832](https://nvd.nist.gov/vuln/detail/CVE-2021-44832) on the CVE website.
@@ -644,10 +645,10 @@ If you run SLI tests for TKGI through Healthwatch Exporter for TKGI, and you do 
 configured for TKGI, the TKGI SLI exporter VM does not automatically clean up the service accounts that it creates while running the TKGI SLI test suite.
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
-This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from 
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, 
-see [OIDC Provider for Kubernetes Clusters](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.16/tkgi/GUID-oidc-provider.html) 
-in the TKGI documentation.  
+This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI,
+see [OIDC Provider for Kubernetes Clusters](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.16/tkgi/GUID-oidc-provider.html)
+in the TKGI documentation.
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
 accounts, see [Healthwatch Exporter for TKGI Does Not Clean Up TKGI Service Accounts](troubleshooting.html#tkgi-service-accounts) in _Troubleshooting
@@ -704,6 +705,6 @@ To fix this issue, upgrade to Healthwatch v2.2.2 or later.
 This known issue is fixed in Healthwatch v2.2.8 and later.
 
 After upgrading Healthwatch, a `user already exists` error occurs while attempting to log in to Grafana using
-UAA authentication. A new option has been added to the Grafana configuration file.  
+UAA authentication. A new option has been added to the Grafana configuration file.
 
 To fix this issue, upgrade Healthwatch to v2.2.8 or later.

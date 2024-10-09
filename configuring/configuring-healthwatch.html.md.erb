@@ -20,7 +20,7 @@ also configure errands and system logging, as well as scale VM instances up or d
 
 To configure and deploy the Healthwatch tile:
 
-<p class='note'><strong>Notes:</strong> To quickly deploy the Healthwatch tile to ensure that it deploys successfully before you fully configure it, you only
+<p class="note"><strong>Notes:</strong> To quickly deploy the Healthwatch tile to ensure that it deploys successfully before you fully configure it, you only
   need to configure the <strong>Assign AZ and Networks</strong> pane.</p>
 
 1. Navigate to the Healthwatch tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch Tile](#open-ui) below.
@@ -105,7 +105,7 @@ Prometheus instance scrapes all Prometheus exposition endpoints at once through 
 external services or databases, configure additional scrape jobs under **Additional scrape jobs**. You can configure scrape jobs for any app or service that
 exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus
 documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
-  <p class='note'><strong>Note:</strong> The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
+  <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
     Ops Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
     scrape jobs for Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
   1. Click **Add**.
@@ -122,7 +122,9 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
            - "5.6.7.8:9090"
         ```
         For more information, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
-        <div class='note important'> <strong>Important:</strong> For the <code>job_name</code> property, do not use the following job names:
+
+        <div class="note important">
+        For the <code>job_name</code> property, do not use the following job names:
           <ul>
             <li><code>Healthwatch-view-pas-exporter</code></li>
             <li><code>Healthwatch-view-pks-exporter</code></li>
@@ -132,6 +134,7 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
+
   1. (Optional) To allow the Prometheus instance to communicate with the server for your external service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
       server for your external service or database.
@@ -163,7 +166,7 @@ Prometheus instance. You must enter a separate IP address for each VM in the Pro
 you configured in the BOSH Director tile. To find the IP addresses of the Prometheus VMs:
   1. Select the **Status** tab.
   1. In the **TSDB** row, record the IP addresses of each Prometheus VM from the **IPs** column.
-  <p class='note'><strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
+  <p class="note"><strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
     <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.</p>
 
 1. Click **Save**.
@@ -201,7 +204,7 @@ To configure the **Grafana** pane:
     To manually configure the URL and TLS settings for the Grafana UI:
       1. For **Grafana root URL**, enter the URL used to access the Grafana UI. Configuring this field allows a generic OAuth provider or UAA to redirect
       users to the Grafana UI. Alertmanager also uses this URL to generate links to the Grafana UI in alert messages.
-        <p class='note'><strong>Note:</strong> Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
+        <p class="note"><strong>Note:</strong> Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
           root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
         After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for the Grafana instance in the console for your IaaS using
         this root URL and the IP address of either the Grafana VMs or the load balancer associated with the Grafana instance. The Grafana instance listens on
@@ -312,11 +315,16 @@ To configure the **Grafana Dashboards** pane:
           * The version of TAS for VMs that is installed on your Ops Manager foundation.
           * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Ops
           Manager foundation.
-        <p class='note'><strong>Note:</strong> If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
-          the Loggregator Firehose. Otherwise, no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
-          <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
-        <div class='note important'> <strong>Important:</strong> If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
-          list of dashboards on the <em>Grafana Dashboards<em> tab of the Healthwatch tile.</div>
+
+              <p class="note">
+              If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
+              the Loggregator Firehose. Otherwise, no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
+              <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
+
+              <p class="note important">
+              If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
+              list of dashboards on the <em>Grafana Dashboards<em> tab of the Healthwatch tile.</p>
+
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TAS for VMs.
 
 1. Under **TKGI**, select one of the following options:
@@ -334,7 +342,7 @@ To configure the **Grafana Dashboards** pane:
 
 1. Under **Tanzu RabbitMQ**, select one of the following options:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from Tanzu RabbitMQ.
-      <p class='note'><strong>Note:</strong> If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
+      <p class="note"><strong>Note:</strong> If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
         the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator Firehose. To
         configure this field, see the
         <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-monitor.html#metrics-polling-interval">Tanzu
@@ -364,7 +372,7 @@ different port unless port `9115` is already in use on the Prometheus instance.
 URLs and records the results. To configure additional canary target URLs:
   1. Click **Add**.
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests.
-    <p class='note'><strong>Note:</strong> The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
+    <p class="note"><strong>Note:</strong> The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
       scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
 
 1. Click **Save**.
@@ -397,12 +405,12 @@ request fails.
 1. If your remote storage endpoint requires a username and password to log in to it, configure the following fields:
   1. For **Remote storage username**, enter the username that the Prometheus instance uses to log in to your remote storage endpoint.
   1. For **Remote storage password**, enter the password that the Prometheus instance uses to log in to your remote storage endpoint.
-  <p class='note'><strong>Note:</strong> If you configure a username and password for the Prometheus instance to use when logging in to your remote storage
+  <p class="note"><strong>Note:</strong> If you configure a username and password for the Prometheus instance to use when logging in to your remote storage
     endpoint, you cannot also configure a bearer token.</p>
 
 1. If your remote storage endpoint requires a bearer token to log in to it, enter the bearer token that the Prometheus instance uses to log in to your remote
 storage endpoint in **Bearer token**.
-    <p class='note'><strong>Note:</strong> If you configure a bearer token for the Prometheus instance to use when logging in to your remote storage
+    <p class="note"><strong>Note:</strong> If you configure a bearer token for the Prometheus instance to use when logging in to your remote storage
       endpoint, you cannot also configure a username and password.</p>
 
 1. (Optional) To allow the Prometheus instance to communicate with the server for your remote storage endpoint over TLS:

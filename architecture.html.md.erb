@@ -4,7 +4,7 @@ owner: Healthwatch
 ---
 
 This topic describes the architecture of the Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch), Healthwatch Exporter for VMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs),
-and Healthwatch Exporter for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) tiles. 
+and Healthwatch Exporter for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) tiles.
 This topic also describes the possible configurations for monitoring metrics across multiple VMware Tanzu^&reg;^ Operations Manager&trade; (Ops Manager) foundations.
 
 <br>
@@ -46,14 +46,14 @@ Prometheus also allows you to configure alerts with Alertmanager.
 Healthwatch then exports these metrics to dashboards in the Grafana UI, where you can visualize the data in charts and graphs. You can also use Grafana to
 create customized dashboards for long-term monitoring and troubleshooting.
 
-<p class='note'><strong>Note:</strong> The MySQL instance that the Healthwatch tile deploys only stores your Grafana settings, and does not store any
-  time-series data.</p>
+<p class="note">
+The MySQL instance that the Healthwatch tile deploys only stores your Grafana settings, and does not store any
+time-series data.</p>
 
 The diagram below illustrates how metrics travel from the Healthwatch Exporter tiles through Prometheus and to Grafana. It also shows how metrics travel
 through Prometheus to Alertmanager.
 
-![A Healthwatch Exporter tile, Healthwatch tile and an alert. An arrow points from the Healthwatch Exporter into the Healthwatch tile. Inside the Healthwatch tile are Prometheus, Grafana, Alertmanager and MySQL instances. An arrow points from Prometheus to Grafana and from Prometheus
-through Alertmanager to alerts. MySQL is next to Grafana.](images/healthwatch-tile-architecture.png)
+![A Healthwatch Exporter tile, Healthwatch tile and an alert. An arrow points from the Healthwatch Exporter into the Healthwatch tile. Inside the Healthwatch tile are Prometheus, Grafana, Alertmanager and MySQL instances. An arrow points from Prometheus to Grafana and from Prometheus through Alertmanager to alerts. MySQL is next to Grafana.](images/healthwatch-tile-architecture.png)
 
 <br>
 ### <a id='ha-mode'></a> High Availability
