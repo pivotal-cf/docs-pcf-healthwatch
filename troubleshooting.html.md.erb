@@ -37,7 +37,7 @@ To access the Prometheus UI:
     ```
     Where `DEPLOYMENT-NAME` is the name of your Healthwatch deployment that you recorded in the previous step.
 
-1. Navigate to the Ops Manager Installation Dashboard.
+1. Navigate to the Tanzu Operations Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
@@ -47,46 +47,46 @@ To access the Prometheus UI:
 
 1. Record the certificate and private key for **Tsdb Client Mtls**.
 
-1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system.  
+1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system.
 
-    * To store the Tsdb Client Mtls certificate and key on macOS:  
-    
-        1. Create a `cert.pem` file containing the Tsdb Client Mtls certificate.  
-        1. Create a `cert.key` file containing the Tsdb Client Mtls private key.  
-        1. Change the access permissions on the certificate and private key files to `0600`.  
-        
-            For example:  
+    * To store the Tsdb Client Mtls certificate and key on macOS:
+
+        1. Create a `cert.pem` file containing the Tsdb Client Mtls certificate.
+        1. Create a `cert.key` file containing the Tsdb Client Mtls private key.
+        1. Change the access permissions on the certificate and private key files to `0600`.
+
+            For example:
             ```
             chmod 0600 ~/Downloads/cert.key
             chmod 0600 ~/Downloads/cert.pem
             ```
-            
-        1. To import the Tsdb Client Mtls private key into the macOS keychain:  
-        
+
+        1. To import the Tsdb Client Mtls private key into the macOS keychain:
+
             ```
             security import KEY-PATH -k ~/Library/Keychains/login.keychain-db
             ```
-            Where `KEY-PATH` is the path to the `cert.key` file. For example, `~/Downloads/cert.key`.  
-            
-        1. To import the Tsdb Client Mtls certificate into the macOS keychain:  
-        
-            1. To open the macOS Keychain Access app:  
-                1. Type CMD-SPACE followed by typing the word `keychain`.  
-                1. Select the Keychain Access app on the displayed list.  
-            1. Select **File** -> **Import Items**.  
-            1. Select the Tsdb Client Mtls certificate `cert.pem` file.  
+            Where `KEY-PATH` is the path to the `cert.key` file. For example, `~/Downloads/cert.key`.
+
+        1. To import the Tsdb Client Mtls certificate into the macOS keychain:
+
+            1. To open the macOS Keychain Access app:
+                1. Type CMD-SPACE followed by typing the word `keychain`.
+                1. Select the Keychain Access app on the displayed list.
+            1. Select **File** -> **Import Items**.
+            1. Select the Tsdb Client Mtls certificate `cert.pem` file.
 
 1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which certificate to use for mTLS, select the certificate you added
-to your operating system keystore.  
+to your operating system keystore.
 
-    * On macOS:  
-    
-        1. Open a browser to `https://localhost:9090`.  
-        1. If you are challenged by a security warning, select **Advanced** -> **Proceed Anyway**. Alternatively, type the letters `thisisunsafe` into the webpage.  
-        1. In the displayed dialog, select the Tsdb Client Mtls certificate you added to the macOS keychain and click **OK**.  
-        1. When prompted, provide the keychain access password, and select **Always Allow**.  
+    * On macOS:
 
-    The Prometheus UI should display in your browser.  
+        1. Open a browser to `https://localhost:9090`.
+        1. If you are challenged by a security warning, select **Advanced** -> **Proceed Anyway**. Alternatively, type the letters `thisisunsafe` into the webpage.
+        1. In the displayed dialog, select the Tsdb Client Mtls certificate you added to the macOS keychain and click **OK**.
+        1. When prompted, provide the keychain access password, and select **Always Allow**.
+
+    The Prometheus UI should display in your browser.
 
 <br>
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
