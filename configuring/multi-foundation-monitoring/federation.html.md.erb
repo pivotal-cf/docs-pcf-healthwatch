@@ -116,9 +116,10 @@ IaaS. For more information, see the documentation for your IaaS.
     1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
     1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
 
-        <p class="note"><strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code> are in JSON format and contain
-          several<code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming
-          step.</p>
+        <p class="note">
+        The values of <code>private_key_pem</code> and <code>cert_pem</code> are in JSON format and contain
+        several<code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming
+        step.</p>
 
     1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information,
     see the [Ops Manager
@@ -144,9 +145,10 @@ IaaS. For more information, see the documentation for your IaaS.
             - 'source-tsdb-2:4450'
         ```
 
-        <p class="note"><strong>Note:</strong> If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
-          your load balancer or DNS entry in each target listed under the <code>targets</code> property instead of the IP address for the Prometheus
-          instance.</p>
+        <p class="note">
+        If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
+        your load balancer or DNS entry in each target listed under the <code>targets</code> property instead of the IP address for the Prometheus
+        instance.</p>
 
     1. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
     **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.

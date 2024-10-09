@@ -72,12 +72,16 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
           * `pks-sli-exporter`, the TKGI SLI exporter VM
           * `bosh-health-exporter`, the BOSH health metric exporter VM
           * `bosh-deployments-exporter`, the BOSH deployment metric exporter VM
-      <p class="note"><strong>Note:</strong> Storing all metrics from multiple Ops Manager foundations in a single Prometheus instance on your monitoring Ops
-        Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations,
-        or if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends configuring the
-        Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor
-        the most. For more information about the metrics that each metric exporter VM collects, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+
+              <p class="note">
+              Storing all metrics from multiple Ops Manager foundations in a single Prometheus instance on your monitoring Ops
+              Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Ops Manager foundations,
+              or if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends configuring the
+              Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor
+              the most. For more information about the metrics that each metric exporter VM collects, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+
       To find the public IP addresses of deployed VMs in the user console for your IaaS, see the documentation for your IaaS:
+
         * **AWS:** To find the public IP address of a Linux instance, see the [AWS documentation for Linux instances of Amazon
         EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#working-with-ip-addresses). To find the public IP address for
         a Windows instance, see the [AWS documentation for Windows instances of Amazon
@@ -89,9 +93,11 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
         documentation](https://docs.openstack.org/ocata/user-guide/cli-manage-ip-addresses.html).
         * **vSphere:** To find the public IP address of a vSphere VM, see the [vSphere
         documentation](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-BFE71806-64FC-4CD3-BB21-F1FEFD1478E3.html).
-    <p class="note"><strong>Note:</strong> VMs deployed on one Ops Manager foundation typically cannot send or receive traffic from other Ops Manager
-      foundations using their public IP addresses by default. You must configure the firewall for your IaaS to allow ingress traffic to port <code>9090</code>
-      on your monitoring Ops Manager foundation.</p>
+
+      <p class="note">
+      VMs deployed on one Ops Manager foundation typically cannot send or receive traffic from other Ops Manager
+      foundations using their public IP addresses by default. You must configure the firewall for your IaaS to allow ingress traffic to port <code>9090</code> on your monitoring Ops Manager foundation.</p>
+
   1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
   1. Click the **Healthwatch** tile.
   1. Select **Prometheus**.
