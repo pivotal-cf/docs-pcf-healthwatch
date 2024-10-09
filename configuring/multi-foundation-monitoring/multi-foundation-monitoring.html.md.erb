@@ -63,10 +63,11 @@ monitoring Ops Manager foundation. If you want to monitor component metrics, SLI
 for Kubernetes clusters for TKGI deployments, or if you want to monitor a large number of Ops Manager foundations, VMware recommends configuring federation
 for your multi-foundation Healthwatch deployment.
 
-<p class='note caution'><strong>Caution:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
-  Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
-  recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
-  information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+<p class="note caution">
+Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
+Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
+recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
+information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
 Federation also reduces firewall and network complexity for your multi-foundation Healthwatch deployment, since the Prometheus instance in the Healthwatch
 tile on your monitoring Ops Manager foundation only scrapes metrics from the Prometheus instance on each of the Ops Manager foundations you monitor, rather

@@ -22,7 +22,7 @@ also configure errands and system logging, as well as scale VM instances up or d
 
 To configure and deploy the Healthwatch tile:
 
-<div class='note'><strong>Notes:</strong>
+<div class="note"><strong>Notes:</strong>
   <ul>
     <li>To quickly deploy the Healthwatch tile to ensure that it deploys successfully before you fully configure it, you only need to configure the
       <strong>Assign AZ and Networks</strong> pane.</li>
@@ -106,11 +106,13 @@ Prometheus instance scrapes all Prometheus exposition endpoints at once through 
 
 1. (Optional) To configure the Prometheus instance to scrape metrics from the Healthwatch Exporter tiles installed on other Ops Manager foundations or from
 external services or databases, configure additional scrape jobs under **Additional scrape jobs**. You can configure scrape jobs for any app or service that
-exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus
-documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
-  <p class="note"><strong>Note:</strong> The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
+exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
+
+    <p class="note">
+    The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
     Ops Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
-    scrape jobsbfor Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
+    scrape jobs for Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
+
   1. Click **Add**.
   1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job you want to configure. This job can use any of the
   properties defined by Prometheus except those in the `tls_config` section. Do not prefix the configuration YAML with a dash. For example:
@@ -125,7 +127,9 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
            - "5.6.7.8:9090"
         ```
         For more information, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
-        <div class="note important"> <strong>Important:</strong> For the <code>job_name</code> property, do not use the following job names:
+
+        <div class="note important">
+        For the <code>job_name</code> property, do not use the following job names:
           <ul>
             <li><code>Healthwatch-view-pas-exporter</code></li>
             <li><code>Healthwatch-view-pks-exporter</code></li>
@@ -135,6 +139,7 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
             <li><code>pks-master-kube-controller-manager</code></li>
           </ul>
         </div>
+
   1. (Optional) To allow the Prometheus instance to communicate with the server for your external service or database over TLS:
       1. For **Certificate and private key for TLS**, provide a certificate and private key for the Prometheus instance to use for TLS connections to the
       server for your external service or database.
@@ -166,7 +171,9 @@ Prometheus instance. You must enter a separate IP address for each VM in the Pro
 you configured in the BOSH Director tile. To find the IP addresses of the Prometheus VMs:
     1. Select the **Status** tab.
     1. In the **TSDB** row, record the IP addresses of each Prometheus VM from the **IPs** column.
-    <p class='note'><strong>Note:</strong> The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
+
+      <p class="note">
+      The Prometheus instance includes two VMs by default. For more information about viewing or scaling your VMs, see
       <a href="../resources.html">Healthwatch Components and Resource Requirements</a>.</p>
 
 1. Click **Save**.
@@ -195,14 +202,15 @@ To configure the **Grafana** pane:
 1. Select **Grafana**.
 
 1. (Optional) If you configured generic OAuth or UAA authentication for users to log in to the Grafana UI, or if you configured alerts through Alertmanager,
-enter a URL for the Grafana UI in **Grafana root URL**. You must configure this URL to allow a generic OAuth provider or UAA to redirect users to the Grafana
-UI. Alertmanager also uses this URL to generate links to the Grafana UI in alert messages.
-  <p class='note'><strong>Note:</strong> Healthwatch v2.1 does not automatically assign a default root URL to the Grafana UI. You must manually configure a
-    root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
-After you deploy the Healthwatch tile for the first time, you must use this root URL and the public IP address of either a single Grafana VM or the load
-balancer associated with your Grafana instance to configure a DNS entry for the Grafana instance in the console for your IaaS. Your Grafana instance listens
-on either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
-information about configuring DNS for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
+enter a URL for the Grafana UI in **Grafana root URL**. You must configure this URL to allow a generic OAuth provider or UAA to redirect users to the Grafana UI. Alertmanager also uses this URL to generate links to the Grafana UI in alert messages.
+
+    <p class="note">
+    Healthwatch v2.1 does not automatically assign a default root URL to the Grafana UI. You must manually configure a root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
+
+    After you deploy the Healthwatch tile for the first time, you must use this root URL and the public IP address of either a single Grafana VM or the load
+    balancer associated with your Grafana instance to configure a DNS entry for the Grafana instance in the console for your IaaS. Your Grafana instance listens
+    on either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
+    information about configuring DNS for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
 
 1. Under **HTTP and HTTPS proxy request settings**, choose whether to allow the Grafana instance to make HTTP and HTTPS requests through proxy servers:
   1. To allow the Grafana instance to make HTTP and HTTPS requests through a proxy server:
@@ -215,9 +223,12 @@ information about configuring DNS for the Grafana instance, see [Configuring DNS
       ange of your internal network IP addresses so the Grafana instance can still access the Prometheus instance without going though the proxy server. For
       example, `*.bosh,10.0.0.0/8,*.example.com` allows the Grafana instance to access all BOSH DNS addresses and all internal network IP addresses containing
       `10.0.0.0/8` or `*.example.com` directly, without going though the proxy server.
-      <p class="note"><strong>Note:</strong> You only need to configure proxy settings if you are deploying Healthwatch in an air-gapped environment and want
-        to configure alert channels to external addresses, such as the external Slack webhook.</p>
-  1. To disallow the Grafana instance from making HTTP and HTTPS requests through proxy servers,
+
+      <p class="note">
+      You only need to configure proxy settings if you are deploying Healthwatch in an air-gapped environment and want
+      to configure alert channels to external addresses, such as the external Slack webhook.</p>
+
+  2. To disallow the Grafana instance from making HTTP and HTTPS requests through proxy servers,
   select **Do not configure**. HTTP and HTTPS proxy requests are disallowed by default.
 
 1. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Grafana
@@ -232,16 +243,18 @@ basic authentication** checkbox. This checkbox is activated by default.
     * **Manual:** The Grafana instance creates a dashboard in the Grafana UI for the versions of TAS for VMs and TKGI you specify in the **TAS for VMs
     version** and **TKGI version** fields.
     * **Do not allow:** The Grafana instance does not discover or create dashboards in the Grafana UI for TAS for VMs or TKGI.
-    <p class='note'><strong>Note:</strong> If you are using Pivotal Application Service (PAS) v2.7, you must allow PAS v2.7 to forward system metrics to the
+    <p class="note">
+      If you are using Pivotal Application Service (PAS) v2.7, you must allow PAS v2.7 to forward system metrics to the
       Loggregator Firehose, or no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
       <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
-1. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile,
+2. (Optional) If you want the Grafana instance to create a dashboard for metrics from the VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) tile,
 activate the **Create Tanzu SQL for VMs dashboard** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) If you want the Grafana instance to create dashboards for metrics from the VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) tile, activate the
 **Create Tanzu RabbitMQ dashboards** checkbox. This checkbox is deactivated by default.
-    <p class='note'><strong>Note:</strong> If you activate the <strong>Create Tanzu RabbitMQ dashboards</strong> checkbox, set the <strong>Metrics polling
+    <p class="note">
+      If you activate the <strong>Create Tanzu RabbitMQ dashboards</strong> checkbox, set the <strong>Metrics polling
       interval</strong> field in the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile from sending duplicate metrics to the
       Loggregator Firehose. To configure this field, see the <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-monitor.html#metrics-polling-interval ">Tanzu RabbitMQ
       documentation</a>.</p>
@@ -254,22 +267,22 @@ VMware recommends also providing a certificate signed by a third-party CA in **C
 the Ops Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
   * To use a certificate signed by a third-party CA:
       1. For **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
-      1. For **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
+      2. For **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
   * To generate a self-signed certificate from the Ops Manager root CA:
       1. Under **Certificate and private key for HTTPS**, click **Change**.
-      1. Click **Generate RSA Certificate**.
-      1. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for the
+      2. Click **Generate RSA Certificate**.
+      3. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for the
       Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For more
       information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
-      1. Click **Generate**.
-      1. Navigate to the Ops Manager Installation Dashboard.
-      1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
-      1. Select **Advanced Options**.
-      1. Click **DOWNLOAD ROOT CA CERT**.
-      1. Return to the Ops Manager Installation Dashboard.
-      1. Click the **Healthwatch** tile.
-      1. Select **Grafana**.
-      1. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
+      4. Click **Generate**.
+      5. Navigate to the Ops Manager Installation Dashboard.
+      6. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+      7. Select **Advanced Options**.
+      8. Click **DOWNLOAD ROOT CA CERT**.
+      9. Return to the Ops Manager Installation Dashboard.
+      10. Click the **Healthwatch** tile.
+      11. Select **Grafana**.
+      12. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
 
 1. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in **Additional
 ciphers for TLS**. For a list of supported cipher suites, see
@@ -287,20 +300,20 @@ on GitHub.
     * **LDAP:** Configures LDAP authentication. For more information, see [Configure LDAP Authentication](grafana-authentication.html#configure-ldap) in
     _Configuring Grafana Authentication_ and the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/ldap/).
 
-1. Under **Grafana email alerts**, choose whether to allow email alerts from the Grafana UI.
+2. Under **Grafana email alerts**, choose whether to allow email alerts from the Grafana UI.
   * To allow email alerts:
       1. Select **Configure**.
-      1. For **SMTP server host name**, enter the host name of your SMTP server.
-      1. For **SMTP server port**, enter the port of your SMTP server.
-      1. For **SMTP server username**, enter your SMTP authentication username.
-      1. For **SMTP server password**, enter your SMTP authentication password.
-      1. (Optional) To allow the Grafana instance to skip TLS certificate verification when communicating with your SMTP server over TLS, activate the **Skip
+      2. For **SMTP server host name**, enter the host name of your SMTP server.
+      3. For **SMTP server port**, enter the port of your SMTP server.
+      4. For **SMTP server username**, enter your SMTP authentication username.
+      5. For **SMTP server password**, enter your SMTP authentication password.
+      6. (Optional) To allow the Grafana instance to skip TLS certificate verification when communicating with your SMTP server over TLS, activate the **Skip
       TLS certificate verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of your SMTP server. This
       checkbox is deactivated by default.
-      1. For **From address**, enter the sender email address that appears on outgoing email alerts.
-      1. For **From name**, enter the sender name that appears on outgoing email alerts.
-      1. For **EHLO client ID**, enter the name for the client identity that your SMTP server uses when sending EHLO commands.
-      1. For **Certificate and private key for TLS**, enter a certificate and private key for the Grafana instance to use for TLS connections to your SMTP
+      7. For **From address**, enter the sender email address that appears on outgoing email alerts.
+      8. For **From name**, enter the sender name that appears on outgoing email alerts.
+      9. For **EHLO client ID**, enter the name for the client identity that your SMTP server uses when sending EHLO commands.
+      10. For **Certificate and private key for TLS**, enter a certificate and private key for the Grafana instance to use for TLS connections to your SMTP
       server.
   * To disallow email alerts, select **Do not configure**. Email alerts are disallowed by default.
   <br>
@@ -338,7 +351,8 @@ results. To configure canary target URLs:
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests. VMware recommends including `apps.sys.FOUNDATION-URL` if you
   have TAS for VMs installed, or `api.pks.FOUNDATION-URL:8443` if you have TKGI installed, where `FOUNDATION-URL` is the root URL of your Ops Manager
   foundation.
-  <p class='note'><strong>Note:</strong> The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional scrape
+  <p class="note">
+    The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional scrape
     jobs for them in the <strong>Prometheus</strong> pane.</p>
 
 1. Click **Save**.

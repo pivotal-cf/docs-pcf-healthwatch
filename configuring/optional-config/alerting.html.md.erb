@@ -56,12 +56,13 @@ how Alertmanager groups alerts together. The following example shows a possible 
     repeat_interval: 4h
     group_by: [cluster, alertname]
     ```
-    <p class='note'><strong>Note:</strong> <code>group_by</code> gathers all alerts with the same label into a single alert. For example, including
-      <code>cluster</code> in the <code>group_by</code> property groups together all alerts from the same cluster. You can see the labels for the metrics that
-      Healthwatch collects, such as <code>cluster</code>, <code>index</code>, <code>deployment</code>, and <code>origin</code>, within the braces at the end
-      of each metrics.</p>
-    You must define all `route` configuration parameters. For more information about the parameters you must provide, see the [Prometheus
-    documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
+
+    <p class="note">
+    <code>group_by</code> gathers all alerts with the same label into a single alert. For example, including
+    <code>cluster</code> in the <code>group_by</code> property groups together all alerts from the same cluster. You can see the labels for the metrics that
+    Healthwatch collects, such as <code>cluster</code>, <code>index</code>, <code>deployment</code>, and <code>origin</code>, within the braces at the end of each metrics.</p>
+
+    You must define all `route` configuration parameters. For more information about the parameters you must provide, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#route).
 
 1. (Optional) For **Inhibit rules**, provide in YAML format the rule statements that define which alerts Alertmanager does not send to your alert receivers.
 For more information, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule).
@@ -92,10 +93,11 @@ The following sections describe how to configure each type of alert receiver:
 
 * [Configure a Webhook Alert Receiver](#webhook)
 
-<p class='note'><strong>Note:</strong> If you want to provide authentication and TLS communication settings for your alert receivers, you must provide them in
-  the associated alert receiver configuration fields described in the sections below. If the base configuration YAML for your alert receivers include fields
-  for authentication and TLS communication settings, do not include them when you provide the configuration YAML for your alert receivers in the <strong>Alert
-  receiver configuration parameters</strong> fields.</p>
+<p class="note">
+If you want to provide authentication and TLS communication settings for your alert receivers, you must provide them in
+the associated alert receiver configuration fields described in the sections below. If the base configuration YAML for your alert receivers include fields
+for authentication and TLS communication settings, do not include them when you provide the configuration YAML for your alert receivers in the <strong>Alert
+receiver configuration parameters</strong> fields.</p>
 
 ### <a id='email'></a> Configure an Email Alert Receiver
 
@@ -120,7 +122,7 @@ with a dash. The following example shows a possible set of configuration paramet
     At minimum, your configuration parameters must include the `to`, `from`, and `smarthost` properties. The other properties you must include depend on both
     the SMTP server for which you are configuring an alert receiver and the needs of your Ops Manager foundation. For more information about the properties
     you can include in this configuration, see the [Prometheus documentation](https://prometheus.io/docs/alerting/latest/configuration/#email_config).
-    <div class='note'><strong>Notes:</strong>
+    <div class="note"><strong>Notes:</strong>
       <ul>
         <li>If you include the <code>html</code> property and leave it blank, Healthwatch automatically populates it with a default template.</li>
         <li>Do not include the <code>auth_password</code> property, the <code>auth_secret</code> property, or the <code>&#60;tls_config></code> section in the
@@ -165,9 +167,11 @@ YAML with a dash. The following example shows a possible set of configuration pa
     The properties you must include depend on both the PagerDuty instance for which you are configuring an alert receiver and the needs of your Ops Manager
     foundation. For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config).
-    <p class='note'><strong>Note:</strong> Do not include the <code>routing_key</code> property, the <code>service_key</code> property, the
-      <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your PagerDuty alert receiver.
-      You can configure these properties in the next steps of this procedure.</p>
+
+    <p class="note">
+    Do not include the <code>routing_key</code> property, the <code>service_key</code> property, the
+    <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your PagerDuty alert receiver.
+    You can configure these properties in the next steps of this procedure.</p>
 
 1. Enter your PagerDuty integration key in one of the following fields:
     * If you selected Events API v2 as your integration type in PagerDuty, enter your PagerDuty integration key in **Routing key**.
@@ -213,12 +217,15 @@ with a dash. The following example shows a possible set of configuration paramet
     channel: '#operators'
     username: 'Example Alerting Integration'
     ```
+
     The properties you must include depend on both the Slack instance for which you are configuring an alert receiver and the needs of your Ops Manager
     foundation. For more information about the properties you can include in this configuration, see the see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#slack_config).
-    <p class='note'><strong>Note:</strong> Do not include the <code>api_url</code> property, the <code>api_url_file</code> property, the
-      <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your Slack alert receiver. You
-      can configure these properties in the next steps of this procedure.</p>
+
+    <p class="note">
+    Do not include the <code>api_url</code> property, the <code>api_url_file</code> property, the
+    <code>&#60;http_config></code> section, or the <code>&#60;tls_config></code> section in the configuration parameters for your Slack alert receiver. You
+    can configure these properties in the next steps of this procedure.</p>
 
 1. For **Slack API URL**, enter the webhook URL for your Slack instance from your Slack app directory.
 
@@ -265,7 +272,7 @@ YAML with a dash. The following example shows a possible set of configuration pa
     The properties you must include depend on both the webhook for which you are configuring an alert receiver and the needs of your Ops Manager foundation.
     For more information about the properties you can include in this configuration, see the [Prometheus
     documentation](https://prometheus.io/docs/alerting/latest/configuration/#webhook_config).
-    <div class='note'><strong>Notes:</strong>
+    <div class="note"><strong>Notes:</strong>
       <ul>
         <li>Do not include the <code>&#60;http_config></code> section or the <code>&#60;tls_config></code> section in the configuration parameters for your
           webhook alert receiver. You can configure these properties in the next steps of this procedure.</li>
@@ -440,7 +447,8 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
         * `TIME-TO-SILENCE` is the amount of time in minutes or hours you want to silence alerts. For example, `30m` or `4h`.
         * `COMMENT` is any notes about this silence you want to add.
 
-        <p class='note'><strong>Note:</strong><code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
+        <p class="note">
+        <code>~.+</code> is a regular expression that includes all alerts in the silence you set.</p>
 
 1. Record the ID string from the output. You can use this ID to end the silence early. For more information, run `amtool --help` or see the [Alertmanager
 documentation](https://github.com/prometheus/alertmanager#amtool) in the Prometheus repository on GitHub.

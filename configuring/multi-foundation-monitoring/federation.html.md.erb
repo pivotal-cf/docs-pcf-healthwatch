@@ -23,10 +23,11 @@ your monitoring foundation to federate metrics from the Prometheus installed on 
 
 For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
-<p class='note caution'><strong>Caution:</strong> Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
-  Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
-  recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
-  information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
+<p class="note caution">
+Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
+Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
+recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
+information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
 
 ## <a id='federation-config'></a> Configure Federation
@@ -56,20 +57,20 @@ IaaS. For more information, see the documentation for your IaaS.
     1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
     1. Record the values of `private_key_pem` and `cert_pem`. These values are the private key and certificate for **Promxy Client mTLS**.
 
-        <p class='note'>
-          <strong>Note:</strong> The values of <code>private_key_pem</code> and <code>cert_pem</code>
+        <p class="note">
+          The values of <code>private_key_pem</code> and <code>cert_pem</code>
           are in JSON format and contain several<code>\n</code> markers.
           Ensure that you convert all <code>\n</code> markers into newlines
           before you use these values in an upcoming step.
         </p>
 
-    1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
+    2. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information, see
     the [Ops Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html).
-    2. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
-    3. Click the **Healthwatch** tile.
-    4. Select **Prometheus**.
-    5. Under **Additional scrape jobs**, click **Add**.
-    6. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
+    3. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
+    4. Click the **Healthwatch** tile.
+    5. Select **Prometheus**.
+    6. Under **Additional scrape jobs**, click **Add**.
+    7. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
     Healthwatch tile on the Ops Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
     regular expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under the `targets` property:
 
@@ -86,18 +87,18 @@ IaaS. For more information, see the documentation for your IaaS.
             - 'source-tsdb-2:4450'
         ```
 
-        <p class='note'>
-          <strong>Note:</strong> If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
+        <p class="note">
+          If you have configured a load balancer or DNS entry for the Prometheus instance, include the IP address for
           your load balancer or DNS entry in each target listed under the <code>targets</code> property instead of the IP address for the Prometheus
           instance.
         </p>
 
-    7. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
+    8. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
     **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.
-    8. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
+    9. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
     previous step.
-    9. For **Target server name**, enter `promxy`.
-    10. Click **Save**. <br><br>If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in an automation script:
+    10. For **Target server name**, enter `promxy`.
+    11. Click **Save**. <br><br>If you are using the `om` CLI to configure the Healthwatch tile, the example below shows how you would enter the example configuration parameters above in an automation script:
 
         <%= partial '../../snippets/federation.md' %>
 

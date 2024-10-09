@@ -7,8 +7,9 @@ owner: Healthwatch
 
 This topic contains release notes for Healthwatch for VMware Tanzu v2.0.6 and v2.1.
 
-<p class='note'><strong>Note:</strong> Healthwatch v2.0.6 is a beta version that is no longer available for download. VMware does not recommend using
-  Healthwatch v2.0.6 in production environments.</p>
+<p class="note">
+Healthwatch v2.0.6 is a beta version that is no longer available for download. VMware does not recommend using
+Healthwatch v2.0.6 in production environments.</p>
 
 The architecture of Healthwatch v2.1 is entirely different from the architecture of Pivotal Healthwatch v1. Healthwatch v2.1 uses the open-source components
 Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. For more information about the differences between
@@ -171,8 +172,10 @@ Healthwatch v2.1.5 uses the following open-source component versions:
 * **[Feature]** Healthwatch supports TKGI v1.12 and earlier.
 
 * **[Feature]** You can filter the **Diego/Capacity** dashboard in the Grafana UI by isolation segment.
-<p class='note'><strong>Note:</strong> Isolation segments that do not have a <code>placement_tag</code> label are included when you select <strong>cf</strong>
-  from the <strong>Placement Tag</strong> dropdown.</p>
+
+    <p class="note">
+    Isolation segments that do not have a <code>placement_tag</code> label are included when you select <strong>cf</strong>
+    from the <strong>Placement Tag</strong> dropdown.</p>
 
 * **[Feature Improvement]** In the **Diego/Capacity** dashboard in the Grafana UI, the **Memory: # of 6GB Chunks Used** graph is renamed **Memory: # of 4GiB
 Chunks Remaining**.
@@ -235,7 +238,8 @@ Healthwatch v2.1.4 uses the following open-source component versions:
 * **[Bug Fix]** Healthwatch deletes the temporary files it creates during TKGI cluster discovery after they are no longer needed.
 
 * **[Bug Fix]** The `no_follow_redirects: true` flag is removed from the Blackbox Exporter. This fixes Ops Manager dashboards in the Grafana UI.
-  <p class='note'><strong>Note:</strong> The bug that the <code>no_follow_redirects: true</code> flag addresses is fixed in Ops Manager v2.10.9. If you are
+    <p class="note">
+    The bug that the <code>no_follow_redirects: true</code> flag addresses is fixed in Ops Manager v2.10.9. If you are
     running Ops Manager v2.10.8 or earlier, you may still see the <code>/home/tempest-web/uaa/tomcat</code> log file grow very large over time.</p>
 
 * **[Known Issue]** If you are using Ops Manager v2.10.19 or later, the Healthwatch tile fails to install. For more information about this known issue, see
