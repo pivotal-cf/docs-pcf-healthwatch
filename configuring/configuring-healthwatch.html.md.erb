@@ -332,9 +332,9 @@ To configure the **Grafana Dashboards** pane:
               the Loggregator Firehose. Otherwise, no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
               <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
-              <p class="note important">
-              If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
-              list of dashboards on the <em>Grafana Dashboards<em> tab of the Healthwatch tile.</p>
+          <p class="note important">
+          If you have installed Tanzu Operations Manager 3.0 you need to select version <em>3.0</em> from the
+          list of dashboards on the <em>Grafana Dashboards</em> tab of the Healthwatch tile.</p>
 
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TAS for VMs.
 
@@ -386,9 +386,9 @@ URLs and records the results. To configure additional canary target URLs:
   1. Click **Add**.
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests.
 
-      <p class="note">
-      The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
-      scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
+  <p class="note">
+  The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
+  scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
 
 1. Click **Save**.
 
@@ -574,10 +574,8 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 ## <a id='next-steps'></a> Next Steps
 
 After you have successfully installed the Healthwatch tile, continue to one of the following topics to configure and deploy the Healthwatch Exporter tiles for
-the Ops Manager foundations you want to monitor:
+the Tanzu Operations Manager foundations you want to monitor:
 
-* If you have TAS for VMs installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for
-VMs](configuring-exporter-tas.html).
+* If you have TAS for VMs installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html).
 
-* If you have TKGI installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for
-TKGI](configuring-exporter-tkgi.html).
+* If you have TKGI installed on an a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html).
