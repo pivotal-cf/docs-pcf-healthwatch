@@ -158,8 +158,8 @@ or external aggregation service. For more information about SVMs, see [SVM Forwa
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
 the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-<p class="note">
-If you are using the OpenTelemetry Collector this step does not apply.</p>
+    <p class="note">
+    If you are using the OpenTelemetry Collector this step does not apply.</p>
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
 value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
@@ -169,8 +169,8 @@ or external aggregation service. For more information about SVMs, see [SVM Forwa
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
 SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-<p class="note">
-If you are using the OpenTelemetry Collector this step does not apply.</p>
+    <p class="note">
+    If you are using the OpenTelemetry Collector this step does not apply.</p>
 
 1. (Optional) For **Static IP addresses for Prometheus VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
@@ -340,7 +340,7 @@ To configure the **Grafana Dashboards** pane:
           <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
           <p class="note important">
-          If you have installed <em>Ops Manager 3.0</em> you need to select version <em>3.0</em> from the
+          If you have installed Tanzu Operations Manager 3.0 you need to select version <em>3.0</em> from the
           list of dashboards on the <em>Grafana Dashboards</em> tab of the Healthwatch tile.</p>
 
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TAS for VMs.
@@ -393,9 +393,9 @@ URLs and records the results. To configure additional canary target URLs:
   1. Click **Add**.
   1. For **URL**, enter the URL to which you want the Prometheus instance to send canary tests.
 
-      <p class="note">
-      The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
-      scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
+  <p class="note">
+  The Prometheus instance automatically creates scrape jobs for these URLs. You do not need to create additional
+  scrape jobs for them in the <strong>Prometheus</strong> pane.</p>
 
 1. Click **Save**.
 
@@ -597,8 +597,8 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
          Where:
 
           * `CA-CERT` is the Ops Manager root CA.
-          * `CERT_PEM` is the cert_pem of the Healthwatch Otel Mtls credential.
-          * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch Otel Mtls credential.
+          * `CERT_PEM` is the cert_pem of the Healthwatch OTel Mtls credential.
+          * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch OTel Mtls credential.
         5. For Tanau Platform for Cloud Foundry (formerly TAS for VMs) 10.0, you can configure certificates under OpenTelemetry Collector Secrets and refer them in OTel configuration. For example:
 
           ```
@@ -621,7 +621,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
            2. In **Name**, enter `healthwatch`.
            3. For Certificate Authority enter `CA-CERT` from the Operations Manager root CA.
            4. The Client Certificate PEM is the `cert_pem` of the Healthwatch OTel mtls credential.
-           5. The Client Ceritificate Private Key PEM is the `private_key_pem` of the Healthwatch Otel Mtls credential.
+           5. The Client Ceritificate Private Key PEM is the `private_key_pem` of the Healthwatch OTel Mtls credential.
            6. Remove the newline character (\n) from the certificates you copy: `awk '{gsub(/\\n/,"\n")}1' <file_name>` or `printf -- "<CERT_DATA>"`
         6. Click **Save**.
 1. If you made changes to the **Healthwatch Exporter for Tanzu Application Service** tile configuration in **Settings** > **TAS for VMs Metric Exporter VMs** > **Filter out custom application metrics**, deploy your changes to Healthwatch as explained in the next section.
@@ -643,10 +643,8 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 ## <a id='next-steps'></a> Next Steps
 
 After you have successfully installed the Healthwatch tile, continue to one of the following topics to configure and deploy the Healthwatch Exporter tiles for
-the Ops Manager foundations you want to monitor:
+the Tanzu Operations Manager foundations you want to monitor:
 
-* If you have TAS for VMs installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for
-VMs](configuring-exporter-tas.html).
+* If you have TAS for VMs installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html).
 
-* If you have TKGI installed on an Ops Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for
-TKGI](configuring-exporter-tkgi.html).
+* If you have TKGI installed on an a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html).

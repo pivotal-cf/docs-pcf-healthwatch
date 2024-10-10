@@ -11,7 +11,7 @@ In this README:
 
 ## Branches in this Repo
 
-**Note**: Use the version-specific branches to create PRs or make changes to the project. The **MASTER** branch is not updated.
+**Note**: Use the version-specific branches to create PRs or make changes to the project. The `master` branch is not updated.
 
 **Note**: The docs.pivotal.io site has been decommissioned and the older versions are no longer accessible. Ideally, these will be archived to pdfs at some point.
 
