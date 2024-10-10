@@ -4,11 +4,8 @@ owner: Healthwatch
 ---
 
 This topic provides an overview of Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch) features and functionality.
-
 For information about new features and breaking changes, see [Healthwatch Release Notes](release-notes.html).
 
-<br>
-## <a id='overview'></a> Overview of Healthwatch
 
 Healthwatch allows you to monitor metrics related to the functionality of your Tanzu Operations Manager platform.
 
@@ -35,11 +32,10 @@ For more information about each of these tiles, see the following sections below
 
 For more information on the limitations and risks of using Healthwatch, see the following sections below:
 
-* [Healthwatch Limitations](#healthwatch-limitations)
+- [ Product Snapshot](#-product-snapshot)
+- [ Healthwatch v2.3 Limitations](#-healthwatch-v23-limitations)
+- [ Assumed Risks of Using Healthwatch v2.3](#-assumed-risks-of-using-healthwatch-v23)
 
-* [Assumed Risks of Using Healthwatch](#assumed-risks)
-
-<br>
 ### <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
 The **Healthwatch** tile monitors metrics from one or more Ops Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
@@ -73,7 +69,6 @@ troubleshooting
 
 * **Alertmanager:** Manages and sends alerts according to the alerting rules you configure
 
-<br>
 ### <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
 
 The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
@@ -96,7 +91,6 @@ Healthwatch Exporter for TAS for VMs tile:
 
 * VMs deployed by Healthwatch Exporter for TAS for VM
 
-<br>
 ### <a id='exporter-tkgi'></a> Overview of the Healthwatch Exporter for TKGI Tile
 
 The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related to the health of your TKGI deployment.
@@ -112,31 +106,30 @@ Healthwatch Exporter for TKGI exposes the following metrics related to the funct
 
 * VMs deployed by Healthwatch Exporter for TKGI
 
-<br>
+
 ## <a id='product-snapshot'></a> Product Snapshot
 
 The following table provides version and version support information about Healthwatch:
 
-| Element | Details                                 |
-| ------- |-----------------------------------------|
-| Version | v2.3                                  |
-| Release date | April 10, 2024                        |
-| Compatible Ops Manager versions | v2.10, v3.0                             |
-| Compatible TAS for VMs versions | v2.11, v2.13, v3.0, v4.0, v5.0, v6.0          |
-| Compatible TKGI versions | v1.15, v1.16                            |
+| Element      | Details                            |
+| ------------ |------------------------------------|
+| Version      | v2.3                               |
+| Release date | April 10, 2024                     |
+| Compatible Tanzu Operations Manager versions | v2.10, v3.0  |
+| Compatible TAS for VMs versions | v2.11, v2.13, v3.0, v4.0, v5.0, v6.0 |
+| Compatible TKGI versions | v1.15, v1.16           |
 | IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
 
-<br>
+
 ## <a id='healthwatch-limitations'></a> Healthwatch v2.3 Limitations
 
 Healthwatch v2.3 has the following limitation:
 
 * Currently the OpenTelemetry Collector is co-located on the TAS VMs defined within the TAS tile, which means that it can only collect metrics from VMs running within the TAS tile. As a result, metrics from other service tiles are not available in Healthwatch when you enable the OpenTelemetry Collector.
 
-<br>
+
 ## <a id='assumed-risks'></a> Assumed Risks of Using Healthwatch v2.3
 
 The following problem can arise when using Healthwatch v2.3:
 
 * With Healthwatch v2.3 you can collect metrics using an OpenTelemetry Collector. But, the OpenTelemetry Collector used in TAS is the Beta version.
-

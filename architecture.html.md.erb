@@ -3,11 +3,10 @@ title: Healthwatch Architecture
 owner: Healthwatch
 ---
 
-This topic describes the architecture of the Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch), Healthwatch Exporter for VMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs),
-and Healthwatch Exporter for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) tiles.
+This topic describes the architecture of the Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch Exporter for VMware Tanzu Application Service&trade; (TAS for VMs),
+and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI) tiles.
 This topic also describes the possible configurations for monitoring metrics across multiple VMware Tanzu^&reg;^ Operations Manager&trade; (Ops Manager) foundations.
 
-<br>
 ## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
 
 There are three tiles that form the Healthwatch architecture: Healthwatch, Healthwatch Exporter for TAS for VMs, and Healthwatch Exporter for TKGI.
@@ -34,7 +33,6 @@ metrics across Ops Manager foundations, see the following sections:
 * [Configuration Options](#configuration-options)
 
 
-<br>
 ## <a id='architecture-hw'></a> Healthwatch Tile Architecture
 
 When you install the Healthwatch tile, Healthwatch deploys instances of Prometheus, Grafana, and MySQL. Healthwatch also deploys an Nginx proxy in front of
@@ -147,7 +145,7 @@ The table below describes the ports you must open for each Healthwatch component
   </tr>
 </table>
 
-<br>
+
 ## <a id='architecture-tas'></a> Healthwatch Exporter for TAS for VMs Architecture
 
 The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
@@ -237,7 +235,7 @@ The table below describes the ports you must open for each Healthwatch Exporter 
   </tr>
 </table>
 
-<br>
+
 ## <a id='architecture-tkgi'></a> Healthwatch Exporter for TKGI Architecture
 
 The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related to the health of your TKGI deployment.
@@ -325,7 +323,7 @@ The table below describes the ports you must open for each Healthwatch Exporter 
   </tr>
 </table>
 
-<br>
+
 ## <a id='configuration-options'></a> Configuration Options
 
 Healthwatch can be configured in multiple ways, allowing you to monitor metrics across a variety of platform and foundation configurations. The sections below
