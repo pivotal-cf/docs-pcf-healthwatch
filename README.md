@@ -1,8 +1,8 @@
 ## Healthwatch for VMware Tanzu Documentation
 
-This is the source repository for the HealthWatch for VMware Tanzu documentation.
+This is the source repository for the Healthwatch for VMware Tanzu documentation.
 
-In this README: 
+In this README:
 
 - [Branches in this Repo](#branches-in-this-repo)
 - [Publishing 2.1 and later](#publishing-21-and-later)
@@ -64,14 +64,14 @@ This repo contains the following files:
 
 **Prerequisite** Needs additional privileges - reach out to a manager on the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) or ask a writer to do this step for you.
 
-1. Go to Staging publications in docsdash  
+1. Go to Staging publications in docsdash
   https://docsdash.vmware.com/deployment-stage
 
 2. Select a publication (make sure it's the latest version)
 
 3. Click "Deploy selected to Pre-Prod" and wait for the pop to turn green (refresh if necessary after about 10s)
 
-4. Go to Pre-Prod list  
+4. Go to Pre-Prod list
   https://docsdash.vmware.com/deployment-pre-prod
 
 5. Select a publication
