@@ -163,7 +163,8 @@ You can scale Healthwatch tile resources either vertically or horizontally:
 
     * **MySQL Proxy**: If you make Grafana HA, VMware recommends scaling your MySQL Proxy instance to two VMs.
 
-    <p class="note"><strong>Note</strong>: To remove Grafana from your Healthwatch deployment, set the number of Grafana, MySQL, and MySQL Proxy instances to `0`. For more information,
+    <p class="note">
+    To remove Grafana from your Healthwatch deployment, set the number of Grafana, MySQL, and MySQL Proxy instances to `0`. For more information,
     see <a href="#remove-grafana">Remove Grafana from Healthwatch</a> below.
     </p>
 
@@ -187,15 +188,13 @@ To configure Healthwatch for HA:
     * **MySQL Proxy**: Scale your MySQL Proxy instance to two VMs.
 
 
-
-
 <br>
 ### <a id='remove-grafana'></a> Remove Grafana from Healthwatch
 
 If you do not want to use any Grafana instances in your Healthwatch deployment, you can remove Grafana.
 For example, you might want to remove Grafana from your Healthwatch deployment after configuring the Prometheus instance to send metrics to an external Grafana instance.
 
-<p class="note"><strong>Note:</strong>
+<p class="note">
 If you remove Grafana from your Healthwatch deployment, scale Grafana, MySQL, and MySQL Proxy to <code>0</code> at the same time.
 MySQL is used only to store Grafana settings and
 MySQL Proxy is used only to route client connections to healthy MySQL nodes in an HA Grafana deployment.
@@ -205,5 +204,4 @@ Neither component is necessary if you have not deployed Grafana.
 To remove Grafana from your Healthwatch deployment:
 
 1. Open the **Resource Config** pane of the Healthwatch tile.
-1. Set the number of **Grafana**, **MySQL**, and **MySQL Proxy** instances to `0`.
-
+2. Set the number of **Grafana**, **MySQL**, and **MySQL Proxy** instances to `0`.
