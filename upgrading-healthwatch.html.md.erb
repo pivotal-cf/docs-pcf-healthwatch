@@ -8,14 +8,14 @@ This topic describes how to upgrade to Healthwatch&trade; for VMware Tanzu (Heal
 Healthwatch uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. This
 architecture is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install Healthwatch as a new tile.
 
-For more information about the differences between Healthwatch v2.2+ and Pivotal Healthwatch v1, see [Differences Between Healthwatch v2.2+ and Pivotal Healthwatch v1](#differences) below.
+For more information about the differences between Healthwatch v2.2 and Pivotal Healthwatch v1, see [Differences Between Healthwatch v2.2 and Pivotal Healthwatch v1](#differences) below.
 
-To upgrade to Healthwatch v2.2+ from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2](#upgrade) below.
+To upgrade to Healthwatch v2.2 from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2](#upgrade) below.
 
 
-## <a id='differences'></a> Differences Between Healthwatch v2.2+ and Pivotal Healthwatch v1
+## <a id='differences'></a> Differences Between Healthwatch v2.2 and Pivotal Healthwatch v1
 
-The following table explains the most significant differences between Healthwatch v2.2+ and Pivotal Healthwatch v1:
+The following table explains the most significant differences between Healthwatch v2.2 and Pivotal Healthwatch v1:
 
 <table>
   <tr>
@@ -27,7 +27,7 @@ The following table explains the most significant differences between Healthwatc
     <td>
       <ul>
         <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as
-          well as configure alerts. Healthwatch v2.2+ deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
+          well as configure alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
           Healthwatch components to make them HA.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Consists of a dashboard and alerting system within the Pivotal Healthwatch v1 tile to monitor metrics and
           send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Ops Manager tiles
@@ -146,11 +146,11 @@ troubleshooting, such as a remote server or external syslog aggregation service.
 For more information about Healthwatch features, see [Healthwatch Release Notes](release-notes.html).
 
 
-## <a id='upgrade'></a> Upgrade to Healthwatch v2.2+
+## <a id='upgrade'></a> Upgrade to Healthwatch v2.2
 
-The architecture of Healthwatch v2.2+ is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install and configure
-Healthwatch v2.2+ as a new tile even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics from Pivotal Healthwatch v1, you
-can keep Pivotal Healthwatch v1 installed and use it concurrently with Healthwatch v2.2+ while you transition to Healthwatch v2.2+.
+The architecture of Healthwatch v2.2 is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install and configure
+Healthwatch v2.2 as a new tile even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics from Pivotal Healthwatch v1, you
+can keep Pivotal Healthwatch v1 installed and use it concurrently with Healthwatch v2.2 while you transition to Healthwatch v2.2.
 
 To upgrade to Healthwatch:
 
