@@ -5,8 +5,7 @@ owner: Healthwatch
 
 This topic describes how to manually configure and deploy the Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch) tile.
 
-To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated
-Pipeline](../installing/automated-pipeline.html).
+To install, configure, and deploy Healthwatch through an automated pipeline, see [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 
 ## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch
@@ -158,8 +157,8 @@ or external aggregation service. For more information about SVMs, see [SVM Forwa
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
 the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-    <p class="note">
-    If you are using the OpenTelemetry Collector this step does not apply.</p>
+        <p class="note">
+        If you are using the OpenTelemetry Collector this step does not apply.</p>
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
 value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
@@ -169,8 +168,8 @@ or external aggregation service. For more information about SVMs, see [SVM Forwa
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
 SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
 
-    <p class="note">
-    If you are using the OpenTelemetry Collector this step does not apply.</p>
+      <p class="note">
+      If you are using the OpenTelemetry Collector this step does not apply.</p>
 
 1. (Optional) For **Static IP addresses for Prometheus VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the
 Prometheus instance. You must enter a separate IP address for each VM in the Prometheus instance. These IP addresses must not be within the reserved IP ranges
@@ -218,38 +217,41 @@ To configure the **Grafana** pane:
       1. For **Grafana root URL**, enter the URL used to access the Grafana UI. Configuring this field allows a generic OAuth provider or UAA to redirect
       users to the Grafana UI. Alertmanager also uses this URL to generate links to the Grafana UI in alert messages.
 
-        <p class="note">
-        Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
-        root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
+          <p class="note">
+          Healthwatch does not automatically assign a default root URL to the Grafana UI. You must manually configure a
+          root URL for the Grafana UI in the <strong>Grafana root URL</strong> field.</p>
 
-        After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for the Grafana instance in the console for your IaaS using
-        this root URL and the IP address of either the Grafana VMs or the load balancer associated with the Grafana instance. The Grafana instance listens on
-        either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
-        information about configuring DNS entries for the Grafana instance, see [Configuring DNS for the Grafana Instances](dns-configuration.html).
+          After you deploy the Healthwatch tile for the first time, you must configure a DNS entry for the Grafana instance in the console for your IaaS using
+          this root URL and the IP address of either the Grafana VMs or the load balancer associated with the Grafana instance. The Grafana instance listens on
+          either port `443` or `80`, depending on whether you provide a TLS certificate in the **Certificate and private key for HTTPS** fields below. For more
+          information about configuring DNS entries for the Grafana instance, see [Configuring DNS for the Grafana Instances](dns-configuration.html).
+
       2. (Optional) To allow HTTPS connections to one or more Grafana instances, you must provide a certificate and private key for the Grafana instance to
       use for TLS connections in **Certificate and private key for HTTPS**.
         <br>
         <br>
         VMware recommends also providing a certificate signed by a trusted third-party CA in **CA certificate for HTTPS**. You can generate a self-signed
         certificate using the Ops Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
-          * To use a certificate signed by a trusted third-party CA:
-              1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
-              2. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
-          * To generate a self-signed certificate from the Ops Manager root CA:
-              1. Under **Certificate and private key for HTTPS**, click **Change**.
-              2. Click **Generate RSA Certificate**.
-              3. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for
-              the Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For
-              more information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
-              4. Click **Generate**.
-              5. Navigate to the Ops Manager Installation Dashboard.
-              6. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
-              7. Select **Advanced Options**.
-              8. Click **DOWNLOAD ROOT CA CERT**.
-              9. Return to the Ops Manager Installation Dashboard.
-              10. Click the **Healthwatch** tile.
-              11. Select **Grafana**.
-              12. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
+
+        * To use a certificate signed by a trusted third-party CA:
+            1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
+            2. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
+
+        * To generate a self-signed certificate from the Ops Manager root CA:
+            1. Under **Certificate and private key for HTTPS**, click **Change**.
+            2. Click **Generate RSA Certificate**.
+            3. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for
+            the Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For
+            more information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
+            4. Click **Generate**.
+            5. Navigate to the Ops Manager Installation Dashboard.
+            6. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+            7. Select **Advanced Options**.
+            8. Click **DOWNLOAD ROOT CA CERT**.
+            9. Return to the Ops Manager Installation Dashboard.
+            10. Click the **Healthwatch** tile.
+            11. Select **Grafana**.
+            12. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
       3. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in
       **Additional ciphers for TLS**. For a list of supported cipher suites, see
       [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go
@@ -299,12 +301,12 @@ alerts.
 2. (Optional) For **Static IP addresses for Grafana VMs**, enter a comma-separated list of valid static IP addresses that you want to reserve for the Grafana
 instance. These IP addresses must not be within the reserved IP ranges you configured in the BOSH Director tile.
 
-1. (Optional) If you want to use Grafana legacy alerting instead of new Grafana Alerting, select the **Opt out of Grafana Alerting** checkbox. Please note that this will delete any
+1. (Optional) If you want to use Grafana legacy alerting instead of new Grafana Alerting, select the **Opt out of Grafana Alerting** check box. Please note that this will delete any
 alerts and changes made in Grafana Alerting.
 
-1. (Optional) If you want to disable the `gravatar`, select the **Disable gravatar** checkbox.
+1. (Optional) If you want to disable the `gravatar`, select the **Disable gravatar** check box.
 
-2. (Optional) To log all access to Grafana, select the **Enable router logging** checkbox. This will allow auditing of all traffic into the system.
+2. (Optional) To log all access to Grafana, select the **Enable router logging** check box. This will allow auditing of all traffic into the system.
 
 3. Click **Save**.
 
