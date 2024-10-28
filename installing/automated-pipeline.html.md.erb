@@ -23,7 +23,7 @@ To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles
 
 Automated pipelines allow you to install, configure, and deploy Ops Manager tiles through automation scripts.
 
-For more information, see the [Platform Automation documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-index.html).
+For more information, see the [Platform Automation documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-index.html).
 
 <p class="note">
 There are risks to using Healthwatch v2.1, including missed email notifications, overwritten dashboards, and minor data
@@ -36,14 +36,14 @@ Using Healthwatch v2.1</a> in <em>Healthwatch</em>.</p>
 Before you use an automated pipeline to install, configure, and deploy a tile, you must have the following:
 
 * An existing Concourse pipeline. For an example pipeline configuration, see the [Platform Automation
-documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-pipelines-multiple-products.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-pipelines-multiple-products.html).
 
 * A fully-configured Ops Manager foundation.
 
 * A fully-configured BOSH Director instance.
 
 * The Platform Automation Toolkit Docker image imported into Docker. For more information, see the [Platform Automation
-documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-running-commands-locally.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-running-commands-locally.html#executing-commands).
 
 
 ## <a id='install'></a> Download and Install a Tile Using Platform Automation
@@ -84,13 +84,13 @@ Broadcom Support portal. Copy and paste one of the following sets of properties 
         ```
 
     For more information, see
-    * [Extending a pipeline to install a product](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-adding-a-product.html#download)
-    * [download-product task](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-tasks.html#download-product)
+    * [Extending a pipeline to install a product](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-adding-a-product.html#download)
+    * [download-product task](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-tasks.html#download-product)
 
 1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell` and `upload-and-stage-product` jobs to your configuration file.
 For more information, see these topics in the Platform Automation Toolkit documentation.
-   * [Extending a pipeline to install a product](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-adding-a-product.html)
-   * [upload-stemcell task](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-tasks.html#upload-stemcell)
+   * [Extending a pipeline to install a product](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-adding-a-product.html)
+   * [upload-stemcell task](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-tasks.html#upload-stemcell)
 
 
 ## <a id='om'></a> Configure and Deploy Your Tile Using the om CLI
