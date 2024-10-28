@@ -90,12 +90,11 @@ to Healthwatch.
     ```
 
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
-    creating a configuration file in TKGI, see the [TKGI
-    documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-monitor-etcd.html#toml).
+    creating a configuration file in TKGI, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/monitor-etcd.html#toml).
 
     <p class="note">
     If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
-    file.</p>
+    file. TKGI v1.12 and earlier are out of support. Consider upgrading to at least v1.17, which is currently the oldest supported version.</p>
 
 1. Click **Save**.
 
