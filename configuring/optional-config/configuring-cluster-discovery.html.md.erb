@@ -56,11 +56,11 @@ To configure the **TKGI Cluster Discovery** pane:
 the TKGI cluster discovery process. These metrics appear in the **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI.
 
 1. For **TKGI API domain**, enter the TKGI API domain you configured in the **API Hostname (FQDN)** field in the **TKGI API** pane of the TKGI tile. For
-example, `api.tkgi.example.com`. For more information, see the [TKGI documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+example, `api.tkgi.example.com`. For more information, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 1. For **UAA client username**, enter one of the following usernames for your TKGI UAA client:
     * Enter the TKGI management admin client username `admin`.
-    * Create a separate UAA client with access to the TKGI API and enter the username you specify for that UAA client. For more information, see the [TKGI Documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+    * Create a separate UAA client with access to the TKGI API and enter the username you specify for that UAA client. For more information, see the [TKGI Documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 2. For **TKGI UAA Client Secret**, enter one of the following secrets for your TKGI UAA client:
     * Enter the TKGI management admin client secret:
@@ -74,11 +74,10 @@ example, `api.tkgi.example.com`. For more information, see the [TKGI documentati
       8. Select **TKGI Cluster Discovery**.
       9. For **UAA client secret**, enter the secret you recorded from the **Pks Uaa Management Admin Client** row in the **Credentials** tab in the **Tanzu
       Kubernetes Grid Integrated Edition** tile in a previous step.
-    * Create a separate UAA client with access to the TKGI API and enter the secret you specify for that UAA client. For more information, see the [TKGI
-    documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+    * Create a separate UAA client with access to the TKGI API and enter the secret you specify for that UAA client. For more information, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 3. If you configured UAA as the OIDC provider for TKGI in the **UAA** pane of the TKGI tile, enter the TKGI UAA admin password in **UAA admin password**.
-Otherwise, do not configure this field. For more information, see the [TKGI documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+Otherwise, do not configure this field. For more information, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 1. For **SLI test frequency**, enter in seconds how frequently you want the TKGI service level indicator (SLI) test to run. The TKGI SLI test monitors the
 health of the TKGI API by logging into the TKGI API server, listing all TKGI clusters, and logging out of the TKGI API server.
@@ -120,7 +119,7 @@ To configure TKGI:
       metric_version = 2
     ```
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
-    creating a configuration file in TKGI, see the [TKGI documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+    creating a configuration file in TKGI, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 2. Click **Save**.
 
