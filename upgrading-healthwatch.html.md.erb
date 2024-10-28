@@ -161,8 +161,7 @@ To upgrade to Healthwatch:
 [Configuration Options](architecture.html#configuration-options) in _Healthwatch Architecture_.
 
 1. Install the Healthwatch tile and Healthwatch Exporter tiles on the Ops Manager foundations you want to monitor according to the configuration you
-identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing the Healthwatch tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a
-Tile Through an Automated Pipeline](installing/automated-pipeline.html).
+identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing the Healthwatch tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](installing/automated-pipeline.html).
 
 1. Configure the Healthwatch component VMs through the Healthwatch tile and Healthwatch Exporter tile UIs in the Ops Manager Installation Dashboard and
 deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html),
@@ -172,9 +171,9 @@ TKGI](configuring/configuring-exporter-tkgi.html).
 1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile from your Ops Manager foundations. Then, delete the Pivotal
 Healthwatch v1 tile from your Ops Manager foundations.
 
-<p class="note important">
-You must delete the Pivotal Event Alerts tile before you delete the Pivotal Healthwatch v1 tile. If
-you delete the Pivotal Healthwatch v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you must re-add the Pivotal
-Healthwatch v1 tile to delete the Pivotal Event Alerts tile.</p>
-For more information about deleting tiles, see the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-add-delete.html#del-prod).
+    <p class="note important">
+    You must delete the Pivotal Event Alerts tile before you delete the Pivotal Healthwatch v1 tile. If
+    you delete the Pivotal Healthwatch v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you must re-add the Pivotal
+    Healthwatch v1 tile to delete the Pivotal Event Alerts tile.</p>
+
+For more information about deleting tiles, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-add-delete.html#del-prod).

@@ -262,7 +262,7 @@ groups:
             - Check the MySQL Server logs for errors
             - Check disk capacity
             - Check CPU utilization
-            - See more at https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-VMs/2.10/tanzu-mysql-vms/GUID-monitor.html and https://docs.vmware.com/en/VMware-Tanzu-SQL-with-MySQL-for-VMs/2.10/tanzu-mysql-vms/GUID-troubleshoot.html
+            - See more at https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-for-mysql-on-cloud-foundry/3-3/mysql-for-tpcf/monitor.html and https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-for-mysql-on-cloud-foundry/3-3/mysql-for-tpcf/troubleshoot.html
       - alert: MySQLLeaderFollowerClusterHealth
         expr: 'avg by (deployment) (_p_mysql_follower_slave_io_running * on (index, deployment) _p_mysql_follower_slave_sql_running * on (index, deployment) _p_mysql_available * on (index, deployment) (_p_mysql_system_persistent_disk_used_percent < bool 30) * on (index, deployment) (_p_mysql_system_ephemeral_disk_used_percent < bool 95) * on (index, deployment) (_p_mysql_performance_cpu_utilization_percent < bool 90) * on (index, deployment) system_healthy{exported_job=~".*mysql.*", deployment=~"service-instance.*", origin="bosh-system-metrics-forwarder"}) <= .5'
         for: 10m
