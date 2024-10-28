@@ -210,7 +210,7 @@ To configure the **Grafana** pane:
     * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Ops Manager foundation with TAS for VMs installed, Healthwatch
     automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available. You access the Grafana UI by
     navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the TAS for
-    VMs tile. For more information, see the [TAS for VMs documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/config-domains.html).
+    VMs tile. For more information, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/config-domains.html).
     * **Manually configure:** Reveals the configuration fields described in the following steps, where you manually configure the URL and TLS settings for the
     Grafana UI.
     To manually configure the URL and TLS settings for the Grafana UI:
@@ -367,7 +367,7 @@ To configure the **Grafana Dashboards** pane:
         If you choose to include Tanzu RabbitMQ dashboards, set the <strong>Metrics polling interval</strong> field in
         the Tanzu RabbitMQ tile to <code>-1</code>. This prevents the Tanzu RabbitMQ tile from sending duplicate metrics to the Loggregator Firehose. To
         configure this field, see the
-        <a href="https://docs.vmware.com/en/VMware-RabbitMQ-for-Tanzu-Application-Service/2.2/tanzu-rmq/GUID-monitor.html#metrics-polling-interval">Tanzu
+        <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/data-solutions/tanzu-rabbitmq-on-cloud-foundry/2-4/tanzu-rabbitmq-cloud-foundry/monitor.html#metrics-polling-interval">Tanzu
         RabbitMQ documentation</a>.</p>
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from Tanzu RabbitMQ.
 
@@ -493,7 +493,7 @@ By default, Ops Manager always runs all errands.
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
 For more information about how Ops Manager manages errands, see the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-managing_errands.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -537,7 +537,7 @@ destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/custom-syslog-rules.html). For more information about
+rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -638,8 +638,7 @@ To complete your installation of the Healthwatch tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='next-steps'></a> Next Steps

@@ -82,10 +82,10 @@ To configure the **Assign AZ and Networks** pane:
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TAS for VMs
-networks, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html#pas-subnets).
+networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pas-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about TAS for VMs service networks, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/refarch-index.html#pas-subnets).
+information about TAS for VMs service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pas-subnets).
 
 1. Click **Save**.
 
@@ -216,7 +216,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Login Client Credentials**.
         <br>
         <br>
-      For more information about internal authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#internal_auth).
+      For more information about internal authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#internal_auth).
     * If your Ops Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -232,27 +232,27 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about SAML authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#saml).
+      For more information about SAML authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#saml).
     * If your Ops Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
-        1. Click **Settings**.
-        1. Select **LDAP Settings**.
-        1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
-        1. Click **Enable LDAP Authentication**.
-        1. Return to the Ops Manager Installation Dashboard.
-        1. Click the **BOSH Director** tile.
-        1. Select the **Status** tab.
-        1. Record the IP address in the **IPs** column of the **BOSH Director** row.
-        1. Select the **Credentials** tab.
-        1. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
-        1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
+        2. Click **Settings**.
+        3. Select **LDAP Settings**.
+        4. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
+        5. Click **Enable LDAP Authentication**.
+        6. Return to the Ops Manager Installation Dashboard.
+        7. Click the **BOSH Director** tile.
+        8. Select the **Status** tab.
+        9. Record the IP address in the **IPs** column of the **BOSH Director** row.
+        10. Select the **Credentials** tab.
+        11. In the **Uaa Bosh Client Credentials** row of the **BOSH Director** section, click **Link to Credential**.
+        12. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about LDAP authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/pcf-interface.html#ldap).
+      For more information about LDAP authentication settings for your Ops Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#ldap).
 
-1. SSH into the Ops Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#ssh).
+2. SSH into the Ops Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-trouble-advanced.html#ssh).
 
-1. Target the UAA instance for the BOSH Director by running:
+3. Target the UAA instance for the BOSH Director by running:
 
     ```
     uaac target https://BOSH-DIRECTOR-IP:8443 --skip-ssl-validation
@@ -260,7 +260,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
     Where `BOSH-DIRECTOR-IP` is the IP address for the BOSH Director VM that you recorded from the **Status** tab in the BOSH Director tile in a previous
     step.
 
-1. Log in to the UAA instance:
+4. Log in to the UAA instance:
     * If your Ops Manager deployment uses internal authentication, log in to the UAA instance by running:
 
         ```
@@ -276,7 +276,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         Where `BOSH-UAA-CLIENT-SECRET` is the secret you recorded from the **Uaa Bosh Client Credentials** row in the **Credentials** tab in the BOSH Director
         tile in a previous step.
 
-1. When prompted, enter the UAA administrator client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the
+5. When prompted, enter the UAA administrator client username `admin` and the secret you recorded from the **Uaa Admin Client Credentials** row in the
 **Credentials** tab in the BOSH Director tile in a previous step.
 
 1. Create a UAA client for the BOSH deployment metric exporter VM by running:
@@ -293,13 +293,13 @@ To create a UAA client for the BOSH deployment metric exporter VM:
     * `CLIENT-USERNAME` is the username you want to set for the UAA client.
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
 
-1. Return to the Ops Manager Installation Dashboard.
+2. Return to the Ops Manager Installation Dashboard.
 
-1. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
+3. Click the **Healthwatch Exporter for Tanzu Application Service** tile.
 
-1. Select **BOSH Deployment Metric Exporter VM**.
+4. Select **BOSH Deployment Metric Exporter VM**.
 
-1. For **UAA client credentials**, enter the username and secret for the UAA client you just created.
+5. For **UAA client credentials**, enter the username and secret for the UAA client you just created.
 
 
 ## <a id='errands'></a> (Optional) Configure Errands
@@ -311,7 +311,7 @@ By default, Ops Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-managing_errands.html).
+For more information about how Ops Manager manages errands, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -357,7 +357,7 @@ to your external destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/custom-syslog-rules.html). For more information about
+rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -410,7 +410,7 @@ To complete your installation of the Healthwatch Exporter for TAS for VMs tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Tanzu Operations Manager documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs
