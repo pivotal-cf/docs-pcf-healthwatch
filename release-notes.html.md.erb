@@ -547,7 +547,7 @@ Healthwatch v2.2 includes the following breaking changes:
 To use Healthwatch v2.2.5 or later, you must upgrade its stemcell to Ubuntu Jammy Stemcell 1.49 or later. You can download Ubuntu Jammy Stemcell 1.49 and
 later from [VMware Tanzu Network](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Stemcells%20(Ubuntu%20Jammy)).
 
-For more information about supported stemcells, see the [Stemcells for VMware Tanzu documentation](https://docs.vmware.com/en/Stemcells-for-VMware-Tanzu/services/release-notes/index.html).
+For more information about supported stemcells, see the [Stemcells for VMware Tanzu documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/stemcells-for-tanzu/services/stemcell-rn/index.html).
 
 ### <a id='scripts'></a> Update Automation Scripts
 
@@ -628,8 +628,7 @@ To fix this issue, upgrade to Healthwatch v2.2.2 or later.
 If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
-To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-20/tkgi/index.html).
 
 ### <a id='tkgi-windows-clusters'></a> No Data on Kubernetes Nodes Dashboard for Windows Clusters
 
@@ -646,7 +645,7 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
 previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI,
-see [OIDC Provider for Kubernetes Clusters](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.16/tkgi/GUID-oidc-provider.html)
+see [OIDC Provider for Kubernetes Clusters](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-16/tkgi/oidc-provider.html)
 in the TKGI documentation.
 
 You may need to manually delete existing service accounts from previous TKGI SLI tests. For more information about manually deleting existing service
