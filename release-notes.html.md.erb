@@ -13,6 +13,7 @@ v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware
 
 **Release Date:** October 3rd, 2024
 * **[Feature]** Healthwatch 2.3.1 can now receive metrics through OpenTelemetery (OTel), even if Firehose is enabled.
+* **[Known Issue]** If you have only TKGI v1.16 or later installed, the **Healthwatch Exporter troubleshooting** dashboard in the Grafana UI shows no data, see [No Data for Healthwatch Exporter troubleshooting](#no-data-healthwatch-exporter) below.
 
 ### <a id='2-3-0'></a> v2.3.0
 
@@ -50,3 +51,8 @@ Healthwatch v2.3.0 uses the following open-source component versions:
 | Grafana      | 10.1.10          |
 | Alertmanager | 0.27.0           |
 | PXC          | 1.0.29           |
+
+### <a id='no-data-healthwatch-exporter'></a> Healthwatch exporter dashboard showing no data
+
+This known issue is applicable if you have TKGi installed in your TPCF environment. Metrics for pks-exporter VM will not be shown in troubleshooting dashboard.
+However, users will continue to see metrics from pas-exporter.
