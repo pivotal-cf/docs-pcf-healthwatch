@@ -21,7 +21,7 @@ If TKGI cluster discovery fails after you have completed both parts of the proce
 
 <p class="note">
 To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
-configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
+configure the Healthwatch Exporter for TKGI on your Tanzu Operations Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
 <a href="<%= current_page.data.rootpart %>installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
 <a href="<%= current_page.data.rootpart %>configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
 
@@ -33,7 +33,7 @@ uses to connect to the Kubernetes API through the TKGI API.
 
 To configure the **TKGI Cluster Discovery** pane:
 
-1. Navigate to the Ops Manager Installation Dashboard.
+1. Navigate to the Tanzu Operations Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
@@ -41,7 +41,7 @@ To configure the **TKGI Cluster Discovery** pane:
 
 1. Under **TKGI cluster discovery**, select one of the following options:
     * **On:** This option allows TKGI cluster discovery and reveals the configuration fields described in the steps below. TKGI cluster discovery is allowed
-    by default when TKGI is installed on your Ops Manager foundation.
+    by default when TKGI is installed on your Tanzu Operations Manager foundation.
     * **Off:** This option disallows TKGI cluster discovery.
 
 1. For **Discovery interval**, enter in seconds how frequently you want the Prometheus instance detects and scrapes TKGI clusters. The minimum value is `60`.
