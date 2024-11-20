@@ -10,24 +10,24 @@ This is the source repository for the Healthwatch for VMware Tanzu documentation
 >**Note**
 >The docs.pivotal.io site has been decommissioned and the older versions are no longer accessible. Ideally, these will be archived to pdfs at some point.
 
-| Branch Name| Use for… | URL |
-|------------| ---------|-----|
-| master     | DO NOT USE | _n/a_ |
-| 2.3        | 2.3 | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-3/healthwatch/index.html |
-| 2.2        | 2.2 | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-2/healthwatch/index.html |
-| 2.1        | 2.1 | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-1/healthwatch/index.html |
-| 2.0        | 2.0 | http://docs.pivotal.io/platform/healthwatch/2-0 |
-| 1.8        | 1.8 | https://docs.pivotal.io/healthwatch/1-8 |
-| 1.7        | 1.7 | https://docs.pivotal.io/healthwatch/1-7 |
-| 1.6        | 1.6 | https://docs.pivotal.io/healthwatch/1-6 |
-| 1.5        | 1.5 | https://docs.pivotal.io/healthwatch/1-5 |
-| 1.4        | 1.4 | https://docs.pivotal.io/healthwatch/1-4 |
-| 1.3        | 1.3 | https://docs.pivotal.io/healthwatch/1-3 |
-| 1.2        | 1.2 | https://docs.pivotal.io/healthwatch/1-2 |
-| 1.1        | 1.1 | https://docs.pivotal.io/healthwatch/1-1 |
-| 1.0        | 1.0 | https://docs.pivotal.io/healthwatch/1-0 |
+| Branch Name| Status     | URL |
+|------------| -----------|-----|
+| master     | DO NOT USE | n/a |
+| 2.3        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-3/healthwatch/index.html |
+| 2.2        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-2/healthwatch/index.html |
+| 2.1        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-1/healthwatch/index.html |
+| 2.0        | EOGS | http://docs.pivotal.io/platform/healthwatch/2-0 |
+| 1.8        | EOGS | https://docs.pivotal.io/healthwatch/1-8 |
+| 1.7        | EOGS | https://docs.pivotal.io/healthwatch/1-7 |
+| 1.6        | EOGS | https://docs.pivotal.io/healthwatch/1-6 |
+| 1.5        | EOGS | https://docs.pivotal.io/healthwatch/1-5 |
+| 1.4        | EOGS | https://docs.pivotal.io/healthwatch/1-4 |
+| 1.3        | EOGS | https://docs.pivotal.io/healthwatch/1-3 |
+| 1.2        | EOGS | https://docs.pivotal.io/healthwatch/1-2 |
+| 1.1        | EOGS | https://docs.pivotal.io/healthwatch/1-1 |
+| 1.0        | EOGS | https://docs.pivotal.io/healthwatch/1-0 |
 
-1.8 and earlier is end of general support.
+EOGS = End of General Support
 
 
 ## Publishing 2.1 and later
