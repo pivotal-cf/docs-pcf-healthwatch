@@ -22,6 +22,8 @@ template_variables:
   crd_version: v1
 
 # Product name and version variables
+  healthwatch_version: 2-3
+
   runtime_prod_full: Tanzu Platform for Cloud Foundry
   runtime_prod_short: Tanzu Platform for CF
   runtime_version: 10-0

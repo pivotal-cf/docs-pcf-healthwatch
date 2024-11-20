@@ -81,10 +81,10 @@ To configure the **Assign AZ and Networks** pane:
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TKGI
-networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
+networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about TKGI service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
+information about TKGI service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. Click **Save**.
 
@@ -224,7 +224,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about internal authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
-      documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#internal_auth).
+      documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/pcf-interface.html#internal_auth).
     * If your Tanzu Operations Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -241,7 +241,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         <br>
         <br>
       For more information about SAML authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
-      documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#saml).
+      documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/pcf-interface.html#saml).
     * If your Tanzu Operations Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
@@ -257,9 +257,9 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about LDAP authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#ldap).
+      For more information about LDAP authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/pcf-interface.html#ldap).
 
-1. SSH into the Tanzu Operations Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-trouble-advanced.html#ssh).
+1. SSH into the Tanzu Operations Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#ssh).
 
 1. Target the UAA instance for the BOSH Director by running:
 
@@ -321,7 +321,7 @@ By default, Tanzu Operations Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Tanzu Operations Manager manages errands, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
+For more information about how Tanzu Operations Manager manages errands, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -363,7 +363,7 @@ external destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/custom-syslog-rules.html). For more information about
+rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -402,7 +402,7 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI

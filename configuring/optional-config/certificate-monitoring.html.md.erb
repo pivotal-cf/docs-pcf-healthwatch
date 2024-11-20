@@ -10,7 +10,7 @@ This topic describes how to monitor the expiration of VMware Tanzu Operations Ma
 
 The metrics in the **Certificate Expiration** dashboard in the Grafana UI show when Tanzu Operations Manager certificates are due to expire. These certificates include the
 Tanzu Operations Manager root certificate authority (CA) and CredHub-managed leaf certificates for product tiles and BOSH deployments. For more information about these
-certificates, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/security-pcf-infrastructure-certificate-types.html).
+certificates, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/security-pcf-infrastructure-certificate-types.html).
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`. The
 certificate expiration metric exporter VM uses the `om` CLI to send a GET request with the query parameter `?expires_within=1y` to the
@@ -25,10 +25,10 @@ GET request to the <code>/api/v0/deployed/certificates</code> endpoint.</p>
 
 If your BOSH Director deployment uses custom CAs, you can configure them in the **Trusted Certificates** field in the **Security** pane of the BOSH Director
 tile. Configuring custom CAs in the **Trusted Certificates** field allows all BOSH-deployed components in your deployment to trust custom root certificates.
-For more information about this field, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-index.html).
+For more information about this field, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-index.html).
 
 If any CAs or leaf certificates for your Tanzu Operations Manager foundation are due to expire soon, rotate them before they expire to avoid downtime for your foundation.
-To rotate CAs and leaf certificates, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/security-pcf-infrastructure-api-cert-rotation.html).
+To rotate CAs and leaf certificates, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/security-pcf-infrastructure-api-cert-rotation.html).
 
 
 ## <a id='configure-static-ip'></a> Reserving a Static IP Address for the Certificate Expiration Metric Exporter VM

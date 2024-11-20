@@ -210,7 +210,7 @@ To configure the **Grafana** pane:
     * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Tanzu Operations Manager foundation with TAS for VMs installed, Healthwatch
     automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available. You access the Grafana UI by
     navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the TAS for
-    VMs tile. For more information, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/config-domains.html).
+    VMs tile. For more information, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/config-domains.html).
     * **Manually configure:** Reveals the configuration fields described in the following steps, where you manually configure the URL and TLS settings for the
     Grafana UI.
     To manually configure the URL and TLS settings for the Grafana UI:
@@ -492,7 +492,7 @@ By default, Tanzu Operations Manager always runs all errands.
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
 For more information about how Tanzu Operations Manager manages errands, see the [Tanzu Operations Manager
-documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -536,7 +536,7 @@ destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/custom-syslog-rules.html). For more information about
+rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -637,7 +637,7 @@ To complete your installation of the Healthwatch tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='next-steps'></a> Next Steps
