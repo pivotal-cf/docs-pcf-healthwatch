@@ -1,0 +1,35 @@
+---
+template_variables:
+  book_title: Heathwatch for VMware Tanzu Documentation
+  book_title_short: Heathwatch for VMware Tanzu Docs
+  title: <span class="title-deemph">Tanzu</span> Documentation
+  title_image: images/icon-p-green.jpg
+  hero_text: "Detailed documentation to help you install, understand, and succeed with Tanzu enterprise-grade software."
+  product_full: Heathwatch for VMware Tanzu
+  product_short: Healthwatch
+  product_name: PCF
+  product_abbr:
+  product_url: https://support.broadcom.com/group/ecx/productdownloads?subfamily=Healthwatch
+  product_link: <div class="header-item"><a href="https://support.broadcom.com/group/ecx/downloads">Back to product page</a></div>
+  support_link: <a href="https://support.broadcom.com/" target="_blank">Broadcom Support</a>
+  support_call_to_action: <a href="https://support.broadcom.com/" target="_blank">Need Support?</a>
+  support_url: https://support.broadcom.com/
+
+  api_version: 235
+  gtm_account_id: GTM-MW4LZHR
+
+  crd_group: tanzu.vmware.com
+  crd_version: v1
+
+# Product name and version variables
+  runtime_prod_full: Tanzu Platform for Cloud Foundry
+  runtime_prod_short: Tanzu Platform for CF
+  runtime_version: 10-0
+
+  opsman_prod_full: Tanzu Operations Manager
+  opsman_prod_short: Operations Manager
+  opsman_version: 3-0
+
+  runtime-tkgi_full: Tanzu Kubernetes Grid Integrated Edition
+  runtime_tkgi_short: TKGI
+  runtime_tkgi_version: 1-20
