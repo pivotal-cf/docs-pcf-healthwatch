@@ -11,15 +11,15 @@ Healthwatch allows you to monitor metrics related to the functionality of your T
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
 both the VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
-You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
+You must install a Healthwatch Exporter tile on each Tanzu Operations Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
 or on a different foundation, depending on your desired monitoring configuration.
 
-You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
-external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Ops Manager foundation. This does not require you to install the
-Healthwatch tile on the same Ops Manager foundation as the Healthwatch Exporter tiles.
+You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Tanzu Operations Manager foundation, such as an
+external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Tanzu Operations Manager foundation. This does not require you to install the
+Healthwatch tile on the same Tanzu Operations Manager foundation as the Healthwatch Exporter tiles.
 
 For a detailed explanation of the Healthwatch architecture, a list of open ports required for each component, and possible configurations for monitoring
-metrics with Ops Manager or an external service or database, see [Reference Architecture](architecture.html).
+metrics with Tanzu Operations Manager or an external service or database, see [Reference Architecture](architecture.html).
 
 ## <a id='product-snapshot'></a> Product Snapshot
 
@@ -38,7 +38,7 @@ The following table provides version and version support information about Healt
 
 ## <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
-The **Healthwatch** tile monitors metrics from one or more Ops Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
+The **Healthwatch** tile monitors metrics from one or more Tanzu Operations Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
 foundation.
 
 Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and allows you
@@ -55,7 +55,7 @@ Healthwatch includes the following features:
       * Service level indicators (SLIs) for the BOSH Director
       * SLIs for TAS for VMs components
       * SLIs for TKGI components
-      * When Ops Manager certificates are due to expire
+      * When Tanzu Operations Manager certificates are due to expire
       * Canary URL tests for TAS for VMs apps
       * Counter, gauge, and container metrics for TAS for VMs from the Loggregator Firehose
       * Super value metrics (SVMs)

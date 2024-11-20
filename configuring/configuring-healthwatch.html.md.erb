@@ -53,7 +53,7 @@ below.
 
 1. Deploy Healthwatch. For more information, see [Deploy Healthwatch](#apply-changes) below.
 
-After you have configured and deployed the Healthwatch tile, you can configure and deploy the Healthwatch Exporter tiles for the Ops Manager foundations you
+After you have configured and deployed the Healthwatch tile, you can configure and deploy the Healthwatch Exporter tiles for the Tanzu Operations Manager foundations you
 want to monitor. For more information, see [Next Steps](#next-steps) below.
 
 
@@ -74,9 +74,9 @@ To configure the **Assign AZ and Networks** pane:
 
 1. Select **Assign AZs and Networks**.
 
-1. Under **Place singleton jobs in**, select the first AZ. Ops Manager runs any job with a single instance in this AZ.
+1. Under **Place singleton jobs in**, select the first AZ. Tanzu Operations Manager runs any job with a single instance in this AZ.
 
-1. Under **Balance other jobs in**, select one or more other AZs. Ops Manager balances instances of jobs with more than one instance across the AZs that you
+1. Under **Balance other jobs in**, select one or more other AZs. Tanzu Operations Manager balances instances of jobs with more than one instance across the AZs that you
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile.
@@ -87,7 +87,7 @@ specify.
 ## <a id='prometheus'></a> Configure Prometheus
 
 In the **Prometheus** pane, you configure the Prometheus instance in the Healthwatch tile to scrape metrics from the Healthwatch Exporter tiles installed on
-each Ops Manager foundation, as well as any external services or databases from which you want to collect metrics.
+each Tanzu Operations Manager foundation, as well as any external services or databases from which you want to collect metrics.
 
 The values that you configure in the **Prometheus** pane also configure their corresponding properties in the Prometheus configuration file. For more
 information, see [Overview of Configuration Files in Healthwatch](config-file-reference.html#overview) in _Configuration File Reference Guide_,
@@ -102,15 +102,15 @@ To configure the **Prometheus** pane:
 Prometheus instance scrapes all Prometheus exposition endpoints at once through a global scrape. You can enter a value string that specifies `ns`, `us`, `µs`,
 `ms`, `s`, `m`, or `h`. To scrape detailed metrics without consuming too much storage, VMware recommends using the default value of `15s`, or 15 seconds.
 
-1. (Optional) To configure the Prometheus instance to scrape metrics from the Healthwatch Exporter tiles installed on other Ops Manager foundations or from
+1. (Optional) To configure the Prometheus instance to scrape metrics from the Healthwatch Exporter tiles installed on other Tanzu Operations Manager foundations or from
 external services or databases, configure additional scrape jobs under **Additional scrape jobs**. You can configure scrape jobs for any app or service that
 exposes metrics using a Prometheus exposition format, such as Concourse CI. For more information about Prometheus exposition formats, see the [Prometheus
 documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
     <p class="note">
     The Prometheus instance automatically discovers and scrapes Healthwatch Exporter tiles that are installed on the same
-    Ops Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
-    scrape jobs for Healthwatch Exporter tiles that are installed on other Ops Manager foundations.</p>
+    Tanzu Operations Manager foundation as the Healthwatch tile. You do not need to configure scrape jobs for these Healthwatch Exporter tiles. You only need to configure
+    scrape jobs for Healthwatch Exporter tiles that are installed on other Tanzu Operations Manager foundations.</p>
 
   1. Click **Add**.
   1. For **Scrape job configuration parameters**, provide the configuration YAML for the scrape job you want to configure. This job can use any of the
@@ -207,7 +207,7 @@ To configure the **Grafana** pane:
 1. Select **Grafana**.
 
 1. Under **Grafana UI route**, configure the route used to access the Grafana UI by selecting one of the following options:
-    * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Ops Manager foundation with TAS for VMs installed, Healthwatch
+    * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Tanzu Operations Manager foundation with TAS for VMs installed, Healthwatch
     automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available. You access the Grafana UI by
     navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the TAS for
     VMs tile. For more information, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/config-domains.html).
@@ -231,13 +231,13 @@ To configure the **Grafana** pane:
         <br>
         <br>
         VMware recommends also providing a certificate signed by a trusted third-party CA in **CA certificate for HTTPS**. You can generate a self-signed
-        certificate using the Ops Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
+        certificate using the Tanzu Operations Manager root CA, but doing so causes your browser to warn you that your CA is invalid every time you access the Grafana UI.
 
         * To use a certificate signed by a trusted third-party CA:
             1. In **Certificate and private key for HTTPS**, provide a certificate and private key for the Grafana instance to use for TLS connections.
             2. In **CA certificate for HTTPS**, provide the certificate of the third-party CA that signs the certificate you provided in the previous step.
 
-        * To generate a self-signed certificate from the Ops Manager root CA:
+        * To generate a self-signed certificate from the Tanzu Operations Manager root CA:
             1. Under **Certificate and private key for HTTPS**, click **Change**.
             2. Click **Generate RSA Certificate**.
             3. In the **Generate RSA Certificate** pop-up window, enter `*.DOMAIN`, where `DOMAIN` is the domain of the DNS entry that you configured for
@@ -251,7 +251,7 @@ To configure the **Grafana** pane:
             9. Return to the Ops Manager Installation Dashboard.
             10. Click the **Healthwatch** tile.
             11. Select **Grafana**.
-            12. For **Certificate and private key for HTTPS**, provide the Ops Manager root CA certificate that you downloaded in a previous step.
+            12. For **Certificate and private key for HTTPS**, provide the Tanzu Operations Manager root CA certificate that you downloaded in a previous step.
       3. (Optional) To configure an additional cipher suite for TLS connections to the Grafana instance, enter a comma-separated list of ciphers in
       **Additional ciphers for TLS**. For a list of supported cipher suites, see
       [cipher_suites.go](https://github.com/golang/go/blob/c847589ad06a1acfcceaac7b230c0d5a826caab8/src/crypto/tls/cipher_suites.go#L500-L522) in the Go
@@ -333,8 +333,8 @@ To configure the **Grafana Dashboards** pane:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from TAS for VMs. To specify the version of TAS for VMs for which you
     want the Grafana instance to create dashboards:
       1. From the **Version** dropdown, select one of the following options:
-          * The version of TAS for VMs that is installed on your Ops Manager foundation.
-          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Ops Manager foundation.
+          * The version of TAS for VMs that is installed on your Tanzu Operations Manager foundation.
+          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Tanzu Operations Manager foundation.
 
           <p class="note">
           If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
@@ -351,9 +351,8 @@ To configure the **Grafana Dashboards** pane:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from TKGI. To specify the version of TKGI for which you want the
     Grafana instance to create dashboards:
       1. From the **Version** dropdown, select one of the following options:
-          * The version of TKGI that is installed on your Ops Manager foundation.
-          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TKGI that is installed on your Ops Manager
-          foundation.
+          * The version of TKGI that is installed on your Tanzu Operations Manager foundation.
+          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TKGI that is installed on your Tanzu Operations Manager foundation.
     * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TKGI.
 
 3. Under **Tanzu SQL for VMs**, select one of the following options:
@@ -380,7 +379,7 @@ URL allows you to gauge the overall health and accessibility of an app, runtime,
 The **Canary URLs** pane configures the Blackbox Exporters in the Prometheus instance. For more information, see the [Blackbox
 exporter](https://github.com/prometheus/blackbox_exporter) repository on GitHub.
 
-The Blackbox Exporters in the Prometheus instance run canary tests on the fully-qualified domain name (FQDN) of your Ops Manager deployment by default. The
+The Blackbox Exporters in the Prometheus instance run canary tests on the fully-qualified domain name (FQDN) of your Tanzu Operations Manager deployment by default. The
 results from these canary tests appear in the **Ops Manager Health** dashboard in the Grafana UI.
 
 To configure the **Canary URLs** pane:
@@ -476,7 +475,7 @@ in-memory queues that read from the write-ahead log in the Prometheus instance. 
 
 ## <a id='tkgi-cluster-discovery'></a> (Optional) Configure TKGI Cluster Discovery
 
-In the **TKGI Cluster Discovery** pane, you configure TKGI cluster discovery for Healthwatch. You only need to configure this pane if you have Ops Manager
+In the **TKGI Cluster Discovery** pane, you configure TKGI cluster discovery for Healthwatch. You only need to configure this pane if you have Tanzu Operations Manager
 foundations with TKGI installed.
 
 To configure TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](configuring-cluster-discovery.html).
@@ -484,15 +483,15 @@ To configure TKGI cluster discovery, see [Configuring TKGI Cluster Discovery](co
 
 ## <a id='errands'></a> (Optional) Configure Errands
 
-Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch. There are two types of
+Errands are scripts that Tanzu Operations Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch. There are two types of
 errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product is uninstalled. However, there are no
 pre-delete errands for Healthwatch.
 
-By default, Ops Manager always runs all errands.
+By default, Tanzu Operations Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see the [Ops Manager
+For more information about how Tanzu Operations Manager manages errands, see the [Tanzu Operations Manager
 documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
@@ -579,7 +578,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
 1. Navigate to the Ops Manager Installation Dashboard.
    1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
    1. Select **Advanced Options**.
-   1. Click **DOWNLOAD ROOT CA CERT**. The Ops Manager root CA will be used when configuring the Open Telemetry collector
+   1. Click **DOWNLOAD ROOT CA CERT**. The Tanzu Operations Manager root CA will be used when configuring the Open Telemetry collector
 1. Open the VMware Tanzu Application Service for VMs tile.
       1. Click Settings and select **System Logging**.
         1. Deselect the **Enable V1 Firehose** and **Enable V2 Firehose** configurations.
@@ -598,7 +597,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
          ```
          Where:
 
-          * `CA-CERT` is the Ops Manager root CA.
+          * `CA-CERT` is the Tanzu Operations Manager root CA.
           * `CERT_PEM` is the cert_pem of the Healthwatch OTel Mtls credential.
           * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch OTel Mtls credential.
         5. For Tanau Platform for Cloud Foundry (formerly TAS for VMs) 10.0, you can configure certificates under OpenTelemetry Collector Secrets and refer them in OTel configuration. For example:
@@ -638,7 +637,7 @@ To complete your installation of the Healthwatch tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='next-steps'></a> Next Steps

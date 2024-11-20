@@ -5,7 +5,7 @@ owner: Healthwatch
 
 This topic describes the architecture of the Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch Exporter for VMware Tanzu Application Service&trade; (TAS for VMs),
 and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI) tiles.
-This topic also describes the possible configurations for monitoring metrics across multiple VMware Tanzu Operations Manager&trade; (Ops Manager) foundations.
+This topic also describes the possible configurations for monitoring metrics across multiple VMware Tanzu Operations Manager&trade; (Tanzu Operations Manager) foundations.
 
 ## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
 
@@ -14,15 +14,15 @@ There are three tiles that form the Healthwatch architecture: Healthwatch, Healt
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. However, you can deploy and use each
 tile separately as part of an alternate monitoring configuration.
 
-You must install a Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. You can install the Healthwatch tile on the same Ops Manager
-foundation or on a different Ops Manager foundation, depending on your desired monitoring configuration.
+You must install a Healthwatch Exporter tile on each Tanzu Operations Manager foundation you want to monitor. You can install the Healthwatch tile on the same Tanzu Operations Manager
+foundation or on a different Tanzu Operations Manager foundation, depending on your desired monitoring configuration.
 
-You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Ops Manager foundation, such as an
-external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Ops Manager foundation. This does not require you to install the
+You can also configure the Healthwatch Exporter tiles to expose metrics to a service or database located outside your Tanzu Operations Manager foundation, such as an
+external time-series database (TSDB) or an installation of the Healthwatch tile on a separate Tanzu Operations Manager foundation. This does not require you to install the
 Healthwatch tile.
 
 For a detailed explanation of the architecture for each tile, a list of open ports required for each component, and the possible configurations for monitoring
-metrics across Ops Manager foundations, see the following sections:
+metrics across Tanzu Operations Manager foundations, see the following sections:
 
 * [Healthwatch Tile Architecture](#architecture-hw)
 
@@ -200,7 +200,7 @@ The table below describes the ports you must open for each Healthwatch Exporter 
   </tr>
   <tr>
     <td><code>cert-expiration-exporter</code></td>
-    <td>Ops Manager</td>
+    <td>Tanzu Operations Manager</td>
     <td><code>443</code></td>
   </tr>
   <tr>
@@ -288,7 +288,7 @@ The table below describes the ports you must open for each Healthwatch Exporter 
   </tr>
   <tr>
     <td><code>cert-expiration-exporter</code></td>
-    <td>Ops Manager</td>
+    <td>Tanzu Operations Manager</td>
     <td><code>443</code></td>
   </tr>
   <tr>
@@ -314,21 +314,21 @@ The table below describes the ports you must open for each Healthwatch Exporter 
 Healthwatch can be configured in multiple ways, allowing you to monitor metrics across a variety of platform and foundation configurations. The sections below
 describe the most common configuration scenarios:
 
-* [Monitoring TAS for VMs on a Single Ops Manager Foundation](#tas-single-foundation)
+* [Monitoring TAS for VMs on a Single Tanzu Operations Manager Foundation](#tas-single-foundation)
 
-* [Monitoring TKGI on a Single Ops Manager Foundation](#tkgi-single-foundation)
+* [Monitoring TKGI on a Single Tanzu Operations Manager Foundation](#tkgi-single-foundation)
 
-* [Monitoring TAS for VMs and TKGI on a Single Ops Manager Foundation](#tas-tkgi-single-foundation)
+* [Monitoring TAS for VMs and TKGI on a Single Tanzu Operations Manager Foundation](#tas-tkgi-single-foundation)
 
 * [Configure Multi-Foundation Monitoring Using Direct Scraping](#multiple-foundations-direct-scrape)
 
 * [Configure Multi-Foundation Monitoring Using Federation](#multiple-foundations-federation)
 
 <br>
-### <a id='tas-single-foundation'></a> Monitoring TAS for VMs on a Single Ops Manager Foundation
+### <a id='tas-single-foundation'></a> Monitoring TAS for VMs on a Single Tanzu Operations Manager Foundation
 
-If you only want to monitor a single Ops Manager foundation that has TAS for VMs installed, install the Healthwatch tile and Healthwatch Exporter for TAS for
-VMs on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs on the same Ops Manager foundation and adds a
+If you only want to monitor a single Tanzu Operations Manager foundation that has TAS for VMs installed, install the Healthwatch tile and Healthwatch Exporter for TAS for
+VMs on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs on the same Tanzu Operations Manager foundation and adds a
 scrape job for Healthwatch Exporter for TAS for VMs to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for TAS for VMs, see the following topics:
@@ -341,10 +341,10 @@ Pipeline](installing/automated-pipeline.html)
 * [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
 
 <br>
-### <a id='tkgi-single-foundation'></a> Monitoring TKGI on a Single Ops Manager Foundation
+### <a id='tkgi-single-foundation'></a> Monitoring TKGI on a Single Tanzu Operations Manager Foundation
 
-If you only want to monitor a single Ops Manager foundation that has TKGI installed, install the Healthwatch tile and Healthwatch Exporter for TKGI on the
-same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TKGI on the same Ops Manager foundation and adds a scrape job for
+If you only want to monitor a single Tanzu Operations Manager foundation that has TKGI installed, install the Healthwatch tile and Healthwatch Exporter for TKGI on the
+same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation and adds a scrape job for
 Healthwatch Exporter for TKGI to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for TKGI, see the following topics:
@@ -357,11 +357,11 @@ Pipeline](installing/automated-pipeline.html)
 * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
 <br>
-### <a id='tas-tkgi-single-foundation'></a> Monitoring TAS for VMs and TKGI on a Single Ops Manager Foundation
+### <a id='tas-tkgi-single-foundation'></a> Monitoring TAS for VMs and TKGI on a Single Tanzu Operations Manager Foundation
 
-If you only want to monitor a single Ops Manager foundation that has both TAS for VMs and TKGI installed, install the Healthwatch tile, Healthwatch Exporter
+If you only want to monitor a single Tanzu Operations Manager foundation that has both TAS for VMs and TKGI installed, install the Healthwatch tile, Healthwatch Exporter
 for TAS for VMs, and Healthwatch Exporter for TKGI on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for TAS for VMs and
-Healthwatch Exporter for TKGI on the same Ops Manager foundation and adds scrape jobs for both Healthwatch Exporter tiles to the Prometheus instance.
+Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation and adds scrape jobs for both Healthwatch Exporter tiles to the Prometheus instance.
 
 For more information about installing and configuring the Healthwatch tile, Healthwatch Exporter for TAS for VMs, and Healthwatch Exporter for TKGI, see the
 following topics:
@@ -378,13 +378,13 @@ Pipeline](installing/automated-pipeline.html)
 <br>
 ### <a id='multiple-foundations-direct-scrape'></a> Configure Multi-Foundation Monitoring Using Direct Scraping
 
-You can monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scraping.
+You can monitor several Tanzu Operations Manager foundations from a single monitoring Tanzu Operations Manager foundation using direct scraping.
 
 When you configure direct scraping for your multi-foundation Healthwatch deployment, the Prometheus instance in the Healthwatch tile on a monitoring Ops
-Manager foundation scrapes metrics directly from the metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Ops Manager foundation
+Manager foundation scrapes metrics directly from the metric exporter VMs deployed by the Healthwatch Exporter tiles installed on the Tanzu Operations Manager foundation
 you monitor.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using direct scraping, see
+To configure your Healthwatch deployment to monitor several Tanzu Operations Manager foundations from a single monitoring Tanzu Operations Manager foundation using direct scraping, see
 [Configure Multi-Foundation Monitoring Using Direct
 Scraping](configuring/multi-foundation-monitoring/multi-foundation-monitoring.html#multiple-foundations-direct-scrape) in _Configuring Multi-Foundation
 Monitoring_.
@@ -392,12 +392,12 @@ Monitoring_.
 <br>
 ### <a id='multiple-foundations-federation'></a> Configure Multi-Foundation Monitoring Using Federation
 
-You can monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using federation.
+You can monitor several Tanzu Operations Manager foundations from a single monitoring Tanzu Operations Manager foundation using federation.
 
-When you configure federation for your multi-foundation Healthwatch deployment, the Prometheus instance in the Healthwatch tile on a monitoring Ops Manager
-foundation scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Ops Manager foundations you monitor.
+When you configure federation for your multi-foundation Healthwatch deployment, the Prometheus instance in the Healthwatch tile on a monitoring Tanzu Operations Manager
+foundation scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Tanzu Operations Manager foundations you monitor.
 
-To configure your Healthwatch deployment to monitor several Ops Manager foundations from a single monitoring Ops Manager foundation using federation, see
+To configure your Healthwatch deployment to monitor several Tanzu Operations Manager foundations from a single monitoring Tanzu Operations Manager foundation using federation, see
 [Configure Multi-Foundation Monitoring Using
 Federation](configuring/multi-foundation-monitoring/multi-foundation-monitoring.html#multiple-foundations-federation) in _Configuring Multi-Foundation
 Monitoring_.

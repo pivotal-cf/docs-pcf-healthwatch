@@ -54,8 +54,8 @@ the Prometheus instance that exists within your monitoring system. For more info
 
     <p class="note">
     You only need to configure a scrape job for installations of Healthwatch Exporter for TKGI that are not on the same
-    Ops Manager foundation as your Healthwatch for VMware Tanzu tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes
-    Healthwatch Exporter tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
+    Tanzu Operations Manager foundation as your Healthwatch for VMware Tanzu tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes
+    Healthwatch Exporter tiles that are installed on the same Tanzu Operations Manager foundation as the Healthwatch tile.</p>
 
 
 ## <a id='open-ui'></a> Navigate to the Healthwatch Exporter for TKGI Tile
@@ -75,16 +75,16 @@ To configure the **Assign AZ and Networks** pane:
 
 1. Select **Assign AZs and Networks**.
 
-1. Under **Place singleton jobs in**, select the first AZ. Ops Manager runs any job with a single instance in this AZ.
+1. Under **Place singleton jobs in**, select the first AZ. Tanzu Operations Manager runs any job with a single instance in this AZ.
 
-1. Under **Balance other jobs in**, select one or more other AZs. Ops Manager balances instances of jobs with more than one instance across the AZs that you
+1. Under **Balance other jobs in**, select one or more other AZs. Tanzu Operations Manager balances instances of jobs with more than one instance across the AZs that you
 specify.
 
 1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TKGI
-networks, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
+networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about TKGI service networks, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
+information about TKGI service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/refarch-index.html#pks-subnets).
 
 1. Click **Save**.
 
@@ -107,17 +107,17 @@ The TKGI metric exporter VM collects health metrics from the BOSH Director. For 
 in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP address for certificate expiration metric exporter VM**, enter a valid static IP address that you want to reserve for the
-certificate expiration metric exporter VM. The certificate expiration metric exporter VM collects metrics that show when certificates in your Ops Manager
+certificate expiration metric exporter VM. The certificate expiration metric exporter VM collects metrics that show when certificates in your Tanzu Operations Manager
 deployment are due to expire. For more information, see [Certificate Expiration Metric Exporter VM](../metrics.html#cert-expiration-exporter) in _Healthwatch
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
 
     <p class="note">
     If you have both Healthwatch Exporter for TKGI and Healthwatch Exporter for Tanzu Application Service for VMs (TAS
-    for VMs installed on the same Ops Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource
+    for VMs installed on the same Tanzu Operations Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource
     Config</strong> pane in one of th Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
 
-1. (Optional) If your Ops Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification** checkbox. When this checkbox is
-activated, the certificate expiration metric exporter VM does not verify the identity of the Ops Manager VM. This checkbox is deactivated by default.
+1. (Optional) If your Tanzu Operations Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification** checkbox. When this checkbox is
+activated, the certificate expiration metric exporter VM does not verify the identity of the Tanzu Operations Manager VM. This checkbox is deactivated by default.
 
 1. Click **Save**.
 
@@ -204,14 +204,14 @@ Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs create re
 ### <a id='create-uaa-client'></a> Create a UAA Client for the BOSH Deployment Metric Exporter VM
 
 To allow the BOSH deployment metric exporter VM to access the BOSH Director VM and view BOSH deployments, you must create a new UAA client for the BOSH
-deployment metric exporter VM. The procedure to create this UAA client differs depending on the authentication settings of your Ops Manager deployment.
+deployment metric exporter VM. The procedure to create this UAA client differs depending on the authentication settings of your Tanzu Operations Manager deployment.
 
 To create a UAA client for the BOSH deployment metric exporter VM:
 
 1. Return to the Ops Manager Installation Dashboard.
 
 1. Record the IP address for the BOSH Director VM and the login and administrator credentials for the BOSH Director UAA instance:
-    * If your Ops Manager deployment uses internal authentication:
+    * If your Tanzu Operations Manager deployment uses internal authentication:
         1. Click the **BOSH Director** tile.
         1. Select the **Status** tab.
         1. Record the IP address in the **IPs** column of the **BOSH Director** row.
@@ -223,9 +223,9 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Login Client Credentials**.
         <br>
         <br>
-      For more information about internal authentication settings for your Ops Manager deployment, see the [Ops Manager
+      For more information about internal authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
       documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#internal_auth).
-    * If your Ops Manager deployment uses SAML authentication:
+    * If your Tanzu Operations Manager deployment uses SAML authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
         1. Select **SAML Settings**.
@@ -240,9 +240,9 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about SAML authentication settings for your Ops Manager deployment, see the [Ops Manager
+      For more information about SAML authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
       documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#saml).
-    * If your Ops Manager deployment uses LDAP authentication:
+    * If your Tanzu Operations Manager deployment uses LDAP authentication:
         1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
         1. Click **Settings**.
         1. Select **LDAP Settings**.
@@ -257,9 +257,9 @@ To create a UAA client for the BOSH deployment metric exporter VM:
         1. Record the value of `password`. This value is the secret for **Uaa Bosh Client Credentials**.
         <br>
         <br>
-      For more information about LDAP authentication settings for your Ops Manager deployment, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#ldap).
+      For more information about LDAP authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/pcf-interface.html#ldap).
 
-1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-trouble-advanced.html#ssh).
+1. SSH into the Tanzu Operations Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-trouble-advanced.html#ssh).
 
 1. Target the UAA instance for the BOSH Director by running:
 
@@ -270,14 +270,14 @@ To create a UAA client for the BOSH deployment metric exporter VM:
     step.
 
 1. Log in to the UAA instance:
-    * If your Ops Manager deployment uses internal authentication, log in to the UAA instance by running:
+    * If your Tanzu Operations Manager deployment uses internal authentication, log in to the UAA instance by running:
 
         ```
         uaac token owner get login -s UAA-LOGIN-CLIENT-SECRET
         ```
         Where `UAA-LOGIN-CLIENT-SECRET` is the secret you recorded from the **Uaa Login Client Credentials** row in the **Credentials** tab in the BOSH
         Director tile in a previous step.
-    * If your Ops Manager deployment uses SAML or LDAP, log in to the UAA instance by running:
+    * If your Tanzu Operations Manager deployment uses SAML or LDAP, log in to the UAA instance by running:
 
         ```
         uaac token client get bosh_admin_client -s BOSH-UAA-CLIENT-SECRET
@@ -313,15 +313,15 @@ To create a UAA client for the BOSH deployment metric exporter VM:
 
 ## <a id='errands'></a> (Optional) Configure Errands
 
-Errands are scripts that Ops Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch Exporter for TKGI.
+Errands are scripts that Tanzu Operations Manager runs automatically when it installs or uninstalls a product, such as a new version of Healthwatch Exporter for TKGI.
 There are two types of errands: _post-deploy errands_ run after the product is installed, and _pre-delete errands_ run before the product is uninstalled.
 However, there are no pre-delete errands for Healthwatch Exporter for TKGI.
 
-By default, Ops Manager always runs all errands.
+By default, Tanzu Operations Manager always runs all errands.
 
 In the **Errands** pane, you can select **On** to always run an errand or **Off** to never run it.
 
-For more information about how Ops Manager manages errands, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
+For more information about how Tanzu Operations Manager manages errands, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-managing_errands.html).
 
 To configure the **Errands** pane:
 
@@ -402,40 +402,40 @@ To complete your installation of the Healthwatch Exporter for TKGI tile:
 
 1. Click **Apply Changes**.
 
-For more information, see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
+For more information, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/install-review-pending-changes.html).
 
 
 ## <a id='scrape-job-config'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI
 
 After you have successfully deployed Healthwatch Exporter for TKGI, you must configure a scrape job in the Prometheus instance that exists within your metrics
-monitoring system, unless you installed Healthwatch Exporter for TKGI on the same Ops Manager foundation as the Healthwatch tile. Follow the procedure in one
+monitoring system, unless you installed Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation as the Healthwatch tile. Follow the procedure in one
 of the following sections, depending on which monitoring system you use:
 
-* If you monitor metrics using the Healthwatch tile on an Ops Manager foundation, see [Configure a Scrape Job for Healthwatch Exporter for TKGI in
+* If you monitor metrics using the Healthwatch tile on an Tanzu Operations Manager foundation, see [Configure a Scrape Job for Healthwatch Exporter for TKGI in
 Healthwatch](#scraping-healthwatch) below.
 
     <p class="note">
     You only need to configure a scrape job for installations of Healthwatch Exporter for TKGI that are not on the same
-    Ops Manager foundation as your Healthwatch tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch Exporter
-    tiles that are installed on the same Ops Manager foundation as the Healthwatch tile.</p>
+    Tanzu Operations Manager foundation as your Healthwatch tile. The Prometheus instance in the Healthwatch tile automatically discovers and scrapes Healthwatch Exporter
+    tiles that are installed on the same Tanzu Operations Manager foundation as the Healthwatch tile.</p>
 
-* If you monitor metrics using a service or database located outside your Ops Manager foundation, such as from an external TSDB, see [Configure a Scrape Job
+* If you monitor metrics using a service or database located outside your Tanzu Operations Manager foundation, such as from an external TSDB, see [Configure a Scrape Job
 for Healthwatch Exporter for TKGI in an External Monitoring System](#scraping-external) below.
 
 ### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in Healthwatch
 
-To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your Ops Manager foundation, see [Configure
+To configure a scrape job for Healthwatch Exporter for TKGI in the Healthwatch tile on your Tanzu Operations Manager foundation, see [Configure
 Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
 ### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for TKGI in an External Monitoring System
 
-To configure a scrape job for Healthwatch Exporter for TKGI in a service or database that is located outside your Ops Manager foundation:
+To configure a scrape job for Healthwatch Exporter for TKGI in a service or database that is located outside your Tanzu Operations Manager foundation:
 
 1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for TKGI. The procedure to open
-these network paths differs depending on your Ops Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required Networking
+these network paths differs depending on your Tanzu Operations Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required Networking
 Rules for Healthwatch Exporter for TKGI](../architecture.html#network-rules-pks) in _Healthwatch Architecture_.
 
-1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Ops Manager foundation. Under `static_config`, specify
+1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Tanzu Operations Manager foundation. Under `static_config`, specify
 the TCP ports of each metric exporter VM as static targets for the IP address of your external service or database. For example:
 
     ```

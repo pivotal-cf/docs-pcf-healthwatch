@@ -30,7 +30,7 @@ documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/).
 <br>
 ## <a id='bosh-sli'></a> BOSH SLIs
 
-In a VMware Tanzu Operations Manager&trade; (Ops Manager) foundation, the BOSH Director manages the VMs that each tile deploys. If the BOSH Director fails or is not responsive, the VMs that the BOSH
+In a VMware Tanzu Operations Manager&trade; foundation, the BOSH Director manages the VMs that each tile deploys. If the BOSH Director fails or is not responsive, the VMs that the BOSH
 Director manages also fail.
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
@@ -216,7 +216,7 @@ The following table describes each metric the BOSH deployment metric exporter VM
 <br>
 ## <a id='platform-sli'></a> Platform Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Ops Manager and
+Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Tanzu Operations Manager and
 runtime components.
 
 You can use the following Platform Metrics metrics to calculate percent availability and error budgets:
@@ -448,7 +448,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
 ### <a id='cert-expiration-exporter'></a> Certificate Expiration Metric Exporter VM
 
 Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
-collects metrics that show when Ops Manager certificates are due to expire. For more information, see [Monitoring Certificate
+collects metrics that show when Tanzu Operations Manager certificates are due to expire. For more information, see [Monitoring Certificate
 Expiration](configuring/optional-config/certificate-monitoring.html).
 
 The following table describes the metric the certificate expiration metric exporter VM generates:

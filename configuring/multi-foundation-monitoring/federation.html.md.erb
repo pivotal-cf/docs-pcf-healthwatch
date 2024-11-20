@@ -8,18 +8,18 @@ This topic describes how to configure federation for your multi-foundation Healt
 
 ## <a id='overview'></a> Overview of Federation
 
-When you configure your Healthwatch deployment to federate metrics, the Prometheus instance in the Healthwatch tile on a monitoring VMware Tanzu Operations Manager&trade; (Ops Manager) foundation
-scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Ops Manager foundations you monitor. This is useful if you
-want to monitor a subset of metrics from multiple Ops Manager foundations without storing all metrics from those Ops Manager foundations in a single
-Prometheus instance. Because federation allows you to choose which metrics the Healthwatch deployment on your monitoring Ops Manager foundation receives, you
-can monitor a large number of Ops Manager foundations without overwhelming the Prometheus instance in the Healthwatch deployment on your monitoring Ops
+When you configure your Healthwatch deployment to federate metrics, the Prometheus instance in the Healthwatch tile on a monitoring VMware Tanzu Operations Manager&trade; foundation
+scrapes a subset of metrics from the Prometheus instances in the Healthwatch tiles installed on the Tanzu Operations Manager foundations you monitor. This is useful if you
+want to monitor a subset of metrics from multiple Tanzu Operations Manager foundations without storing all metrics from those Tanzu Operations Manager foundations in a single
+Prometheus instance. Because federation allows you to choose which metrics the Healthwatch deployment on your monitoring Tanzu Operations Manager foundation receives, you
+can monitor a large number of Tanzu Operations Manager foundations without overwhelming the Prometheus instance in the Healthwatch deployment on your monitoring Ops
 Manager foundation.
 
-To configure federation for your Healthwatch deployment, you must install the Healthwatch tile on your monitoring Ops Manager foundation and on each Ops
-Manager foundation you want to monitor, in addition to installing the Healthwatch Exporter tile on each Ops Manager foundation you want to monitor. Then, you
-must configure the Healthwatch tile on your monitoring Ops Manager foundation to federate metrics from the Prometheus installed on the Ops Manager foundations
-you want to monitor. If you want to federate metrics from Ops Manager foundations with TKGI installed, you must also configure TKGI cluster discovery on the
-Ops Manager foundations you want to monitor.
+To configure federation for your Healthwatch deployment, you must install the Healthwatch tile on your monitoring Tanzu Operations Manager foundation and on each Ops
+Manager foundation you want to monitor, in addition to installing the Healthwatch Exporter tile on each Tanzu Operations Manager foundation you want to monitor. Then, you
+must configure the Healthwatch tile on your monitoring Tanzu Operations Manager foundation to federate metrics from the Prometheus installed on the Tanzu Operations Manager foundations
+you want to monitor. If you want to federate metrics from Tanzu Operations Manager foundations with TKGI installed, you must also configure TKGI cluster discovery on the
+Tanzu Operations Manager foundations you want to monitor.
 
 To configure federation for your multi-foundation Healthwatch deployment:
 
@@ -27,7 +27,7 @@ To configure federation for your multi-foundation Healthwatch deployment:
     * [Set Up Your Multi-Foundation TAS for VMs Deployment](#tas)
     * [Set Up Your Multi-Foundation TKGI Deployment](#tkgi)
 
-1. Configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Ops Manager foundations you want to monitor. To configure these scrape
+2. Configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Tanzu Operations Manager foundations you want to monitor. To configure these scrape
 jobs, see [Configure Scrape Jobs](#scrape-jobs) below.
 
 1. Test your federation configuration to see whether it is working correctly. To test your federation configuration, see [Test Your Federation
@@ -39,78 +39,78 @@ Configuration](#test) below.
     For more information about federation, see the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/federation/).
 
     <p class="note caution">
-    Federating all metrics from an Ops Manager foundation you monitor negatively affects the performance of the
-    Prometheus instance in the Healthwatch tile installed on your monitoring Ops Manager foundation, sometimes even causing it to crash. To avoid this, VMware
-    recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Ops Manager foundation you monitor. For more
+    Federating all metrics from an Tanzu Operations Manager foundation you monitor negatively affects the performance of the
+    Prometheus instance in the Healthwatch tile installed on your monitoring Tanzu Operations Manager foundation, sometimes even causing it to crash. To avoid this, VMware
+    recommends federating only certain metrics, such as service level indicator (SLI) metrics, from each Tanzu Operations Manager foundation you monitor. For more
     information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
 
 ## <a id='tas'></a> Set Up Your Multi-Foundation TAS for VMs Deployment
 
-To configure TAS for VMs deployments on multiple Ops Manager foundations to federate metrics to a single monitoring Ops Manager foundation:
+To configure TAS for VMs deployments on multiple Tanzu Operations Manager foundations to federate metrics to a single monitoring Tanzu Operations Manager foundation:
 
-1. Install and configure the Healthwatch and Healthwatch Exporter for TAS for VMs tiles on each Ops Manager foundation you want to monitor. To install and
+1. Install and configure the Healthwatch and Healthwatch Exporter for TAS for VMs tiles on each Tanzu Operations Manager foundation you want to monitor. To install and
 configure the Healthwatch and Healthwatch Exporter for TAS for VMs tiles, see the following topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
     * [Configuring Healthwatch Exporter for TAS for VMs](../configuring-exporter-tas.html)
 
-1. Install and configure the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following
+1. Install and configure the Healthwatch tile on your monitoring Tanzu Operations Manager foundation. To install and configure the Healthwatch tile, see the following
 topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
 
-1. In the Healthwatch tile on your monitoring Ops Manager foundation, configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Ops
+1. In the Healthwatch tile on your monitoring Tanzu Operations Manager foundation, configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Ops
 Manager foundations you want to monitor. To configure these scrape jobs, see [Configure Scrape Jobs](#scrape-job-config) below.
 
 
 ## <a id='tkgi'></a> Set Up Your Multi-Foundation TKGI Deployment
 
-When you install the Healthwatch tile on an Ops Manager foundation that has TKGI installed, you can configure the Prometheus instance to detect on-demand
+When you install the Healthwatch tile on an Tanzu Operations Manager foundation that has TKGI installed, you can configure the Prometheus instance to detect on-demand
 Kubernetes clusters created through the TKGI API and create scrape jobs for them. However, the Prometheus instance in a Healthwatch deployment can only detect
-Kubernetes clusters for TKGI deployments on the same Ops Manager foundation.
+Kubernetes clusters for TKGI deployments on the same Tanzu Operations Manager foundation.
 
-For a Healthwatch deployment on one Ops Manager foundation to receive metrics for Kubernetes clusters created through TKGI deployments on other Ops Manager
-foundations, you must configure the Healthwatch Exporter for TKGI deployment on those Ops Manager foundations to federate metrics to the Prometheus instance
-in the Healthwatch deployment on the Ops Manager foundation you use to monitor the other Ops Manager foundations. If you do not configure federation for TKGI
-deployments on the Ops Manager foundations you want to monitor, the Healthwatch Exporter for TKGI deployments on those Ops Manager foundations can only send
+For a Healthwatch deployment on one Tanzu Operations Manager foundation to receive metrics for Kubernetes clusters created through TKGI deployments on other Tanzu Operations Manager
+foundations, you must configure the Healthwatch Exporter for TKGI deployment on those Tanzu Operations Manager foundations to federate metrics to the Prometheus instance
+in the Healthwatch deployment on the Tanzu Operations Manager foundation you use to monitor the other Tanzu Operations Manager foundations. If you do not configure federation for TKGI
+deployments on the Tanzu Operations Manager foundations you want to monitor, the Healthwatch Exporter for TKGI deployments on those Tanzu Operations Manager foundations can only send
 component metrics and SLIs related to the health of those TKGI deployments.
 
-To configure TKGI deployments on multiple Ops Manager foundations to federate metrics to a single monitoring Ops Manager foundation:
+To configure TKGI deployments on multiple Tanzu Operations Manager foundations to federate metrics to a single monitoring Tanzu Operations Manager foundation:
 
-1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each Ops Manager foundation you want to monitor. To install and configure
+1. Install and configure the Healthwatch and Healthwatch Exporter for TKGI tiles on each Tanzu Operations Manager foundation you want to monitor. To install and configure
 the Healthwatch and Healthwatch Exporter for TKGI tiles, see the following topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
     * [Configuring Healthwatch Exporter for TKGI](../configuring-exporter-tkgi.html)
 
-1. Install and configure the Healthwatch tile on your monitoring Ops Manager foundation. To install and configure the Healthwatch tile, see the following
+1. Install and configure the Healthwatch tile on your monitoring Tanzu Operations Manager foundation. To install and configure the Healthwatch tile, see the following
 topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
 
-1. Configure TKGI cluster discovery in the Healthwatch tile on each Ops Manager foundation you want to monitor. Do not configure TKGI cluster discovery in the
-Healthwatch tile on your monitoring foundation. To configure TKGI cluster discovery on the Ops Manager foundations you want to monitor, see [Configuring TKGI
+1. Configure TKGI cluster discovery in the Healthwatch tile on each Tanzu Operations Manager foundation you want to monitor. Do not configure TKGI cluster discovery in the
+Healthwatch tile on your monitoring foundation. To configure TKGI cluster discovery on the Tanzu Operations Manager foundations you want to monitor, see [Configuring TKGI
 Cluster Discovery](../configuring-cluster-discovery.html).
 
-1. In the Healthwatch tile on your monitoring Ops Manager foundation, configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Ops
+1. In the Healthwatch tile on your monitoring Tanzu Operations Manager foundation, configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Ops
 Manager foundations you want to monitor. To configure these scrape jobs, see [Configure Scrape Jobs](#scrape-job-config) below.
 
 
 ## <a id='scrape-jobs'></a> Configure Scrape Jobs
 
-To configure the Prometheus instance in the Healthwatch tile on your monitoring Ops Manager foundation to scrape metrics from the Prometheus instances in the
-Healthwatch tiles on the Ops Manager foundations you want to monitor:
+To configure the Prometheus instance in the Healthwatch tile on your monitoring Tanzu Operations Manager foundation to scrape metrics from the Prometheus instances in the
+Healthwatch tiles on the Tanzu Operations Manager foundations you want to monitor:
 
-1. For each Ops Manager foundation you want to monitor, open port `4450` for the Prometheus instance in the Healthwatch tile in the user console for your
+1. For each Tanzu Operations Manager foundation you want to monitor, open port `4450` for the Prometheus instance in the Healthwatch tile in the user console for your
 IaaS. For more information, see the documentation for your IaaS.
 
-1. For each Ops Manager foundation you want to monitor:
-    1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation you want to monitor.
+1. For each Tanzu Operations Manager foundation you want to monitor:
+    1. Navigate to the Ops Manager Installation Dashboard for the Tanzu Operations Manager foundation you want to monitor.
     1. Click the **Healthwatch** tile.
     1. Select the **Credentials** tab.
     1. In the **Promxy Client Mtls** row of the **TSDB** section, click **Link to Credential**.
@@ -121,14 +121,14 @@ IaaS. For more information, see the documentation for your IaaS.
         several<code>\n</code> markers. Ensure that you convert all <code>\n</code> markers into newlines before you use these values in an upcoming
         step.</p>
 
-    1. Retrieve the certificate for the Ops Manager root certificate authority (CA) of the Ops Manager foundation you want to monitor. For more information,
-    see the [Ops Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#root-certs).
-    1. Navigate to the Ops Manager Installation Dashboard for your monitoring Ops Manager foundation.
+    1. Retrieve the certificate for the Tanzu Operations Manager root certificate authority (CA) of the Tanzu Operations Manager foundation you want to monitor. For more information,
+    see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#root-certs).
+    1. Navigate to the Ops Manager Installation Dashboard for your monitoring Tanzu Operations Manager foundation.
     1. Click the **Healthwatch** tile.
     1. Select **Prometheus**.
     1. Under **Additional scrape jobs**, click **Add**.
     1. For **Scrape job configuration parameters**, provide in YAML format the configuration parameters for a scrape job for the Prometheus instance in the
-    Healthwatch tile on the Ops Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
+    Healthwatch tile on the Tanzu Operations Manager foundation you want to monitor. In the example below, the scrape job federates all metrics with names that match the
     regular expression `^metric_name_regex.*` from the Prometheus instance at the IP address listed under the `targets` property:
 
         ```
@@ -150,8 +150,8 @@ IaaS. For more information, see the documentation for your IaaS.
         instance.</p>
 
     1. For **Certificate and private key for TLS**, enter the certificate and private key you recorded from the **Promxy Client mTLS** row in the
-    **Credentials** tab in the Healthwatch tile installed on the Ops Manager foundation you want to monitor in a previous step.
-    1. For **CA certificate for TLS**, enter the Ops Manager root CA certificate for the Ops Manager foundation you want to monitor that you recorded in a
+    **Credentials** tab in the Healthwatch tile installed on the Tanzu Operations Manager foundation you want to monitor in a previous step.
+    1. For **CA certificate for TLS**, enter the Tanzu Operations Manager root CA certificate for the Tanzu Operations Manager foundation you want to monitor that you recorded in a
     previous step.
     1. For **Target server name**, enter `promxy`.
     1. Click **Save**.
@@ -187,7 +187,7 @@ To confirm that your federation configuration is working correctly:
 1. Click **Run query**.
 
 1. Under **Table**, review the query results. If your federation configuration is working, the **job** column includes the `job_name` from the scrape jobs you
-configured for each Ops Manager foundation you monitor in [Configure Federation](#federation-config) above.
+configured for each Tanzu Operations Manager foundation you monitor in [Configure Federation](#federation-config) above.
 
 
 ## <a id='ha'></a> Federation for a Highly Available Healthwatch Deployment
@@ -195,13 +195,13 @@ configured for each Ops Manager foundation you monitor in [Configure Federation]
 In an HA Healthwatch deployment, each VM in the Prometheus instance in the Healthwatch tile scrapes the same data from the metric exporter VMs that the
 Healthwatch Exporter tiles deploy.
 
-When federating metrics, you can configure the Prometheus instance in the Healthwatch tile on your monitoring Ops Manager foundation to scrape both copies of
-that data from the Prometheus instance in the Healthwatch tile on each Ops Manager foundation you monitor. To do this, include both VMs in each Prometheus
-instance from the Ops Manager foundations you want to monitor in the scrape job configuration parameters. While including both VMs creates duplicate sets of
+When federating metrics, you can configure the Prometheus instance in the Healthwatch tile on your monitoring Tanzu Operations Manager foundation to scrape both copies of
+that data from the Prometheus instance in the Healthwatch tile on each Tanzu Operations Manager foundation you monitor. To do this, include both VMs in each Prometheus
+instance from the Tanzu Operations Manager foundations you want to monitor in the scrape job configuration parameters. While including both VMs creates duplicate sets of
 metrics, it also ensures that you do not lose metric data if one of the two VMs goes down. However, doubling the number of metrics that the Prometheus
 instance collects also negatively affects the performance of the Prometheus instance.
 
-Alternatively, you can create load balancers or DNS entries in your IaaS user console for the Prometheus instances on each Ops Manager foundation you monitor,
+Alternatively, you can create load balancers or DNS entries in your IaaS user console for the Prometheus instances on each Tanzu Operations Manager foundation you monitor,
 then include the IP addresses for each load balancer or DNS entry in the targets listed under the `targets` property in your scrape job configuration
 parameters. For more information, see [Configure Scrape Jobs](#scrape-jobs) above.
 
