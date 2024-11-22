@@ -1,11 +1,10 @@
-This topic describes how to configure VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) cluster discovery in Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch).  
+This topic describes how to configure VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI) cluster discovery in Healthwatch&trade; for VMware Tanzu (Healthwatch).
 
 
 ## <a id='overview'></a> Overview of TKGI Cluster Discovery
 
 In the **TKGI Cluster Discovery** pane of the Healthwatch tile, you configure the Prometheus instance in the Healthwatch tile to detect on-demand Kubernetes
-clusters created through the TKGI API and create scrape jobs for them. You only need to configure this pane if you have Ops Manager foundations with TKGI
-installed.
+clusters created through the TKGI API and create scrape jobs for them. You only need to configure this pane if you have Tanzu Operations Manager foundations with TKGI installed.
 
 The Prometheus instance detects and scrapes TKGI clusters by connecting to the Kubernetes API through the TKGI API using a UAA client. To allow this, you must
 configure the Healthwatch tile, the Prometheus instance in the Healthwatch tile, the UAA client that the Prometheus instance uses to connect to the TKGI API,
@@ -18,13 +17,13 @@ Healthwatch](#configure-tkgi-cluster-discovery) below.
 
 1. Configure TKGI to allow the Prometheus instance to scrape metrics from TKGI clusters. For more information, see [Configure TKGI](#configure-tkgi) below.
 
-If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery
-Failure](#troubleshooting) below.
+If TKGI cluster discovery fails after you have completed both parts of the procedure in this topic, see [Troubleshooting TKGI Cluster Discovery Failure](#troubleshooting) below.
 
-<p class='note'><strong>Note:</strong> To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
-  configure the Healthwatch Exporter for TKGI on your Ops Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
-  <a href="<%= current_page.data.rootpart %>installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
-  <a href="<%= current_page.data.rootpart %>configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
+<p class="note">
+To collect additional BOSH system metrics related to TKGI and view them in the Grafana UI, you must install and
+configure the Healthwatch Exporter for TKGI on your Tanzu Operations Manager foundations with TKGI installed. To install the Healthwatch Exporter for TKGI tile, see
+<a href="<%= current_page.data.rootpart %>installing/installing-manually.html">Installing a Tile Manually</a>. To configure the Healthwatch Exporter for TKGI tile, see
+<a href="<%= current_page.data.rootpart %>configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
 
 
 ## <a id='configure-tkgi-cluster-discovery'></a> Configure TKGI Cluster Discovery in Healthwatch
@@ -42,7 +41,7 @@ To configure the **TKGI Cluster Discovery** pane:
 
 1. Under **TKGI cluster discovery**, select one of the following options:
     * **On:** This option allows TKGI cluster discovery and reveals the configuration fields described in the steps below. TKGI cluster discovery is allowed
-    by default when TKGI is installed on your Ops Manager foundation.
+    by default when TKGI is installed on your Tanzu Operations Manager foundation.
     * **Off:** This option disallows TKGI cluster discovery.
 
 1. For **Discovery interval**, enter in seconds how frequently you want the Prometheus instance detects and scrapes TKGI clusters. The minimum value is `60`.
@@ -89,11 +88,13 @@ to Healthwatch.
       listen = ":10200"
       metric_version = 2
     ```
+
     You must use `10200` as the listening port to allow the Prometheus instance to scrape Telegraf metrics from your TKGI clusters. For more information about
-    creating a configuration file in TKGI, see the [TKGI
-    documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-monitor-etcd.html#toml).
-    <p class='note'><strong>Note:</strong> If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
-      file.</p>
+    creating a configuration file in TKGI, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/<%= vars.runtime_tkgi_version %>/tkgi/monitor-etcd.html#toml).
+
+    <p class="note">
+    If you are configuring TKGI v1.12 or earlier, remove <code>metric_version = 2</code> from the TOML configuration
+    file. TKGI v1.12 and earlier are out of support. Consider upgrading to at least v1.17, which is currently the oldest supported version.</p>
 
 1. Click **Save**.
 

@@ -3,8 +3,8 @@ title: Troubleshooting Healthwatch
 owner: Healthwatch
 ---
 
-This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch), Healthwatch
-Exporter forVMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs), and Healthwatch Exporter for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI).
+This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch
+Exporter forVMware Tanzu Application Service&trade; (TAS for VMs), and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI).
 
 <br>
 <br>
@@ -47,46 +47,46 @@ To access the Prometheus UI:
 
 1. Record the certificate and private key for **Tsdb Client Mtls**.
 
-1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system.  
+1. Add the certificate and private key for **Tsdb Client Mtls** that you recorded in the previous step to the keystore for your operating system.
 
-    * To store the Tsdb Client Mtls certificate and key on macOS:  
-    
-        1. Create a `cert.pem` file containing the Tsdb Client Mtls certificate.  
-        1. Create a `cert.key` file containing the Tsdb Client Mtls private key.  
-        1. Change the access permissions on the certificate and private key files to `0600`.  
-        
-            For example:  
+    * To store the Tsdb Client Mtls certificate and key on macOS:
+
+        1. Create a `cert.pem` file containing the Tsdb Client Mtls certificate.
+        1. Create a `cert.key` file containing the Tsdb Client Mtls private key.
+        1. Change the access permissions on the certificate and private key files to `0600`.
+
+            For example:
             ```
             chmod 0600 ~/Downloads/cert.key
             chmod 0600 ~/Downloads/cert.pem
             ```
-            
-        1. To import the Tsdb Client Mtls private key into the macOS keychain:  
-        
+
+        1. To import the Tsdb Client Mtls private key into the macOS keychain:
+
             ```
             security import KEY-PATH -k ~/Library/Keychains/login.keychain-db
             ```
-            Where `KEY-PATH` is the path to the `cert.key` file. For example, `~/Downloads/cert.key`.  
-            
-        1. To import the Tsdb Client Mtls certificate into the macOS keychain:  
-        
-            1. To open the macOS Keychain Access app:  
-                1. Type CMD-SPACE followed by typing the word `keychain`.  
-                1. Select the Keychain Access app on the displayed list.  
-            1. Select **File** -> **Import Items**.  
-            1. Select the Tsdb Client Mtls certificate `cert.pem` file.  
+            Where `KEY-PATH` is the path to the `cert.key` file. For example, `~/Downloads/cert.key`.
+
+        1. To import the Tsdb Client Mtls certificate into the macOS keychain:
+
+            1. To open the macOS Keychain Access app:
+                1. Type CMD-SPACE followed by typing the word `keychain`.
+                1. Select the Keychain Access app on the displayed list.
+            1. Select **File** -> **Import Items**.
+            1. Select the Tsdb Client Mtls certificate `cert.pem` file.
 
 1. In a web browser, navigate to `localhost:9090`. If your browser prompts you to specify which certificate to use for mTLS, select the certificate you added
-to your operating system keystore.  
+to your operating system keystore.
 
-    * On macOS:  
-    
-        1. Open a browser to `https://localhost:9090`.  
-        1. If you are challenged by a security warning, select **Advanced** -> **Proceed Anyway**. Alternatively, type the letters `thisisunsafe` into the webpage.  
-        1. In the displayed dialog, select the Tsdb Client Mtls certificate you added to the macOS keychain and click **OK**.  
-        1. When prompted, provide the keychain access password, and select **Always Allow**.  
+    * On macOS:
 
-    The Prometheus UI should display in your browser.  
+        1. Open a browser to `https://localhost:9090`.
+        1. If you are challenged by a security warning, select **Advanced** -> **Proceed Anyway**. Alternatively, type the letters `thisisunsafe` into the webpage.
+        1. In the displayed dialog, select the Tsdb Client Mtls certificate you added to the macOS keychain and click **OK**.
+        1. When prompted, provide the keychain access password, and select **Always Allow**.
+
+    The Prometheus UI should display in your browser.
 
 <br>
 ### <a id='viewing-the-alertmanager-ui'></a> Access the Alertmanager UI
@@ -131,8 +131,7 @@ When installing or upgrading to Healthwatch v2.2, you see the following error:
 
 This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7. To resolve this issue:
 
-1. SSH into the Ops Manager VM by following the procedure in the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#ssh).
+1. SSH into the Tanzu Operations Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#ssh).
 
 1. Change the user to `root`.
 
@@ -141,7 +140,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
     ```
     > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
     ```
-    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Ops Manager deployment.
+    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Tanzu Operations Manager deployment.
 
 1. Set the decryption passphrase by running:
 
@@ -163,7 +162,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
     > service tempest-web restart
     ```
 
-This issue is fixed in Ops Manager v2.8 and later.
+This issue is fixed in Tanzu Operations Manager v2.8 and later.
 
 <br>
 ### <a id='grafana-smoke-test'></a> Smoke Tests Errand Fails When Deploying Healthwatch
@@ -185,8 +184,7 @@ for the Grafana instance, see [(Optional) Configure Grafana](configuring/configu
 
 To find out why the Prometheus instance fails to scrape metrics from the Grafana instance:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
 
 1. View information about the Grafana instance scrape target by running:
 
@@ -211,8 +209,7 @@ TKGI metric exporter VM to connect to the BOSH Director, you must correct any ce
 
 To check for certificate chain errors in the UAA server for the BOSH Director:
 
-1. Log in to the TKGI metric exporter VM by following the procedure in the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
+1. Log in to the TKGI metric exporter VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
 
 1. View the certificate that the UAA server uses by running:
 
@@ -233,7 +230,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 <br>
 ### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
-When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Ops Manager foundation, the **BOSH Director Status**
+When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation, the **BOSH Director Status**
 panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
 
 <pre class='terminal'>
@@ -271,8 +268,7 @@ configured for TKGI, the TKGI SLI exporter VM does not automatically clean up th
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or configure an OIDC provider as the identity provider for your Kubernetes clusters in the TKGI tile.
 This cleans up the service accounts that the TKGI SLI exporter VM creates in future TKGI SLI tests, but does not clean up existing service accounts from
-previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-oidc-provider.html).
+previous TKGI SLI tests. For more information about configuring an OIDC provider in TKGI, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/<%= vars.runtime_tkgi_version %>/tkgi/oidc-provider.html).
 
 VMware recommends that you manually delete existing service accounts from previous TKGI SLI tests if running the `tkgi get-credentials` command returns an
 error similar to the following example:
@@ -304,8 +300,7 @@ in the disk space on Prometheus VMs filling up.
 
 To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the snapshots. To manually clean up the snapshots:
 
-1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
+1. Log in to the Prometheus VM you want to clean up by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
 
 1. Run:
 
@@ -368,10 +363,9 @@ Potential causes of this failure include:
 
 * You are using TKGI v1.10.0 or v1.10.1. For more information, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.10](#node-panels-no-data) below.
 
-* You are using TKGI v1.12. For more information, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](release-notes.html#no-data-nodes-tkgi-112) in
-_Healthwatch v2.2 Release Notes_.
+* You are using TKGI v1.12. For more information, see [No Data on Kubernetes Nodes Dashboard for TKGI v1.12](release-notes.html#no-data-nodes-tkgi-112) in _Healthwatch Release Notes_.
 
-* You are using TKGI to monitor Windows clusters. For more information, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](release-notes.html#tkgi-windows-clusters) in _Healthwatch v2.2 Release Notes_.
+* You are using TKGI to monitor Windows clusters. For more information, see [No Data on Kubernetes Nodes Dashboard for Windows Clusters](release-notes.html#tkgi-windows-clusters) in _Healthwatch Release Notes_.
 
 * The Prometheus instance in the Healthwatch tile could not detect or create scrape jobs for the clusters, causing TKGI cluster discovery to fail. For more
 information, see [Configure DNS for Your TKGI Cluster](#tkgi-dns) below.
@@ -384,8 +378,7 @@ metrics from on-demand Kubernetes clusters created through the TKGI API.
 
 To find out why the Prometheus instance fails to scrape metrics from your TKGI clusters:
 
-1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Ops Manager
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
+1. Log in to one of the VMs in the Prometheus instance by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#bosh-ssh).
 
 1. View information about the Prometheus instance scrape targets by running:
 
@@ -401,8 +394,7 @@ documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vm
 If you are using TKGI v1.10.0 or v1.10.1, the **Kubernetes Nodes** dashboard in the Grafana UI might not show data for individual pods. This is due to a known
 issue in Kubernetes v1.19.6 and earlier and Kubernetes v1.20.1 and earlier.
 
-To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html).
+To fix this issue, upgrade to TKGI v1.10.2 or later. For more information about upgrading to TKGI v1.10.2 or later, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/<%= vars.runtime_tkgi_version %>/tkgi/index.html).
 
 <br>
 ### <a id='tkgi-dns'></a> Configure DNS for Your TKGI Clusters
@@ -424,11 +416,9 @@ plane of each of your TKGI clusters in the console for your IaaS.
 
 To configure DNS entries for the control planes of your TKGI clusters:
 
-1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-view-cluster-details.html).
+1. Find the IP addresses and hostnames of the control plane of each of your TKGI clusters. For more information, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/<%= vars.runtime_tkgi_version %>/tkgi/view-cluster-details.html).
 
-1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see the [TKGI
-documentation](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-view-cluster-details.html).
+1. Record the **Kubernetes Master IP(s)** and **Kubernetes Master Host** from the output you viewed in the previous step. For more information, see the [TKGI documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/<%= vars.runtime_tkgi_version %>/tkgi/view-cluster-details.html).
 
 1. In a web browser, log in to the user console for your IaaS.
 
@@ -487,7 +477,7 @@ more information, see the [Prometheus documentation](https://prometheus.io/docs/
 ### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
 
 The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics that allow you to monitor the performance of each Healthwatch
-Exporter for TAS for VMs tile installed on your Ops Manager foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a
+Exporter for TAS for VMs tile installed on your Tanzu Operations Manager foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a
 particular metric type, or if a Healthwatch Exporter for TAS for VMs tile is not behaving as expected.
 
 These dashboards contain the following panels:

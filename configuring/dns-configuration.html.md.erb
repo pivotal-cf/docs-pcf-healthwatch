@@ -3,7 +3,7 @@ title: Configuring DNS for the Grafana Instance
 owner: Healthwatch
 ---
 
-This topic describes how to configure a DNS entry for the Grafana instance in your Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch) installation.
+This topic describes how to configure a DNS entry for the Grafana instance in your Healthwatch&trade; for VMware Tanzu (Healthwatch) installation.
 
 
 ## <a id='overview'></a> Overview of DNS for the Grafana instance
@@ -11,11 +11,10 @@ This topic describes how to configure a DNS entry for the Grafana instance in yo
 Configuring a DNS entry for the Grafana instance allows users to access the Grafana UI more easily from outside your BOSH network, including from links to the
 Grafana UI in alerts from Alertmanager.
 
-On an Ops Manager foundation that has VMware Tanzu Application Service for VMs (TAS for VMs) installed, Healthwatch can automatically configure a DNS record
-for the Grafana VM with the Gorouter in TAS for VMs. For more information, see [(Optional) Configure Grafana](configuring-healthwatch.html#grafana) in
-_Configuring Healthwatch_.
+On a Tanzu Operations Manager foundation that has VMware Tanzu Application Service for VMs (TAS for VMs) installed, Healthwatch can automatically configure a DNS record
+for the Grafana VM with the Gorouter in TAS for VMs. For more information, see [(Optional) Configure Grafana](configuring-healthwatch.html#grafana) in _Configuring Healthwatch_.
 
-On an Ops Manager foundation that does not have TAS for VMs installed, you must manually configure a DNS entry for either the public IP address of a single
+On an Tanzu Operations Manager foundation that does not have TAS for VMs installed, you must manually configure a DNS entry for either the public IP address of a single
 Grafana VM or the load balancer in front of the Grafana instance.
 
 
@@ -31,7 +30,8 @@ Resources](configuring-healthwatch.html#resource-config) in _Configuring Healthw
 
 1. Find the public IP address for your load balancer. You may need to assign a public or elastic IP address to your load balancer if it does not already have
 one. For more information, see the documentation for your IaaS:
-  * **AWS:** If your Ops Manager deployment is on AWS, skip this step. You do not need the public IP address of your load balancer for Grafana to configure a
+
+  * **AWS:** If your Tanzu Operations Manager deployment is on AWS, skip this step. You do not need the public IP address of your load balancer for Grafana to configure a
   DNS entry in your Amazon DNS.
   * **Azure:** For more information about finding the public IP address of your Azure load balancer, see the [Azure
   documentation](https://docs.microsoft.com/en-us/azure/dns/dns-custom-domain?toc=/azure/virtual-network/toc.json#public-ip-address).

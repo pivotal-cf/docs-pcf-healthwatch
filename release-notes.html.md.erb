@@ -3,31 +3,32 @@ title: Healthwatch v2.3 Release Notes
 owner: Healthwatch
 ---
 
-This topic contains release notes for Healthwatch&trade; for VMware Tanzu^&reg;^ v2.3 (Healthwatch).
+This topic contains release notes for Healthwatch&trade; for VMware Tanzu v2.3 (Healthwatch).
 
-For information about the risks and limitations of Healthwatch v2.3, see [Assumed Risks of Using Healthwatch v2.3](index.html#assumed-risks) and [Healthwatch
-v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware Tanzu_.
+For information about the risks and limitations of Healthwatch v2.3, see [Assumed Risks of Using Healthwatch v2.3](index.html#assumed-risks) and [Healthwatch v2.3 Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware Tanzu_.
 
-## <a id='releases'></a> Releases
-### <a id='2-3-1'></a> v2.3.1
 
-**Release Date:** October 3rd, 2024
+## <a id='2-3-1'></a> v2.3.1
+
+**Release Date:** October 3, 2024
+
 * **[Feature]** Healthwatch 2.3.1 can now receive metrics through OpenTelemetery (OTel), even if Firehose is enabled.
 * **[Bug Fix]** Duplicate VM details in Foundation Job details dashboard is now fixed. 
-* **[Known Issue]** If you have only TKGI v1.16 or later installed, the **Healthwatch Exporter troubleshooting** dashboard in the Grafana UI shows no data, see [No Data for Healthwatch Exporter troubleshooting](#no-data-healthwatch-exporter) below.
+* **[Known Issue]** If you have only TKGI v1.16 or later installed, the **Healthwatch Exporter troubleshooting** dashboard in the Grafana UI shows no data, see [No Data for Healthwatch Exporter troubleshooting](#no-data-healthwatch-exporter).
 
-### <a id='2-3-0'></a> v2.3.0
+## <a id='2-3-0'></a> v2.3.0
 
 **Release Date:** June 15th, 2024
+
 * **[Breaking Changes]** Applicable only when using the OpenTelemetry Collector. You will notice changes in the Healthwatch metrics when you start collecting metrics using the OpenTelemetry Collector. The changes you come across are listed below:
-    
-  * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector. 
-  * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector. 
+
+  * Metrics from the Firehose-specific components, such as reverse log proxy, are not available after enabling the OpenTelemetry Collector.
+  * Currently, the OpenTelemetry Collector is collocated on TAS VMs and only collects metrics from these VMs. As a result, metrics from other tiles are not collected by the OpenTelemetry Collector.
   * The Prometheus exporter in the OpenTelemetry Collector does not allow leading underscore, except in private metrics. Therefore, the OpenTelemetry Collector removes any leading underscores in metric names.
   * The SVM forwarder VM does not work with OpenTelemetry. You need to switch off the SVM forwarder VM if it is switched on.
   * The metrics listed in the table below have the  prefix `grafana` at the beginning of the metric name when you use the OpenTelemetery Collector.
-    
-      | Metrics name with Firehose        | Metric name with the OpenTelemetery Collector |
+
+      | Metrics name with Firehose        | Metric name with the OpenTelemetry Collector |
       |-----------------------------------|-----------------------------------------------|
       | access_evaluation_duration_bucket | grafana_access_evaluation_duration_bucket     |
       | access_evaluation_duration_count  | grafana_access_evaluation_duration_count      |
@@ -53,7 +54,18 @@ Healthwatch v2.3.0 uses the following open-source component versions:
 | Alertmanager | 0.27.0           |
 | PXC          | 1.0.29           |
 
+
 ### <a id='no-data-healthwatch-exporter'></a> Healthwatch exporter dashboard showing no data
 
 This known issue is applicable if you have TKGi installed in your TPCF environment. Metrics for pks-sli-exporter VM will not be shown in troubleshooting dashboard.
 However, users will continue to see metrics from pas-sli-exporter.
+
+## Known Issues
+
+This section contains known issues you might encounter.
+
+### <a id='no-data-healthwatch-exporter'></a> Healthwatch exporter dashboard showing no data
+
+This known issue is applicable if you have TKGi installed in your TAS for VMs/Tanzu Platform for Cloud Foundry environment. Metrics for the `pks-sli-exporter` VM will not be shown in the troubleshooting dashboard.
+However, users will continue to see metrics from pas-sli-exporter.
+

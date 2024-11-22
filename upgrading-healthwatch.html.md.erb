@@ -3,23 +3,19 @@ title: Upgrading Healthwatch
 owner: Healthwatch
 ---
 
-This topic describes how to upgrade to Healthwatch&trade; for VMware Tanzu^&reg;^ v2.2 (Healthwatch).
+This topic describes how to upgrade to Healthwatch&trade; for VMware Tanzu (Healthwatch).
+
+Healthwatch uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. This
+architecture is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install Healthwatch as a new tile.
+
+For more information about the differences between Healthwatch v2.2+ and Pivotal Healthwatch v1, see [Differences Between Healthwatch v2.2+ and Pivotal Healthwatch v1](#differences) below.
+
+To upgrade to Healthwatch v2.2+ from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2](#upgrade) below.
 
 
-## <a id='overview'></a> Overview
+## <a id='differences'></a> Differences Between Healthwatch v2.2+ and Pivotal Healthwatch v1
 
-Healthwatch v2.2 uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as well as configure alerts. This
-architecture is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install Healthwatch v2.2 as a new tile.
-
-For more information about the differences between Healthwatch v2.2 and Pivotal Healthwatch v1, see [Differences Between Healthwatch v2.2 and Pivotal
-Healthwatch v1](#differences) below.
-
-To upgrade to Healthwatch v2.2 from Pivotal Healthwatch v1, see [Upgrade to Healthwatch v2.2](#upgrade) below.
-
-
-## <a id='differences'></a> Differences Between Healthwatch v2.2 and Pivotal Healthwatch v1
-
-The following table explains the most significant differences between Healthwatch v2.2 and Pivotal Healthwatch v1:
+The following table explains the most significant differences between Healthwatch v2.2+ and Pivotal Healthwatch v1:
 
 <table>
   <tr>
@@ -31,10 +27,10 @@ The following table explains the most significant differences between Healthwatc
     <td>
       <ul>
         <li><strong>Healthwatch v2.2:</strong> Uses the open-source components Prometheus, Grafana, and Alertmanager to scrape, store, and view metrics, as
-          well as configure alerts. Healthwatch v2.2 deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
+          well as configure alerts. Healthwatch v2.2+ deploys multiple Prometheus VMs by default to maintain high availability (HA), and you can scale other
           Healthwatch components to make them HA.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Consists of a dashboard and alerting system within the Pivotal Healthwatch v1 tile to monitor metrics and
-          send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Ops Manager tiles
+          send alerts. If Pivotal Healthwatch v1 components become temporarily unavailable, Pivotal Healthwatch v1 relies on various other Tanzu Operations Manager tiles
           to buffer or queue metrics.</li>
       </ul>
       For more information about the architecture of Healthwatch v2.2, see <a href="architecture.html">Healthwatch Architecture</a>.
@@ -48,7 +44,7 @@ The following table explains the most significant differences between Healthwatc
           persistent disk space is full.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Stores metrics in MySQL for only 24 hours.</li>
       </ul>
-      For more information about Healthwatch v2.2 metrics, see <a href="metrics.html">Healthwatch Metrics</a>.
+      For more information about Healthwatch metrics, see <a href="metrics.html">Healthwatch Metrics</a>.
     </td>
   </tr>
   <tr>
@@ -64,14 +60,14 @@ The following table explains the most significant differences between Healthwatc
     </td>
   </tr>
   <tr>
-    <td>Monitoring multiple Ops Manager foundations</td>
+    <td>Monitoring multiple Tanzu Operations Manager foundations</td>
     <td>
       <ul>
         <li><strong>Healthwatch v2.2:</strong> Can monitor both VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid
-          Integrated Edition (TKGI), and can monitor multiple Ops Manager foundations with one or both runtimes installed.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single Ops Manager foundation.</li>
+          Integrated Edition (TKGI), and can monitor multiple Tanzu Operations Manager foundations with one or both runtimes installed.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single Tanzu Operations Manager foundation.</li>
       </ul>
-      For more information about using Healthwatch v2.2 to monitor multiple Ops Manager foundations, see
+      For more information about using Healthwatch to monitor multiple Tanzu Operations Manager foundations, see
       <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Healthwatch Architecture</em>.
     </td>
   </tr>
@@ -79,11 +75,11 @@ The following table explains the most significant differences between Healthwatc
     <td>Platform scope</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Displays metrics from multiple Ops Manager foundations in the Grafana user interface (UI).</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Displays metrics only from the Ops Manager foundation on which it is installed in the Pivotal Healthwatch
+        <li><strong>Healthwatch v2.2:</strong> Displays metrics from multiple Tanzu Operations Manager foundations in the Grafana user interface (UI).</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Displays metrics only from the Tanzu Operations Manager foundation on which it is installed in the Pivotal Healthwatch
           v1 tile UI.</li>
       </ul>
-      For more information about using Healthwatch v2.2 to monitor multiple Ops Manager foundations, see
+      For more information about using Healthwatch to monitor multiple Tanzu Operations Manager foundations, see
       <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Healthwatch Architecture</em>.
     </td>
   </tr>
@@ -91,7 +87,7 @@ The following table explains the most significant differences between Healthwatc
     <td>Certificate expiration monitoring</td>
     <td>
       <ul>
-        <li><strong>Healthwatch v2.2:</strong> Optionally collects metrics that show when certain Ops Manager certificates are due to expire.</li>
+        <li><strong>Healthwatch v2.2:</strong> Optionally collects metrics that show when certain Tanzu Operations Manager certificates are due to expire.</li>
         <li><strong>Pivotal Healthwatch v1:</strong> Does not monitor certificate expiration.</li>
       </ul>
       For more information about monitoring certificates, see <a href="configuring/optional-config/certificate-monitoring.html">Monitoring Certificate
@@ -123,7 +119,7 @@ The following table explains the most significant differences between Healthwatc
   </tr>
 </table>
 
-In addition to the updated features described in the table above, Healthwatch v2.2 includes the following new features:
+In addition to the updated features described in the table above, Healthwatch includes the following features:
 
 * Runs a suite of service level indicator (SLI) tests to test the functionality of the TKGI API and collects metrics from those tests in the **TKGI Control
 Plane** dashboard in the Grafana UI. For more information, see [TKGI SLI Exporter VM](metrics.html#pks-sli-exporter) in _Healthwatch Metrics_.
@@ -140,45 +136,43 @@ information about SVMs, see [Configure Prometheus](configuring/configuring-healt
 Healthwatch Component Metrics](metrics.html#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform
 Metrics](metrics.html#svm-forwarder-platform) in _Healthwatch Metrics_.
 
-* Automatically detects which version of TAS for VMs or TKGI is installed on your Ops Manager foundation and creates the appropriate dashboard in the Grafana
+* Automatically detects which version of TAS for VMs or TKGI is installed on your Tanzu Operations Manager foundation and creates the appropriate dashboard in the Grafana
 UI.
 
-* Allows you to use the Ops Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
+* Allows you to use the Tanzu Operations Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
 troubleshooting, such as a remote server or external syslog aggregation service. For more information about how to configure syslog forwarding, see
 [(Optional) Configure Syslog](configuring/configuring-healthwatch.html#syslog) in _Configuring Healthwatch_.
 
-For more information about Healthwatch v2.2 features, see [Healthwatch v2.2 Release Notes](release-notes.html).
+For more information about Healthwatch features, see [Healthwatch Release Notes](release-notes.html).
 
 
-## <a id='upgrade'></a> Upgrade to Healthwatch v2.2
+## <a id='upgrade'></a> Upgrade to Healthwatch v2.2+
 
-The architecture of Healthwatch v2.2 is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install and configure
-Healthwatch v2.2 as a new tile even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics from Pivotal Healthwatch v1, you
-can keep Pivotal Healthwatch v1 installed and use it concurrently with Healthwatch v2.2 while you transition to Healthwatch v2.2.
+The architecture of Healthwatch v2.2+ is entirely different from the architecture of Pivotal Healthwatch v1. Because of this, you must install and configure
+Healthwatch v2.2+ as a new tile even if you are upgrading from Pivotal Healthwatch v1. However, if you still rely on metrics from Pivotal Healthwatch v1, you
+can keep Pivotal Healthwatch v1 installed and use it concurrently with Healthwatch v2.2+ while you transition to Healthwatch v2.2+.
 
-To upgrade to Healthwatch v2.2:
+To upgrade to Healthwatch:
 
-1. Review the limitations and risks of using of Healthwatch v2.2. For more information about the limitations of Healthwatch v2.2, see [Healthwatch v2.2
-Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware Tanzu_. For more information about the risks of using Healthwatch v2.2, see
-[Assumed Risks of Using Healthwatch v2.2](index.html#assumed-risks) in _Healthwatch for VMware Tanzu_.
+1. Review the limitations and risks of using of Healthwatch. For more information about the limitations of Healthwatch v2.2, see [Healthwatch Limitations](index.html#healthwatch-limitations) in _Healthwatch for VMware Tanzu_. For more information about the risks of using Healthwatch, see
+[Assumed Risks of Using Healthwatch](index.html#assumed-risks) in _Healthwatch for VMware Tanzu_.
 
-1. Review the configuration options for Healthwatch v2.2 to determine which tiles you must install on your Ops Manager foundations. For more information, see
+1. Review the configuration options for Healthwatch to determine which tiles you must install on your Tanzu Operations Manager foundations. For more information, see
 [Configuration Options](architecture.html#configuration-options) in _Healthwatch Architecture_.
 
-1. Install the Healthwatch v2.2 tile and Healthwatch Exporter tiles on the Ops Manager foundations you want to monitor according to the configuration you
-identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing the Healthwatch
-v2.2 tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a
-Tile Through an Automated Pipeline](installing/automated-pipeline.html).
+1. Install the Healthwatch tile and Healthwatch Exporter tiles on the Tanzu Operations Manager foundations you want to monitor according to the configuration you
+identified in the previous step, even if you have the Pivotal Healthwatch v1 tile installed already. For more information about installing the Healthwatch tile and Healthwatch Exporter tiles, see [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](installing/automated-pipeline.html).
 
-1. Configure the Healthwatch component VMs through the Healthwatch v2.2 tile and Healthwatch Exporter tile UIs in the Ops Manager Installation Dashboard and
+1. Configure the Healthwatch component VMs through the Healthwatch tile and Healthwatch Exporter tile UIs in the Ops Manager Installation Dashboard and
 deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html),
 [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for
 TKGI](configuring/configuring-exporter-tkgi.html).
 
-1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile from your Ops Manager foundations. Then, delete the Pivotal
-Healthwatch v1 tile from your Ops Manager foundations.
-  <p class='note important'><strong>Important:</strong> You must delete the Pivotal Event Alerts tile before you delete the Pivotal Healthwatch v1 tile. If
+1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile from your Tanzu Operations Manager foundations. Then, delete the Pivotal Healthwatch v1 tile from your Tanzu Operations Manager foundations.
+
+    <p class="note important">
+    You must delete the Pivotal Event Alerts tile before you delete the Pivotal Healthwatch v1 tile. If
     you delete the Pivotal Healthwatch v1 tile first, an error prevents you from deleting the Pivotal Event Alerts tile, and you must re-add the Pivotal
     Healthwatch v1 tile to delete the Pivotal Event Alerts tile.</p>
-  For more information about deleting tiles, see the [Ops Manager
-  documentation](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/3.0/vmware-tanzu-ops-manager/install-add-delete.html#del-prod).
+
+For more information about deleting tiles, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-add-delete.html#del-prod).

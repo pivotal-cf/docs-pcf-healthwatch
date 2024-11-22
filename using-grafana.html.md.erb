@@ -3,16 +3,14 @@ title: Using Healthwatch Dashboards in the Grafana UI
 owner: Healthwatch
 ---
 
-This topic describes how to access and use yourHealthwatch&trade; for VMware Tanzu^&reg;^ v2.2 (Healthwatch) dashboards in the Grafana user interface (UI).
+This topic describes how to access and use yourHealthwatch&trade; for VMware Tanzu (Healthwatch) dashboards in the Grafana user interface (UI).
 
-
-## <a id='overview'></a> Overview of Healthwatch Dashboards in the Grafana UI
 
 Healthwatch uses Grafana to visualize metrics data in charts and graphs. Once you have installed and configured the Healthwatch and Healthwatch Exporter
-tiles, you can log in to the Grafana UI to view dashboards that show how your Ops Manager foundations are performing.
+tiles, you can log in to the Grafana UI to view dashboards that show how your Tanzu Operations Manager foundations are performing.
 
 Each dashboard contains charts and graphs called panels. Each dashboard and panel contains detailed descriptions of the metrics they display and how to
-troubleshoot your Ops Manager foundations based on those metrics.
+troubleshoot your Tanzu Operations Manager foundations based on those metrics.
 
 
 ## <a id='ui'></a> Using Dashboards in the Grafana UI
@@ -79,7 +77,7 @@ For detailed descriptions of each default dashboard in the Grafana UI, see [Defa
 ## <a id='dashboards'></a> Default Dashboards in the Grafana UI
 
 There are 33 total dashboards that Healthwatch creates in the Grafana UI by default. The subsets of these dashboards that appear in the Grafana UI depend on
-which tiles in your Ops Manager foundations you have installed and are monitoring.
+which tiles in your Tanzu Operations Manager foundations you have installed and are monitoring.
 
 The following list describes the default Healthwatch dashboards you may see in the Grafana UI:
 
@@ -89,14 +87,14 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **BOSH Director Health:** Contains metrics related to the health of the BOSH Director.
   * **Canary App Health:** Contains metrics related to the availability of the canary app that the Blackbox Exporter uses to run canary tests. You can filter
   these metrics by canary URL.
-  * **Certificate Expiration:** Contains metrics related to when certificates for your Ops Manager deployment are due to expire. For more information, see
+  * **Certificate Expiration:** Contains metrics related to when certificates for your Tanzu Operations Manager deployment are due to expire. For more information, see
   [Monitoring Certificate Expiration](configuring/optional-config/certificate-monitoring.html).
   * **Job Details:** Contains metrics related to the functionality of each component and VM in your runtime, Healthwatch, and Healthwatch Exporter tile
-  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Ops Manager foundation has neither VMware Tanzu
+  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Tanzu Operations Manager foundation has neither VMware Tanzu
   Application Service for VMs (TAS for VMs) or VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) installed, you see this dashboard upon logging in to
   the Grafana UI.
-  * **Ops Manager Health:** Contains metrics related to the availability of your Ops Manager deployment.
-  * **System at a Glance:** Contains an overview of metrics related to the health of your Ops Manager deployment. You see this dashboard upon logging in to
+  * **Ops Manager Health:** Contains metrics related to the availability of your Tanzu Operations Manager deployment.
+  * **System at a Glance:** Contains an overview of metrics related to the health of your Tanzu Operations Manager deployment. You see this dashboard upon logging in to
   the Grafana UI.
 
 * **Healthwatch:** Includes the following dashboards:
@@ -106,13 +104,15 @@ The following list describes the default Healthwatch dashboards you may see in t
   metrics by uptime service level objective (SLO) target.
 
 * **MySQL:** Includes the following dashboard:
-  <p class='note'><strong>Note:</strong> This folder only appears if you configure Healthwatch to monitor your Tanzu SQL for VMs tile. For more information,
+    <p class="note">
+    This folder only appears if you configure Healthwatch to monitor your Tanzu SQL for VMs tile. For more information,
     see <a href="configuring/configuring-healthwatch.html#dashboards">(Optional) Configure Grafana Dashboards</a> in <em>Configuring Healthwatch</em>.</p>
   * **MySQL Overview:** Contains metrics related to the percentage of healthy VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs) clusters and nodes in
   your deployment.
 
 * **RabbitMQ:** Includes the following dashboards:
-  <p class='note'><strong>Note:</strong> This folder only appears if you configure Healthwatch to monitor your Tanzu RabbitMQ tile. For more information, see
+    <p class="note">
+    This folder only appears if you configure Healthwatch to monitor your Tanzu RabbitMQ tile. For more information, see
     <a href="configuring/configuring-healthwatch.html#dashboards">(Optional) Configure Grafana Dashboards</a> in <em>Configuring Healthwatch</em>.</p>
   * **Erlang-Distribution:** Contains metrics related to the functionality of distribution links between VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ) nodes
   and peers. You can filter these metrics by namespace, Tanzu RabbitMQ cluster, and process type.
@@ -129,7 +129,8 @@ The following list describes the default Healthwatch dashboards you may see in t
   metrics by namespace and Tanzu RabbitMQ cluster.
 
 * **Tanzu Application Service:** Includes the following dashboards:
-  <p class='note'><strong>Note:</strong> This folder only appears if you install and configure Healthwatch Exporter for TAS for VMs on one or more of your Ops
+    <p class="note">
+    This folder only appears if you install and configure Healthwatch Exporter for TAS for VMs on one or more of your Ops
     Manager foundations. For more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
     Exporter for TAS for VMs Architecture</a> in <em>Healthwatch Architecture</em> and <a href="configuring/configuring-exporter-tas.html">Configuring
     Healthwatch Exporter for TAS for VMs</a>.</p>
@@ -144,20 +145,25 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **TAS MySQL Health:** Contains metrics related to the health of the MySQL databases for your TAS for VMs deployments.
   * **UAA:** Contains metrics related to the health and functionality of the UAA instances in your TAS for VMs deployments.
   * **Usage Service:** Contains metrics related to the health and functionality of the UAA instances in your TAS for VMs deployments.
-  <p class='note'><strong>Note:</strong> If you do not see any data in the Usage Service dashboard, make sure that you have configured the Metric Registrar in
-    the TAS for VMs tile. If you do not configure the Metric Registrar, the Usage Service API cannot emit metrics to the Loggregator Firehose, and Healthwatch
-    Exporter for TAS for VMs cannot collect them. For more information, see the
-    <a href="https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/metric-registrar-index.html">TAS for VMs documentation</a>.</p>
+
+      <p class="note">
+      If you do not see any data in the Usage Service dashboard, make sure that you have configured the Metric Registrar in
+      the TAS for VMs tile. If you do not configure the Metric Registrar, the Usage Service API cannot emit metrics to the Loggregator Firehose, and Healthwatch
+      Exporter for TAS for VMs cannot collect them. For more information, see the
+      <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/metric-registrar-index.html">TAS for VMs documentation</a>.</p>
 
 * **Tanzu Kubernetes Grid Integrated:** Includes the following dashboards:
-  <p class='note'><strong>Note:</strong> This folder only appears if you installed and configured Healthwatch Exporter for Tanzu Kubernetes Grid Integrated
-    Edition (TKGI) on one or more of your Ops Manager foundations. For more information about Healthwatch Exporter for TKGI, see
+
+    <p class="note">
+    This folder appears only if you installed and configured Healthwatch Exporter for Tanzu Kubernetes Grid Integrated
+    Edition (TKGI) on one or more of your Tanzu Operations Manager foundations. For more information about Healthwatch Exporter for TKGI, see
     <a href="architecture.html#architecture-tkgi">Healthwatch Exporter for TKGI Architecture</a> in <em>Healthwatch Architecture</em> and
     <a href="configuring/configuring-exporter-tkgi.html">Configuring Healthwatch Exporter for TKGI</a>.</p>
+
   * **Kubernetes API Server:** Contains metrics related to the functionality of the Kubernetes API Server instances in your TKGI clusters. You can filter
   these metrics by cluster and instance.
   * **Kubernetes Cluster Detail:** Contains metrics related to the functionality of the nodes in your TKGI clusters. You can filter these metrics by cluster.
-  If your Ops Manager foundation has only TKGI installed, you see this dashboard upon logging in to the Grafana UI.
+  If your Tanzu Operations Manager foundation has only TKGI installed, you see this dashboard upon logging in to the Grafana UI.
   * **Kubernetes Clusters Overview:** Contains metrics related to the percentage of healthy control plane nodes across all TKGI clusters.
   * **Kubernetes Controller Manager:** Contains metrics related to the functionality of the Kubernetes Controller Manager instances in your TKGI clusters. You
   can filter these metrics by cluster and instance.

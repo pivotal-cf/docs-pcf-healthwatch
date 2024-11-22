@@ -1,30 +1,30 @@
 ---
-title: Configuring Authentication with a UAA Instance on a Different Ops Manager Foundation
+title: Configuring Authentication with a UAA Instance on a Different Tanzu Operations Manager Foundation
 owner: Healthwatch
 ---
 
-This topic describes how to configure authentication with a User Account and Authentication (UAA) instance on a different VMware Tanzu^&reg;^ Operations Manager&trade; (Ops Manager) foundation for users to log in to the Grafana UI.
+This topic describes how to configure authentication with a User Account and Authentication (UAA) instance on a different VMware Tanzu Operations Manager&trade; foundation for users to log in to the Grafana UI.
 
 
 ## <a id='overview'></a> Overview of UAA Authentication with the Grafana UI
 
- Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch) can automatically configure authentication with the UAA instance of the runtime that is installed on the same Ops Manager 
-foundation as the Healthwatch tile, either VMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs) or VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI). When you
+Healthwatch&trade; for VMware Tanzu (Healthwatch) can automatically configure authentication with the UAA instance of the runtime that is installed on the same Tanzu Operations Manager
+foundation as the Healthwatch tile, either VMware Tanzu Application Service&trade; (TAS for VMs) or VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI). When you
 select **UAA** as your Grafana UI authentication method in the **Grafana Authentication** pane of the Healthwatch tile, Healthwatch automatically configures
 authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI.
 
-If you want to configure authentication with the UAA instance of a runtime that is installed on a different Ops Manager foundation, you must select **Generic
+If you want to configure authentication with the UAA instance of a runtime that is installed on a different Tanzu Operations Manager foundation, you must select **Generic
 OAuth** and configure it manually through the **Grafana Authentication** pane.
 
 
 ## <a id='create-uaa-client'></a> Create a UAA Client for the Grafana Instance
 
-To authenticate with the the UAA instance of a runtime that is installed on a different Ops Manager foundation, the Grafana instance must access the UAA
+To authenticate with the the UAA instance of a runtime that is installed on a different Tanzu Operations Manager foundation, the Grafana instance must access the UAA
 instance through a UAA client.
 
 To create a UAA client for the Grafana instance:
 
-1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation with the UAA instance with which you want to configure authentication for
+1. Navigate to the Ops Manager Installation Dashboard for the Tanzu Operations Manager foundation with the UAA instance with which you want to configure authentication for
 the Grafana UI.
 
 1. Click the **VMware Tanzu Application Service** or **Tanzu Kubernetes Grid Integrated Edition** tile, depending on which runtime is installed on this Ops
@@ -32,7 +32,7 @@ Manager foundation.
 
 1. Select the **Credentials** tab.
 
-1. View and record the credentials to log in to the UAA instance for the runtime installed on this Ops Manager foundation:
+1. View and record the credentials to log in to the UAA instance for the runtime installed on this Tanzu Operations Manager foundation:
     * For TAS for VMs:
 
         1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
@@ -43,7 +43,7 @@ Manager foundation.
         1. In the **Pks Uaa Management Admin Client** row, click **Link to Credential**.
         1. Record the value of `secret`. This value is the secret for **Pks Uaa Management Admin Client**.
 
-1. Target the server for the UAA instance for the runtime installed on this Ops Manager foundation using the User Account and Authentication Command Line
+1. Target the server for the UAA instance for the runtime installed on this Tanzu Operations Manager foundation using the User Account and Authentication Command Line
 Interface (UAAC). Run:
 
     ```
@@ -55,7 +55,7 @@ Interface (UAAC). Run:
     VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
     <br>
     <br>
-    For more information about the UAAC, see the [TAS for VMs documentation](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/uaa-user-management.html).
+    For more information about the UAAC, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/uaa-user-management.html).
 
 1. Log in to the UAA instance by running:
 
@@ -122,9 +122,9 @@ Interface (UAAC). Run:
 
 ## <a id='configure-external-uaa'></a> Configure the Grafana UI
 
-To configure the Grafana UI to authenticate users with a UAA instance on a different Ops Manager foundation:
+To configure the Grafana UI to authenticate users with a UAA instance on a different Tanzu Operations Manager foundation:
 
-1. Navigate to the Ops Manager Installation Dashboard for the Ops Manager foundation with the Grafana instance for which you want to configure UAA
+1. Navigate to the Ops Manager Installation Dashboard for the Tanzu Operations Manager foundation with the Grafana instance for which you want to configure UAA
 authentication.
 
 1. Click the **Healthwatch** tile.
@@ -144,12 +144,12 @@ UAA Client for the Grafana Instance](#create-uaa-client) above.
 1. For **Scopes**, enter `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`.
 
 1. For **Authorization URL**, enter the authorization URL for your runtime:
-    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
-    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
+    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
 
 1. For **Token URL**, enter the token URL for your runtime:
-    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
-    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Ops Manager deployment.
+    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
+    * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
 
 1. For **API URL**, enter `http://localhost:3002/userinfo`. This is the URL of a local proxy server that Healthwatch can use to translate the UAA token into a
 format that is compatible with Grafana.
@@ -172,6 +172,6 @@ Grafana role by the string configured in the **Role attribute path** field.
     1. If you do not provide a self-signed CA certificate or a certificate that is signed by a self-signed CA certificate, activate the **Skip TLS certificate
     verification** checkbox. When this checkbox is activated, the Grafana instance does not verify the identity of the UAA instance with which you want to
     configure authentication. This checkbox is deactivated by default. VMware does not recommend skipping TLS certificate verification to a UAA instance for a
-    runtime on a different Ops Manager foundation.
+    runtime on a different Tanzu Operations Manager foundation.
 
 1. Click **Save**.

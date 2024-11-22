@@ -3,7 +3,7 @@ title: Installing, Configuring, and Deploying a Tile Through an Automated Pipeli
 owner: Healthwatch
 ---
 
-This topic describes how to install, configure, and deploy the Healthwatch&trade; for VMware Tanzu^&reg;^ (Healthwatch), Healthwatch Exporter for VMware Tanzu^&reg;^ Application Service&trade; (TAS for VMs), and Healthwatch Exporter for VMware Tanzu^&reg;^ Kubernetes Grid&trade; Integrated Edition (TKGI) tiles through an automated pipeline.
+This topic describes how to install, configure, and deploy the Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch Exporter for VMware Tanzu Application Service&trade; (TAS for VMs), and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI) tiles through an automated pipeline.
 
 To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles manually, see the following topics:
 
@@ -18,13 +18,14 @@ To install, configure, and deploy the Healthwatch and Healthwatch Exporter tiles
 
 ## <a id='overview'></a> Overview of Automated Pipelines
 
-Automated pipelines allow you to install, configure, and deploy Ops Manager tiles through automation scripts.
+Automated pipelines allow you to install, configure, and deploy Tanzu Operations Manager tiles through automation scripts.
 
-For more information, see the [Platform Automation documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/index.html).
+For more information, see the [Platform Automation documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-index.html).
 
-<p class='note'><strong>Note:</strong> There are risks to using Healthwatch v2.2, including missed email notifications, overwritten dashboards, and minor data
-  loss during upgrades. For more information about how to prepare for or prevent these problems, see <a href="../index.html#assumed-risks">Assumed Risks of
-  Using Healthwatch v2.2</a> in <em>Healthwatch for VMware Tanzu</em>.</p>
+<p class="note">
+There are risks to using Healthwatch, including missed email notifications, overwritten dashboards, and minor data
+loss during upgrades. For more information about how to prepare for or prevent these problems, see <a href="../index.html#assumed-risks">Assumed Risks of
+Using Healthwatch</a> in <em>Healthwatch for VMware Tanzu</em>.</p>
 
 
 ## <a id='prerequisites'></a> Prerequisites
@@ -32,14 +33,14 @@ For more information, see the [Platform Automation documentation](https://docs.v
 Before you use an automated pipeline to install, configure, and deploy a tile, you must have the following:
 
 * An existing Concourse pipeline. For an example pipeline configuration, see the [Platform Automation
-documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-pipelines-multiple-products.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-pipelines-multiple-products.html).
 
-* A fully-configured Ops Manager foundation.
+* A fully-configured Tanzu Operations Manager foundation.
 
 * A fully-configured BOSH Director instance.
 
 * The Platform Automation Toolkit Docker image imported into Docker. For more information, see the [Platform Automation
-documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-running-commands-locally.html#executing-commands).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-running-commands-locally.html#executing-commands).
 
 
 ## <a id='install'></a> Download and Install a Tile Using Platform Automation
@@ -47,7 +48,7 @@ documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware
 To download and install a tile using Platform Automation:
 
 1. Create a configuration file for the `download-product` task of your automated pipeline. This configuration file fetches the tile you want to install from
-VMware Tanzu Network. Copy and paste one of the following sets of properties into your configuration file:
+Broadcom Support portal. Copy and paste one of the following sets of properties into your configuration file:
 
     * For Healthwatch:
 
@@ -80,11 +81,11 @@ VMware Tanzu Network. Copy and paste one of the following sets of properties int
         ```
 
     For more information, see the [Platform Automation
-    documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-adding-a-product.html).
+    documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-adding-a-product.html).
 
 1. Upload and stage the tile to the Ops Manager Installation Dashboard by adding the `upload-stemcell` and `upload-and-stage-product` jobs to your
 configuration file. For more information, see the [Platform Automation
-documentation](https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-adding-a-product.html).
+documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/platform-automation-toolkit-for-tanzu/5-2/vmware-automation-toolkit/docs-how-to-guides-adding-a-product.html).
 
 
 ## <a id='om'></a> Configure and Deploy Your Tile Using the om CLI

@@ -95,7 +95,7 @@ authentication. For more information, see [Configure Only Basic Authentication](
 ### <a id='configure-generic-oauth'></a> Configure Generic OAuth Authentication
 
 When you configure generic OAuth authentication for the Grafana UI, users can log in to the Grafana UI with their credentials for the Grafana-supported OAuth
-provider of your choice, including the UAA instance for a runtime on a different Ops Manager foundation. For more information about configuring generic OAuth
+provider of your choice, including the UAA instance for a runtime on a different Tanzu Operations Manager foundation. For more information about configuring generic OAuth
 authentication, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/generic-oauth/). For a list of Grafana-supported authentication
 integrations, see the [Grafana documentation](https://grafana.com/docs/grafana/latest/auth/overview/).
 
@@ -176,16 +176,18 @@ Grafana role by the string configured in the **Role attribute path** field.
 
 When you configure UAA authentication for the Grafana UI, users can log in to the Grafana UI with their UAA credentials.
 
-Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Ops Manager foundation as the
+Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Tanzu Operations Manager foundation as the
 Healthwatch tile, either VMware Tanzu Application Service for VMs (TAS for VMs) or Tanzu Kubernetes Grid Integrated Edition (TKGI). If you want to configure
-authentication with the UAA instance of TAS for VMs or TKGI installed on the same Ops Manager foundation, follow the procedure below. If you want to configure
-authentication with the UAA instance of a runtime that is installed on a different Ops Manager foundation, you must manually configure it using the fields
+authentication with the UAA instance of TAS for VMs or TKGI installed on the same Tanzu Operations Manager foundation, follow the procedure below. If you want to configure
+authentication with the UAA instance of a runtime that is installed on a different Tanzu Operations Manager foundation, you must manually configure it using the fields
 described in [Configure Generic OAuth Authentication](#configure-generic-oauth) above.
 
 To configure UAA authentication for the Grafana UI:
 
 1. Under **Additional authentication methods**, select **UAA**.
-  <p class='note'><strong>Note:</strong> If you are configuring authentication with the UAA instance for a TKGI deployment, Healthwatch does not add the UAA
+
+    <p class="note">
+    If you are configuring authentication with the UAA instance for a TKGI deployment, Healthwatch does not add the UAA
     administrator user account to the <code>healthwatch.admin</code> group by default. If you want to log in to the Grafana UI using the UAA administrator
     credentials, you must manually add the UAA administrator user account to the <code>healthwatch.admin</code> group.</p>
 
