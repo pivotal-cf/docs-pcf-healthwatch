@@ -570,10 +570,10 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
 
 1. Navigate to the Healthwatch Exporter for TAS for VMs tile in the Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
-      1. Set the **TAS Configure Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
+      1. Set the **TAS Counter Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
       1. Click **Save**.
     1. Click the **Credentials** tab:
-      1. Click **Link to Credential** next to **Healthwatch Otel Mtls**.
+      1. Click **Link to Credential** next to **Healthwatch Exporter Client Mtls**.
       1. Save the certificate content. The cert and key will be used when configuring the Open Telemetry collector.
 1. Navigate to the Ops Manager Installation Dashboard.
    1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
@@ -581,7 +581,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
    1. Click **DOWNLOAD ROOT CA CERT**. The Tanzu Operations Manager root CA will be used when configuring the Open Telemetry collector
 1. Open the VMware Tanzu Application Service for VMs tile.
       1. Click Settings and select **System Logging**.
-        1. Deselect the **Enable V1 Firehose** and **Enable V2 Firehose** configurations.
+        1. You may choose to disable the **Enable V1 Firehose** and **Enable V2 Firehose** configurations if there are no other dependencies on firehose data.
         2. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.
         3. Scroll to the bottom of the Open Telemetry configuration and add a collector for Healthwatch.
         4. For TAS 6.0, Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:

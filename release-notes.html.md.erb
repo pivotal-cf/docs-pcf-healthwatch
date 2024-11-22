@@ -13,6 +13,7 @@ For information about the risks and limitations of Healthwatch v2.3, see [Assume
 **Release Date:** October 3, 2024
 
 * **[Feature]** Healthwatch 2.3.1 can now receive metrics through OpenTelemetery (OTel), even if Firehose is enabled.
+* **[Bug Fix]** Duplicate VM details in Foundation Job details dashboard is now fixed. 
 * **[Known Issue]** If you have only TKGI v1.16 or later installed, the **Healthwatch Exporter troubleshooting** dashboard in the Grafana UI shows no data, see [No Data for Healthwatch Exporter troubleshooting](#no-data-healthwatch-exporter).
 
 ## <a id='2-3-0'></a> v2.3.0
@@ -53,7 +54,6 @@ Healthwatch v2.3.0 uses the following open-source component versions:
 | Alertmanager | 0.27.0           |
 | PXC          | 1.0.29           |
 
-
 ## Known Issues
 
 This section contains known issues you might encounter.
@@ -62,3 +62,4 @@ This section contains known issues you might encounter.
 
 This known issue is applicable if you have TKGi installed in your TAS for VMs/Tanzu Platform for Cloud Foundry environment. Metrics for the `pks-sli-exporter` VM will not be shown in the troubleshooting dashboard.
 However, users will continue to see metrics from pas-sli-exporter.
+
