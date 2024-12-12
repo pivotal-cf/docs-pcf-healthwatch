@@ -9,7 +9,7 @@ This topic describes how to configure authentication with a User Account and Aut
 ## <a id='overview'></a> Overview of UAA Authentication with the Grafana UI
 
 Healthwatch&trade; for VMware Tanzu (Healthwatch) can automatically configure authentication with the UAA instance of the runtime that is installed on the same Tanzu Operations Manager
-foundation as the Healthwatch tile, either VMware Tanzu Application Service&trade; (TAS for VMs) or VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI). When you
+foundation as the Healthwatch tile, either VMware <%= vars.runtime_prod_full %> or VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI). When you
 select **UAA** as your Grafana UI authentication method in the **Grafana Authentication** pane of the Healthwatch tile, Healthwatch automatically configures
 authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI.
 
@@ -27,7 +27,7 @@ To create a UAA client for the Grafana instance:
 1. Navigate to the Ops Manager Installation Dashboard for the Tanzu Operations Manager foundation with the UAA instance with which you want to configure authentication for
 the Grafana UI.
 
-1. Click the **VMware Tanzu Application Service** or **Tanzu Kubernetes Grid Integrated Edition** tile, depending on which runtime is installed on this Ops
+1. Click the **VMware <%= vars.runtime_prod_full %>** or **Tanzu Kubernetes Grid Integrated Edition** tile, depending on which runtime is installed on this Ops
 Manager foundation.
 
 1. Select the **Credentials** tab.

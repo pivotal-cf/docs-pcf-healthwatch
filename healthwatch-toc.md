@@ -9,7 +9,7 @@
     * [Installing, Configuring, and Deploying a Tile Through an Automated Pipeline](installing/automated-pipeline.html)
 * [Configuring](configuring/index.html)
     * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
-    * [Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for Tanzu Platform for Cloud Foundry](configuring/configuring-exporter-tas.html)
     * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
     * [Configuring Multi-Foundation Monitoring](configuring/multi-foundation-monitoring/multi-foundation-monitoring.html)
         * [Configuring Direct Scraping for Multi-Foundation Monitoring](configuring/multi-foundation-monitoring/direct-scraping.html)
