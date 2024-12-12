@@ -1,9 +1,9 @@
 ---
-title: Configuring Healthwatch Exporter for TAS for VMs
+title: Configuring Healthwatch Exporter for Tanzu Platform for CF
 owner: Healthwatch
 ---
 
-This topic describes how to manually configure and deploy the Healthwatch Exporter for VMware Tanzu Application Service&trade; (TAS for VMs) tile.
+This topic describes how to manually configure and deploy the Healthwatch Exporter for VMware <%= vars.runtime_prod_full %> tile.
 
 To install, configure, and deploy Healthwatch Exporter for TAS for VMs through an automated pipeline, see [Installing, Configuring, and Deploying a Tile
 Through an Automated Pipeline](../installing/automated-pipeline.html).
@@ -139,7 +139,9 @@ checkbox is deactivated by default.
 select the **Filter out custom application metrics** checkbox.
 
     <p class="note">
-    If you configured Healthwatch to receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above and made changes to the **Filter out custom application metrics** checkbox, you need to apply the changes to the Healthwatch tile. For detailed instructions, see [Deploy Healthwatch](configuring-healthwatch.html.md.erb#deploy-healthwatch-15).</p>
+    If you configured Healthwatch to receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above and made changes to the <strong>Filter out custom application metrics</strong> check box, you need to apply the changes to the Healthwatch tile. For detailed instructions, see
+    <a href="configuring-healthwatch.html.md.erb#deploy-healthwatch">Deploy Healthwatch</a>
+    </p>
 
 1. Click **Save**.
 

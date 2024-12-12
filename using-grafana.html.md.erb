@@ -98,8 +98,7 @@ The following list describes the default Healthwatch dashboards you may see in t
   the Grafana UI.
 
 * **Healthwatch:** Includes the following dashboards:
-  * **Healthwatch - Exporter Troubleshooting:** Contains metrics related to the functionality of the metric exporter VMs that Healthwatch Exporter for VMware
-  Tanzu Application Service for VMs (TAS for VMs) deploys.
+  * **Healthwatch - Exporter Troubleshooting:** Contains metrics related to the functionality of the metric exporter VMs that Healthwatch Exporter for VMware <%= vars.runtime_prod_full %> deploys.
   * **Healthwatch SLOs:** Contains metrics related to the availability of runtime, Healthwatch, and Healtwatch Exporter tile components. You can filter these
   metrics by uptime service level objective (SLO) target.
 
@@ -128,7 +127,7 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **RabbitMQ-Quorum-Queues-Raft:** Contains metrics related to the functionality of the quorum queues in your Tanzu RabbitMQ clusters. You can filter these
   metrics by namespace and Tanzu RabbitMQ cluster.
 
-* **Tanzu Application Service:** Includes the following dashboards:
+* **<%= vars.runtime_prod_full %>:** Includes the following dashboards:
     <p class="note">
     This folder only appears if you install and configure Healthwatch Exporter for TAS for VMs on one or more of your Ops
     Manager foundations. For more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
@@ -140,7 +139,7 @@ The following list describes the default Healthwatch dashboards you may see in t
   chunk size and disk size.
   * **Logging and Metrics Pipeline:** Contains metrics related to the health and functionality of the Firehose in your TAS for VMs deployments.
   * **Router:** Contains metrics related to the health and functionality of the Gorouters in your TAS for VMs deployments.
-  * **Tanzu Application Service SLOs:** Contains metrics related to the availability of the `cf push` command and the canary apps for your TAS for VMs
+  * **<%= vars.runtime_prod_full %> SLOs:** Contains metrics related to the availability of the `cf push` command and the canary apps for your TAS for VMs
   deployments. You can filter these metrics by `cf push` uptime SLO target and canary app uptime SLO target.
   * **TAS MySQL Health:** Contains metrics related to the health of the MySQL databases for your TAS for VMs deployments.
   * **UAA:** Contains metrics related to the health and functionality of the UAA instances in your TAS for VMs deployments.

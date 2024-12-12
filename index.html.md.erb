@@ -6,10 +6,14 @@ owner: Healthwatch
 This topic provides an overview of Healthwatch&trade; for VMware Tanzu (Healthwatch) features and functionality.
 For information about new features and breaking changes, see [Healthwatch Release Notes](release-notes.html).
 
+<p class="note">
+Tanzu Application Service is now called Tanzu Platform for Cloud Foundry.
+The current version of Tanzu Platform for Cloud Foundry is 10.0.</p>
+
 Healthwatch allows you to monitor metrics related to the functionality of your Tanzu Operations Manager platform.
 
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
-both the VMware Tanzu Application Service for VMs (TAS for VMs) and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
+both the VMware <%= vars.runtime_prod_full %> for VMs and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
 You must install a Healthwatch Exporter tile on each Tanzu Operations Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
 or on a different foundation, depending on your desired monitoring configuration.
@@ -25,16 +29,18 @@ metrics with Tanzu Operations Manager or an external service or database, see [R
 
 The following table provides version and version support information about Healthwatch:
 
-| Element      | Compatible versions                |
-| ------------ |------------------------------------|
-| Version      | v2.3.1                             |
-| Release date | October 3, 2024                    |
-| Tanzu Operations Manager versions | v2.10, v3.0   |
-| TAS for VMs versions | v4.0, v5.0, v6.0           |
-| Tanzu Platform for Cloud Foundry | v10.0          |
-| TKGI versions | v1.16, v1.17, v1.18, v1.19, v1.20 |
-| IaaS support | AWS, Azure, GCP, OpenStack, and vSphere |
+| Element       | Compatible versions                 |
+| ------------- |-------------------------------------|
+| Version       | v2.3.1                              |
+| Release date  | October 3, 2024                     |
+| Tanzu Operations Manager versions | v2.10, v3.0     |
+| TAS for VMs versions | v4.0, v5.0, v6.0             |
+| Tanzu Platform for Cloud Foundry | v10.0            |
+| TKGI versions | v1.16, v1.17, v1.18, v1.19, v1.20   |
+| IaaS support  | AWS, Azure, GCP, OpenStack, vSphere |
 
+<p class="note">
+Tanzu Operations Manager 2.10 is compatible, but is out of support.</p>
 
 ## <a id='healthwatch'></a> Overview of the Healthwatch Tile
 

@@ -566,7 +566,7 @@ To configure the **Resource Config** pane:
 
 ## <a id='opentelemetry'></a> (Optional) Configure for OpenTelemetry
 
-Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above:
+Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above, including Tanzu Platform for Cloud Foundry 10.0+:
 
 1. Navigate to the Healthwatch Exporter for TAS for VMs tile in the Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
@@ -579,7 +579,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
    1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
    1. Select **Advanced Options**.
    1. Click **DOWNLOAD ROOT CA CERT**. The Tanzu Operations Manager root CA will be used when configuring the Open Telemetry collector
-1. Open the VMware Tanzu Application Service for VMs tile.
+1. Open the VMware <%= vars.runtime_prod_full %> for VMs tile.
       1. Click Settings and select **System Logging**.
         1. You may choose to disable the **Enable V1 Firehose** and **Enable V2 Firehose** configurations if there are no other dependencies on firehose data.
         2. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.

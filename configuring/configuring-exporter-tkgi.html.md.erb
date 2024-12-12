@@ -112,8 +112,7 @@ deployment are due to expire. For more information, see [Certificate Expiration 
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
 
     <p class="note">
-    If you have both Healthwatch Exporter for TKGI and Healthwatch Exporter for Tanzu Application Service for VMs (TAS
-    for VMs installed on the same Tanzu Operations Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource
+    If you have both Healthwatch Exporter for TKGI and Healthwatch Exporter for <%= vars.runtime_prod_full %> installed on the same Tanzu Operations Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource
     Config</strong> pane in one of th Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Tanzu Operations Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification** checkbox. When this checkbox is
