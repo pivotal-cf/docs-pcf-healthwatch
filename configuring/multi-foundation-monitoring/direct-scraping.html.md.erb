@@ -73,7 +73,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
           * `bosh-deployments-exporter`, the BOSH deployment metric exporter VM
 
               <p class="note">
-              Storing all metrics from multiple Tanzu Operations Manager foundations in a single Prometheus instance on your monitoring Ops
+              Storing all metrics from multiple Tanzu Operations Manager foundations in a single Prometheus instance on your monitoring Tanzu Operations
               Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Tanzu Operations Manager foundations,
               or if some of the foundations you want to monitor have particularly large <%= vars.runtime_prod_short %> or TKGI deployments, VMware recommends configuring the
               Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor

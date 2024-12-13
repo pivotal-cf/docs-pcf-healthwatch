@@ -164,7 +164,7 @@ To configure the **BOSH Health Metric Exporter VM** pane:
 1. Click **Save**.
 
     <p class="note">
-    If you have both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI installed on the same Ops
+    If you have both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI installed on the same Tanzu Operations
     Manager foundation, scale the BOSH health metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
     Exporter tiles. Otherwise, the two sets of BOSH health metric exporter VM metrics cause a <code>401</code> error in your BOSH Director deployment, and one
     set of metrics reports that the BOSH Director is down in the Grafana UI. For more information, see
@@ -191,7 +191,7 @@ deployment metric exporter VM. This IP address must not be within the reserved I
 1. Click **Save**.
 
 <p class="note">
-If you have both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI installed on the same Ops
+If you have both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI installed on the same Tanzu Operations
 Manager foundation, scale the BOSH deployment metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch
 Exporter tiles. Otherwise, the two BOSH deployment metric exporter VMs create redundant sets of metrics.</p>
 
