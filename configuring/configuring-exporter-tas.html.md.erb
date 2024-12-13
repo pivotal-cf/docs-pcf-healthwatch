@@ -5,19 +5,19 @@ owner: Healthwatch
 
 This topic describes how to manually configure and deploy the Healthwatch Exporter for VMware <%= vars.runtime_prod_full %> tile.
 
-To install, configure, and deploy Healthwatch Exporter for TAS for VMs through an automated pipeline, see [Installing, Configuring, and Deploying a Tile
+To install, configure, and deploy Healthwatch Exporter for <%= vars.runtime_prod_full %> through an automated pipeline, see [Installing, Configuring, and Deploying a Tile
 Through an Automated Pipeline](../installing/automated-pipeline.html).
 
 
-## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch Exporter for TAS for VMs
+## <a id='overview'></a> Overview of Configuring and Deploying Healthwatch Exporter for <%= vars.runtime_prod_full %>
 
-When installed on an Tanzu Operations Manager foundation you want to monitor, Healthwatch Exporter for TAS for VMs deploys metric exporter VMs to generate each type of
-metric related to the health of your TAS for VMs deployment. Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a
+When installed on an Tanzu Operations Manager foundation you want to monitor, Healthwatch Exporter for <%= vars.runtime_prod_full %> deploys metric exporter VMs to generate each type of
+metric related to the health of your <%= vars.runtime_prod_short %> deployment. Healthwatch Exporter for <%= vars.runtime_prod_full %> sends metrics through the Loggregator Firehose to a
 Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes
 the exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the
-Healthwatch Exporter for TAS for VMs tile, see [Healthwatch Exporter for TAS for VMs](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
+Healthwatch Exporter for TAS for VMs tile, see [Healthwatch Exporter for <%= vars.runtime_prod_full %>](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
 
-After installing Healthwatch Exporter for TAS for VMs, you configure the metric exporter VMs deployed by Healthwatch Exporter for TAS for VMs through the tile
+After installing Healthwatch Exporter for <%= vars.runtime_prod_full %>, you configure the metric exporter VMs deployed by Healthwatch Exporter for <%= vars.runtime_prod_full %> through the tile
 UI. You can also configure errands and system logging, as well as scale VM instances up or down and configure load balancers for multiple VM instances.
 
 To configure and deploy the Healthwatch Exporter for TAS for VMs tile:
@@ -32,8 +32,7 @@ Exporter for TAS for VMs Tile](#open-ui) below.
 
 1. Assign jobs to your availability zones (AZs) and networks. For more information, see [Assign AZs and Networks](#az) below.
 
-2. (Optional) Configure the **TAS for VMs Metric Exporter VMs** pane. For more information, see [(Optional) Configure TAS for VMs Metric Exporter
-VMs](#exporter-config) below.
+2. (Optional) Configure the **TAS for VMs Metric Exporter VMs** pane. For more information, see [(Optional) Configure <%= vars.runtime_prod_full %> Metric Exporter VMs](#exporter-config) below.
 
 1. Configure the **BOSH Health Metric Exporter VM** pane. For more information, see [Configure the BOSH Health Metric Exporter VM](#bosh-exporter) below.
 
@@ -47,7 +46,7 @@ VM](#bosh-deployments) below.
 3. (Optional) Configure the **Resource Config** pane. For more information, see [(Optional) Configure Resources](#resource-config) below.
 
 4. Deploy the Healthwatch Exporter for TAS for VMs tile through the Ops Manager Installation Dashboard. For more information, see [Deploy Healthwatch Exporter
-for TAS for VMs](#apply-changes) below.
+for <%= vars.runtime_prod_full %>](#apply-changes) below.
 
 1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for TAS for VMs, configure a scrape job for Healthwatch Exporter for TAS
 for VMs in the Prometheus VM that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for TAS for
@@ -81,22 +80,22 @@ To configure the **Assign AZ and Networks** pane:
 1. Under **Balance other jobs in**, select one or more other AZs. Tanzu Operations Manager balances instances of jobs with more than one instance across the AZs that you
 specify.
 
-1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about TAS for VMs
+1. From the **Network** dropdown, select the runtime network that you created when configuring the BOSH Director tile. For more information about <%= vars.runtime_prod_full %>
 networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/refarch-index.html#pas-subnets).
 
 1. (Optional) If you want to assign jobs to a service network in addition to your runtime network, select it from the **Services Network** dropdown. For more
-information about TAS for VMs service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/refarch-index.html#pas-subnets).
+information about <%= vars.runtime_prod_full %> service networks, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/refarch-index.html#pas-subnets).
 
 1. Click **Save**.
 
 
-## <a id='exporter-config'></a> (Optional) Configure TAS for VMs Metric Exporter VMs
+## <a id='exporter-config'></a> (Optional) Configure <%= vars.runtime_prod_full %> Metric Exporter VMs
 
 In the **TAS for VMs Metric Exporter VMs** pane, you configure static IP addresses for the metric exporter VMs that collect metrics from the Loggregator
-Firehose in TAS for VMs. There are two metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter or gauge. You can
+Firehose in <%= vars.runtime_prod_full %>. There are two metric exporter VMs that each collect a single metric type from the Loggregator Firehose: counter or gauge. You can
 deploy one or both VMs. After generating these metrics, the metric exporter VMs convert them to a Prometheus exposition format on a secured endpoint.
 
-You can also deploy two other VMs: the TAS for VMs service level indicator (SLI) exporter VM and the certificate expiration metric exporter VM.
+You can also deploy two other VMs: the <%= vars.runtime_prod_full %> service level indicator (SLI) exporter VM and the certificate expiration metric exporter VM.
 
 To configure the **TAS for VMs Metric Exporter VMs** pane:
 
@@ -112,9 +111,9 @@ exporter VM.
 1. (Optional) For **Static IP address for gauge metric exporter VM**, enter a valid static IP address that you want to reserve for the gauge metric exporter
 VM.
 
-1. (Optional) For **Static IP address for TAS for VMs SLI exporter VM**, enter a valid static IP address that you want to reserve for the TAS for VMs SLI
-exporter VM. The TAS for VMs SLI exporter VM generates SLIs that allow you to monitor whether the core functions of the Cloud Foundry Command-Line Interface
-(cf CLI) are working as expected. The cf CLI allows developers to create and manage apps through TAS for VMs. For more information, see [TAS for VMs SLI
+1. (Optional) For **Static IP address for TAS for VMs SLI exporter VM**, enter a valid static IP address that you want to reserve for the <%= vars.runtime_prod_full %> SLI
+exporter VM. The <%= vars.runtime_prod_full %> SLI exporter VM generates SLIs that allow you to monitor whether the core functions of the Cloud Foundry Command-Line Interface
+(cf CLI) are working as expected. The cf CLI allows developers to create and manage apps through <%= vars.runtime_prod_full %>. For more information, see [<%= vars.runtime_prod_full %> SLI
 Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 1. (Optional) For **Static IP address for certificate expiration metric exporter VM**, enter a valid static IP address that you want to reserve for the
@@ -123,19 +122,21 @@ deployment are due to expire. For more information, see [Certificate Expiration 
 Metrics_ and [Monitoring Certificate Expiration](optional-config/certificate-monitoring.html).
 
     <p class="note">
-    If you have both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI installed on the same Tanzu Operations Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
+    If you have both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI installed on the same Tanzu Operations Manager foundation, scale the certificate expiration metric exporter VM to zero instances in the <strong>Resource Config</strong> pane in one of the Healthwatch Exporter tiles. Otherwise, the two certificate expiration metric exporter VMs create redundant sets of metrics.</p>
 
 1. (Optional) If your Tanzu Operations Manager deployment uses self-signed certificates, activate the **Skip TLS certificate verification for certificate metric exporter
 VM** checkbox. When this checkbox is activated, the certificate expiration metric exporter VM does not verify the identity of the Tanzu Operations Manager VM. This
 checkbox is deactivated by default.
 
-1. Under **cf CLI version**, select from the dropdown the version of the cf CLI that your TAS for VMs or Pivotal Application Service (PAS) deployment uses:
+1. Under **cf CLI version**, select from the dropdown the version of the cf CLI that your <%= vars.runtime_prod_full %> deployment uses:
     * If you have TAS for VMs v2.11 or later installed, select one of the following options:
-      * **7 (Use with TAS 2.11+):** Allows the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v7. This option is selected by default.
-      * **CF CLI 8:** Allows the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v8.
-    * If you have PAS v2.7 installed, select **6 (Use with TAS 2.7 only)** to allow the TAS for VMs SLI exporter VM to run SLI tests for cf CLI v6.
+      * **7 (Use with TAS 2.11+):** Allows the <%= vars.runtime_prod_full %> SLI exporter VM to run SLI tests for cf CLI v7. This option is selected by default.
+      * **CF CLI 8:** Allows the <%= vars.runtime_prod_full %> SLI exporter VM to run SLI tests for cf CLI v8.
 
-2. (Optional) If `Metric Registrar` is configured in your TAS for VMs tile, and you do **not** want Healthwatch to scrape custom application metrics,
+    <p class="note">
+    Only Tanzu Application Service versions 4.0 and later are supported This includes <%= vars.runtime_prod_full %> 10.0+.</p>
+
+2. (Optional) If `Metric Registrar` is configured in your <%= vars.runtime_prod_full %> tile, and you do **not** want Healthwatch to scrape custom application metrics,
 select the **Filter out custom application metrics** checkbox.
 
     <p class="note">
@@ -322,8 +323,8 @@ To configure the **Errands** pane:
 1. (Optional) Choose whether to always run or never run the following errands:
     * **Smoke Tests:** Verifies that the metric exporter VMs are running.
     * **Cleanup:** Deletes any existing BOSH deployments created by the BOSH health metric exporter VM for running SLI tests.
-    * **Remove CF SLI User:** Deletes the user account that the TAS for VMs SLI exporter VM creates to run the TAS for VMs SLI test suite. For more
-    information, see [TAS for VMs SLI Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
+    * **Remove CF SLI User:** Deletes the user account that the <%= vars.runtime_prod_full %> SLI exporter VM creates to run the <%= vars.runtime_prod_full %> SLI test suite. For more
+    information, see [<%= vars.runtime_prod_full %> SLI Exporter VM](../metrics.html#pas-sli-exporter) in _Healthwatch Metrics_.
 
 1. Click **Save**.
 
@@ -353,13 +354,13 @@ to forward system logs to your external destination.
   1. For **Permitted Peer**, enter either the name or SHA1 fingerprint of the remote peer.
   1. For **SSL Certificate**, enter the TLS certificate for your external destination.
 
-1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for TAS for VMs can hold in a buffer at a time before sending them
+1. (Optional) For **Queue Size**, specify the number of log messages Healthwatch Exporter for <%= vars.runtime_prod_full %> can hold in a buffer at a time before sending them
 to your external destination. The default value is `100000`.
 
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
+rules, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -393,8 +394,8 @@ Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Met
 
     <p class="note">
     If you installed the Healthwatch Exporter for TAS for VMs tile before installing the Healthwatch tile, you may need
-    to re-deploy Healthwatch Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see <a href="#apply-changes">Deploy
-    Healthwatch Exporter for TAS for VMs</a> below.</p>
+    to re-deploy Healthwatch Exporter for TAS for VMs after deploying the SVM Forwarder VM. For more information, see
+    <a href="#apply-changes">Deploy Healthwatch Exporter for TAS for VMs</a> below.</p>
 
 1. (Optional) Healthwatch Exporter for TAS for VMs deploys the counter and gauge metric exporter VMs by default. If you do not want to collect both of these
 metric types, set the instance count for the VMs associated with the metrics you do not want to collect to `0`.
@@ -420,8 +421,7 @@ For more information, see the [Tanzu Operations Manager documentation](https://t
 After you have successfully deployed Healthwatch Exporter for TAS for VMs, you must configure a scrape job in the Prometheus instance that exists within your
 metrics monitoring system. Follow the procedure in one of the following sections, depending on which monitoring system you use:
 
-* If you monitor metrics using the Healthwatch tile on an Tanzu Operations Manager foundation, see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in
-Healthwatch](#scraping-healthwatch) below.
+* If you monitor metrics using the Healthwatch tile on an Tanzu Operations Manager foundation, see [Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch](#scraping-healthwatch) below.
 
     <p class="note">
     You only need to configure a scrape job for installations of Healthwatch Exporter for TAS for VMs that are not on the
@@ -429,20 +429,20 @@ Healthwatch](#scraping-healthwatch) below.
     Exporter tiles that are installed on the same Tanzu Operations Manager foundation as the Healthwatch tile.</p>
 
 * If you monitor metrics using a service or database located outside your Tanzu Operations Manager foundation, such as from an external TSDB, see [Configure a Scrape Job
-for Healthwatch Exporter for TAS for VMs in an External Monitoring System](#scraping-external) below.
+for Healthwatch Exporter for <%= vars.runtime_prod_full %> in an External Monitoring System](#scraping-external) below.
 
-### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in Healthwatch
+### <a id='scraping-healthwatch'></a> Configure a Scrape Job for Healthwatch Exporter for <%= vars.runtime_prod_full %> in Healthwatch
 
-To configure a scrape job for Healthwatch Exporter for TAS for VMs in the Healthwatch tile on your Tanzu Operations Manager foundation, see [Configure
+To configure a scrape job for Healthwatch Exporter for <%= vars.runtime_prod_full %> in the Healthwatch tile on your Tanzu Operations Manager foundation, see [Configure
 Prometheus](configuring-healthwatch.html#prometheus) in _Configuring Healthwatch_.
 
-### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for TAS for VMs in an External Monitoring System
+### <a id='scraping-external'></a> Configure a Scrape Job for Healthwatch Exporter for <%= vars.runtime_prod_full %> in an External Monitoring System
 
-To configure a scrape job for Healthwatch Exporter for TAS for VMs in a service or database that is located outside your Tanzu Operations Manager foundation:
+To configure a scrape job for Healthwatch Exporter for <%= vars.runtime_prod_full %> in a service or database that is located outside your Tanzu Operations Manager foundation:
 
-1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for TAS for VMs. The procedure
+1. Open network communication paths from your external service or database to the metric exporter VMs in Healthwatch Exporter for <%= vars.runtime_prod_full %>. The procedure
 to open these network paths differs depending on your Tanzu Operations Manager foundation's IaaS. For a list of TCP ports used by each metric exporter VM, see [Required
-Networking Rules for Healthwatch Exporter for TAS for VMs](../architecture.html#network-rules-tas) in _Healthwatch Architecture_.
+Networking Rules for Healthwatch Exporter for <%= vars.runtime_prod_full %>](../architecture.html#network-rules-tas) in _Healthwatch Architecture_.
 
 1. In the `scrape_config` section of the Prometheus configuration file, create a scrape job for your Tanzu Operations Manager foundation. Under `static_config`, specify
 the TCP ports of each metric exporter VM as static targets for the IP address of your external service or database. For example:

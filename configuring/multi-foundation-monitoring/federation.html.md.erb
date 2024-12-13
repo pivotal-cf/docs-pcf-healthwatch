@@ -24,8 +24,8 @@ Tanzu Operations Manager foundations you want to monitor.
 To configure federation for your multi-foundation Healthwatch deployment:
 
 1. Set up your multi-foundation deployment for federation by following the procedure in the section for your runtime:
-    * [Set Up Your Multi-Foundation TAS for VMs Deployment](#tas)
-    * [Set Up Your Multi-Foundation TKGI Deployment](#tkgi)
+    * [Set up your Multi-Foundation <%= vars.runtime_prod_short %> Deployment](#tas)
+    * [Set up your Multi-Foundation TKGI Deployment](#tkgi)
 
 2. Configure scrape jobs for the Prometheus instances in the Healthwatch tiles on the Tanzu Operations Manager foundations you want to monitor. To configure these scrape
 jobs, see [Configure Scrape Jobs](#scrape-jobs) below.
@@ -45,16 +45,16 @@ Configuration](#test) below.
     information about the metrics you can collect, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
 
-## <a id='tas'></a> Set Up Your Multi-Foundation TAS for VMs Deployment
+## <a id='tas'></a> Set up your Multi-Foundation <%= vars.runtime_prod_full %> Deployment
 
-To configure TAS for VMs deployments on multiple Tanzu Operations Manager foundations to federate metrics to a single monitoring Tanzu Operations Manager foundation:
+To configure <%= vars.runtime_prod_short %> deployments on multiple Tanzu Operations Manager foundations to federate metrics to a single monitoring Tanzu Operations Manager foundation:
 
-1. Install and configure the Healthwatch and Healthwatch Exporter for TAS for VMs tiles on each Tanzu Operations Manager foundation you want to monitor. To install and
-configure the Healthwatch and Healthwatch Exporter for TAS for VMs tiles, see the following topics:
+1. Install and configure the Healthwatch and Healthwatch Exporter for <%= vars.runtime_prod_full %> tiles on each Tanzu Operations Manager foundation you want to monitor. To install and
+configure the Healthwatch and Healthwatch Exporter for <%= vars.runtime_prod_full %> tiles, see the following topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
-    * [Configuring Healthwatch Exporter for TAS for VMs](../configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](../configuring-exporter-tas.html)
 
 1. Install and configure the Healthwatch tile on your monitoring Tanzu Operations Manager foundation. To install and configure the Healthwatch tile, see the following
 topics:

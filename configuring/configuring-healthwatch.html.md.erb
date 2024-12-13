@@ -207,10 +207,10 @@ To configure the **Grafana** pane:
 1. Select **Grafana**.
 
 1. Under **Grafana UI route**, configure the route used to access the Grafana UI by selecting one of the following options:
-    * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Tanzu Operations Manager foundation with TAS for VMs installed, Healthwatch
-    automatically configures a route for the Grafana UI in TAS for VMs. VMware recommends selecting this option when available. You access the Grafana UI by
+    * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Tanzu Operations Manager foundation with <%= vars.runtime_prod_full %> installed, Healthwatch
+    automatically configures a route for the Grafana UI in <%= vars.runtime_prod_full %>. VMware recommends selecting this option when available. You access the Grafana UI by
     navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the TAS for
-    VMs tile. For more information, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/config-domains.html).
+    VMs tile. For more information, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/config-domains.html).
     * **Manually configure:** Reveals the configuration fields described in the following steps, where you manually configure the URL and TLS settings for the
     Grafana UI.
     To manually configure the URL and TLS settings for the Grafana UI:
@@ -321,7 +321,7 @@ To configure the **Grafana Authentication** pane, see [Configuring Grafana Authe
 ## <a id='dashboards'></a> (Optional) Configure Grafana Dashboards
 
 In the **Grafana Dashboards** pane, you configure which dashboards the Grafana instance creates in the Grafana UI. The Grafana instance can create dashboards
-for metrics from TAS for VMs, TKGI, VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs), and VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ). For more
+for metrics from <%= vars.runtime_prod_full %>, TKGI, VMware Tanzu SQL with MySQL for VMs (Tanzu SQL for VMs), and VMware Tanzu RabbitMQ for VMs (Tanzu RabbitMQ). For more
 information about these dashboards, see [Default Dashboards in the Grafana UI](../using-grafana.html#dashboards) in _Using Healthwatch Dashboards in the
 Grafana UI_.
 
@@ -330,14 +330,14 @@ To configure the **Grafana Dashboards** pane:
 1. Select **Grafana Dashboards**.
 
 1. Under **TAS for VMs**, select one of the following options:
-    * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from TAS for VMs. To specify the version of TAS for VMs for which you
+    * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from <%= vars.runtime_prod_full %>. To specify the version of <%= vars.runtime_prod_full %> for which you
     want the Grafana instance to create dashboards:
       1. From the **Version** dropdown, select one of the following options:
-          * The version of TAS for VMs that is installed on your Tanzu Operations Manager foundation.
-          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of TAS for VMs that is installed on your Tanzu Operations Manager foundation.
+          * The version of <%= vars.runtime_prod_full %> that is installed on your Tanzu Operations Manager foundation.
+          * **Auto-detect:** The Grafana instance automatically discovers and creates dashboards for the version of <%= vars.runtime_prod_full %> that is installed on your Tanzu Operations Manager foundation.
 
           <p class="note">
-          If you choose to include TAS for VMs dashboards, you must configure TAS for VMs to forward system metrics to
+          If you choose to include <%= vars.runtime_prod_full %> dashboards, you must configure <%= vars.runtime_prod_short %> to forward system metrics to
           the Loggregator Firehose. Otherwise, no metrics appear in the <strong>Router</strong> dashboard in the Grafana UI. For more information, see
           <a href="../troubleshooting.html#missing-router-metrics">Troubleshooting Missing Router Metrics</a> in <em>Troubleshooting Healthwatch</em>.</p>
 
@@ -345,7 +345,7 @@ To configure the **Grafana Dashboards** pane:
           If you have installed Tanzu Operations Manager 3.0 you need to select version <em>3.0</em> from the
           list of dashboards on the <em>Grafana Dashboards</em> tab of the Healthwatch tile.</p>
 
-    * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from TAS for VMs.
+    * **Exclude:** The Grafana instance does not create dashboards in the Grafana UI for metrics from <%= vars.runtime_prod_full %>.
 
 2. Under **TKGI**, select one of the following options:
     * **Include:** The Grafana instance creates dashboards in the Grafana UI for metrics from TKGI. To specify the version of TKGI for which you want the
@@ -536,7 +536,7 @@ destination. The default value is `100000`.
 1. (Optional) To forward debug logs to your external destination, activate the **Forward Debug Logs** checkbox. This checkbox is deactivated by default.
 
 1. (Optional) To specify a custom syslog rule, enter it in **Custom rsyslog configuration** in RainerScript syntax. For more information about custom syslog
-rules, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
+rules, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/custom-syslog-rules.html). For more information about
 RainerScript syntax, see the [rsyslog documentation](https://www.rsyslog.com/doc/v8-stable/rainerscript/index.html).
 
 1. Click **Save Syslog Settings**.
@@ -568,7 +568,7 @@ To configure the **Resource Config** pane:
 
 Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above, including Tanzu Platform for Cloud Foundry 10.0+:
 
-1. Navigate to the Healthwatch Exporter for TAS for VMs tile in the Ops Manager Installation Dashboard.
+1. Navigate to the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile in the Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
       1. Set the **TAS Counter Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
       1. Click **Save**.
@@ -600,7 +600,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
           * `CA-CERT` is the Tanzu Operations Manager root CA.
           * `CERT_PEM` is the cert_pem of the Healthwatch OTel Mtls credential.
           * `PRIVATE_KEY_PEM` is the private_key_pem of the Healthwatch OTel Mtls credential.
-        5. For Tanau Platform for Cloud Foundry (formerly TAS for VMs) 10.0, you can configure certificates under OpenTelemetry Collector Secrets and refer them in OTel configuration. For example:
+        5. For <%= vars.runtime_prod_full %> (formerly TAS for VMs) 10.0, you can configure certificates under OpenTelemetry Collector Secrets and refer them in OTel configuration. For example:
 
           ```
             exporters:
@@ -645,6 +645,6 @@ For more information, see the [Tanzu Operations Manager documentation](https://t
 After you have successfully installed the Healthwatch tile, continue to one of the following topics to configure and deploy the Healthwatch Exporter tiles for
 the Tanzu Operations Manager foundations you want to monitor:
 
-* If you have TAS for VMs installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html).
+* If you have <%= vars.runtime_prod_full %> installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html).
 
 * If you have TKGI installed on an a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html).

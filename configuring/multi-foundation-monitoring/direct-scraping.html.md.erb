@@ -21,7 +21,7 @@ Tanzu Operations Manager foundations you monitor, you must monitor your multi-fo
 [Configure Federation for TKGI](multi-foundation-monitoring.html#federation-tkgi) in _Configuring Multi-Foundation Monitoring_.
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, you must install the Healthwatch tile on your monitoring Tanzu Operations Manager foundation
-and only the Healthwatch Exporter for TAS for VMs tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
+and only the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
 
 
 ## <a id='multiple-foundations-direct-scrape'></a> Configure Direct Scraping
@@ -34,16 +34,16 @@ topics:
     Pipeline](../../installing/automated-pipeline.html)
     * [Configuring Healthwatch](../configuring-healthwatch.html)
 
-1. Install and configure either Healthwatch Exporter for TAS for VMs or Healthwatch Exporter for TKGI on each Tanzu Operations Manager foundation you want to monitor. To
+1. Install and configure either Healthwatch Exporter for <%= vars.runtime_prod_full %> or Healthwatch Exporter for TKGI on each Tanzu Operations Manager foundation you want to monitor. To
 install and configure a Healthwatch Exporter tile, see the following topics:
     * [Installing a Tile Manually](../../installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
     Pipeline](../../installing/automated-pipeline.html)
-    * [Configuring Healthwatch Exporter for TAS for VMs](../configuring-exporter-tas.html)
+    * [Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](../configuring-exporter-tas.html)
     * [Configuring Healthwatch Exporter for TKGI](../configuring-exporter-tkgi.html)
 
 1. For each Healthwatch Exporter tile you installed and configured, open the ports for the metric exporter VMs that the Healthwatch Exporter tile deploys in
 the user console for your IaaS. For more information about the ports you must open for each metric exporter VM, see either [Networking Rules for Healthwatch
-Exporter for TAS for VMs](../../architecture.html#network-rules-tas) or [Networking Rules for Healthwatch Exporter for
+Exporter for <%= vars.runtime_prod_full %>](../../architecture.html#network-rules-tas) or [Networking Rules for Healthwatch Exporter for
 TKGI](../../architecture.html#network-rules-tkgi) in _Healthwatch Architecture_.
 
 1. Add a scrape job for each Healthwatch Exporter tile in the **Prometheus** pane of the Healthwatch tile that you installed on your monitoring Tanzu Operations Manager
@@ -58,10 +58,10 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   1. In a browser window, navigate to the user console for your Tanzu Operations Manager deployment's IaaS.
   1. In the user console for your IaaS, record the public IP addresses of the metric exporter VMs deployed by the Healthwatch Exporter tile you installed on
   the Tanzu Operations Manager foundation you want to monitor, depending on which metrics you want to monitor for that foundation:
-      * For Healthwatch Exporter for TAS for VMs, record the public IP addresses of any or all of the following metric exporter VMs:
+      * For Healthwatch Exporter for <%= vars.runtime_prod_full %>, record the public IP addresses of any or all of the following metric exporter VMs:
           * `pas-exporter-counter`, the counter metric exporter VM
           * `pas-exporter-gauge`, the gauge metric exporter VM
-          * `pas-sli-exporter`, the TAS for VMs SLI exporter VM
+          * `pas-sli-exporter`, the <%= vars.runtime_prod_short %> SLI exporter VM
           * `cert-expiration-exporter`, the certificate expiration metric exporter VM
           * `bosh-health-exporter`, the BOSH health metric exporter VM
           * `bosh-deployments-exporter`, the BOSH deployment metric exporter VM
@@ -75,7 +75,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
               <p class="note">
               Storing all metrics from multiple Tanzu Operations Manager foundations in a single Prometheus instance on your monitoring Ops
               Manager foundation negatively affects the performance of that Prometheus instance. If you want to monitor a large number of Tanzu Operations Manager foundations,
-              or if some of the foundations you want to monitor have particularly large TAS for VMs or TKGI deployments, VMware recommends configuring the
+              or if some of the foundations you want to monitor have particularly large <%= vars.runtime_prod_short %> or TKGI deployments, VMware recommends configuring the
               Prometheus instance in the Healthwatch deployment on your monitoring foundation to scrape only from the metric exporter VMs that you need to monitor
               the most. For more information about the metrics that each metric exporter VM collects, see <a href="../../metrics.html">Healthwatch Metrics</a>.</p>
 
@@ -103,7 +103,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
   1. Under **Additional scrape jobs**, click **Add**.
   1. For **Scrape job configuration parameters**, provide configuration parameters in YAML format for the scrape job for the Healthwatch Exporter tile you
   installed on the Tanzu Operations Manager foundation you want to monitor:
-      * For Healthwatch Exporter for TAS for VMs, provide configuration parameters similar to the following example:
+      * For Healthwatch Exporter for <%= vars.runtime_prod_full %>, provide configuration parameters similar to the following example:
 
           ```
           job_name: FOUNDATION-NAME
@@ -124,7 +124,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
           * `FOUNDATION-NAME` is the name of the Tanzu Operations Manager foundation you want to monitor.
           * (Optional) `COUNTER-EXPORTER-VM-IP-ADDRESS` is the IP address of the counter metric exporter VM that you recorded in a previous step.
           * (Optional) `GAUGE-EXPORTER-VM-IP-ADDRESS` is the IP address of the gauge metric exporter VM that you recorded in a previous step.
-          * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the TAS for VMs SLI exporter VM that you recorded in a previous step.
+          * (Optional) `SLI-EXPORTER-VM-IP-ADDRESS` is the IP address of the <%= vars.runtime_prod_short %> SLI exporter VM that you recorded in a previous step.
           * (Optional) `CERT-EXPIRATION-EXPORTER-VM-IP-ADDRESS` is the IP address of the certificate expiration exporter VM that you recorded in a previous
           step.
           * (Optional) `BOSH-HEALTH-EXPORTER-VM-IP-ADDRESS` is the IP address of the BOSH health metric exporter VM that you recorded in a previous step.
@@ -158,7 +158,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
           step.
 
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
-  **Credentials** tab in the Healthwatch Exporter for TAS for VMs tile in a previous step.
+  **Credentials** tab in the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile in a previous step.
   1. For **CA certificate for TLS**, enter the Tanzu Operations Manager root CA that you retrieved in a previous step.
   1. For **Target server name**, enter the custom hostname resolver to use when verifying the TLS certificates.
   Enter the name of the server that facilitates TLS communication between the Prometheus instance

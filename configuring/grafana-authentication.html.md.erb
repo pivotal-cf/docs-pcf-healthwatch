@@ -178,7 +178,7 @@ When you configure UAA authentication for the Grafana UI, users can log in to th
 
 Healthwatch can automatically configure authentication with the UAA instance of the runtime that is installed on the same Tanzu Operations Manager foundation as the
 Healthwatch tile, either VMware <%= vars.runtime_prod_full %> or Tanzu Kubernetes Grid Integrated Edition (TKGI). If you want to configure
-authentication with the UAA instance of TAS for VMs or TKGI installed on the same Tanzu Operations Manager foundation, follow the procedure below. If you want to configure
+authentication with the UAA instance of <%= vars.runtime_prod_short %> or TKGI installed on the same Tanzu Operations Manager foundation, follow the procedure below. If you want to configure
 authentication with the UAA instance of a runtime that is installed on a different Tanzu Operations Manager foundation, you must manually configure it using the fields
 described in [Configure Generic OAuth Authentication](#configure-generic-oauth) above.
 
@@ -198,7 +198,7 @@ To configure UAA authentication for the Grafana UI:
         uaac target UAA-URL
         ```
 
-        Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
+        Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for <%= vars.runtime_prod_short %>, this URL is usually
         `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS
         for VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
 
