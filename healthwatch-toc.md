@@ -21,7 +21,7 @@
     * [Optional Configuration](configuring/optional-config/index.html)
         * [Configuring Alerting](configuring/optional-config/alerting.html)
         * [Monitoring Certificate Expiration](configuring/optional-config/certificate-monitoring.html)
-        * [Configuring Authentication with a UAA Instance on a Different Ops Manager Foundation](configuring/optional-config/configuring-external-uaa.html)
+        * [Configuring Authentication with a UAA Instance on a Different Tanzu Operations Manager Foundation](configuring/optional-config/configuring-external-uaa.html)
         * [Configuring TKGI Cluster Discovery](configuring/optional-config/configuring-cluster-discovery.html)
     * [Configuration File Reference Guide](configuring/config-file-reference.html)
 * [Using Healthwatch Dashboards in the Grafana UI](using-grafana.html)

@@ -120,51 +120,6 @@ To access the Alertmanager UI:
 
 The sections below describe how to troubleshoot known issues in Healthwatch and Healthwatch Exporter for TKGI.
 
-### <a id='upgrade-from-om-23'></a> "Unable to Render Templates" Error When Installing or Upgrading
-
-When installing or upgrading to Healthwatch v2.2, you see the following error:
-
-<pre class='terminal'>
-- Unable to render templates for job 'opsman-cert-expiration-exporter'. Errors are:
-  - Error filling in template 'bpm.yml.erb' (line 9: Can't find property '["opsman_access_credentials.uaa_client_secret"]')
-</pre>
-
-This error occurs if you upgraded from Ops Manager v2.3 or earlier to Ops Manager v2.4 through v2.7. To resolve this issue:
-
-1. SSH into the Tanzu Operations Manager VM by following the procedure in the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/install-trouble-advanced.html#ssh).
-
-1. Change the user to `root`.
-
-1. Open the Rails console by running:
-
-    ```
-    > cd /home/tempest-web/tempest/web; RAILS_ENV='production' TEMPEST_INFRASTRUCTURE='DEPLOYMENT-IAAS' TEMPEST_WEB_DIR='/home/tempest-web' SECRET_KEY_BASE='1234' DATA_ROOT='/var/tempest' LOG_DIR='/var/log/opsmanager' su tempest-web --command 'bundle exec rails console'
-    ```
-    Where `DEPLOYMENT-IAAS` is either `google`, `aws`, `azure`, `vsphere`, or `openstack`, depending on the IaaS of your Tanzu Operations Manager deployment.
-
-1. Set the decryption passphrase by running:
-
-    ```
-    irb(main):001:0> EncryptionKey.instance.passphrase = 'DECRYPTION-PASSPHRASE'
-    ```
-    Where `DECRYPTION-PASSPHRASE` is the decryption passphrase you want to set.
-
-1. Update the UAA restricted view access client secret by running:
-
-    ```
-    irb(main):001:0> Uaa::UaaConfig.instance.update_attributes(restricted_view_api_access_client_secret: SecureRandom.hex)
-    ```
-
-1. Exit the Rails console and restart the `tempest-web` service by running:
-
-    ```
-    irb(main):001:0> exit
-    > service tempest-web restart
-    ```
-
-This issue is fixed in Tanzu Operations Manager v2.8 and later.
-
-<br>
 ### <a id='grafana-smoke-test'></a> Smoke Tests Errand Fails When Deploying Healthwatch
 
 When you deploy Healthwatch, the **Smoke Tests** errand fails with the following error message:
