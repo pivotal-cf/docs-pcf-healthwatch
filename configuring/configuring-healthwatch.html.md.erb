@@ -22,7 +22,7 @@ To configure and deploy the Healthwatch tile:
 To quickly deploy the Healthwatch tile to ensure that it deploys successfully before you fully configure it, you only
 need to configure the <strong>Assign AZ and Networks</strong> pane.</p>
 
-1. Navigate to the Healthwatch tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch Tile](#open-ui) below.
+1. Navigate to the Healthwatch tile in the Tanzu Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch Tile](#open-ui) below.
 
 1. Assign jobs to your Availability Zones (AZs) and networks. For more information, see [Assign AZs and Networks](#az) below.
 
@@ -61,7 +61,7 @@ want to monitor. For more information, see [Next Steps](#next-steps) below.
 
 To navigate to the Healthwatch tile:
 
-1. Navigate to the Ops Manager Installation Dashboard.
+1. Navigate to the Tanzu Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch** tile.
 
@@ -243,11 +243,11 @@ To configure the **Grafana** pane:
             the Grafana instance. For example, if the DNS entry you configured for the Grafana instance is `grafana.example.com`, enter `*.example.com`. For
             more information about configuring a DNS entry for the Grafana instance, see [Configuring DNS for the Grafana Instance](dns-configuration.html).
             4. Click **Generate**.
-            5. Navigate to the Ops Manager Installation Dashboard.
-            6. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+            5. Navigate to the Tanzu Ops Manager Installation Dashboard.
+            6. From the dropdown in the upper-right corner of the Tanzu Ops Manager Installation Dashboard, click **Settings**.
             7. Select **Advanced Options**.
             8. Click **DOWNLOAD ROOT CA CERT**.
-            9. Return to the Ops Manager Installation Dashboard.
+            9. Return to the Tanzu Ops Manager Installation Dashboard.
             10. Click the **Healthwatch** tile.
             11. Select **Grafana**.
             12. For **Certificate and private key for HTTPS**, provide the Tanzu Operations Manager root CA certificate that you downloaded in a previous step.
@@ -567,15 +567,15 @@ To configure the **Resource Config** pane:
 
 Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0, including Tanzu Platform for Cloud Foundry 10.0+:
 
-1. Navigate to the Healthwatch Exporter tile in the Ops Manager Installation Dashboard.
+1. Navigate to the Healthwatch Exporter tile in the Tanzu Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
       1. Set the **TAS Counter Exporter** and **TAS Gauge Exporter** configurations to `O` because they are only used by FireHose.
       1. Click **Save**.
     1. Click the **Credentials** tab:
       1. Click **Link to Credential** next to **Healthwatch Exporter Client Mtls**.
       1. Save the certificate content. The cert and key will be used when configuring the Open Telemetry collector.
-1. Navigate to the Ops Manager Installation Dashboard.
-   1. From the dropdown in the upper-right corner of the Ops Manager Installation Dashboard, click **Settings**.
+1. Navigate to the Tanzu Ops Manager Installation Dashboard.
+   1. From the dropdown in the upper-right corner of the Tanzu Ops Manager Installation Dashboard, click **Settings**.
    1. Select **Advanced Options**.
    1. Click **DOWNLOAD ROOT CA CERT**. The Tanzu Operations Manager root CA will be used when configuring the Open Telemetry collector
 1. Open the VMware <%= vars.runtime_prod_full %> for VMs tile.
@@ -630,7 +630,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
 
 To complete your installation of the Healthwatch tile:
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the Tanzu Ops Manager Installation Dashboard.
 
 1. Click **Review Pending Changes**.
 

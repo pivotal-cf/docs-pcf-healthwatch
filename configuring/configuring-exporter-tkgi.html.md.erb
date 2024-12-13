@@ -25,7 +25,7 @@ To configure and deploy the Healthwatch Exporter for TKGI tile:
 If you want to quickly deploy the Healthwatch Exporter for TKGI tile to ensure that it deploys successfully before you
 fully configure it, you only need to configure the <strong>Assign AZ and Networks</strong> and <strong>BOSH Health Metric Exporter VM</strong> panes.</p>
 
-1. Navigate to the Healthwatch Exporter for TKGI tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch
+1. Navigate to the Healthwatch Exporter for TKGI tile in the Tanzu Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch
 Exporter for TKGI Tile](#open-ui) below.
 
 1. Assign jobs to your availability zones (AZs) and networks. For more information, see [Assign AZs and Networks](#az) below.
@@ -47,7 +47,7 @@ VM](#bosh-deployments) below.
 1. (Optional) Configure the **Resource Config** pane. For more information, see [(Optional)
 Configure Resources](#resource-config) below.
 
-1. Deploy the Healthwatch Exporter for TKGI tile through the Ops Manager Installation Dashboard. For more information, see [Deploy Healthwatch Exporter for TKGI](#apply-changes) below.
+1. Deploy the Healthwatch Exporter for TKGI tile through the Tanzu Ops Manager Installation Dashboard. For more information, see [Deploy Healthwatch Exporter for TKGI](#apply-changes) below.
 
 1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for TKGI, configure a scrape job for Healthwatch Exporter for TKGI in
 the Prometheus instance that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for TKGI](#scrape-job-config) below.
@@ -62,7 +62,7 @@ the Prometheus instance that exists within your monitoring system. For more info
 
 To navigate to the Healthwatch Exporter for TKGI tile:
 
-1. Navigate to the Ops Manager Installation Dashboard.
+1. Navigate to the Tanzu Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile.
 
@@ -207,7 +207,7 @@ deployment metric exporter VM. The procedure to create this UAA client differs d
 
 To create a UAA client for the BOSH deployment metric exporter VM:
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the Tanzu Ops Manager Installation Dashboard.
 
 1. Record the IP address for the BOSH Director VM and the login and administrator credentials for the BOSH Director UAA instance:
     * If your Tanzu Operations Manager deployment uses internal authentication:
@@ -225,12 +225,12 @@ To create a UAA client for the BOSH deployment metric exporter VM:
       For more information about internal authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
       documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/pcf-interface.html#internal_auth).
     * If your Tanzu Operations Manager deployment uses SAML authentication:
-        1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
+        1. Click the user account menu in the upper-right corner of the Tanzu Ops Manager Installation Dashboard.
         1. Click **Settings**.
         1. Select **SAML Settings**.
         1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
         1. Click **Enable SAML Authentication**.
-        1. Return to the Ops Manager Installation Dashboard.
+        1. Return to the Tanzu Ops Manager Installation Dashboard.
         1. Click the **BOSH Director** tile.
         1. Select the **Status** tab.
         1. Record the IP address in the **IPs** column of the **BOSH Director** row.
@@ -242,12 +242,12 @@ To create a UAA client for the BOSH deployment metric exporter VM:
       For more information about SAML authentication settings for your Tanzu Operations Manager deployment, see the [Tanzu Operations Manager
       documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/pcf-interface.html#saml).
     * If your Tanzu Operations Manager deployment uses LDAP authentication:
-        1. Click the user account menu in the upper-right corner of the Ops Manager Installation Dashboard.
+        1. Click the user account menu in the upper-right corner of the Tanzu Ops Manager Installation Dashboard.
         1. Click **Settings**.
         1. Select **LDAP Settings**.
         1. Activate the **Provision an Admin Client in the BOSH UAA** checkbox.
         1. Click **Enable LDAP Authentication**.
-        1. Return to the Ops Manager Installation Dashboard.
+        1. Return to the Tanzu Ops Manager Installation Dashboard.
         1. Click the **BOSH Director** tile.
         1. Select the **Status** tab.
         1. Record the IP address in the **IPs** column of the **BOSH Director** row.
@@ -301,7 +301,7 @@ To create a UAA client for the BOSH deployment metric exporter VM:
     * `CLIENT-USERNAME` is the username you want to set for the UAA client.
     * `CLIENT-SECRET` is the secret you want to set for the UAA client.
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the Tanzu Ops Manager Installation Dashboard.
 
 1. Click the **Healthwatch Exporter for Tanzu Kubernetes Grid - Integrated** tile.
 
@@ -395,7 +395,7 @@ To configure the **Resource Config** pane:
 
 To complete your installation of the Healthwatch Exporter for TKGI tile:
 
-1. Return to the Ops Manager Installation Dashboard.
+1. Return to the Tanzu Ops Manager Installation Dashboard.
 
 1. Click **Review Pending Changes**.
 
