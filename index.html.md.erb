@@ -44,7 +44,7 @@ Tanzu Operations Manager 2.10 is compatible, but is out of support.</p>
 
 ## <a id='healthwatch'></a> Overview of the Healthwatch Tile
 
-The **Healthwatch** tile monitors metrics from one or more Tanzu Operations Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
+The Healthwatch tile monitors metrics from one or more Tanzu Operations Manager foundations by scraping them from Healthwatch Exporter tiles installed on each
 foundation.
 
 Healthwatch deploys instances of Prometheus and Grafana. The Prometheus instance scrapes and stores metrics from the Healthwatch Exporter tiles and allows you
@@ -77,10 +77,10 @@ troubleshooting
 
 ## <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
 
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your <%= vars.runtime_prod_full %>
+The **Healthwatch Exporter** tile for <%= vars.runtime_prod_full %> deploys metric exporter VMs to generate each type of metric related to the health of your <%= vars.runtime_prod_short %>
 deployment.
 
-Healthwatch Exporter for <%= vars.runtime_prod_full %> sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
+Healthwatch Exporter sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
 The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system.
 

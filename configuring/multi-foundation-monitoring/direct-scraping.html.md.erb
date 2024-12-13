@@ -21,7 +21,7 @@ Tanzu Operations Manager foundations you monitor, you must monitor your multi-fo
 [Configure Federation for TKGI](multi-foundation-monitoring.html#federation-tkgi) in _Configuring Multi-Foundation Monitoring_.
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, you must install the Healthwatch tile on your monitoring Tanzu Operations Manager foundation
-and only the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
+and only the Healthwatch Exporter for <%= vars.runtime_prod_short %> tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
 
 
 ## <a id='multiple-foundations-direct-scrape'></a> Configure Direct Scraping
@@ -158,7 +158,7 @@ foundation. To add a scrape job for a Healthwatch Exporter tile:
           step.
 
   1. For **Certificate and private key for TLS**, enter the certificate and private key from **Healthwatch Exporter Client Mtls** that you recorded from the
-  **Credentials** tab in the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile in a previous step.
+  **Credentials** tab in the Healthwatch Exporter tile in a previous step.
   1. For **CA certificate for TLS**, enter the Tanzu Operations Manager root CA that you retrieved in a previous step.
   1. For **Target server name**, enter the custom hostname resolver to use when verifying the TLS certificates.
   Enter the name of the server that facilitates TLS communication between the Prometheus instance
