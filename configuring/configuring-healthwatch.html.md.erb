@@ -151,22 +151,22 @@ documentation](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksDisk SVM**, enter in MB the size that you want to specify for free chunks of disk. The default value
 is `6144`. Healthwatch uses this  free chunk size to calculate the available free disk chunks super value metric (SVM), which it then uses to calculate the
-`Diego_AvailableFreeChunksDisk` metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends
+`Diego_AvailableFreeChunksDisk` metric. If you configure Healthwatch Exporter for <%= vars.runtime_prod_full %> to deploy the SVM Forwarder VM, the SVM Forwarder VM sends
 the`Diego_AvailableFreeChunksDisk` metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying
-the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+the SVM Forwarder VM, see [(Optional) Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>_.
 
         <p class="note">
         If you are using the OpenTelemetry Collector this step does not apply.</p>
 
   1. For **Chunk size to calculate Diego_AvailableFreeChunksMemory SVM**, enter in MB the size that you want to specify for free chunks of memory. The default
 value is `4096`. Healthwatch uses this free chunk size to calculate the available free memory chunks SVM, which it then uses to calculate the
-`Diego_AvailableFreeChunksMemory` metric. If you configure Healthwatch Exporter for TAS for VMs to deploy the SVM Forwarder VM, the SVM Forwarder VM sends the
+`Diego_AvailableFreeChunksMemory` metric. If you configure Healthwatch Exporter for <%= vars.runtime_prod_full %> to deploy the SVM Forwarder VM, the SVM Forwarder VM sends the
 `Diego_AvailableFreeChunksMemory` metric back into the Loggregator Firehose so third-party nozzles can send it to external destinations, such as a remote server
 or external aggregation service. For more information about SVMs, see [SVM Forwarder VM - Platform Metrics](../metrics.html#svm-forwarder-platform) and
 [SVM Forwarder VM - Healthwatch Component Metrics](../metrics.html#svm-forwarder-components) in _Healthwatch Metrics_. For more information about deploying the
-SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for TAS for VMs_.
+SVM Forwarder VM, see [(Optional)Configure Resources](configuring-exporter-tas.html#resource-config) in _Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>_.
 
       <p class="note">
       If you are using the OpenTelemetry Collector this step does not apply.</p>
@@ -625,7 +625,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
            5. The Client Ceritificate Private Key PEM is the `private_key_pem` of the Healthwatch OTel Mtls credential.
            6. Remove the newline character (\n) from the certificates you copy: `awk '{gsub(/\\n/,"\n")}1' <file_name>` or `printf -- "<CERT_DATA>"`
         6. Click **Save**.
-1. If you made changes to the **Healthwatch Exporter for Tanzu Application Service** tile configuration in **Settings** > **TAS for VMs Metric Exporter VMs** > **Filter out custom application metrics**, deploy your changes to Healthwatch as explained in the next section.
+1. If you made changes to the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile configuration in **Settings** > **TAS for VMs Metric Exporter VMs** > **Filter out custom application metrics**, deploy your changes to Healthwatch as explained in the next section.
 
 ## <a id='apply-changes'></a> Deploy Healthwatch
 
@@ -645,6 +645,6 @@ For more information, see the [Tanzu Operations Manager documentation](https://t
 After you have successfully installed the Healthwatch tile, continue to one of the following topics to configure and deploy the Healthwatch Exporter tiles for
 the Tanzu Operations Manager foundations you want to monitor:
 
-* If you have <%= vars.runtime_prod_full %> installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TAS for VMs](configuring-exporter-tas.html).
+* If you have <%= vars.runtime_prod_full %> installed on a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](configuring-exporter-tas.html).
 
 * If you have TKGI installed on an a Tanzu Operations Manager foundation you want to monitor, see [Configuring Healthwatch Exporter for TKGI](configuring-exporter-tkgi.html).

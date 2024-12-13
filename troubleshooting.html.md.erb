@@ -3,8 +3,7 @@ title: Troubleshooting Healthwatch
 owner: Healthwatch
 ---
 
-This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch
-Exporter for VMware <%= vars.runtime_prod_full %>, and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI).
+This topic describes how to troubleshoot problems and known issues that may arise when deploying or operating Healthwatch&trade; for VMware Tanzu (Healthwatch), Healthwatch Exporter for VMware <%= vars.runtime_prod_full %>, and Healthwatch Exporter for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI).
 
 <br>
 <br>
@@ -280,31 +279,6 @@ To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the
     ```
     ls
     ```
-
-<br>
-<br>
-## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
-
-If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system metrics** checkbox in the **System Logging** pane of the PAS
-tile. Otherwise, PAS v2.7 does not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for <%= vars.runtime_prod_full %> cannot collect metrics for the
-VMs that PAS v2.7 deploys. As a result, the **Router** dashboard in the Grafana UI shows no metrics.
-
-To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
-
-1. Navigate to the Ops Manager Installation Dashboard.
-
-1. Click the **Pivotal Application Service** tile.
-
-1. Select **System Logging**.
-
-1. Activate the **Enable system metrics** checkbox.
-
-1. Return to the Ops Manager Installation Dashboard.
-
-1. Click **Review Pending Changes**.
-
-1. Click **Apply Changes**.
-
 
 <br>
 <br>

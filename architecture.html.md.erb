@@ -9,7 +9,7 @@ This topic also describes the possible configurations for monitoring metrics acr
 
 ## <a id='architecture-overview'></a> Overview of Healthwatch Architecture
 
-There are three tiles that form the Healthwatch architecture: Healthwatch, Healthwatch Exporter for <%= vars.runtime_prod_short %>, and Healthwatch Exporter for TKGI.
+There are three tiles that form the Healthwatch architecture: Healthwatch, Healthwatch Exporter for <%= vars.runtime_prod_full %>, and Healthwatch Exporter for TKGI.
 
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. However, you can deploy and use each
 tile separately as part of an alternate monitoring configuration.
@@ -26,7 +26,7 @@ metrics across Tanzu Operations Manager foundations, see the following sections:
 
 * [Healthwatch Tile Architecture](#architecture-hw)
 
-* [Healthwatch Exporter for <%= vars.runtime_prod_short %> Architecture](#architecture-tas)
+* [Healthwatch Exporter for <%= vars.runtime_prod_full %> Architecture](#architecture-tas)
 
 * [Healthwatch Exporter for TKGI Architecture](#architecture-tkgi)
 
@@ -146,21 +146,21 @@ The table below describes the ports you must open for each Healthwatch component
 </table>
 
 
-## <a id='architecture-tas'></a> Healthwatch Exporter for <%= vars.runtime_prod_short %> Architecture
+## <a id='architecture-tas'></a> Healthwatch Exporter for <%= vars.runtime_prod_full %> Architecture
 
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your <%= vars.runtime_prod_short %>
+The Healthwatch Exporter for <%= vars.runtime_prod_full %> tile deploys metric exporter VMs to generate each type of metric related to the health of your <%= vars.runtime_prod_full %>
 deployment.
 
-Healthwatch Exporter for <%= vars.runtime_prod_short %> sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
+Healthwatch Exporter for <%= vars.runtime_prod_full %> sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
 The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system.
 
-You can scale the VMs that Healthwatch Exporter for <%= vars.runtime_prod_short %> deploys vertically, but should not scale them horizontally.
+You can scale the VMs that Healthwatch Exporter for <%= vars.runtime_prod_full %> deploys vertically, but should not scale them horizontally.
 
 <br>
-### <a id='network-rules-tas'></a> Networking Rules for Healthwatch Exporter for <%= vars.runtime_prod_short %>
+### <a id='network-rules-tas'></a> Networking Rules for Healthwatch Exporter for <%= vars.runtime_prod_full %>
 
-The table below describes the ports you must open for each Healthwatch Exporter for <%= vars.runtime_prod_short %> component:
+The table below describes the ports you must open for each Healthwatch Exporter for <%= vars.runtime_prod_full %> component:
 
 <table>
   <tr>
@@ -238,7 +238,7 @@ The table below describes the ports you must open for each Healthwatch Exporter 
 
 ## <a id='architecture-tkgi'></a> Healthwatch Exporter for TKGI Architecture
 
-The **Healthwatch Exporter for TKGI** tile deploys metric exporter VMs to generate SLIs related to the health of your TKGI deployment.
+The Healthwatch Exporter for TKGI tile deploys metric exporter VMs to generate SLIs related to the health of your TKGI deployment.
 
 The Prometheus instance that exists within your metrics monitoring system then scrapes the Prometheus exposition endpoints on the metric exporter VMs and
 imports those metrics into your monitoring system.
@@ -314,30 +314,30 @@ The table below describes the ports you must open for each Healthwatch Exporter 
 Healthwatch can be configured in multiple ways, allowing you to monitor metrics across a variety of platform and foundation configurations. The sections below
 describe the most common configuration scenarios:
 
-* [Monitoring <%= vars.runtime_prod_short %> on a Single Tanzu Operations Manager Foundation](#tas-single-foundation)
+* [Monitoring <%= vars.runtime_prod_full %> on a Single Tanzu Operations Manager Foundation](#tas-single-foundation)
 
 * [Monitoring TKGI on a Single Tanzu Operations Manager Foundation](#tkgi-single-foundation)
 
-* [Monitoring <%= vars.runtime_prod_short %> and TKGI on a Single Tanzu Operations Manager Foundation](#tas-tkgi-single-foundation)
+* [Monitoring <%= vars.runtime_prod_full %> and TKGI on a Single Tanzu Operations Manager Foundation](#tas-tkgi-single-foundation)
 
 * [Configure Multi-Foundation Monitoring Using Direct Scraping](#multiple-foundations-direct-scrape)
 
 * [Configure Multi-Foundation Monitoring Using Federation](#multiple-foundations-federation)
 
 <br>
-### <a id='tas-single-foundation'></a> Monitoring <%= vars.runtime_prod_short %> on a Single Tanzu Operations Manager Foundation
+### <a id='tas-single-foundation'></a> Monitoring <%= vars.runtime_prod_full %> on a Single Tanzu Operations Manager Foundation
 
-If you only want to monitor a single Tanzu Operations Manager foundation that has <%= vars.runtime_prod_short %> installed, install the Healthwatch tile and Healthwatch Exporter on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter on the same Tanzu Operations Manager foundation and adds a
-scrape job for Healthwatch Exporter for <%= vars.runtime_prod_short %> to the Prometheus instance.
+If you only want to monitor a single Tanzu Operations Manager foundation that has <%= vars.runtime_prod_full %> installed, install the Healthwatch tile and Healthwatch Exporter on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter on the same Tanzu Operations Manager foundation and adds a
+scrape job for Healthwatch Exporter for <%= vars.runtime_prod_full %> to the Prometheus instance.
 
-For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for <%= vars.runtime_prod_short %>, see the following topics:
+For more information about installing and configuring the Healthwatch tile and Healthwatch Exporter for <%= vars.runtime_prod_full %>, see the following topics:
 
 * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
 Pipeline](installing/automated-pipeline.html)
 
 * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
 
-* [Configuring Healthwatch Exporter for <%= vars.runtime_prod_short %>](configuring/configuring-exporter-tas.html)
+* [Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](configuring/configuring-exporter-tas.html)
 
 <br>
 ### <a id='tkgi-single-foundation'></a> Monitoring TKGI on a Single Tanzu Operations Manager Foundation
@@ -356,13 +356,13 @@ Pipeline](installing/automated-pipeline.html)
 * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
 <br>
-### <a id='tas-tkgi-single-foundation'></a> Monitoring <%= vars.runtime_prod_short %> and TKGI on a Single Tanzu Operations Manager Foundation
+### <a id='tas-tkgi-single-foundation'></a> Monitoring <%= vars.runtime_prod_full %> and TKGI on a Single Tanzu Operations Manager Foundation
 
-If you only want to monitor a single Tanzu Operations Manager foundation that has both <%= vars.runtime_prod_short %> and TKGI installed, install the Healthwatch tile, Healthwatch Exporter
-for <%= vars.runtime_prod_short %>, and Healthwatch Exporter for TKGI on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for <%= vars.runtime_prod_short %> and
+If you only want to monitor a single Tanzu Operations Manager foundation that has both <%= vars.runtime_prod_full %> and TKGI installed, install the Healthwatch tile, Healthwatch Exporter
+for <%= vars.runtime_prod_full %>, and Healthwatch Exporter for TKGI on the same foundation. The Healthwatch tile automatically detects Healthwatch Exporter for <%= vars.runtime_prod_full %> and
 Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation and adds scrape jobs for both Healthwatch Exporter tiles to the Prometheus instance.
 
-For more information about installing and configuring the Healthwatch tile, Healthwatch Exporter for <%= vars.runtime_prod_short %>, and Healthwatch Exporter for TKGI, see the
+For more information about installing and configuring the Healthwatch tile, Healthwatch Exporter for <%= vars.runtime_prod_full %>, and Healthwatch Exporter for TKGI, see the
 following topics:
 
 * [Installing a Tile Manually](installing/installing-manually.html) or [Installing, Configuring, and Deploying a Tile Through an Automated
@@ -370,7 +370,7 @@ Pipeline](installing/automated-pipeline.html)
 
 * [Configuring Healthwatch](configuring/configuring-healthwatch.html)
 
-* [Configuring Healthwatch Exporter for <%= vars.runtime_prod_short %>](configuring/configuring-exporter-tas.html)
+* [Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](configuring/configuring-exporter-tas.html)
 
 * [Configuring Healthwatch Exporter for TKGI](configuring/configuring-exporter-tkgi.html)
 
