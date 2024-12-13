@@ -209,8 +209,7 @@ To configure the **Grafana** pane:
 1. Under **Grafana UI route**, configure the route used to access the Grafana UI by selecting one of the following options:
     * **Automatically configure in TAS for VMs:** If you are installing Healthwatch on an Tanzu Operations Manager foundation with <%= vars.runtime_prod_full %> installed, Healthwatch
     automatically configures a route for the Grafana UI in <%= vars.runtime_prod_full %>. VMware recommends selecting this option when available. You access the Grafana UI by
-    navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the TAS for
-    VMs tile. For more information, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/config-domains.html).
+    navigating to `https://grafana.sys.DOMAIN` in a browser window, where `DOMAIN` is the system domain you configured in the **Domains** pane of the <%= vars.runtime_prod_full %> tile. For more information, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/config-domains.html).
     * **Manually configure:** Reveals the configuration fields described in the following steps, where you manually configure the URL and TLS settings for the
     Grafana UI.
     To manually configure the URL and TLS settings for the Grafana UI:
@@ -566,7 +565,7 @@ To configure the **Resource Config** pane:
 
 ## <a id='opentelemetry'></a> (Optional) Configure for OpenTelemetry
 
-Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0 and above, including Tanzu Platform for Cloud Foundry 10.0+:
+Follow these steps to configure Healthwatch and receive data through the OpenTelemetry Collector for Tanzu Application Service 6.0, including Tanzu Platform for Cloud Foundry 10.0+:
 
 1. Navigate to the Healthwatch Exporter tile in the Ops Manager Installation Dashboard.
     1. Select **Resource Config** under the **Settings** tab.
@@ -584,7 +583,7 @@ Follow these steps to configure Healthwatch and receive data through the OpenTel
         1. You may choose to disable the **Enable V1 Firehose** and **Enable V2 Firehose** configurations if there are no other dependencies on firehose data.
         2. Scroll down to the **OpenTelemetry Collector Metric Exporters (beta)** configuration.
         3. Scroll to the bottom of the Open Telemetry configuration and add a collector for Healthwatch.
-        4. For TAS 6.0, Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:
+        4. For TAS for VMs 6.0, Healthwatch expects a prometheus Open Telemetry collector the supports mTLS and sends data on port 65331. For example:
 
          ```
            prometheus/healthwatch:

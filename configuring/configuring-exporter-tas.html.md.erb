@@ -15,7 +15,7 @@ When installed on an Tanzu Operations Manager foundation you want to monitor, He
 metric related to the health of your <%= vars.runtime_prod_short %> deployment. Healthwatch Exporter for <%= vars.runtime_prod_full %> sends metrics through the Loggregator Firehose to a
 Prometheus exposition endpoint on the associated metric exporter VMs. The Prometheus instance that exists within your metrics monitoring system then scrapes
 the exposition endpoints on the metric exporter VMs and imports those metrics into your monitoring system. For more information about the architecture of the
-Healthwatch Exporter for TAS for VMs tile, see [Healthwatch Exporter for <%= vars.runtime_prod_full %>](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
+Healthwatch Exporter for <%= vars.runtime_prod_full %> tile, see [Healthwatch Exporter for <%= vars.runtime_prod_full %>](../architecture.html#healthwatch-tas) in _Healthwatch Architecture_.
 
 After installing Healthwatch Exporter for <%= vars.runtime_prod_full %>, you configure the metric exporter VMs deployed by Healthwatch Exporter for <%= vars.runtime_prod_full %> through the tile
 UI. You can also configure errands and system logging, as well as scale VM instances up or down and configure load balancers for multiple VM instances.
@@ -28,7 +28,7 @@ before you fully configure it, you only need to configure the <strong>Assign AZ 
 panes.</p>
 
 1. Navigate to the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile in the Ops Manager Installation Dashboard. For more information, see [Navigate to the Healthwatch
-Exporter for TAS for VMs Tile](#open-ui) below.
+Exporter for <%= vars.runtime_prod_full %> Tile](#open-ui) below.
 
 1. Assign jobs to your availability zones (AZs) and networks. For more information, see [Assign AZs and Networks](#az) below.
 
@@ -48,8 +48,7 @@ VM](#bosh-deployments) below.
 4. Deploy the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile through the Ops Manager Installation Dashboard. For more information, see [Deploy Healthwatch Exporter
 for <%= vars.runtime_prod_full %>](#apply-changes) below.
 
-1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for <%= vars.runtime_prod_full %>, configure a scrape job for Healthwatch Exporter for TAS
-for VMs in the Prometheus VM that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for <%= vars.runtime_prod_full %>](#scrape-job-config) below.
+1. Once you have finished installing, configuring, and deploying Healthwatch Exporter for <%= vars.runtime_prod_full %>, configure a scrape job for Healthwatch Exporter for <%= vars.runtime_prod_full %> in the Prometheus VM that exists within your monitoring system. For more information, see [Configure a Scrape Job for Healthwatch Exporter for <%= vars.runtime_prod_full %>](#scrape-job-config) below.
 
     <p class="note">
     You only need to configure a scrape job for installations of Healthwatch Exporter for <%= vars.runtime_prod_full %> that are not on the
