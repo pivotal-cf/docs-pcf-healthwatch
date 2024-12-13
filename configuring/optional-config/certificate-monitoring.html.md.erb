@@ -12,7 +12,7 @@ The metrics in the **Certificate Expiration** dashboard in the Grafana UI show w
 Tanzu Operations Manager root certificate authority (CA) and CredHub-managed leaf certificates for product tiles and BOSH deployments. For more information about these
 certificates, see the [Tanzu Operations Manager documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/<%= vars.opsman_version %>/tanzu-ops-manager/security-pcf-infrastructure-certificate-types.html).
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`. The
+Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`. The
 certificate expiration metric exporter VM uses the `om` CLI to send a GET request with the query parameter `?expires_within=1y` to the
 `/api/v0/deployed/certificates` Tanzu Operations Manager API endpoint. The Tanzu Operations Manager API then returns the expiration dates of all certificates that are due to expire
 within the next year. The Prometheus instance in your Healthwatch deployment scrapes the certificate expiration metrics from the certificate expiration metric
@@ -38,7 +38,7 @@ IP address for the certificate expiration metric exporter VM.
 
 To configure a static IP address for the certificate expiration metric exporter VM, see the configuration topic for your Healthwatch Exporter tile:
 
-* [(Optional) Configure TAS for VMs Metric Exporter VMs](../configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for
+* [(Optional) Configure <%= vars.runtime_prod_full %> Metric Exporter VMs](../configuring-exporter-tas.html#exporter-config) in _Configuring Healthwatch Exporter for TAS for
 VMs_.
 
 * [(Optional) Configure TKGI and Certificate Expiration Metric Exporter VMs](../configuring-exporter-tkgi.html#exporter-config) in _Configuring Healthwatch

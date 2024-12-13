@@ -13,7 +13,7 @@ The current version of Tanzu Platform for Cloud Foundry is 10.0.</p>
 Healthwatch allows you to monitor metrics related to the functionality of your Tanzu Operations Manager platform.
 
 A complete Healthwatch installation includes the Healthwatch tile, as well as at least one Healthwatch Exporter tile. There are Healthwatch Exporter tiles for
-both the VMware <%= vars.runtime_prod_full %> for VMs and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
+both the VMware <%= vars.runtime_prod_full %> and VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) runtimes.
 
 You must install a Healthwatch Exporter tile on each Tanzu Operations Manager foundation you want to monitor. You can install the Healthwatch tile on the same foundation
 or on a different foundation, depending on your desired monitoring configuration.
@@ -59,11 +59,11 @@ Healthwatch includes the following features:
   * Scrapes `/metrics` endpoints for Healthwatch Exporter tiles, collecting metrics related to the functionality of platform- and runtime-level components
   that include the following:
       * Service level indicators (SLIs) for the BOSH Director
-      * SLIs for TAS for VMs components
+      * SLIs for <%= vars.runtime_prod_short %> components
       * SLIs for TKGI components
       * When Tanzu Operations Manager certificates are due to expire
-      * Canary URL tests for TAS for VMs apps
-      * Counter, gauge, and container metrics for TAS for VMs from the Loggregator Firehose
+      * Canary URL tests for <%= vars.runtime_prod_short %> apps
+      * Counter, gauge, and container metrics for <%= vars.runtime_prod_short %> from the Loggregator Firehose
       * Super value metrics (SVMs)
       * BOSH system metrics for TKGI
       * VMs deployed by Healthwatch Exporter tiles
@@ -77,21 +77,21 @@ troubleshooting
 
 ## <a id='exporter-tas'></a> Overview of the Healthwatch Exporter for TAS for VMs Tile
 
-The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your TAS for VMs
+The **Healthwatch Exporter for TAS for VMs** tile deploys metric exporter VMs to generate each type of metric related to the health of your <%= vars.runtime_prod_full %>
 deployment.
 
-Healthwatch Exporter for TAS for VMs sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
+Healthwatch Exporter for <%= vars.runtime_prod_full %> sends metrics through the Loggregator Firehose to a Prometheus exposition endpoint on the associated metric exporter VMs.
 The Prometheus instance that exists within your metrics monitoring system then scrapes the exposition endpoints on the metric exporter VMs and imports those
 metrics into your monitoring system.
 
-Healthwatch Exporter for TAS for VMs exposes the following metrics related to the functionality of TAS for VMs components, TAS for VMs apps, and the
+Healthwatch Exporter for <%= vars.runtime_prod_short %> exposes the following metrics related to the functionality of <%= vars.runtime_prod_short %> components, <%= vars.runtime_prod_short %> apps, and the
 Healthwatch Exporter for TAS for VMs tile:
 
-* SLIs for TAS for VMs components
+* SLIs for <%= vars.runtime_prod_short %> components
 
-* Canary URL tests for TAS for VMs apps
+* Canary URL tests for <%= vars.runtime_prod_short %> apps
 
-* Counter, gauge, and container metrics for TAS for VMs from the Loggregator Firehose
+* Counter, gauge, and container metrics for <%= vars.runtime_prod_short %> from the Loggregator Firehose
 
 * SVMs
 
@@ -140,4 +140,4 @@ Healthwatch v2.3 has the following limitation:
 
 The following problem can arise when using Healthwatch v2.3:
 
-* With Healthwatch v2.3 you can collect metrics using an OpenTelemetry Collector but be aware that the OpenTelemetry Collector used in TAS for VMs is the Beta version.
+* With Healthwatch v2.3 you can collect metrics using an OpenTelemetry Collector but be aware that the OpenTelemetry Collector used in <%= vars.runtime_prod_full %> is the Beta version.

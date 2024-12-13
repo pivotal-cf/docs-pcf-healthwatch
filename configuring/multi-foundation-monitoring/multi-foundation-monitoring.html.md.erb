@@ -32,7 +32,7 @@ Manager foundation scrapes metrics directly from the metric exporter VMs deploye
 you monitor.
 
 Direct scraping allows you to easily scrape the metrics you want to monitor from the Healthwatch Exporter tiles on the Tanzu Operations Manager foundations you monitor. If
-you want to monitor component metrics and SLIs related to the health of your TAS for VMs or TKGI deployments, and you do not want to monitor metrics for
+you want to monitor component metrics and SLIs related to the health of your <%= vars.runtime_prod_short %> or TKGI deployments, and you do not want to monitor metrics for
 Kubernetes clusters for any TKGI deployments, VMware recommends configuring direct scraping for your multi-foundation Healthwatch deployment.
 
 However, the Prometheus instance in the Healthwatch deployment on your monitoring Tanzu Operations Manager foundation cannot directly scrape metrics for Kubernetes
@@ -41,7 +41,7 @@ the Tanzu Operations Manager foundations you monitor, you must monitor your mult
 [Configure Federation for TKGI](#federation-tkgi) below.
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, you must install the Healthwatch tile on your monitoring Tanzu Operations Manager foundation
-and only the Healthwatch Exporter for TAS for VMs tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
+and only the Healthwatch Exporter for <%= vars.runtime_prod_full %> tile or Healthwatch Exporter for TKGI tile on the Tanzu Operations Manager foundations you want to monitor.
 
 To configure direct scraping for your multi-foundation Healthwatch deployment, see [Configuring Direct Scraping for Multi-Foundation
 Monitoring](direct-scraping.html).
@@ -55,7 +55,7 @@ foundation scrapes a subset of metrics from the Prometheus instances in the Heal
 Federation allows you to to monitor a subset of metrics from multiple Tanzu Operations Manager foundations without storing all metrics from those Tanzu Operations Manager foundations
 in a single Prometheus instance. Because federation allows you to choose which metrics the Healthwatch deployment on your monitoring Tanzu Operations Manager foundation
 receives, you can monitor a large number of Tanzu Operations Manager foundations without overwhelming the Prometheus instance in the Healthwatch deployment on your
-monitoring Tanzu Operations Manager foundation. If you want to monitor component metrics, SLIs related to the health of your TAS for VMs or TKGI deployments, and metrics
+monitoring Tanzu Operations Manager foundation. If you want to monitor component metrics, SLIs related to the health of your <%= vars.runtime_prod_short %> or TKGI deployments, and metrics
 for Kubernetes clusters for TKGI deployments, or if you want to monitor a large number of Tanzu Operations Manager foundations, VMware recommends configuring federation
 for your multi-foundation Healthwatch deployment.
 

@@ -90,8 +90,7 @@ The following list describes the default Healthwatch dashboards you may see in t
   * **Certificate Expiration:** Contains metrics related to when certificates for your Tanzu Operations Manager deployment are due to expire. For more information, see
   [Monitoring Certificate Expiration](configuring/optional-config/certificate-monitoring.html).
   * **Job Details:** Contains metrics related to the functionality of each component and VM in your runtime, Healthwatch, and Healthwatch Exporter tile
-  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Tanzu Operations Manager foundation has neither VMware Tanzu
-  Application Service for VMs (TAS for VMs) or VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) installed, you see this dashboard upon logging in to
+  deployments. You can filter these metrics by health status, deployment, job instance, and VM. If your Tanzu Operations Manager foundation has neither <%= vars.runtime_prod_full %> or VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) installed, you see this dashboard upon logging in to
   the Grafana UI.
   * **Ops Manager Health:** Contains metrics related to the availability of your Tanzu Operations Manager deployment.
   * **System at a Glance:** Contains an overview of metrics related to the health of your Tanzu Operations Manager deployment. You see this dashboard upon logging in to
@@ -129,27 +128,27 @@ The following list describes the default Healthwatch dashboards you may see in t
 
 * **<%= vars.runtime_prod_full %>:** Includes the following dashboards:
     <p class="note">
-    This folder only appears if you install and configure Healthwatch Exporter for TAS for VMs on one or more of your Ops
-    Manager foundations. For more information about Healthwatch Exporter for TAS for VMs, see <a href="architecture.html#architecture-tas">Healthwatch
-    Exporter for TAS for VMs Architecture</a> in <em>Healthwatch Architecture</em> and <a href="configuring/configuring-exporter-tas.html">Configuring
-    Healthwatch Exporter for TAS for VMs</a>.</p>
-  * **App Instances:** Contains metrics related to the number and functionality of apps and tasks running on your TAS for VMs deployments.
+    This folder only appears if you install and configure Healthwatch Exporter for <%= vars.runtime_prod_full %> on one or more of your Ops
+    Manager foundations. For more information about Healthwatch Exporter for <%= vars.runtime_prod_full %>, see <a href="architecture.html#architecture-tas">Healthwatch
+    Exporter for <%= vars.runtime_prod_full %> Architecture</a> in <em>Healthwatch Architecture</em> and <a href="configuring/configuring-exporter-tas.html">Configuring
+    Healthwatch Exporter for <%= vars.runtime_prod_full %></a>.</p>
+  * **App Instances:** Contains metrics related to the number and functionality of apps and tasks running on your <%= vars.runtime_prod_short %> deployments.
   * **CLI Health:** Contains metrics related to the functionality of the Cloud Foundry Command-Line Interface (cf CLI).
-  * **Diego/Capacity:** Contains metrics related to the capacity of all Diego Cells in your TAS for VMs deployments. You can filter these metrics by memory
+  * **Diego/Capacity:** Contains metrics related to the capacity of all Diego Cells in your <%= vars.runtime_prod_short %> deployments. You can filter these metrics by memory
   chunk size and disk size.
-  * **Logging and Metrics Pipeline:** Contains metrics related to the health and functionality of the Firehose in your TAS for VMs deployments.
-  * **Router:** Contains metrics related to the health and functionality of the Gorouters in your TAS for VMs deployments.
-  * **<%= vars.runtime_prod_full %> SLOs:** Contains metrics related to the availability of the `cf push` command and the canary apps for your TAS for VMs
+  * **Logging and Metrics Pipeline:** Contains metrics related to the health and functionality of the Firehose in your <%= vars.runtime_prod_short %> deployments.
+  * **Router:** Contains metrics related to the health and functionality of the Gorouters in your <%= vars.runtime_prod_short %> deployments.
+  * **<%= vars.runtime_prod_full %> SLOs:** Contains metrics related to the availability of the `cf push` command and the canary apps for your <%= vars.runtime_prod_short %>
   deployments. You can filter these metrics by `cf push` uptime SLO target and canary app uptime SLO target.
-  * **TAS MySQL Health:** Contains metrics related to the health of the MySQL databases for your TAS for VMs deployments.
-  * **UAA:** Contains metrics related to the health and functionality of the UAA instances in your TAS for VMs deployments.
-  * **Usage Service:** Contains metrics related to the health and functionality of the UAA instances in your TAS for VMs deployments.
+  * **TAS MySQL Health:** Contains metrics related to the health of the MySQL databases for your <%= vars.runtime_prod_short %> deployments.
+  * **UAA:** Contains metrics related to the health and functionality of the UAA instances in your <%= vars.runtime_prod_short %> deployments.
+  * **Usage Service:** Contains metrics related to the health and functionality of the UAA instances in your <%= vars.runtime_prod_short %> deployments.
 
       <p class="note">
       If you do not see any data in the Usage Service dashboard, make sure that you have configured the Metric Registrar in
-      the TAS for VMs tile. If you do not configure the Metric Registrar, the Usage Service API cannot emit metrics to the Loggregator Firehose, and Healthwatch
-      Exporter for TAS for VMs cannot collect them. For more information, see the
-      <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/metric-registrar-index.html">TAS for VMs documentation</a>.</p>
+      the <%= vars.runtime_prod_full %> tile. If you do not configure the Metric Registrar, the Usage Service API cannot emit metrics to the Loggregator Firehose, and Healthwatch
+      Exporter for <%= vars.runtime_prod_full %> cannot collect them. For more information, see the
+      <a href="https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/metric-registrar-index.html"><%= vars.runtime_prod_full %> documentation</a>.</p>
 
 * **Tanzu Kubernetes Grid Integrated:** Includes the following dashboards:
 

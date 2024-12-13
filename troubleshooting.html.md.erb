@@ -230,7 +230,7 @@ To check for certificate chain errors in the UAA server for the BOSH Director:
 <br>
 ### <a id='bosh-health-metric-errors'></a> BOSH Health Metrics Cause Errors When Two Healthwatch Exporter Tiles Are Installed
 
-When you install both Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation, the **BOSH Director Status**
+When you install both Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI on the same Tanzu Operations Manager foundation, the **BOSH Director Status**
 panel in the **BOSH Director Health** dashboard in the Grafana UI shows "Not Running", and your BOSH Director deployment returns the following error:
 
 <pre class='terminal'>
@@ -331,7 +331,7 @@ To fix this issue, either upgrade to Healthwatch v2.2.1 or manually clean up the
 ## <a id='missing-router-metrics'></a> Troubleshooting Missing Router Metrics
 
 If you are using Pivotal Application Service (PAS) v2.7, you must activate the **Enable system metrics** checkbox in the **System Logging** pane of the PAS
-tile. Otherwise, PAS v2.7 does not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for TAS for VMs cannot collect metrics for the
+tile. Otherwise, PAS v2.7 does not forward system metrics to the Loggregator Firehose, so Healthwatch Exporter for <%= vars.runtime_prod_full %> cannot collect metrics for the
 VMs that PAS v2.7 deploys. As a result, the **Router** dashboard in the Grafana UI shows no metrics.
 
 To allow PAS v2.7 to forward system metrics to the Loggregator Firehose:
@@ -474,15 +474,15 @@ more information, see the [Prometheus documentation](https://prometheus.io/docs/
 * **Minutes of Downtime:** How many minutes the Healthwatch Exporter tiles were down during the selected time period.
 
 <br>
-### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for TAS for VMs
+### <a id='healthwatch-exporter-troubleshooting'></a> Troubleshooting Healthwatch Exporter for <%= vars.runtime_prod_full %>
 
 The **Healthwatch - Exporter Troubleshooting** dashboard in the Grafana UI displays metrics that allow you to monitor the performance of each Healthwatch
 Exporter for TAS for VMs tile installed on your Tanzu Operations Manager foundations. You can use these metrics to troubleshoot when you see inconsistent graphs for a
-particular metric type, or if a Healthwatch Exporter for TAS for VMs tile is not behaving as expected.
+particular metric type, or if a Healthwatch Exporter for <%= vars.runtime_prod_full %> tile is not behaving as expected.
 
 These dashboards contain the following panels:
 
-* **Exporter Info:** A listing of the `healthwatch_pasExporter_status` metric, showing runtime information for Healthwatch Exporter for TAS for VMs.
+* **Exporter Info:** A listing of the `healthwatch_pasExporter_status` metric, showing runtime information for Healthwatch Exporter for <%= vars.runtime_prod_full %>.
 
 * **Exporter JVM Memory:** A graph of the `jvm_memory_bytes_used`, `jvm_memory_bytes_commited`, and `jvm_memory_bytes_init` metrics, showing the number of
 used, committed, and initial bytes in a given Java virtual machine (JVM) memory area over the selected time period. You can use this graph to check for memory
@@ -498,7 +498,7 @@ period. You can use this graph to determine whether the JVM garbage collection i
 selected time period. You can use this graph to check for spikes in the number of Loggregator envelopes that the metric exporter VMs receive.
 
 * **CPU Usage:** A graph of the `cpu_usage_user` metric, showing the percentage of CPU used over the selected time period. You can use this graph to determine
-whether the amount of CPU used by Healthwatch Exporter for TAS for VMs is reaching capacity.
+whether the amount of CPU used by Healthwatch Exporter for <%= vars.runtime_prod_full %> is reaching capacity.
 
 * **Exporter VM Threads:** A graph of the `jvm_threads_current` and `jvm_threads_peak` metrics, showing the current and peak thread counts of a given JVM over
-the selected time period. You can use this graph to check whether Healthwatch Exporter for TAS for VMs is leaking threads.
+the selected time period. You can use this graph to check whether Healthwatch Exporter for <%= vars.runtime_prod_full %> is leaking threads.

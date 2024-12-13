@@ -65,7 +65,7 @@ The following table explains the most significant differences between Healthwatc
       <ul>
         <li><strong>Healthwatch v2.2:</strong> Can monitor both VMware <%= vars.runtime_prod_full %> and VMware Tanzu Kubernetes Grid
           Integrated Edition (TKGI), and can monitor multiple Tanzu Operations Manager foundations with one or both runtimes installed.</li>
-        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor TAS for VMs on a single Tanzu Operations Manager foundation.</li>
+        <li><strong>Pivotal Healthwatch v1:</strong> Can only monitor <%= vars.runtime_prod_short %> on a single Tanzu Operations Manager foundation.</li>
       </ul>
       For more information about using Healthwatch to monitor multiple Tanzu Operations Manager foundations, see
       <a href="architecture.html#configuration-options">Configuration Options</a> in <em>Healthwatch Architecture</em>.
@@ -136,7 +136,7 @@ information about SVMs, see [Configure Prometheus](configuring/configuring-healt
 Healthwatch Component Metrics](metrics.html#svm-forwarder-components) in _Healthwatch Metrics_, and [SVM Forwarder VM - Platform
 Metrics](metrics.html#svm-forwarder-platform) in _Healthwatch Metrics_.
 
-* Automatically detects which version of TAS for VMs or TKGI is installed on your Tanzu Operations Manager foundation and creates the appropriate dashboard in the Grafana
+* Automatically detects which version of <%= vars.runtime_prod_short %> or TKGI is installed on your Tanzu Operations Manager foundation and creates the appropriate dashboard in the Grafana
 UI.
 
 * Allows you to use the Tanzu Operations Manager syslog forwarding feature to forward log messages from Healthwatch component VMs to an external destination for
@@ -165,7 +165,7 @@ identified in the previous step, even if you have the Pivotal Healthwatch v1 til
 
 1. Configure the Healthwatch component VMs through the Healthwatch tile and Healthwatch Exporter tile UIs in the Ops Manager Installation Dashboard and
 deploy the tiles. For more information about configuring and deploying the tiles, see [Configuring Healthwatch](configuring/configuring-healthwatch.html),
-[Configuring Healthwatch Exporter for TAS for VMs](configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for
+[Configuring Healthwatch Exporter for <%= vars.runtime_prod_full %>](configuring/configuring-exporter-tas.html), and [Configuring Healthwatch Exporter for
 TKGI](configuring/configuring-exporter-tkgi.html).
 
 1. When you no longer need to use Pivotal Healthwatch v1, delete the Pivotal Event Alerts tile from your Tanzu Operations Manager foundations. Then, delete the Pivotal Healthwatch v1 tile from your Tanzu Operations Manager foundations.

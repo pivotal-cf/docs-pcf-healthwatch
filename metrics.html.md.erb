@@ -9,8 +9,8 @@ for VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI) generate.
 <br>
 ## <a id='overview'></a> Overview of Healthwatch Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy metric exporter VMs to generate component metrics and Service Level Indicators
-(SLIs) related to the health of your TAS for VMs and TKGI deployments:
+Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI deploy metric exporter VMs to generate component metrics and Service Level Indicators
+(SLIs) related to the health of your <%= vars.runtime_prod_short %> and TKGI deployments:
 
 * [BOSH SLIs](#bosh-sli)
 * [Platform Metrics](#platform-sli)
@@ -33,7 +33,7 @@ documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/).
 In a VMware Tanzu Operations Manager&trade; foundation, the BOSH Director manages the VMs that each tile deploys. If the BOSH Director fails or is not responsive, the VMs that the BOSH
 Director manages also fail.
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
+Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI deploy two VMs that continuously test the functionality of
 the BOSH Director: the BOSH health metric exporter VM and the BOSH deployment metric exporter:
 
 * [BOSH Health Metric Exporter VM](#bosh-health-exporter)
@@ -216,12 +216,12 @@ The following table describes each metric the BOSH deployment metric exporter VM
 <br>
 ## <a id='platform-sli'></a> Platform Metrics
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Tanzu Operations Manager and
+Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI deploy VMs that generate metrics regarding the health of several Tanzu Operations Manager and
 runtime components.
 
 You can use the following Platform Metrics metrics to calculate percent availability and error budgets:
 
-* [TAS for VMs SLI Exporter VM](#pas-sli-exporter)
+* [<%= vars.runtime_prod_full %> SLI Exporter VM](#pas-sli-exporter)
 * [TKGI SLI Exporter VM](#pks-sli-exporter)
 * [Certificate Expiration Metric Exporter VM](#cert-expiration-exporter)
 * [Prometheus VM](#tsdb)
@@ -230,12 +230,11 @@ You can use the following Platform Metrics metrics to calculate percent availabi
 
 
 <br>
-### <a id='pas-sli-exporter'></a> TAS for VMs SLI Exporter VM
+### <a id='pas-sli-exporter'></a> <%= vars.runtime_prod_full %> SLI Exporter VM
 
-Developers create and manage apps on TAS for VMs using the Cloud Foundry Command Line Interface (cf CLI). Healthwatch Exporter for TAS for VMs deploys the TAS
-for VMs SLI exporter VM, `pas-sli-exporter`, which continuously tests the functionality of the cf CLI.
+Developers create and manage apps on <%= vars.runtime_prod_full %> using the Cloud Foundry Command Line Interface (cf CLI). Healthwatch Exporter for <%= vars.runtime_prod_full %> deploys the <%= vars.runtime_prod_full %> SLI exporter VM, `pas-sli-exporter`, which continuously tests the functionality of the cf CLI.
 
-The following table describes each metric the TAS for VMs SLI exporter VM generates:
+The following table describes each metric the <%= vars.runtime_prod_full %> SLI exporter VM generates:
 
 <table>
   <tr>
@@ -244,38 +243,38 @@ The following table describes each metric the TAS for VMs SLI exporter VM genera
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_bucket</code></td>
-    <td>The number of seconds the TAS for VMs SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
-      called a <em>bucket</em> of TAS for VMs SLI test suite duration metrics.</td>
+    <td>The number of seconds the <%= vars.runtime_prod_short %> SLI test suite takes to run, grouped by how many ran in less than a certain amount of time. This metric is also
+      called a <em>bucket</em> of <%= vars.runtime_prod_short %> SLI test suite duration metrics.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_count</code></td>
-    <td>The total number of duration metrics across all TAS for VMs SLI test suite duration metric buckets.</td>
+    <td>The total number of duration metrics across all <%= vars.runtime_prod_short %> SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_duration_seconds_sum</code></td>
-    <td>The total value of the duration metrics across all TAS for VMs SLI test suite duration metric buckets.</td>
+    <td>The total value of the duration metrics across all <%= vars.runtime_prod_short %> SLI test suite duration metric buckets.</td>
   </tr>
   <tr>
     <td><code>tas_sli_exporter_status</code></td>
-    <td>The health status of the TAS for VMs SLI exporter VM. A value of <code>1</code> indicates that the TAS for VMs SLI exporter VM is running and
+    <td>The health status of the <%= vars.runtime_prod_short %> SLI exporter VM. A value of <code>1</code> indicates that the <%= vars.runtime_prod_short %> SLI exporter VM is running and
       healthy.</td>
   </tr>
   <tr>
     <td><code>tas_sli_failures_total</code></td>
-    <td>The total number of times the TAS for VMs SLI test suite fails.</td>
+    <td>The total number of times the <%= vars.runtime_prod_short %> SLI test suite fails.</td>
   </tr>
   <tr>
     <td><code>tas_sli_run_duration_seconds</code></td>
-    <td>The number of seconds the TAS for VMs SLI test suite takes to run.</td>
+    <td>The number of seconds the <%= vars.runtime_prod_short %> SLI test suite takes to run.</td>
   </tr>
   <tr>
     <td><code>tas_sli_runs_total</code></td>
-    <td>The total number of times the TAS for VMs SLI test suite runs. To see the failure rate of <code>tas_sli_runs_total</code>, divide the value of
+    <td>The total number of times the <%= vars.runtime_prod_short %> SLI test suite runs. To see the failure rate of <code>tas_sli_runs_total</code>, divide the value of
       <code>tas_sli_failures_total</code> by the value of <code>tas_sli_runs_total</code>.</td>
   </tr>
   <tr>
     <td><code>tas_sli_task_duration_seconds_bucket</code></td>
-    <td>The number of seconds it takes a task within the TAS for VMs SLI test suite to run, grouped by how many ran in less than a certain amount of time.
+    <td>The number of seconds it takes a task within the <%= vars.runtime_prod_short %> SLI test suite to run, grouped by how many ran in less than a certain amount of time.
       This metric is also called a <em>bucket</em> of task duration metrics.</td>
   </tr>
   <tr>
@@ -447,7 +446,7 @@ The following table describes each metric the TKGI SLI exporter VM generates:
 <br>
 ### <a id='cert-expiration-exporter'></a> Certificate Expiration Metric Exporter VM
 
-Healthwatch Exporter for TAS for VMs and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
+Healthwatch Exporter for <%= vars.runtime_prod_full %> and Healthwatch Exporter for TKGI deploy the certificate expiration metric exporter VM, `cert-expiration-exporter`, which
 collects metrics that show when Tanzu Operations Manager certificates are due to expire. For more information, see [Monitoring Certificate
 Expiration](configuring/optional-config/certificate-monitoring.html).
 
@@ -729,7 +728,7 @@ The following table describes each platform metric the SVM Forwarder VM sends to
   </tr>
   <tr>
     <td><code>uaa_throughput_rate</code></td>
-    <td>The lifetime number of requests completed by the UAA VM, emitted per UAA instance in TAS for VMs. This number includes health checks.</td>
+    <td>The lifetime number of requests completed by the UAA VM, emitted per UAA instance in <%= vars.runtime_prod_full %>. This number includes health checks.</td>
   </tr>
 </table>
 
@@ -739,7 +738,7 @@ The following table describes each platform metric the SVM Forwarder VM sends to
 The following metrics exist for the purpose of monitoring the Healthwatch components:
 
 * [TKGI Metric Exporter VM](#pks-exporter)
-* [Healthwatch Exporter for TAS for VMs Metric Exporter VMs](#pas-exporters)
+* [Healthwatch Exporter for <%= vars.runtime_prod_full %> Metric Exporter VMs](#pas-exporters)
 * [Prometheus Exposition Endpoint](#prometheus-exposition)
 * [SVM Forwarder VM - Healthwatch Component Metrics](#svm-forwarder-components)
 
@@ -794,9 +793,9 @@ The following table describes each metric the TKGI metric exporter VM collects a
 </table>
 
 <br>
-### <a id='pas-exporters'></a> Healthwatch Exporter for TAS for VMs Metric Exporter VMs
+### <a id='pas-exporters'></a> Healthwatch Exporter for <%= vars.runtime_prod_full %> Metric Exporter VMs
 
-Healthwatch Exporter for TAS for VMs deploys metric exporter VMs that collect metrics from the Loggregator Firehose and convert them into a Prometheus
+Healthwatch Exporter for <%= vars.runtime_prod_full %> deploys metric exporter VMs that collect metrics from the Loggregator Firehose and convert them into a Prometheus
 exposition format.
 
 Each of the following metric exporter VMs collects and converts a single metric type from the Loggregator Firehose. The names of the metric exporter VMs

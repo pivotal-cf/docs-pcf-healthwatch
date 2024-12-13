@@ -11,7 +11,7 @@ This topic describes how to configure authentication with a User Account and Aut
 Healthwatch&trade; for VMware Tanzu (Healthwatch) can automatically configure authentication with the UAA instance of the runtime that is installed on the same Tanzu Operations Manager
 foundation as the Healthwatch tile, either VMware <%= vars.runtime_prod_full %> or VMware Tanzu Kubernetes Grid&trade; Integrated Edition (TKGI). When you
 select **UAA** as your Grafana UI authentication method in the **Grafana Authentication** pane of the Healthwatch tile, Healthwatch automatically configures
-authentication with the UAA instances in TAS for VMs and TKGI for the Grafana UI.
+authentication with the UAA instances in <%= vars.runtime_prod_full %> and TKGI for the Grafana UI.
 
 If you want to configure authentication with the UAA instance of a runtime that is installed on a different Tanzu Operations Manager foundation, you must select **Generic
 OAuth** and configure it manually through the **Grafana Authentication** pane.
@@ -33,7 +33,7 @@ Manager foundation.
 1. Select the **Credentials** tab.
 
 1. View and record the credentials to log in to the UAA instance for the runtime installed on this Tanzu Operations Manager foundation:
-    * For TAS for VMs:
+    * For <%= vars.runtime_prod_full %>:
 
         1. In the **Admin Client Credentials** row of the **UAA** section, click **Link to Credential**.
         1. Record the value of `password`. This value is the secret for **Admin Client Credentials**.
@@ -50,12 +50,12 @@ Interface (UAAC). Run:
     uaac target UAA-URL
     ```
 
-    Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for TAS for VMs, this URL is usually
+    Where `UAA-URL` is the URL of the UAA instance with which you want to configure authentication. For UAA instances for <%= vars.runtime_prod_short %>, this URL is usually
     `https://login.SYSTEM-DOMAIN`, where `SYSTEM-DOMAIN` is the domain you configured in the **System domain** field in the **Domains** pane of the TAS for
     VMs tile. For TKGI, this URL is usually `https://TKGI-API-URL:8443`, where `TKGI-API-URL` is the URL of the TKGI API.
     <br>
     <br>
-    For more information about the UAAC, see the [TAS for VMs documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/uaa-user-management.html).
+    For more information about the UAAC, see the [<%= vars.runtime_prod_full %> documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/<%= vars.runtime_version %>/tpcf/uaa-user-management.html).
 
 1. Log in to the UAA instance by running:
 
@@ -91,7 +91,7 @@ Interface (UAAC). Run:
     uaac group add healthwatch.read
     ```
 
-    If you are using TAS for VMs, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
+    If you are using <%= vars.runtime_prod_short %>, you added the UAA client to UAA user groups mapped to administrator, editor, and viewer permissions for Grafana in the
     previous step. Continue to the next step.
 
 4. Create a user account for the UAA client you created in a previous step to log in to the Grafana instance. Run:
@@ -144,11 +144,11 @@ UAA Client for the Grafana Instance](#create-uaa-client) above.
 1. For **Scopes**, enter `openid,healthwatch.admin,healthwatch.edit,healthwatch.read`.
 
 1. For **Authorization URL**, enter the authorization URL for your runtime:
-    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
+    * For <%= vars.runtime_prod_short %>, enter `https://login.sys.DOMAIN/oauth/authorize`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
     * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/authorize`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
 
 1. For **Token URL**, enter the token URL for your runtime:
-    * For TAS for VMs, enter `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
+    * For <%= vars.runtime_prod_short %>, enter `https://login.sys.DOMAIN/oauth/token`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
     * For TKGI, enter `https://api.pks.DOMAIN:8443/oauth/token`, where `DOMAIN` is the system domain of your Tanzu Operations Manager deployment.
 
 1. For **API URL**, enter `http://localhost:3002/userinfo`. This is the URL of a local proxy server that Healthwatch can use to translate the UAA token into a
