@@ -15,17 +15,17 @@ This is the source repository for the Healthwatch for VMware Tanzu documentation
 | master     | DO NOT USE | n/a |
 | 2.3        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-3/healthwatch/index.html |
 | 2.2        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-2/healthwatch/index.html |
-| 2.1        | prod | https://techdocs.broadcom.com/us/en/vmware-tanzu/platform-services/healthwatch-for-vmware-tanzu/2-1/healthwatch/index.html |
-| 2.0        | EOGS | http://docs.pivotal.io/platform/healthwatch/2-0 |
-| 1.8        | EOGS | https://docs.pivotal.io/healthwatch/1-8 |
-| 1.7        | EOGS | https://docs.pivotal.io/healthwatch/1-7 |
-| 1.6        | EOGS | https://docs.pivotal.io/healthwatch/1-6 |
-| 1.5        | EOGS | https://docs.pivotal.io/healthwatch/1-5 |
-| 1.4        | EOGS | https://docs.pivotal.io/healthwatch/1-4 |
-| 1.3        | EOGS | https://docs.pivotal.io/healthwatch/1-3 |
-| 1.2        | EOGS | https://docs.pivotal.io/healthwatch/1-2 |
-| 1.1        | EOGS | https://docs.pivotal.io/healthwatch/1-1 |
-| 1.0        | EOGS | https://docs.pivotal.io/healthwatch/1-0 |
+| 2.1        | EOGS | archived in Broadcom Box folder |
+| 2.0        | EOGS | archived |
+| 1.8        | EOGS | archived |
+| 1.7        | EOGS | archived |
+| 1.6        | EOGS | archived |
+| 1.5        | EOGS | archived |
+| 1.4        | EOGS | archived |
+| 1.3        | EOGS | archived |
+| 1.2        | EOGS | archived |
+| 1.1        | EOGS | archived |
+| 1.0        | EOGS | archived |
 
 EOGS = End of General Support
 
