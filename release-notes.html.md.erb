@@ -11,6 +11,24 @@ For information about the risks and limitations of Healthwatch v2.3, see [Assume
 Tanzu Application Service is now called Tanzu Platform for Cloud Foundry.
 The current version of Tanzu Platform for Cloud Foundry is 10.0.</p>
 
+## <a id='2-3-1'></a> v2.3.2
+
+**Release Date:** April 15, 2025
+
+* **[Feature]** OpenTelemetry (OTel) dashboards are now added into Grafana default dashboards (if OTel is enabled).
+* **[Bug Fix]** Duplicate VM details in the Foundation Job details dashboard is now fixed for Tanzu Platform for Cloud Foundry.
+* **[Known Issue]** If you have only TKGI v1.16 or later installed, the **Healthwatch Exporter troubleshooting** dashboard in the Grafana UI shows no data, see [No Data for Healthwatch Exporter troubleshooting](#no-data-healthwatch-exporter).
+* **[Security Fix]** The following CVE was fixed by upgrading `Grafana` release version:
+    * [CVE-2024-8118](https://nvd.nist.gov/vuln/detail/CVE-2024-8118)
+
+Healthwatch v2.3.2 uses the following open-source component versions:
+
+| Component    | Packaged Version |
+|--------------|------------------|
+| Prometheus   | 2.55.0           |
+| Grafana      | 10.3.10          |
+| Alertmanager | 0.27.0           |
+| PXC          | 1.0.34           |
 
 ## <a id='2-3-1'></a> v2.3.1
 
