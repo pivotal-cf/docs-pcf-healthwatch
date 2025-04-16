@@ -1,5 +1,8 @@
 ## Healthwatch for VMware Tanzu Documentation
 
+>Note
+>This repo has been archived. The files have been moved to a new Broadcom Enterprise repo - TNZ/docs-healthwatch.
+
 This is the source repository for the Healthwatch for VMware Tanzu documentation.
 
 In this README: 
